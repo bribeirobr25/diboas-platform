@@ -13,8 +13,9 @@
  *     (only a person changes that file, through a reviewed PR);
  *   - M (modified) on files that only ever grow: `daily/*.csv`,
  *     `events/*.distributions.csv`, `raw/manifest.jsonl`, `revisions.jsonl`,
- *     with ZERO deleted lines; `daily/us_m2.csv` may also change lines (the
- *     Fed revises M2; the collector logs each change in revisions.jsonl);
+ *     with ZERO deleted lines; the daily file of a `revisable` catalogue series
+ *     (M2; Eurostat's HICP) may also change lines (the publisher revises; the
+ *     collector logs each change in revisions.jsonl);
  *   - M on `derived/**` (rebuilt in full from the stored days every run).
  * Refused: anything outside `market/`, any deletion, rename, copy or type
  * change, any other modification.
@@ -25,6 +26,7 @@
 
 import { execFileSync } from 'node:child_process';
 import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
+import { SERIES } from './catalogue.mjs';
 
 const GROWS = [
   /^market\/daily\/[a-z0-9_]+\.csv$/,
@@ -32,7 +34,11 @@ const GROWS = [
   /^market\/raw\/manifest\.jsonl$/,
   /^market\/revisions\.jsonl$/,
 ];
-const REVISABLE = [/^market\/daily\/us_m2\.csv$/];
+// The series whose publisher revises past values (M2, Eurostat's HICP): the
+// catalogue is the one list; the collector logs each change in revisions.jsonl.
+const REVISABLE = SERIES.filter((s) => s.revisable).map(
+  (s) => new RegExp(`^market/daily/${s.id}\\.csv$`)
+);
 const REBUILT = /^market\/derived\//;
 const HUMAN_ONLY = /^market\/checks\/accepted-exceptions\.json$/;
 

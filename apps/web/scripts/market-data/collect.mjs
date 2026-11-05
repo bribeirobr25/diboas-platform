@@ -31,7 +31,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { SERIES } from './catalogue.mjs';
-import { compareCloses, reconcileDistributions } from './checks.mjs';
+import { compareCloses, monthlyChanges, reconcileDistributions } from './checks.mjs';
 import { monthlyBars, weeklyCloses } from './derive.mjs';
 import {
   checkException,
@@ -40,12 +40,20 @@ import {
   parseExceptions,
 } from './exceptions.mjs';
 import { createFetcher } from './fetch-source.mjs';
-import { createStore, toCsv } from './store.mjs';
+import { createStore, sameValue, toCsv } from './store.mjs';
 import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
 
 export const OVERLAP_DAYS = 45;
 /** A check must share at least this share of the window's days with the primary. */
 export const MIN_CHECK_COVERAGE = 0.5;
+/**
+ * A new row is written only once a check has published its date: a check that
+ * publishes later than the primary would otherwise let the newest value in
+ * unchecked, and it would then stay (review of #820, 2026-11-05). Rows newer
+ * than every covering check are HELD, reported, and written by a later run.
+ * Held beyond these limits, the check counts as stale and the series blocks.
+ */
+export const HOLD_LIMIT = { daily: 7, monthly: 2 };
 
 const addDays = (iso, n) => {
   const d = new Date(`${iso}T00:00:00Z`);
@@ -83,21 +91,78 @@ export function usableBars(rows) {
  * that compared the same day and agreed (two of three sources agree: the
  * disagreeing check is the odd one out, which is reported, never hidden).
  */
-async function runChecks(s, { rows, newDates, from, to, today, fetcher, exceptions, out }) {
+/** Monthly series are dated on the month's first day; their checks shift by months. */
+const MONTHLY_KINDS = new Set(['monthly', 'index']);
+
+/**
+ * What a check compares (catalogue `compare`):
+ *   - absent      the values themselves, relative tolerance (prices, FX)
+ *   - 'points'    the values themselves, absolute tolerance (interest rates)
+ *   - 'change'    the month-on-month % change, absolute tolerance in points
+ *                 (price indices on different base years). `checkIsChange`
+ *                 says the check source already publishes the change (BCB
+ *                 SGS 433 for the IPCA); `onlyFirstOfMonth` keeps a daily
+ *                 check source's first-of-month values (BCB SGS 226 for TR).
+ */
+export function comparable(s, c, primaryRows, checkRows) {
+  const firsts = c.onlyFirstOfMonth ? checkRows.filter((r) => r.date.endsWith('-01')) : checkRows;
+  const shiftUnit = MONTHLY_KINDS.has(s.kind) ? 'month' : 'day';
+  if (c.compare === 'change') {
+    const primary = monthlyChanges(primaryRows);
+    // A published change (SGS 433) is a one-month change.
+    const theirs = c.checkIsChange
+      ? firsts.map((r) => ({ ...r, span: 1 }))
+      : monthlyChanges(firsts);
+    // Compare a change only with a change over the same months: across a gap
+    // both sources skipped, both spans are 2; otherwise the month is unmatched.
+    const span = new Map(primary.map((r) => [r.date, r.span]));
+    return {
+      primary,
+      check: theirs.filter((r) => span.get(r.date) === r.span),
+      checkLast: theirs.at(-1)?.date ?? null,
+      opts: { mode: 'points', shiftUnit },
+    };
+  }
+  return {
+    primary: primaryRows,
+    check: firsts,
+    checkLast: firsts.at(-1)?.date ?? null,
+    opts: {
+      rangeSlack: c.rangeSlack,
+      mode: c.compare === 'points' ? 'points' : 'relative',
+      shiftUnit,
+    },
+  };
+}
+
+/**
+ * @param {Set<string>} testDates the dates this run would write: new days AND
+ *   stored days whose value changed at the source (a revision is checked like
+ *   a new value; review of #820)
+ * @returns {Promise<string|null>} the newest date at least one covering check
+ *   has published (rows after it are held), or null when no check covers the window
+ */
+async function runChecks(s, { rows, testDates, from, to, today, fetcher, exceptions, out }) {
   const results = [];
+  let checkedThrough = null;
   for (const c of s.checks) {
     const cFrom = c.since && c.since > from ? c.since : from;
-    const eligible = rows.filter((r) => r.date >= cFrom);
-    if (!eligible.length) continue; // the window lies before this check's coverage
+    const inCoverage = rows.filter((r) => r.date >= cFrom);
+    if (!inCoverage.length) continue; // the window lies before this check's coverage
     try {
       const chk = complete(
         (await fetcher.fetchSource(c.source, { from: cFrom, to, series: s.id })).rows,
         today
       );
-      const res = compareCloses(eligible, chk, c.tolerance, { rangeSlack: c.rangeSlack });
+      const cmp = comparable(s, c, inCoverage, chk);
+      const eligible = cmp.primary;
+      if (!eligible.length) continue; // a single month has no change to compare yet
+      const res = compareCloses(eligible, cmp.check, c.tolerance, cmp.opts);
       const bad = new Set(res.outliers.map((o) => o.date));
-      const agreed = new Set(chk.map((r) => r.date).filter((d) => !bad.has(d)));
+      const agreed = new Set(cmp.check.map((r) => r.date).filter((d) => !bad.has(d)));
       results.push({ c, cFrom, eligible, res, agreed });
+      if (cmp.checkLast && (checkedThrough == null || cmp.checkLast > checkedThrough))
+        checkedThrough = cmp.checkLast;
     } catch (e) {
       out.checks.push({ source: c.source.provider, error: String(e.message) });
       out.blocked.push(`check ${c.source.provider} failed: ${e.message}`);
@@ -109,13 +174,14 @@ async function runChecks(s, { rows, newDates, from, to, today, fetcher, exceptio
     const corroborated = [];
     const unresolved = [];
     for (const o of res.outliers) {
-      if (!newDates.has(o.date) || checkException(exceptions, s.id, provider, o)) continue;
+      if (!testDates.has(o.date) || checkException(exceptions, s.id, provider, o)) continue;
       const by = others.find((r) => r.agreed.has(o.date));
       if (by) corroborated.push({ date: o.date, agreed_by: by.c.source.provider });
       else unresolved.push(o);
     }
     out.checks.push({
       source: provider,
+      relation: c.relation,
       since: cFrom,
       ...res,
       corroboratedByAnotherCheck: corroborated,
@@ -123,15 +189,19 @@ async function runChecks(s, { rows, newDates, from, to, today, fetcher, exceptio
     });
     if (res.common < MIN_CHECK_COVERAGE * eligible.length)
       out.blocked.push(`check ${provider} shares only ${res.common} of ${eligible.length} days`);
-    if (res.alignment?.misaligned) out.blocked.push(`check ${provider} looks shifted by a day`);
+    if (res.alignment?.misaligned)
+      out.blocked.push(
+        `check ${provider} looks shifted by one ${MONTHLY_KINDS.has(s.kind) ? 'month' : 'day'}`
+      );
     if (unresolved.length)
       out.blocked.push(
-        `check ${provider}: ${unresolved.length} day(s) beyond ${c.tolerance * 100}% (first ${unresolved[0].date})`
+        `check ${provider}: ${unresolved.length} day(s) beyond ${c.compare ? `${c.tolerance} points` : `${c.tolerance * 100}%`} (first ${unresolved[0].date})`
       );
   }
   const firstChecked = s.checks.map((c) => c.since ?? s.since).sort()[0];
-  if (!s.checks.length) out.notes.push('no independent source: the publisher is the only source');
+  if (!s.checks.length) out.notes.push('no second source: the publisher is the only source');
   else if (firstChecked > s.since) out.notes.push(`single-source before ${firstChecked}`);
+  return results.length ? checkedThrough : null;
 }
 
 async function runDistributions(
@@ -205,9 +275,44 @@ export async function collectSeries(s, { store, fetcher, today, backfill, except
   if (!rows.length)
     throw new Error(`${s.id}: the primary returned no complete days in ${from}..${to}`);
   const storedDates = new Set(stored.map((r) => r.date));
-  const newDates = new Set(rows.filter((r) => !storedDates.has(r.date)).map((r) => r.date));
+  const storedValue = new Map(stored.map((r) => [r.date, Number(r.close)]));
+  const changed = (r) => storedValue.has(r.date) && !sameValue(r.close, storedValue.get(r.date));
+  const testDates = new Set(
+    rows.filter((r) => !storedDates.has(r.date) || changed(r)).map((r) => r.date)
+  );
+  if (primary.flagged?.length)
+    out.notes.push(
+      `${primary.flagged.length} value(s) flagged by the publisher as estimated or provisional (latest ${primary.flagged.at(-1).date}: ${primary.flagged.at(-1).flag})`
+    );
 
-  await runChecks(s, { rows, newDates, from, to, today, fetcher, exceptions, out });
+  const checkedThrough = await runChecks(s, {
+    rows,
+    testDates,
+    from,
+    to,
+    today,
+    fetcher,
+    exceptions,
+    out,
+  });
+  // Hold every row to be written that no check has published yet.
+  const held = s.checks.length
+    ? rows.filter(
+        (r) => testDates.has(r.date) && (checkedThrough == null || r.date > checkedThrough)
+      )
+    : [];
+  const writable = held.length ? rows.filter((r) => !held.includes(r)) : rows;
+  if (held.length) {
+    out.held = held.length;
+    out.notes.push(
+      `${held.length} row(s) after ${checkedThrough ?? 'the window start'} held until a check publishes them`
+    );
+    const limit = MONTHLY_KINDS.has(s.kind) ? HOLD_LIMIT.monthly : HOLD_LIMIT.daily;
+    if (held.length > limit)
+      out.blocked.push(
+        `checks are stale: ${held.length} row(s) newer than every check (limit ${limit})`
+      );
+  }
   let events = null;
   if (s.kind === 'fund') {
     const tradingDays = new Set([...storedDates, ...rows.map((r) => r.date)]);
@@ -224,14 +329,14 @@ export async function collectSeries(s, { store, fetcher, today, backfill, except
   }
 
   // Plan every write; revisions are logged whatever happens.
-  const first = store.planDaily(s.id, rows, {
+  const first = store.planDaily(s.id, writable, {
     source: s.primary.provider,
     revisable: s.revisable,
     runAt,
   });
   const keep = keptRevisionDates(exceptions, s.id, first.revisions);
   const daily = keep.size
-    ? store.planDaily(s.id, rows, {
+    ? store.planDaily(s.id, writable, {
         source: s.primary.provider,
         revisable: s.revisable,
         runAt,
@@ -246,7 +351,12 @@ export async function collectSeries(s, { store, fetcher, today, backfill, except
     out.blocked.push(
       `${daily.revisions.filter((r) => !r.accepted && !r.kept_by_review).length} stored day(s) changed at the source`
     );
-  const ev = events ? store.planEvents(s.id, events, { runAt }) : null;
+  // A distribution dated on a held day waits with its day.
+  const writableEvents =
+    events && held.length
+      ? events.filter((e) => checkedThrough != null && e.date <= checkedThrough)
+      : events;
+  const ev = writableEvents ? store.planEvents(s.id, writableEvents, { runAt }) : null;
   if (ev?.revisions.length) store.logRevisions(ev.revisions);
   if (ev?.blocked)
     out.blocked.push(`${ev.revisions.length} stored distribution(s) changed at the source`);
@@ -255,7 +365,7 @@ export async function collectSeries(s, { store, fetcher, today, backfill, except
   let weekly;
   let monthly;
   try {
-    weekly = s.kind === 'monthly' ? null : weeklyCloses(daily.all, today);
+    weekly = MONTHLY_KINDS.has(s.kind) ? null : weeklyCloses(daily.all, today);
     monthly = monthlyBars(daily.all, ev?.all ?? [], today);
   } catch (e) {
     out.blocked.push(`derived series: ${e.message}`);

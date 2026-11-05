@@ -18,6 +18,39 @@ const addDays = (iso, n) => {
   d.setUTCDate(d.getUTCDate() + n);
   return d.toISOString().slice(0, 10);
 };
+/** The same day n months away (only ever used on month-first dates). */
+const addMonths = (iso, n) => {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCMonth(d.getUTCMonth() + n);
+  return d.toISOString().slice(0, 10);
+};
+
+/**
+ * Month-on-month change, in percent, of a monthly index (rows dated on the
+ * month's first day). Two agencies publish the same index on different base
+ * years (2025=100, 2010=100, Dec 1993=100), so levels cannot be compared:
+ * changes can. Each change carries its `span` in months: 1 between
+ * consecutive months, more across a month the publisher skipped (the US CPI
+ * has no 2025-10, after the 2025 shutdown). A change across a gap is only
+ * ever compared with a change of the SAME span in the other source (see
+ * collect.mjs `comparable`), so the month after a gap is still checked and no
+ * month is invented.
+ *
+ * @param {{date:string, close:number}[]} rows sorted by date
+ * @returns {{date:string, close:number, span:number}[]} change rows (close = % change)
+ */
+export function monthlyChanges(rows) {
+  const out = [];
+  for (let i = 1; i < rows.length; i += 1) {
+    const a = rows[i - 1];
+    const b = rows[i];
+    let span = 1;
+    while (span <= 24 && addMonths(a.date, span) !== b.date) span += 1;
+    if (span > 24) continue; // not month-first dates, or a gap of more than two years
+    out.push({ date: b.date, close: (b.close / a.close - 1) * 100, span });
+  }
+  return out;
+}
 
 /** Fewest common days before the alignment test means anything. */
 export const ALIGNMENT_MIN_DAYS = 10;
@@ -36,12 +69,25 @@ export const ALIGNMENT_MIN_DAYS = 10;
  * difference on the same calendar day must be lower than with the check moved
  * one day either way; otherwise the pair is reported `misaligned`.
  *
+ * Two more ways to compare, for official statistics (plan 5.760):
+ *   - `mode: 'points'`: the tolerance is an ABSOLUTE difference (an interest
+ *     rate of 13.75 against 13.65 differs by 0.10 points, not by 0.7%);
+ *   - `shiftUnit: 'month'`: the alignment test moves the check by a month
+ *     (monthly series are dated on the month's first day).
+ *
  * @param {{date:string, close:number}[]} primary
  * @param {{date:string, close:number, low?:number|null, high?:number|null}[]} check
- * @param {number} tolerance relative, e.g. 0.005
- * @param {{rangeSlack?: number}} [opts]
+ * @param {number} tolerance relative (e.g. 0.005), or points in `points` mode
+ * @param {{rangeSlack?: number, mode?: 'relative'|'points', shiftUnit?: 'day'|'month'}} [opts]
  */
-export function compareCloses(primary, check, tolerance, { rangeSlack } = {}) {
+export function compareCloses(
+  primary,
+  check,
+  tolerance,
+  { rangeSlack, mode = 'relative', shiftUnit = 'day' } = {}
+) {
+  const gap = mode === 'points' ? (a, b) => Math.abs(b - a) : (a, b) => Math.abs(b / a - 1);
+  const shift = shiftUnit === 'month' ? addMonths : addDays;
   const other = new Map(check.map((r) => [r.date, r]));
   const outliers = [];
   let common = 0;
@@ -52,7 +98,7 @@ export function compareCloses(primary, check, tolerance, { rangeSlack } = {}) {
     const c = other.get(r.date);
     if (c == null) continue;
     common += 1;
-    const d = Math.abs(c.close / r.close - 1);
+    const d = gap(r.close, c.close);
     if (d > maxDiff) {
       maxDiff = d;
       maxAt = r.date;
@@ -69,14 +115,14 @@ export function compareCloses(primary, check, tolerance, { rangeSlack } = {}) {
     }
     outliers.push({ date: r.date, primary: r.close, check: c.close, diff: round(d) });
   }
-  const meanAt = (shift) => {
+  const meanAt = (by) => {
     let n = 0;
     let s = 0;
     for (const r of primary) {
-      const c = other.get(addDays(r.date, shift));
+      const c = other.get(shift(r.date, by));
       if (c == null) continue;
       n += 1;
-      s += Math.abs(c.close / r.close - 1);
+      s += gap(r.close, c.close);
     }
     return n ? s / n : null;
   };
@@ -85,7 +131,9 @@ export function compareCloses(primary, check, tolerance, { rangeSlack } = {}) {
     const same = meanAt(0);
     const before = meanAt(-1);
     const after = meanAt(1);
-    const misaligned = [before, after].some((x) => x != null && x <= same);
+    // An exact same-day match (mean 0) is aligned even if a flat stretch also
+    // matches when shifted (a policy rate unchanged for weeks).
+    const misaligned = same > 0 && [before, after].some((x) => x != null && x <= same);
     alignment = {
       same: round(same),
       shiftedBack: round(before),
@@ -95,6 +143,7 @@ export function compareCloses(primary, check, tolerance, { rangeSlack } = {}) {
   }
   return {
     tolerance,
+    ...(mode !== 'relative' ? { mode } : {}),
     ...(rangeSlack != null ? { rangeSlack, passedByRange } : {}),
     common,
     checkRows: check.length,

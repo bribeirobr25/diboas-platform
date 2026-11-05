@@ -73,6 +73,7 @@ jobs:
         id: target
         env:
           EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
           IN_BRANCH: ${{ inputs.target_branch }}
           IN_BACKFILL: ${{ inputs.backfill }}
           IN_SERIES: ${{ inputs.series }}
@@ -86,6 +87,9 @@ jobs:
           # Validate every value before it reaches GITHUB_OUTPUT: a newline in
           # an input would otherwise write a second `branch=` line.
           [[ "$branch" =~ ^(main|data/[A-Za-z0-9._-]+(/[A-Za-z0-9._-]+)*)$ ]] || { echo "refusing target branch"; exit 1; }
+          # Only reviewed code writes the store's main: a manual run from any other
+          # branch may write a data/ review branch, never main (review of #820).
+          [[ "$branch" != "main" || "$REF" == "refs/heads/main" ]] || { echo "refusing: only a run from main writes the analytics main"; exit 1; }
           [[ "$backfill" =~ ^(true|false)$ ]] || { echo "refusing backfill value"; exit 1; }
           [[ -z "$series" || "$series" =~ ^[a-z0-9_]+(,[a-z0-9_]+)*$ ]] || { echo "refusing series value"; exit 1; }
           {

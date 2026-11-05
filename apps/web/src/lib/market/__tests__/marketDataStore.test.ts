@@ -382,12 +382,21 @@ describe('the store plans before it writes, and never rewrites a stored day', ()
 });
 
 describe('the catalogue', () => {
-  it('should give every series a unique id, a primary source and at least ten years', () => {
+  it('should give every series a unique id, a primary source and at least ten years, unless the source starts later and says why', () => {
     const ids = SERIES.map((s: { id: string }) => s.id);
     expect(new Set(ids).size).toBe(ids.length);
-    for (const s of SERIES) {
+    for (const s of SERIES as {
+      id: string;
+      since: string;
+      primary: { url: unknown };
+      historyLimit?: string;
+    }[]) {
       expect(s.primary?.url, s.id).toBeTypeOf('function');
-      expect(s.since <= '2016-11-04', `${s.id} since ${s.since}`).toBe(true);
+      if (s.since > '2016-11-04')
+        expect(s.historyLimit ?? '', `${s.id} since ${s.since} states no historyLimit`).toMatch(
+          /.{30,}/
+        );
+      else expect(s.historyLimit, `${s.id} has ten years; historyLimit not needed`).toBeUndefined();
     }
   });
 

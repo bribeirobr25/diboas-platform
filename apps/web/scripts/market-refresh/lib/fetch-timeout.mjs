@@ -29,15 +29,20 @@ export const FETCH_TIMEOUT_MS = 20_000;
 /**
  * `fetch` with a deadline, and an error that names the source.
  *
+ * `method` and `body` are for the few official APIs that only honour a POST
+ * (BLS v1 ignores the years in a GET, 2026-11-05); a GET is the default.
+ *
  * @param {string} url
- * @param {{headers?: Record<string,string>, timeoutMs?: number, label?: string}} [opts]
+ * @param {{headers?: Record<string,string>, timeoutMs?: number, label?: string, method?: string, body?: string}} [opts]
  * @returns {Promise<Response>}
  */
 export async function fetchWithTimeout(url, opts = {}) {
-  const { headers, timeoutMs = FETCH_TIMEOUT_MS, label } = opts;
+  const { headers, timeoutMs = FETCH_TIMEOUT_MS, label, method, body } = opts;
   try {
     return await fetch(url, {
       ...(headers ? { headers } : {}),
+      ...(method ? { method } : {}),
+      ...(body != null ? { body } : {}),
       signal: AbortSignal.timeout(timeoutMs),
     });
   } catch (err) {

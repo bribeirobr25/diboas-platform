@@ -8902,7 +8902,7 @@
   "IBOVESPA": {
     "basis": "native_total_return",
     "source": "yahoo:^BVSP; month-end closes from B3 (official) via the diboas-analytics market store",
-    "note": "Ibovespa native TR by construction. Month-end closes corrected 2026-11-05 to the official B3 close where Yahoo differed; open/high/low are Yahoo (high/low widened only where the B3 close lay outside them).",
+    "note": "Ibovespa native TR by construction. Month-end closes corrected 2026-11-05 to the official B3 close where Yahoo differed (12 months); open/high/low are Yahoo's, and every B3 close already lay inside them, so none was changed.",
     "months": [
       {
         "ym": "2010-07-01",

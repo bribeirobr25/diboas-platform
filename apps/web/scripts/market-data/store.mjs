@@ -46,12 +46,29 @@ const EVENT_COLS = ['date', 'amount', 'sources'];
 /** Relative difference that counts as "the same value" (float noise only). */
 export const SAME_VALUE = 1e-9;
 
+/**
+ * Two stored values are the same when they differ by float noise only,
+ * relative to the larger of the two. Zero is a real value for an interest
+ * rate (TR was 0 for months; German deposit rates touched 0 in 2020): 0
+ * against 0 is the same value, never a division by zero (2026-11-05).
+ */
+export const sameValue = (a, b) =>
+  a === b || Math.abs(a - b) <= SAME_VALUE * Math.max(Math.abs(a), Math.abs(b));
+
 export function createStore(root) {
   const p = (...xs) => path.join(root, ...xs);
   const mkdir = (f) => fs.mkdirSync(path.dirname(f), { recursive: true });
 
-  /** Keep one response body exactly as received (`bytes` is the raw Buffer). */
-  function saveRaw({ provider, series, url, status, bytes, fetchedAt, ext }) {
+  /**
+   * Keep one response body exactly as received (`bytes` is the raw Buffer).
+   * A POST also records its method and request body, so the request can be
+   * replayed from the manifest (several BLS requests share one URL).
+   *
+   * @param {{provider: string, series: string, url: string, status: number|null,
+   *   bytes: Buffer|string, fetchedAt: string, ext: string, method?: string,
+   *   requestBody?: string}} r
+   */
+  function saveRaw({ provider, series, url, status, bytes, fetchedAt, ext, method, requestBody }) {
     const stamp = fetchedAt.replace(/[:.]/g, '-');
     const rel = path.join(
       'raw',
@@ -68,6 +85,8 @@ export function createStore(root) {
       provider,
       series,
       url,
+      ...(method ? { method } : {}),
+      ...(requestBody != null ? { request_body: requestBody } : {}),
       status,
       bytes: buf.length,
       sha256: crypto.createHash('sha256').update(buf).digest('hex'),
@@ -112,7 +131,7 @@ export function createStore(root) {
         continue;
       }
       const a = Number(old.close);
-      if (Math.abs(r.close / a - 1) <= SAME_VALUE) continue;
+      if (sameValue(r.close, a)) continue;
       const resolved = keep.has(r.date);
       revisions.push({
         series,
@@ -140,7 +159,7 @@ export function createStore(root) {
       if (!old) {
         byDate.set(e.date, { date: e.date, amount: e.amount, sources: e.sources.join('+') });
         added += 1;
-      } else if (Math.abs(e.amount / Number(old.amount) - 1) > SAME_VALUE) {
+      } else if (!sameValue(e.amount, Number(old.amount))) {
         revisions.push({
           series: `${series}.distributions`,
           date: e.date,
