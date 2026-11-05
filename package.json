@@ -52,6 +52,7 @@
     "review:doc1": "node scripts/review-gate.mjs doc1",
     "review:doc1-local": "node scripts/review-gate.mjs doc1-local",
     "review:staged": "node scripts/review-gate.mjs staged",
+    "review:claims": "node scripts/check-register-claims.mjs",
     "review:exports": "node scripts/review-gate.mjs exports",
     "review:auth": "node scripts/review-gate.mjs auth",
     "review:canon-index": "node scripts/review-gate.mjs canon-index",
