@@ -49,7 +49,8 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     calculator: {
       badge: 'Dream Mode Calculator',
-      growthMessage: (years) => `In ${years} years, my investment could grow to`,
+      growthMessage: (years) =>
+        `In ${years} ${years === 1 ? 'year' : 'years'}, my investment could grow to`,
       startingWith: 'Starting with',
       strategy: 'Strategy',
       cta: 'Calculate your future at diboas.com',
@@ -68,7 +69,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'What it would be worth today',
         'card-fees': 'What I could save',
       },
-      subline: (years) => `Held as digital dollar over ${years} years`,
+      subline: (years) => `Held as digital dollar over ${years} ${years === 1 ? 'year' : 'years'}`,
       cta: 'See yours at diboas.com',
     },
     default: {
@@ -83,7 +84,8 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     calculator: {
       badge: 'Calculadora Dream Mode',
-      growthMessage: (years) => `Em ${years} anos, meu investimento poderia crescer para`,
+      growthMessage: (years) =>
+        `Em ${years} ${years === 1 ? 'ano' : 'anos'}, meu investimento poderia crescer para`,
       startingWith: 'Começando com',
       strategy: 'Estratégia',
       cta: 'Calcule seu futuro em diboas.com',
@@ -102,7 +104,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Quanto valeria hoje',
         'card-fees': 'Quanto eu poderia economizar',
       },
-      subline: (years) => `Em dólar digital ao longo de ${years} anos`,
+      subline: (years) => `Em dólar digital ao longo de ${years} ${years === 1 ? 'ano' : 'anos'}`,
       cta: 'Veja o seu em diboas.com',
     },
     default: {
@@ -117,7 +119,8 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     calculator: {
       badge: 'Calculadora Dream Mode',
-      growthMessage: (years) => `En ${years} años, mi inversión podría crecer a`,
+      growthMessage: (years) =>
+        `En ${years} ${years === 1 ? 'año' : 'años'}, mi inversión podría crecer a`,
       startingWith: 'Empezando con',
       strategy: 'Estrategia',
       cta: 'Calcula tu futuro en diboas.com',
@@ -136,7 +139,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Cuánto valdría hoy',
         'card-fees': 'Cuánto podría ahorrar',
       },
-      subline: (years) => `En dólar digital durante ${years} años`,
+      subline: (years) => `En dólar digital durante ${years} ${years === 1 ? 'año' : 'años'}`,
       cta: 'Mira el tuyo en diboas.com',
     },
     default: {
@@ -151,7 +154,8 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     },
     calculator: {
       badge: 'Dream Mode Rechner',
-      growthMessage: (years) => `In ${years} Jahren könnte meine Investition wachsen auf`,
+      growthMessage: (years) =>
+        `In ${years} ${years === 1 ? 'Jahr' : 'Jahren'} könnte meine Investition wachsen auf`,
       startingWith: 'Startbetrag',
       strategy: 'Strategie',
       cta: 'Berechne deine Zukunft auf diboas.com',
@@ -170,7 +174,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Was es heute wert wäre',
         'card-fees': 'Was ich sparen könnte',
       },
-      subline: (years) => `Als digitaler Dollar über ${years} Jahre`,
+      subline: (years) => `Als digitaler Dollar über ${years} ${years === 1 ? 'Jahr' : 'Jahre'}`,
       cta: 'Sieh deins auf diboas.com',
     },
     default: {

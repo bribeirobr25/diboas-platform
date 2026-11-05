@@ -33,12 +33,12 @@ const DREAM_TRANSLATIONS: Record<string, { badge: string; growth: string; cta: s
     cta: 'Liberdade Financeira Simplificada',
   },
   es: {
-    badge: 'Mientras Dormia...',
+    badge: 'Mientras Dormía...',
     growth: 'crecimiento proyectado',
     cta: 'Libertad Financiera Simplificada',
   },
   de: {
-    badge: 'Wahrend Ich Schlief...',
+    badge: 'Während ich schlief...',
     growth: 'prognostiziertes Wachstum',
     cta: 'Finanzielle Freiheit Einfach Gemacht',
   },
