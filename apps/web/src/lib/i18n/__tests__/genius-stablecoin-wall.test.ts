@@ -164,26 +164,30 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
 });
 
 /**
- * POSITIVE CONTROLS (audit 2026-11-05): the patterns live in `config/genius-wall-patterns.json`,
+ * POSITIVE CONTROLS (audits 2026-11-05): the patterns live in `config/genius-wall-patterns.json`,
  * and a narrowed pattern used to pass every test above (nothing pairs today, so a weaker regex
- * still finds nothing). Each sample below is a covenant breach the wall MUST keep catching —
- * one per alternative of the widened pattern AND one per alternative of the pre-`5.749`
- * pattern, so the file can only widen. The sandbox mirror runs the same samples.
+ * still finds nothing). `config/genius-wall-controls.json` lists every concrete form the patterns
+ * name — each stable form with "earns", each earn form with "USDC" — plus whole breaches found in
+ * reviews, so narrowing any form fails. The sandbox mirror reads the same file. The lists have
+ * floors, so deleting a control fails too. Out of reach: a rewrite that keeps every listed form
+ * but drops an unlisted one — CODEOWNERS on both files notifies, it does not require a review.
  */
+const CONTROLS = JSON.parse(
+  readFileSync(join(__dirname, '../../../../../../config/genius-wall-controls.json'), 'utf8')
+) as { stableForms: string[]; earnForms: string[]; breaches: string[] };
 const GENIUS_POSITIVE_CONTROLS: readonly string[] = [
-  'Your digital dollar earns every day', // old: digital dollar · earn
-  'digital-dollar yield envelope', // widened: hyphen · yield
-  'Renditen in digitalen Dollar', // widened: German inflected · rendi
-  'Digital-Dollar-Rendite', // widened: German compound
-  'Os dólares digitais rendem', // widened: pt-BR plural · rend[eo]
-  'rendimiento en dólar digital', // old: d[oó]lar[es]* digital · rendi
-  'rendendo em dólares digital', // old: d[oó]lar[es]* digital · rendend
-  'USDC yield', // old: USDC
-  'stablecoin earnings', // old: stablecoin
-  'Dein Geld verdient im Digital-Dollar', // verdien
+  ...CONTROLS.stableForms.map((form) => `${form} earns`),
+  ...CONTROLS.earnForms.map((form) => `USDC ${form}`),
+  ...CONTROLS.breaches,
 ];
 
 describe('B2-5 — the wall still catches every known breach (positive controls)', () => {
+  it('should keep every control list at or above its floor when the fixture is read', () => {
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(16);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(7);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(13);
+  });
+
   it.each(GENIUS_POSITIVE_CONTROLS)(
     'should flag "%s" when the shared pattern is applied',
     (sample) => {

@@ -26,6 +26,7 @@
 /apps/web/src/lib/i18n/__tests__/genius-stablecoin-wall.test.ts   @bribeirobr25
 # The GENIUS wall's shared pattern file (it may only widen) and the sandbox mirror (5.749).
 /config/genius-wall-patterns.json                                  @bribeirobr25
+/config/genius-wall-controls.json                                  @bribeirobr25
 /apps/sandbox/src/i18n/__tests__/messages.test.ts                  @bribeirobr25
 
 # Engineering-owned defaults (everything else): standard PR review.

@@ -353,19 +353,23 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
     'i'
   );
 
-  // POSITIVE CONTROLS — the same breaches the web wall must keep catching (genius-stablecoin-wall
-  // .test.ts): the shared pattern file can only widen. Keep the two lists identical.
+  // POSITIVE CONTROLS — the SAME fixture the web wall reads (`config/genius-wall-controls.json`):
+  // every concrete form the shared patterns name, plus whole breaches, so narrowing any form fails
+  // both walls (fifth audit 2026-11-05). Floors keep the lists from shrinking.
+  const CONTROLS = JSON.parse(
+    readFileSync(join(SRC, '..', '..', '..', 'config', 'genius-wall-controls.json'), 'utf8')
+  ) as { stableForms: string[]; earnForms: string[]; breaches: string[] };
+
+  it('should keep every control list at or above its floor when the fixture is read', () => {
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(16);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(7);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(13);
+  });
+
   it.each([
-    'Your digital dollar earns every day',
-    'digital-dollar yield envelope',
-    'Renditen in digitalen Dollar',
-    'Digital-Dollar-Rendite',
-    'Os dólares digitais rendem',
-    'rendimiento en dólar digital',
-    'rendendo em dólares digital',
-    'USDC yield',
-    'stablecoin earnings',
-    'Dein Geld verdient im Digital-Dollar',
+    ...CONTROLS.stableForms.map((form) => `${form} earns`),
+    ...CONTROLS.earnForms.map((form) => `USDC ${form}`),
+    ...CONTROLS.breaches,
   ])('should flag "%s" when the shared pattern is applied', (sample) => {
     expect(PAIRING.test(sample)).toBe(true);
   });

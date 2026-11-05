@@ -316,6 +316,9 @@ describe('step 2 · 4 — no start/minimum figure, no cap (5.748, 5.103)', () =>
     '0,39%, Obergrenze 25 €',
     '0,39%, límite de 25 €',
     '0,39%, limite de R$25',
+    /* Unicode words in the gap (fifth audit): an ASCII `\w` gap stops at the accent */
+    'Começa já com só 10 €.',
+    'Empieza ya, sólo con 5 €.',
   ])('should flag "%s" as a start figure or a cap (positive control)', (sample) => {
     expect(statesFigureClaim(sample)).toBe(true);
   });
