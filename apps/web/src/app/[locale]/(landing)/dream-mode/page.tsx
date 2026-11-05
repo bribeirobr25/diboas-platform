@@ -5,6 +5,7 @@ import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DreamModePageContent } from './DreamModePageContent';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -14,7 +15,7 @@ export const dynamic = 'auto';
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale: _locale } = await params;
   return {
-    title: 'Dream Mode - diBoaS',
+    title: pageTitle('Dream Mode - diBoaS'),
     description:
       'Visualize your financial future. See what different strategies could do for your money over time.',
     robots: {

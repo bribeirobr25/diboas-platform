@@ -12,6 +12,7 @@ import { HELP_HERO_CONFIG, HELP_TOPIC_IDS, HELP_TOPIC_CONFIGS } from '@/config/l
 import { FAQ_TOPICS, buildFAQStructuredData } from '@/config/faqRegistry';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -26,11 +27,13 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(validLocale, 'landing-help');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Help Center | diBoaS';
+  // The layout's template appends "| diBoaS" to the page title; the share title carries the brand itself.
+  const title = seo.title || 'Help Center';
+  const ogTitle = `${title} | diBoaS`;
   const description = seo.description || 'Find answers to common questions about diBoaS.';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     alternates: {
       canonical: `${siteUrl}/${validLocale}/help`,
@@ -43,16 +46,16 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       },
     },
     openGraph: {
-      title,
+      title: ogTitle,
       description,
       type: 'website',
-      images: [{ url: `${siteUrl}/api/og/help`, width: 1200, height: 630, alt: title }],
+      images: [{ url: `${siteUrl}/api/og/help`, width: 1200, height: 630, alt: ogTitle }],
     },
     twitter: {
       card: 'summary_large_image',
       site: '@diboasfi',
       creator: '@bribeiro_br',
-      title,
+      title: ogTitle,
       description,
       images: [`${siteUrl}/api/og/help`],
     },

@@ -150,7 +150,7 @@ export const PAGE_SEO_CONFIG = {
     keywords: ['non-custodial security', 'your keys your money', 'wallet protection'],
   },
   strategies: {
-    title: 'Investment Strategies - Smart Yield Optimization',
+    title: 'Strategies | diBoaS',
     description:
       'Different goals. Different risk levels. Find the approach that matches where you are and where you want to be.',
     keywords: ['goal-based investing', 'savings strategies', 'emergency fund plan'],

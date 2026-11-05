@@ -34,8 +34,9 @@
       "description": "In {years} Jahren mit dem diBoaS Dream Mode Rechner"
     },
     "toolResult": {
-      "title": "Was mein Geld verdienen könnte: {value}",
+      "title": "Was daraus werden könnte: {value}",
       "titleByTool": {
+        "money-jobs": "Geld noch ohne Aufgabe: {value}",
         "asset-history": "Was es heute wert wäre: {value}",
         "card-fees": "Was ich sparen könnte: {value}"
       },

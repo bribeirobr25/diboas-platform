@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Investment Strategies | diBoaS",
+    "title": "Strategies",
     "description": "10 strategies. Different goals. Different timelines. Different risk levels. Find the strategy that fits your life.",
     "jsonLd": {
       "serviceDescription": "10 strategies, from conservative to growth-focused, for different goals and timelines."
@@ -245,7 +245,7 @@
     "showLess": "Less"
   },
   "protocols": {
-    "header": "Where your money goes",
+    "header": "Where each strategy puts the money",
     "intro": "Every strategy is built from a combination of these protocols. They're independent, open-source, and you can verify everything yourself.",
     "columnHeaders": {
       "protocol": "Protocol",

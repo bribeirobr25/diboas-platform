@@ -1,9 +1,9 @@
 {
   "seo": {
     "title": "Wo dein Geld arbeitet | diBoaS Protokolle",
-    "description": "25 Protokolle. 7 Kategorien. Volle Transparenz über jedes System, das dein Geld berührt. Sieh genau, wohin dein Geld geht.",
+    "description": "Die DeFi-Protokolle, die diBoaS recherchiert hat, mit Audits und Historie jedes Protokolls und denen, die seine Strategien heute nutzen.",
     "ogTitle": "Wo dein Geld arbeitet | diBoaS Protokolle",
-    "ogDescription": "Jedes System. Jeder Name. Nichts versteckt. Sieh genau, welche DeFi-Protokolle diBoaS nutzt und warum.",
+    "ogDescription": "Welche DeFi-Protokolle diBoaS recherchiert hat, warum wir ihnen vertrauen und welche seine Strategien heute nutzen.",
     "jsonLd": {
       "serviceDescription": "Die DeFi-Protokolle, die diBoaS recherchiert hat, mit Audits und Historie jedes Protokolls und denen, die seine Strategien heute nutzen."
     }
@@ -22,7 +22,7 @@
   "why": {
     "h2": "Transparenz",
     "text1": "Frag deine Bank, wohin dein Erspartes fließt. Sie werden es dir nicht sagen.",
-    "text2": "Wir schon. Jedes System auf dieser Seite ist eines, das dein Geld berühren kann, wenn du eine diBoaS-Strategie nutzt. Wir veröffentlichen die Namen, die Erfolgsbilanz, die Sicherheitsprüfungen und die Dinge, die schiefgelaufen sind. Weil du es wissen solltest.",
+    "text2": "Wir schon. Diese Seite zeigt jedes System, das diBoaS recherchiert hat – die, die seine Strategien heute nutzen, und die, die sie nicht nutzen – mit Namen, Erfolgsbilanz, Sicherheitsprüfungen und dem, was schiefgelaufen ist. Weil du es wissen solltest.",
     "text3": "Jedes Protokoll auf dieser Seite hat seinen Platz verdient. Wir haben geprüft, wie lange es läuft, wer den Code auditiert hat, wie es mit Problemen umgegangen ist und ob echte Menschen ihm echtes Geld anvertrauen. Was nicht bestanden hat, steht nicht hier.",
     "scope": "Wir listen hier 25 Protokolle. Unsere Strategien nutzen aktuell 6 davon. Die übrigen sind Protokolle, die wir recherchiert und freigegeben haben. Sie können in zukünftige Strategien aufgenommen werden, wenn wir expandieren.",
     "warningBox": "Wichtig: Auf dieser Seite gelistet zu sein bedeutet nicht null Risiko. Es bedeutet, dass wir unsere Hausaufgaben gemacht haben und ehrlich darüber sind, was wir gefunden haben. Jedes System auf dieser Seite trägt technisches Risiko, Marktrisiko und die Möglichkeit von Verlusten."
@@ -380,7 +380,7 @@
   },
   "notIs": {
     "h2": "Achtung",
-    "text": "Dies ist keine Empfehlung, eines dieser Protokolle direkt zu nutzen.\n\ndiBoaS-Strategien bauen auf diesen Systemen auf, und unser Team handhabt die Komplexität. Du musst mit keinem Protokoll selbst interagieren. Diese Seite existiert, damit du genau sehen kannst, wohin dein Geld geht, und alles überprüfen kannst, was wir sagen.\n\nJedes Protokoll hier trägt Risiko. Smart Contracts können Fehler haben. Märkte können abstürzen. Stablecoins können ihre Bindung verlieren. Systeme, die seit Jahren sicher laufen, können morgen trotzdem Probleme bekommen. Wir überwachen diese Systeme kontinuierlich, aber wir können das Risiko nicht eliminieren. Niemand kann das.\n\nWenn du unsicher bist, ob das Richtige für dich dabei ist, konsultiere einen zugelassenen Finanzberater, bevor du Anlageentscheidungen triffst.",
+    "text": "Dies ist keine Empfehlung, eines dieser Protokolle direkt zu nutzen.\n\ndiBoaS-Strategien bauen auf diesen Systemen auf, und unser Team handhabt die Komplexität. Du musst mit keinem Protokoll selbst interagieren. Diese Seite existiert, damit du sehen kannst, auf welchen Systemen diBoaS-Strategien aufbauen, und alles überprüfen kannst, was wir sagen.\n\nJedes Protokoll hier trägt Risiko. Smart Contracts können Fehler haben. Märkte können abstürzen. Stablecoins können ihre Bindung verlieren. Systeme, die seit Jahren sicher laufen, können morgen trotzdem Probleme bekommen. Wir überwachen diese Systeme kontinuierlich, aber wir können das Risiko nicht eliminieren. Niemand kann das.\n\nWenn du unsicher bist, ob das Richtige für dich dabei ist, konsultiere einen zugelassenen Finanzberater, bevor du Anlageentscheidungen triffst.",
     "warmLine": "Diese Seite existiert, weil wir glauben, dass du es verdienst, es zu wissen. Nicht weil du etwas tun musst."
   },
   "faq": {

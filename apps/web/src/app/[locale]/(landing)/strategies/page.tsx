@@ -17,6 +17,7 @@ import { STRATEGIES_FAQ_CONFIG } from '@/config/landing-strategies';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import type { Metadata } from 'next';
 import type { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(validLocale, 'strategies');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Investment Strategies | diBoaS';
+  const title = seo.title || 'Strategies';
   const description =
     seo.description ||
     '10 strategies. Different goals. Different timelines. Different risk levels.';
@@ -40,7 +41,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     openGraph: {
       title: seo.ogTitle || 'Find the Strategy That Fits Your Life | diBoaS',

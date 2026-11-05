@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Email Preferences | diBoaS',
+  title: 'Email Preferences',
   robots: { index: false, follow: false },
 };
 

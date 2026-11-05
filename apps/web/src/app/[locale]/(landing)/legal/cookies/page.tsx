@@ -11,6 +11,7 @@ import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { B2C_FOOTER_NAV, B2C_FOOTER_DISCLOSURES } from '@/config/landing-b2c';
 import { LocalePageProps } from '@/types/page';
+import { pageTitle } from '@/lib/seo/pageTitle';
 
 export const dynamic = 'auto';
 
@@ -22,13 +23,15 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(locale as SupportedLocale, 'legal/cookies');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Cookie Policy | diBoaS';
+  // The layout's template appends "| diBoaS" to the page title; the share title carries the brand itself.
+  const title = seo.title || 'Cookie Policy';
+  const ogTitle = `${title} | diBoaS`;
   const description =
     seo.description ||
     'Learn how diBoaS uses cookies to improve your experience and analyze site traffic.';
 
   return {
-    title,
+    title: pageTitle(title),
     description,
     alternates: {
       canonical: `${baseUrl}/${locale}/legal/cookies`,
@@ -41,7 +44,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       },
     },
     openGraph: {
-      title,
+      title: ogTitle,
       description,
       type: 'website',
       locale: locale,
@@ -52,13 +55,13 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
           url: `${baseUrl}/api/og/legal`,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: ogTitle,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: ogTitle,
       description,
       images: [`${baseUrl}/api/og/legal`],
     },

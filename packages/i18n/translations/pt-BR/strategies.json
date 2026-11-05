@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Estratégias de Investimento | diBoaS",
+    "title": "Estratégias",
     "description": "10 estratégias. Objetivos diferentes. Prazos diferentes. Níveis de risco diferentes. Encontre a estratégia que combina com sua vida.",
     "jsonLd": {
       "serviceDescription": "10 estratégias, de conservadoras a focadas em crescimento, para objetivos e prazos diferentes."
@@ -245,7 +245,7 @@
     "showLess": "Menos"
   },
   "protocols": {
-    "header": "Onde seu dinheiro vai",
+    "header": "Onde cada estratégia coloca o dinheiro",
     "intro": "Cada estratégia é construída a partir de uma combinação desses protocolos. Eles são independentes, de código aberto, e você pode verificar tudo por conta própria.",
     "columnHeaders": {
       "protocol": "Protocolo",

@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Anlagestrategien | diBoaS",
+    "title": "Strategien",
     "description": "10 Strategien. Verschiedene Ziele. Verschiedene Zeithorizonte. Verschiedene Risikoniveaus. Finde die Strategie, die zu deinem Leben passt.",
     "jsonLd": {
       "serviceDescription": "10 Strategien, von konservativ bis wachstumsorientiert, für verschiedene Ziele und Zeithorizonte."
@@ -59,7 +59,7 @@
       "badge": "Stabile Renditen | Notgroschen",
       "tagline": "Ein sicherer Ort für Geld, das du nicht riskieren kannst",
       "description": "Hier bewahrst du das Geld auf, das du morgen vielleicht brauchst. Es muss da sein, wenn du es brauchst. Ohne Überraschungen.",
-      "description2": "Safe Harbor nutzt ausschließlich stabile digitale Dollar. Keine Abhängigkeit von Krypto-Kursen. Deine 1.000 EUR sind darauf ausgelegt, nah an 1.000 EUR zu bleiben, während sie Rendite erwirtschaften. Die verwendeten Stablecoins können jedoch im Wert schwanken.",
+      "description2": "Safe Harbor nutzt ausschließlich stabile digitale Dollar. Keine Abhängigkeit von Krypto-Kursen. Deine 1.000 EUR sind darauf ausgelegt, nah an 1.000 EUR zu bleiben; die Rendite kommt aus der Kreditstrategie, nicht vom Halten der Dollar, und die verwendeten Stablecoins können im Wert schwanken.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
       "allocationNote": "Dein Geld wird auf drei unabhängige Verleihsysteme verteilt, um das Risiko zu reduzieren.",
       "commonUseCase": "Erster Notgroschen. Lernen, wie alles funktioniert, ohne Kursschwankungen.",
@@ -245,7 +245,7 @@
     "showLess": "Weniger"
   },
   "protocols": {
-    "header": "Wohin dein Geld geht",
+    "header": "Wo jede Strategie das Geld einsetzt",
     "intro": "Jede Strategie baut auf einer Kombination dieser Protokolle auf. Sie sind unabhängig, quelloffen, und du kannst alles selbst überprüfen.",
     "columnHeaders": {
       "protocol": "Protokoll",
