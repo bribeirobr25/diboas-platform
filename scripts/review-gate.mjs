@@ -496,8 +496,10 @@ function checkRegister() {
   ]);
   /* A live row's own status assertion (`5.753`): an open-family marker, then a bold status
      word from this same vocabulary (one source; CLOSED is judged by the ✅ checks below). */
+  // ⛑ Fourth audit (2026-11-05, `5.762`): a QUOTED marker is a mention, not this row's status
+  // (the late-closure check's own lookbehind); the variation selector U+FE0F may follow it.
   const LIVE_STATUS_LEAD = new RegExp(
-    `[⏳⏸🔴🟠🟡🟢📋]\\s*\\*\\*\\s*(${[...VOCAB].filter((v) => v !== 'CLOSED').join('|')})\\b`,
+    `(?<!["“'\`(]\\s?)[⏳⏸🔴🟠🟡🟢📋]\\uFE0F?\\s*\\*\\*\\s*(${[...VOCAB].filter((v) => v !== 'CLOSED').join('|')})\\b`,
     'u'
   );
   /* Inside the BLOCK-A region any letter case is READ, so a lowercase status is reported as
@@ -590,7 +592,8 @@ function checkRegister() {
       let end;
       if (rest.startsWith('|')) end = rest.indexOf('\n');
       else {
-        const blank = rest.search(/\n\s*\n/);
+        // a heading also ends a note row (fourth audit): a row never borrows the next section
+        const blank = rest.search(/\n\s*\n|\n#/);
         const next = rest.slice(1).search(/^(?:\||>) \*\*\d+\.\d+(?:\*\*|\s|—)/m);
         end = Math.min(blank < 0 ? rest.length : blank, next < 0 ? rest.length : next + 1);
       }
@@ -655,7 +658,8 @@ function checkRegister() {
        * Block A sabotaged this check one way only (`SB-A4`), and a one-way
        * sabotage proves one way. Same discriminator, same marker-position rule.
        */
-      if (want === 'CLOSED' && !saysClosed && openMarker !== null) {
+      const reverse = want === 'CLOSED' && !saysClosed && openMarker !== null;
+      if (reverse) {
         disagree.push(`${id}(row=LIVE[${openMarker[0]}],index=CLOSED)`);
       }
       /**
@@ -669,10 +673,13 @@ function checkRegister() {
        * note often precedes it (measured 2026-11-04: 137 rows assert one within 170
        * characters, 166 within 700; widening found one more disagreement, `5.524`). A marker
        * plus a bold status word is an assertion, never a mention in running text; a row with no
-       * such lead is not judged here (stated scope limit). CLOSED rows are left to the checks
-       * above, so nothing is reported twice.
+       * such lead is not judged here (stated scope limit).
+       * ⛑ Fourth audit (2026-11-05, `5.762`): this ran only when the index was NOT CLOSED, so a
+       * live `⏸ **DEFERRED**` row indexed CLOSED passed — the reverse check above knows no ⏸ and
+       * reads only 170 characters (130 of 323 live rows could be flipped to CLOSED silently).
+       * It now runs for a CLOSED index too, unless the reverse check already reported the row.
        */
-      if (!saysClosed && want !== 'CLOSED') {
+      if (!saysClosed && !reverse) {
         const lead = LIVE_STATUS_LEAD.exec(row.slice(0, 700));
         if (lead && lead[1] !== want) disagree.push(`${id}(row=${lead[1]},index=${want})`);
       }
