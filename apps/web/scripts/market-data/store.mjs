@@ -59,8 +59,16 @@ export function createStore(root) {
   const p = (...xs) => path.join(root, ...xs);
   const mkdir = (f) => fs.mkdirSync(path.dirname(f), { recursive: true });
 
-  /** Keep one response body exactly as received (`bytes` is the raw Buffer). */
-  function saveRaw({ provider, series, url, status, bytes, fetchedAt, ext }) {
+  /**
+   * Keep one response body exactly as received (`bytes` is the raw Buffer).
+   * A POST also records its method and request body, so the request can be
+   * replayed from the manifest (several BLS requests share one URL).
+   *
+   * @param {{provider: string, series: string, url: string, status: number|null,
+   *   bytes: Buffer|string, fetchedAt: string, ext: string, method?: string,
+   *   requestBody?: string}} r
+   */
+  function saveRaw({ provider, series, url, status, bytes, fetchedAt, ext, method, requestBody }) {
     const stamp = fetchedAt.replace(/[:.]/g, '-');
     const rel = path.join(
       'raw',
@@ -77,6 +85,8 @@ export function createStore(root) {
       provider,
       series,
       url,
+      ...(method ? { method } : {}),
+      ...(requestBody != null ? { request_body: requestBody } : {}),
       status,
       bytes: buf.length,
       sha256: crypto.createHash('sha256').update(buf).digest('hex'),

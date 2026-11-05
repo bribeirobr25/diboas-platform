@@ -269,7 +269,7 @@ describe('collectSeries: a series is stored only when every check passes', () =>
       'c.test': cnbc(shifted),
       'n.test': nasdaqDiv(DIV),
     });
-    expect(out.blocked.join()).toMatch(/looks shifted by a day/);
+    expect(out.blocked.join()).toMatch(/looks shifted by one day/);
   });
 
   it('should BLOCK a changed stored day, log it once, and move on only after a reviewed "keep"', async () => {
@@ -632,6 +632,12 @@ describe('the collection workflow refuses what it must', () => {
     expect(yml).toMatch(/refusing target branch/);
     expect(yml).toMatch(/refusing series value/);
     expect(yml).toMatch(/merge diboas-analytics #1 first/);
+  });
+  it('should let only a run from main write the analytics main', () => {
+    expect(yml).toMatch(/REF: \$\{\{ github\.ref \}\}/);
+    expect(yml).toMatch(
+      /\[\[ "\$branch" != "main" \|\| "\$REF" == "refs\/heads\/main" \]\] \|\| \{ echo "refusing: only a run from main writes the analytics main"; exit 1; \}/
+    );
   });
   it('should start only from the schedule or a manual dispatch, never from a push', () => {
     // The first backfill ran from a temporary push trigger on its feature

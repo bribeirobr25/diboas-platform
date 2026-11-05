@@ -29,7 +29,6 @@ export const FETCH_TIMEOUT_MS = 20_000;
 /**
  * `fetch` with a deadline, and an error that names the source.
  *
- * @param {string} url
  * `method` and `body` are for the few official APIs that only honour a POST
  * (BLS v1 ignores the years in a GET, 2026-11-05); a GET is the default.
  *

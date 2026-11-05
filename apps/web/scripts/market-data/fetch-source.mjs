@@ -44,9 +44,9 @@ const PARSE = {
   ishares: (b, l) => P.parseIsharesDistributions(b, l),
   stockanalysis: (b, l) => P.parseStockAnalysisDividends(b, l),
   sdmx: (b, l) => P.parseSdmxCsv(b, l),
-  bls: (b, l) => P.parseBlsV1(b, l),
+  bls: (b, l, _y, o) => P.parseBlsV1(b, l, o),
   sidra: (b, l) => P.parseSidra(b, l),
-  sgs: (b, l) => P.parseSgs(b, l),
+  sgs: (b, l, _y, o) => P.parseSgs(b, l, o),
   eurostat: (b, l) => P.parseEurostat(b, l),
   bde: (b, l, _y, o) => P.parseBdeTable(b, l, o),
   treasury: (b, l, _y, o) => P.parseTreasuryCsv(b, l, o),
@@ -107,6 +107,7 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
           provider,
           series,
           url,
+          ...(post ? { method: 'POST', requestBody: post } : {}),
           status: null,
           bytes: String(e?.message ?? e),
           fetchedAt,
@@ -121,6 +122,7 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
         provider,
         series,
         url,
+        ...(post ? { method: 'POST', requestBody: post } : {}),
         status: res.status,
         bytes,
         fetchedAt,
@@ -164,7 +166,13 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
       const rows = [];
       for (let y = Number(from.slice(0, 4)); y <= Number(to.slice(0, 4)); y += 1) {
         rows.push(
-          ...(await getParsed(src.url(y), { ...ctx, parse: (b) => parser(b, label, y, opts) })).rows
+          ...(
+            await getParsed(src.url(y), {
+              ...ctx,
+              ...withPost(`${y}-01-01`, `${y}-12-31`),
+              parse: (b) => parser(b, label, y, opts),
+            })
+          ).rows
         );
         await sleep(300);
       }
@@ -193,6 +201,7 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
       for (;;) {
         const page = await getParsed(src.url(start), {
           ...ctx,
+          ...withPost(start, to),
           parse: (x) => parser(x, label, undefined, opts),
         });
         rows.push(...page.rows);
@@ -208,6 +217,7 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
       while (url) {
         const page = await getParsed(url, {
           ...ctx,
+          ...withPost(from, to),
           parse: (x) => parser(x, label, undefined, opts),
         });
         rows.push(...page.rows);
@@ -218,6 +228,7 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
     try {
       const r = await getParsed(src.url(from, to), {
         ...ctx,
+        ...withPost(from, to),
         parse: (x) => parser(x, label, undefined, opts),
       });
       return { ...r, rows: inWindow(r.rows ?? []) };
@@ -225,6 +236,7 @@ export function createFetcher({ store, retryBaseMs = SOURCE_RETRY_BASE_MS, fetch
       if (!src.fallback) throw e;
       const r = await getParsed(src.fallback(from, to), {
         ...ctx,
+        ...withPost(from, to),
         parse: (x) => parser(x, label, undefined, opts),
       });
       return { ...r, rows: inWindow(r.rows ?? []), usedFallback: true };

@@ -29,20 +29,25 @@ const addMonths = (iso, n) => {
  * Month-on-month change, in percent, of a monthly index (rows dated on the
  * month's first day). Two agencies publish the same index on different base
  * years (2025=100, 2010=100, Dec 1993=100), so levels cannot be compared:
- * changes can. A change is computed only between CONSECUTIVE months: a month
- * the publisher skipped (the US CPI for 2025-10, after the 2025 shutdown)
- * leaves the next month without a change rather than inventing a two-month one.
+ * changes can. Each change carries its `span` in months: 1 between
+ * consecutive months, more across a month the publisher skipped (the US CPI
+ * has no 2025-10, after the 2025 shutdown). A change across a gap is only
+ * ever compared with a change of the SAME span in the other source (see
+ * collect.mjs `comparable`), so the month after a gap is still checked and no
+ * month is invented.
  *
  * @param {{date:string, close:number}[]} rows sorted by date
- * @returns {{date:string, close:number}[]} the change rows (close = % change)
+ * @returns {{date:string, close:number, span:number}[]} change rows (close = % change)
  */
 export function monthlyChanges(rows) {
   const out = [];
   for (let i = 1; i < rows.length; i += 1) {
     const a = rows[i - 1];
     const b = rows[i];
-    if (addMonths(a.date, 1) !== b.date) continue;
-    out.push({ date: b.date, close: (b.close / a.close - 1) * 100 });
+    let span = 1;
+    while (span <= 24 && addMonths(a.date, span) !== b.date) span += 1;
+    if (span > 24) continue; // not month-first dates, or a gap of more than two years
+    out.push({ date: b.date, close: (b.close / a.close - 1) * 100, span });
   }
   return out;
 }
@@ -126,7 +131,9 @@ export function compareCloses(
     const same = meanAt(0);
     const before = meanAt(-1);
     const after = meanAt(1);
-    const misaligned = [before, after].some((x) => x != null && x <= same);
+    // An exact same-day match (mean 0) is aligned even if a flat stretch also
+    // matches when shifted (a policy rate unchanged for weeks).
+    const misaligned = same > 0 && [before, after].some((x) => x != null && x <= same);
     alignment = {
       same: round(same),
       shiftedBack: round(before),
