@@ -1,6 +1,6 @@
 {
   "seo": {
-    "title": "Estrategias de Inversión | diBoaS",
+    "title": "Estrategias",
     "description": "10 estrategias. Diferentes objetivos. Diferentes plazos. Diferentes niveles de riesgo. Encuentra la estrategia que se adapta a tu vida.",
     "jsonLd": {
       "serviceDescription": "10 estrategias, de conservadoras a orientadas al crecimiento, para distintos objetivos y plazos."
@@ -59,7 +59,7 @@
       "badge": "Rentabilidad estable | Fondo de emergencia",
       "tagline": "Un lugar firme para el dinero que no puedes arriesgar",
       "description": "Aquí guardas el dinero que puedes necesitar mañana. Tiene que estar ahí cuando lo necesites. Sin sorpresas.",
-      "description2": "Safe Harbor utiliza solo dólares digitales estables. Sin exposición a precios de activos digitales. Tus 1.000 EUR están diseñados para mantenerse cerca de 1.000 EUR mientras generan rendimiento, aunque las stablecoins utilizadas pueden fluctuar en valor.",
+      "description2": "Safe Harbor utiliza solo dólares digitales estables. Sin exposición a precios de activos digitales. Tus 1.000 EUR están diseñados para mantenerse cerca de 1.000 EUR; el rendimiento viene de la estrategia de préstamo, no de mantener los dólares, y las stablecoins utilizadas pueden fluctuar en valor.",
       "allocation": "50% Sky SSR + 30% Aave V3 + 20% Compound V3",
       "allocationNote": "Tu dinero se distribuye entre tres sistemas de préstamo independientes para reducir el riesgo.",
       "commonUseCase": "Primer fondo de emergencia. Aprender cómo funciona todo sin oscilaciones de precio.",

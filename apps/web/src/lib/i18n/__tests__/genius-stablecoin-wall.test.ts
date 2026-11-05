@@ -62,9 +62,6 @@ const ALLOW: ReadonlySet<string> = new Set([
   'es::tools-shared::disclaimer',
   'pt-BR::learn-compound-interest::calculator.calibrationNote',
   'pt-BR::tools-shared::disclaimer',
-  // --- TRANSCREATION-PENDING · remove when the es/de pass fixes these ---
-  'de::strategies::strategies.safeHarbor.description2', // Cat 1
-  'es::strategies::strategies.safeHarbor.description2', // Cat 1
   // NB: the investor-docs pitch-deck "USDC plus on-chain yield" bullets were
   // RULED out of consumer GENIUS scope (CLO final sign-off 2026-07-21) yet
   // reworded to "on-chain returns" for house-style hygiene — so they no longer

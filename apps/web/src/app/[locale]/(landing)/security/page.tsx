@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(validLocale, 'security');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Security | diBoaS';
+  const title = seo.title || 'Security';
   const description =
     seo.description ||
     'How diBoaS protects your money. Your wallet, your keys. Non-custodial architecture. 24/7 monitoring.';

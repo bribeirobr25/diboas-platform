@@ -44,7 +44,8 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const ogDescription = seo.ogDescription || description;
 
   return {
-    title,
+    // The catalogue title already leads with the brand: absolute, so the layout does not add it again.
+    title: { absolute: title },
     description,
     keywords: [
       'goal-driven investing',

@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(validLocale, 'strategies');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Investment Strategies | diBoaS';
+  const title = seo.title || 'Strategies';
   const description =
     seo.description ||
     '10 strategies. Different goals. Different timelines. Different risk levels.';

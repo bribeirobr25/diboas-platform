@@ -74,7 +74,7 @@ export const PAGE_CONFIGS: Record<OGPageType, OGTemplateConfig> = {
     theme: 'coral',
   },
   strategies: {
-    title: 'Investment Strategies',
+    title: 'Strategies',
     subtitle: '10 Strategies. Different Goals. Different Risk Levels.',
     badge: 'Strategies',
     theme: 'teal',

@@ -165,7 +165,6 @@
     "disclaimer": "*Taxas diBoaS mostradas. Taxas de terceiros, provedores de entrada e saída, redes, bancos, câmbio, liquidação ou compliance podem se aplicar e serão exibidas quando disponíveis antes da confirmação.",
     "pricingNote": "Comparações de preços baseadas em tarifas públicas de fevereiro de 2026. As faixas refletem preços comuns entre os principais provedores. O preço real de cada concorrente varia por provedor, volume e condições contratuais.",
     "example": "Um usuário diBoaS te paga R$5.000 em dólar digital: você fica com R$5.000 na sua conta diBoaS. Sacar para o banco é uma saída (off-ramp): {cashOutRate} se aplica. Um pagamento via cartão é uma entrada (on-ramp), com custos de cartão e de entrada exibidos antes de mover dinheiro.",
-    "expandableToggle": "Sem taxas escondidas. Sem saldo mínimo. Sem mensalidade. Veja todas as taxas.",
     "footerLine": "Todo custo deveria aparecer antes do caixa sair do lugar.",
     "transitionHook": "Custo primeiro. Depois vamos ver se isso encaixa."
   },

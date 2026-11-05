@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(validLocale, 'protocols');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Where Your Money Works | The Protocols We Trust | diBoaS';
+  const title = seo.title || 'Where Your Money Works | The Protocols We Trust';
   const description =
     seo.description ||
     'diBoaS connects you to established decentralized finance protocols. See exactly where your money goes with full transparency.';

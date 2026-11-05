@@ -22,7 +22,9 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const messages = await loadMessages(locale as SupportedLocale, 'legal/privacy');
   const seo = messages?.seo || {};
 
-  const title = seo.title || 'Privacy Policy | diBoaS';
+  // The layout's template appends "| diBoaS" to the page title; the share title carries the brand itself.
+  const title = seo.title || 'Privacy Policy';
+  const ogTitle = `${title} | diBoaS`;
   const description =
     seo.description ||
     'Learn how diBoaS collects, uses, and protects your personal data. GDPR compliant.';
@@ -41,7 +43,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       },
     },
     openGraph: {
-      title,
+      title: ogTitle,
       description,
       type: 'website',
       locale: locale,
@@ -52,13 +54,13 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
           url: `${baseUrl}/api/og/legal`,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: ogTitle,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: ogTitle,
       description,
       images: [`${baseUrl}/api/og/legal`],
     },
