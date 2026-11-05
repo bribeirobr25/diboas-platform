@@ -537,7 +537,7 @@ describe('REGISTER-STATUS · a live row agrees with its index status (5.753)', (
     expect(r.out.match(/5\.703\(/g)).toHaveLength(1);
   }, 20_000);
 
-  /* Fourth audit (2026-11-05, 5.762): the dangerous direction — open work vanishing as CLOSED. */
+  /* Fourth audit (2026-11-05, 5.772): the dangerous direction — open work vanishing as CLOSED. */
   it('should FAIL when a parked ⏸ DEFERRED row is indexed CLOSED', () => {
     const r = check({ ...AGREE, '5.702': 'CLOSED' });
     expect(r.code).toBe(1);
