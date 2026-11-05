@@ -11,8 +11,11 @@
  * Inputs:
  *   DIBOAS_DOCS_DIR   the docs checkout under test (scripts/lib/docs-root.mjs resolves it)
  *   live (default)    `gh` reads main's register and each open PR's register through the API
- *                     (repository from DOCS_REPO, default bribeirobr25/diboas-docs; the PR's
- *                     own head branch is skipped: GITHUB_HEAD_REF, else the checkout's branch)
+ *                     (repository from DOCS_REPO, default bribeirobr25/diboas-docs). This
+ *                     checkout's own PR is skipped by head BRANCH (GITHUB_HEAD_REF, else the
+ *                     checkout's branch) OR head COMMIT (a detached checkout has no branch);
+ *                     each PR's register is read at its head commit (works for a fork too);
+ *                     500+ open PRs → INCOMPLETE, never a silent pass
  *   --main <file> --other <name>=<file> …   fixtures instead of the API (tests, offline rehearsal)
  *
  * Exit: 0 PASS · 1 FAIL (an overlap) · 2 INCOMPLETE (a register could not be read — never a pass).
@@ -27,7 +30,13 @@ import { docsRootProblem, resolveDocsRoot } from './lib/docs-root.mjs';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const REGISTER = 'audit/PENDING_ALL.md';
-const ROW = /^> \*\*(5\.\d+)\*\* — /gm;
+/**
+ * A row header in any of the register's three forms — `> **5.N** — `, `> **5.N — title**` and
+ * the table row `| **5.N** |` — read exactly as the register gate reads them (review-gate.mjs
+ * checkRegister). Sixth audit (2026-11-05): the first version counted only the first form.
+ */
+const ROW = /^(?:\||>) \*\*(\d+\.\d+)(?:\*\*|\s|—)/gm;
+const PR_LIMIT = 500;
 
 /** The ids that have a row of their own (index mentions and prose are not claims). */
 export function rowIds(text) {
@@ -69,15 +78,19 @@ function registerAt(repo, ref) {
   ]);
 }
 
-function currentBranch(docsDir) {
-  if (process.env.GITHUB_HEAD_REF) return process.env.GITHUB_HEAD_REF;
-  try {
-    return execFileSync('git', ['-C', docsDir, 'branch', '--show-current'], {
-      encoding: 'utf8',
-    }).trim();
-  } catch {
-    return '';
-  }
+/** This checkout's own PR: by branch name, or by head commit when the checkout is detached. */
+function selfIdentity(docsDir) {
+  const git = (args) => {
+    try {
+      return execFileSync('git', ['-C', docsDir, ...args], { encoding: 'utf8' }).trim();
+    } catch {
+      return '';
+    }
+  };
+  return {
+    branch: process.env.GITHUB_HEAD_REF || git(['branch', '--show-current']),
+    sha: git(['rev-parse', 'HEAD']),
+  };
 }
 
 function parseArgs(argv) {
@@ -110,7 +123,7 @@ function main() {
       others = args.others.map(([name, file]) => [name, readFileSync(file, 'utf8')]);
     } else {
       const repo = process.env.DOCS_REPO || 'bribeirobr25/diboas-docs';
-      const self = currentBranch(docsDir);
+      const self = selfIdentity(docsDir);
       mainText = registerAt(repo, 'main');
       const heads = JSON.parse(
         gh([
@@ -121,14 +134,16 @@ function main() {
           '--state',
           'open',
           '--limit',
-          '100',
+          String(PR_LIMIT),
           '--json',
-          'number,headRefName',
+          'number,headRefName,headRefOid',
         ])
       );
+      if (heads.length >= PR_LIMIT)
+        throw new Error(`${PR_LIMIT}+ open docs PRs: more than one page`);
       others = heads
-        .filter((pr) => pr.headRefName !== self)
-        .map((pr) => [`#${pr.number} ${pr.headRefName}`, registerAt(repo, pr.headRefName)]);
+        .filter((pr) => pr.headRefName !== self.branch && pr.headRefOid !== self.sha)
+        .map((pr) => [`#${pr.number} ${pr.headRefName}`, registerAt(repo, pr.headRefOid)]);
     }
   } catch (err) {
     // An error CODE or our own wording only: a raw message can carry a machine path (5.697).
