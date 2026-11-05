@@ -73,10 +73,8 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
   const handleShare = useCallback(
     async (platform: SharePlatform) => {
       const shareText = getShareText();
-      const amount = formatCurrency(result.defiBalance, 0, locale);
-      const growth = `${result.growthPercentage.toFixed(0)}%`;
-      const baseShareUrl = getShareUrl('dream', platform, undefined, locale);
-      const shareUrl = `${baseShareUrl}&dream_amount=${encodeURIComponent(amount)}&dream_growth=${encodeURIComponent(growth)}`;
+      // The dream_amount/dream_growth parameters fed the deleted /api/og/dream route (5.783).
+      const shareUrl = getShareUrl('dream', platform, undefined, locale);
 
       applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_INITIATED, {
         domain: 'preDream',
@@ -150,7 +148,7 @@ export function ShareDreamSection({ result, difference: differenceProp }: ShareD
         });
       }
     },
-    [getShareText, result.defiBalance, result.growthPercentage, locale]
+    [getShareText, locale]
   );
 
   return (
