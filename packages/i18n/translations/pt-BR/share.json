@@ -27,7 +27,7 @@
   "og": {
     "waitlist": {
       "title": "Sou #{position} na lista de espera do diBoaS!",
-      "description": "Junte-se a mim no diBoaS - Liberdade Financeira Simplificada"
+      "description": "Entre você também no diBoaS — liberdade financeira simplificada"
     },
     "calculator": {
       "title": "Meu investimento poderia crescer para {formattedAmount}",
@@ -42,7 +42,7 @@
       "description": "Fiz as contas no diBoaS. Veja o que o seu poderia fazer."
     },
     "default": {
-      "title": "diBoaS - Liberdade Financeira Simplificada",
+      "title": "diBoaS — liberdade financeira simplificada",
       "description": "Seu dinheiro. Seu futuro. Uma plataforma. Entre na lista de espera hoje."
     }
   }

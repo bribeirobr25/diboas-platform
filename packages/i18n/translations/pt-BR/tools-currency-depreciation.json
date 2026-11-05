@@ -49,7 +49,7 @@
     "eyebrowUsd": "O que seus dólares parados rendem",
     "chartAria": "Como o {currency} se compara em {years} anos mantido em dinheiro, em banco local e em dólar digital no diBoaS.",
     "chartAriaUsd": "Como seus dólares se comparam em {years} anos em um banco versus em dólar digital no diBoaS.",
-    "shareText": "Em {years} anos, meus {currency} poderiam valer {value} em dólar digital no diBoaS. Veja como o seu se segura."
+    "shareText": "Em {years} anos, meus {currency} poderiam valer {value} em dólar digital no diBoaS. Veja como fica o seu."
   },
   "vignette": {
     "subtitle": "Onde você guarda seu dinheiro importa. A moeda em que ele rende, importa mais."

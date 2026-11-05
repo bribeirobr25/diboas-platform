@@ -28,19 +28,19 @@ const DREAM_TRANSLATIONS: Record<string, { badge: string; growth: string; cta: s
     cta: 'Financial Freedom Made Simple',
   },
   'pt-BR': {
-    badge: 'Enquanto Eu Dormia...',
+    badge: 'Enquanto eu dormia...',
     growth: 'crescimento projetado',
-    cta: 'Liberdade Financeira Simplificada',
+    cta: 'Liberdade financeira simplificada',
   },
   es: {
-    badge: 'Mientras Dormía...',
+    badge: 'Mientras dormía...',
     growth: 'crecimiento proyectado',
-    cta: 'Libertad Financiera Simplificada',
+    cta: 'Libertad financiera simplificada',
   },
   de: {
     badge: 'Während ich schlief...',
     growth: 'prognostiziertes Wachstum',
-    cta: 'Finanzielle Freiheit Einfach Gemacht',
+    cta: 'Finanzielle Freiheit einfach gemacht',
   },
 };
 

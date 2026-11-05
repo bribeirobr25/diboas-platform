@@ -7,7 +7,8 @@
  * cannot see "mí" → "mi" ("mi inversión" is right), a changed case, a misplaced or decomposed
  * accent (fifth audit, 2026-11-05). Every function is rendered for 1 and 5 years, so the
  * singular ("1 año", not "1 años") is pinned too. A wording change updates this file on
- * purpose — that is the review moment, with a native pass.
+ * purpose — that is the review moment, with a native pass (done by CC under the founder's
+ * delegation, 2026-11-05: idiom, sentence case, the in-app tool names, singular years).
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -33,13 +34,13 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     waitlist: {
       joinedMessage: ['1 entrou na lista de espera!', '5 entrou na lista de espera!'],
       position: 'Posição',
-      cta: 'Junte-se a mim no diBoaS - Liberdade Financeira Simplificada',
+      cta: 'Entre você também no diBoaS — liberdade financeira simplificada',
     },
     calculator: {
       badge: 'Calculadora Dream Mode',
       growthMessage: [
-        'Em 1 ano, meu investimento poderia crescer para',
-        'Em 5 anos, meu investimento poderia crescer para',
+        'Em 1 ano, meu investimento poderia chegar a',
+        'Em 5 anos, meu investimento poderia chegar a',
       ],
       startingWith: 'Começando com',
       strategy: 'Estratégia',
@@ -48,33 +49,33 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     toolResult: {
       toolName: {
         'money-jobs': 'Dinheiro com Função',
-        'currency-depreciation': 'Depreciação cambial',
-        'idle-cash': 'Dinheiro parado',
+        'currency-depreciation': 'Desvalorização cambial',
+        'idle-cash': 'Caixa parado',
         'asset-history': 'Histórico de ativos',
         'card-fees': 'Taxas de cartão',
       },
-      headline: 'No que poderia se transformar',
+      headline: 'No que isso poderia se transformar',
       headlineByTool: {
         'money-jobs': 'Cada real precisa de uma função',
         'asset-history': 'Quanto valeria hoje',
         'card-fees': 'Quanto eu poderia economizar',
       },
-      subline: ['Em dólar digital ao longo de 1 ano', 'Em dólar digital ao longo de 5 anos'],
-      cta: 'Veja o seu em diboas.com',
+      subline: ['Mantido em dólar digital por 1 ano', 'Mantido em dólar digital por 5 anos'],
+      cta: 'Calcule o seu em diboas.com',
     },
-    default: { tagline: 'Liberdade Financeira Simplificada' },
+    default: { tagline: 'Liberdade financeira simplificada' },
   },
   es: {
     waitlist: {
       joinedMessage: ['¡1 se unió a la lista de espera!', '¡5 se unió a la lista de espera!'],
       position: 'Posición',
-      cta: 'Únete a mí en diBoaS - Libertad Financiera Simplificada',
+      cta: 'Únete tú también a diBoaS — libertad financiera simplificada',
     },
     calculator: {
       badge: 'Calculadora Dream Mode',
       growthMessage: [
-        'En 1 año, mi inversión podría crecer a',
-        'En 5 años, mi inversión podría crecer a',
+        'En 1 año, mi inversión podría llegar a',
+        'En 5 años, mi inversión podría llegar a',
       ],
       startingWith: 'Empezando con',
       strategy: 'Estrategia',
@@ -84,32 +85,35 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
       toolName: {
         'money-jobs': 'Dinero con Función',
         'currency-depreciation': 'Depreciación monetaria',
-        'idle-cash': 'Dinero parado',
+        'idle-cash': 'Efectivo parado',
         'asset-history': 'Historial de activos',
         'card-fees': 'Comisiones de tarjeta',
       },
-      headline: 'En lo que podría convertirse',
+      headline: 'En qué podría convertirse',
       headlineByTool: {
         'money-jobs': 'Cada euro necesita una función',
         'asset-history': 'Cuánto valdría hoy',
         'card-fees': 'Cuánto podría ahorrar',
       },
-      subline: ['En dólar digital durante 1 año', 'En dólar digital durante 5 años'],
-      cta: 'Mira el tuyo en diboas.com',
+      subline: [
+        'Guardado en dólar digital durante 1 año',
+        'Guardado en dólar digital durante 5 años',
+      ],
+      cta: 'Calcula el tuyo en diboas.com',
     },
-    default: { tagline: 'Libertad Financiera Simplificada' },
+    default: { tagline: 'Libertad financiera simplificada' },
   },
   de: {
     waitlist: {
-      joinedMessage: ['1 ist der Warteliste beigetreten!', '5 ist der Warteliste beigetreten!'],
-      position: 'Position',
-      cta: 'Komm zu mir auf diBoaS - Finanzielle Freiheit Einfach Gemacht',
+      joinedMessage: ['1 steht jetzt auf der Warteliste!', '5 steht jetzt auf der Warteliste!'],
+      position: 'Platz',
+      cta: 'Mach mit bei diBoaS — finanzielle Freiheit einfach gemacht',
     },
     calculator: {
-      badge: 'Dream Mode Rechner',
+      badge: 'Dream-Mode-Rechner',
       growthMessage: [
-        'In 1 Jahr könnte meine Investition wachsen auf',
-        'In 5 Jahren könnte meine Investition wachsen auf',
+        'In 1 Jahr könnte meine Geldanlage anwachsen auf',
+        'In 5 Jahren könnte meine Geldanlage anwachsen auf',
       ],
       startingWith: 'Startbetrag',
       strategy: 'Strategie',
@@ -118,9 +122,9 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     toolResult: {
       toolName: {
         'money-jobs': 'Geld mit Aufgabe',
-        'currency-depreciation': 'Währungsabwertung',
-        'idle-cash': 'Ungenutztes Geld',
-        'asset-history': 'Anlage-Historie',
+        'currency-depreciation': 'Währungs-Wertverlust',
+        'idle-cash': 'Liegendes Geld',
+        'asset-history': 'Vermögensverlauf',
         'card-fees': 'Kartengebühren',
       },
       headline: 'Was daraus werden könnte',
@@ -129,10 +133,13 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
         'asset-history': 'Was es heute wert wäre',
         'card-fees': 'Was ich sparen könnte',
       },
-      subline: ['Als digitaler Dollar über 1 Jahr', 'Als digitaler Dollar über 5 Jahre'],
-      cta: 'Sieh deins auf diboas.com',
+      subline: [
+        '1 Jahr lang als digitaler Dollar gehalten',
+        '5 Jahre lang als digitaler Dollar gehalten',
+      ],
+      cta: 'Berechne deins auf diboas.com',
     },
-    default: { tagline: 'Finanzielle Freiheit Einfach Gemacht' },
+    default: { tagline: 'Finanzielle Freiheit einfach gemacht' },
   },
 };
 
@@ -141,8 +148,8 @@ const DEFAULT_NAMES = { 'pt-BR': 'Alguém', es: 'Alguien', de: 'Jemand' } as con
 /** The dream share route keeps its texts in the route file (a route may export only handlers). */
 const DREAM_ROUTE = readFileSync(join(__dirname, '..', '..', 'dream', 'route.tsx'), 'utf8');
 const DREAM_BADGES = [
-  "'Enquanto Eu Dormia...'",
-  "'Mientras Dormía...'",
+  "'Enquanto eu dormia...'",
+  "'Mientras dormía...'",
   "'Während ich schlief...'",
 ];
 
