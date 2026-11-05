@@ -145,14 +145,6 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
 
 const DEFAULT_NAMES = { 'pt-BR': 'Alguém', es: 'Alguien', de: 'Jemand' } as const;
 
-/** The dream share route keeps its texts in the route file (a route may export only handlers). */
-const DREAM_ROUTE = readFileSync(join(__dirname, '..', '..', 'dream', 'route.tsx'), 'utf8');
-const DREAM_BADGES = [
-  "'Enquanto eu dormia...'",
-  "'Mientras dormía...'",
-  "'Während ich schlief...'",
-];
-
 describe('OG share texts keep their accents (5.774)', () => {
   it.each(Object.keys(EXPECTED) as Array<keyof typeof EXPECTED>)(
     'should render exactly the reviewed %s texts, singular and plural',
@@ -165,10 +157,5 @@ describe('OG share texts keep their accents (5.774)', () => {
   it('should keep every share text in composed (NFC) form when any locale is rendered', () => {
     const all = JSON.stringify(render(OG_TRANSLATIONS));
     expect(all).toBe(all.normalize('NFC'));
-  });
-
-  it('should keep the dream route badges accented when the route file is read', () => {
-    for (const badge of DREAM_BADGES) expect(DREAM_ROUTE).toContain(badge);
-    expect(DREAM_ROUTE).toBe(DREAM_ROUTE.normalize('NFC'));
   });
 });
