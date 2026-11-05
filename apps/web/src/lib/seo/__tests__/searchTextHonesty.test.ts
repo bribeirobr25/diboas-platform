@@ -25,9 +25,12 @@ const strings = (o: unknown): string[] =>
   typeof o === 'string' ? [o] : o && typeof o === 'object' ? Object.values(o).flatMap(strings) : [];
 
 const INVESTMENT = /invest|anlage|inversi/i;
-/** Verbs that say diBoaS connects people's money to the protocols (wider than "connects"). */
+/**
+ * Verbs that say diBoaS connects people's money to the protocols (wider than "connects"). A
+ * protocol connecting ITS lenders and borrowers (Morpho: "Conecta credores…") is not the claim.
+ */
 const OVERSTATES =
-  /\bconnects? you\b|\blinks? you\b|\bgives? you access\b|\bconecta\b|\bliga você\b|\bverbindet\b|\bbringt dein Geld\b|dein Geld berührt|\byour money (goes|touches|may touch)\b|\bseu dinheiro (vai|pode tocar)\b|\btu dinero (va|puede tocar)\b|\bdein Geld (geht|berühren kann)\b/i;
+  /\bconnects? you\b|\blinks? you\b|\bgives? you access\b|\bconecta (?:você|voce)\b|\bte conecta\b|\bdiBoaS conecta\b|\bliga você\b|\bverbindet dich\b|\bdiBoaS verbindet\b|\bbringt dein Geld\b|dein Geld berührt|\byour money (goes|touches|may touch)\b|\bseu dinheiro (vai|pode tocar)\b|\btu dinero (va|puede tocar)\b|\bdein Geld (geht|berühren kann)\b/i;
 /** "No minimum" in any number or inflection; "en cuenta" ("keep in mind") is not the account. */
 const NO_MINIMUM =
   /\b(no minimums?|zero minimums?|sem saldos? m[ií]nimos?|sin saldos? m[ií]nimos?|kein(?:e|en)? mindest\w*)\b[^.]*/i;
@@ -78,6 +81,9 @@ describe('5.775 — search and share texts say only what the site backs up', () 
       'gives you access to DeFi',
       'Veja pra onde seu dinheiro vai',
       'bringt dein Geld dorthin',
+      'O diBoaS conecta você a protocolos',
+      'diBoaS te conecta con protocolos',
+      'diBoaS verbindet dich mit Protokollen',
     ]) {
       expect(text, text).toMatch(OVERSTATES);
     }
@@ -102,5 +108,38 @@ describe('5.775 — search and share texts say only what the site backs up', () 
     expect(seo.match(/strategies: \{\s*title: '([^']*)'/)?.[1]).not.toMatch(INVESTMENT);
     const og = source('apps/web/src/lib/og/templates.tsx');
     expect(og.match(/strategies: \{\s*title: '([^']*)'/)?.[1]).not.toMatch(INVESTMENT);
+  });
+
+  // 5.792 (founder approval 2026-11-05, audit/WORDING_PACKAGE_5792_PUBLIC_CLAIMS_2026-11-05.md):
+  // the protocols page and the strategies table heading said "your money may touch" / "where your
+  // money goes"; the whole protocols catalogue and that heading are now held to the same verbs.
+  it.each(LOCALES)(
+    'should keep every %s protocols text and the strategies table heading free of money-connecting verbs',
+    (l) => {
+      for (const text of strings(catalogue(l, 'protocols')))
+        expect(text, text.slice(0, 80)).not.toMatch(OVERSTATES);
+      expect(catalogue(l, 'strategies').protocols.header).not.toMatch(OVERSTATES);
+    }
+  );
+
+  // llms.txt is read by AI crawlers: it says only what is live (5.792).
+  const LLMS_OVERCLAIMS =
+    /free and instant|investment strateg|AI-powered|buy and hold|send, save, invest|send and receive money/i;
+
+  it('should keep llms.txt to what is live today', () => {
+    const llms = source('apps/web/public/llms.txt');
+    expect(llms).toContain('No real-money features are live.');
+    expect(llms).not.toMatch(LLMS_OVERCLAIMS);
+  });
+
+  it('should flag each llms.txt overclaim (positive control)', () => {
+    for (const t of [
+      'Send and receive money globally, free and instant',
+      'Goal-driven investment strategies',
+      'AI-powered financial guidance',
+      'Buy and hold digital assets',
+    ]) {
+      expect(t, t).toMatch(LLMS_OVERCLAIMS);
+    }
   });
 });

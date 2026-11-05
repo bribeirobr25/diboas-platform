@@ -245,7 +245,7 @@
     "showLess": "Less"
   },
   "protocols": {
-    "header": "Where your money goes",
+    "header": "Where each strategy puts the money",
     "intro": "Every strategy is built from a combination of these protocols. They're independent, open-source, and you can verify everything yourself.",
     "columnHeaders": {
       "protocol": "Protocol",

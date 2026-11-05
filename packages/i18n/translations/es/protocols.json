@@ -22,7 +22,7 @@
   "why": {
     "h2": "Transparencia",
     "text1": "Pregunta a tu banco adónde va tu dinero. No te lo van a decir.",
-    "text2": "Nosotros sí. Cada sistema en esta página es uno que tu dinero puede tocar cuando usas una estrategia de diBoaS. Publicamos los nombres, el historial, las auditorías de seguridad y las cosas que salieron mal. Porque deberías saberlo.",
+    "text2": "Nosotros sí. Esta página recoge cada sistema que diBoaS ha investigado —los que usan hoy sus estrategias y los que no— con los nombres, el historial, las auditorías de seguridad y las cosas que salieron mal. Porque deberías saberlo.",
     "text3": "Cada protocolo en esta página se ganó su lugar. Comprobamos cuánto tiempo lleva funcionando, quién auditó el código, cómo manejó los problemas y si gente real le confía dinero real. Si no pasó, no está aquí.",
     "scope": "Listamos 25 protocolos aquí. Nuestras estrategias actualmente usan 6 de ellos. El resto son protocolos que hemos investigado y aprobado, y podrían incluirse en futuras estrategias a medida que expandamos.",
     "warningBox": "Importante: Estar listado aquí no significa riesgo cero. Significa que hicimos nuestro trabajo y somos honestos sobre lo que encontramos. Cada sistema en esta página conlleva riesgo técnico, riesgo de mercado y la posibilidad de pérdidas."
@@ -380,7 +380,7 @@
   },
   "notIs": {
     "h2": "Atención",
-    "text": "Esto no es una recomendación de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS están construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningún protocolo tú mismo. Esta página existe para que puedas ver exactamente dónde va tu dinero y verificar todo lo que decimos.\n\nCada protocolo aquí conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculación. Sistemas que han operado de forma segura durante años pueden enfrentar problemas mañana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nSi no estás seguro de si esto es adecuado para ti, consulta a un asesor financiero autorizado antes de tomar decisiones de inversión.",
+    "text": "Esto no es una recomendación de usar ninguno de estos protocolos directamente.\n\nLas estrategias de diBoaS están construidas sobre estos sistemas, y nuestro equipo maneja la complejidad. No necesitas interactuar con ningún protocolo tú mismo. Esta página existe para que puedas ver sobre qué sistemas están construidas las estrategias de diBoaS y verificar todo lo que decimos.\n\nCada protocolo aquí conlleva riesgo. Los smart contracts pueden tener bugs. Los mercados pueden desplomarse. Las stablecoins pueden perder su vinculación. Sistemas que han operado de forma segura durante años pueden enfrentar problemas mañana. Monitorizamos estos sistemas de forma continua, pero no podemos eliminar el riesgo. Nadie puede.\n\nSi no estás seguro de si esto es adecuado para ti, consulta a un asesor financiero autorizado antes de tomar decisiones de inversión.",
     "warmLine": "Esta página existe porque creemos que mereces saberlo. No porque tengas que hacer nada con ella."
   },
   "faq": {

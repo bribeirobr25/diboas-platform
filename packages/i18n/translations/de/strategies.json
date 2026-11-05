@@ -245,7 +245,7 @@
     "showLess": "Weniger"
   },
   "protocols": {
-    "header": "Wohin dein Geld geht",
+    "header": "Wo jede Strategie das Geld einsetzt",
     "intro": "Jede Strategie baut auf einer Kombination dieser Protokolle auf. Sie sind unabhängig, quelloffen, und du kannst alles selbst überprüfen.",
     "columnHeaders": {
       "protocol": "Protokoll",

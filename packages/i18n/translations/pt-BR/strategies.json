@@ -245,7 +245,7 @@
     "showLess": "Menos"
   },
   "protocols": {
-    "header": "Onde seu dinheiro vai",
+    "header": "Onde cada estratégia coloca o dinheiro",
     "intro": "Cada estratégia é construída a partir de uma combinação desses protocolos. Eles são independentes, de código aberto, e você pode verificar tudo por conta própria.",
     "columnHeaders": {
       "protocol": "Protocolo",
