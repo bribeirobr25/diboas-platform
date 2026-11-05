@@ -31,7 +31,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { SERIES } from './catalogue.mjs';
-import { compareCloses, reconcileDistributions } from './checks.mjs';
+import { compareCloses, monthlyChanges, reconcileDistributions } from './checks.mjs';
 import { monthlyBars, weeklyCloses } from './derive.mjs';
 import {
   checkException,
@@ -83,20 +83,56 @@ export function usableBars(rows) {
  * that compared the same day and agreed (two of three sources agree: the
  * disagreeing check is the odd one out, which is reported, never hidden).
  */
+/** Monthly series are dated on the month's first day; their checks shift by months. */
+const MONTHLY_KINDS = new Set(['monthly', 'index']);
+
+/**
+ * What a check compares (catalogue `compare`):
+ *   - absent      the values themselves, relative tolerance (prices, FX)
+ *   - 'points'    the values themselves, absolute tolerance (interest rates)
+ *   - 'change'    the month-on-month % change, absolute tolerance in points
+ *                 (price indices on different base years). `checkIsChange`
+ *                 says the check source already publishes the change (BCB
+ *                 SGS 433 for the IPCA); `onlyFirstOfMonth` keeps a daily
+ *                 check source's first-of-month values (BCB SGS 226 for TR).
+ */
+export function comparable(s, c, primaryRows, checkRows) {
+  const firsts = c.onlyFirstOfMonth ? checkRows.filter((r) => r.date.endsWith('-01')) : checkRows;
+  const shiftUnit = MONTHLY_KINDS.has(s.kind) ? 'month' : 'day';
+  if (c.compare === 'change')
+    return {
+      primary: monthlyChanges(primaryRows),
+      check: c.checkIsChange ? firsts : monthlyChanges(firsts),
+      opts: { mode: 'points', shiftUnit },
+    };
+  return {
+    primary: primaryRows,
+    check: firsts,
+    opts: {
+      rangeSlack: c.rangeSlack,
+      mode: c.compare === 'points' ? 'points' : 'relative',
+      shiftUnit,
+    },
+  };
+}
+
 async function runChecks(s, { rows, newDates, from, to, today, fetcher, exceptions, out }) {
   const results = [];
   for (const c of s.checks) {
     const cFrom = c.since && c.since > from ? c.since : from;
-    const eligible = rows.filter((r) => r.date >= cFrom);
-    if (!eligible.length) continue; // the window lies before this check's coverage
+    const inCoverage = rows.filter((r) => r.date >= cFrom);
+    if (!inCoverage.length) continue; // the window lies before this check's coverage
     try {
       const chk = complete(
         (await fetcher.fetchSource(c.source, { from: cFrom, to, series: s.id })).rows,
         today
       );
-      const res = compareCloses(eligible, chk, c.tolerance, { rangeSlack: c.rangeSlack });
+      const cmp = comparable(s, c, inCoverage, chk);
+      const eligible = cmp.primary;
+      if (!eligible.length) continue; // a single month has no change to compare yet
+      const res = compareCloses(eligible, cmp.check, c.tolerance, cmp.opts);
       const bad = new Set(res.outliers.map((o) => o.date));
-      const agreed = new Set(chk.map((r) => r.date).filter((d) => !bad.has(d)));
+      const agreed = new Set(cmp.check.map((r) => r.date).filter((d) => !bad.has(d)));
       results.push({ c, cFrom, eligible, res, agreed });
     } catch (e) {
       out.checks.push({ source: c.source.provider, error: String(e.message) });
@@ -126,7 +162,7 @@ async function runChecks(s, { rows, newDates, from, to, today, fetcher, exceptio
     if (res.alignment?.misaligned) out.blocked.push(`check ${provider} looks shifted by a day`);
     if (unresolved.length)
       out.blocked.push(
-        `check ${provider}: ${unresolved.length} day(s) beyond ${c.tolerance * 100}% (first ${unresolved[0].date})`
+        `check ${provider}: ${unresolved.length} day(s) beyond ${c.compare ? `${c.tolerance} points` : `${c.tolerance * 100}%`} (first ${unresolved[0].date})`
       );
   }
   const firstChecked = s.checks.map((c) => c.since ?? s.since).sort()[0];
@@ -255,7 +291,7 @@ export async function collectSeries(s, { store, fetcher, today, backfill, except
   let weekly;
   let monthly;
   try {
-    weekly = s.kind === 'monthly' ? null : weeklyCloses(daily.all, today);
+    weekly = MONTHLY_KINDS.has(s.kind) ? null : weeklyCloses(daily.all, today);
     monthly = monthlyBars(daily.all, ev?.all ?? [], today);
   } catch (e) {
     out.blocked.push(`derived series: ${e.message}`);

@@ -287,6 +287,205 @@ export function parseWgcChart(body, label) {
 }
 
 /** Keep the last row per date (providers occasionally repeat a day). */
+// ---- official statistics (inflation and interest rates; plan 5.760, 2026-11-05) ----
+
+const monthDate = (ym, label) => {
+  if (!/^\d{4}-\d{2}$/.test(ym)) fail(label, `bad month ${ym}`);
+  return `${ym}-01`;
+};
+
+/**
+ * Split one CSV line, honouring double quotes (statistics agencies quote any
+ * field that contains the separator: BIS and OECD titles carry commas).
+ */
+export function splitCsvLine(line, sep = ',') {
+  const out = [];
+  let cur = '';
+  let quoted = false;
+  for (let i = 0; i < line.length; i += 1) {
+    const ch = line[i];
+    if (quoted) {
+      if (ch === '"' && line[i + 1] === '"') {
+        cur += '"';
+        i += 1;
+      } else if (ch === '"') quoted = false;
+      else cur += ch;
+    } else if (ch === '"') quoted = true;
+    else if (ch === sep) {
+      out.push(cur);
+      cur = '';
+    } else cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+/**
+ * SDMX CSV, as served by the ECB Data Portal (`format=csvdata`), BIS
+ * (`format=csv`) and the Bundesbank
+ * (`Accept: text/csv`, semicolon-separated, with a byte-order mark). Columns
+ * are found by name (`TIME_PERIOD`, `OBS_VALUE`), never by position. A
+ * monthly period (`2026-09`) is stored as its first day; a daily one as itself.
+ */
+export function parseSdmxCsv(body, label) {
+  const lines = String(body)
+    .replace(/^\uFEFF/, '')
+    .trim()
+    .split(/\r?\n/);
+  const sep = (lines[0] ?? '').includes(';') && !(lines[0] ?? '').includes(',') ? ';' : ',';
+  const head = splitCsvLine(lines[0] ?? '', sep);
+  const at = (name) => head.indexOf(name);
+  const t = at('TIME_PERIOD');
+  const v = at('OBS_VALUE');
+  if (t < 0 || v < 0) fail(label, `no TIME_PERIOD/OBS_VALUE in ${String(lines[0]).slice(0, 80)}`);
+  const rows = [];
+  for (const line of lines.slice(1)) {
+    if (!line.trim()) continue;
+    const f = splitCsvLine(line, sep);
+    const period = f[t];
+    const date = /^\d{4}-\d{2}$/.test(period) ? `${period}-01` : period;
+    const close = num(f[v]);
+    if (close != null) rows.push({ date, close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
+/** BLS public API v1 (`/timeseries/data/<id>?startyear=&endyear=`, at most ten years per call). */
+export function parseBlsV1(body, label) {
+  const j = JSON.parse(body);
+  if (j?.status !== 'REQUEST_SUCCEEDED')
+    fail(label, `status ${j?.status}: ${(j?.message ?? []).join(' ').slice(0, 120)}`);
+  const data = j?.Results?.series?.[0]?.data;
+  if (!Array.isArray(data)) fail(label, 'no Results.series[0].data');
+  const rows = [];
+  for (const d of data) {
+    if (!/^M(0[1-9]|1[0-2])$/.test(d.period)) continue; // M13 is the annual average
+    const close = num(d.value);
+    if (close != null) rows.push({ date: `${d.year}-${d.period.slice(1)}-01`, close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
+/** IBGE SIDRA API (`/values/t/<table>/.../p/<periods>`): the first element is the header row. */
+export function parseSidra(body, label) {
+  const j = JSON.parse(body);
+  if (!Array.isArray(j) || j.length < 1) fail(label, 'not a SIDRA array');
+  const rows = [];
+  for (const r of j.slice(1)) {
+    const p = String(r.D3C ?? '');
+    if (!/^\d{6}$/.test(p)) fail(label, `bad period ${p}`);
+    const close = num(r.V);
+    if (close != null) rows.push({ date: `${p.slice(0, 4)}-${p.slice(4)}-01`, close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
+/**
+ * Banco Central do Brasil SGS API (`bcdata.sgs.<code>/dados?formato=json`):
+ * `[{data: "dd/mm/yyyy", valor: "0.16"}]`. A monthly series is dated on the
+ * month's first day by the BCB itself.
+ */
+export function parseSgs(body, label) {
+  const j = JSON.parse(body);
+  if (!Array.isArray(j)) fail(label, `not an SGS array: ${String(body).slice(0, 80)}`);
+  const rows = [];
+  for (const r of j) {
+    const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(r.data));
+    if (!m) fail(label, `bad date ${r.data}`);
+    const close = num(r.valor);
+    if (close != null) rows.push({ date: iso(m[3], m[2], m[1]), close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
+/**
+ * Eurostat dissemination API (JSON-stat 2.0) for ONE series: every dimension
+ * but time must have a single category, so the flat value index is the time
+ * index. More than one series in the response is refused, not guessed.
+ */
+export function parseEurostat(body, label) {
+  const j = JSON.parse(body);
+  const ids = j?.id;
+  const size = j?.size;
+  if (!Array.isArray(ids) || !Array.isArray(size)) fail(label, 'not JSON-stat (no id/size)');
+  ids.forEach((d, i) => {
+    if (d !== 'time' && size[i] !== 1) fail(label, `dimension ${d} has ${size[i]} categories`);
+  });
+  const index = j?.dimension?.time?.category?.index;
+  if (!index) fail(label, 'no time dimension');
+  const rows = [];
+  for (const [ym, k] of Object.entries(index)) {
+    const close = num(j.value?.[String(k)]);
+    if (close != null) rows.push({ date: monthDate(ym, label), close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
+const BDE_MONTHS = {
+  ENE: '01',
+  FEB: '02',
+  MAR: '03',
+  ABR: '04',
+  MAY: '05',
+  JUN: '06',
+  JUL: '07',
+  AGO: '08',
+  SEP: '09',
+  OCT: '10',
+  NOV: '11',
+  DIC: '12',
+};
+
+/**
+ * Banco de España statistical tables (`be1907.csv`, `be2206.csv`): Latin-1,
+ * one column per series, the series code in the row whose first cell is
+ * "CÓDIGO DE LA SERIE", months written "SEP 2026", missing values "_".
+ *
+ * @param {{code: string}} opts the series code (column) to read
+ */
+export function parseBdeTable(body, label, { code }) {
+  const lines = String(body)
+    .trim()
+    .split(/\r?\n/)
+    .map((l) => splitCsvLine(l));
+  const codes = lines.find((f) => /^C.DIGO DE LA SERIE$/.test(f[0] ?? ''));
+  if (!codes) fail(label, 'no series-code row');
+  const col = codes.indexOf(code);
+  if (col < 0) fail(label, `series ${code} not in the table`);
+  const rows = [];
+  for (const f of lines) {
+    const m = /^([A-Z]{3}) (\d{4})$/.exec(f[0] ?? '');
+    if (!m) continue;
+    const mm = BDE_MONTHS[m[1]];
+    if (!mm) fail(label, `unknown month ${m[1]}`);
+    const close = num(f[col]);
+    if (close != null) rows.push({ date: `${m[2]}-${mm}-01`, close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
+/**
+ * US Treasury daily par yield curve CSV (one calendar year per file): dates
+ * "MM/DD/YYYY", one column per maturity.
+ *
+ * @param {{column: string}} opts the maturity column, e.g. "1 Yr"
+ */
+export function parseTreasuryCsv(body, label, { column }) {
+  const lines = String(body).trim().split(/\r?\n/);
+  const head = splitCsvLine(lines[0] ?? '');
+  const col = head.indexOf(column);
+  if (head[0] !== 'Date' || col < 0) fail(label, `no Date/${column} columns`);
+  const rows = [];
+  for (const line of lines.slice(1)) {
+    const f = splitCsvLine(line);
+    const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(f[0] ?? '');
+    if (!m) fail(label, `bad date ${f[0]}`);
+    const close = num(f[col]);
+    if (close != null) rows.push({ date: iso(m[3], m[1], m[2]), close });
+  }
+  return { rows: dedupeLast(rows, label) };
+}
+
 function dedupeLast(rows, label) {
   const by = new Map();
   for (const r of rows) {

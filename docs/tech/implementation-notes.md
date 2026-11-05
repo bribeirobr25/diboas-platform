@@ -1152,3 +1152,12 @@ pinned by a test that was watched failing.
   against the LBMA PM fix (futures were measured and rejected as a check: basis up to 6.9%).
 - **The weekly series calls the engine's own `strictFridayCloses`** (FRIDAY-1); there is no second
   copy of the rule.
+- **Official statistics (2026-11-05, plan `5.760`):** consumer-price indices (`kind: 'index'`) are
+  stored as index LEVELS and checked on their month-on-month change, never on levels: agencies
+  publish the same index on different base years. A change exists only between consecutive months;
+  a month the publisher skipped stays absent. Interest rates are checked in absolute points. Zero
+  is a value (`sameValue`). A check is a second publisher of the same figure, not a related figure:
+  the overnight Selic is not a check for the CDI, and a copy (the ECB's HICP, which republishes
+  Eurostat) is labelled as one. A series whose only source starts after 2016 states its
+  `historyLimit`. The commit guard's revisable list is the catalogue's `revisable` flag, not a
+  second list.

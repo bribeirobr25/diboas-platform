@@ -17,12 +17,21 @@
  *   'fund'       a price series that also pays distributions; total return is
  *                computed by diBoaS from the closes and the ex-dates (5.633)
  *   'rate'       a published daily rate (yields, FX, the broad dollar index)
- *   'monthly'    published once a month (M2)
+ *   'monthly'    published once a month (M2, monthly interest rates)
+ *   'index'      a monthly price index (consumer prices); checks compare the
+ *                month-on-month change, because agencies publish the same
+ *                index on different base years
+ *
+ * Check `compare` (see collect.mjs `comparable`): absent = the values, with a
+ * relative tolerance; 'points' = the values, with an absolute tolerance in
+ * percentage points (interest rates); 'change' = the month-on-month % change,
+ * absolute tolerance in points (price indices).
  */
 
 const DAY = 86_400_000;
 const yyyymmdd = (d) => d.replaceAll('-', '');
 const unix = (d) => Math.floor(Date.parse(`${d}T00:00:00Z`) / 1000);
+const dmy = (d) => `${d.slice(8, 10)}/${d.slice(5, 7)}/${d.slice(0, 4)}`;
 
 /** URL builders, one per provider. `from`/`to` are ISO dates (inclusive). */
 export const SOURCES = {
@@ -109,11 +118,83 @@ export const SOURCES = {
     url: () => `https://stockanalysis.com/api/symbol/e/${sym}/dividend`,
     parser: 'stockanalysis',
   }),
+  // ---- official statistics (plan 5.760, 2026-11-05; probed and agreed that day) ----
+  ecb: (flow, key) => ({
+    provider: 'ecb',
+    url: (from) =>
+      `https://data-api.ecb.europa.eu/service/data/${flow}/${key}?format=csvdata&startPeriod=${from.slice(0, 7)}`,
+    parser: 'sdmx',
+  }),
+  bis: (country) => ({
+    provider: 'bis',
+    url: (from) =>
+      `https://stats.bis.org/api/v2/data/dataflow/BIS/WS_LONG_CPI/1.0/M.${country}.628?format=csv&startPeriod=${from.slice(0, 7)}`,
+    parser: 'sdmx',
+  }),
+  bundesbank: (flow, key) => ({
+    provider: 'bundesbank',
+    url: (from) =>
+      `https://api.statistiken.bundesbank.de/rest/data/${flow}/${key}?startPeriod=${from.slice(0, 7)}`,
+    headers: { Accept: 'text/csv' },
+    parser: 'sdmx',
+  }),
+  bls: (id) => ({
+    provider: 'bls',
+    // public API v1: no key, at most ten calendar years per request. The years
+    // must go in a POST body: a GET ignores them and returns the last three
+    // years (measured 2026-11-05).
+    url: () => 'https://api.bls.gov/publicAPI/v1/timeseries/data/',
+    body: (from, to) =>
+      JSON.stringify({ seriesid: [id], startyear: from.slice(0, 4), endyear: to.slice(0, 4) }),
+    headers: { 'Content-Type': 'application/json' },
+    parser: 'bls',
+    chunkDays: 3000,
+  }),
+  sidraIpca: () => ({
+    provider: 'ibge',
+    // table 1737, variable 2266: the IPCA index level (Dec 1993 = 100)
+    url: (from, to) =>
+      `https://apisidra.ibge.gov.br/values/t/1737/n1/all/v/2266/p/${from.slice(0, 4)}${from.slice(5, 7)}-${to.slice(0, 4)}${to.slice(5, 7)}/d/v2266%2013`,
+    parser: 'sidra',
+  }),
+  sgs: (code, { daily = false } = {}) => ({
+    provider: 'bcb',
+    url: (from, to) =>
+      `https://api.bcb.gov.br/dados/serie/bcdata.sgs.${code}/dados?formato=json&dataInicial=${dmy(from)}&dataFinal=${dmy(to)}`,
+    parser: 'sgs',
+    // daily series answer at most ten years per request
+    ...(daily ? { chunkDays: 3000 } : {}),
+  }),
+  eurostat: (geo) => ({
+    provider: 'eurostat',
+    // HICP under ECOICOP 2018 (2025 = 100), back-cast by Eurostat to 2010
+    url: (from) =>
+      `https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_minr?geo=${geo}&coicop18=TOTAL&unit=I25&sinceTimePeriod=${from.slice(0, 7)}`,
+    parser: 'eurostat',
+  }),
+  bde: (table, code) => ({
+    provider: 'bde',
+    url: () => `https://www.bde.es/webbe/es/estadisticas/compartido/datos/csv/${table}.csv`,
+    parser: 'bde',
+    parserOpts: { code },
+    encoding: 'latin1',
+  }),
+  treasury: (column) => ({
+    provider: 'treasury',
+    url: (year) =>
+      `https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/${year}/all?type=daily_treasury_yield_curve&field_tdr_date_value=${year}&page&_format=csv`,
+    parser: 'treasury',
+    parserOpts: { column },
+    perYear: true,
+  }),
 };
 
 /**
  * The series. `since` is the first date requested on a backfill (the tools
- * already start in 2010; the requirement is at least ten years).
+ * already start in 2010; the requirement is at least ten years). A series
+ * whose only source starts later says so in `historyLimit`; the store's
+ * README states it, and a tool that uses the series must show it (plan 5.760,
+ * increment 4).
  */
 export const SERIES = [
   // ---- funds: closes + distributions; total return computed by diBoaS ----
@@ -281,6 +362,176 @@ export const SERIES = [
     // three days reviewed in the store (Fed vs CNBC; the ECB rate as third source).
     checks: [{ source: SOURCES.cnbc(cnbc), tolerance, rangeSlack: 0.003 }],
   })),
+  // ---- consumer prices: monthly index levels; checks compare the monthly change ----
+  // Founder 2026-11-05: inflation is stored, not hand-typed (DR items 4, 12).
+  // Each is read whole every run (about 200 rows): Eurostat revises its flash
+  // estimate, and a whole history is what the change checks compare.
+  {
+    id: 'cpi_us',
+    kind: 'index',
+    label: 'US CPI-U, all items, not seasonally adjusted (BLS, 1982-84 = 100)',
+    since: '2010-01-01',
+    primary: SOURCES.bls('CUUR0000SA0'),
+    // BLS published no 2025-10 index (the 2025 shutdown): that month and the
+    // change into the next one are absent, never interpolated. The OECD's copy
+    // was tested as a second check and dropped: its API answered HTTP 500 on
+    // 2026-11-05, and a check that fails blocks the series.
+    checks: [{ source: SOURCES.bis('US'), compare: 'change', tolerance: 0.02 }],
+    fullHistory: true,
+  },
+  {
+    id: 'cpi_br',
+    kind: 'index',
+    label: 'Brazil IPCA (IBGE, Dec 1993 = 100)',
+    since: '2010-01-01',
+    primary: SOURCES.sidraIpca(),
+    checks: [
+      // the BCB publishes the IPCA's monthly change itself (2 decimals)
+      { source: SOURCES.sgs(433), compare: 'change', checkIsChange: true, tolerance: 0.01 },
+      { source: SOURCES.bis('BR'), compare: 'change', tolerance: 0.02 },
+    ],
+    fullHistory: true,
+  },
+  ...[
+    ['hicp_de', 'DE', 'Germany'],
+    ['hicp_es', 'ES', 'Spain'],
+  ].map(([id, geo, name]) => ({
+    id,
+    kind: 'index',
+    label: `${name} HICP (Eurostat, ECOICOP 2018, 2025 = 100)`,
+    since: '2010-01-01',
+    primary: SOURCES.eurostat(geo),
+    // The ECB republishes Eurostat's HICP: this check catches a transport or
+    // parsing error, not an error at Eurostat (no independent HICP source is
+    // free; BIS carries the national VPI/IPC, a different index).
+    checks: [
+      {
+        source: SOURCES.ecb('HICP', `M.${geo}.N.000000.4D0.INX`),
+        compare: 'change',
+        tolerance: 0.01,
+      },
+    ],
+    revisable: true,
+    fullHistory: true,
+  })),
+  // ---- interest rates (founder 2026-11-05, DR items 9, 13, 17, 18) ----
+  {
+    id: 'rate_us_1y',
+    kind: 'rate',
+    label: 'US 1-year Treasury constant-maturity yield (%)',
+    since: '2010-01-01',
+    primary: SOURCES.fred('DGS1'),
+    checks: [{ source: SOURCES.treasury('1 Yr'), compare: 'points', tolerance: 0.005 }],
+  },
+  {
+    id: 'rate_us_savings',
+    kind: 'monthly',
+    label: 'US national rate on savings deposits (FDIC, %)',
+    since: '2021-04-01',
+    historyLimit:
+      'FDIC publishes this national rate from 2021-04; no official series covers 2010-2021.',
+    // FDIC's own page is not machine-readable; FRED carries the FDIC series.
+    primary: SOURCES.fred('SNDR'),
+    checks: [],
+    fullHistory: true,
+  },
+  {
+    id: 'rate_br_selic',
+    kind: 'rate',
+    label: 'Brazil Selic target (BCB SGS 432, % a year)',
+    since: '2010-01-01',
+    primary: SOURCES.sgs(432, { daily: true }),
+    checks: [],
+  },
+  {
+    id: 'rate_br_selic_effective',
+    kind: 'rate',
+    label: 'Brazil Selic, effective, annualised (BCB SGS 1178, % a year)',
+    since: '2010-01-01',
+    primary: SOURCES.sgs(1178, { daily: true }),
+    checks: [],
+  },
+  {
+    id: 'rate_br_cdi',
+    kind: 'rate',
+    label: 'Brazil CDI (BCB SGS 12, % a day)',
+    since: '2010-01-01',
+    primary: SOURCES.sgs(12, { daily: true }),
+    // The interbank CDI has no independent free source. The overnight Selic
+    // (SGS 11) was measured as a check and REJECTED: it is a different rate,
+    // up to 0.0014 points a day apart in 2012-2014 (identical only since 2020).
+    checks: [],
+  },
+  {
+    id: 'rate_br_tr',
+    kind: 'monthly',
+    label: 'Brazil TR, reference rate (BCB SGS 7811, % a month)',
+    since: '2010-01-01',
+    primary: SOURCES.sgs(7811),
+    // SGS 226 publishes TR by start date; its month-first value is the month's TR.
+    checks: [
+      {
+        source: SOURCES.sgs(226, { daily: true }),
+        compare: 'points',
+        onlyFirstOfMonth: true,
+        tolerance: 0.00005,
+      },
+    ],
+    fullHistory: true,
+  },
+  {
+    id: 'rate_br_poupanca',
+    kind: 'monthly',
+    label: 'Brazil poupança return (BCB SGS 196, % a month)',
+    since: '2012-06-01',
+    primary: SOURCES.sgs(196),
+    checks: [],
+    fullHistory: true,
+  },
+  ...[
+    ['de', 'DE', 'Germany', SOURCES.bundesbank, null],
+    ['es', 'ES', 'Spain', null, ['be1907', 'DN_1TI1T0010', 'DN_1TI2T0025']],
+  ].flatMap(([cc, area, name, bbk, bde]) =>
+    [
+      ['overnight', 'L21.A', 'household overnight deposits', bde?.[1]],
+      ['deposit_1y', 'L22.F', 'household deposits up to 1 year, new business', bde?.[2]],
+    ].map(([what, item, words, bdeCode]) => ({
+      id: `rate_${cc}_${what}`,
+      kind: 'monthly',
+      label: `${name}: ${words} (ECB MIR, %)`,
+      since: '2010-01-01',
+      primary: SOURCES.ecb('MIR', `M.${area}.B.${item}.R.A.2250.EUR.N`),
+      checks: [
+        bbk
+          ? {
+              source: bbk('BBIM1', `M.DE.B.${item}.R.A.2250.EUR.N`),
+              compare: 'points',
+              tolerance: 0.006,
+            }
+          : { source: SOURCES.bde(bde[0], bdeCode), compare: 'points', tolerance: 0.006 },
+      ],
+      fullHistory: true,
+    }))
+  ),
+  {
+    id: 'rate_de_1y',
+    kind: 'monthly',
+    label: 'Germany 1-year federal securities yield (Bundesbank term structure, %)',
+    since: '2010-01-01',
+    primary: SOURCES.bundesbank('BBSIS', 'M.I.ZST.ZI.EUR.S1311.B.A604.R01XX.R.A.A._Z._Z.A'),
+    checks: [],
+    fullHistory: true,
+  },
+  {
+    id: 'rate_es_1y',
+    kind: 'monthly',
+    label: 'Spain 12-month Letras del Tesoro yield (Banco de España, %)',
+    since: '2019-01-01',
+    historyLimit: "Banco de España's table starts in 2019; no free source covers 2010-2018.",
+    primary: SOURCES.bde('be2206', 'DMPLETIBEORCFE00345A00376TIRMEP.M'),
+    checks: [],
+    fullHistory: true,
+  },
 ];
 
 export const SERIES_BY_ID = new Map(SERIES.map((s) => [s.id, s]));
