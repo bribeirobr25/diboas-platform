@@ -107,7 +107,7 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     waitlist: {
       joinedMessage: ['1 steht jetzt auf der Warteliste!', '5 steht jetzt auf der Warteliste!'],
       position: 'Platz',
-      cta: 'Mach mit bei diBoaS — finanzielle Freiheit einfach gemacht',
+      cta: 'Mach mit bei diBoaS – finanzielle Freiheit einfach gemacht',
     },
     calculator: {
       badge: 'Dream-Mode-Rechner',

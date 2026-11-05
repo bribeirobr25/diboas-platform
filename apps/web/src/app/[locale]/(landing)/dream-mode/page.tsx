@@ -13,9 +13,11 @@ export const dynamic = 'auto';
  * Generate metadata for the Dream Mode page
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
-  const { locale: _locale } = await params;
+  await params;
+  // "Dream Mode" is a feature name, the same in every locale (preDream.welcome.title); the
+  // layout adds "| diBoaS" (5.793).
   return {
-    title: pageTitle('Dream Mode - diBoaS'),
+    title: pageTitle('Dream Mode'),
     description:
       'Visualize your financial future. See what different strategies could do for your money over time.',
     robots: {
@@ -23,7 +25,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       follow: false,
     },
     openGraph: {
-      title: 'Dream Mode - diBoaS',
+      title: 'Dream Mode | diBoaS',
       description: 'Visualize your financial future with our interactive simulation.',
       type: 'website',
     },

@@ -30,8 +30,8 @@
       "description": "Join me on diBoaS — Financial Freedom Made Simple"
     },
     "calculator": {
-      "title": "My investment could grow to {formattedAmount}",
-      "description": "In {years} years with diBoaS Dream Mode Calculator"
+      "title": "My money could grow to {formattedAmount}",
+      "description": "Worked out with the diBoaS Dream Mode calculator"
     },
     "toolResult": {
       "title": "What it could become: {value}",

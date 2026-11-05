@@ -26,7 +26,7 @@
   "resultMoment": {
     "eyebrow": "What your idle cash could become",
     "chartAria": "How your idle cash compares over {years} years in your bank versus at diBoaS.",
-    "shareText": "My idle cash could become {value} at diBoaS over {years} years. See what yours could earn."
+    "shareText": "My idle cash could become {value} at diBoaS over {years, plural, one {# year} other {# years}}. See what yours could earn."
   },
   "vignette": {
     "subtitle": "Cash that sits earns almost nothing. Give it a job, and it can compound."

@@ -17,7 +17,7 @@
     "downloadStarted": "Baixando...",
     "downloadComplete": "Imagem salva!",
     "shareSuccess": "Compartilhado!",
-    "shareFailed": "Não deu pra compartilhar. Tenta baixar a imagem.",
+    "shareFailed": "Não deu pra compartilhar. Tente baixar a imagem.",
     "shareCancelled": "Compartilhamento cancelado",
     "linkedInCopied": "Texto copiado! Cole no seu post do LinkedIn."
   },
@@ -30,8 +30,8 @@
       "description": "Entre você também no diBoaS — liberdade financeira simplificada"
     },
     "calculator": {
-      "title": "Meu investimento poderia crescer para {formattedAmount}",
-      "description": "Em {years} anos com o diBoaS Dream Mode Calculator"
+      "title": "Meu dinheiro poderia chegar a {formattedAmount}",
+      "description": "Calculado com a calculadora Dream Mode do diBoaS"
     },
     "toolResult": {
       "title": "No que isso poderia se transformar: {value}",

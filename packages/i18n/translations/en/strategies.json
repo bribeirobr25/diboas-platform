@@ -4,7 +4,8 @@
     "description": "10 strategies. Different goals. Different timelines. Different risk levels. Find the strategy that fits your life.",
     "jsonLd": {
       "serviceDescription": "10 strategies, from conservative to growth-focused, for different goals and timelines."
-    }
+    },
+    "ogTitle": "Find the Strategy That Fits Your Life | diBoaS"
   },
   "hero": {
     "headline": "The access they kept. Now yours to choose.",

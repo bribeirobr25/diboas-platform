@@ -26,7 +26,7 @@
   "resultMoment": {
     "eyebrow": "En qué puede convertirse tu dinero parado",
     "chartAria": "Cómo se compara tu dinero parado en {years} años en tu banco frente a diBoaS.",
-    "shareText": "Mi dinero parado podría convertirse en {value} en diBoaS en {years} años. Mira cuánto podría ganar el tuyo."
+    "shareText": "Mi efectivo parado podría convertirse en {value} con diBoaS en {years, plural, one {# año} other {# años}}. Mira cuánto podría ganar el tuyo."
   },
   "vignette": {
     "subtitle": "El efectivo parado casi no gana. Dale un propósito, y puede rendir más."

@@ -49,7 +49,7 @@
     "eyebrowUsd": "Was deine ungenutzten Dollar verdienen",
     "chartAria": "Wie sich {currency} über {years} Jahre vergleicht: als Bargeld, bei einer lokalen Bank und als digitaler Dollar bei diBoaS.",
     "chartAriaUsd": "Wie sich deine Dollar über {years} Jahre vergleichen: bei einer Bank gegenüber digitalem Dollar bei diBoaS.",
-    "shareText": "In {years} Jahren könnten meine {currency} als digitaler Dollar bei diBoaS {value} wert sein. Sieh, wie sich deins schlägt."
+    "shareText": "In {years, plural, one {einem Jahr} other {# Jahren}} könnten meine {currency} als digitale Dollar bei diBoaS {value} wert sein. Sieh nach, wie es bei dir aussähe."
   },
   "vignette": {
     "subtitle": "Wo dein Geld liegt, zählt. Die Währung, in der es verdient, zählt mehr."

@@ -26,7 +26,7 @@
   "resultMoment": {
     "eyebrow": "Was aus deinem ungenutzten Geld werden kann",
     "chartAria": "Wie sich dein ungenutztes Geld über {years} Jahre bei deiner Bank gegenüber diBoaS vergleicht.",
-    "shareText": "Mein ungenutztes Geld könnte bei diBoaS in {years} Jahren {value} werden. Sieh, was deins verdienen könnte."
+    "shareText": "Mein liegendes Geld könnte bei diBoaS in {years, plural, one {einem Jahr} other {# Jahren}} zu {value} werden. Sieh nach, was deins verdienen könnte."
   },
   "vignette": {
     "subtitle": "Liegendes Geld verdient kaum etwas. Gib ihm eine Aufgabe, und es kann wachsen."

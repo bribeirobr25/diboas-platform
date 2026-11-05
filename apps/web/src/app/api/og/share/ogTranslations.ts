@@ -151,7 +151,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     waitlist: {
       joinedMessage: (name) => `${name} steht jetzt auf der Warteliste!`,
       position: 'Platz',
-      cta: 'Mach mit bei diBoaS — finanzielle Freiheit einfach gemacht',
+      cta: 'Mach mit bei diBoaS – finanzielle Freiheit einfach gemacht',
     },
     calculator: {
       badge: 'Dream-Mode-Rechner',

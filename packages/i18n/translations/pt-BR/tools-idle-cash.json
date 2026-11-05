@@ -26,7 +26,7 @@
   "resultMoment": {
     "eyebrow": "No que seu dinheiro parado pode se tornar",
     "chartAria": "Como seu dinheiro parado se compara em {years} anos no seu banco versus no diBoaS.",
-    "shareText": "Meu dinheiro parado poderia se tornar {value} no diBoaS em {years} anos. Veja quanto o seu poderia render."
+    "shareText": "Meu caixa parado poderia se tornar {value} no diBoaS em {years, plural, one {# ano} other {# anos}}. Veja quanto o seu poderia render."
   },
   "vignette": {
     "subtitle": "Caixa parado rende quase nada. Dê a ele uma função, e pode render mais."

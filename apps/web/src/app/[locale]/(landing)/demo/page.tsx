@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DemoPageContent } from './DemoPageContent';
@@ -13,9 +13,13 @@ export const dynamic = 'auto';
  * Generate metadata for the Demo page
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
-  const { locale: _locale } = await params;
+  const { locale } = await params;
+  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
+  // Localized from the catalogue (5.793); the brand is already in it.
+  const messages = await loadMessages(validLocale, 'preDemo');
+  const demoTitle: string = messages?.meta?.title || 'Interactive Demo - diBoaS';
   return {
-    title: pageTitle('Interactive Demo - diBoaS'),
+    title: pageTitle(demoTitle),
     description:
       'Try the diBoaS interactive demo. Experience deposits, transfers, investments, and financial projections.',
     robots: {
@@ -23,7 +27,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
       follow: false,
     },
     openGraph: {
-      title: 'Interactive Demo - diBoaS',
+      title: demoTitle,
       description: 'Experience the diBoaS platform with our interactive demo.',
       type: 'website',
     },
