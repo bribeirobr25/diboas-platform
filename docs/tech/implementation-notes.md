@@ -1087,3 +1087,43 @@ pinned by a test that was watched failing.
     batch awaiting the founder's go. Recording the rule here is promotion, not implementation.
   - ⚑ `projection.caveat` (_"An assumption you can check, not a promise…"_) is honest and
     stays — it is **not** a substitute for this disclosure.
+
+## Market data store (`apps/web/scripts/market-data/`, founder decisions 2026-11-04)
+
+> **Scope.** These rules govern the STORE (the collector and the private `diboas-analytics`
+> `market/` folder it writes). Nothing the website reads uses the store yet: `monthlyPrices.json`
+> still comes from `tools-monthlies.mjs` (Yahoo adjusted closes, the GLD fund), and REL-01 still
+> reads gold futures (`GC=F`). Moving those onto the store changes published numbers and is its own
+> reviewed increment, with a founder decision for the score's gold input (a methodology change).
+
+- **The store lives in the private `diboas-analytics` repository under `market/`.** Collection runs
+  here in Actions (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped
+  to that one repository. Data commits go to its `main`, under `market/` only; collector code
+  changes go through a PR. Guard: `DATA-STORE-1`.
+- **Append-only, enforced twice.** The collector never rewrites a stored day (a changed value is
+  logged once in `revisions.jsonl` and blocks the series), and `commit-guard.mjs` refuses any staged
+  deletion, rename, removed line or path outside `market/` before the workflow commits, because the
+  analytics repository has no branch protection. Only `us_m2` (`revisable: true`, re-read whole on
+  every run) accepts and logs a revision: the Fed's revised figure IS the published one. Do not add
+  `revisable` to a price series to make a block go away.
+- **Fail closed, per series, and plan before writing.** A failed or empty check source, a check
+  that shares under half the window's days or is shifted by a day, an unresolved outlier, a
+  distribution disagreement or a non-trading ex-date blocks the series, and NOTHING is written to
+  its values. Raw responses, the check report and revisions are always kept.
+- **Only a reviewed exception bound to the exact fault unblocks it** (`checks/accepted-exceptions.json`
+  in the store, validated by `exceptions.mjs`): a check exception names the source and the stored
+  value it reviewed; a distribution exception stores an amount a source actually reported; a
+  revision exception can only keep the stored value. Never widen a tolerance to pass a day. Where a
+  series has two independent checks, a day one disputes and the other confirms passes (two of
+  three sources agree) and is reported.
+- **Total return is computed from closes and ex-dates, never from a provider's adjusted close**
+  (it moves every time a dividend is paid; register `5.633`). Distributions merge across sources:
+  Yahoo omitted TLT 2012-11-01, 2026-10-01, 2026-11-02 and QQQ 2020-09-21, which the issuer and
+  Nasdaq list.
+- **Source choices that review overturned or confirmed — do not revert without new evidence:**
+  Bitcoin is the Coin Metrics reference rate, NOT Yahoo (Yahoo was 1-3% off two exchanges on 104
+  days, mostly 2017-2019); Ibovespa is the official B3 close, NOT Yahoo (97 of 4,174 days beyond
+  0.1%); gold is spot (CNBC `XAU=`), never the GLD fund or futures (founder 2026-11-04), checked
+  against the LBMA PM fix (futures were measured and rejected as a check: basis up to 6.9%).
+- **The weekly series calls the engine's own `strictFridayCloses`** (FRIDAY-1); there is no second
+  copy of the rule.

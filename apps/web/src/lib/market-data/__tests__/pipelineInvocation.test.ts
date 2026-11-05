@@ -35,6 +35,9 @@ const WRITERS = [
   'market-refresh/generate.mjs',
   'market-refresh/tools-monthlies.mjs',
   'data-fetchers/compute-regime.mjs',
+  // the market data store (2026-11-05): both write (the store; the guard exits)
+  'market-data/collect.mjs',
+  'market-data/commit-guard.mjs',
 ];
 
 describe('isDirectInvocation — the guard itself', () => {
