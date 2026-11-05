@@ -1095,6 +1095,18 @@ pinned by a test that was watched failing.
 > still comes from `tools-monthlies.mjs` (Yahoo adjusted closes, the GLD fund), and REL-01 still
 > reads gold futures (`GC=F`). Moving those onto the store changes published numbers and is its own
 > reviewed increment, with a founder decision for the score's gold input (a methodology change).
+>
+> **2026-11-05 correction (before the 2026-11-09 run, founder ruling):** the known-wrong rows of
+> `monthlyPrices.json` were corrected FROM the store, by hand, once: DAX re-taken whole (it was
+> labelled one month early, `5.756`), BTC 2026-05 replaced by the complete month (`5.757`),
+> Ibovespa month-end closes set to the official B3 close (`5.758`), and the total-return `close`
+> of SPY, QQQ, URTH and TLT rebuilt from the store's closes and checked ex-dates, re-based so the
+> latest month equals its price, with 2026-10 added (`5.633`). Prices of existing rows, GOLD and
+> every other BTC month were not touched. **Do not re-run an old backfill over these rows, and do
+> not "fix" a fund's `close` from a fresh Yahoo adjusted close:** that reintroduces the loss.
+> `MONTHLY-RULES-1` fails a total-return row whose adjustment factor falls, which a Yahoo append
+> produces for TLT whenever it pays a dividend between month-end and the run; the cure is the
+> tools reading the store (`5.760`), never a looser rule.
 
 - **The store lives in the private `diboas-analytics` repository under `market/`.** Collection runs
   here in Actions (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped
