@@ -1,5 +1,5 @@
 {
-  "$comment": "US GENIUS covenant — positive controls for config/genius-wall-patterns.json, read by BOTH walls (apps/web genius-stablecoin-wall.test.ts and the apps/sandbox mirror in messages.test.ts). Every concrete form the patterns name is listed, so narrowing ANY of them (an optional group, a character class, an alternative) fails both walls. Each stable form is tested with 'earns'; each earn form with 'USDC'; 'breaches' are whole sentences found in reviews. Lists may only GROW (each has a floor in the tests). Fifth audit 2026-11-05: the first controls pinned one form per alternative, and 'digital(?:en)?' or 'rende' alone passed every test.",
+  "$comment": "US GENIUS covenant — positive controls for config/genius-wall-patterns.json, read by BOTH walls (apps/web genius-stablecoin-wall.test.ts and the apps/sandbox mirror in messages.test.ts). Every concrete form the patterns name is listed, so narrowing ANY of them (an optional group, a character class, an alternative) fails both walls. Each stable form is tested with 'earns'; each earn form with 'USDC'; 'breaches' are whole sentences found in reviews. Lists may only GROW (each has a floor in the tests). Fifth audit 2026-11-05: the first controls pinned one form per alternative, and 'digital(?:en)?' or 'rende' alone passed every test. Sixth audit 2026-11-05: the controls were whole words while the patterns match word STARTS, so cutting endings ('earn(?!ed|ing)', 'dollar\\\\b', 'USDC\\\\b') stayed green; every inflection is now listed, the 40-character window is pinned by a generated control at exactly windowChars past the 40th character, the case flag by an all-caps breach, and duplicates are refused.",
   "stableForms": [
     "digital dollar",
     "digital-dollar",
@@ -16,9 +16,28 @@
     "dolares digitais",
     "dólares digitais",
     "USDC",
-    "stablecoin"
+    "stablecoin",
+    "digital dollars",
+    "stablecoins",
+    "dólares digitales",
+    "USDCs"
   ],
-  "earnForms": ["earns", "yield", "rendendo", "rende", "rendo", "verdient", "rendimiento"],
+  "earnForms": [
+    "earns",
+    "yield",
+    "rendendo",
+    "rende",
+    "rendo",
+    "verdient",
+    "rendimiento",
+    "earned",
+    "earning",
+    "yields",
+    "yielding",
+    "yielded",
+    "verdienen",
+    "rendeu"
+  ],
   "breaches": [
     "Your digital dollar earns every day",
     "digital-dollar yield envelope",
@@ -32,6 +51,8 @@
     "Dein Geld verdient im Digital-Dollar",
     "Ein digitaler Dollar verdient",
     "Der digitale Dollar rendiert",
-    "eu rendo em USDC"
-  ]
+    "eu rendo em USDC",
+    "THE DIGITAL DOLLAR YIELDS DAILY"
+  ],
+  "windowChars": 40
 }

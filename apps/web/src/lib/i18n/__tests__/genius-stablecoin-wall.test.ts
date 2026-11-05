@@ -24,6 +24,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
+import { OG_TRANSLATIONS } from '../../../app/api/og/share/ogTranslations';
 
 const TRANSLATIONS_DIR = join(__dirname, '../../../../../../packages/i18n/translations');
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
@@ -174,18 +175,30 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
  */
 const CONTROLS = JSON.parse(
   readFileSync(join(__dirname, '../../../../../../config/genius-wall-controls.json'), 'utf8')
-) as { stableForms: string[]; earnForms: string[]; breaches: string[] };
+) as { stableForms: string[]; earnForms: string[]; breaches: string[]; windowChars: number };
 const GENIUS_POSITIVE_CONTROLS: readonly string[] = [
   ...CONTROLS.stableForms.map((form) => `${form} earns`),
   ...CONTROLS.earnForms.map((form) => `USDC ${form}`),
   ...CONTROLS.breaches,
+  // The window, past the 40th character, in both orders: exactly `windowChars` between the two
+  // matched words (the window counts from the END of the match, so the earn word is "earn").
+  `${'Some long introduction. '.repeat(3)}USDC${'.'.repeat(CONTROLS.windowChars)}earns`,
+  `${'Some long introduction. '.repeat(3)}earn${'.'.repeat(CONTROLS.windowChars)}USDC`,
 ];
 
 describe('B2-5 — the wall still catches every known breach (positive controls)', () => {
   it('should keep every control list at or above its floor when the fixture is read', () => {
-    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(16);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(7);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(13);
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(20);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(14);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(14);
+    expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
+  });
+
+  it('should hold no duplicate control when the fixture is read', () => {
+    for (const list of [CONTROLS.stableForms, CONTROLS.earnForms, CONTROLS.breaches]) {
+      const lower = list.map((x) => x.toLowerCase());
+      expect(new Set(lower).size).toBe(lower.length);
+    }
   });
 
   it.each(GENIUS_POSITIVE_CONTROLS)(
@@ -194,4 +207,31 @@ describe('B2-5 — the wall still catches every known breach (positive controls)
       expect(PAIRING.test(sample)).toBe(true);
     }
   );
+});
+
+/**
+ * Sixth audit (2026-11-05): the share-image texts live in TypeScript
+ * (`app/api/og/share/ogTranslations.ts`), outside the catalogues this wall walks, and they say
+ * "Held in digital dollars". Every one of them, functions rendered, is held to the same rule.
+ */
+describe('B2-6 — the share-image texts carry no earn/stablecoin pairing', () => {
+  const texts = (value: unknown): string[] => {
+    if (typeof value === 'string') return [value];
+    if (typeof value === 'function') {
+      const fn = value as (arg: number | string) => string;
+      return [fn(1), fn(5), fn('Ana')];
+    }
+    if (value && typeof value === 'object') return Object.values(value).flatMap(texts);
+    return [];
+  };
+
+  it('should render every share-image text and find no pairing in any locale', () => {
+    const all = texts(OG_TRANSLATIONS);
+    expect(all.length).toBeGreaterThan(80);
+    expect(all.filter((t) => PAIRING.test(t))).toEqual([]);
+  });
+
+  it('should flag a planted share-image pairing (positive control)', () => {
+    expect(PAIRING.test('Your money earning in digital dollars over 5 years')).toBe(true);
+  });
 });
