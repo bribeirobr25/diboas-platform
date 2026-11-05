@@ -536,6 +536,50 @@ describe('REGISTER-STATUS · a live row agrees with its index status (5.753)', (
     expect(r.code).toBe(1);
     expect(r.out.match(/5\.703\(/g)).toHaveLength(1);
   }, 20_000);
+
+  /* Fourth audit (2026-11-05, 5.762): the dangerous direction — open work vanishing as CLOSED. */
+  it('should FAIL when a parked ⏸ DEFERRED row is indexed CLOSED', () => {
+    const r = check({ ...AGREE, '5.702': 'CLOSED' });
+    expect(r.code).toBe(1);
+    expect(r.out).toMatch(/5\.702\(row=DEFERRED,index=CLOSED\)/);
+  }, 20_000);
+
+  it('should read a lead marked with the emoji variation selector when the index disagrees', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/PENDING_ALL.md',
+      statusRegister({ ...AGREE, '5.702': 'OPEN' }).replace('⏸ **DEFERRED', '⏸️ **DEFERRED')
+    );
+    const out = r.run('register');
+    expect(out.code).toBe(1);
+    expect(out.out).toMatch(/5\.702\(row=DEFERRED,index=OPEN\)/);
+  }, 20_000);
+
+  it('should not read a quoted status mention as the row lead when the row has its own', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/PENDING_ALL.md',
+      statusRegister(AGREE).replace(
+        '⏸ **DEFERRED by the founder 2026-11-04** a parked item.',
+        'unlike 5.650 ("⏳ **OPEN**"), ⏸ **DEFERRED by the founder 2026-11-04** a parked item.'
+      )
+    );
+    const out = r.run('register');
+    expect(out.code, out.out).toBe(0);
+  }, 20_000);
+
+  it('should end a note row at a heading so it never borrows the next section lead', () => {
+    const r = repo();
+    r.put(
+      'docs/audit/PENDING_ALL.md',
+      statusRegister({ ...AGREE, '5.702': 'OPEN' }).replace(
+        '⏸ **DEFERRED by the founder 2026-11-04** a parked item. | Owner: CC',
+        'an item written without a lead. | Owner: CC\n## Next section\n> ⏸ **DEFERRED** a heading note'
+      )
+    );
+    const out = r.run('register');
+    expect(out.out).not.toMatch(/5\.702\(row=DEFERRED/);
+  }, 20_000);
 });
 
 /**

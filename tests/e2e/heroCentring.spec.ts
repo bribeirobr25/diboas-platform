@@ -117,21 +117,18 @@ test.describe('centre-aligned hero text is centred (5.738)', () => {
           await page.goto(route);
           const form = page.locator('main form').first();
           await expect(form).toBeVisible();
+          // Against the VIEWPORT, not the nearest centred ancestor: `text-align` is inherited,
+          // so that ancestor is always the form's own parent and a shifted column would move
+          // the form with it (fourth audit, 2026-11-05). The waitlist section spans the page.
           const offset = await form.evaluate((f) => {
-            let col = f.parentElement;
-            while (col && getComputedStyle(col).textAlign !== 'center') col = col.parentElement;
-            if (!col) return null;
-            const cs = getComputedStyle(col);
-            const c = col.getBoundingClientRect();
-            const inner =
-              (c.left + parseFloat(cs.paddingLeft) + c.right - parseFloat(cs.paddingRight)) / 2;
             const r = f.getBoundingClientRect();
-            return Math.round((r.left + r.width / 2 - inner) * 10) / 10;
+            const viewportCentre = document.documentElement.clientWidth / 2;
+            return Math.round((r.left + r.width / 2 - viewportCentre) * 10) / 10;
           });
-          expect(offset, `${route}: the waitlist form has no centred column`).not.toBeNull();
+          expect(offset, `${route}: the waitlist form was not measured`).not.toBeNull();
           expect(
             Math.abs(offset!),
-            `${route}: the waitlist form is ${offset}px off centre`
+            `${route}: the waitlist form is ${offset}px off the page centre`
           ).toBeLessThanOrEqual(TOLERANCE_PX);
         });
       }

@@ -45,6 +45,23 @@ function normaliseSelector(sel: string): string {
     .replace(/\[data-align=([A-Za-z-]+)\]/g, "[data-align='$1']");
 }
 
+/** Splits a selector list at commas that are not inside parentheses or brackets. */
+function splitTopLevel(prelude: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let cur = '';
+  for (const ch of prelude) {
+    if (ch === '(' || ch === '[') depth += 1;
+    else if (ch === ')' || ch === ']') depth -= 1;
+    if (ch === ',' && depth === 0) {
+      parts.push(cur);
+      cur = '';
+    } else cur += ch;
+  }
+  parts.push(cur);
+  return parts;
+}
+
 /** Every style rule, split per selector, with its source order and whether an at-rule wraps it. */
 function parseRules(text: string, conditional = false, start = { n: 0 }): Rule[] {
   const clean = text.replace(/\/\*[\s\S]*?\*\//g, '');
@@ -66,7 +83,7 @@ function parseRules(text: string, conditional = false, start = { n: 0 }): Rule[]
       rules.push(...parseRules(body, true, start));
     } else {
       const order = start.n++;
-      for (const sel of prelude.split(',')) {
+      for (const sel of splitTopLevel(prelude)) {
         rules.push({ selector: normaliseSelector(sel), body, order, conditional });
       }
     }
@@ -132,7 +149,7 @@ function inlineMargins(body: string): { left?: string; right?: string } {
   return out;
 }
 
-const FULL_WIDTH = /^(100%|auto|none|var\(--percent-100\)|fit-content|max-content|min-content)$/;
+const FULL_WIDTH = /^(100%|auto|none|var\(--percent-100\))$/;
 const CAP_PROPS = new Set(['max-width', 'width', 'max-inline-size', 'inline-size']);
 
 const cappedClasses = [
@@ -144,10 +161,29 @@ const cappedClasses = [
   ),
 ];
 
+/** Every local name the component's files import the CSS module under (not only `styles`). */
+const moduleAliases = [
+  ...new Set(
+    [...source.matchAll(/import\s+(\w+)\s+from\s+['"][^'"]*CinematicHero\.module\.css['"]/g)].map(
+      (m) => m[1] as string
+    )
+  ),
+];
+
 const renderedClasses = new Set(
-  [...source.matchAll(/styles(?:\.([A-Za-z0-9_]+)|\[\s*['"]([A-Za-z0-9_-]+)['"]\s*\])/g)].map(
-    (m) => (m[1] ?? m[2]) as string
-  )
+  moduleAliases.flatMap((alias) => [
+    ...[
+      ...source.matchAll(
+        new RegExp(
+          `\\b${alias}(?:\\?\\.|\\.)([A-Za-z0-9_]+)|\\b${alias}\\[\\s*['"]([A-Za-z0-9_-]+)['"]\\s*\\]`,
+          'g'
+        )
+      ),
+    ].map((m) => (m[1] ?? m[2]) as string),
+    ...[...source.matchAll(new RegExp(`\\{([^}]+)\\}\\s*=\\s*${alias}\\b`, 'g'))].flatMap((m) =>
+      (m[1] as string).split(',').map((x) => (x.split(':')[0] as string).trim())
+    ),
+  ])
 );
 
 const cappedAndRendered = cappedClasses.filter((c) => renderedClasses.has(c)).sort();
@@ -177,7 +213,38 @@ function resolvedCentreMargins(cls: string): {
   return { ...resolved, conditional };
 }
 
+/**
+ * Constructs this reader cannot resolve are REFUSED rather than trusted (fourth audit,
+ * 2026-11-05): a margin under `!important` (it overrides the cascade order the resolver
+ * models), `:is()` / `:where()` / `:not()` (specificity the resolver does not weigh), CSS
+ * nesting, attribute-class selectors, and any rule setting a margin or width whose target is
+ * not a plain class (it could reach a capped block by element or position).
+ */
+const UNRESOLVABLE: Array<[string, (r: Rule) => boolean]> = [
+  ['a margin under !important', (r) => /(^|;|\s)margin[\w-]*\s*:[^;]*!important/i.test(r.body)],
+  [':is() / :where() / :not()', (r) => /:(is|where|not)\(/.test(r.selector)],
+  ['CSS nesting', (r) => /&/.test(r.selector) || /\{/.test(r.body)],
+  ['an attribute-class selector', (r) => /\[class/.test(r.selector)],
+  [
+    'a margin or width rule whose target is not a plain class',
+    (r) =>
+      targetClass(r.selector) === null &&
+      /(^|;|\s)(margin|width|max-width|inline-size|max-inline-size)[\w-]*\s*:/.test(r.body),
+  ],
+];
+
 describe('CinematicHero centre variant (5.738)', () => {
+  it('should use no CSS construct the centring reader cannot resolve when the module is parsed', () => {
+    const found = rules.flatMap((r) =>
+      UNRESOLVABLE.filter(([, test]) => test(r)).map(([why]) => `${r.selector} — ${why}`)
+    );
+    expect(found).toEqual([]);
+  });
+
+  it('should find the CSS module under at least one import name when reading the component', () => {
+    expect(moduleAliases.length).toBeGreaterThan(0);
+  });
+
   it('should derive exactly the capped blocks the hero renders when reading the stylesheet', () => {
     expect(cappedAndRendered).toEqual(['container', 'content', 'subheadline', 'subheadline2']);
   });
@@ -214,5 +281,45 @@ describe('centre-margin reader (self-test)', () => {
     ['margin: 0 0 0 auto', 'auto', '0'],
   ])('should read "%s" as left %s, right %s when parsing a declaration list', (body, l, r) => {
     expect(inlineMargins(body)).toEqual({ left: l, right: r });
+  });
+});
+
+/**
+ * The rendered guard (`tests/e2e/heroCentring.spec.ts`) measures a hand-written list of pages.
+ * This pins that list to the source: every file that centre-aligns a cinematic hero, and the
+ * route the e2e must cover for it (fourth audit, 2026-11-05). A sixth centred hero fails here
+ * until it is added to both.
+ */
+describe('CinematicHero centre variant · the e2e covers every centred hero (5.738)', () => {
+  const WEB_SRC = path.resolve(DIR, '../../..');
+  const CENTRED_CALLERS: Record<string, string> = {
+    'components/Pages/Protocols/sections/ProtocolsHeroSection.tsx': '/en/protocols',
+    'components/Pages/StrategiesClientSections.tsx': '/en/strategies',
+    'components/Sections/LearnIndex/LearnIndex.tsx': '/en/learn',
+    'components/Sections/ToolsIndex/ToolsIndex.tsx': '/en/tools',
+    'config/landing-about.ts': '/en/about',
+  };
+
+  it('should find exactly the pinned centre-aligned hero callers when scanning the source', () => {
+    const found = (fs.readdirSync(WEB_SRC, { recursive: true, encoding: 'utf8' }) as string[])
+      .map((f) => f.replace(/\\/g, '/'))
+      .filter((f) => /\.tsx?$/.test(f) && !/(__tests__|\.test\.|\.stories\.)/.test(f))
+      .filter((f) => {
+        const src = fs.readFileSync(path.join(WEB_SRC, f), 'utf8');
+        return (
+          /align="center"|align: 'center'/.test(src) &&
+          /CinematicHero|variant: 'cinematic'|variant="cinematic"/.test(src)
+        );
+      })
+      .sort();
+    expect(found).toEqual(Object.keys(CENTRED_CALLERS).sort());
+  });
+
+  it('should list every centred hero route in the rendered guard when its pages are read', () => {
+    const spec = fs.readFileSync(
+      path.resolve(WEB_SRC, '../../../tests/e2e/heroCentring.spec.ts'),
+      'utf8'
+    );
+    for (const route of Object.values(CENTRED_CALLERS)) expect(spec).toContain(`'${route}'`);
   });
 });
