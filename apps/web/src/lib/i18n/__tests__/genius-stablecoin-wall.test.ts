@@ -122,16 +122,10 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
 
   /**
    * Code literals too (`5.749`): user-facing text also lives in TS/TSX (SEO constants, JSON-LD
-   * fallbacks), and the catalogue scan never saw it. Exceptions are named by file and the
-   * literal's opening words, never by pattern.
+   * fallbacks, share images), and the catalogue scan never saw it. Story files are scanned
+   * too. No exception exists: the two dead `protocolsData.ts` descriptions that once needed
+   * one were deleted (`5.755`).
    */
-  const CODE_ALLOW: ReadonlySet<string> = new Set([
-    // Cat 2 · protocol mechanism, and NOT RENDERED: the page reads every card text from the
-    // catalogue (`cards.<id>.description`, itself Cat 2-listed above). The dead text fields of
-    // this file are registered for deletion in their own increment.
-    'components/Pages/Protocols/protocolsData.ts::The original DeFi system. Running since 2014.',
-    'components/Pages/Protocols/protocolsData.ts::Creates a synthetic dollar (USDe) through hedged',
-  ]);
   const WEB_SRC = join(__dirname, '../../..');
   const LITERAL = /'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*"|`(?:[^`\\]|\\.)*`/g;
 
@@ -139,17 +133,12 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
     const found: string[] = [];
     const files = (readdirSync(WEB_SRC, { recursive: true }) as string[])
       .map((f) => f.replace(/\\/g, '/'))
-      .filter((f) => /\.tsx?$/.test(f) && !/(__tests__|\.test\.|\.stories\.)/.test(f));
+      .filter((f) => /\.tsx?$/.test(f) && !/(__tests__|\.test\.)/.test(f));
     expect(files.length).toBeGreaterThan(300);
     for (const file of files) {
       for (const m of readFileSync(join(WEB_SRC, file), 'utf8').matchAll(LITERAL)) {
         const text = m[0].slice(1, -1);
-        if (!PAIRING.test(text)) continue;
-        const listed = [...CODE_ALLOW].some((id) => {
-          const [f, opening] = id.split('::');
-          return f === file && text.startsWith(opening as string);
-        });
-        if (!listed) found.push(`${file} — "${text.slice(0, 120)}"`);
+        if (PAIRING.test(text)) found.push(`${file} — "${text.slice(0, 120)}"`);
       }
     }
     expect(found, 'a code literal pairs earn/yield with a stablecoin token').toEqual([]);
@@ -172,4 +161,33 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
     for (const id of ALLOW) if (!seen.has(id)) stale.push(id);
     expect(stale, 'allow-list entry no longer pairs — remove it').toEqual([]);
   });
+});
+
+/**
+ * POSITIVE CONTROLS (audit 2026-11-05): the patterns live in `config/genius-wall-patterns.json`,
+ * and a narrowed pattern used to pass every test above (nothing pairs today, so a weaker regex
+ * still finds nothing). Each sample below is a covenant breach the wall MUST keep catching —
+ * one per alternative of the widened pattern AND one per alternative of the pre-`5.749`
+ * pattern, so the file can only widen. The sandbox mirror runs the same samples.
+ */
+const GENIUS_POSITIVE_CONTROLS: readonly string[] = [
+  'Your digital dollar earns every day', // old: digital dollar · earn
+  'digital-dollar yield envelope', // widened: hyphen · yield
+  'Renditen in digitalen Dollar', // widened: German inflected · rendi
+  'Digital-Dollar-Rendite', // widened: German compound
+  'Os dólares digitais rendem', // widened: pt-BR plural · rend[eo]
+  'rendimiento en dólar digital', // old: d[oó]lar[es]* digital · rendi
+  'rendendo em dólares digital', // old: d[oó]lar[es]* digital · rendend
+  'USDC yield', // old: USDC
+  'stablecoin earnings', // old: stablecoin
+  'Dein Geld verdient im Digital-Dollar', // verdien
+];
+
+describe('B2-5 — the wall still catches every known breach (positive controls)', () => {
+  it.each(GENIUS_POSITIVE_CONTROLS)(
+    'should flag "%s" when the shared pattern is applied',
+    (sample) => {
+      expect(PAIRING.test(sample)).toBe(true);
+    }
+  );
 });

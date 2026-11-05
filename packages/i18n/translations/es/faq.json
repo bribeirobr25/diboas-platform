@@ -13,7 +13,7 @@
     },
     "minimum": {
       "question": "¿Cuál es el importe mínimo para empezar?",
-      "answer": "Practice se puede probar gratis; el importe que necesitas para añadir dinero se muestra antes de empezar."
+      "answer": "Practice se puede probar gratis y no usa dinero real."
     },
     "afterSignup": {
       "question": "¿Qué pasa después de unirme a la lista de espera?",

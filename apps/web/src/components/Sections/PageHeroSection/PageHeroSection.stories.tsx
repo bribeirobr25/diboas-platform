@@ -73,7 +73,7 @@ export const FullContent: Story = {
   args: {
     headline: 'Learn How It Works',
     subheadline: 'Banking, investing, and DeFi strategies made simple.',
-    subheadline2: 'No experience needed. Start with as little as $10.',
+    subheadline2: 'No experience needed.',
   },
 };
 

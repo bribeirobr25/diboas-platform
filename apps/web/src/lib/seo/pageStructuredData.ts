@@ -1,17 +1,60 @@
 /**
- * Service + breadcrumb structured data for a landing page, served in the page's locale
- * (register 5.643, step 2).
+ * Service + breadcrumb structured data for the pages that describe the diBoaS service, served
+ * in the page's locale (registers 5.643 and its audit follow-up).
  *
- * One builder for every page that describes the diBoaS service, so the rules live once:
- * - the description comes from the page's own catalogue (`seo.jsonLd.serviceDescription`);
- * - the category, the "Home" crumb and the page crumb are existing catalogue strings
- *   (`common.seo.serviceCategory`, `landing-b2c.seo.jsonLd.breadcrumbHome`,
- *   `common.navigation.landing.*`);
- * - every English literal here is only a fallback for a missing key, and equals the en
- *   catalogue value it backs (`structuredDataGuards.test.ts`).
+ * The page is named by KEY, and the builder loads that page's own catalogue itself, so a page
+ * cannot pass the wrong description: the registry below is the only place that says which
+ * namespace describes which page. Every string comes from a catalogue:
+ * - description: `<namespace>.seo.jsonLd.serviceDescription`;
+ * - category: `common.seo.serviceCategory`;
+ * - crumbs: `landing-b2c.seo.jsonLd.breadcrumbHome` and `common.navigation.landing.<crumb>`.
+ * English literals are only fallbacks for a missing key and equal their en values
+ * (`structuredDataGuards.test.ts`). No `areaServed`, no `Offer`: the factory emits neither.
  */
 import { loadMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { ROUTES } from '@/config/routes';
 import { SEOMetadataFactory } from './metadata-factory';
+
+type CrumbKey = 'about' | 'forBusiness' | 'protocols' | 'strategies';
+
+/** Which catalogue describes each service page, its crumb, and the en fallback (= en value). */
+export const SERVICE_PAGES = {
+  landing: {
+    namespace: 'landing-b2c',
+    crumb: null,
+    fallback:
+      'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
+  },
+  about: {
+    namespace: 'landing-b2c',
+    crumb: { key: 'about', url: ROUTES.ABOUT },
+    fallback:
+      'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
+  },
+  business: {
+    namespace: 'landing-b2b',
+    crumb: { key: 'forBusiness', url: '/business' },
+    fallback:
+      'Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.',
+  },
+  protocols: {
+    namespace: 'protocols',
+    crumb: { key: 'protocols', url: '/protocols' },
+    fallback:
+      "The decentralized finance protocols diBoaS has researched, with each one's audits and track record, and the ones its strategies use today.",
+  },
+  strategies: {
+    namespace: 'strategies',
+    crumb: { key: 'strategies', url: '/strategies' },
+    fallback:
+      '10 strategies, from conservative to growth-focused, for different goals and timelines.',
+  },
+} as const satisfies Record<
+  string,
+  { namespace: string; crumb: { key: CrumbKey; url: string } | null; fallback: string }
+>;
+
+export type ServicePage = keyof typeof SERVICE_PAGES;
 
 /** English fallbacks; each equals its en catalogue value (guarded). */
 export const STRUCTURED_DATA_FALLBACKS = {
@@ -23,35 +66,23 @@ export const STRUCTURED_DATA_FALLBACKS = {
     protocols: 'Protocols',
     strategies: 'Strategies',
   },
-} as const;
-
-export type PageCrumb = keyof typeof STRUCTURED_DATA_FALLBACKS.crumbs;
-
-export interface PageStructuredDataInput {
-  /** The page's own `seo.jsonLd.serviceDescription`, as loaded (may be missing). */
-  description: string | undefined;
-  /** The en catalogue value of that key, used only when the key is missing. */
-  descriptionFallback: string;
-  /** The page's breadcrumb after Home; omitted on the landing page itself. */
-  crumb?: { key: PageCrumb; url: string };
-}
+} as const satisfies { category: string; home: string; crumbs: Record<CrumbKey, string> };
 
 function text(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim() !== '' ? value : undefined;
 }
 
-export async function buildPageStructuredData(
-  locale: SupportedLocale,
-  input: PageStructuredDataInput
-) {
-  const [common, landing] = await Promise.all([
+export async function buildServiceStructuredData(page: ServicePage, locale: SupportedLocale) {
+  const spec = SERVICE_PAGES[page];
+  const [own, common, landing] = await Promise.all([
+    loadMessages(locale, spec.namespace),
     loadMessages(locale, 'common'),
     loadMessages(locale, 'landing-b2c'),
   ]);
 
   const service = SEOMetadataFactory.generateServiceStructuredData({
     name: 'diBoaS',
-    description: text(input.description) ?? input.descriptionFallback,
+    description: text(own?.seo?.jsonLd?.serviceDescription) ?? spec.fallback,
     category: text(common?.seo?.serviceCategory) ?? STRUCTURED_DATA_FALLBACKS.category,
   });
 
@@ -61,12 +92,12 @@ export async function buildPageStructuredData(
       url: '/',
     },
   ];
-  if (input.crumb) {
+  if (spec.crumb) {
     items.push({
       name:
-        text(common?.navigation?.landing?.[input.crumb.key]) ??
-        STRUCTURED_DATA_FALLBACKS.crumbs[input.crumb.key],
-      url: input.crumb.url,
+        text(common?.navigation?.landing?.[spec.crumb.key]) ??
+        STRUCTURED_DATA_FALLBACKS.crumbs[spec.crumb.key],
+      url: spec.crumb.url,
     });
   }
 
