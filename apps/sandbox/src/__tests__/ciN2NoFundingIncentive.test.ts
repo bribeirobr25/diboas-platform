@@ -259,7 +259,11 @@ const INCENTIVE_FRAMING: ReadonlyArray<readonly [string, RegExp, string]> = [
        stopped at the accent of voseo "Convidá"/"Indicá", and the German imperative "Empfiehl"
        has no "empfehl" stem. Up to two words may now sit between the verb and the friend word,
        verbs take accented letters, and "empfiehl" is a stem. */
-    /\breferr\w*|\bindica[çc][ãa]o\b|\bindica[çc][õo]es\b|\breferid\w*|\bempfehl\w*|\bempfiehl\w*|\b(?:invit|convid|indic|indiqu)[\wáéíóúâêôãõç]*\s+(?:[\wáéíóúâêôãõçñ]+\s+){0,2}?(?:friend|amig)\w*|\blad[\wäöüß]*\s+(?:[\wäöüß]+\s+){0,2}?freund\w*|\brefer\w*\s+(?:a\s+|your\s+)?friend\w*|freunde?\s+werb\w*|werb\w*\s+(?:einen\s+|deine\s+)?freund\w*/i,
+    /* ⛑ Sixth audit (2026-11-05): word order reversed ("for every friend you invite"), up to four
+       words between, more verbs (recommend, bring, share, tell, wirb, chame…), colleagues, "à"/"ü"
+       — ADDED beside the old alternatives (kept whole: a covenant guard only widens). The new
+       friend nouns are exact forms, so "friendly"/"amigável"/"freundlich" are not referrals. */
+    /\breferr\w*|\bindica[çc][ãa]o\b|\bindica[çc][õo]es\b|\breferid\w*|\bempfehl\w*|\bempfiehl\w*|\b(?:invit|convid|indic|indiqu)[\wáéíóúâêôãõç]*\s+(?:[\wáéíóúâêôãõçñ]+\s+){0,2}?(?:friend|amig)\w*|\blad[\wäöüß]*\s+(?:[\wäöüß]+\s+){0,2}?freund\w*|\brefer\w*\s+(?:a\s+|your\s+)?friend\w*|freunde?\s+werb\w*|werb\w*\s+(?:einen\s+|deine\s+)?freund\w*|\b(?:invit|convid|indic|indiqu|recommend|recomend|recomiend|bring|traga|trae|chame|chama|share|compartilh|compart|teil|tell|wirb|lad)[\wáéíóúâêôãõçñàüäöß]*(?:[\s-]+[\wáéíóúâêôãõçñàüäöß]+){0,4}?[\s-]+(?:friends?|amig[oa]s?|amiguinh[oa]s?|freund(?:e|en|in|innen)?|colleagues?|colegas?|kolleg(?:e|en|in|innen)?)(?![\wáéíóúâêôãõçñàüäöß])|\b(?:friends?|amig[oa]s?|amiguinh[oa]s?|freund(?:e|en|in|innen)?|colleagues?|colegas?|kolleg(?:e|en|in|innen)?)(?![\wáéíóúâêôãõçñàüäöß])(?:[\s-]+[\wáéíóúâêôãõçñàüäöß]+){0,4}?[\s-]+(?:invit|indic|convid|einlad|werb|refer)[\wáéíóúâêôãõçñàüäöß]*|\beinladung\w*\s+an\s+freund\w*|\bbring\w*\s+(?:\S+\s+){0,3}?freund\w*\s+mit\b/i,
     'Invite a friend with your referral link.',
   ],
 ];
@@ -360,6 +364,23 @@ describe('CI-N2 · the copy names a practice credit, never an incentive', () => 
     ['pt-BR', 'Convidá um amigo para praticar.'],
     ['de', 'Empfiehl uns deinen Freunden.'],
     ['de', 'Lade jetzt deine Freunde ein.'],
+    /* sixth audit · measured misses before the second widening */
+    ['de', 'Freunde einladen und Credits sichern.'],
+    ['en', 'For every friend you invite, keep going.'],
+    ['es', 'Por cada amigo que invites, sigue practicando.'],
+    ['pt-BR', 'Amigos que você indicar ganham mais.'],
+    ['en', 'Invite up to five friends.'],
+    ['es', 'Recomienda diBoaS a tus amigos.'],
+    ['pt-BR', 'Traga um amigo para praticar.'],
+    ['de', 'Bring einen Freund mit.'],
+    ['pt-BR', 'Chame seus amigos.'],
+    ['en', 'Share with friends and keep going.'],
+    ['de', 'Teile diBoaS mit Freunden.'],
+    ['de', 'Wirb deine Freunde.'],
+    ['en', 'Tell your friends.'],
+    ['en', 'Invite-a-friend week.'],
+    ['pt-BR', 'Indique à sua amiga.'],
+    ['en', 'Invite your colleagues.'],
     ['de', 'Halte deine Serie am Laufen.'],
     ['de', 'Empfehlung an Freunde senden.'],
     ['en', 'No limits, claim your bonus.'],

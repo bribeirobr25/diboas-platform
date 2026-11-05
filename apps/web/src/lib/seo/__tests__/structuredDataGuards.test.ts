@@ -213,7 +213,7 @@ const NO_FIGURE_KEYS: ReadonlyArray<readonly [string, string]> = [
  */
 /** Word characters are Unicode letters (`u` flag): JavaScript's `\w` is ASCII-only, so "estratégia" would end a match early. */
 const GAP = String.raw`(?:[\s,:]+[\p{L}\p{N}_\-]+){0,3}?[\s,:]+`;
-const START = String.raw`(?:get\s+started|start[\p{L}\p{N}_]*|begin[\p{L}\p{N}_]*|from\s+as\s+little\s+as|as\s+little\s+as|minimum(?:\s+(?:is|of))?|min\.?|empie[\p{L}\p{N}_]*|empez[\p{L}\p{N}_]*|comienz[\p{L}\p{N}_]*|desde|m[ií]nimo|come[cç][\p{L}\p{N}_]*|a\s+partir\s+de|beginn[\p{L}\p{N}_]*|anf[aä]ng[\p{L}\p{N}_]*|ab|mindest[\p{L}\p{N}_]*)`;
+const START = String.raw`(?:get\s+started|start[\p{L}\p{N}_]*|begin[\p{L}\p{N}_]*|from\s+as\s+little\s+as|as\s+little\s+as|minimum(?:\s+(?:is|of))?|min\.?|empie[\p{L}\p{N}_]*|empez[\p{L}\p{N}_]*|comienz[\p{L}\p{N}_]*|comenz[\p{L}\p{N}_]*|desde|m[ií]nimo|come[cç][\p{L}\p{N}_]*|a\s+partir\s+de|beginn[\p{L}\p{N}_]*|anf[aä]ng[\p{L}\p{N}_]*|ab|mindest[\p{L}\p{N}_]*)`;
 const START_AFTER = String.raw`(?:begin[\p{L}\p{N}_]*|start[\p{L}\p{N}_]*|beginn[\p{L}\p{N}_]*|anf[aä]ng[\p{L}\p{N}_]*|empie[\p{L}\p{N}_]*|empez[\p{L}\p{N}_]*|come[cç][\p{L}\p{N}_]*)`;
 const CAP_WORD = String.raw`(?:capped|cap(?:\s+of)?|max(?:imum)?\.?|up\s+to|tope|l[ií]mite|hasta|teto|at[eé]|gedeckelt|obergrenze|maximal|bis\s+zu|h[oö]chstens)`;
 const FIGURE_CLAIM = [
@@ -319,6 +319,9 @@ describe('step 2 · 4 — no start/minimum figure, no cap (5.748, 5.103)', () =>
     /* Unicode words in the gap (fifth audit): an ASCII `\w` gap stops at the accent */
     'Começa já com só 10 €.',
     'Empieza ya, sólo con 5 €.',
+    /* accented start-word endings (sixth audit): an ASCII `\w` ending stops at the accent */
+    'Empezá con 5 €.',
+    'Comenzá con 5 €.',
   ])('should flag "%s" as a start figure or a cap (positive control)', (sample) => {
     expect(statesFigureClaim(sample)).toBe(true);
   });
