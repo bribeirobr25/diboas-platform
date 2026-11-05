@@ -100,7 +100,7 @@ export const NonUSDLocale: Story = {
     docs: {
       description: {
         story:
-          'pt-BR locale — reviewer picks "Ibovespa (BRL)" from the Asset Select. Output renders R$ formatted with the digital-dollar suffix on diBoaS scenarios per Phase 7.',
+          'pt-BR locale — reviewer picks "Ibovespa (BRL)" from the Asset Select. Output shows R$ amounts with the digital-dollar suffix on diBoaS scenarios per Phase 7.',
       },
     },
   },

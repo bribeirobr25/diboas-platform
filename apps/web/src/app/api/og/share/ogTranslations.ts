@@ -62,7 +62,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Asset history',
         'card-fees': 'Card fees',
       },
-      headline: 'What my money could really earn',
+      headline: 'What it could become',
       headlineByTool: {
         'money-jobs': 'Every amount needs a job',
         'asset-history': 'What it would be worth today',
@@ -96,7 +96,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Historico de ativos',
         'card-fees': 'Taxas de cartao',
       },
-      headline: 'O que meu dinheiro realmente renderia',
+      headline: 'No que poderia se transformar',
       headlineByTool: {
         'money-jobs': 'Cada real precisa de uma funcao',
         'asset-history': 'Quanto valeria hoje',
@@ -130,7 +130,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Historial de activos',
         'card-fees': 'Comisiones de tarjeta',
       },
-      headline: 'Lo que mi dinero realmente ganaria',
+      headline: 'En lo que podría convertirse',
       headlineByTool: {
         'money-jobs': 'Cada euro necesita una funcion',
         'asset-history': 'Cuanto valdria hoy',
@@ -164,7 +164,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Anlage-Historie',
         'card-fees': 'Kartengebuhren',
       },
-      headline: 'Was mein Geld wirklich verdienen konnte',
+      headline: 'Was daraus werden könnte',
       headlineByTool: {
         'money-jobs': 'Jeder Euro braucht eine Aufgabe',
         'asset-history': 'Was es heute wert ware',

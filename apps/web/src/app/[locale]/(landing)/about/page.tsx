@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
+import { buildServiceStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -100,22 +100,14 @@ export default async function AboutPage({ params }: LocalePageProps) {
   }
 
   // common + waitlist already provided by landing layout
-  const [pageMessages, landingMessages] = await Promise.all([
+  const [pageMessages, structured] = await Promise.all([
     loadPageNamespaces(locale, ['about', 'landing-b2c']),
-    loadMessages(locale, 'landing-b2c'),
+    buildServiceStructuredData('about', locale),
   ]);
 
   // Structured data in the page locale (5.643): the same diBoaS service the landing page
-  // describes, so it reuses the landing's approved description.
-  const { service: serviceData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
-    locale,
-    {
-      description: landingMessages?.seo?.jsonLd?.serviceDescription,
-      descriptionFallback:
-        'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
-      crumb: { key: 'about', url: ROUTES.ABOUT },
-    }
-  );
+  // describes, so the registry points /about at the landing's approved description.
+  const { service: serviceData, breadcrumbs: breadcrumbData } = structured;
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

@@ -9,12 +9,6 @@
  */
 export interface Protocol {
   id: string;
-  name: string;
-  description: string;
-  founded: string;
-  blockchains: string;
-  audits: string;
-  regulatory: string;
   badge?: 'warning' | 'success';
   usedInStrategies?: string[];
   hasExceptionNote?: boolean;

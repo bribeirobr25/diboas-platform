@@ -353,6 +353,23 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
     'i'
   );
 
+  // POSITIVE CONTROLS — the same breaches the web wall must keep catching (genius-stablecoin-wall
+  // .test.ts): the shared pattern file can only widen. Keep the two lists identical.
+  it.each([
+    'Your digital dollar earns every day',
+    'digital-dollar yield envelope',
+    'Renditen in digitalen Dollar',
+    'Digital-Dollar-Rendite',
+    'Os dólares digitais rendem',
+    'rendimiento en dólar digital',
+    'rendendo em dólares digital',
+    'USDC yield',
+    'stablecoin earnings',
+    'Dein Geld verdient im Digital-Dollar',
+  ])('should flag "%s" when the shared pattern is applied', (sample) => {
+    expect(PAIRING.test(sample)).toBe(true);
+  });
+
   it('should have no earn/yield-near-stablecoin pairing in any locale', () => {
     for (const locale of SANDBOX_LOCALES) {
       for (const [id, msg] of Object.entries(getMessages(locale))) {

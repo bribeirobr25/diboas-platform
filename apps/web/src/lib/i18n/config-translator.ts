@@ -60,7 +60,7 @@ export type SlotValues = Record<string, string | number | boolean | Date>;
 
 /**
  * Map from fully-qualified translation id to its slot values.
- * E.g. `'landing-b2c.fees.rows.adding.diboas' → { rate: "0.48%", min: "$0.25", max: "$25" }`.
+ * E.g. `'landing-b2c.fees.rows.selling.diboas' → { rate: "0.39%", min: "$0.25" }`.
  */
 export type ValuesByKey = Map<string, SlotValues>;
 

@@ -13,7 +13,7 @@
     },
     "minimum": {
       "question": "What's the minimum amount to start?",
-      "answer": "Practice is free to try; the amount you need to add money is shown before you start."
+      "answer": "Practice is free to try and uses no real money."
     },
     "afterSignup": {
       "question": "What happens after I join the waitlist?",

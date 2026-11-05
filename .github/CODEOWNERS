@@ -24,6 +24,9 @@
 /packages/banking/src/ledger/                    @bribeirobr25
 /packages/banking/src/__tests__/ledger.test.ts   @bribeirobr25
 /apps/web/src/lib/i18n/__tests__/genius-stablecoin-wall.test.ts   @bribeirobr25
+# The GENIUS wall's shared pattern file (it may only widen) and the sandbox mirror (5.749).
+/config/genius-wall-patterns.json                                  @bribeirobr25
+/apps/sandbox/src/i18n/__tests__/messages.test.ts                  @bribeirobr25
 
 # Engineering-owned defaults (everything else): standard PR review.
 # (No explicit entry — GitHub falls back to the repository's default

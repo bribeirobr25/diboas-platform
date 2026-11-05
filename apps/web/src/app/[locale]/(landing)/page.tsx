@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
+import { buildServiceStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
 import { ScrollToHash } from '@/components/Layout/ScrollToHash';
@@ -116,25 +116,19 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
   // A8 fix (2026-05-23): pre-fetch the snapshot server-side so the data-bound
   // sections render with live data on first paint instead of flipping from
   // static fallback after hydration. See TOOLS_IMPROVEMENT.md A8.
-  const [pageMessages, snapshot, lbMessages] = await Promise.all([
+  const [pageMessages, snapshot, lbMessages, structured] = await Promise.all([
     loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share', 'dreamMode', 'preDemo', 'preDream']),
     marketDataService.get(),
     loadMessages(locale, 'landing-b2c'),
+    buildServiceStructuredData('landing', locale),
   ]);
 
   // Localized JSON-LD strings (so structured data is served in the page locale,
   // not English-only). English literals are kept as resilient fallbacks.
   const jsonLd = (lbMessages?.seo?.jsonLd as Record<string, string> | undefined) || {};
 
-  // Structured data in the page locale (5.643)
-  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
-    locale,
-    {
-      description: jsonLd.serviceDescription,
-      descriptionFallback:
-        'Goal-driven wealth building powered by the digital dollar. Your money, your wallet, your control.',
-    }
-  );
+  // Structured data in the page locale (5.643): built from this page's catalogue by key
+  const { service: organizationData, breadcrumbs: breadcrumbData } = structured;
 
   const appStructuredData = {
     '@context': 'https://schema.org',

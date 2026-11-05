@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
-import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
+import { buildServiceStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
@@ -111,21 +111,13 @@ export default async function ProtocolsPage({ params }: LocalePageProps) {
   // Load page-specific namespaces (common + waitlist already provided by landing layout)
   // 'faq' provides the canonical FAQ strings (2026-07-13 SSOT — the page's FAQ
   // now sources from faq.json via the FAQ registry, not the protocols namespace).
-  const [pageMessages, protocolsMessages] = await Promise.all([
+  const [pageMessages, structured] = await Promise.all([
     loadPageNamespaces(locale, ['protocols', 'landing-b2c', 'faq']),
-    loadMessages(locale, 'protocols'),
+    buildServiceStructuredData('protocols', locale),
   ]);
 
-  // Structured data in the page locale (5.643)
-  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
-    locale,
-    {
-      description: protocolsMessages?.seo?.jsonLd?.serviceDescription,
-      descriptionFallback:
-        "The decentralized finance protocols diBoaS has researched, with each one's audits and track record, and the ones its strategies use today.",
-      crumb: { key: 'protocols', url: '/protocols' },
-    }
-  );
+  // Structured data in the page locale (5.643): built from this page's catalogue by key
+  const { service: organizationData, breadcrumbs: breadcrumbData } = structured;
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>

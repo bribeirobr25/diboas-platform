@@ -13,7 +13,7 @@
     },
     "minimum": {
       "question": "Qual o valor mínimo pra começar?",
-      "answer": "O Practice é grátis pra experimentar; o valor que você precisa pra adicionar dinheiro aparece antes de você começar."
+      "answer": "O Practice é grátis pra experimentar e não usa dinheiro real."
     },
     "afterSignup": {
       "question": "O que acontece depois que eu entro na lista?",

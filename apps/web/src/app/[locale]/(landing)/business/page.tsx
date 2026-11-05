@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import nextDynamic from 'next/dynamic';
 import { isValidLocale, type SupportedLocale, loadMessages } from '@diboas/i18n/server';
-import { buildPageStructuredData } from '@/lib/seo/pageStructuredData';
+import { buildServiceStructuredData } from '@/lib/seo/pageStructuredData';
 import { StructuredData } from '@/components/SEO/StructuredData';
 import {
   HeroSection,
@@ -151,22 +151,14 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
   }
 
   // A8 fix (2026-05-23): pre-fetch market snapshot for ComparisonTable.
-  const [pageMessages, snapshot, b2bMessages] = await Promise.all([
+  const [pageMessages, snapshot, structured] = await Promise.all([
     loadPageNamespaces(locale, ['landing-b2b', 'landing-b2c', 'faq']),
     marketDataService.get(),
-    loadMessages(locale, 'landing-b2b'),
+    buildServiceStructuredData('business', locale),
   ]);
 
-  // Structured data in the page locale (5.643)
-  const { service: organizationData, breadcrumbs: breadcrumbData } = await buildPageStructuredData(
-    locale,
-    {
-      description: b2bMessages?.seo?.jsonLd?.serviceDescription,
-      descriptionFallback:
-        'Separate business cash by purpose, see digital-dollar paths, and understand cost and risk before funds move.',
-      crumb: { key: 'forBusiness', url: '/business' },
-    }
-  );
+  // Structured data in the page locale (5.643): built from this page's catalogue by key
+  const { service: organizationData, breadcrumbs: breadcrumbData } = structured;
 
   return (
     <PageI18nProvider pageMessages={pageMessages}>
