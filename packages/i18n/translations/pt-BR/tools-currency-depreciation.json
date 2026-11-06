@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de desvalorização cambial",
-    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em dólar digital, com retorno histórico de estratégia de 10%."
+    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em dólar digital, com retorno histórico de estratégia de {scenarioHistorical}."
   },
   "hero": {
     "kicker": "Calculadora de desvalorização cambial",

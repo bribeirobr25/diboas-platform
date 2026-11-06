@@ -16,7 +16,7 @@
     "body": [
       "Você deixou R$ 1.000 na poupança um ano atrás. Hoje rendeu... um pouquinho. Mas o aluguel subiu, o mercado subiu, o dólar subiu. Na prática, seu dinheiro mal saiu do lugar. Esse é o problema todo, e a culpa não é sua. Ninguém nunca te mostrou a outra metade.",
       "R$ 1.000 guardados continuam sendo R$ 1.000. Daqui a seis meses. Daqui a um ano. Daqui a quarenta anos. E, enquanto isso, a vida vai ficando mais cara em volta deles.",
-      "Mas esses mesmos R$ 1.000, deixados pra crescer, mesmo num ritmo cauteloso de 7%, poderiam virar uns **R$ 2.252 em 12 anos.** Você não botou nem um centavo. O crescimento começou a render em cima do próprio crescimento. Não é promessa, é cenário.",
+      "Mas esses mesmos R$ 1.000, deixados pra crescer, mesmo num ritmo cauteloso de {scenarioConservative}, poderiam virar uns **{scenarioLumpSumResult} em 12 anos.** Você não botou nem um centavo. O crescimento começou a render em cima do próprio crescimento. Não é promessa, é cenário.",
       "Isso são juros compostos, a conta que todo banco e todo fundo usam há séculos.",
       "Não está escondido num cofre. Só que ninguém nunca sentou e explicou. (A minha avó fez tudo certo por décadas e nunca uma vez mostraram isso pra ela.)",
       "É a força mais poderosa que existe sobre dinheiro, e quase ninguém fora desse mundo usa de verdade. Os próximos papos são sobre o *porquê*. Esse aqui é sobre *como funciona*."
@@ -30,7 +30,7 @@
       "Então esquece regra. Pensa nas coisinhas que você já gasta sem nem pensar."
     ],
     "habitsLine": "O cafezinho de todo dia. A comida por app na sexta. O combo de streaming todo mês.",
-    "vignettesIntro": "Aquilo foram R$ 1.000 de uma vez só. Hábito é diferente: ele se repete. Então imagina redirecionar um hábito pequeno, mês após mês, por 12 anos. Um cafezinho de uns R$ 10 por dia dá uns R$ 200 por mês. Investido naquele mesmo ritmo cauteloso de 7%, olha onde cada um poderia chegar:",
+    "vignettesIntro": "Aquilo foram R$ 1.000 de uma vez só. Hábito é diferente: ele se repete. Então imagina redirecionar um hábito pequeno, mês após mês, por 12 anos. Um cafezinho de uns R$ 10 por dia dá uns R$ 200 por mês. Investido naquele mesmo ritmo cauteloso de {scenarioConservative}, olha onde cada um poderia chegar:",
     "vignettes": [
       {
         "habit": "Cafezinho de todo dia (R$ 10/dia útil)",
@@ -54,7 +54,7 @@
       "twelveYear": "Poderia virar em 12 anos (estimativa)"
     },
     "vignettesOutro": "Mesmo dinheiro. Outro trabalho.",
-    "vignettesDisclaimer": "Valores ilustrativos, considerando que o hábito é investido em parcelas mensais iguais, mês após mês, por 12 anos, a um ritmo cauteloso de 7% de juros compostos. Os 10% históricos e os 14% otimistas estão na calculadora aqui embaixo. São cenários, não promessas, e desempenho passado não garante resultado futuro.",
+    "vignettesDisclaimer": "Valores ilustrativos, considerando que o hábito é investido em parcelas mensais iguais, mês após mês, por 12 anos, a um ritmo cauteloso de {scenarioConservative} de juros compostos. Os {scenarioHistorical} históricos e os {scenarioOptimistic} otimistas estão na calculadora aqui embaixo. São cenários, não promessas, e desempenho passado não garante resultado futuro.",
     "habitsRecap": "Ninguém está te pedindo pra cortar o cafezinho, a comida por app ou o streaming. Fica com o que faz a vida valer a pena.",
     "outro": [
       "Mas se só um deles, só um, fosse trabalhar pra você em vez de sumir todo mês, é a conta que você acabou de ver ali em cima.",
@@ -104,9 +104,9 @@
     "yearsLabel": "Anos",
     "yearsTooltip": "Uma vez = depósito único no início. Diário usa 365 dias; semanal 52; mensal 12; trimestral 4; semestral 2; anual 1.",
     "outputBank": "Seu banco",
-    "outputConservative": "Conservador (7%)",
-    "outputHistorical": "Histórico (10%)",
-    "outputOptimistic": "Otimista (14%)",
+    "outputConservative": "Conservador ({scenarioConservative})",
+    "outputHistorical": "Histórico ({scenarioHistorical})",
+    "outputOptimistic": "Otimista ({scenarioOptimistic})",
     "summaryHeader": "Em {years, plural, one {# ano} other {# anos}}, seu mensal de {amount} poderia virar…",
     "oneTimeSummaryHeader": "Em {years, plural, one {# ano} other {# anos}}, seu depósito inicial de {amount} poderia virar…",
     "chartAriaLabel": "Gráfico de juros compostos comparando a taxa do seu banco com três cenários ao longo do tempo.",
@@ -114,7 +114,7 @@
     "tableHeaderRate": "Taxa anual",
     "tableHeaderTotal": "Após {years, plural, one {# ano} other {# anos}}",
     "loadingState": "Calculando…",
-    "calibrationNote": "O que as taxas significam. Os 7% conservadores são o cenário mais estável, os 10% históricos ficam no meio da faixa de longo prazo, e os 14% otimistas são o cenário mais ativo. São cenários, não promessas, e toda taxa tem risco. De forma independente: o S&P 500 rendeu, em média, cerca de 10% ao ano no longo prazo (nominal, com dividendos reinvestidos; cerca de 7% após a inflação), e o ouro cerca de 7% ao ano. No longo prazo, poupar em reais rendeu menos do que manter o dólar digital (números completos nas nossas notas de pesquisa)."
+    "calibrationNote": "O que as taxas significam. Os {scenarioConservative} conservadores são o cenário mais estável, os {scenarioHistorical} históricos ficam no meio da faixa de longo prazo, e os {scenarioOptimistic} otimistas são o cenário mais ativo. São cenários, não promessas, e toda taxa tem risco. De forma independente: o S&P 500 rendeu, em média, cerca de 10% ao ano no longo prazo (nominal, com dividendos reinvestidos; cerca de 7% após a inflação), e o ouro cerca de 7% ao ano. No longo prazo, poupar em reais rendeu menos do que manter o dólar digital (números completos nas nossas notas de pesquisa)."
   },
   "quiz": {
     "q1": {
@@ -126,8 +126,8 @@
       ]
     },
     "q2": {
-      "question": "O exemplo dos R$ 1.000 para ~R$ 2.252 usou qual taxa?",
-      "options": ["7% cauteloso", "20% garantido", "o que o banco prometer"]
+      "question": "O exemplo dos R$ 1.000 para ~{scenarioLumpSumResult} usou qual taxa?",
+      "options": ["{scenarioConservative} cauteloso", "20% garantido", "o que o banco prometer"]
     },
     "reflection": "Olha o mês passado e escolhe um gasto pequeno que você não sentiria falta. Sem pressão pra mudar nada. Só repara nele.",
     "share": {

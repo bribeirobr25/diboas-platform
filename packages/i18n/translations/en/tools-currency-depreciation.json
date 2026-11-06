@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Currency Depreciation Calculator: real returns",
-    "description": "Free currency depreciation calculator. Compare your local currency in cash, in your bank, and in a digital-dollar strategy (10% historical per year)."
+    "description": "Free currency depreciation calculator. Compare your local currency in cash, in your bank, and in a digital-dollar strategy ({scenarioHistorical} historical per year)."
   },
   "hero": {
     "kicker": "Currency depreciation calculator",

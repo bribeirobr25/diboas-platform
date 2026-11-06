@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de depreciación monetaria",
-    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en una estrategia en dólar digital (10% histórico al año)."
+    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en una estrategia en dólar digital ({scenarioHistorical} histórico al año)."
   },
   "hero": {
     "kicker": "Calculadora de depreciación monetaria",
