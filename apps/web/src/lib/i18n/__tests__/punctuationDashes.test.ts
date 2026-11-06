@@ -59,7 +59,17 @@ const LEGAL_NAMESPACE = /^legal\//;
  * spaces, or an en dash joining two letters ("Brasil–dort"). An en dash between digits is a range
  * and a hyphen inside a word is a hyphen: both pass (8th audit widened the forms).
  */
-const DASH = /—|―|‒|⸺|⸻|--|&mdash;|&#8212;|\s[–−-]\s|\p{L}–\p{L}/u;
+const DASH = new RegExp(
+  [
+    '—|―|‒|⸺|⸻|[﹘﹣－]', // em dash, horizontal bar, figure dash, 2/3-em dashes, look-alikes
+    '--|&mdash;|&ndash;|&#821[12];|&#x201[34];', // double hyphen, entities
+    '\\s[–−\\-‐‑]\\s', // an en dash, minus, hyphen or hyphen look-alike standing between spaces
+    '^[–—]\\s|\\s[–—]$|\\s–\\S|\\S–\\s', // at the start or end, or spaced on one side only
+    '[)”"»]–|–[(“"«]', // against punctuation
+    '\\p{Ll}–\\p{Ll}|\\d–\\p{Ll}|\\p{Ll}–\\d', // joining words ("Brasil–dort", "2026–heute")
+  ].join('|'),
+  'u'
+);
 const sha = (text: string) => createHash('sha256').update(text).digest('hex').slice(0, 16);
 
 function flatten(node: unknown, prefix = '', out: Record<string, string> = {}) {
@@ -129,6 +139,33 @@ describe('5.803 · no punctuation dash in website copy', () => {
     ])
       expect(DASH.test(form), form).toBe(true);
     expect(DASH.test('−3')).toBe(false); // a minus sign on a number
+    // 9th audit: forms that still slipped through, and ranges that must stay legal.
+    for (const form of [
+      '– Start here',
+      'Start here –',
+      'Geld –jetzt',
+      'Geld– jetzt',
+      '(Brasil)–dort',
+      '“Ja”–sagte',
+      '2026–heute',
+      'Seite–2',
+      'a ﹘ b',
+      'a － b',
+      'a ‐ b',
+      'a &ndash; b',
+      'a &#8211; b',
+    ])
+      expect(DASH.test(form), form).toBe(true);
+    for (const range of [
+      'Mo–Fr 9–17 Uhr',
+      'A–Z',
+      'EUR–USD',
+      'Q1–Q3',
+      '0,4–1,0',
+      '1928–2024',
+      'Kontakt- und',
+    ])
+      expect(DASH.test(range), range).toBe(false);
     expect(DASH.test('S&P 500')).toBe(false);
   });
 });

@@ -80,6 +80,20 @@ const FAMILIES: ReadonlyArray<{ family: RegExp; files: readonly string[] }> = [
   },
 ];
 
+/**
+ * Helpers that read through a translator their CALLER scopes (`regimeLabelMap(t)`, a hook handed
+ * `t`), so the namespace never appears in the file: declared with the namespace the caller scopes.
+ * Each entry must be load-bearing, like a family reader.
+ */
+const INJECTED: ReadonlyArray<{ file: string; namespaces: readonly string[] }> = [
+  { file: 'apps/web/src/lib/market/presentationState.ts', namespaces: ['market'] },
+  { file: 'apps/web/src/lib/market/viewRegistry.ts', namespaces: ['market'] },
+  {
+    file: 'apps/web/src/components/WaitingList/hooks/useWaitlistForm.ts',
+    namespaces: ['waitlist'],
+  },
+];
+
 interface Key {
   ns: string;
   key: string;
@@ -100,7 +114,9 @@ function catalogueKeys(): Key[] {
         const full = join(dir, e);
         if (statSync(full).isDirectory()) walk(full);
         else if (e.endsWith('.json')) {
-          const ns = relative(join(TRANSLATIONS, locale), full).replace(/\.json$/, '');
+          const ns = relative(join(TRANSLATIONS, locale), full)
+            .replace(/\\/g, '/')
+            .replace(/\.json$/, '');
           leaves(JSON.parse(readFileSync(full, 'utf8')), '', ns);
         }
       }
@@ -114,9 +130,10 @@ interface FileEvidence {
   path: string;
   literals: Set<string>;
   heads: Set<string>;
-  /** Template head → its first literal tail (`tools-` → `.landing.cardTitle`). */
-  pairs: Array<[string, string]>;
-  tails: Set<string>;
+  /** Template head → its first literal tail (`tools-` → `.landing.cardTitle`), and whether that
+   *  tail ends the template (a closed path) or a further `${…}` continues it (an open prefix). */
+  pairs: Array<[string, string, boolean]>;
+  tails: Array<[string, boolean]>;
   chains: Set<string>;
   namespacesNamed: Set<string>;
   families: RegExp[];
@@ -130,17 +147,20 @@ function evidenceOf(path: string, text: string, namespaces: Set<string>): FileEv
     literals: new Set(),
     heads: new Set(),
     pairs: [],
-    tails: new Set(),
+    tails: [],
     chains: new Set(),
     namespacesNamed: new Set(),
     families: FAMILIES.filter((f) => f.files.includes(path)).map((f) => f.family),
   };
   const visit = (n: ts.Node) => {
-    if (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n)) ev.literals.add(n.text);
-    else if (ts.isTemplateExpression(n)) {
+    if (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n)) {
+      ev.literals.add(n.text);
+      if (namespaces.has(n.text) && namesANamespace(n)) ev.namespacesNamed.add(n.text);
+    } else if (ts.isTemplateExpression(n)) {
       ev.heads.add(n.head.text);
-      ev.pairs.push([n.head.text, n.templateSpans[0].literal.text]);
-      for (const span of n.templateSpans) ev.tails.add(span.literal.text);
+      const spans = n.templateSpans;
+      ev.pairs.push([n.head.text, spans[0].literal.text, spans.length === 1]);
+      spans.forEach((span, i) => ev.tails.push([span.literal.text, i === spans.length - 1]));
     } else if (ts.isPropertyAccessExpression(n) && !ts.isPropertyAccessExpression(n.parent)) {
       const segs: string[] = [];
       let c: ts.Expression = n;
@@ -154,12 +174,42 @@ function evidenceOf(path: string, text: string, namespaces: Set<string>): FileEv
     ts.forEachChild(n, visit);
   };
   visit(sf);
+  for (const inj of INJECTED)
+    if (inj.file === path) inj.namespaces.forEach((x) => ev.namespacesNamed.add(x));
+  // A full id or a full-id head names its namespace (`'faq.items.risk'`, `faq.items.${id}`).
   for (const l of [...ev.literals, ...ev.heads]) {
-    if (namespaces.has(l)) ev.namespacesNamed.add(l);
     const dot = l.indexOf('.');
     if (dot > 0 && namespaces.has(l.slice(0, dot))) ev.namespacesNamed.add(l.slice(0, dot));
   }
   return ev;
+}
+
+/**
+ * A bare namespace literal names the namespace only where code LOADS or SCOPES with it: as a call
+ * argument (`loadMessages(locale, 'faq')`, also inside an array argument), as a prefix or
+ * namespace constant (`const I18N_PREFIX = 'strategies'`), or a namespace property
+ * (`i18nNamespace: 'tools-x'`). A union type or an event tag (`'waitlist' | 'referral'`) does not
+ * (9th audit: those made whole sections "read").
+ */
+function namesANamespace(n: ts.Node): boolean {
+  let p = n.parent;
+  if (ts.isArrayLiteralExpression(p)) p = p.parent;
+  if (ts.isCallExpression(p) || ts.isNewExpression(p)) return true;
+  const name =
+    ts.isVariableDeclaration(p) ||
+    ts.isPropertyAssignment(p) ||
+    ts.isBindingElement(p) ||
+    ts.isParameter(p)
+      ? p.name.getText()
+      : undefined;
+  return name !== undefined && /(prefix|namespace|^ns$|_ns$)/i.test(name);
+}
+
+/** Does a template path cover `key`? An open path (a `${…}` follows) is a prefix; a closed one is
+ *  the key itself or its subtree, never a longer segment (`.title` never covers `titleSuffix`). */
+function covers(path: string, key: string, open: boolean): boolean {
+  if (!path) return false;
+  return open ? key.startsWith(path) : key === path || key.startsWith(`${path}.`);
 }
 
 function isRead(
@@ -178,24 +228,24 @@ function isRead(
       const dot = h.indexOf('.');
       if (dot > 0 && h.slice(0, dot) === ns && h.length > dot + 1 && id.startsWith(h)) return true;
     }
-    for (const [h, t] of f.pairs)
-      if (h && !h.includes('.') && ns.startsWith(h) && t.length > 1 && t.startsWith('.'))
-        if (key.startsWith(t.slice(1))) return true;
+    for (const [h, t, closed] of f.pairs)
+      if (h && !h.includes('.') && ns.startsWith(h) && t.startsWith('.'))
+        if (covers(t.slice(1), key, !closed)) return true;
     const inFamily = f.families.some((re) => re.test(ns));
     if (inFamily)
-      for (const t of f.tails)
-        if (t.length > 1 && t.startsWith('.') && key.startsWith(t.slice(1))) return true;
+      for (const [t, closed] of f.tails)
+        if (t.startsWith('.') && covers(t.slice(1), key, !closed)) return true;
     if (!inFamily && !f.namespacesNamed.has(ns)) continue;
     // A prefix held in a constant the file names: `${STRATEGIES_I18N_PREFIX}.faq.header`.
     if (f.namespacesNamed.has(ns))
-      for (const [h, t] of f.pairs)
-        if (h === '' && t.length > 1 && t.startsWith('.') && key.startsWith(t.slice(1)))
-          return true;
+      for (const [h, t, closed] of f.pairs)
+        if (h === '' && t.startsWith('.') && covers(t.slice(1), key, !closed)) return true;
+    // The key itself, or a parent of at least two segments: a one-word literal ('beat1',
+    // 'contact', 'tier') is also a section id, a type tag or a class name, never proof that a
+    // whole section is read (9th audit).
     for (let i = keyParts.length; i >= 1; i -= 1) {
-      const part = keyParts.slice(0, i).join('.');
-      // A literal that is a namespace's own name ('strategies', 'faq') names the namespace —
-      // never a section inside it (8th audit: it marked whole `strategies.strategies.*` read).
-      if (f.literals.has(part) && !(i === 1 && namespaces.has(part))) return true;
+      if (i < 2 && i < keyParts.length) break;
+      if (f.literals.has(keyParts.slice(0, i).join('.'))) return true;
     }
     for (const h of f.heads)
       if (h.includes('.') && !h.startsWith(`${ns}.`) && key.startsWith(h)) return true;
@@ -215,6 +265,7 @@ function sourceEvidence(namespaces: Set<string>): FileEvidence[] {
     .filter(
       (f) => /\.(tsx?|jsx?|mjs|cjs)$/.test(f) && !/(\.(test|spec|stories)\.|__tests__\/)/.test(f)
     )
+    .filter((f) => existsSync(join(ROOT, f))) // a tracked file deleted in the working tree
     .map((f) => evidenceOf(f, readFileSync(join(ROOT, f), 'utf8'), namespaces));
 }
 
@@ -258,6 +309,22 @@ describe('5.800 · every website catalogue key is read by code (ratchet)', () =>
           `${p} reads nothing only it can read`
         ).toBeGreaterThan(before);
       }
+  });
+
+  it('should keep every declared injected-translator reader load-bearing', () => {
+    const before = unread.length;
+    for (const { file } of INJECTED) {
+      const f = files.find((x) => x.path === file);
+      expect(f, `declared reader ${file} is not a tracked source file`).toBeDefined();
+      const bare = evidenceOf(file, readFileSync(join(ROOT, file), 'utf8'), new Set());
+      const without = files.map((x) =>
+        x === f ? { ...bare, namespacesNamed: new Set<string>() } : x
+      );
+      expect(
+        unreadIds(keys, without).length,
+        `${file} reads nothing only it can read`
+      ).toBeGreaterThan(before);
+    }
   });
 
   it('should tell a read key from an unread one, file by file (non-vacuity)', () => {
