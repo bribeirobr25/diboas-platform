@@ -16,6 +16,7 @@ import {
   advanceTime,
   createGoal,
   enterStrategy,
+  exitPosition,
   getLedgerState,
   grantPlayMoney,
   resetSandbox,
@@ -72,6 +73,33 @@ vi.mock('@/hooks/useMarket', () => ({
   fetchHistories: () =>
     h.historiesFail ? Promise.reject(new Error('chart SECRET-789')) : Promise.resolve([]),
 }));
+
+/* PR 2 · the projection's rate ranges, controlled per test (the hook's own fetch, timeout and
+   abort are proven in hooks/__tests__/useRateRanges.test.tsx). `enabledCalls` records what the
+   screen asked for, so the fetch gate is asserted at the mount site. */
+const rr = vi.hoisted(() => ({
+  ranges: null as unknown,
+  enabledCalls: [] as boolean[],
+  attribution: false,
+}));
+vi.mock('@/hooks/useRateRanges', () => ({
+  useRateRanges: (enabled: boolean) => {
+    rr.enabledCalls.push(enabled);
+    return enabled ? rr.ranges : null;
+  },
+}));
+vi.mock('@/view/marketDataAttribution', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/view/marketDataAttribution')>();
+  return {
+    ...actual,
+    goalShowsCoinGeckoPrices: (...args: Parameters<typeof actual.goalShowsCoinGeckoPrices>) =>
+      rr.attribution || actual.goalShowsCoinGeckoPrices(...args),
+  };
+});
+const RANGES_OK = {
+  strategies: [],
+  aggregate: { available: true, lowPercent: 2.7, highPercent: 3.8, observedDays: 266 },
+};
 
 const MARKET_OK = {
   apys: [],
@@ -888,5 +916,123 @@ describe('GoalDetailScreen — a chart failure after leaving is not news', () =>
       h.market = prev;
       warn.mockRestore();
     }
+  });
+});
+
+describe('PR 2 · the projection at its mount sites', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    rr.ranges = RANGES_OK;
+    rr.enabledCalls = [];
+    rr.attribution = false;
+  });
+
+  const newGoal = (targetAmount: number, fundAmount: number) =>
+    createGoal({ name: 'Trip', icon: 'plane', targetAmount, horizonMonths: 36, fundAmount });
+
+  it('should render Case 2 (no position, so no plan) — the old monthly-amount gate hid it', () => {
+    renderDetail(newGoal(10_000, 2_000));
+    expect(rr.enabledCalls.at(-1)).toBe(true);
+    expect(screen.getByText(/^Simulated: if all of it were in a stable strategy/)).toBeTruthy();
+    expect(screen.getByText('Illustrative projection · not a forecast')).toBeTruthy();
+  });
+
+  it('should not ask for the rates when the block cannot show (target reached)', () => {
+    renderDetail(newGoal(1_000, 1_000));
+    expect(rr.enabledCalls.length).toBeGreaterThan(0);
+    expect(rr.enabledCalls.every((e) => e === false)).toBe(true);
+    expect(screen.queryByText(/Illustrative projection/)).toBeNull();
+  });
+
+  it('should say the rates cannot be read (Case U) and show no projection number', () => {
+    rr.ranges = 'error';
+    renderDetail(newGoal(10_000, 2_000));
+    expect(screen.getByText(/Pool rates can't be read right now/)).toBeTruthy();
+    expect(screen.queryByText(/Simulated:/)).toBeNull();
+  });
+
+  it('should carry exactly ONE CoinGecko attribution per screen, in Simple and in Detailed', () => {
+    rr.attribution = true;
+    renderDetail(newGoal(10_000, 2_000));
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    expect(screen.getByText(/^Simulated: if all of it were in a stable strategy/)).toBeTruthy();
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+  });
+});
+
+/**
+ * P3 §2 (7th audit) · the attribution in the state that REALLY shows it — not forced by a mock:
+ * a growth position whose replay consumed provider prices, then exited, and a stable position
+ * entered — Case 1 with a price-replayed outcome inside the goal's value. One per screen.
+ */
+describe('PR 2 · one CoinGecko attribution per screen, Case 1 after a growth position exited', () => {
+  const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    rr.attribution = false; // the REAL condition decides here
+    rr.enabledCalls = [];
+    rr.ranges = {
+      strategies: [
+        {
+          strategyId: 'safeHarbor',
+          available: true,
+          lowPercent: 2.8,
+          highPercent: 3.7,
+          windowStart: '2026-02-13',
+          windowEnd: '2026-07-24',
+          observedDays: 160,
+          todayPercent: 3.5,
+          oldestLegAsOf: '2026-07-24',
+        },
+      ],
+      aggregate: { available: true, lowPercent: 2.7, highPercent: 3.8, observedDays: 160 },
+    };
+  });
+
+  it('should show exactly one attribution in Simple and in Detailed', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 20_000,
+      horizonMonths: 48,
+      fundAmount: 2_000,
+    });
+    enterStrategy({ goalId, strategyId: 'fullThrottle', totalFromCash: 1000, networkFeeLocal: 0 });
+    advanceTime(
+      180,
+      PROTOCOLS.map((protocolId) => ({
+        protocolId,
+        points: fixturePriceSeries(protocolId, 400).map((pt) => ({ date: pt.date, apyPercent: 5 })),
+        stamp: FIXTURE_STAMP,
+      })),
+      'machine',
+      PROTOCOLS.map((protocolId) => ({
+        protocolId,
+        points: fixturePriceSeries(protocolId, 400),
+        stamp: observedStamp('coingecko', '2026-07-24T00:00:00.000Z'),
+      }))
+    );
+    const growth = getLedgerState().positions.find((p) => p.goalId === goalId && p.open)!;
+    exitPosition({ positionId: growth.positionId, networkFeeLocal: 0 });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    const open = getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+    expect(open.map((p) => p.strategyId)).toEqual(['safeHarbor']); // Case 1
+
+    renderDetail(goalId);
+    expect(screen.getByText(/^From what this goal holds/)).toBeTruthy(); // the block shows Case 1
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
   });
 });

@@ -15,6 +15,7 @@ import {
   protocolApyListIssue,
   type DisplayCurrency,
 } from '@diboas/defi';
+import { PROJECTION_POLICY } from '@diboas/investing';
 
 /**
  * `5.353`: the market response is PARSED at this seam, not asserted — every NESTED field
@@ -59,4 +60,60 @@ export function historyResponseIssue(body: unknown): string | null {
       ? null
       : priceHistoryListIssue(body.priceHistories, 'priceHistories'))
   );
+}
+
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+const UNAVAILABLE_REASONS = new Set([
+  'NO_HISTORY',
+  'NOT_OBSERVED',
+  'STALE',
+  'BASE_SPLIT_MISSING',
+  'TOO_LITTLE_HISTORY',
+]);
+const finiteNumber = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+/** A rate the route can send: finite and never negative (the APY bounds start at 0). */
+const rate = (v: unknown): v is number => finiteNumber(v) && v >= 0;
+/** A window the route can send: whole days, at least the approved minimum overlap. */
+const windowDays = (v: unknown) =>
+  finiteNumber(v) && Number.isInteger(v) && v >= PROJECTION_POLICY.minOverlapDays;
+/** A REAL calendar day — `2026-13-45` matches the pattern but is no day (7th audit). */
+const day = (v: unknown): v is string =>
+  typeof v === 'string' &&
+  DAY_RE.test(v) &&
+  !Number.isNaN(Date.parse(`${v}T00:00:00Z`)) &&
+  new Date(`${v}T00:00:00Z`).toISOString().slice(0, 10) === v;
+
+/**
+ * PR 2 · `GET /api/market/rate-ranges` (`lib/rateRangesContract.ts`): every field the
+ * projection reads — non-negative rates with low ≤ high, a window of at least the approved
+ * minimum of whole days that starts before it ends, real calendar days, a known unavailable
+ * reason. A shape this code cannot use is an error (Case U), never data.
+ */
+export function rateRangesResponseIssue(body: unknown): string | null {
+  if (!isRecord(body)) return 'body';
+  if (!Array.isArray(body.strategies)) return 'strategies';
+  for (const [i, raw] of body.strategies.entries()) {
+    const at = `strategies[${i}]`;
+    if (!isRecord(raw) || typeof raw.strategyId !== 'string') return `${at}.strategyId`;
+    if (raw.available === false) {
+      if (!UNAVAILABLE_REASONS.has(raw.reason as string)) return `${at}.reason`;
+      continue;
+    }
+    if (raw.available !== true) return `${at}.available`;
+    for (const k of ['lowPercent', 'highPercent', 'todayPercent'] as const)
+      if (!rate(raw[k])) return `${at}.${k}`;
+    if ((raw.lowPercent as number) > (raw.highPercent as number)) return `${at}.highPercent`;
+    if (!windowDays(raw.observedDays)) return `${at}.observedDays`;
+    for (const k of ['windowStart', 'windowEnd', 'oldestLegAsOf'] as const)
+      if (!day(raw[k])) return `${at}.${k}`;
+    if ((raw.windowStart as string) > (raw.windowEnd as string)) return `${at}.windowStart`;
+  }
+  const a = body.aggregate;
+  if (!isRecord(a) || typeof a.available !== 'boolean') return 'aggregate';
+  if (a.available) {
+    if (!rate(a.lowPercent)) return 'aggregate.lowPercent';
+    if (!rate(a.highPercent) || a.highPercent < a.lowPercent) return 'aggregate.highPercent';
+    if (!windowDays(a.observedDays)) return 'aggregate.observedDays';
+  }
+  return null;
 }

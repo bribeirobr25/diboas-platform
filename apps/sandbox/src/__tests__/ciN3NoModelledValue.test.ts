@@ -24,8 +24,10 @@ import { stripComments } from '@/test/stripComments';
  * ⚑ A NAME COLLISION WORTH STATING, because it would mislead the next reader:
  * `@diboas/banking`'s `project(events)` is the event-sourcing REDUCER — it
  * projects events into state. It is not a financial projection and is not what
- * this gate is about. The modelled values here are `projectionRange` /
- * `projectionDisplay` in `@diboas/investing`.
+ * this gate is about. The modelled values here are PR 2's projection: the maths
+ * `monthsToTarget` / `monthlyNeeded` / `rollingAverageRange` / `weightedSeries` in
+ * `@diboas/investing`, joined by `selectGoalProjection` (`view/projection.ts`); its money is
+ * a `ModelledAmount` only (`ciN3ProjectionSeam.test.ts`, `ciN3ModelledAmount.test.ts`).
  */
 
 const SANDBOX_SRC = join(__dirname, '..');
@@ -110,15 +112,16 @@ const LEDGER_WRITES = Object.entries(ledgerClient)
 /**
  * The surfaces that DISPLAY a modelled value: the two named at the gate's
  * creation, plus every file under `components/` or `view/` that calls the
- * projection seam (`projectionDisplay` / `projectionRange`) — so a new surface
- * that calls the seam directly is covered without an edit here.
+ * projection seam (PR 2's maths or `selectGoalProjection`) — so a new surface that calls
+ * the seam directly is covered without an edit here. PR 2 widened the scan to `lib/market`
+ * and the market routes, where the rate ranges are computed.
  *
  * ⚑ SCOPE LIMIT (corrected after independent review, 2026-10-15). A PARENT that
  * only renders a projection surface is NOT covered: `GoalDetailScreen` renders
  * `<Projection>` and legitimately calls ledger writes from its own buttons, so
  * "no write in the file" cannot be its rule — whether a modelled value flows
  * INTO one of those writes needs data-flow analysis this text scan does not do.
- * Today the only `SCENARIO_RATES` consumer in the app is `Projection.tsx`.
+ * Since PR 2 no static rate exists in the app (`ciN3ProjectionSeam.test.ts`, guard 3).
  */
 function sourceFiles(dir: string, acc: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
@@ -129,13 +132,19 @@ function sourceFiles(dir: string, acc: string[] = []): string[] {
   }
   return acc;
 }
+/** PR 2's projection seam, by name (word-bounded: `selectGoalProjectionFor` is the screen's
+ *  ledger-reading wrapper, rendered by a PARENT with its own writes — the scope limit above). */
+const PROJECTION_SEAM =
+  /\b(?:monthsToTarget|monthlyNeeded|rollingAverageRange|weightedSeries|selectGoalProjection|computeRateRanges|rateRangesFor)\b/;
 const PROJECTION_SURFACES = [
   ...new Set([
     'components/Projection.tsx',
     'components/ExpenseImpactCard.tsx',
     ...sourceFiles(join(SANDBOX_SRC, 'components'))
       .concat(sourceFiles(join(SANDBOX_SRC, 'view')))
-      .filter((f) => /projectionDisplay|projectionRange/.test(readFileSync(f, 'utf8')))
+      .concat(sourceFiles(join(SANDBOX_SRC, 'lib', 'market')))
+      .concat(sourceFiles(join(SANDBOX_SRC, 'app', 'api', 'market')))
+      .filter((f) => PROJECTION_SEAM.test(readFileSync(f, 'utf8')))
       .map((f) => relative(SANDBOX_SRC, f)),
   ]),
 ];
@@ -183,7 +192,7 @@ describe('CI-N3 · a projection surface holds no ledger-write capability', () =>
       'components/PSideEffect.tsx': "import {} from '@/lib/ledgerClient';",
       'components/barrel.ts': "export * from '@/lib/ledgerClient';",
       'components/PBarrel.tsx': "import { createGoal } from './barrel';",
-      'components/PPackage.tsx': "import { projectionDisplay } from '@diboas/investing';",
+      'components/PPackage.tsx': "import { monthsToTarget } from '@diboas/investing';",
     };
     const read = (rel: string): string | null =>
       planted[rel] ??
@@ -236,7 +245,14 @@ describe('CI-N3 · the actual balance is derived from the ledger alone', () => {
      */
     const text = code('lib/goalValue.ts');
     expect(text).not.toContain('@diboas/investing');
-    for (const modelled of ['projectionRange', 'projectionDisplay', 'SCENARIO_RATES']) {
+    for (const modelled of [
+      'monthsToTarget',
+      'monthlyNeeded',
+      'rollingAverageRange',
+      'weightedSeries',
+      'selectGoalProjection',
+      'rateRanges',
+    ]) {
       expect(text, `goalValue.ts reaches a modelled value: ${modelled}`).not.toContain(modelled);
     }
   });

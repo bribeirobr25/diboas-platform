@@ -243,13 +243,39 @@
   },
   "projection": {
     "heading": "Der Weg von hier",
-    "rangeLine": "Mit {amount} pro Monat würden angenommene {low}% bis {high}% {target} in etwa {minYears} bis {maxYears} Jahren erreichen.",
-    "singleLine": "Mit {amount} pro Monat würden angenommene {low}% bis {high}% {target} in etwa {years, plural, one {# Jahr} other {# Jahren}} erreichen.",
-    "caveat": "Eine Annahme, die du prüfen kannst, kein Versprechen. Echte Renditen schwanken und können negativ sein.",
-    "paceWithin": "Dieses Tempo passt in deinen Zeitraum von {months} Monaten.",
-    "paceEdge": "Dieses Tempo landet etwa bei deinem Zeitraum von {months} Monaten.",
-    "paceBeyond": "Dieses Tempo dauert länger als dein Zeitraum von {months} Monaten.",
-    "underYear": "Mit {amount} pro Monat würden angenommene {low}% bis {high}% {target} innerhalb eines Jahres erreichen."
+    "caveat": "Eine Annahme, die du prüfen kannst, kein Versprechen. Echte Ergebnisse schwanken und können negativ sein.",
+    "paceWithin": "Dieses Tempo passt in {months, plural, one {den # verbleibenden Monat} other {die # verbleibenden Monate}} deines Zeitraums.",
+    "paceEdge": "Dieses Tempo landet etwa bei {months, plural, one {dem # verbleibenden Monat} other {den # verbleibenden Monaten}} deines Zeitraums.",
+    "paceBeyond": "In diesem Tempo dauert es länger als {months, plural, one {der # verbleibende Monat} other {die # verbleibenden Monate}} deines Zeitraums.",
+    "tag": "Veranschaulichende Projektion · keine Prognose",
+    "when": {
+      "range": "in etwa {minYears} bis {maxYears} Jahren",
+      "single": "in etwa {years, plural, one {# Jahr} other {# Jahren}}",
+      "underYear": "innerhalb eines Jahres"
+    },
+    "live": {
+      "today": "Beobachtete Basis-Pool-Rate: {rate} · Momentaufnahme {age}",
+      "todayRange": "Beobachtete Basis-Pool-Raten: {low} bis {high} · Momentaufnahme {age}",
+      "withPlan": "Mit {amount} pro Monat würdest du {target} {when} erreichen, wenn die Basis-Pool-Rate deiner Strategie zwischen {low} und {high} pro Jahr bleibt, also in dem Bereich, in dem sich ihr 30-Tage-Durchschnitt {window, plural, one {im letzten Monat} other {in den letzten # Monaten}} bewegt hat.",
+      "noPlan": "Mit dem Geld in diesem Ziel würdest du {target} {when} erreichen, wenn die Basis-Pool-Rate deiner Strategie zwischen {low} und {high} pro Jahr bleibt, also in dem Bereich, in dem sich ihr 30-Tage-Durchschnitt {window, plural, one {im letzten Monat} other {in den letzten # Monaten}} bewegt hat."
+    },
+    "simulated": {
+      "needed": "Simulation: Läge alles in einer stabilen Strategie, würden etwa {amounts} pro Monat reichen, um {target} in {months, plural, one {dem # verbleibenden Monat} other {den # verbleibenden Monaten}} deines Zeitraums zu erreichen, bei {low} bis {high} pro Jahr, also in dem Bereich, in dem sich die 30-Tage-Durchschnitte der Basis-Pool-Raten der stabilen Strategien {window, plural, one {im letzten Monat} other {in den letzten # Monaten}} bewegt haben.",
+      "neededUpTo": "Simulation: Läge alles in einer stabilen Strategie, würden bis zu {max} pro Monat reichen, um {target} in {months, plural, one {dem # verbleibenden Monat} other {den # verbleibenden Monaten}} deines Zeitraums zu erreichen, bei {low} bis {high} pro Jahr, also in dem Bereich, in dem sich die 30-Tage-Durchschnitte der Basis-Pool-Raten der stabilen Strategien {window, plural, one {im letzten Monat} other {in den letzten # Monaten}} bewegt haben.",
+      "alreadyEnough": "Simulation: Läge alles in einer stabilen Strategie, würde das Geld in diesem Ziel {target} in {months, plural, one {dem # verbleibenden Monat} other {den # verbleibenden Monaten}} deines Zeitraums erreichen, ohne dass du mehr hinzufügst, bei {low} bis {high} pro Jahr, also in dem Bereich, in dem sich die 30-Tage-Durchschnitte der Basis-Pool-Raten der stabilen Strategien {window, plural, one {im letzten Monat} other {in den letzten # Monaten}} bewegt haben.",
+      "withPlan": "Simulation: Läge alles in einer stabilen Strategie, würdest du {target} mit {amount} pro Monat {when} erreichen, bei {low} bis {high} pro Jahr, also in dem Bereich, in dem sich die 30-Tage-Durchschnitte der Basis-Pool-Raten der stabilen Strategien {window, plural, one {im letzten Monat} other {in den letzten # Monaten}} bewegt haben."
+    },
+    "amountRange": "{min} bis {max}",
+    "growthNote": "Ein Teil des Geldes in diesem Ziel bewegt sich mit den Marktpreisen, deshalb kann keine Rate sagen, wann das Ziel erreicht ist.",
+    "disclosure": "Die Raten sind jährlich und nominal. Gebühren, Inflation, Steuern und die Reihenfolge, in der Ergebnisse eintreffen, sind nicht berücksichtigt.",
+    "disclosureUsdPools": "Die Raten gelten für US-Dollar-Pools; Wechselkursbewegungen sind nicht berücksichtigt.",
+    "method": {
+      "summary": "Wie das berechnet wird",
+      "body": "Pool-Raten sind beobachtete Momentaufnahmen; die angezeigte Zeit ist die der ältesten. Der Bereich reicht vom niedrigsten bis zum höchsten 30-Tage-Durchschnitt der Basis-Rate in den beobachteten Monaten. Geld in einer Strategie und jeder monatliche Betrag, sobald er hinzugefügt ist, wachsen mit der Rate; Geld außerhalb einer Strategie bleibt, wie es ist. Bei mehreren Strategien reicht der Bereich vom niedrigsten ihrer Tiefstwerte bis zum höchsten ihrer Höchstwerte. In einer Simulation wird das gesamte Geld in diesem Ziel so behandelt, als läge es in einer stabilen Strategie (ohne Marktpreis-Exposure). Practice nutzt nur Spielgeld.",
+      "plan": "Angenommen wird, dass jeden Monat {amount} hinzukommen."
+    },
+    "loading": "Pool-Raten werden gelesen…",
+    "unavailable": "Die Pool-Raten lassen sich gerade nicht lesen, deshalb gibt es keine Projektion. An deinem Ziel hat sich nichts geändert."
   },
   "geofence": {
     "badge": "Regionsprüfung",

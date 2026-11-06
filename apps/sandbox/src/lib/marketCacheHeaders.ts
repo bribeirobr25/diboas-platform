@@ -32,3 +32,10 @@ export const MARKET_CACHE_CONTROL = 'public, max-age=0, s-maxage=300, stale-whil
  * cache amplifying the fault instead of absorbing it.
  */
 export const MARKET_ERROR_CACHE_CONTROL = 'no-store';
+
+/**
+ * PR 2 · a DEGRADED success (`/api/market/rate-ranges` with any stable strategy unavailable):
+ * a short shared cache keeps the CDN's quota protection while a recovered source shows within a
+ * minute (`5.618` "shorten"); browsers still never keep it.
+ */
+export const MARKET_DEGRADED_CACHE_CONTROL = 'public, max-age=0, s-maxage=60';

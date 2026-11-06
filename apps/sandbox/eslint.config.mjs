@@ -232,7 +232,10 @@ export default [
                 'financialFreedomTarget',
                 'emergencyFundTarget',
                 'suggestedMonthlyContribution',
-                'yearsToTarget',
+                'monthsToTarget',
+                'monthlyNeeded',
+                'rollingAverageRange',
+                'weightedSeries',
               ],
               message:
                 'VIEW-2: allocation, accrual and goal arithmetic belong in `view/`; the component renders the result.',

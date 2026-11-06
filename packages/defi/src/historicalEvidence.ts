@@ -49,6 +49,8 @@ export type HistoricalProvenance =
 export interface HistoricalPoint {
   readonly date: string;
   readonly value: number;
+  /** A second, optional value of the same day — the base rate of an APY series (PR 2). */
+  readonly base?: number | null;
 }
 
 export interface HistoricalSeries {

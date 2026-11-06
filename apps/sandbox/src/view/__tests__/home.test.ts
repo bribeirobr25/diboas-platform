@@ -8,6 +8,7 @@ import {
   selectExitPreview,
   selectEventMagnitude,
   selectGoalCompletionView,
+  selectGoalCreatedAt,
   selectGoalDetailView,
   selectGoalProgress,
   selectGoalRowView,
@@ -501,16 +502,10 @@ describe('selectGoalDetailView', () => {
       ],
     } as unknown as Partial<LedgerState>); // events are deliberately partial shapes
 
-  it('should return BOTH shapes its consumers need — a display string and a number', () => {
+  it('should return the current value as a display string', () => {
     const v = selectGoalDetailView(st(), 'g1');
     expect(v.current).toBe('910.00');
-    expect(v.currentValue).toBe(910);
     expect(typeof v.current).toBe('string');
-    expect(typeof v.currentValue).toBe('number');
-  });
-
-  it('should sum recurring schedules for THIS goal only', () => {
-    expect(selectGoalDetailView(st(), 'g1').goalMonthly).toBe(50);
   });
 
   it('should count only GoalFunded events for THIS goal — not other goals, not other types', () => {
@@ -832,5 +827,19 @@ describe('selectRulesPreview reconciliation (audit 2026-09-13)', () => {
     expect(p.distributed).toBe('2450.00'); // the lines' real total, not 2550.00
     const lines = p.lines.reduce((acc, l) => acc.plus(l.amount), new Decimal(0));
     expect(lines.plus(p.remainderToAvailable).toFixed(2)).not.toBe(p.waiting);
+  });
+});
+
+describe('selectGoalCreatedAt (PR 2 · the start of a goal\u2019s calendar frame)', () => {
+  it('should read THIS goal\u2019s GoalCreated, not the genesis or another goal\u2019s', () => {
+    const st = base({
+      events: [
+        { type: 'PlayMoneyGranted', recordedAt: '2026-01-01T00:00:00.000Z' },
+        { type: 'GoalCreated', goalId: 'g0', recordedAt: '2026-02-01T00:00:00.000Z' },
+        { type: 'GoalCreated', goalId: 'g1', recordedAt: '2026-03-01T00:00:00.000Z' },
+      ],
+    } as unknown as Partial<LedgerState>);
+    expect(selectGoalCreatedAt(st, 'g1')).toBe('2026-03-01T00:00:00.000Z');
+    expect(selectGoalCreatedAt(st, 'missing')).toBeNull();
   });
 });

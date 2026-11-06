@@ -243,13 +243,39 @@
   },
   "projection": {
     "heading": "O caminho a partir daqui",
-    "rangeLine": "Com {amount} por mês, um retorno estimado de {low}% a {high}% chegaria a {target} em cerca de {minYears} a {maxYears} anos.",
-    "singleLine": "Com {amount} por mês, um retorno estimado de {low}% a {high}% chegaria a {target} em cerca de {years, plural, one {# ano} other {# anos}}.",
-    "caveat": "Uma suposição que você pode conferir, não uma promessa. Retornos reais variam e podem ser negativos.",
-    "paceWithin": "Esse ritmo cabe no seu prazo de {months} meses.",
-    "paceEdge": "Esse ritmo fica perto do seu prazo de {months} meses.",
-    "paceBeyond": "Esse ritmo passa do seu prazo de {months} meses.",
-    "underYear": "Com {amount} por mês, um retorno estimado de {low}% a {high}% chegaria a {target} em menos de um ano."
+    "caveat": "Uma suposição que você pode conferir, não uma promessa. Os resultados de verdade variam e podem ser negativos.",
+    "paceWithin": "Esse ritmo cabe {months, plural, one {no # mês que resta no seu prazo} other {nos # meses que restam no seu prazo}}.",
+    "paceEdge": "Esse ritmo fica perto {months, plural, one {do # mês que resta no seu prazo} other {dos # meses que restam no seu prazo}}.",
+    "paceBeyond": "Esse ritmo passa {months, plural, one {do # mês que resta no seu prazo} other {dos # meses que restam no seu prazo}}.",
+    "tag": "Projeção ilustrativa · não é previsão",
+    "when": {
+      "range": "em cerca de {minYears} a {maxYears} anos",
+      "single": "em cerca de {years, plural, one {# ano} other {# anos}}",
+      "underYear": "em menos de um ano"
+    },
+    "live": {
+      "today": "Taxa-base do pool observada: {rate} · registro {age}",
+      "todayRange": "Taxas-base dos pools observadas: {low} a {high} · registro {age}",
+      "withPlan": "Com {amount} por mês, você chegaria a {target} {when} se a taxa-base do pool da sua estratégia ficasse entre {low} e {high} ao ano, a faixa em que a média de 30 dias dela variou {window, plural, one {no último mês} other {nos últimos # meses}}.",
+      "noPlan": "Com o que esta meta tem hoje, você chegaria a {target} {when} se a taxa-base do pool da sua estratégia ficasse entre {low} e {high} ao ano, a faixa em que a média de 30 dias dela variou {window, plural, one {no último mês} other {nos últimos # meses}}."
+    },
+    "simulated": {
+      "needed": "Simulação: se tudo estivesse numa estratégia estável, cerca de {amounts} por mês bastariam para chegar a {target} {months, plural, one {no # mês que resta no seu prazo} other {nos # meses que restam no seu prazo}}, a uma taxa de {low} a {high} ao ano, a faixa em que as médias de 30 dias das taxas-base dos pools das estratégias estáveis variaram {window, plural, one {no último mês} other {nos últimos # meses}}.",
+      "neededUpTo": "Simulação: se tudo estivesse numa estratégia estável, até {max} por mês bastariam para chegar a {target} {months, plural, one {no # mês que resta no seu prazo} other {nos # meses que restam no seu prazo}}, a uma taxa de {low} a {high} ao ano, a faixa em que as médias de 30 dias das taxas-base dos pools das estratégias estáveis variaram {window, plural, one {no último mês} other {nos últimos # meses}}.",
+      "alreadyEnough": "Simulação: se tudo estivesse numa estratégia estável, o que esta meta tem hoje chegaria a {target} {months, plural, one {no # mês que resta no seu prazo} other {nos # meses que restam no seu prazo}} sem colocar mais dinheiro, a uma taxa de {low} a {high} ao ano, a faixa em que as médias de 30 dias das taxas-base dos pools das estratégias estáveis variaram {window, plural, one {no último mês} other {nos últimos # meses}}.",
+      "withPlan": "Simulação: se tudo estivesse numa estratégia estável, com {amount} por mês você chegaria a {target} {when}, a uma taxa de {low} a {high} ao ano, a faixa em que as médias de 30 dias das taxas-base dos pools das estratégias estáveis variaram {window, plural, one {no último mês} other {nos últimos # meses}}."
+    },
+    "amountRange": "{min} a {max}",
+    "growthNote": "Parte do dinheiro desta meta varia com os preços de mercado, então nenhuma taxa consegue dizer quando a meta será alcançada.",
+    "disclosure": "Os percentuais são anuais e nominais. Não estão incluídos custos, inflação, impostos nem a ordem em que os resultados chegam.",
+    "disclosureUsdPools": "Os percentuais são de pools em dólar americano; variações de câmbio não estão incluídas.",
+    "method": {
+      "summary": "Como isto é calculado",
+      "body": "As taxas dos pools são registros observados; o horário mostrado é o do mais antigo. A faixa vai da menor à maior média de 30 dias da taxa-base nos meses observados. O dinheiro numa estratégia, e cada valor mensal depois de adicionado, cresce à taxa; o dinheiro fora de uma estratégia fica como está. Com várias estratégias, a faixa vai da menor das mínimas à maior das máximas. Numa simulação, todo o dinheiro da meta é tratado como se estivesse numa estratégia estável (sem exposição a preços de mercado). O Practice usa só dinheiro de mentira.",
+      "plan": "Considera que {amount} é adicionado todo mês."
+    },
+    "loading": "Lendo as taxas dos pools…",
+    "unavailable": "Não dá para ler as taxas dos pools agora, então não há projeção para mostrar. Nada mudou na sua meta."
   },
   "geofence": {
     "badge": "Verificação de região",

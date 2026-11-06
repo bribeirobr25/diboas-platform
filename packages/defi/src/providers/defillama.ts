@@ -393,14 +393,40 @@ export class DefiLlamaApyProvider implements IApyProvider {
         });
         if (!res.ok) throw new Error(`defillama /chart ${res.status}`);
         const body = (await res.json()) as {
-          data?: Array<{ timestamp: string; apy: number | null }>;
+          data?: Array<{
+            timestamp: string;
+            apy: number | null;
+            apyBase?: number | null;
+            apyReward?: number | null;
+          }>;
         };
         if (!Array.isArray(body.data)) throw new Error('defillama /chart: unexpected shape');
-        const points = body.data
+        const finite = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+        const points: ApyPoint[] = body.data
           .filter((d) => typeof d.apy === 'number')
-          .map((d) => ({ date: d.timestamp.slice(0, 10), apyPercent: d.apy as number }));
-        /* §10 bounds, ALL-OR-NOTHING for a series (`5.105`): one corrupt point
-           makes the series unavailable rather than a silent hole. */
+          .map((d) => ({
+            date: d.timestamp.slice(0, 10),
+            apyPercent: d.apy as number,
+            /* PR 2 (Q5): the base rate, resolved HERE — `apyBase` when supplied; else the
+               total when the reward is null or 0; else null (a reward without a base split
+               is unusable for the projection, never guessed). */
+            apyBasePercent: finite(d.apyBase)
+              ? d.apyBase
+              : d.apyReward === null || d.apyReward === undefined || d.apyReward === 0
+                ? (d.apy as number)
+                : null,
+          }))
+          /* The base is held to the same bounds as the total, but ONLY the base pays for a bad
+             base (7th audit): an implausible base becomes null — the projection then says the
+             rates can't be read (BASE_SPLIT_MISSING) — and the total series, which the replay,
+             the strategy chart and /api/market/history read, stays observed. */
+          .map((pt) =>
+            pt.apyBasePercent != null && boundsRefusal('APY_HISTORY', pt.apyBasePercent) !== null
+              ? { ...pt, apyBasePercent: null }
+              : pt
+          );
+        /* §10 bounds, ALL-OR-NOTHING for a series (`5.105`): one corrupt TOTAL makes the
+           series unavailable rather than a silent hole. */
         if (points.some((pt) => boundsRefusal('APY_HISTORY', pt.apyPercent) !== null)) {
           throw new Error('defillama /chart: point outside plausible bounds');
         }
@@ -418,7 +444,9 @@ export class DefiLlamaApyProvider implements IApyProvider {
       const built = buildHistoricalSeries({
         kind: 'RATE',
         protocolId,
-        points: entry.value.slice(-days).map((pt) => ({ date: pt.date, value: pt.apyPercent })),
+        points: entry.value
+          .slice(-days)
+          .map((pt) => ({ date: pt.date, value: pt.apyPercent, base: pt.apyBasePercent })),
         stamp: evidenceStamp({
           source: SOURCE,
           origin: originOf(SOURCE, 'APY_HISTORY'),
@@ -429,7 +457,11 @@ export class DefiLlamaApyProvider implements IApyProvider {
       if (!built.available) throw new Error(`history refused: ${built.reason}`);
       return {
         protocolId,
-        points: built.series.points.map((pt) => ({ date: pt.date, apyPercent: pt.value })),
+        points: built.series.points.map((pt) => ({
+          date: pt.date,
+          apyPercent: pt.value,
+          ...(pt.base !== undefined ? { apyBasePercent: pt.base } : {}),
+        })),
         stamp: built.series.stamp,
       };
     } catch {

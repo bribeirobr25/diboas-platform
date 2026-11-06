@@ -40,7 +40,13 @@ export function marketUpstream(url: string, now: number): Response {
   if (url === 'https://yields.llama.fi/pools') return json({ status: 'success', data: POOLS });
   if (url.startsWith('https://yields.llama.fi/chart/'))
     return json({
-      data: daysBack(60).map((t) => ({ timestamp: new Date(t).toISOString(), apy: 5 })),
+      // PR 2 (P3 §2): 400 days with a base split, so the rate ranges have a full year to read.
+      data: daysBack(400).map((t, i) => ({
+        timestamp: new Date(t).toISOString(),
+        apy: 5,
+        apyBase: 4.5 + (i % 30) / 100,
+        apyReward: 0.5,
+      })),
     });
   if (url.includes('/simple/price'))
     return json(

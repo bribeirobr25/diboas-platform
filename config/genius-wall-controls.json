@@ -20,7 +20,16 @@
     "digital dollars",
     "stablecoins",
     "dólares digitales",
-    "USDCs"
+    "USDCs",
+    "US-dollar pools",
+    "US dollar pool",
+    "USdollar pools",
+    "US-Dollar-Pools",
+    "US-Dollar-Pool",
+    "pools em dólar americano",
+    "pool em dolar americano",
+    "pools en dólares estadounidenses",
+    "pool en dolares estadounidenses"
   ],
   "earnForms": [
     "earns",
@@ -52,7 +61,9 @@
     "Ein digitaler Dollar verdient",
     "Der digitale Dollar rendiert",
     "eu rendo em USDC",
-    "THE DIGITAL DOLLAR YIELDS DAILY"
+    "THE DIGITAL DOLLAR YIELDS DAILY",
+    "the yield of US-dollar pools",
+    "Rendite der US-Dollar-Pools"
   ],
   "windowChars": 40
 }

@@ -13,3 +13,4 @@ export * from './jobs';
 export * from './goals';
 export * from './accrual';
 export * from './rules';
+export * from './projection';

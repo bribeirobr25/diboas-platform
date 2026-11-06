@@ -14,11 +14,14 @@ export function goalCurrentValue(state: LedgerState, goalId: string): Decimal {
   if (!goal) return new Decimal(0);
   let total = new Decimal(goal.cash);
   for (const p of state.positions) {
-    if (p.goalId === goalId && p.open) {
-      total = total.plus(p.principal).plus(p.accrued);
-    }
+    if (p.goalId === goalId && p.open) total = total.plus(positionCurrentValue(p));
   }
   return total;
+}
+
+/** One open position's current value (principal + accrued) — the term `goalCurrentValue` sums. */
+export function positionCurrentValue(p: { principal: string; accrued: string }): Decimal {
+  return new Decimal(p.principal).plus(p.accrued);
 }
 
 /**
