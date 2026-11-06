@@ -11,7 +11,7 @@
  */
 
 import { redirect } from 'next/navigation';
-import { formatResultCurrency } from '@/app/api/og/share/ogUtils';
+import { formatResultCurrency, isValidCalculatorInput } from '@/app/api/og/share/ogUtils';
 import type { Metadata } from 'next';
 import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
 import { pageTitle } from '@/lib/seo/pageTitle';
@@ -126,9 +126,13 @@ export async function generateMetadata({
     };
   }
 
-  if (type === 'calculator') {
-    const amount = parseInt(search.amount || '0', 10);
-    const years = search.years || '10';
+  const calcAmount = parseInt(search.amount || '0', 10);
+  const calcYears = search.years || '10';
+  // The card's own validator (8th audit): no NaN or negative amount in a title; an invalid amount gets
+  // the default metadata, as the card gets its default image.
+  if (type === 'calculator' && isValidCalculatorInput(calcAmount, parseInt(calcYears, 10))) {
+    const amount = calcAmount;
+    const years = calcYears;
     const strategy = search.strategy;
     const initial = search.initial;
 

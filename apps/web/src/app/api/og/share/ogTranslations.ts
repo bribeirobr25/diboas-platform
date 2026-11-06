@@ -192,11 +192,13 @@ export { SUPPORTED_LOCALES };
 /**
  * Get translations for a locale with fallback to English
  */
+/** One of the four locales, or `en`: the card's words and its number formats must agree (5.802). */
+export function supportedOgLocale(locale: string): SupportedLocale {
+  return (SUPPORTED_LOCALES.includes(locale as SupportedLocale) ? locale : 'en') as SupportedLocale;
+}
+
 export function getTranslations(locale: string): OGTranslation {
-  const supportedLocale = (
-    SUPPORTED_LOCALES.includes(locale as SupportedLocale) ? locale : 'en'
-  ) as SupportedLocale;
-  return OG_TRANSLATIONS[supportedLocale];
+  return OG_TRANSLATIONS[supportedOgLocale(locale)];
 }
 
 /**

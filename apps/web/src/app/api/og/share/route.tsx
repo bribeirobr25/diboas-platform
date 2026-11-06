@@ -10,6 +10,7 @@
  * Calculator: /api/og/share?type=calculator&amount=125000&years=10&strategy=balanced
  */
 
+import { supportedOgLocale } from './ogTranslations';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
 
@@ -59,7 +60,9 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
     const type = searchParams.get('type') as ShareType | null;
-    const locale = searchParams.get('locale') || 'en';
+    // Normalised before ANY use: an unsupported tag (`ja`, `en-u-nu-arab`) would format the
+    // numbers in that locale on an English card (8th audit).
+    const locale = supportedOgLocale(searchParams.get('locale') || 'en');
 
     let template: React.ReactElement;
 

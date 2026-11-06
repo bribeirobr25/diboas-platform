@@ -240,7 +240,7 @@ export function CalculatorTemplate({
           marginTop: '32px',
         }}
       >
-        {initialInvestment && (
+        {initialInvestment ? (
           <div
             style={{
               display: 'flex',
@@ -267,8 +267,8 @@ export function CalculatorTemplate({
               {formatResultCurrency(initialInvestment, 'USD', locale, 1)}
             </span>
           </div>
-        )}
-        {initialInvestment && (
+        ) : null}
+        {initialInvestment ? (
           <div
             style={{
               width: '1px',
@@ -276,7 +276,7 @@ export function CalculatorTemplate({
               background: OG_COLORS.inkMuted,
             }}
           />
-        )}
+        ) : null}
         <div
           style={{
             display: 'flex',

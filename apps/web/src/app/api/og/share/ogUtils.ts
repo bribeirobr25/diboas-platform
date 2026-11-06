@@ -49,7 +49,14 @@ export function isValidPosition(position: number): boolean {
  * Validate calculator inputs
  */
 export function isValidCalculatorInput(futureAmount: number, years: number): boolean {
-  return futureAmount > 0 && Number.isFinite(futureAmount) && years > 0 && years <= 100;
+  // Upper bound as for tool results: a hostile or fat-fingered `amount` never reads as trillions.
+  return (
+    futureAmount > 0 &&
+    Number.isFinite(futureAmount) &&
+    futureAmount <= 1_000_000_000 &&
+    years > 0 &&
+    years <= 100
+  );
 }
 
 /**
