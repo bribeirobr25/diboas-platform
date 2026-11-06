@@ -109,9 +109,8 @@ describe('PR 2 · useRateRanges', () => {
         (_url: string, init?: RequestInit) =>
           new Promise<Response>((_resolve, reject) => {
             signal = init?.signal ?? undefined;
-            signal?.addEventListener('abort', () =>
-              reject(new DOMException('aborted', 'AbortError'))
-            );
+            // As `fetch` does: it rejects with the signal's own reason.
+            signal?.addEventListener('abort', () => reject(signal?.reason));
           })
       )
     );
@@ -125,6 +124,8 @@ describe('PR 2 · useRateRanges', () => {
     });
     expect(signal?.aborted).toBe(true);
     expect(result.current).toBe('error');
+    // Logged as a timeout, never as an unexpected abort (9th audit).
+    expect(JSON.stringify(logs.calls('warn'))).toContain('"reason":"timeout"');
   });
 
   it('should abort on unmount, clear its timer, and stay silent when the answer lands after', async () => {

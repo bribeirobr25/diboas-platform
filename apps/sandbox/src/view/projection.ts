@@ -129,7 +129,8 @@ export function whenOf(minMonths: number, maxMonths: number): When {
     const capYears = GOAL_HORIZON_MAX_MONTHS / 12;
     // The largest whole N with N years STRICTLY before the fast end, so "more than N years" is
     // true even at exactly 12·k months (8th audit). Fast end within a year: no N exists.
-    const lowerBound = Math.ceil(minMonths / 12) - 1;
+    // A fast end that is NaN or not positive says nothing: the widest true line.
+    const lowerBound = minMonths > 0 ? Math.ceil(minMonths / 12) - 1 : 0; // NaN and ≤ 0 → 0; Infinity → capped
     return lowerBound < 1
       ? { kind: 'underYearToOverCap', years: capYears }
       : { kind: 'overCap', years: Math.min(capYears, lowerBound) };

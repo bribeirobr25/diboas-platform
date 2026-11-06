@@ -253,7 +253,7 @@
       "single": "{years, plural, one {en aproximadamente un año} other {en unos # años}}",
       "underYear": "en menos de un año",
       "overCap": "en más de {years, plural, one {# año} other {# años}}",
-      "underYearToOverCap": "en cualquier plazo entre menos de un año y más de {years, plural, one {# año} other {# años}}"
+      "underYearToOverCap": "en algún momento entre menos de un año y más de {years, plural, one {# año} other {# años}}"
     },
     "live": {
       "today": "Tasa base del pool observada: {rate} · registro {age}",

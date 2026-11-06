@@ -48,7 +48,12 @@ export function useRateRanges(enabled: boolean): RateRangesState {
     if (!enabled) return;
     let active = true;
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), RATE_RANGES_TIMEOUT_MS);
+    // Aborted with a TimeoutError reason, as `AbortSignal.timeout` would, so the failure is logged
+    // as a timeout, never as an unexpected abort (9th audit).
+    const timer = setTimeout(
+      () => controller.abort(new DOMException('The request timed out.', 'TimeoutError')),
+      RATE_RANGES_TIMEOUT_MS
+    );
     fetchWithRetry(RATE_RANGES_URL, { signal: controller.signal })
       .then(async (res) => {
         if (!res.ok) throw new BoundedFailure(`http-${res.status}`);

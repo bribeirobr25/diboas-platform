@@ -373,6 +373,13 @@ describe('plans and pace (guard 9; never false, founder 2026-11-06)', () => {
       }
   });
 
+  it('should never state NaN years: a fast end that is not a positive finite count gives the widest true line (9th audit)', () => {
+    for (const fast of [NaN, -1, 0])
+      expect(whenOf(fast, 500), String(fast)).toEqual({ kind: 'underYearToOverCap', years: 40 });
+    // Both ends unreachable: "more than 40 years" stays true.
+    expect(whenOf(Infinity, Infinity)).toEqual({ kind: 'overCap', years: 40 });
+  });
+
   it('should never say "more than 1 year" when the high rate gets there in months (the audit case)', () => {
     const wide: RateRangesPayload = { ...RANGES, strategies: [okRange('safeHarbor', 0.001, 9.0)] };
     const v = live(
