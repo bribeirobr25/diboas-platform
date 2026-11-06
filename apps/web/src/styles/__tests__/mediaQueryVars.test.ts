@@ -34,11 +34,20 @@ function stylesheets(dir: string, acc: string[] = []): string[] {
   return acc;
 }
 
-/** Every `@media`/`@container` prelude (the text up to its `{`) that reads a custom property. */
+/**
+ * Every `@media`/`@container`/`@import` prelude (the text up to its `{` or `;`) that reads a custom
+ * property through `var()` or `env()`. CSS keywords and function names ignore case, and a comment
+ * can sit anywhere, so comments are removed first and matching is case-insensitive (8th audit:
+ * `VAR(--x)` and `var(/**\/--x)` slipped through). `@container style(--a: var(--b))` is a style
+ * query, where custom properties ARE allowed: its `style(...)` part is not read.
+ */
 export function varConditions(css: string): string[] {
   const out: string[] = [];
-  for (const m of css.matchAll(/@(?:media|container)\b([^{]*)\{/g))
-    if (/var\(\s*--/.test(m[1])) out.push(m[0].trim());
+  const code = css.replace(/\/\*[\s\S]*?\*\//g, ' ');
+  for (const m of code.matchAll(/@(?:media|container|import)\b([^{;]*)[{;]/gi)) {
+    const prelude = m[1].replace(/style\((?:[^()]|\([^()]*\))*\)/gi, ' ');
+    if (/\b(?:var|env)\(\s*--/i.test(prelude)) out.push(m[0].trim());
+  }
   return out;
 }
 
@@ -60,6 +69,14 @@ describe('5.798 · media conditions use literal breakpoints', () => {
     expect(varConditions('@media screen and (max-width:var( --bp)) {')).toHaveLength(1);
     expect(varConditions('@container card (min-width: var(--w)) {')).toHaveLength(1);
     expect(varConditions('@media (min-width: 1024px) { .a { gap: var(--g); } }')).toEqual([]);
+    // 8th audit: case, comments, env(), @import conditions — and a valid style query passes.
+    expect(varConditions('@media (min-width: VAR(--breakpoint-desktop)) {')).toHaveLength(1);
+    expect(varConditions('@MEDIA (min-width: var(--x)) {')).toHaveLength(1);
+    expect(varConditions('@media (min-width: var(/**/--x)) {')).toHaveLength(1);
+    expect(varConditions('@media /* { */ (min-width: var(--x)) {')).toHaveLength(1);
+    expect(varConditions('@media (min-width: env(--x)) {')).toHaveLength(1);
+    expect(varConditions("@import url('a.css') (min-width: var(--x));")).toHaveLength(1);
+    expect(varConditions('@container style(--a: var(--b)) {')).toEqual([]);
   });
 
   it('should have actually read the stylesheets', () => {
