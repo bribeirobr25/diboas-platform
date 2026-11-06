@@ -29,18 +29,18 @@
           },
           "rows": [
             {
-              "cookie": "session_id",
-              "purpose": "Maintains your session",
-              "duration": "Session"
-            },
-            {
-              "cookie": "locale",
+              "cookie": "NEXT_LOCALE",
               "purpose": "Remembers your language preference",
               "duration": "1 year"
             },
             {
-              "cookie": "cookie_consent",
+              "cookie": "diboas-consent",
               "purpose": "Stores your cookie preferences",
+              "duration": "1 year"
+            },
+            {
+              "cookie": "diboas-consent_js",
+              "purpose": "A copy of your cookie preferences that your browser can read, so the banner does not appear again",
               "duration": "1 year"
             }
           ]
@@ -88,11 +88,6 @@
               "cookie": "theme",
               "purpose": "Remembers light/dark mode preference",
               "duration": "1 year"
-            },
-            {
-              "cookie": "dream_mode_data",
-              "purpose": "Stores your Dream Mode simulation data locally",
-              "duration": "Session"
             }
           ]
         }

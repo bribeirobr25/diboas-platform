@@ -49,7 +49,7 @@
         "title": "Dream Mode Data:",
         "items": [
           "Simulation inputs (deposit amount, strategy selection)",
-          "This data is stored locally on your device, not on our servers"
+          "These inputs are used only in your browser while you use Dream Mode; they are not saved, on your device or on our servers"
         ]
       }
     },

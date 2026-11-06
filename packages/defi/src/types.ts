@@ -27,7 +27,7 @@ type MissingChain = Exclude<Chain, (typeof CHAINS)[number]>;
 const _chainsExhaustive: [MissingChain] extends [never] ? true : never = true;
 void _chainsExhaustive;
 
-/** The six execution protocols behind the strategy catalog (strategies.json canon). */
+/** The six execution protocols behind the strategy catalog (`catalog.ts`). */
 export type ProtocolId = 'skySsr' | 'aaveV3' | 'compoundV3' | 'sanctumInf' | 'jupiterJlp' | 'jito';
 
 /**

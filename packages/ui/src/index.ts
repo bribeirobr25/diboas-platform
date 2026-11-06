@@ -23,5 +23,4 @@ export { cn } from './utils/cn';
 //   - ScrollReveal — intersection-observer reveal animation wrapper
 //
 // Low-priority (page-specific or recently added):
-//   - StrategyCard — strategy display card
 //   - StickyMobileCTA — sticky mobile call-to-action bar
