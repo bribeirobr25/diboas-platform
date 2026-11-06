@@ -124,28 +124,20 @@ function discoverJsonFiles(dir, base) {
   return results.sort();
 }
 
-/** A non-empty object or array: its entries are keys (array items by index, `.0`, `.1` …). */
+/** An object or array: its entries are keys (array items by index, `.0`, `.1` …). */
 function isBranch(value) {
-  return typeof value === 'object' && value !== null && Object.keys(value).length > 0;
+  return typeof value === 'object' && value !== null;
 }
 
 /**
- * Extract all key paths from a nested object (dot-separated). Arrays descend by index,
- * so an item-count mismatch shows as missing or orphaned `.N` keys (5.733). An empty
- * object or array is one key.
+ * Extract every key the site can read, sorted: exactly the string leaves, with arrays by
+ * index (5.733), as `flattenMessages` builds the runtime catalogue. So an item-count
+ * mismatch is a missing or orphaned `.N` key, and a message the site cannot read in a
+ * locale (an empty object, a number, null where the reference has a string) is missing —
+ * never a key that merely exists.
  */
-function extractKeys(obj, prefix) {
-  prefix = prefix || '';
-  const keys = [];
-  for (const key of Object.keys(obj)) {
-    const fullKey = prefix ? prefix + '.' + key : key;
-    if (isBranch(obj[key])) {
-      keys.push(...extractKeys(obj[key], fullKey));
-    } else {
-      keys.push(fullKey);
-    }
-  }
-  return keys.sort();
+function extractKeys(obj) {
+  return Array.from(extractStringLeaves(obj).keys()).sort();
 }
 
 /**

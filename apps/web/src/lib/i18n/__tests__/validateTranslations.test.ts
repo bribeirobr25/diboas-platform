@@ -86,12 +86,29 @@ describe('5.733 · the translation validator reads array items', () => {
     expect(validator.compareFile('legal/privacy.json', 'de', ref, eight).orphaned).toHaveLength(2);
   });
 
-  it('should flatten exactly as the site reads: the same keys as flattenMessages, every catalogue', () => {
-    for (const file of catalogueFiles('en')) {
-      const content = read('en', file);
-      const site = Object.keys(flattenMessages(content as never)).sort();
-      expect([...validator.extractStringLeaves(content).keys()].sort(), file).toEqual(site);
-    }
+  it('should report a message the site cannot read as missing: an empty object, a number, null (8th audit)', () => {
+    const ref = { a: 'text {x}', b: 'plain', c: 'plain' };
+    const target = { a: {}, b: 5, c: null };
+    expect(validator.compareFile('x.json', 'de', ref, target).missing).toEqual(['a', 'b', 'c']);
+  });
+
+  it('should flatten exactly as the site reads: the keys parity uses equal flattenMessages, every catalogue ×4', () => {
+    for (const locale of ['en', 'pt-BR', 'es', 'de'])
+      for (const file of catalogueFiles(locale)) {
+        const content = read(locale, file);
+        const site = Object.keys(flattenMessages(content as never)).sort();
+        expect(validator.extractKeys(content), `${locale}/${file}`).toEqual(site);
+      }
+  });
+
+  it('should exclude the LGPD right itself: pt-BR row 8 is "Revisão de Decisões Automatizadas", en has 7', () => {
+    const rows = (f: object) =>
+      (f as { sections: { yourRights: { table: { rows: Array<{ right: string }> } } } }).sections
+        .yourRights.table.rows;
+    expect(rows(read('en', 'legal/privacy.json'))).toHaveLength(7);
+    expect(rows(read('pt-BR', 'legal/privacy.json'))[7].right).toMatch(
+      /decis(õ|o)es automatizadas/i
+    );
   });
 
   it('should find every real catalogue in parity, array items included', () => {
