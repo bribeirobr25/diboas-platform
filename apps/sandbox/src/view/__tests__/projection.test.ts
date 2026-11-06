@@ -12,6 +12,7 @@ import {
   selectGoalProjection,
   selectGoalProjectionFor,
   selectProjectionCanShow,
+  whenOf,
   type ProjectionInput,
   type ProjectionView,
 } from '../projection';
@@ -353,6 +354,38 @@ describe('plans and pace (guard 9; never false, founder 2026-11-06)', () => {
     expect(v.when.kind).toBe('overCap');
     expect(v.when.kind === 'overCap' && v.when.years).toBeGreaterThan(1);
     expect(v.when.kind === 'overCap' && v.when.years).toBeLessThan(40);
+  });
+
+  it('should make "more than N years" TRUE for every fast end: N·12 < fast, N the largest such, never above 40 (8th audit)', () => {
+    for (let fast = 0.25; fast <= 700; fast += 0.25)
+      for (const slow of [481, 600, 5000]) {
+        if (slow < fast) continue;
+        const w = whenOf(fast, slow);
+        if (fast <= 12) {
+          expect(w, `fast ${fast}`).toEqual({ kind: 'underYearToOverCap', years: 40 });
+          continue;
+        }
+        expect(w.kind, `fast ${fast}`).toBe('overCap');
+        const n = w.kind === 'overCap' ? w.years : NaN;
+        expect(n * 12, `fast ${fast}`).toBeLessThan(fast);
+        expect(n, `fast ${fast}`).toBeLessThanOrEqual(40);
+        if (n < 40) expect((n + 1) * 12, `fast ${fast}`).toBeGreaterThanOrEqual(fast);
+      }
+  });
+
+  it('should never say "more than 1 year" when the high rate gets there in months (the audit case)', () => {
+    const wide: RateRangesPayload = { ...RANGES, strategies: [okRange('safeHarbor', 0.001, 9.0)] };
+    const v = live(
+      selectGoalProjection(
+        base({
+          ranges: wide,
+          positions: [{ strategyId: 'safeHarbor', value: 9500 }],
+          monthlyPlan: 1,
+          monthsLeft: 6,
+        })
+      )
+    );
+    expect(v.when).toEqual({ kind: 'underYearToOverCap', years: 40 });
   });
 
   it('should state the needed amount over the SAME months left the pace reads', () => {

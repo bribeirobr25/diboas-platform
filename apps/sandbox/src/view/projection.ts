@@ -47,7 +47,10 @@ export type When =
   | { kind: 'single'; years: number }
   | { kind: 'range'; minYears: number; maxYears: number }
   /** Beyond the longest goal horizon: "in more than {years} years", a true lower bound (5.804). */
-  | { kind: 'overCap'; years: number };
+  | { kind: 'overCap'; years: number }
+  /** The fast end within a year, the slow end beyond the horizon: "anywhere from within a year
+   *  to more than {years} years" — `years` is the horizon (8th audit: "more than 1 year" was false). */
+  | { kind: 'underYearToOverCap'; years: number };
 
 export interface RangeLine {
   lowPercent: number;
@@ -121,10 +124,15 @@ function amounts(minAmount: number, maxAmount: number) {
  * longest horizon a goal can have (`GOAL_HORIZON_MAX_MONTHS`, 40 years), the line states a lower
  * bound instead — the fast end's whole years, never more than 40 (founder 2026-11-06, 5.804).
  */
-function whenOf(minMonths: number, maxMonths: number): When {
+export function whenOf(minMonths: number, maxMonths: number): When {
   if (maxMonths > GOAL_HORIZON_MAX_MONTHS) {
     const capYears = GOAL_HORIZON_MAX_MONTHS / 12;
-    return { kind: 'overCap', years: Math.max(1, Math.min(capYears, Math.floor(minMonths / 12))) };
+    // The largest whole N with N years STRICTLY before the fast end, so "more than N years" is
+    // true even at exactly 12·k months (8th audit). Fast end within a year: no N exists.
+    const lowerBound = Math.ceil(minMonths / 12) - 1;
+    return lowerBound < 1
+      ? { kind: 'underYearToOverCap', years: capYears }
+      : { kind: 'overCap', years: Math.min(capYears, lowerBound) };
   }
   if (maxMonths / 12 < 1) return { kind: 'underYear' };
   const minYears = Math.max(1, Math.round(minMonths / 12));
@@ -146,7 +154,7 @@ function paceOf(when: When, fast: number, slow: number, left: number | null) {
   if (left === null || !(left > 0)) return null;
   const real = statusOf(fast, slow, left);
   const shown =
-    when.kind === 'underYear' || when.kind === 'overCap'
+    when.kind === 'underYear' || when.kind === 'overCap' || when.kind === 'underYearToOverCap'
       ? real
       : when.kind === 'single'
         ? statusOf(when.years * 12, when.years * 12, left)
