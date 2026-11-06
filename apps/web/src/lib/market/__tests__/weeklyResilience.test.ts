@@ -159,21 +159,11 @@ describe('C1 wiring in the weekly workflow', () => {
     expect(wf).toMatch(/refresh:\n\s+needs: decide\n\s+if: needs\.decide\.outputs\.run == 'true'/);
   });
 
-  it('should publish the Money Tools series from the store and pass its report into the PR body', () => {
+  // The store-read and publish steps are RUN, as on Actions, in
+  // marketDataPublish.test.ts ('PUBLISH-1 wiring'): a text match passed while
+  // the read step could never succeed on a runner (#827 review).
+  it('should publish the Money Tools series from the store, not the deleted appender', () => {
     expect(wf).toMatch(/TOKEN: \$\{\{ secrets\.MARKET_DATA_READ_TOKEN \}\}/);
-    expect(wf).toMatch(
-      /bash apps\/web\/scripts\/market-data\/read-store\.sh "\$RUNNER_TEMP\/analytics"/
-    );
-    expect(wf).toMatch(
-      /publish\.mjs --store "\$RUNNER_TEMP\/analytics\/market" --store-commit "\$STORE_COMMIT" --report "\$RUNNER_TEMP\/tools-note\.md"/
-    );
-    expect(wf).toMatch(/if \[ -s "\$RUNNER_TEMP\/tools-note\.md" \]; then/);
-    // C1c: neither step can fail the weekly run
-    const steps = wf.slice(
-      wf.indexOf('- name: Read the market data store'),
-      wf.indexOf('- name: Generate editorial copy')
-    );
-    expect(steps.match(/exit 0/g)).toHaveLength(2);
     expect(wf).not.toMatch(/tools-monthlies/);
   });
 });

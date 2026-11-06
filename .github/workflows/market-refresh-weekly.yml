@@ -36,6 +36,9 @@
 # while a refresh PR is open" (5.464, 2026-09-29).
 
 name: Market Refresh (weekly)
+# 5.760 increment 2 (plan §8.7): a rehearsal is named in its run title, so the
+# Tuesday retry and the watchdog can leave it out (it opens no PR).
+run-name: ${{ inputs.rehearsal && 'Market Refresh REHEARSAL (no PR)' || 'Market Refresh (weekly)' }}
 
 on:
   schedule:
@@ -49,7 +52,15 @@ on:
     # C1d (2026-10-21): the second attempt. It refreshes only when this week
     # has no successful run yet (a dropped or failed Monday); see `decide`.
     - cron: '17 6 * * 2' # Tuesdays 06:17 UTC
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      # 5.760 increment 2 (plan §8.7): run the real workflow from any branch
+      # without the carry step, the ETF leg or a PR. The would-be PR body, the
+      # changed files and the diff summary go to the run summary instead.
+      rehearsal:
+        description: 'Rehearsal: run everything except the carry, the ETF leg and the PR'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -92,7 +103,7 @@ jobs:
         run: |
           set -euo pipefail
           gh run list --repo "$GITHUB_REPOSITORY" --workflow market-refresh-weekly.yml --limit 20 \
-            --json databaseId,conclusion,createdAt > "$RUNNER_TEMP/runs.json"
+            --json databaseId,conclusion,createdAt,displayTitle > "$RUNNER_TEMP/runs.json"
           # Forks are ignored: anyone can open a PR from a branch with this name.
           open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
             --state open --json url,isCrossRepository \
@@ -151,6 +162,7 @@ jobs:
       # the PR lookup or git itself fails, before anything is collected.
       - name: Carry an open refresh PR, or refuse (5.632)
         id: carry
+        if: ${{ !inputs.rehearsal }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -161,6 +173,34 @@ jobs:
             node apps/web/scripts/market-refresh/carry-open-pr.mjs prepare >> "$GITHUB_OUTPUT"
 
       # P4 (2026-10-28): a missing key used to skip the ETF leg silently.
+      # 5.760 increment 2: the Money Tools series (every price series but BTC,
+      # and the FX rates) are published FROM the market data store, read-only.
+      # Read here, before any install (plan §8.2), outside the repository.
+      # read-store.sh is NOT captured: on Actions it first prints the
+      # `::add-mask::` command, which works only when it reaches the runner; the
+      # commit is read from the checkout. C1c (2026-10-21) still holds: a store
+      # that cannot be read, or a publish that fails, leaves the committed series
+      # as they are and says so in the PR body (they feed the Money Tools only,
+      # never the score).
+      - name: Read the market data store (read-only)
+        id: store
+        env:
+          TOKEN: ${{ secrets.MARKET_DATA_READ_TOKEN }}
+        run: |
+          set +e
+          bash apps/web/scripts/market-data/read-store.sh "$RUNNER_TEMP/analytics"
+          code=$?
+          commit="$(git -C "$RUNNER_TEMP/analytics" rev-parse HEAD 2>/dev/null)"
+          if [ $code -eq 0 ] && [[ "$commit" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+            echo "commit=$commit" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+            echo "Not updated this run: the market data store could not be read (see the run log). The series stay as committed." > "$RUNNER_TEMP/tools-note.md"
+            echo "::warning::the market data store could not be read; the Money Tools series stay as committed"
+          fi
+          exit 0
+
       - name: Say so when the Polygon key is missing (P4)
         if: ${{ env.HAS_POLYGON_API_KEY != 'true' }}
         run: echo "::warning::POLYGON_API_KEY is not set, so no ETF-01 collection runs this week. The core refresh continues; ETF-01 is scored from complete records only."
@@ -184,7 +224,7 @@ jobs:
       # suspended the message says so: the score is unaffected either way.
       - name: ETF-01 weekly snapshot (optional leg)
         id: etf
-        if: ${{ env.HAS_POLYGON_API_KEY == 'true' }}
+        if: ${{ env.HAS_POLYGON_API_KEY == 'true' && !inputs.rehearsal }}
         # P2 (2026-10-28): a hung provider must not hold the whole job (20 min).
         # A normal collection takes ~2.2 min; 12 leaves room for a degraded
         # provider's retries (two 429s per fund is ~10.5 min). A timeout fails
@@ -269,28 +309,6 @@ jobs:
 
       - name: Refresh pipeline (fetch → gate → compute → archive)
         run: node apps/web/scripts/market-refresh/run.mjs --append-btc
-
-      # 5.760 increment 2: the Money Tools series (every price series but BTC,
-      # and the FX rates) are published FROM the market data store, read-only.
-      # C1c (2026-10-21) still holds: a store that cannot be read, or a publish
-      # that fails, leaves the committed series as they are and says so in the
-      # PR body (these series feed the Money Tools only, never the score).
-      - name: Read the market data store (read-only)
-        id: store
-        env:
-          TOKEN: ${{ secrets.MARKET_DATA_READ_TOKEN }}
-        run: |
-          set +e
-          commit="$(bash apps/web/scripts/market-data/read-store.sh "$RUNNER_TEMP/analytics")"
-          if [ $? -eq 0 ] && [[ "$commit" =~ ^[0-9a-f]{40}$ ]]; then
-            echo "ok=true" >> "$GITHUB_OUTPUT"
-            echo "commit=$commit" >> "$GITHUB_OUTPUT"
-          else
-            echo "ok=false" >> "$GITHUB_OUTPUT"
-            echo "Money Tools series not updated this run: the market data store could not be read (see the run log)." > "$RUNNER_TEMP/tools-note.md"
-            echo "::warning::the market data store could not be read; the Money Tools series stay as committed"
-          fi
-          exit 0
 
       - name: Publish the Money Tools series from the store
         if: steps.store.outputs.ok == 'true'
@@ -389,6 +407,7 @@ jobs:
           ETF_STEP_OUTCOME: ${{ steps.etf.outcome }}
           LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}
           CARRY_DECISION: ${{ steps.carry.outputs.decision }}
+          REHEARSAL: ${{ inputs.rehearsal }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
           {
@@ -446,7 +465,7 @@ jobs:
           if [ -s "$RUNNER_TEMP/tools-note.md" ]; then
             {
               echo
-              echo '## Money Tools monthly prices behind'
+              echo '## Money Tools series (from the market data store)'
               echo
               cat "$RUNNER_TEMP/tools-note.md"
             } >> "$BODY"
@@ -458,7 +477,14 @@ jobs:
             } >> "$BODY"
           fi
           # The ETF step is skipped exactly when the key is missing (its only `if`).
-          if [ "$ETF_STEP_OUTCOME" = 'skipped' ]; then
+          if [ "$REHEARSAL" = 'true' ]; then
+            {
+              echo
+              echo '## Rehearsal'
+              echo
+              echo 'A rehearsal skips the carry step, the ETF-01 collection and the PR.'
+            } >> "$BODY"
+          elif [ "$ETF_STEP_OUTCOME" = 'skipped' ]; then
             {
               echo
               echo '## ETF-01 collection did not run'
@@ -496,6 +522,7 @@ jobs:
       # would otherwise be overwritten or misreported. Immediately before the
       # publish step, and fail-closed.
       - name: Re-check the refresh PR before publishing (5.632)
+        if: ${{ !inputs.rehearsal }}
         env:
           GH_TOKEN: ${{ github.token }}
           DECISION: ${{ steps.carry.outputs.decision }}
@@ -508,6 +535,7 @@ jobs:
           OPEN_PR_JSON="$prs" node apps/web/scripts/market-refresh/carry-open-pr.mjs verify
 
       - name: Open refresh PR
+        if: ${{ !inputs.rehearsal }}
         uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
         with:
           # B4(a) 2026-08-11: a PR created with the default GITHUB_TOKEN never
@@ -543,6 +571,22 @@ jobs:
             || steps.carry.outputs.decision == 'carry'
             && 'market-refresh,needs-editorial-review,memo-rewrite-required'
             || 'market-refresh,needs-editorial-review' }}
+
+      - name: Rehearsal summary (no PR)
+        if: ${{ inputs.rehearsal }}
+        run: |
+          {
+            echo '# Rehearsal: the PR this run would have opened'
+            echo
+            echo '## Files changed'
+            echo
+            echo '```'
+            git status --short
+            git diff --stat
+            echo '```'
+            echo
+            cat "$RUNNER_TEMP/pr-body.md"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       # 2026-10-21 (review gate): every step after the ETF leg runs only on
       # success, so a later failure (STALE INPUT, a source outage, a gate)

@@ -156,7 +156,7 @@ export function calculateAssetHistoryDcaReplay(
   //
   // For TR-adjusted assets (SP500, QQQ, MSCI_WORLD, TLT — where `close` is the
   // dividend-adjusted value AND a raw unadjusted `closePriceOnly` is present),
-  // the raw `high`/`low` come from Yahoo unadjusted intramonth — they live in
+  // the raw `high`/`low` are the store's unadjusted daily highs/lows — they live in
   // PRICE-ONLY units. Mixing them with the adjusted `close` produces inverted
   // ranges where terminalValue escapes [rangeLow, rangeHigh].
   //

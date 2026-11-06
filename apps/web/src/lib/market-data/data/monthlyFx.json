@@ -2,6 +2,7 @@
   "EUR": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per EUR; closeLocalPerUsd: EUR per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -1019,6 +1020,7 @@
   "GBP": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per GBP; closeLocalPerUsd: GBP per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -2036,6 +2038,7 @@
   "AUD": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per AUD; closeLocalPerUsd: AUD per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -3053,6 +3056,7 @@
   "JPY": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per JPY; closeLocalPerUsd: JPY per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -4070,6 +4074,7 @@
   "CHF": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per CHF; closeLocalPerUsd: CHF per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -5087,6 +5092,7 @@
   "CAD": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per CAD; closeLocalPerUsd: CAD per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -6104,6 +6110,7 @@
   "MXN": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per MXN; closeLocalPerUsd: MXN per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {
@@ -7121,6 +7128,7 @@
   "BRL": {
     "source": "Fed H.10 noon New York rate, last business day of the month, via the diboas-analytics market store",
     "basis": "USD_per_local & inverted local_per_USD",
+    "unit": "closeUsdPerLocal: USD per BRL; closeLocalPerUsd: BRL per USD",
     "note": "month-end value (founder 2026-11-05)",
     "months": [
       {

@@ -168,7 +168,10 @@ node apps/web/scripts/market-refresh/run.mjs --append-btc    # also append the d
 node apps/web/scripts/market-refresh/run.mjs --etf-snapshot  # ONLY the weekly ETF-01 shares-outstanding snapshot (needs POLYGON_API_KEY); no core run; refused with --append-btc
 node apps/web/scripts/market-refresh/generate.mjs            # render editorial JSONs from the template library + auto-write the data_status panel (B3 2026-08-11; overrides need a _cycle stamp)
 node apps/web/scripts/market-refresh/generate.mjs --check    # reconcile committed JSONs vs the generator (CI drift gate)
-node apps/web/scripts/market-data/publish.mjs --store <analytics market/>   # Money Tools series (all but BTC) + FX from the market data store
+TOKEN=<read-only> bash apps/web/scripts/market-data/read-store.sh <dir>   # read the market data store (sparse, outside the repo; prints the commit)
+node apps/web/scripts/market-data/publish.mjs --store <dir>/market --store-commit <sha>   # Money Tools series (all but BTC) + FX from the store
+node apps/web/scripts/market-data/publish.mjs --check --store <dir>/market   # PUBLISH-1 drift: rebuild and compare by hash
+gh workflow run market-refresh-weekly.yml --ref <branch> -f rehearsal=true   # rehearse the weekly run: no carry, no ETF leg, no PR
 node apps/web/scripts/market-data/publish.mjs --verify-manifest              # PUBLISH-1: committed series match store-manifest.json (CI)
 node apps/web/scripts/data-fetchers/compute-regime.mjs       # thin CLI over the shared engine (manual score check)
 ```

@@ -52,9 +52,17 @@ jobs:
             exit 0
           fi
           commit="$(node -e "process.stdout.write(require('./apps/web/src/lib/market-data/data/store-manifest.json').store_commit || '')")"
+          if ! [[ "$commit" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::store-manifest.json records no store commit, so there is nothing fixed to rebuild from. Re-run publish.mjs with --store-commit."
+            exit 1
+          fi
+          # Not captured: on Actions its first line is the ::add-mask:: command.
           bash apps/web/scripts/market-data/read-store.sh "$RUNNER_TEMP/analytics" "$commit"
           echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
 
       - name: Rebuild every published series from the store and compare (hashes only)
         if: steps.store.outputs.skip == 'false'
-        run: node apps/web/scripts/market-data/publish.mjs --check --store "$RUNNER_TEMP/analytics/market"
+        env:
+          STORE_COMMIT: ${{ steps.store.outputs.commit }}
+        run: node apps/web/scripts/market-data/publish.mjs --check --store "$RUNNER_TEMP/analytics/market" --store-commit "$STORE_COMMIT"

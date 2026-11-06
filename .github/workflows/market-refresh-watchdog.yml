@@ -57,10 +57,13 @@ jobs:
         run: |
           set -euo pipefail
 
+          # A rehearsal (run title "… REHEARSAL …", plan 5.760 §8.7) opens no
+          # PR, so it does not count as the weekly run.
           latest=$(gh run list \
             --repo "$GITHUB_REPOSITORY" \
             --workflow market-refresh-weekly.yml \
-            --limit 1 --json createdAt --jq '.[0].createdAt // empty')
+            --limit 20 --json createdAt,displayTitle \
+            --jq '[.[] | select(.displayTitle | test("\\bREHEARSAL\\b") | not)][0].createdAt // empty')
 
           if [ -z "$latest" ]; then
             echo "::error::No Market Refresh run has EVER been recorded. The weekly pipeline is not running."

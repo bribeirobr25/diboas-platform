@@ -1,7 +1,10 @@
 {
-  "_comment": "Written by apps/web/scripts/market-data/publish.mjs. One sha256 per series it owns; PUBLISH-1 rebuilds them from the store at this commit.",
+  "_comment": "Written by apps/web/scripts/market-data/publish.mjs. One sha256 per series; PUBLISH-1 rebuilds them from the store at this commit.",
   "store_commit": "130e839bd3bd0c3a178b18c424cd8473eef05ce7",
+  "published_at": "2026-11-06T01:00:25.378Z",
+  "methodology_version": "1.1.0",
   "through": "2026-10",
+  "not_covered": "prices.BTC (appended by run.mjs --append-btc until increment 3)",
   "series": {
     "prices.SP500": "d98841d1f58d0a8abec558d47ab0f11d5b5f8493bff2056daaeb84b19f9892d9",
     "prices.QQQ": "c687233cb4c76f0fd0c96219993906c91b54b2a311340364e611ecbe0f09e081",
@@ -10,13 +13,16 @@
     "prices.GOLD": "88320956a302f2bc8321a9b16b223447e4df6a65a89a0da60a07fd247ce5f6a3",
     "prices.IBOVESPA": "9695e5dade8593b56ee22ce5441e82c00c2b679f4c5f5db6a007eeb2fbbca435",
     "prices.DAX": "5d36e3b67afa1b54cb68285e44fd2e216b01d335a9827e8ccd663cbd785b2d17",
-    "fx.EUR": "35f483f2ea0f25d3f42511cfefc0b602230748ec8395a2f2dff6c4ec37b4de40",
-    "fx.GBP": "6b76762d70fb68ac2beaf6edf79e8e008cb69d386a4cde994292ac18f760fda6",
-    "fx.AUD": "b559e5dcdcd1050993e8b10c6077dfd5e2053515bc0e3720a6c8d9e23f91b346",
-    "fx.JPY": "4610b9215b7642cdb823418c8887ecaff8787fe7d6b4ba4231cfa5671d7124ae",
-    "fx.CHF": "0f11fb92b169cfc901c36512ce8eb247c827f85750473a65eb69bee45aa526dc",
-    "fx.CAD": "81a5598f8550b2381f42529d29a4c478c4e2ff91e39324e32a8fea9a19441dac",
-    "fx.MXN": "b7ece25a4bb0d9a8d95d374b5c5f92fb846d95cf8aab37ffd984a256a89b4f0d",
-    "fx.BRL": "64a56c200924560c8559f71f4685083982d23f94ae036e4ff57416ab3925c43f"
+    "fx.EUR": "3af6eb55d613dc254273f6aa058b94873a2d34e209b55338fb613e5b70641008",
+    "fx.GBP": "0fab642934b9fa0f5eaa07f8891464e5a28bce52e9d20815e03ae94316eafd53",
+    "fx.AUD": "ce6967d95a932b3e90646c078f877ddfe58f0a04e3da4a706db273f32654ee03",
+    "fx.JPY": "5035fa0160606a8f66c481cfcc79b6139100e10bf04fa24ea5875302c646229c",
+    "fx.CHF": "5ab770139b4adc582b3558438f5248bda8f688f3e463513f8905018807fc0fba",
+    "fx.CAD": "4122742bfd8fee8fcffb7f041f97edf1f51708ff895c4d17d637635911baf8cb",
+    "fx.MXN": "a4dd193b9e475b9ea34b959af47dd9a18675e0bdc9f58ef09a1c163ba2383d67",
+    "fx.BRL": "afe63b5b3d99d563f619748690bb3b885ae5a441e8bbe36ca3ae0acac3dc5108",
+    "fx.ARS": "e374ef39639aea2e805a69592fca32e43e432e75dc6a318bcb25eb1625b1c944",
+    "fx.CLP": "f60af73d090c1f57662b5d1f3a938a56032b5aa932f1f861d6a9b7e0c3b2de72",
+    "fx.COP": "8b202012d8364a9d39fd07fdeb1d759d971997cb9089f1fbd8cc34fa1797e055"
   }
 }

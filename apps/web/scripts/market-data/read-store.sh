@@ -5,12 +5,20 @@
 #   TOKEN=<read-only token> read-store.sh <dir> [<40-char store commit>]
 #
 # Used by the weekly refresh (the store's newest commit) and by the PUBLISH-1
-# drift check (the commit recorded in store-manifest.json). One script, so the
-# drift check also exercises the weekly path.
+# drift check (the commit recorded in store-manifest.json).
 #
-# The token never reaches a URL, `.git/config` or the log: it is sent as an
-# HTTP header for each git call, and its encoded form is masked. The checkout
-# is sparse (`market/derived/monthly` only) and lives outside the repository.
+# Call it WITHOUT capturing its stdout and read the commit with
+# `git -C <dir> rev-parse HEAD`: on GitHub Actions the first line it prints is
+# the `::add-mask::` command, which only takes effect when it reaches the
+# runner. (A capture swallowed it and broke the weekly step; the step test in
+# marketDataPublish.test.ts runs the workflow's own scripts with
+# GITHUB_ACTIONS=true.)
+#
+# The token never reaches a URL, `.git/config`, a command line or the log: git
+# gets it as an HTTP header through GIT_CONFIG_* environment variables, curl
+# through a config read from a pipe, and its encoded form is masked. The
+# checkout is sparse (`market/daily`, `market/derived`, `market/checks`) and
+# lives outside the repository.
 # A commit given here must be on the store's `main` (the store cannot be
 # branch-protected, so a force-push could otherwise point a check at history
 # that is no longer the store's).
@@ -29,10 +37,14 @@ fi
 
 auth="$(printf 'x-access-token:%s' "$TOKEN" | base64 | tr -d '\n')"
 [ -n "${GITHUB_ACTIONS:-}" ] && echo "::add-mask::$auth"
-g() { git -c http.extraHeader="AUTHORIZATION: basic $auth" "$@"; }
+g() {
+  GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0=http.extraHeader \
+    GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $auth" git "$@"
+}
 
 if [ -n "$want" ]; then
-  body="$(curl -sS -H "Authorization: Bearer $TOKEN" -H 'Accept: application/vnd.github+json' \
+  body="$(curl -sS -K <(printf 'header = "Authorization: Bearer %s"\n' "$TOKEN") \
+    -H 'Accept: application/vnd.github+json' \
     "https://api.github.com/repos/$repo/compare/$want...main")" ||
     { echo "read-store: GitHub did not answer the compare request" >&2; exit 1; }
   status="$(printf '%s' "$body" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{try{process.stdout.write(JSON.parse(s).status||"")}catch{}})')"
@@ -45,7 +57,7 @@ fi
 rm -rf "$dir"
 git init -q "$dir"
 git -C "$dir" remote add origin "https://github.com/$repo.git"
-git -C "$dir" sparse-checkout set market/derived/monthly
+git -C "$dir" sparse-checkout set market/daily market/derived market/checks
 g -C "$dir" fetch --quiet --depth 1 --filter=blob:none origin "${want:-main}"
 g -C "$dir" checkout --quiet FETCH_HEAD
 git -C "$dir" rev-parse HEAD
