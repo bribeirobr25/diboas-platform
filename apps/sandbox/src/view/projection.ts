@@ -22,6 +22,7 @@ import Decimal from 'decimal.js';
 import type { LedgerState } from '@diboas/banking';
 import { STRATEGY_CATALOG } from '@diboas/defi';
 import {
+  GOAL_HORIZON_MAX_MONTHS,
   PROJECTION_POLICY,
   monthlyNeeded,
   monthsToTarget,
@@ -44,7 +45,9 @@ export type Pace = 'within' | 'edge' | 'beyond';
 export type When =
   | { kind: 'underYear' }
   | { kind: 'single'; years: number }
-  | { kind: 'range'; minYears: number; maxYears: number };
+  | { kind: 'range'; minYears: number; maxYears: number }
+  /** Beyond the longest goal horizon: "in more than {years} years", a true lower bound (5.804). */
+  | { kind: 'overCap'; years: number };
 
 export interface RangeLine {
   lowPercent: number;
@@ -113,8 +116,16 @@ function amounts(minAmount: number, maxAmount: number) {
   return lo.amount === hi.amount ? hi : { min: lo, max: hi };
 }
 
-/** Whole years as today's projection rounds them (min 1; under a year is its own line). */
+/**
+ * Whole years as today's projection rounds them (min 1; under a year is its own line). Past the
+ * longest horizon a goal can have (`GOAL_HORIZON_MAX_MONTHS`, 40 years), the line states a lower
+ * bound instead — the fast end's whole years, never more than 40 (founder 2026-11-06, 5.804).
+ */
 function whenOf(minMonths: number, maxMonths: number): When {
+  if (maxMonths > GOAL_HORIZON_MAX_MONTHS) {
+    const capYears = GOAL_HORIZON_MAX_MONTHS / 12;
+    return { kind: 'overCap', years: Math.max(1, Math.min(capYears, Math.floor(minMonths / 12))) };
+  }
   if (maxMonths / 12 < 1) return { kind: 'underYear' };
   const minYears = Math.max(1, Math.round(minMonths / 12));
   const maxYears = Math.max(1, Math.round(maxMonths / 12));
@@ -135,7 +146,7 @@ function paceOf(when: When, fast: number, slow: number, left: number | null) {
   if (left === null || !(left > 0)) return null;
   const real = statusOf(fast, slow, left);
   const shown =
-    when.kind === 'underYear'
+    when.kind === 'underYear' || when.kind === 'overCap'
       ? real
       : when.kind === 'single'
         ? statusOf(when.years * 12, when.years * 12, left)

@@ -203,6 +203,17 @@ describe('PR 2 · every copy branch renders its own text with its own values', (
       ['fits inside', 'lands around'],
     ],
     [
+      'live · past the longest horizon',
+      {
+        ...LIVE,
+        withPlan: null,
+        when: { kind: 'overCap', years: 40 },
+        pace: null,
+      } as ProjectionView,
+      ['would be reached in more than 40 years'],
+      ['in about'],
+    ],
+    [
       'live · a range of years',
       { ...LIVE, when: { kind: 'range', minYears: 3, maxYears: 4 } } as ProjectionView,
       ['in about 3 to 4 years'],

@@ -251,7 +251,8 @@
     "when": {
       "range": "em cerca de {minYears} a {maxYears} anos",
       "single": "em cerca de {years, plural, one {# ano} other {# anos}}",
-      "underYear": "em menos de um ano"
+      "underYear": "em menos de um ano",
+      "overCap": "em mais de {years, plural, one {# ano} other {# anos}}"
     },
     "live": {
       "today": "Taxa-base do pool observada: {rate} · registro {age}",

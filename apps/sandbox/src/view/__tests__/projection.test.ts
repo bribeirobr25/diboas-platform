@@ -325,6 +325,36 @@ describe('plans and pace (guard 9; never false, founder 2026-11-06)', () => {
     });
   });
 
+  it('should cap the stated years at the longest goal horizon (5.804): a tiny goal reads "more than 40 years"', () => {
+    const v = live(
+      selectGoalProjection(
+        base({ positions: [{ strategyId: 'safeHarbor', value: 1 }], monthlyPlan: 0 })
+      )
+    );
+    expect(v.when).toEqual({ kind: 'overCap', years: 40 });
+  });
+
+  it('should state the fast end as the floor when only the slow end passes 40 years', () => {
+    const wide: RateRangesPayload = {
+      ...RANGES,
+      strategies: [okRange('safeHarbor', 0.1, 9.0)],
+    };
+    // ~ (10000 − 1500) / 15 months at almost no growth (slow, > 40 years) vs far fewer at the high rate.
+    const v = live(
+      selectGoalProjection(
+        base({
+          ranges: wide,
+          positions: [{ strategyId: 'safeHarbor', value: 1500 }],
+          monthlyPlan: 15,
+          monthsLeft: 480,
+        })
+      )
+    );
+    expect(v.when.kind).toBe('overCap');
+    expect(v.when.kind === 'overCap' && v.when.years).toBeGreaterThan(1);
+    expect(v.when.kind === 'overCap' && v.when.years).toBeLessThan(40);
+  });
+
   it('should state the needed amount over the SAME months left the pace reads', () => {
     const line = sim(selectGoalProjection(base({ ...CASE2, monthsLeft: 20 }))).line;
     expect(line?.kind === 'needed' && line.monthsLeft).toBe(20);

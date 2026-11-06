@@ -251,7 +251,8 @@
     "when": {
       "range": "in etwa {minYears} bis {maxYears} Jahren",
       "single": "in etwa {years, plural, one {# Jahr} other {# Jahren}}",
-      "underYear": "innerhalb eines Jahres"
+      "underYear": "innerhalb eines Jahres",
+      "overCap": "in mehr als {years, plural, one {# Jahr} other {# Jahren}}"
     },
     "live": {
       "today": "Beobachtete Basis-Pool-Rate: {rate} · Momentaufnahme {age}",

@@ -140,6 +140,17 @@ describe('GET /api/market/history — 5.213 rate limit (PB-2)', () => {
     expect(response.status).toBe(200);
     expect(hoisted.providerCalls).toBeGreaterThan(0);
   });
+
+  it('should send each history point as its date and total rate only (5.801: no base, no extra payload)', async () => {
+    __resetRateLimiter();
+    const { GET } = await import('../history/route');
+    const body = (await (await GET(historyRequest())).json()) as {
+      histories: Array<{ points: Array<Record<string, unknown>> }>;
+    };
+    const points = body.histories.flatMap((h) => h.points);
+    expect(points.length).toBeGreaterThan(0);
+    for (const pt of points) expect(Object.keys(pt).sort()).toEqual(['apyPercent', 'date']);
+  });
 });
 
 describe('GET /api/market/rate-ranges — PR 2 rate limit and the observed answer', () => {
