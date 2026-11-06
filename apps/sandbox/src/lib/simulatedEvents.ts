@@ -128,8 +128,10 @@ export interface ExpenseImpact {
  *
  * Deliberately carries **no goal-pace column**, though mockup 26 shows one:
  * board §6a is "absent over false", and the app's only ruled pace derivation
- * (`Projection`) yields a word ONLY when a recurring plan exists — so a pace
- * claim here would be invented for most goals. What moves is what is shown.
+ * (`selectGoalProjection` in `view/projection.ts`, shown by `Projection`) yields a
+ * word ONLY when a recurring plan exists, months are left and observed rates are
+ * live — so a pace claim here would be invented for most goals. What moves is
+ * what is shown.
  *
  * The reserve path releases the FULL amount from one goal and pays from
  * Available, so Available is unchanged by it — the money passes through. That
