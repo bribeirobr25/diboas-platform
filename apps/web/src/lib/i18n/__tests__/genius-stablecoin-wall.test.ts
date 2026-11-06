@@ -22,6 +22,7 @@
  */
 
 import { readdirSync, readFileSync } from 'node:fs';
+import { fillScenarioCopy } from '@/lib/compound-interest/scenarioCopy';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { OG_TRANSLATIONS } from '../../../app/api/og/share/ogTranslations';
@@ -69,6 +70,15 @@ const ALLOW: ReadonlySet<string> = new Set([
   // pair and are intentionally NOT allow-listed here.
 ]);
 
+/**
+ * The text as a reader is served it (5.730): the page loader fills `{scenario…}` slots, and a slot
+ * is ~20 characters longer than the rate it becomes, so a pairing can be too far apart in the raw
+ * catalogue and within reach once served (9th audit). The wall reads both; it only widens.
+ */
+function served(leaf: string, locale: string): string {
+  return fillScenarioCopy({ leaf }, locale).leaf;
+}
+
 function walkStrings(
   value: unknown,
   keyPath: string,
@@ -109,7 +119,8 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
         const ns = file.replace(/\.json$/, '');
         const json = JSON.parse(readFileSync(join(dir, file), 'utf8'));
         walkStrings(json, '', (leaf, path) => {
-          if (PAIRING.test(leaf) && !ALLOW.has(`${locale}::${ns}::${path}`)) {
+          const pairs = PAIRING.test(leaf) || PAIRING.test(served(leaf, locale));
+          if (pairs && !ALLOW.has(`${locale}::${ns}::${path}`)) {
             unlisted.push(`${locale}::${ns}::${path} — "${leaf}"`);
           }
         });
@@ -117,6 +128,12 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
       expect(unlisted, 'new stablecoin-earns pairing (see the GENIUS wall guard)').toEqual([]);
     });
   }
+
+  it('should read the text as served: a scenario slot never hides a pairing (positive control)', () => {
+    const planted = 'Conservative: earn {scenarioConservative} a year by holding your USDC';
+    expect(PAIRING.test(planted)).toBe(false); // the raw catalogue text alone evades the window
+    expect(PAIRING.test(served(planted, 'en'))).toBe(true); // what the reader would see is caught
+  });
 
   /**
    * Code literals too (`5.749`): user-facing text also lives in TS/TSX (SEO constants, JSON-LD

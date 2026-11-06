@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Währungs-Wertverlust-Rechner: echte Rendite",
-    "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und in einer Digital-Dollar-Strategie (historisch 10% pro Jahr)."
+    "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und in einer Digital-Dollar-Strategie (historisch {scenarioHistorical} pro Jahr)."
   },
   "hero": {
     "kicker": "Währungs-Wertverlust-Rechner",

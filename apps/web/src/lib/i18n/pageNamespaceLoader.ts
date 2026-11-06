@@ -6,13 +6,16 @@
  */
 
 import { loadMessages, flattenMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { fillScenarioCopy } from '@/lib/compound-interest/scenarioCopy';
 
 /**
  * Load and flatten multiple namespaces for a page
  *
  * @param locale - The locale to load
  * @param namespaces - Array of namespace paths
- * @returns Flattened messages object ready for PageI18nProvider
+ * @returns Flattened messages object ready for PageI18nProvider, with the scenario slots filled
+ *   from the one constant (`{scenarioConservative}` → the conservative rate, 5.730) — so every reader of a page's
+ *   catalogue (components, search metadata, JSON-LD, share cards) states the same figures.
  */
 export async function loadPageNamespaces(
   locale: SupportedLocale,
@@ -35,5 +38,5 @@ export async function loadPageNamespaces(
     Object.assign(allMessages, flattened);
   }
 
-  return allMessages;
+  return fillScenarioCopy(allMessages, locale);
 }

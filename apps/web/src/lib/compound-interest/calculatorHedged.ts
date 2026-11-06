@@ -4,8 +4,8 @@
  * Per Phase-7 Q7(a) — the educational lesson at /learn/compound-interest uses
  * the non-hedged `calculateCompoundProjection` (calculator.ts). The three tool
  * pages (/tools/compound-interest, /tools/retirement, /tools/goal-savings)
- * use this hedged variant for non-USD locales so the diBoaS scenarios reflect
- * digital-dollar yield realistically converted to the user's local currency.
+ * use this hedged variant for non-USD locales, so a scenario rate stated in dollars is
+ * converted to the user's local currency (an illustration, not a rate any product pays; 5.732).
  *
  * Math (effective-rate model — canonical per `docs/tech/financial-calculations.md`):
  *   effectiveLocalAPY = (1 + usdYield) × (1 + localDepreciation) − 1

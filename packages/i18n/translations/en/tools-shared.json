@@ -53,9 +53,9 @@
   "scenarios": {
     "bank": "Your bank",
     "bankApyDisplay": "{label} APY: {rate}%",
-    "conservative": "Conservative (7%)",
-    "historical": "Historical (10%)",
-    "optimistic": "Optimistic (14%)",
+    "conservative": "Conservative ({scenarioConservative})",
+    "historical": "Historical ({scenarioHistorical})",
+    "optimistic": "Optimistic ({scenarioOptimistic})",
     "digitalDollarSuffix": "",
     "conservativeTooltip": "Long-run conservative range for strategy returns, reflecting top-tier passive rates available in 2026.",
     "historicalTooltip": "Multi-asset diBoaS strategy envelope based on the long-run 1928–2024 S&P 500 total-return CAGR.",

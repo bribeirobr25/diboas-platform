@@ -61,7 +61,9 @@
 
 |                                | conservative | historical | optimistic |
 | ------------------------------ | -----------: | ---------: | ---------: |
-| Hardcoded multi-asset envelope |           7% |        10% |        14% |
+| Illustrative scenarios (today) |           7% |        10% |        14% |
+
+The copy states these through `lib/compound-interest/scenarioCopy.ts` (catalogue `{scenario…}` slots filled by the page loader, 5.730); a rate change needs no copy edit.
 
 ### Inflation rates (`inflationRates.rates.*`)
 

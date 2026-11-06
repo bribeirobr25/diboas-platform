@@ -53,9 +53,9 @@
   "scenarios": {
     "bank": "Seu banco",
     "bankApyDisplay": "{label} ({rate}%)",
-    "conservative": "Conservador (7%)",
-    "historical": "Histórico (10%)",
-    "optimistic": "Otimista (14%)",
+    "conservative": "Conservador ({scenarioConservative})",
+    "historical": "Histórico ({scenarioHistorical})",
+    "optimistic": "Otimista ({scenarioOptimistic})",
     "digitalDollarSuffix": " em dólar digital",
     "conservativeTooltip": "Faixa conservadora de retorno da estratégia no longo prazo, refletindo as taxas passivas de primeira linha disponíveis em 2026.",
     "historicalTooltip": "Faixa da estratégia diBoaS multi-ativos baseada no CAGR de retorno total do S&P 500 de longo prazo (1928–2024).",

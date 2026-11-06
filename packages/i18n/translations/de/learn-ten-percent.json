@@ -26,7 +26,7 @@
     "title": "Wo die Stücke einrasten.",
     "intro": [
       "Jetzt rasten drei Sachen zusammen ein: 10% (dieser Talk), zuerst gezahlt (Talk 3), auf ein Ziel gerichtet und wachsen gelassen (Talk 2 und 1).",
-      "Hier eine Illustration, und sie ist nur das. Zehn Prozent von einem Gehalt von 3.000 € (nimm dein eigenes) sind 300 € im Monat. Zuerst gezahlt, zu vorsichtigen 7%, sind zwölf Jahre eine **Schätzung** von rund **66.000 €**. Kein Versprechen, eine Schätzung. Die echten Kosten, nicht anzufangen, waren nie die 300 € im Monat, es waren die ~66.000 €, die du ausgelassen hast.",
+      "Hier eine Illustration, und sie ist nur das. Zehn Prozent von einem Gehalt von 3.000 € (nimm dein eigenes) sind 300 € im Monat. Zuerst gezahlt, zu vorsichtigen {scenarioConservative}, sind zwölf Jahre eine **Schätzung** von rund **{scenarioMonthlyResult}**. Kein Versprechen, eine Schätzung. Die echten Kosten, nicht anzufangen, waren nie die 300 € im Monat, es waren die ~{scenarioMonthlyResult}, die du ausgelassen hast.",
       "Nimm also nicht meine 300 € und meine 12 Jahre. Setz dein eigenes Gehalt ein, deinen Prozentsatz, deine Jahre, und richte es auf das Ziel, dem du in Talk 2 einen Namen gegeben hast.",
       "Ich stehe hinter diBoaS, also prüf die Mathematik selbst."
     ],
