@@ -1,5 +1,7 @@
-import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
+import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
 
 /**
@@ -7,18 +9,28 @@ import { describe, expect, it } from 'vitest';
  *
  * A website catalogue key that no code reads passed every gate (type-check, knip,
  * `validate:translations`): the seventh audit put the `strategies.json` blocks platform #824
- * deleted back ×4 and nothing failed. This reads every website source file and marks a key as
- * read when the code names it in any of the ways the app reads text:
- *   - the full id as a string (`'faq.items.risk.answer'`, config key strings);
- *   - a template head or tail (`` `faq.items.${id}.answer` ``);
- *   - the namespace-relative key in code that names the namespace (`t('protocolLabels.tvl')`);
- *   - property access on a loaded catalogue object (`messages.accessibility?.skipToMain`);
- *   - a parent object passed whole (`'landing-b2c.draper.steps'`).
+ * deleted back ×4 and nothing failed. This parses every tracked website source file (TypeScript
+ * AST, so a comment is never a read) and counts a key, from ANY locale, as read when:
+ *   1. its full id is a string literal anywhere (`'faq.items.risk.answer'`, config key strings),
+ *      or a parent object's id is (`'landing-b2c.draper.steps'`, read whole);
+ *   2. in a file that names its namespace: its namespace-relative key, or a parent of it, is a
+ *      literal (`t('protocolLabels.tvl')`); a relative template head covers it (`cards.${id}`);
+ *      a constant-held prefix's tail covers it (`${PREFIX}.faq.header`); or a property-access
+ *      path matches it (`messages.accessibility?.skipToMain`);
+ *   3. a template head holding its namespace and at least one more segment covers it
+ *      (`faq.items.${id}`), in any file;
+ *   4. a namespace-family template covers it: `tools-${slug}.landing.cardTitle`;
+ *   5. a DECLARED family reader (below) holds a `${namespace}.…` tail or a relative key for it.
+ *
+ * Eighth audit: the first version matched tails and access pairs across ALL namespaces (".title"
+ * alone marked 184 keys read), read en only, and counted comments; 13 of 16 planted dead keys
+ * passed. Every rule above is local to the reading file or the declared family.
  *
  * It is a RATCHET: the keys unread when it was built are listed in
  * `catalogueReachability.baseline.json`, to be classified and deleted (register 5.808; the
- * `landing-b2b.footer.*` disclosures are Legal's to retire). A key unread and NOT listed fails, and
- * a listed key that is read again, or deleted, fails too, so the list only shrinks.
+ * `footer.*` disclosures are Legal's to retire, and `common.errors.*` are unread because the error
+ * fallbacks render hard-coded English — a defect to wire, not keys to delete). A key unread and
+ * NOT listed fails; a listed key that is read again, or deleted, fails too: the list only shrinks.
  */
 
 function repoRoot(): string {
@@ -30,30 +42,43 @@ function repoRoot(): string {
   throw new Error('Could not locate the repository root');
 }
 const ROOT = repoRoot();
-const CATALOGUE = join(ROOT, 'packages/i18n/translations/en');
-const SOURCES = ['apps/web/src', 'packages/ui/src', 'packages/email/src'].map((d) => join(ROOT, d));
-const SKIP_DIRS = new Set(['node_modules', '__tests__', '.next']);
+const TRANSLATIONS = join(ROOT, 'packages/i18n/translations');
+const LOCALES = ['en', 'pt-BR', 'es', 'de'];
+const SOURCE_DIRS = ['apps/web/src', 'packages/ui/src', 'packages/email/src'];
 const BASELINE: string[] = JSON.parse(
   readFileSync(join(__dirname, 'catalogueReachability.baseline.json'), 'utf8')
 );
 
-function walk(dir: string, out: string[] = []): string[] {
-  for (const e of readdirSync(dir)) {
-    if (SKIP_DIRS.has(e)) continue;
-    const full = join(dir, e);
-    if (statSync(full).isDirectory()) walk(full, out);
-    else out.push(full);
-  }
-  return out;
-}
-
-function leafKeys(node: unknown, prefix = '', out: string[] = []): string[] {
-  if (Array.isArray(node)) node.forEach((v, i) => leafKeys(v, `${prefix}.${i}`, out));
-  else if (node && typeof node === 'object')
-    for (const [k, v] of Object.entries(node)) leafKeys(v, prefix ? `${prefix}.${k}` : k, out);
-  else out.push(prefix);
-  return out;
-}
+/**
+ * Components shared by a family of namespaces, which hold the namespace in a variable: in these
+ * files a `${namespace}.x.y` template tail and a namespace-relative key apply to every namespace
+ * of the family. Each entry is checked to be load-bearing: without it, some key reads as unread.
+ */
+const FAMILIES: ReadonlyArray<{ family: RegExp; files: readonly string[] }> = [
+  {
+    family: /^learn-/,
+    files: [
+      'apps/web/src/components/Sections/Lesson/variants/LessonThreeBeat/LessonThreeBeat.tsx',
+      'apps/web/src/components/Sections/TalkQuiz/variants/TalkQuizDefault/TalkQuizDefault.tsx',
+      'apps/web/src/lib/learn/lessonMetadata.ts',
+    ],
+  },
+  {
+    family: /^market(-|$)/,
+    files: [
+      'apps/web/src/app/[locale]/(landing)/market/viewMetadata.ts',
+      'apps/web/src/app/[locale]/(landing)/market/StateViewSections.tsx',
+      'apps/web/src/app/[locale]/(landing)/market/MarketViewShell.tsx',
+    ],
+  },
+  {
+    family: /^tools-/,
+    files: [
+      'apps/web/src/app/[locale]/(landing)/tools/page.tsx',
+      'apps/web/src/components/Sections/ToolPage/ToolPage.tsx',
+    ],
+  },
+];
 
 interface Key {
   ns: string;
@@ -61,73 +86,151 @@ interface Key {
   id: string;
 }
 
-function catalogueKeys(dir: string): Key[] {
-  return walk(dir)
-    .filter((f) => f.endsWith('.json'))
-    .flatMap((f) => {
-      const ns = relative(dir, f).replace(/\.json$/, '');
-      return leafKeys(JSON.parse(readFileSync(f, 'utf8'))).map((key) => ({
-        ns,
-        key,
-        id: `${ns}.${key}`,
-      }));
-    });
-}
-
-/** What the source names: string literals, template heads and tails, property-access pairs. */
-function readEvidence(texts: string[]) {
-  const literals = new Set<string>();
-  const heads = new Set<string>();
-  const tails = new Set<string>();
-  const access = new Set<string>();
-  for (const t of texts) {
-    for (const m of t.matchAll(/['"]([\w./-]+)['"]/g)) literals.add(m[1]);
-    for (const m of t.matchAll(/`([\w./-]+)\$\{/g)) heads.add(m[1]);
-    for (const m of t.matchAll(/\}(\.[\w.]+)[`$]/g)) tails.add(m[1]);
-    // lookahead: chained reads (`a.b?.c`) yield every pair, not every other one
-    for (const m of t.matchAll(/\b(\w+)\??\.(?=(\w+)\b)/g)) access.add(`${m[1]}.${m[2]}`);
-  }
-  const all = texts.join('\n');
-  const named = new Map<string, boolean>();
-  const namesNamespace = (ns: string) => {
-    if (!named.has(ns)) {
-      const esc = ns.replace(/[/-]/g, '\\$&');
-      named.set(ns, new RegExp(`['"\`]${esc}['".\`/]`).test(all));
-    }
-    return named.get(ns)!;
+function catalogueKeys(): Key[] {
+  const out = new Map<string, Key>();
+  const leaves = (node: unknown, prefix: string, ns: string) => {
+    if (typeof node === 'string')
+      out.set(`${ns}.${prefix}`, { ns, key: prefix, id: `${ns}.${prefix}` });
+    else if (node && typeof node === 'object')
+      for (const [k, v] of Object.entries(node)) leaves(v, prefix ? `${prefix}.${k}` : k, ns);
   };
-  return { literals, heads, tails, access, namesNamespace };
+  for (const locale of LOCALES) {
+    const walk = (dir: string) => {
+      for (const e of readdirSync(dir)) {
+        const full = join(dir, e);
+        if (statSync(full).isDirectory()) walk(full);
+        else if (e.endsWith('.json')) {
+          const ns = relative(join(TRANSLATIONS, locale), full).replace(/\.json$/, '');
+          leaves(JSON.parse(readFileSync(full, 'utf8')), '', ns);
+        }
+      }
+    };
+    walk(join(TRANSLATIONS, locale));
+  }
+  return [...out.values()];
 }
 
-function isRead({ ns, key, id }: Key, ev: ReturnType<typeof readEvidence>): boolean {
-  if (ev.literals.has(id)) return true;
-  for (const h of ev.heads) if (h.length > 2 && id.startsWith(h)) return true;
-  for (const x of ev.tails) if (x.length > 4 && id.endsWith(x)) return true;
-  if (ev.namesNamespace(ns)) {
-    if (ev.literals.has(key)) return true;
-    for (const h of ev.heads) if (key.startsWith(h)) return true;
+interface FileEvidence {
+  path: string;
+  literals: Set<string>;
+  heads: Set<string>;
+  /** Template head → its first literal tail (`tools-` → `.landing.cardTitle`). */
+  pairs: Array<[string, string]>;
+  tails: Set<string>;
+  chains: Set<string>;
+  namespacesNamed: Set<string>;
+  families: RegExp[];
+}
+
+function evidenceOf(path: string, text: string, namespaces: Set<string>): FileEvidence {
+  const kind = /\.[jt]sx$/.test(path) ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+  const sf = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true, kind);
+  const ev: FileEvidence = {
+    path,
+    literals: new Set(),
+    heads: new Set(),
+    pairs: [],
+    tails: new Set(),
+    chains: new Set(),
+    namespacesNamed: new Set(),
+    families: FAMILIES.filter((f) => f.files.includes(path)).map((f) => f.family),
+  };
+  const visit = (n: ts.Node) => {
+    if (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n)) ev.literals.add(n.text);
+    else if (ts.isTemplateExpression(n)) {
+      ev.heads.add(n.head.text);
+      ev.pairs.push([n.head.text, n.templateSpans[0].literal.text]);
+      for (const span of n.templateSpans) ev.tails.add(span.literal.text);
+    } else if (ts.isPropertyAccessExpression(n) && !ts.isPropertyAccessExpression(n.parent)) {
+      const segs: string[] = [];
+      let c: ts.Expression = n;
+      while (ts.isPropertyAccessExpression(c)) {
+        segs.unshift(c.name.text);
+        c = c.expression;
+      }
+      if (ts.isIdentifier(c)) segs.unshift(c.text);
+      ev.chains.add(segs.join('.'));
+    }
+    ts.forEachChild(n, visit);
+  };
+  visit(sf);
+  for (const l of [...ev.literals, ...ev.heads]) {
+    if (namespaces.has(l)) ev.namespacesNamed.add(l);
+    const dot = l.indexOf('.');
+    if (dot > 0 && namespaces.has(l.slice(0, dot))) ev.namespacesNamed.add(l.slice(0, dot));
   }
-  const parts = key.split('.');
-  if (parts.length >= 2 && ev.access.has(parts.slice(-2).join('.'))) return true;
+  return ev;
+}
+
+function isRead(
+  { ns, key, id }: Key,
+  files: FileEvidence[],
+  globals: Set<string>,
+  namespaces: Set<string>
+): boolean {
+  if (globals.has(id)) return true;
   const idParts = id.split('.');
   for (let i = idParts.length - 1; i >= 2; i -= 1)
-    if (ev.literals.has(idParts.slice(0, i).join('.'))) return true;
+    if (globals.has(idParts.slice(0, i).join('.'))) return true;
+  const keyParts = key.split('.');
+  for (const f of files) {
+    for (const h of f.heads) {
+      const dot = h.indexOf('.');
+      if (dot > 0 && h.slice(0, dot) === ns && h.length > dot + 1 && id.startsWith(h)) return true;
+    }
+    for (const [h, t] of f.pairs)
+      if (h && !h.includes('.') && ns.startsWith(h) && t.length > 1 && t.startsWith('.'))
+        if (key.startsWith(t.slice(1))) return true;
+    const inFamily = f.families.some((re) => re.test(ns));
+    if (inFamily)
+      for (const t of f.tails)
+        if (t.length > 1 && t.startsWith('.') && key.startsWith(t.slice(1))) return true;
+    if (!inFamily && !f.namespacesNamed.has(ns)) continue;
+    // A prefix held in a constant the file names: `${STRATEGIES_I18N_PREFIX}.faq.header`.
+    if (f.namespacesNamed.has(ns))
+      for (const [h, t] of f.pairs)
+        if (h === '' && t.length > 1 && t.startsWith('.') && key.startsWith(t.slice(1)))
+          return true;
+    for (let i = keyParts.length; i >= 1; i -= 1) {
+      const part = keyParts.slice(0, i).join('.');
+      // A literal that is a namespace's own name ('strategies', 'faq') names the namespace —
+      // never a section inside it (8th audit: it marked whole `strategies.strategies.*` read).
+      if (f.literals.has(part) && !(i === 1 && namespaces.has(part))) return true;
+    }
+    for (const h of f.heads)
+      if (h.includes('.') && !h.startsWith(`${ns}.`) && key.startsWith(h)) return true;
+    for (const c of f.chains) {
+      const cs = c.split('.');
+      for (let n = Math.min(cs.length, keyParts.length); n >= 2; n -= 1)
+        if (cs.slice(-n).join('.') === keyParts.slice(0, n).join('.')) return true;
+    }
+  }
   return false;
 }
 
-function unreadKeys(): string[] {
-  const texts = SOURCES.flatMap((d) => walk(d))
-    .filter((f) => /\.(tsx?|mjs|js)$/.test(f) && !/\.(test|stories)\./.test(f))
-    .map((f) => readFileSync(f, 'utf8'));
-  const ev = readEvidence(texts);
-  return catalogueKeys(CATALOGUE)
-    .filter((k) => !isRead(k, ev))
+function sourceEvidence(namespaces: Set<string>): FileEvidence[] {
+  return execSync(`git ls-files ${SOURCE_DIRS.join(' ')}`, { cwd: ROOT })
+    .toString()
+    .split('\n')
+    .filter(
+      (f) => /\.(tsx?|jsx?|mjs|cjs)$/.test(f) && !/(\.(test|spec|stories)\.|__tests__\/)/.test(f)
+    )
+    .map((f) => evidenceOf(f, readFileSync(join(ROOT, f), 'utf8'), namespaces));
+}
+
+function unreadIds(keys: Key[], files: FileEvidence[]): string[] {
+  const globals = new Set(files.flatMap((f) => [...f.literals]));
+  const namespaces = new Set(keys.map((k) => k.ns));
+  return keys
+    .filter((k) => !isRead(k, files, globals, namespaces))
     .map((k) => k.id)
     .sort();
 }
 
 describe('5.800 · every website catalogue key is read by code (ratchet)', () => {
-  const unread = unreadKeys();
+  const keys = catalogueKeys();
+  const files = sourceEvidence(new Set(keys.map((k) => k.ns)));
+  const unread = unreadIds(keys, files);
   const listed = new Set(BASELINE);
 
   it('should find no unread key outside the baseline (delete it, or read it)', () => {
@@ -143,18 +246,40 @@ describe('5.800 · every website catalogue key is read by code (ratchet)', () =>
     expect(BASELINE).toEqual([...new Set(BASELINE)].sort());
   });
 
-  it('should tell a read key from an unread one (non-vacuity)', () => {
-    const ev = readEvidence([
-      "t('faq.items.risk.answer')",
-      'const x = `faq.items.${id}.question`;',
-      "useNamespace('market'); t('views.title')",
-      'messages.accessibility?.skipToMain',
-    ]);
-    const k = (ns: string, key: string) => ({ ns, key, id: `${ns}.${key}` });
-    expect(isRead(k('faq', 'items.risk.answer'), ev)).toBe(true);
-    expect(isRead(k('faq', 'items.other.question'), ev)).toBe(true);
-    expect(isRead(k('market', 'views.title'), ev)).toBe(true);
-    expect(isRead(k('common', 'accessibility.skipToMain'), ev)).toBe(true);
-    expect(isRead(k('strategies', 'card.riskLabel'), ev)).toBe(false);
+  it('should keep every declared family reader load-bearing: without it, some key reads as unread', () => {
+    const before = unread.length;
+    for (const { files: paths } of FAMILIES)
+      for (const p of paths) {
+        const f = files.find((x) => x.path === p);
+        expect(f, `declared reader ${p} is not a tracked source file`).toBeDefined();
+        const without = files.map((x) => (x === f ? { ...x, families: [] } : x));
+        expect(
+          unreadIds(keys, without).length,
+          `${p} reads nothing only it can read`
+        ).toBeGreaterThan(before);
+      }
+  });
+
+  it('should tell a read key from an unread one, file by file (non-vacuity)', () => {
+    const ns = new Set(['faq', 'market', 'common', 'strategies', 'about']);
+    const ev = [
+      evidenceOf('a.ts', "t('faq.items.risk.answer'); const x = `faq.items.${id}.question`;", ns),
+      evidenceOf('b.ts', "load('market'); t('views.title'); m.accessibility?.skipToMain", ns),
+      evidenceOf(
+        'c.ts',
+        "// 'strategies.legacy.title' is only a comment\nconst k = `${ns}.title`;",
+        ns
+      ),
+    ];
+    const globals = new Set(ev.flatMap((f) => [...f.literals]));
+    const k = (n: string, key: string) => ({ ns: n, key, id: `${n}.${key}` });
+    expect(isRead(k('faq', 'items.risk.answer'), ev, globals, ns)).toBe(true);
+    expect(isRead(k('faq', 'items.newQ.question'), ev, globals, ns)).toBe(true);
+    expect(isRead(k('market', 'views.title'), ev, globals, ns)).toBe(true);
+    // b.ts names `market`, not `common`: its access path reads nothing in `common`.
+    expect(isRead(k('common', 'accessibility.skipToMain'), ev, globals, ns)).toBe(false);
+    // A comment is not a read; a `${ns}.title` tail outside a declared family reads nothing.
+    expect(isRead(k('strategies', 'legacy.title'), ev, globals, ns)).toBe(false);
+    expect(isRead(k('about', 'title'), ev, globals, ns)).toBe(false);
   });
 });

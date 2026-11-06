@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
   // Localized from the catalogue (5.793); the brand is already in it.
   const messages = await loadMessages(validLocale, 'preDemo');
-  const demoTitle: string = messages?.meta?.title || 'Interactive Demo - diBoaS';
+  const demoTitle: string = messages?.meta?.title || 'Interactive Demo | diBoaS';
   const demoDescription: string = messages?.meta?.description || '';
   return {
     title: pageTitle(demoTitle),
