@@ -27,7 +27,7 @@
   "og": {
     "waitlist": {
       "title": "I'm #{position} on the diBoaS waitlist!",
-      "description": "Join me on diBoaS — Financial Freedom Made Simple"
+      "description": "Join me on diBoaS: Financial Freedom Made Simple"
     },
     "calculator": {
       "title": "My money could grow to {formattedAmount}",
@@ -43,7 +43,7 @@
       "description": "I ran the numbers on diBoaS. See what yours could do."
     },
     "default": {
-      "title": "diBoaS — Financial Freedom Made Simple",
+      "title": "diBoaS: Financial Freedom Made Simple",
       "description": "Your money. Your future. One platform. Join the waitlist today."
     }
   }

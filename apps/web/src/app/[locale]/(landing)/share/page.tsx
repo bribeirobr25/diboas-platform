@@ -169,7 +169,8 @@ export async function generateMetadata({
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
     const title = fillSlot(og.calculator.title, '{formattedAmount}', formattedAmount);
-    const description = fillSlot(og.calculator.description, '{years}', years);
+    // The description names no year count (5.793): no slot to fill.
+    const description = og.calculator.description;
 
     return {
       title: pageTitle(title),

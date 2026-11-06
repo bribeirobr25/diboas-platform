@@ -85,7 +85,7 @@
   },
   "resultMoment": {
     "chartStart": "Heute",
-    "chartEnd": "In {years} Jahren",
+    "chartEnd": "In {years, plural, one {# Jahr} other {# Jahren}}",
     "chartCash": "Bargeld",
     "chartBank": "Bank",
     "chartDiboas": "diBoaS",

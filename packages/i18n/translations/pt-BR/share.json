@@ -27,11 +27,11 @@
   "og": {
     "waitlist": {
       "title": "Sou #{position} na lista de espera do diBoaS!",
-      "description": "Entre você também no diBoaS — liberdade financeira simplificada"
+      "description": "Entre você também no diBoaS: liberdade financeira simplificada"
     },
     "calculator": {
       "title": "Meu dinheiro poderia chegar a {formattedAmount}",
-      "description": "Calculado com a calculadora Dream Mode do diBoaS"
+      "description": "Calculado com a calculadora Modo Sonho do diBoaS"
     },
     "toolResult": {
       "title": "No que isso poderia se transformar: {value}",
@@ -40,10 +40,10 @@
         "asset-history": "Quanto valeria hoje: {value}",
         "card-fees": "Quanto eu poderia economizar: {value}"
       },
-      "description": "Fiz as contas no diBoaS. Veja o que o seu poderia fazer."
+      "description": "Fiz as contas no diBoaS. Veja o que o seu dinheiro poderia fazer."
     },
     "default": {
-      "title": "diBoaS — liberdade financeira simplificada",
+      "title": "diBoaS: liberdade financeira simplificada",
       "description": "Seu dinheiro. Seu futuro. Uma plataforma. Entre na lista de espera hoje."
     }
   }

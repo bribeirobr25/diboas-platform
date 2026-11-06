@@ -17,15 +17,15 @@
   },
   "output": {
     "bankLabel": "In your bank",
-    "bankNote": "{rate}% APY over {years} years",
+    "bankNote": "{rate}% APY over {years, plural, one {# year} other {# years}}",
     "diboasLabel": "At diBoaS",
-    "differencePositive": "Your {cash} could earn {difference} more at diBoaS over {years} years.",
-    "differenceZero": "At your bank rate, the diBoaS strategy matches your local yield over {years} years; the position itself is held in digital dollar.",
-    "differenceNegative": "At {bankRate}% your bank actually out-performs the diBoaS conservative scenario over {years} years. The comparison is strategy return only."
+    "differencePositive": "Your {cash} could earn {difference} more at diBoaS over {years, plural, one {# year} other {# years}}.",
+    "differenceZero": "At your bank rate, the diBoaS strategy matches your local yield over {years, plural, one {# year} other {# years}}; the position itself is held in digital dollar.",
+    "differenceNegative": "At {bankRate}% your bank actually out-performs the diBoaS conservative scenario over {years, plural, one {# year} other {# years}}. The comparison is strategy return only."
   },
   "resultMoment": {
     "eyebrow": "What your idle cash could become",
-    "chartAria": "How your idle cash compares over {years} years in your bank versus at diBoaS.",
+    "chartAria": "How your idle cash compares over {years, plural, one {# year} other {# years}} in your bank versus at diBoaS.",
     "shareText": "My idle cash could become {value} at diBoaS over {years, plural, one {# year} other {# years}}. See what yours could earn."
   },
   "vignette": {

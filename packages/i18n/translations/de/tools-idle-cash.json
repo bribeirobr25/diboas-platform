@@ -17,15 +17,15 @@
   },
   "output": {
     "bankLabel": "Bei deiner Bank",
-    "bankNote": "{rate}% Rendite über {years} Jahre",
+    "bankNote": "{rate}% Rendite über {years, plural, one {# Jahr} other {# Jahre}}",
     "diboasLabel": "Bei diBoaS",
-    "differencePositive": "Deine {cash} könnten bei diBoaS über {years} Jahre {difference} mehr verdienen.",
-    "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years} Jahre gleichauf, und die Position wird im Digital-Dollar gehalten.",
-    "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years} Jahre. Der Vergleich betrifft nur die Rendite der Strategie."
+    "differencePositive": "Deine {cash} könnten bei diBoaS über {years, plural, one {# Jahr} other {# Jahre}} {difference} mehr verdienen.",
+    "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years, plural, one {# Jahr} other {# Jahre}} gleichauf, und die Position wird im Digital-Dollar gehalten.",
+    "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years, plural, one {# Jahr} other {# Jahre}}. Der Vergleich betrifft nur die Rendite der Strategie."
   },
   "resultMoment": {
     "eyebrow": "Was aus deinem ungenutzten Geld werden kann",
-    "chartAria": "Wie sich dein ungenutztes Geld über {years} Jahre bei deiner Bank gegenüber diBoaS vergleicht.",
+    "chartAria": "Wie sich dein ungenutztes Geld über {years, plural, one {# Jahr} other {# Jahre}} bei deiner Bank gegenüber diBoaS vergleicht.",
     "shareText": "Mein liegendes Geld könnte bei diBoaS in {years, plural, one {einem Jahr} other {# Jahren}} zu {value} werden. Sieh nach, was deins verdienen könnte."
   },
   "vignette": {

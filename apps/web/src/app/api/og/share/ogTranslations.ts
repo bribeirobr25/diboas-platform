@@ -45,7 +45,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     waitlist: {
       joinedMessage: (name) => `${name} just joined the waitlist!`,
       position: 'Position',
-      cta: 'Join me on diBoaS — Financial Freedom Made Simple',
+      cta: 'Join me on diBoaS: Financial Freedom Made Simple',
     },
     calculator: {
       badge: 'Dream Mode Calculator',
@@ -80,10 +80,10 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     waitlist: {
       joinedMessage: (name) => `${name} entrou na lista de espera!`,
       position: 'Posição',
-      cta: 'Entre você também no diBoaS — liberdade financeira simplificada',
+      cta: 'Entre você também no diBoaS: liberdade financeira simplificada',
     },
     calculator: {
-      badge: 'Calculadora Dream Mode',
+      badge: 'Calculadora Modo Sonho',
       growthMessage: (years) =>
         `Em ${years} ${years === 1 ? 'ano' : 'anos'}, meu investimento poderia chegar a`,
       startingWith: 'Começando com',
@@ -115,10 +115,10 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     waitlist: {
       joinedMessage: (name) => `¡${name} se unió a la lista de espera!`,
       position: 'Posición',
-      cta: 'Únete tú también a diBoaS — libertad financiera simplificada',
+      cta: 'Únete tú también a diBoaS: libertad financiera simplificada',
     },
     calculator: {
-      badge: 'Calculadora Dream Mode',
+      badge: 'Calculadora Modo Sueño',
       growthMessage: (years) =>
         `En ${years} ${years === 1 ? 'año' : 'años'}, mi inversión podría llegar a`,
       startingWith: 'Empezando con',
@@ -151,7 +151,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
     waitlist: {
       joinedMessage: (name) => `${name} steht jetzt auf der Warteliste!`,
       position: 'Platz',
-      cta: 'Mach mit bei diBoaS – finanzielle Freiheit einfach gemacht',
+      cta: 'Mach mit bei diBoaS: finanzielle Freiheit einfach gemacht',
     },
     calculator: {
       badge: 'Dream-Mode-Rechner',

@@ -17,15 +17,15 @@
   },
   "output": {
     "bankLabel": "No seu banco",
-    "bankNote": "{rate}% de rendimento ao longo de {years} anos",
+    "bankNote": "{rate}% de rendimento ao longo de {years, plural, one {# ano} other {# anos}}",
     "diboasLabel": "No diBoaS",
-    "differencePositive": "Seus {cash} poderiam render {difference} a mais no diBoaS ao longo de {years} anos.",
-    "differenceZero": "Com a taxa atual do seu banco, o diBoaS empata em rendimento ao longo de {years} anos, e a posição fica em dólar digital.",
-    "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years} anos. Esta comparação é só de retorno da estratégia."
+    "differencePositive": "Seus {cash} poderiam render {difference} a mais no diBoaS ao longo de {years, plural, one {# ano} other {# anos}}.",
+    "differenceZero": "Com a taxa atual do seu banco, o diBoaS empata em rendimento ao longo de {years, plural, one {# ano} other {# anos}}, e a posição fica em dólar digital.",
+    "differenceNegative": "A {bankRate}% seu banco supera o cenário conservador do diBoaS ao longo de {years, plural, one {# ano} other {# anos}}. Esta comparação é só de retorno da estratégia."
   },
   "resultMoment": {
-    "eyebrow": "No que seu dinheiro parado pode se tornar",
-    "chartAria": "Como seu dinheiro parado se compara em {years} anos no seu banco versus no diBoaS.",
+    "eyebrow": "No que seu caixa parado pode se tornar",
+    "chartAria": "Como seu caixa parado se compara em {years, plural, one {# ano} other {# anos}} no seu banco versus no diBoaS.",
     "shareText": "Meu caixa parado poderia se tornar {value} no diBoaS em {years, plural, one {# ano} other {# anos}}. Veja quanto o seu poderia render."
   },
   "vignette": {

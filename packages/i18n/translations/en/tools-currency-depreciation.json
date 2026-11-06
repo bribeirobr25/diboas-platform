@@ -37,7 +37,7 @@
     "retrospectiveNowLabel": "Now ({asOfMonth})",
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "USD-purchasing-power change",
-    "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over {years} years",
+    "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over {years, plural, one {# year} other {# years}}",
     "depSourceForward": "Forward depreciation: horizon-matched CAGR derived from the {years}-year trailing FX window.",
     "depSourceRetrospective": "Retrospective: based on the actual {currency}/USD anchor pair {startMonth} → {asOfMonth}.",
     "depSourcePeg": "{currency} is pegged to the US dollar by central-bank policy. FX change is 0 by design.",
@@ -47,8 +47,8 @@
   "resultMoment": {
     "eyebrow": "What your money really earns",
     "eyebrowUsd": "What your idle dollars earn",
-    "chartAria": "How {currency} compares over {years} years held as cash, in a local bank, and in digital dollar at diBoaS.",
-    "chartAriaUsd": "How your dollars compare over {years} years held in a bank versus in digital dollar at diBoaS.",
+    "chartAria": "How {currency} compares over {years, plural, one {# year} other {# years}} held as cash, in a local bank, and in digital dollar at diBoaS.",
+    "chartAriaUsd": "How your dollars compare over {years, plural, one {# year} other {# years}} held in a bank versus in digital dollar at diBoaS.",
     "shareText": "In {years, plural, one {# year} other {# years}}, my {currency} could be worth {value} in digital dollars at diBoaS. See how yours would fare."
   },
   "vignette": {

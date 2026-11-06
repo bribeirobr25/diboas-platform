@@ -37,7 +37,7 @@
     "retrospectiveNowLabel": "Heute ({asOfMonth})",
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "Veränderung der USD-Kaufkraft",
-    "retrospectiveLossNote": "{currency} hat über {years} Jahre {cagr}% pro Jahr gegenüber dem USD verloren",
+    "retrospectiveLossNote": "{currency} hat über {years, plural, one {# Jahr} other {# Jahre}} {cagr}% pro Jahr gegenüber dem USD verloren",
     "depSourceForward": "Vorwärts-Projektion: horizontangepasster CAGR aus dem {years}-jährigen Zeitfenster der FX-Serie.",
     "depSourceRetrospective": "Retrospektiv: basiert auf den Ankerpunkten des {currency}/USD-Paares von {startMonth} bis {asOfMonth}.",
     "depSourcePeg": "{currency} ist durch die Geldpolitik der Zentralbank an den US-Dollar gekoppelt. Die Wechselkursveränderung ist konstruktionsbedingt 0.",
@@ -47,8 +47,8 @@
   "resultMoment": {
     "eyebrow": "Was dein Geld wirklich verdient",
     "eyebrowUsd": "Was deine ungenutzten Dollar verdienen",
-    "chartAria": "Wie sich {currency} über {years} Jahre vergleicht: als Bargeld, bei einer lokalen Bank und als digitaler Dollar bei diBoaS.",
-    "chartAriaUsd": "Wie sich deine Dollar über {years} Jahre vergleichen: bei einer Bank gegenüber digitalem Dollar bei diBoaS.",
+    "chartAria": "Wie sich {currency} über {years, plural, one {# Jahr} other {# Jahre}} vergleicht: als Bargeld, bei einer lokalen Bank und als digitaler Dollar bei diBoaS.",
+    "chartAriaUsd": "Wie sich deine Dollar über {years, plural, one {# Jahr} other {# Jahre}} vergleichen: bei einer Bank gegenüber digitalem Dollar bei diBoaS.",
     "shareText": "In {years, plural, one {einem Jahr} other {# Jahren}} könnten meine {currency} als digitale Dollar bei diBoaS {value} wert sein. Sieh nach, wie es bei dir aussähe."
   },
   "vignette": {

@@ -18,17 +18,17 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   // Localized from the catalogue (5.793); the brand is already in it.
   const messages = await loadMessages(validLocale, 'preDemo');
   const demoTitle: string = messages?.meta?.title || 'Interactive Demo - diBoaS';
+  const demoDescription: string = messages?.meta?.description || '';
   return {
     title: pageTitle(demoTitle),
-    description:
-      'Try the diBoaS interactive demo. Experience deposits, transfers, investments, and financial projections.',
+    description: demoDescription,
     robots: {
       index: false,
       follow: false,
     },
     openGraph: {
       title: demoTitle,
-      description: 'Experience the diBoaS platform with our interactive demo.',
+      description: demoDescription,
       type: 'website',
     },
   };

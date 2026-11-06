@@ -27,7 +27,7 @@
   "og": {
     "waitlist": {
       "title": "Ich bin #{position} auf der diBoaS-Warteliste!",
-      "description": "Mach mit bei diBoaS – finanzielle Freiheit einfach gemacht"
+      "description": "Mach mit bei diBoaS: finanzielle Freiheit einfach gemacht"
     },
     "calculator": {
       "title": "Mein Geld könnte auf {formattedAmount} anwachsen",
@@ -40,10 +40,10 @@
         "asset-history": "Was es heute wert wäre: {value}",
         "card-fees": "Was ich sparen könnte: {value}"
       },
-      "description": "Ich habe es bei diBoaS durchgerechnet. Sieh dir an, was mit deinem möglich wäre."
+      "description": "Ich habe es bei diBoaS durchgerechnet. Sieh dir an, was mit deinem Geld möglich wäre."
     },
     "default": {
-      "title": "diBoaS – finanzielle Freiheit einfach gemacht",
+      "title": "diBoaS: finanzielle Freiheit einfach gemacht",
       "description": "Dein Geld. Deine Zukunft. Eine Plattform. Tritt heute der Warteliste bei."
     }
   }
