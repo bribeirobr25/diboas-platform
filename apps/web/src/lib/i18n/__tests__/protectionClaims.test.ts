@@ -36,13 +36,21 @@ const PROTECTION = new RegExp(
     'prote[cgj]', // protect·ed·ion, proteger, protegido, proteja, proteção, protección
     'safeguard',
     'shield',
+    'shelter',
     'insulat',
     '\\bhedg',
     'safe haven',
-    'guard(?:s|ed|ing)? against',
-    '\\w-proof',
-    '\\bsecured\\b',
-    'preserv', // preserve, preservar
+    '\\bsafe from',
+    '\\bguard(?:s|ed|ing)?\\b[^.]{0,40}\\bagainst',
+    '\\bsecur(?:e|ed|es|ing)\\b(?![- ]?(?:wallet|login|connection|data|code|password))',
+    '\\w-(?:proof|resistant)',
+    '\\bimmun(?:e|ity)\\b',
+    '\\bimunes?\\b',
+    '\\binmunes?\\b',
+    'preserv',
+    'store of value',
+    'keeps? (?:its|their|your) value',
+    '\\bbeat(?:s|ing)? inflation',
     'resguard',
     'abrigo',
     'refugio',
@@ -50,15 +58,25 @@ const PROTECTION = new RegExp(
     'porto seguro',
     'puerto seguro',
     'escudo',
-    '\\bimune',
-    '\\binmune',
-    'blind[ao]', // blindar, blindado, blindagem
-    'schutz', // Schutz, schützt, geschützt, Inflationsschutz
-    'sicher(?:t|n|en|ung)\\b',
+    'blind[aeo]', // blindar, blinde, blindado, blindagem
+    'reserva de valor',
+    'n(?:ao|o) (?:perdem?|pierden?) valor',
+    'mant[eé]n? (?:tu|seu|o|el) valor',
+    'venc[ae]r? a inflac',
+    'vença a inflac',
+    'cubr[eai]',
+    'cobertura',
+    'seguro (?:contra|frente)',
+    '(?<!daten)schutz', // Schutz, schützt, geschützt, Inflationsschutz — not Datenschutz
+    '(?<!ver)sicher(?:e|t|n|en)?\\b(?!heit)', // sichere, sichert, absichern, inflationssicher
     'gesichert',
     'sicherer hafen',
-    'sicher vor',
-    'bewahr',
+    'gefeit',
+    'werterhalt',
+    'wertstabil',
+    'bleibt erhalten',
+    'trotz(?:en|t)',
+    '\\bbewahr(?!ung)', // bewahren — not Aufbewahrung / Bewährung
   ].join('|'),
   'u'
 );
@@ -67,7 +85,7 @@ const CURRENCY = new RegExp(
     'devalu',
     'desvaloriz',
     'abwertung',
-    'wahrung',
+    '(?<!be)wahrung', // Währung — not Aufbewahrung
     'currenc',
     'moeda',
     'moneda',
@@ -81,11 +99,15 @@ const CURRENCY = new RegExp(
     'purchasing power',
     'poder de compra',
     'poder adquisitivo',
-    'cambi', // câmbio, cambiaria
+    '\\bcambio\\b',
+    'cambial',
+    'cambiari',
+    'tipo de cambio',
     'dolar',
     'dollar',
     '\\beuros?\\b',
-    '\\bpeso',
+    '\\bpesos\\b',
+    '\\bdel peso\\b',
     '\\breais\\b',
     '\\b(?:o|do|no|ao) real\\b',
     'r\\$',
@@ -102,7 +124,11 @@ function normalize(text: string): string {
 
 /** Sentences: split at . ! ? ; or a line break followed by space or the end (so a thousands separator never splits). */
 function sentences(text: string): string[] {
-  return text.split(/[.!?;](?=\s|$)|\n/u);
+  // An abbreviation's dot does not end a sentence (9th audit: "z.B.", "e.g.", "U.S." split claims).
+  const kept = text.replace(/\b(?:z\.b|e\.g|i\.e|u\.s|d\.h|u\.a|p\.ex|etc|bzw|vs)\./gu, (m) =>
+    m.replace(/\./g, '\u0000')
+  );
+  return kept.split(/[.!?;](?=\s|$)|\n/u);
 }
 
 const sha = (text: string) => createHash('sha256').update(text).digest('hex').slice(0, 16);
@@ -229,6 +255,62 @@ describe('5.799 · no one-sided protection claim about a currency', () => {
       'Ein sicherer Hafen für deine Kaufkraft.',
     ])
       expect(protectsACurrency(claim), claim).toBe(true);
+    // 9th audit: 28 more claim forms (conjugations, idioms, compounds, abbreviations) — all caught.
+    for (const claim of [
+      'Your savings are safe from devaluation.',
+      'Shelter your savings from currency swings.',
+      'Immune to peso devaluation.',
+      'Guard your savings against inflation.',
+      'Secure your savings from inflation.',
+      'Inflation-resistant savings in dollars.',
+      'A store of value in digital dollars.',
+      'Your dollars keep their value.',
+      'Beat inflation with digital dollars.',
+      'Seguro contra a inflação, em dólar.',
+      'Blinde seu patrimônio contra o câmbio.',
+      'Uma reserva de valor em dólar.',
+      'Seu dinheiro em dólar não perde valor.',
+      'Vença a inflação com dólares digitais.',
+      'Cúbrete de la devaluación.',
+      'Un seguro frente a la inflación.',
+      'Mantén tu valor en dólares.',
+      'Tus dólares no pierden valor.',
+      'Sichere dein Geld vor Inflation.',
+      'Inflationssicher sparen in Dollar.',
+      'Gefeit gegen Inflation.',
+      'Werterhalt in Dollar.',
+      'Wertstabil in Dollar.',
+      'Deine Kaufkraft bleibt erhalten.',
+      'Der Inflation trotzen, mit Dollar.',
+      'Schützt z.B. vor Inflation und Abwertung.',
+      'We protect e.g. against inflation.',
+      'Protection against a weak U.S. dollar.',
+    ])
+      expect(protectsACurrency(claim), claim).toBe(true);
+    // An abbreviation's dot inside a LONG text (over the short-text length) must not split a claim.
+    const padding =
+      ' The rest of this answer talks about something else entirely, at length, so that the text is' +
+      ' well over the short-text limit and only the sentence rule can find the pairing in it at all.';
+    for (const claim of [
+      'Schützt z.B. vor Inflation und Abwertung.',
+      'We protect e.g. against inflation.',
+      'Protection against a weak U.S. dollar.',
+    ]) {
+      const long = claim + padding + padding;
+      expect(long.length).toBeGreaterThan(240);
+      expect(protectsACurrency(long), long.slice(0, 40)).toBe(true);
+    }
+    // …and the 9th audit's false positives: one word, two lists, or an everyday homonym.
+    for (const safe of [
+      'Eine Versicherung kostet 10 Euro.',
+      'Datenschutz kostet dich keinen Euro.',
+      'Puedes cambiar el idioma para proteger tu cuenta.',
+      'o peso da página e o dólar não mudam nada.',
+      'Die Aufbewahrung erfolgt in einer Wallet, in Dollar.',
+      'Der Sitz der Bewährung, 5 Euro.',
+      'A bug bounty program on Immunefi, paid in dollars',
+    ])
+      expect(protectsACurrency(safe), safe).toBe(false);
     // …and a protection word in a neighbouring sentence of a long text is not a pairing.
     expect(
       protectsACurrency(
