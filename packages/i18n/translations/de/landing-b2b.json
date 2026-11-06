@@ -281,13 +281,13 @@
       "ariaLabel": "Rechner für ungenutztes Kassenkapital"
     },
     "originStory": {
-      "ariaLabel": "Entstehungsgeschichte — Ihr Name war Adelaide"
+      "ariaLabel": "Entstehungsgeschichte: Ihr Name war Adelaide"
     },
     "businessBenefits": {
       "ariaLabel": "Was dein Unternehmen mit diBoaS bekommt"
     },
     "cashflowInvesting": {
-      "ariaLabel": "Cashflow-Investieren — zwei Vorteile durch eine Änderung"
+      "ariaLabel": "Cashflow-Investieren: zwei Vorteile durch eine Änderung"
     },
     "feeTable": {
       "ariaLabel": "Vollständige Gebührentransparenztabelle"
@@ -317,7 +317,7 @@
     "headline": "Du hast es nicht eingesammelt, damit es brachliegt.",
     "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, den du wählst, mit Kosten und Risiko im Blick, ohne je deine Kontrolle zu verlassen.",
     "body": {
-      "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest — das meiste davon — wartet.",
+      "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest, das meiste davon, wartet.",
       "1": "Er wartet auf einem Konto, bei einer Bank, und bringt fast nichts. Du weißt bereits, was dieser Satz kosten kann.",
       "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, kann in Digital-Dollar-Strategien gehen und bleibt unter deiner Kontrolle, sofort abrufbar, sobald du es brauchst. Jede Strategie trägt Risiko, sichtbar vor jeder Bewegung."
     },
@@ -327,6 +327,6 @@
       "primary": "Mit Bar sprechen"
     },
     "imageAlt": "Ein ruhiger, sonnendurchfluteter Arbeitsplatz am Fenster im Morgenlicht",
-    "ariaLabel": "Startup-Treasury — ungenutzten Runway arbeiten lassen"
+    "ariaLabel": "Startup-Treasury: ungenutzten Runway arbeiten lassen"
   }
 }

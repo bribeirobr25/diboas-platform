@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Geld-Tools — kostenlose Rechner",
+      "title": "Geld-Tools: kostenlose Rechner",
       "description": "Kostenlose Rechner für Ruhestand, Notgroschen und Sparziele. Von diBoaS."
     },
     "hero": {
@@ -80,8 +80,8 @@
   },
   "confidence": {
     "high": "Hohe Konfidenz (±5%)",
-    "medium": "Mittlere Konfidenz — siehe Unsicherheitshinweis",
-    "low": "Niedrige Konfidenz — Fenster mit hoher Volatilität"
+    "medium": "Mittlere Konfidenz: siehe Unsicherheitshinweis",
+    "low": "Niedrige Konfidenz: Fenster mit hoher Volatilität"
   },
   "resultMoment": {
     "chartStart": "Heute",

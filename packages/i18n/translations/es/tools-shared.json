@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Herramientas financieras — calculadoras gratuitas",
+      "title": "Herramientas financieras: calculadoras gratuitas",
       "description": "Calculadoras gratuitas para planificar tu jubilación, fondo de emergencia y metas de ahorro. De diBoaS."
     },
     "hero": {
@@ -80,8 +80,8 @@
   },
   "confidence": {
     "high": "Alta confianza (±5%)",
-    "medium": "Confianza media — ver nota de incertidumbre",
-    "low": "Baja confianza — ventana de alta volatilidad"
+    "medium": "Confianza media: ver nota de incertidumbre",
+    "low": "Baja confianza: ventana de alta volatilidad"
   },
   "resultMoment": {
     "chartStart": "Hoy",

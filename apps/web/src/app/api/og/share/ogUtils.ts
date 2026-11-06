@@ -28,7 +28,7 @@ export function formatNumber(num: number): string {
 /**
  * Format currency with K/M abbreviations
  */
-export function formatCurrency(num: number): string {
+function formatCurrency(num: number): string {
   if (num >= 1000000) {
     return `$${(num / 1000000).toFixed(1)}M`;
   }
@@ -68,13 +68,20 @@ export function isValidToolResultValue(value: number): boolean {
  * `Intl` rejection) falls back to the plain `$`-prefixed K/M formatter so the
  * card never crashes on an unexpected param.
  */
-export function formatResultCurrency(value: number, currency: string, locale = 'en'): string {
+export function formatResultCurrency(
+  value: number,
+  currency: string,
+  locale = 'en',
+  /** Decimals in the compact figure: 0 for tool results, 1 for the calculator ("1,5 Mio."). */
+  maximumFractionDigits = 0
+): string {
   if (!/^[A-Z]{3}$/.test(currency)) return formatCurrency(value);
   try {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency,
-      maximumFractionDigits: 0,
+      minimumFractionDigits: 0,
+      maximumFractionDigits,
       notation: 'compact',
     }).format(value);
   } catch {

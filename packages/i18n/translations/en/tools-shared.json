@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Money Tools — free financial calculators",
+      "title": "Money Tools: free financial calculators",
       "description": "Free money calculators to plan your retirement, emergency fund, and savings goals. Built by diBoaS."
     },
     "hero": {
@@ -80,8 +80,8 @@
   },
   "confidence": {
     "high": "High confidence (±5%)",
-    "medium": "Medium confidence — see uncertainty note",
-    "low": "Low confidence — high-volatility window"
+    "medium": "Medium confidence: see uncertainty note",
+    "low": "Low confidence: high-volatility window"
   },
   "resultMoment": {
     "chartStart": "Today",
