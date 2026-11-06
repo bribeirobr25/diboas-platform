@@ -111,6 +111,22 @@ export function rollingAverageRange(
   };
 }
 
+/**
+ * Several strategies' ranges as ONE, conservatively (P3 §2): the lowest of their lows, the highest
+ * of their highs, and the SHORTEST observed window. Used by the stable aggregate (the route) and
+ * by a multi-strategy goal (the selector), so the two can never disagree. Null for none.
+ */
+export function rangeSpan(
+  ranges: ReadonlyArray<Pick<RateRange, 'lowPercent' | 'highPercent' | 'observedDays'>>
+): { lowPercent: number; highPercent: number; observedDays: number } | null {
+  if (ranges.length === 0) return null;
+  return {
+    lowPercent: Math.min(...ranges.map((r) => r.lowPercent)),
+    highPercent: Math.max(...ranges.map((r) => r.highPercent)),
+    observedDays: Math.min(...ranges.map((r) => r.observedDays)),
+  };
+}
+
 /** Whole months covered by an observed window, as the copy states it (`{window}`). */
 export function windowMonths(observedDays: number): number {
   return Math.floor(observedDays / 30);
@@ -138,6 +154,8 @@ export function monthsToTarget(input: {
   annualPercent: number;
   target: number;
 }): number | null {
+  const inputs = [input.goalCash, input.investedValue, input.monthly, input.target];
+  if (!inputs.every(Number.isFinite)) return null;
   const C = new Decimal(Math.max(0, input.goalCash));
   const V = new Decimal(Math.max(0, input.investedValue));
   const P = new Decimal(Math.max(0, input.monthly));
@@ -171,6 +189,7 @@ export function monthlyNeeded(input: {
   annualPercent: number;
 }): number | null {
   if (!(input.months > 0) || !Number.isFinite(input.months)) return null;
+  if (!Number.isFinite(input.value) || !Number.isFinite(input.target)) return null;
   const V = new Decimal(Math.max(0, input.value));
   const T = new Decimal(input.target);
   const n = new Decimal(input.months);

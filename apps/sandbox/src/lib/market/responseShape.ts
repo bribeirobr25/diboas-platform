@@ -15,6 +15,7 @@ import {
   protocolApyListIssue,
   type DisplayCurrency,
 } from '@diboas/defi';
+import { PROJECTION_POLICY } from '@diboas/investing';
 
 /**
  * `5.353`: the market response is PARSED at this seam, not asserted — every NESTED field
@@ -70,13 +71,23 @@ const UNAVAILABLE_REASONS = new Set([
   'TOO_LITTLE_HISTORY',
 ]);
 const finiteNumber = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
-const wholeDays = (v: unknown) => finiteNumber(v) && Number.isInteger(v) && v > 0;
-const day = (v: unknown) => typeof v === 'string' && DAY_RE.test(v);
+/** A rate the route can send: finite and never negative (the APY bounds start at 0). */
+const rate = (v: unknown): v is number => finiteNumber(v) && v >= 0;
+/** A window the route can send: whole days, at least the approved minimum overlap. */
+const windowDays = (v: unknown) =>
+  finiteNumber(v) && Number.isInteger(v) && v >= PROJECTION_POLICY.minOverlapDays;
+/** A REAL calendar day — `2026-13-45` matches the pattern but is no day (7th audit). */
+const day = (v: unknown): v is string =>
+  typeof v === 'string' &&
+  DAY_RE.test(v) &&
+  !Number.isNaN(Date.parse(`${v}T00:00:00Z`)) &&
+  new Date(`${v}T00:00:00Z`).toISOString().slice(0, 10) === v;
 
 /**
  * PR 2 · `GET /api/market/rate-ranges` (`lib/rateRangesContract.ts`): every field the
- * projection reads — finite rates with low ≤ high, whole positive day counts, calendar days,
- * a known unavailable reason. A shape this code cannot use is an error (Case U), never data.
+ * projection reads — non-negative rates with low ≤ high, a window of at least the approved
+ * minimum of whole days that starts before it ends, real calendar days, a known unavailable
+ * reason. A shape this code cannot use is an error (Case U), never data.
  */
 export function rateRangesResponseIssue(body: unknown): string | null {
   if (!isRecord(body)) return 'body';
@@ -90,19 +101,19 @@ export function rateRangesResponseIssue(body: unknown): string | null {
     }
     if (raw.available !== true) return `${at}.available`;
     for (const k of ['lowPercent', 'highPercent', 'todayPercent'] as const)
-      if (!finiteNumber(raw[k])) return `${at}.${k}`;
+      if (!rate(raw[k])) return `${at}.${k}`;
     if ((raw.lowPercent as number) > (raw.highPercent as number)) return `${at}.highPercent`;
-    if (!wholeDays(raw.observedDays)) return `${at}.observedDays`;
+    if (!windowDays(raw.observedDays)) return `${at}.observedDays`;
     for (const k of ['windowStart', 'windowEnd', 'oldestLegAsOf'] as const)
       if (!day(raw[k])) return `${at}.${k}`;
+    if ((raw.windowStart as string) > (raw.windowEnd as string)) return `${at}.windowStart`;
   }
   const a = body.aggregate;
   if (!isRecord(a) || typeof a.available !== 'boolean') return 'aggregate';
   if (a.available) {
-    if (!finiteNumber(a.lowPercent)) return 'aggregate.lowPercent';
-    if (!finiteNumber(a.highPercent) || a.highPercent < a.lowPercent)
-      return 'aggregate.highPercent';
-    if (!wholeDays(a.observedDays)) return 'aggregate.observedDays';
+    if (!rate(a.lowPercent)) return 'aggregate.lowPercent';
+    if (!rate(a.highPercent) || a.highPercent < a.lowPercent) return 'aggregate.highPercent';
+    if (!windowDays(a.observedDays)) return 'aggregate.observedDays';
   }
   return null;
 }

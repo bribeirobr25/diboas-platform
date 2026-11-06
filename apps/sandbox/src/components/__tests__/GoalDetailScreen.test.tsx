@@ -16,6 +16,7 @@ import {
   advanceTime,
   createGoal,
   enterStrategy,
+  exitPosition,
   getLedgerState,
   grantPlayMoney,
   resetSandbox,
@@ -961,6 +962,77 @@ describe('PR 2 · the projection at its mount sites', () => {
         .find((b) => b.hasAttribute('aria-pressed'))!
     );
     expect(screen.getByText(/^Simulated: if all of it were in a stable strategy/)).toBeTruthy();
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+  });
+});
+
+/**
+ * P3 §2 (7th audit) · the attribution in the state that REALLY shows it — not forced by a mock:
+ * a growth position whose replay consumed provider prices, then exited, and a stable position
+ * entered — Case 1 with a price-replayed outcome inside the goal's value. One per screen.
+ */
+describe('PR 2 · one CoinGecko attribution per screen, Case 1 after a growth position exited', () => {
+  const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    rr.attribution = false; // the REAL condition decides here
+    rr.enabledCalls = [];
+    rr.ranges = {
+      strategies: [
+        {
+          strategyId: 'safeHarbor',
+          available: true,
+          lowPercent: 2.8,
+          highPercent: 3.7,
+          windowStart: '2026-02-13',
+          windowEnd: '2026-07-24',
+          observedDays: 160,
+          todayPercent: 3.5,
+          oldestLegAsOf: '2026-07-24',
+        },
+      ],
+      aggregate: { available: true, lowPercent: 2.7, highPercent: 3.8, observedDays: 160 },
+    };
+  });
+
+  it('should show exactly one attribution in Simple and in Detailed', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 20_000,
+      horizonMonths: 48,
+      fundAmount: 2_000,
+    });
+    enterStrategy({ goalId, strategyId: 'fullThrottle', totalFromCash: 1000, networkFeeLocal: 0 });
+    advanceTime(
+      180,
+      PROTOCOLS.map((protocolId) => ({
+        protocolId,
+        points: fixturePriceSeries(protocolId, 400).map((pt) => ({ date: pt.date, apyPercent: 5 })),
+        stamp: FIXTURE_STAMP,
+      })),
+      'machine',
+      PROTOCOLS.map((protocolId) => ({
+        protocolId,
+        points: fixturePriceSeries(protocolId, 400),
+        stamp: observedStamp('coingecko', '2026-07-24T00:00:00.000Z'),
+      }))
+    );
+    const growth = getLedgerState().positions.find((p) => p.goalId === goalId && p.open)!;
+    exitPosition({ positionId: growth.positionId, networkFeeLocal: 0 });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    const open = getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+    expect(open.map((p) => p.strategyId)).toEqual(['safeHarbor']); // Case 1
+
+    renderDetail(goalId);
+    expect(screen.getByText(/^From what this goal holds/)).toBeTruthy(); // the block shows Case 1
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
     expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
   });
 });

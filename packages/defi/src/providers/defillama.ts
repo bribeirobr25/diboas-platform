@@ -415,18 +415,19 @@ export class DefiLlamaApyProvider implements IApyProvider {
               : d.apyReward === null || d.apyReward === undefined || d.apyReward === 0
                 ? (d.apy as number)
                 : null,
-          }));
-        /* §10 bounds, ALL-OR-NOTHING for a series (`5.105`): one corrupt point
-           makes the series unavailable rather than a silent hole. The base rate is held to
-           the same bounds as the total. */
-        if (
-          points.some(
-            (pt) =>
-              boundsRefusal('APY_HISTORY', pt.apyPercent) !== null ||
-              (pt.apyBasePercent != null &&
-                boundsRefusal('APY_HISTORY', pt.apyBasePercent) !== null)
-          )
-        ) {
+          }))
+          /* The base is held to the same bounds as the total, but ONLY the base pays for a bad
+             base (7th audit): an implausible base becomes null — the projection then says the
+             rates can't be read (BASE_SPLIT_MISSING) — and the total series, which the replay,
+             the strategy chart and /api/market/history read, stays observed. */
+          .map((pt) =>
+            pt.apyBasePercent != null && boundsRefusal('APY_HISTORY', pt.apyBasePercent) !== null
+              ? { ...pt, apyBasePercent: null }
+              : pt
+          );
+        /* §10 bounds, ALL-OR-NOTHING for a series (`5.105`): one corrupt TOTAL makes the
+           series unavailable rather than a silent hole. */
+        if (points.some((pt) => boundsRefusal('APY_HISTORY', pt.apyPercent) !== null)) {
           throw new Error('defillama /chart: point outside plausible bounds');
         }
         return points;

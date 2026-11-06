@@ -27,8 +27,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     // Independent fetches — never chained (P9).
     const results = await Promise.all(
+      // historyDays + 1 points: the window [today − 365 d, today] spans 366 days (7th audit).
       STABLE_PROTOCOLS.map((id) =>
-        getApyProvider().getApyHistory(id, PROJECTION_POLICY.historyDays)
+        getApyProvider().getApyHistory(id, PROJECTION_POLICY.historyDays + 1)
       )
     );
     const histories = new Map<ProtocolId, ProtocolApyHistory | null>(

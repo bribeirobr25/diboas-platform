@@ -198,6 +198,44 @@ Stored as **decimals** in `constants.ts` (0.038 = 3.8%). The `selectInflationRat
 
 ---
 
+## Practice goal projection (apps/sandbox, PR 2)
+
+The Practice app's goal block states a projection from **observed** pool rates, never from an
+assumed scenario rate (the static envelope was deleted in PR 2). Code: the maths in
+`packages/investing/src/projection.ts`, the evidence in `packages/defi` (base rate at ingest),
+the join in `apps/sandbox/src/lib/market/rateRanges.ts` (route `GET /api/market/rate-ranges`) and
+`apps/sandbox/src/view/projection.ts` (routing), formatting in `components/Projection.tsx`.
+
+- **Base rate of a day:** `apyBase` when the source supplies it; else the total when the
+  reward is null or zero; else none. An implausible base is dropped to none (the total series
+  stays observed); the projection then cannot read that day.
+- **A strategy's rate:** the catalogue-weighted sum of its legs on the days every leg has a value.
+  A leg counts only when it is a live observation, its last point is inside the default
+  freshness limit, and every day of its window carries a base.
+- **Range:** the lowest and highest 30-day average (30 consecutive observed days) over the days in
+  `[today − 365, today]`; fewer than 90 observed days → no range ("can't be read").
+  Parameters: `PROJECTION_POLICY` (founder-approved 2026-11-05).
+- **Several strategies as one** (`rangeSpan`): the lowest of the lows, the highest of the highs,
+  the SHORTEST window — for the stable aggregate and for a goal holding several strategies.
+- **Monthly rate:** `r = (1 + a)^(1/12) − 1` from the yearly nominal rate `a`.
+- **Months to target** (`monthsToTarget`): money in a strategy `V` and each monthly amount `P`
+  grow at `r`; cash outside a strategy `C` does not. `x = ((T − C) + P/r) / (V + P/r)`,
+  `n = ln x / ln(1 + r)`; `r = 0` is linear; already reached → 0; nothing grows → none;
+  non-finite input → none.
+- **Monthly amount needed** (`monthlyNeeded`): everything held `V` grows at `r` for the months
+  left `n`: `P = (T − V(1 + r)^n) · r / ((1 + r)^n − 1)`; already enough → 0.
+- **Months left:** calendar months in the goal's own local frame, from its `GoalCreated`
+  (`lib/goalMonths.ts`), clamped to `[0, horizon]`.
+- **Display:** rates to one decimal, always; money in whole units; a positive need is never shown
+  as nothing (at least one unit); a plan under one unit counts as no plan; years rounded, with
+  "within a year" only when even the slow end is under a year.
+- **Pace** (never false, founder 2026-11-06): the real months decide within / around / longer;
+  where that disagrees with the rounded years shown, it reads "around".
+- **Routing** (none → U → 3 → 2 → 1) and the copy: `apps/sandbox/src/view/projection.ts` header;
+  the rules' authority is the founder's PR 2 rulings (private decision records).
+
+---
+
 ## Consumers
 
 All financial display surfaces read from the same `MarketDataService`:

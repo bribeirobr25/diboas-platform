@@ -511,11 +511,6 @@ export interface GoalDetailView {
   /** Sum of `GoalFunded` amounts for this goal. */
   contributionsTotal: string;
   /**
-   * PR 2 · the goal's `GoalCreated.recordedAt` (wall clock), read through `appliedEvents`
-   * (LEDGER-1) — the start of the goal's calendar frame for the months left. null if absent.
-   */
-  createdAt: string | null;
-  /**
    * Whether the goal holds uninvested cash at all — the gate on the "Add money"
    * tile and the put-to-work block.
    *
@@ -555,9 +550,6 @@ export function selectGoalDetailView(state: LedgerState, goalId: string): GoalDe
     targetReached: progress.targetReached,
     cash: new Decimal(goal?.cash ?? 0).toFixed(2),
     contributionsTotal,
-    createdAt:
-      appliedEvents(state).find((e) => e.type === 'GoalCreated' && e.goalId === goalId)
-        ?.recordedAt ?? null,
     hasCash: new Decimal(goal?.cash ?? 0).gt(0),
   };
 }
@@ -679,4 +671,16 @@ export function selectExitPreview<T>(input: {
   if (intent.scope === 'goal') return input.previewGoal(snapshot, input.goalId, input.feeFor);
   if (!intent.positionId) return null;
   return input.previewPosition(snapshot, intent.positionId, input.feeFor(intent.positionId));
+}
+
+/**
+ * PR 2 · a goal's `GoalCreated.recordedAt` (wall clock), read through `appliedEvents` (LEDGER-1)
+ * — the start of the goal's calendar frame for the months left (`lib/goalMonths.ts`). Only THIS
+ * goal's creation counts; null if absent.
+ */
+export function selectGoalCreatedAt(state: LedgerState, goalId: string): string | null {
+  return (
+    appliedEvents(state).find((e) => e.type === 'GoalCreated' && e.goalId === goalId)?.recordedAt ??
+    null
+  );
 }

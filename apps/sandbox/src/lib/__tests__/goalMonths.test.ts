@@ -5,6 +5,12 @@
 import { describe, expect, it } from 'vitest';
 import { goalMonthsLeft } from '../goalMonths';
 
+/*
+ * ⚑ Pinned to a NON-UTC zone (7th audit): CI runners are UTC, where local and UTC months agree,
+ * so a switch to UTC months passed this suite there. Node reads TZ at each date operation.
+ */
+process.env.TZ = 'America/Sao_Paulo';
+
 const NOW = new Date(2026, 10, 5, 12); // 5 Nov 2026, local
 
 describe('PR 2 · goalMonthsLeft', () => {
@@ -31,5 +37,13 @@ describe('PR 2 · goalMonthsLeft', () => {
     expect(goalMonthsLeft(12, 'not a date', NOW)).toBeNull();
     expect(goalMonthsLeft(12, null, NOW)).toBeNull();
     expect(goalMonthsLeft(12, undefined, NOW)).toBeNull();
+  });
+
+  it('should count LOCAL calendar months where they differ from UTC months (São Paulo, UTC−3)', () => {
+    // 31 Jan 23:30 local = 1 Feb 02:30 UTC: created in JANUARY locally, February in UTC.
+    const created = '2026-01-31T23:30:00-03:00';
+    const now = new Date('2026-02-15T12:00:00-03:00');
+    expect(new Date(created).getMonth()).toBe(0); // the pin is in force
+    expect(goalMonthsLeft(12, created, now)).toBe(11);
   });
 });

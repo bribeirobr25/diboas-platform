@@ -172,9 +172,81 @@ describe('PR 2 · the client shape check of the rate-ranges answer', () => {
       (b: any) => delete b.aggregate.lowPercent,
       'aggregate.lowPercent',
     ],
+    [
+      'an impossible calendar day',
+      (b: any) => (b.strategies[0].oldestLegAsOf = '2026-13-45'),
+      'strategies[0].oldestLegAsOf',
+    ],
+    ['a negative rate', (b: any) => (b.strategies[0].lowPercent = -1), 'strategies[0].lowPercent'],
+    [
+      'a window under the 90-day minimum',
+      (b: any) => (b.strategies[0].observedDays = 1),
+      'strategies[0].observedDays',
+    ],
+    [
+      'a window that starts after it ends',
+      (b: any) => (b.strategies[0].windowStart = '2027-01-01'),
+      'strategies[0].windowStart',
+    ],
+    ['a negative aggregate', (b: any) => (b.aggregate.lowPercent = -1), 'aggregate.lowPercent'],
   ])('should refuse %s', (_label, mutate, path) => {
     const b = good();
     mutate(b);
     expect(rateRangesResponseIssue(b)).toBe(path);
+  });
+});
+
+describe('7th audit · the stable aggregate and the age use EVERY strategy and the OLDEST leg', () => {
+  // Pools differ in level, history length and last day, so each strategy's range differs.
+  const varied = () =>
+    new Map<ProtocolId, ProtocolApyHistory | null>(
+      STABLE_PROTOCOLS.map((id, k) => [
+        id,
+        history(id, {
+          days: [120, 266, 300][k % 3],
+          lastDaysAgo: [3, 1, 2][k % 3],
+          base: (i) => [2.5, 3.2, 4.1][k % 3] + (i % 50) / 100,
+        }),
+      ])
+    );
+
+  it('should take the lowest low, the highest high and the shortest window across strategies', () => {
+    const r = computeRateRanges(varied(), NOW);
+    const ok = r.strategies.filter(
+      (s): s is Extract<(typeof r.strategies)[number], { available: true }> => s.available
+    );
+    expect(ok.length).toBe(STABLE_STRATEGIES.length);
+    const lows = ok.map((s) => s.lowPercent);
+    const highs = ok.map((s) => s.highPercent);
+    const windows = ok.map((s) => s.observedDays);
+    // Non-vacuity: the strategies really disagree on every one of the three.
+    expect(new Set(lows).size).toBeGreaterThan(1);
+    expect(new Set(highs).size).toBeGreaterThan(1);
+    // (Windows cannot differ here: every stable strategy shares the Sky leg, so they share its
+    // window. The shortest-window rule is pinned in `@diboas/investing` `rangeSpan`.)
+    expect(r.aggregate).toEqual({
+      available: true,
+      lowPercent: Math.min(...lows),
+      highPercent: Math.max(...highs),
+      observedDays: Math.min(...windows),
+    });
+  });
+
+  it('should date a strategy by its OLDEST leg', () => {
+    const r = computeRateRanges(varied(), NOW);
+    const oldest = new Date(NOW.getTime() - 3 * DAY).toISOString().slice(0, 10);
+    const s = r.strategies.find((x) => x.strategyId === STABLE_STRATEGIES[0].id) as Extract<
+      (typeof r.strategies)[number],
+      { available: true }
+    >;
+    // Every stable strategy draws on the first pool, the one whose last point is 3 days old.
+    expect(s.oldestLegAsOf).toBe(oldest);
+  });
+
+  it('should never count a point dated after today (the window ends today at the latest)', () => {
+    const id = STABLE_PROTOCOLS[0];
+    const r = computeRateRanges(all({ [id]: history(id, { lastDaysAgo: -3 }) }), NOW);
+    const today = NOW.toISOString().slice(0, 10);
+    for (const s of r.strategies) if (s.available) expect(s.windowEnd <= today).toBe(true);
   });
 });

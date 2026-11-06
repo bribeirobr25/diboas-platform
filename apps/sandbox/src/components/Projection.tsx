@@ -105,6 +105,9 @@ export function Projection({
           values={{ ...range, when: when(view.when) }}
         />
       );
+    } else if (view.line === null) {
+      // Case 3, no plan, no months left: the growth note and the disclosures carry the block.
+      line = null;
     } else if (view.line.kind === 'withPlan') {
       plan = view.line.amount;
       line = (
@@ -153,7 +156,7 @@ export function Projection({
             <FormattedMessage id="projection.growthNote" />
           </p>
         ) : null}
-        <p className={styles.line}>{line}</p>
+        {line ? <p className={styles.line}>{line}</p> : null}
         {view.kind === 'live' ? (
           <p className={styles.today}>
             {view.today.kind === 'single' ? (
@@ -173,7 +176,7 @@ export function Projection({
             )}
           </p>
         ) : null}
-        {view.pace ? (
+        {view.kind === 'live' && view.pace ? (
           <p className={styles.pace}>
             <FormattedMessage
               id={PACE_MESSAGE_ID[view.pace.status]}

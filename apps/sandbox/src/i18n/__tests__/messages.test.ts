@@ -50,21 +50,31 @@ describe('goal-icon accessible labels (F-1: no raw Lucide tokens as aria-labels)
 
 /** The argument names of an ICU message, read by react-intl's own parser (sorted, unique). */
 function icuArguments(message: string): string[] {
+  /*
+   * Each argument as `name:kind` and each tag as `<name>` (7th audit): the first version kept
+   * only names, so a German plural flattened to a bare `{months}`, or the `<privacy>` link
+   * dropped from consent text, kept the same set and passed.
+   */
   const names = new Set<string>();
   const walk = (nodes: MessageFormatElement[]): void => {
     for (const node of nodes) {
-      if (isPluralElement(node) || isSelectElement(node)) {
-        names.add(node.value);
+      if (isPluralElement(node)) {
+        names.add(`${node.value}:${node.pluralType === 'ordinal' ? 'selectordinal' : 'plural'}`);
+        for (const option of Object.values(node.options)) walk(option.value);
+      } else if (isSelectElement(node)) {
+        names.add(`${node.value}:select`);
         for (const option of Object.values(node.options)) walk(option.value);
       } else if (isTagElement(node)) {
+        names.add(`<${node.value}>`);
         walk(node.children);
-      } else if (
-        isArgumentElement(node) ||
-        isNumberElement(node) ||
-        isDateElement(node) ||
-        isTimeElement(node)
-      ) {
-        names.add(node.value);
+      } else if (isNumberElement(node)) {
+        names.add(`${node.value}:number`);
+      } else if (isDateElement(node)) {
+        names.add(`${node.value}:date`);
+      } else if (isTimeElement(node)) {
+        names.add(`${node.value}:time`);
+      } else if (isArgumentElement(node)) {
+        names.add(`${node.value}:argument`);
       }
     }
   };
@@ -114,12 +124,18 @@ describe('message key parity (the app-local validate:translations, G-1)', () => 
     // A word-led plural branch is not an argument.
     expect(
       icuArguments('{window, plural, one {no último mês} other {nos últimos # meses}}')
-    ).toEqual(['window']);
+    ).toEqual(['window:plural']);
     // Arguments nested inside a branch are found.
     expect(icuArguments('{n, plural, one {# day} other {{amount} over # days}}')).toEqual([
-      'amount',
-      'n',
+      'amount:argument',
+      'n:plural',
     ]);
+    // A plural flattened to a bare argument, or a dropped link tag, changes the set.
+    expect(icuArguments('{months} left')).not.toEqual(
+      icuArguments('{months, plural, one {# month} other {# months}} left')
+    );
+    expect(icuArguments('Read the <privacy>policy</privacy>.')).toEqual(['<privacy>']);
+    expect(icuArguments('Read the policy.')).toEqual([]);
     // A missing argument in one locale changes the set — the parity check fires.
     expect(icuArguments('At {amount} a month, {target}')).not.toEqual(
       icuArguments('Com {amount} por mês')

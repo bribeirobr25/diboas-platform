@@ -10,7 +10,8 @@
  * change (PR 2, P3 §5 P2):
  *   - genesis: `projection/core.ts` stamps `genesisRecordedAt` from the first event;
  *     `cadence.ts` `realDaysToSettle` (how many real days the settle catches up —
- *     money-bearing) and `collectibleWeeks` read it;
+ *     money-bearing; called by `apps/sandbox` `hooks/useSettleToNow.ts`) and
+ *     `collectibleWeeks` read it;
  *   - `apps/sandbox`: `lib/monthReport.ts` (the report's window), `lib/simulatedEvents.ts`
  *     (the personal week), `lib/weeklyCycle.ts` (the credit meter's drain history),
  *     `TimeMachineScreen.tsx` (the genesis date shown), and `view/home.ts`

@@ -135,7 +135,7 @@ function sourceFiles(dir: string, acc: string[] = []): string[] {
 /** PR 2's projection seam, by name (word-bounded: `selectGoalProjectionFor` is the screen's
  *  ledger-reading wrapper, rendered by a PARENT with its own writes — the scope limit above). */
 const PROJECTION_SEAM =
-  /\b(?:monthsToTarget|monthlyNeeded|rollingAverageRange|weightedSeries|selectGoalProjection)\b/;
+  /\b(?:monthsToTarget|monthlyNeeded|rollingAverageRange|weightedSeries|selectGoalProjection|computeRateRanges|rateRangesFor)\b/;
 const PROJECTION_SURFACES = [
   ...new Set([
     'components/Projection.tsx',

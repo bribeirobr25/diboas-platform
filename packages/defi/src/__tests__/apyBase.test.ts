@@ -50,10 +50,23 @@ describe('PR 2 · the base rate of an APY history point', () => {
     expect(h!.points.map((pt) => pt.apyPercent)).toEqual([5, 3.1, 3.3, 6]);
   });
 
-  it('should refuse the whole series when one base rate is outside plausible bounds', async () => {
+  it('should drop only an implausible BASE (to null) and keep the observed total series (7th audit)', async () => {
     const p = await provider([
       { timestamp: '2026-09-09T00:00:00Z', apy: 3, apyBase: 3, apyReward: 0 },
-      { timestamp: '2026-09-10T00:00:00Z', apy: 3, apyBase: 99999, apyReward: 0 },
+      { timestamp: '2026-09-10T00:00:00Z', apy: 3, apyBase: -0.0001, apyReward: 3.0001 },
+    ]);
+    const h = await p.getApyHistory('aaveV3', 30);
+    expect(h).not.toBeNull();
+    expect(h!.stamp.origin).toBe('OBSERVED');
+    expect(h!.stamp.fallbackUsed).toBe(false);
+    expect(h!.points.map((pt) => pt.apyPercent)).toEqual([3, 3]);
+    expect(h!.points.map((pt) => pt.apyBasePercent)).toEqual([3, null]);
+  });
+
+  it('should still refuse the whole series when a TOTAL is outside plausible bounds', async () => {
+    const p = await provider([
+      { timestamp: '2026-09-09T00:00:00Z', apy: 3, apyBase: 3, apyReward: 0 },
+      { timestamp: '2026-09-10T00:00:00Z', apy: 99999, apyBase: 3, apyReward: 0 },
     ]);
     const h = await p.getApyHistory('aaveV3', 30);
     // refused → the honest fixture path (no base reported), never the corrupt observation

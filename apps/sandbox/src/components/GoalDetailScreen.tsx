@@ -22,6 +22,7 @@ import {
   selectCanInvest,
   selectEntrySplit,
   selectExitPreview,
+  selectGoalCreatedAt,
   selectGoalDetailView,
   selectPositionValue,
 } from '@/view/home';
@@ -139,10 +140,19 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
    */
   const nowIso = useMemo(() => new Date().toISOString(), []);
 
-  /* PR 2 · the projection's observed rate ranges — fetched only when the block can show
-     something (never on a reached, paused or target-less goal). Above the early return for the
-     same rules-of-hooks reason as `nowIso`. */
-  const rateRanges = useRateRanges(selectProjectionCanShow(state, goalId));
+  /* PR 2 · months left in the goal's own calendar frame, read at the screen's one moment, and
+     the observed rate ranges — fetched only when the block can show something (the selector's
+     own routing asked without rates). Above the early return for the same rules-of-hooks reason
+     as `nowIso`. */
+  const goalForMonths = state.goals.find((g) => g.goalId === goalId);
+  const projectionMonthsLeft = goalForMonths
+    ? goalMonthsLeft(
+        goalForMonths.horizonMonths,
+        selectGoalCreatedAt(state, goalId),
+        new Date(nowIso)
+      )
+    : null;
+  const rateRanges = useRateRanges(selectProjectionCanShow(state, goalId, projectionMonthsLeft));
 
   /*
    * P06 §34.1: settlement is the POST-completion state — "the decision is recorded;
@@ -295,13 +305,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // strings for money, plain numbers for the numeric `Projection` props.
   const detail = selectGoalDetailView(state, goalId);
   const { targetReached, ratioPercent: ratio, percentShown, contributionsTotal } = detail;
-  // PR 2 · months left in the goal's own calendar frame, read at the screen's one moment.
-  const projection = selectGoalProjectionFor(
-    state,
-    goalId,
-    goalMonthsLeft(goal.horizonMonths, detail.createdAt, new Date(nowIso)),
-    rateRanges
-  );
+  const projection = selectGoalProjectionFor(state, goalId, projectionMonthsLeft, rateRanges);
 
   const progressBar = (
     <span

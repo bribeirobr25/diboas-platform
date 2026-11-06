@@ -4,6 +4,7 @@ import {
   PROJECTION_POLICY,
   monthlyNeeded,
   monthsToTarget,
+  rangeSpan,
   rollingAverageRange,
   weightedSeries,
   windowMonths,
@@ -193,6 +194,26 @@ describe('rollingAverageRange — 30-day averages of observed days', () => {
     ).toBeNull();
   });
 
+  it('should read exactly 90 observed days (the minimum is inclusive)', () => {
+    expect(
+      rollingAverageRange(
+        days('2026-01-01', 90, () => 3),
+        '2026-05-01'
+      )
+    ).not.toBeNull();
+  });
+
+  it('should leave out a point dated after asOf, even a very different one', () => {
+    // 2026-06-17 is day 899 of the series; the next day jumps to 50 and must not count.
+    const series = days('2024-01-01', 899, () => 3);
+    series.set('2026-06-18', 50);
+    const r = rollingAverageRange(series, '2026-06-17') as NonNullable<
+      ReturnType<typeof rollingAverageRange>
+    >;
+    expect(r.highPercent).toBeCloseTo(3, 10);
+    expect(r.windowEnd).toBe('2026-06-17');
+  });
+
   it('should leave out points older than 365 days and newer than asOf', () => {
     const series = days('2024-01-01', 900, (i) => (i < 400 ? 50 : 3));
     const r = rollingAverageRange(series, '2026-06-17') as NonNullable<
@@ -214,5 +235,29 @@ describe('weightedSeries — a strategy is its legs on the days every leg has a 
       { weight: 0.5, series: b },
     ]);
     expect([...s.entries()]).toEqual([['2026-01-01', 3]]);
+  });
+});
+
+describe('7th audit · non-finite inputs and the multi-strategy span', () => {
+  it('should answer null, never NaN, when any input is not a finite number', () => {
+    const ok = { goalCash: 0, investedValue: 2000, monthly: 200, annualPercent: 3, target: 10000 };
+    for (const k of ['goalCash', 'investedValue', 'monthly', 'target'] as const) {
+      expect(monthsToTarget({ ...ok, [k]: Number.NaN }), k).toBeNull();
+      expect(monthsToTarget({ ...ok, [k]: Number.POSITIVE_INFINITY }), k).toBeNull();
+    }
+    const need = { value: 2000, target: 10000, months: 36, annualPercent: 3 };
+    for (const k of ['value', 'target'] as const)
+      expect(monthlyNeeded({ ...need, [k]: Number.NaN }), k).toBeNull();
+  });
+
+  it('should take the lowest low, the highest high and the SHORTEST window — each from a different strategy', () => {
+    expect(
+      rangeSpan([
+        { lowPercent: 3.0, highPercent: 3.6, observedDays: 300 },
+        { lowPercent: 2.7, highPercent: 3.5, observedDays: 365 },
+        { lowPercent: 3.1, highPercent: 3.8, observedDays: 120 },
+      ])
+    ).toEqual({ lowPercent: 2.7, highPercent: 3.8, observedDays: 120 });
+    expect(rangeSpan([])).toBeNull();
   });
 });

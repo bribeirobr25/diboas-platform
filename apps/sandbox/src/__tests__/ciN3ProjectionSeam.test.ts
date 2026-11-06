@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { resolveModule } from '@/test/importGraph';
 import { stripComments } from '@/test/stripComments';
 import type { RateRangesPayload } from '@/lib/rateRangesContract';
 import { selectGoalProjection, type ProjectionInput } from '../view/projection';
@@ -100,15 +101,13 @@ function fuzzInput(random: () => number, i: number): ProjectionInput {
               observedDays: 266,
             },
           };
-  const positions =
-    i % 4 === 0
-      ? []
-      : [
-          {
-            strategyId: i % 9 === 0 ? 'stableGrowth' : i % 2 ? 'safeHarbor' : 'goalKeeper',
-            value: Math.round(random() * 50_000),
-          },
-        ];
+  // 0–3 positions (7th audit: one position at most never walked Case 1's multi-strategy branch).
+  const pool = ['safeHarbor', 'goalKeeper', 'stableGrowth', 'safeHarbor'];
+  const count = i % 4;
+  const positions = Array.from({ length: count }, (_, k) => ({
+    strategyId: i % 9 === 0 ? 'stableGrowth' : pool[(i + k) % 2],
+    value: Math.round(random() * 50_000),
+  }));
   return {
     status: i % 31 === 0 ? 'paused' : 'active',
     target: i % 7 === 0 ? 0 : Math.round(random() * 1_000_000),
@@ -124,13 +123,29 @@ describe('CI-N3 · the projection seam emits money only as a ModelledAmount', ()
   it('should emit no money-shaped field outside a ModelledAmount, for 600 fuzzed inputs', () => {
     const random = seededRandom(0x5eed_c1e3);
     let withAmount = 0;
+    const seen = new Set<string>();
     for (let i = 0; i < 600; i += 1) {
       const view = selectGoalProjection(fuzzInput(random, i));
       expect(violations(view), JSON.stringify(view)).toEqual([]);
       if (JSON.stringify(view).includes('"modelled"')) withAmount += 1;
+      seen.add(view.kind);
+      if (view.kind === 'live') seen.add(`today:${view.today.kind}`);
+      if (view.kind === 'simulated') seen.add(`line:${view.line?.kind ?? 'none'}`);
     }
-    /* Non-vacuity: a fuzz where no output carried an amount would assert nothing. */
+    /* Non-vacuity: every branch the seam can emit money from was actually walked. */
     expect(withAmount, 'no fuzzed projection carried an amount').toBeGreaterThan(100);
+    for (const branch of [
+      'none',
+      'loading',
+      'unavailable',
+      'live',
+      'simulated',
+      'today:single',
+      'today:range',
+      'line:needed',
+      'line:withPlan',
+    ])
+      expect(seen.has(branch), `the fuzz never produced ${branch}`).toBe(true);
   });
 
   it('should be PURE — the same inputs give the same result, with no accumulated state', () => {
@@ -168,8 +183,21 @@ const FILES = sourceFiles(SANDBOX_SRC).map((f) => ({
 
 /** The names a goal-reaching amount is worked out with. */
 const AMOUNT_MATHS = /\b(?:monthsToTarget|monthlyNeeded)\b/;
-/** A file that imports from the projection seam (alias or relative). */
-const IMPORTS_SEAM = /from\s+['"](?:@\/view\/projection|\.{1,2}\/(?:view\/)?projection)['"]/;
+/**
+ * Every module a file imports — static, re-exported, dynamic, TYPE-ONLY included — resolved to a
+ * path under src/ by the shared resolver (any relative depth or the `@/` alias). The first
+ * version matched three spellings by regex, so `'../../view/projection'` went unseen (7th audit).
+ */
+const SPEC = /(?:\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)['"`]([^'"`]+)['"`]/g;
+const EXISTS = (rel: string) => FILES.some((f) => f.rel === rel);
+const importsOf = (file: { rel: string; code: string }) =>
+  [...file.code.matchAll(SPEC)]
+    .map((m) => resolveModule(file.rel, m[1], EXISTS))
+    .filter((r): r is string => r !== null);
+const importsSeam = (file: { rel: string; code: string }) =>
+  importsOf(file).includes('view/projection.ts');
+/** Tokens that exist only to carry the view's modelled money (and its type). */
+const VIEW_ONLY = /\b(?:ModelledAmount|withPlan|neededUpTo|alreadyEnough)\b/;
 
 describe('CI-N3 · (a) only the seam works out a goal amount; (c) only the block reads it', () => {
   it('should import monthsToTarget / monthlyNeeded in view/projection.ts and nowhere else', () => {
@@ -178,7 +206,7 @@ describe('CI-N3 · (a) only the seam works out a goal amount; (c) only the block
   });
 
   it('should let only the block and its screen import the seam, and only the block read an amount', () => {
-    const importers = FILES.filter((f) => IMPORTS_SEAM.test(f.code))
+    const importers = FILES.filter(importsSeam)
       .map((f) => f.rel)
       .sort();
     expect(importers).toEqual(['components/GoalDetailScreen.tsx', 'components/Projection.tsx']);
@@ -187,6 +215,26 @@ describe('CI-N3 · (a) only the seam works out a goal amount; (c) only the block
     expect(screen).not.toMatch(/\bprojection\s*\.\s*\w/);
     const block = FILES.find((f) => f.rel === 'components/Projection.tsx')!.code;
     expect(block).toMatch(/\.amount\b/);
+  });
+
+  it('should name the view\u2019s modelled money nowhere but the seam and the block — whatever a variable is called', () => {
+    const named = FILES.filter((f) => VIEW_ONLY.test(f.code))
+      .map((f) => f.rel)
+      .sort();
+    expect(named).toEqual(['components/Projection.tsx', 'view/projection.ts']);
+  });
+
+  it('should resolve a seam import at any depth, and see a type-only one (non-vacuity)', () => {
+    for (const code of [
+      "import { x } from '../../view/projection';",
+      "import type { ModelledAmount } from '../../view/projection';",
+      "const m = import('@/view/projection');",
+    ])
+      expect(importsSeam({ rel: 'components/deep/Leak.tsx', code }), code).toBe(true);
+    expect(
+      importsSeam({ rel: 'components/deep/Leak.tsx', code: "import { y } from './projection';" })
+    ).toBe(false);
+    expect(VIEW_ONLY.test('const a = pv.withPlan;')).toBe(true);
   });
 
   it('should find no static projection rate anywhere in the app (guard 3)', () => {

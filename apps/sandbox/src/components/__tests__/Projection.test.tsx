@@ -35,7 +35,6 @@ const SIMULATED: ProjectionView = {
     amounts: { min: { kind: 'modelled', amount: '204' }, max: { kind: 'modelled', amount: '209' } },
     monthsLeft: 36,
   },
-  pace: null,
 };
 
 function show(view: ProjectionView, locale = 'en', showAttribution = false) {
@@ -116,5 +115,102 @@ describe('PR 2 · Projection renders the outcome with its disclosures, every loc
     cleanup();
     show(LIVE, 'en', false);
     expect(screen.queryByText(/Data provided by CoinGecko/)).toBeNull();
+  });
+});
+
+/**
+ * 7th audit · EVERY copy branch, as rendered values (the first version rendered two of ~9, so a
+ * swapped message id, a dropped value or a high-as-low today line passed every test).
+ */
+describe('PR 2 · every copy branch renders its own text with its own values', () => {
+  const amount = (a: string) => ({ kind: 'modelled' as const, amount: a });
+  const text = (view: ProjectionView) => {
+    const { container } = show(view);
+    const t = container.textContent ?? '';
+    cleanup();
+    return t;
+  };
+  const sims = (line: Extract<ProjectionView, { kind: 'simulated' }>['line'], growthNote = false) =>
+    ({ kind: 'simulated', growthNote, range, line }) as ProjectionView;
+
+  it.each<[string, ProjectionView, string[], string[]]>([
+    [
+      'simulated · up to',
+      sims({ kind: 'neededUpTo', max: amount('8'), monthsLeft: 36 }),
+      ['up to $8 a month would reach $10,000 in the 36 months left'],
+      ['about $8'],
+    ],
+    [
+      'simulated · already enough',
+      sims({ kind: 'alreadyEnough', monthsLeft: 12 }),
+      ['what this goal holds would reach $10,000 in the 12 months left', 'without adding more'],
+      ['over the past 12 months'],
+    ],
+    [
+      'simulated · with a plan (Case 3)',
+      sims(
+        {
+          kind: 'withPlan',
+          amount: amount('250'),
+          when: { kind: 'range', minYears: 4, maxYears: 6 },
+        },
+        true
+      ),
+      [
+        'at $250 a month $10,000 would be reached in about 4 to 6 years',
+        "Part of this goal's money moves with market prices",
+        'It assumes $250 is added each month.',
+      ],
+      [],
+    ],
+    [
+      'simulated · one amount',
+      sims({ kind: 'needed', amounts: amount('209'), monthsLeft: 1 }),
+      ['about $209 a month would reach $10,000 in the 1 month left'],
+      ['$209 to $209', '1 months'],
+    ],
+    [
+      'Case 3 without a line',
+      sims(null, true),
+      ["Part of this goal's money moves with market prices", 'Illustrative projection'],
+      ['Simulated:'],
+    ],
+    [
+      'live · no plan, under a year',
+      { ...LIVE, withPlan: null, when: { kind: 'underYear' }, pace: null } as ProjectionView,
+      ['From what this goal holds, $10,000 would be reached within a year'],
+      ['It assumes', 'This pace'],
+    ],
+    [
+      'live · today as a range',
+      {
+        ...LIVE,
+        today: { kind: 'range', lowPercent: 3.1, highPercent: 3.6, asOf: dayAgo(1) },
+      } as ProjectionView,
+      ['Base pool rates observed: 3.1% to 3.6%'],
+      ['3.6% to 3.6%', '3.1% to 3.1%'],
+    ],
+    [
+      'live · pace lands around',
+      { ...LIVE, pace: { status: 'edge', monthsLeft: 26 } } as ProjectionView,
+      ['This pace lands around the 26 months left in your timeframe.'],
+      ['fits inside', 'runs longer'],
+    ],
+    [
+      'live · pace runs longer',
+      { ...LIVE, pace: { status: 'beyond', monthsLeft: 24 } } as ProjectionView,
+      ['This pace runs longer than the 24 months left in your timeframe.'],
+      ['fits inside', 'lands around'],
+    ],
+    [
+      'live · a range of years',
+      { ...LIVE, when: { kind: 'range', minYears: 3, maxYears: 4 } } as ProjectionView,
+      ['in about 3 to 4 years'],
+      [],
+    ],
+  ])('should render %s', (_label, view, present, absent) => {
+    const t = text(view);
+    for (const p of present) expect(t, p).toContain(p);
+    for (const a of absent) expect(t, a).not.toContain(a);
   });
 });

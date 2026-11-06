@@ -944,8 +944,11 @@ pinned by a test that was watched failing.
     the goal reducer both left the sandbox tests GREEN while the source was mutated.
   - ⚑ **A gate whose verdict depends on how it was invoked is not a gate.** Any assertion about
     a PACKAGE's source belongs in that package's own suite, where the import is source-relative.
-    `CI-N3` and `PRU-1` are each split across two files for exactly this reason — the split is
-    deliberate, not accidental duplication, and each file says so in its header.
+    `PRU-1` is split across two files for exactly this reason — the split is deliberate, not
+    accidental duplication, and each file says so in its header. (`CI-N3` was split the same way
+    until PR 2 deleted the static seam its package-side half tested; its three files now live in
+    `apps/sandbox`, and the new seam `view/projection.ts` is app source, imported
+    source-relative, so the same trap does not apply.)
 
 - **`THE RATE LIMITER'S FALLBACK IS A LIMITER`** (`5.213`, 2026-09-25).
   `apps/sandbox/src/lib/security/rateLimiter.ts` is two-tier: Upstash Redis (a sliding window)

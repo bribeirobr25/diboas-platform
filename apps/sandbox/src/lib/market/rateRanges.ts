@@ -12,14 +12,20 @@
  * unavailable → unavailable.
  */
 import {
-  FRESHNESS_STALE_MAX_DAYS,
+  DEFAULT_PRACTICE_REFERENCE_POLICY,
   STRATEGY_CATALOG,
+  freshnessUnder,
   isLiveObservation,
   isRefusedForCurrentFacingUse,
   type ProtocolApyHistory,
   type ProtocolId,
 } from '@diboas/defi';
-import { PROJECTION_POLICY, rollingAverageRange, weightedSeries } from '@diboas/investing';
+import {
+  PROJECTION_POLICY,
+  rangeSpan,
+  rollingAverageRange,
+  weightedSeries,
+} from '@diboas/investing';
 import type {
   RateRangesPayload,
   RateRangeUnavailable,
@@ -52,7 +58,10 @@ function legSeries(history: ProtocolApyHistory | null | undefined, now: Date): L
   const inWindow = history.points.filter((pt) => pt.date >= from && pt.date <= today);
   if (inWindow.length === 0) return { ok: false, reason: 'STALE' };
   const lastDay = inWindow[inWindow.length - 1].date;
-  if ((now.getTime() - Date.parse(`${lastDay}T00:00:00Z`)) / DAY_MS > FRESHNESS_STALE_MAX_DAYS)
+  // The LAST POINT's age, by the one freshness rule (`5.309`; future skew included) — whatever
+  // the fetch stamp says. Beyond the default limit the rate is not current-facing.
+  const lastPoint = { ...history.stamp, asOf: `${lastDay}T00:00:00Z` };
+  if (freshnessUnder(lastPoint, now, DEFAULT_PRACTICE_REFERENCE_POLICY) === 'MISSING')
     return { ok: false, reason: 'STALE' };
   const series = new Map<string, number>();
   for (const pt of inWindow) {
@@ -92,15 +101,8 @@ export function computeRateRanges(
   const ok = strategies.filter(
     (s): s is Extract<StrategyRateRange, { available: true }> => s.available
   );
-  const aggregate: StableAggregate =
-    ok.length === strategies.length && ok.length > 0
-      ? {
-          available: true,
-          lowPercent: Math.min(...ok.map((s) => s.lowPercent)),
-          highPercent: Math.max(...ok.map((s) => s.highPercent)),
-          observedDays: Math.min(...ok.map((s) => s.observedDays)),
-        }
-      : { available: false };
+  const span = ok.length === strategies.length ? rangeSpan(ok) : null;
+  const aggregate: StableAggregate = span ? { available: true, ...span } : { available: false };
   return { strategies, aggregate };
 }
 

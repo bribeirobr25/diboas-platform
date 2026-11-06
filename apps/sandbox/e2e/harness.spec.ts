@@ -211,7 +211,13 @@ test('PROJECTION: under fixture data the goal block says the pool rates cannot b
   }, LEDGER_KEY);
   expect(goalId).not.toBe('');
 
+  // The PAGE must call the real route and get an answer (7th audit: a mistyped URL 404s into the
+  // same "can't be read" text, so the text alone cannot prove the wiring).
+  const rateRanges = page.waitForResponse(
+    (r) => new URL(r.url()).pathname === '/api/market/rate-ranges'
+  );
   await page.goto(`/en/goals/${goalId}`);
+  expect((await rateRanges).status()).toBe(200);
   const block = page.getByTestId('goal-projection');
   await expect(block).toContainText("Pool rates can't be read right now");
   await expect(block).not.toContainText('Illustrative projection');
