@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
+import { isValidLocale, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
 import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { DreamModePageContent } from './DreamModePageContent';
@@ -13,18 +13,23 @@ export const dynamic = 'auto';
  * Generate metadata for the Dream Mode page
  */
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
-  const { locale: _locale } = await params;
+  const { locale } = await params;
+  const validLocale = isValidLocale(locale) ? (locale as SupportedLocale) : 'en';
+  // The feature's name and line in the visitor's language — "Modo Sonho", "Modo Sueño" — from the
+  // page's own catalogue (5.793, 7th audit); the layout adds "| diBoaS".
+  const messages = await loadMessages(validLocale, 'preDream');
+  const name: string = messages?.welcome?.title || 'Dream Mode';
+  const line: string = messages?.welcome?.subtitle || '';
   return {
-    title: pageTitle('Dream Mode - diBoaS'),
-    description:
-      'Visualize your financial future. See what different strategies could do for your money over time.',
+    title: pageTitle(name),
+    description: line,
     robots: {
       index: false, // Don't index this page
       follow: false,
     },
     openGraph: {
-      title: 'Dream Mode - diBoaS',
-      description: 'Visualize your financial future with our interactive simulation.',
+      title: `${name} | diBoaS`,
+      description: line,
       type: 'website',
     },
   };

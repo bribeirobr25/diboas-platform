@@ -7,6 +7,8 @@
  * audit showed the first version of this guard, two fixed shapes, missed most of them).
  * Reads the SERVED title — where the defect shows — on every landing route × locale.
  */
+import fs from 'node:fs';
+import path from 'node:path';
 import { test, expect } from '@playwright/test';
 
 const LOCALES = ['en', 'de', 'es', 'pt-BR'] as const;
@@ -46,6 +48,45 @@ for (const locale of LOCALES) {
       expect(res.status(), url).toBe(200);
       const title = (await res.text()).match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
       expect(title.match(/diBoaS/g)?.length ?? 0, `${url}: "${title}"`).toBe(1);
+    }
+  });
+}
+
+/**
+ * Register 5.793 · the utility pages' titles are in the visitor's language: demo, email
+ * preferences and delete-confirm were English in every locale until 2026-11-06, and Dream Mode
+ * until the 7th audit ("Modo Sonho", "Modo Sueño"). Their descriptions follow the catalogue too.
+ */
+const TRANSLATIONS = path.resolve(__dirname, '../../packages/i18n/translations');
+const read = (locale: string, ns: string) =>
+  JSON.parse(fs.readFileSync(path.join(TRANSLATIONS, locale, `${ns}.json`), 'utf8'));
+
+for (const locale of LOCALES) {
+  test(`should title the utility pages from the catalogue when /${locale} is served`, async ({
+    request,
+  }) => {
+    const expected: Record<string, string> = {
+      '/demo': read(locale, 'preDemo').meta.title,
+      '/email-preferences': `${read(locale, 'common').emailPreferences.heading} | diBoaS`,
+      '/delete-confirm': `${read(locale, 'waitlist').deletion.confirmTitle} | diBoaS`,
+      '/dream-mode': `${read(locale, 'preDream').welcome.title} | diBoaS`,
+    };
+    for (const [route, title] of Object.entries(expected)) {
+      const html = await (await request.get(`/${locale}${route}`)).text();
+      const served = html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
+      expect(served.replace(/&amp;/g, '&'), `/${locale}${route}`).toBe(title);
+    }
+    const description = (html: string) =>
+      (html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '').replace(/&amp;/g, '&');
+    for (const [route, text] of Object.entries({
+      '/demo': read(locale, 'preDemo').meta.description,
+      '/dream-mode': read(locale, 'preDream').welcome.subtitle,
+    })) {
+      const html = await (await request.get(`/${locale}${route}`)).text();
+      expect(
+        description(html).replace(/&#x27;|&#39;/g, "'"),
+        `/${locale}${route} description`
+      ).toBe(text);
     }
   });
 }

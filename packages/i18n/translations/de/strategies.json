@@ -4,7 +4,8 @@
     "description": "10 Strategien. Verschiedene Ziele. Verschiedene Zeithorizonte. Verschiedene Risikoniveaus. Finde die Strategie, die zu deinem Leben passt.",
     "jsonLd": {
       "serviceDescription": "10 Strategien, von konservativ bis wachstumsorientiert, für verschiedene Ziele und Zeithorizonte."
-    }
+    },
+    "ogTitle": "Finde die Strategie, die zu deinem Leben passt | diBoaS"
   },
   "hero": {
     "headline": "Der Zugang, den sie sich vorbehalten haben. Jetzt gehört er dir.",

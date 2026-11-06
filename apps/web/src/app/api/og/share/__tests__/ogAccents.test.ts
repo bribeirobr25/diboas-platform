@@ -34,10 +34,10 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     waitlist: {
       joinedMessage: ['1 entrou na lista de espera!', '5 entrou na lista de espera!'],
       position: 'Posição',
-      cta: 'Entre você também no diBoaS — liberdade financeira simplificada',
+      cta: 'Entre você também no diBoaS: liberdade financeira simplificada',
     },
     calculator: {
-      badge: 'Calculadora Dream Mode',
+      badge: 'Calculadora Modo Sonho',
       growthMessage: [
         'Em 1 ano, meu investimento poderia chegar a',
         'Em 5 anos, meu investimento poderia chegar a',
@@ -69,10 +69,10 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     waitlist: {
       joinedMessage: ['¡1 se unió a la lista de espera!', '¡5 se unió a la lista de espera!'],
       position: 'Posición',
-      cta: 'Únete tú también a diBoaS — libertad financiera simplificada',
+      cta: 'Únete tú también a diBoaS: libertad financiera simplificada',
     },
     calculator: {
-      badge: 'Calculadora Dream Mode',
+      badge: 'Calculadora Modo Sueño',
       growthMessage: [
         'En 1 año, mi inversión podría llegar a',
         'En 5 años, mi inversión podría llegar a',
@@ -107,7 +107,7 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
     waitlist: {
       joinedMessage: ['1 steht jetzt auf der Warteliste!', '5 steht jetzt auf der Warteliste!'],
       position: 'Platz',
-      cta: 'Mach mit bei diBoaS — finanzielle Freiheit einfach gemacht',
+      cta: 'Mach mit bei diBoaS: finanzielle Freiheit einfach gemacht',
     },
     calculator: {
       badge: 'Dream-Mode-Rechner',
