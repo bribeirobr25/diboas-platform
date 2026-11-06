@@ -23,8 +23,8 @@
   overflow: hidden;
 }
 
-/* Responsive: Desktop */
-@media (min-width: var(--breakpoint-desktop)) {
+/* Responsive: Desktop (= --breakpoint-desktop; a media condition cannot read a custom property, 5.798) */
+@media (min-width: 1024px) {
   .container {
     gap: var(--afc-container-gap-desktop);
   }

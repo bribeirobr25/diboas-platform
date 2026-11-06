@@ -322,8 +322,8 @@
   font-size: inherit;
 }
 
-/* Responsive: Tablet */
-@media (min-width: var(--breakpoint-tablet)) {
+/* Responsive: Tablet (= --breakpoint-tablet; a media condition cannot read a custom property, 5.798) */
+@media (min-width: 768px) {
   .ctaButton {
     min-width: var(--cta-min-width-tablet);
     min-height: var(--cta-min-height-tablet);
@@ -332,8 +332,8 @@
   }
 }
 
-/* Responsive: Desktop */
-@media (min-width: var(--breakpoint-desktop)) {
+/* Responsive: Desktop (= --breakpoint-desktop; see above) */
+@media (min-width: 1024px) {
   .ctaButton {
     min-width: var(--cta-min-width-desktop);
     min-height: var(--cta-min-height-desktop);
