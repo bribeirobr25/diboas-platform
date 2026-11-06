@@ -31,10 +31,7 @@
   "fees": {
     "transitionHook": "Costes claros. Antes de decidir.",
     "title": "Sin sorpresas escondidas en la letra pequeña.",
-    "subtitle": "",
-    "painIntro": "",
     "disclaimer": "*Se muestran las comisiones de diBoaS. Pueden aplicarse comisiones de terceros, proveedores de entrada y salida, redes, bancos o cambio de divisa, y se mostrarán cuando estén disponibles antes de confirmar.",
-    "example": "",
     "footerLine": "Cada comisión. Sobre la mesa. Nada más.",
     "headers": {
       "action": "Acción",

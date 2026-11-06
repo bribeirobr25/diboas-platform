@@ -1,8 +1,9 @@
 /**
  * The strategy catalog — strategies as DATA (decision D-8, docs/decisions/DR-PRACTICE-D1-D10.md).
  *
- * Seeded verbatim from the live product canon (`packages/i18n/translations/en/
- * strategies.json`, 2026-07-18): 10 strategies, each a weighted blend of the
+ * Seeded verbatim (2026-07-18) from the copy formerly in `packages/i18n/translations/en/strategies.json` (removed 2026-11-06,
+ * register 5.788, when nothing read it; history: `git log -- <that path>`). This catalogue
+ * is now the only source: 10 strategies, each a weighted blend of the
  * 6 execution protocols (stable legs on Arbitrum, growth legs on Solana —
  * the multi-chain canon). Allocations and growth exposures are the shipped
  * figures; do not invent variants (anti-slop: no fabricated product claims).

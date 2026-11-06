@@ -53,19 +53,23 @@ export function CookiePolicyContent() {
     t('sections.cookiesWeUse.essential.table.headers.duration'),
   ];
 
+  /* The names are the cookies the site REALLY sets (`apps/web/src/__tests__/cookiePolicyNames.test.ts`
+     checks them against the code): NEXT_LOCALE (the language switcher), diboas-consent and its
+     browser-readable copy diboas-consent_js (`lib/security/cookies.ts`). session_id was listed
+     but never set (7th audit). */
   const essentialRows = [
     [
-      'session_id',
+      'NEXT_LOCALE',
       t('sections.cookiesWeUse.essential.table.rows.0.purpose'),
       t('sections.cookiesWeUse.essential.table.rows.0.duration'),
     ],
     [
-      'locale',
+      'diboas-consent',
       t('sections.cookiesWeUse.essential.table.rows.1.purpose'),
       t('sections.cookiesWeUse.essential.table.rows.1.duration'),
     ],
     [
-      'cookie_consent',
+      'diboas-consent_js',
       t('sections.cookiesWeUse.essential.table.rows.2.purpose'),
       t('sections.cookiesWeUse.essential.table.rows.2.duration'),
     ],

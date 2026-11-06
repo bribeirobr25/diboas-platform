@@ -31,10 +31,7 @@
   "fees": {
     "transitionHook": "Custo claro. Antes do clique.",
     "title": "Sem surpresa escondida no rodapé.",
-    "subtitle": "",
-    "painIntro": "",
     "disclaimer": "*Taxas diBoaS mostradas. Taxas de terceiros, provedores, rede, Pix, câmbio ou bancos podem se aplicar e serão exibidas quando disponíveis.",
-    "example": "",
     "footerLine": "Cada taxa. Na mesa. Nada mais.",
     "headers": {
       "action": "Ação",

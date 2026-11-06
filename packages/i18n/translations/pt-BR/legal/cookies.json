@@ -29,18 +29,18 @@
           },
           "rows": [
             {
-              "cookie": "session_id",
-              "purpose": "Mantém sua sessão ativa",
-              "duration": "Sessão"
-            },
-            {
-              "cookie": "locale",
+              "cookie": "NEXT_LOCALE",
               "purpose": "Lembra sua preferência de idioma",
               "duration": "1 ano"
             },
             {
-              "cookie": "cookie_consent",
+              "cookie": "diboas-consent",
               "purpose": "Armazena suas preferências de cookies",
+              "duration": "1 ano"
+            },
+            {
+              "cookie": "diboas-consent_js",
+              "purpose": "Uma cópia das suas preferências de cookies que o seu navegador consegue ler, para que o aviso não apareça de novo",
               "duration": "1 ano"
             }
           ]
