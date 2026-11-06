@@ -7,6 +7,7 @@ import { formatPercent } from '@diboas/format';
 import { calculateLumpSum, calculateMonthlyContributions } from '@/lib/market-data/formulas/core';
 import {
   SCENARIO_COPY_EXAMPLES,
+  copyMoney,
   SCENARIO_COPY_SLOTS,
   fillScenarioCopy,
   scenarioCopyValues,
@@ -140,13 +141,16 @@ describe('5.730 · the scenario copy follows the one constant', () => {
       for (const v of Object.values(scenarioCopyValues(l))) expect(v).toMatch(/^[^{}'#]+$/);
   });
 
-  /** Scenario words per locale, as the copy names the three scenarios and the careful rate. */
+  /** Scenario words per locale, inflected forms included (9th audit: "cautelosa", "prudentes"). */
   const SCENARIO_WORD =
-    /\b(conservative|historical|optimistic|careful|conservador\w*|hist[oó]ric\w*|otimista\w*|optimista\w*|cauteloso|prudente|konservativ\w*|historisch\w*|optimistisch\w*|vorsichtig\w*)\b/iu;
+    /\b(conservative|historical|optimistic|careful|cautious|conservador\w*|hist[oó]ric\w*|otimista\w*|optimista\w*|cautelos\w*|prudentes?|konservativ\w*|historisch\w*|optimistisch\w*|vorsichtig\w*)\b/iu;
+  const RATE = `(?:${Object.values(SCENARIO_RATES).join('|')})(?:[.,]0)?`;
+  /** A rate however it is written ("7%", "7 %", "7,0 %", "7 Prozent", "7 por cento"), or a derived figure. */
   const FIGURE = new RegExp(
-    `(?<![\\d.,])(${Object.values(SCENARIO_RATES).join('|')})\\s?%|2[.,]252|66[.,]000`,
-    'u'
+    `(?<![\\d.,])${RATE}\\s?(?:%|percent|per cent|por cento|por ciento|prozent)|2[.,]252|66[.,]000`,
+    'iu'
   );
+  const WINDOW = 60;
 
   it.each(LOCALES)(
     'should type no scenario figure beside a scenario word in any catalogue (%s)',
@@ -154,11 +158,41 @@ describe('5.730 · the scenario copy follows the one constant', () => {
       const found: string[] = [];
       for (const [id, text] of Object.entries(catalogue(locale))) {
         for (const m of text.matchAll(new RegExp(FIGURE.source, 'gu'))) {
-          const around = text.slice(Math.max(0, (m.index ?? 0) - 30), (m.index ?? 0) + 30);
+          const around = text.slice(Math.max(0, (m.index ?? 0) - WINDOW), (m.index ?? 0) + WINDOW);
           if (SCENARIO_WORD.test(around)) found.push(`${id}: …${around}…`);
         }
       }
       expect(found).toEqual([]);
+    }
+  );
+
+  it('should catch a typed scenario figure however it is written (non-vacuity, 9th audit)', () => {
+    for (const t of [
+      'a taxa cautelosa de 7%',
+      'tipos prudentes del 7 %',
+      'a cautious 7 percent',
+      'zu vorsichtigen 7 Prozent',
+      'o ritmo cauteloso de 7,0 %',
+      'Conservative scenario — in the long run, after everything is said and done, 7%',
+    ])
+      expect(FIGURE.test(t) && SCENARIO_WORD.test(t), t).toBe(true);
+  });
+
+  it.each(LOCALES)(
+    'should state the worked examples’ inputs the helper computes from (%s)',
+    (locale) => {
+      const raw = catalogue(locale);
+      const { lumpSum, monthly } = SCENARIO_COPY_EXAMPLES;
+      const talk1 = raw['learn-compound-interest.beat1.body.2'];
+      expect(talk1).toContain(copyMoney(lumpSum.principal, locale));
+      expect(talk1).toContain(String(lumpSum.years));
+      expect(raw['learn-compound-interest.quiz.q2.question']).toContain(
+        copyMoney(lumpSum.principal, locale)
+      );
+      const talk4 = raw['learn-ten-percent.beat3.intro.1'];
+      expect(talk4).toContain(copyMoney(monthly.payment, locale));
+      expect(talk4).toMatch(/twelve|doze|doce|zwölf/i); // 144 months, written out in the copy
+      expect(monthly.months).toBe(12 * 12);
     }
   );
 

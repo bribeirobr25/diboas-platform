@@ -41,7 +41,7 @@ export type ScenarioCopySlot = (typeof SCENARIO_COPY_SLOTS)[number];
  * A whole amount in the catalogue's style: grouped even for four digits (es "2.252 €"), with the
  * catalogue's ordinary space where `Intl` puts a no-break space, so the text renders unchanged.
  */
-function copyMoney(amount: number, locale: string): string {
+export function copyMoney(amount: number, locale: string): string {
   return new Intl.NumberFormat(locale, {
     style: 'currency',
     currency: COPY_CURRENCY[locale] ?? 'USD',

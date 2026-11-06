@@ -12,7 +12,8 @@
  */
 
 import type { Metadata } from 'next';
-import { loadMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { flattenMessages, loadMessages, type SupportedLocale } from '@diboas/i18n/server';
+import { fillScenarioCopy } from '@/lib/compound-interest/scenarioCopy';
 import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 import { getLesson } from './registry';
 
@@ -91,7 +92,12 @@ export async function generateLessonMetadata(
   }
 
   const messages = await loadMessages(locale, lesson.namespace);
-  const seo = (messages?.seo ?? {}) as LearnSeoFields;
+  // The talk's own catalogue is read directly here, so its scenario slots are filled here too —
+  // the same fill as `loadPageNamespaces` (5.730, 9th audit: search text would show the slot).
+  const seo = fillScenarioCopy(
+    flattenMessages((messages?.seo ?? {}) as Record<string, string>),
+    locale
+  ) as LearnSeoFields;
 
   // Phase 1: fallbacks come from the lesson's own PAGE_SEO_CONFIG entry
   // (registry invariant: every live lesson has one), never from hardcoded

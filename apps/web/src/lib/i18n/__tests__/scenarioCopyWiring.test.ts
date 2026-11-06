@@ -14,6 +14,8 @@ import { loadPageNamespaces } from '../pageNamespaceLoader';
 import { toolMetadata } from '@/lib/tools/metadata';
 import { TOOL_DESCRIPTORS } from '@/lib/tools/constants';
 import type { ToolKey } from '@/lib/tools/types';
+import { generateLessonMetadata } from '@/lib/learn/lessonMetadata';
+import { LESSONS } from '@/lib/learn/registry';
 
 describe('5.730 · the loader fills the scenario copy from the constant', () => {
   it('should hand pages the constant’s rates and figures, never a slot', async () => {
@@ -31,8 +33,19 @@ describe('5.730 · the loader fills the scenario copy from the constant', () => 
         const meta = await toolMetadata(key)({ params: Promise.resolve({ locale }) } as never);
         const served = JSON.stringify(meta);
         expect(served, `${locale} ${key}`).not.toMatch(/\{scenario/);
-        if (key === 'currency-depreciation')
-          expect(String(meta.description), `${locale} ${key}`).toContain('9%');
+        // The SEO gate measures the catalogue's template; what is SERVED must hold the bounds too.
+        const d = String(meta.description);
+        expect(d.length, `${locale} ${key} description length`).toBeGreaterThanOrEqual(50);
+        expect(d.length, `${locale} ${key} description length`).toBeLessThanOrEqual(210);
+        if (key === 'currency-depreciation') expect(d, `${locale} ${key}`).toContain('9%');
+      }
+  });
+
+  it('should serve every Learn talk’s metadata with no slot: it reads its catalogue directly (×4)', async () => {
+    for (const locale of SUPPORTED_LOCALES)
+      for (const id of Object.keys(LESSONS)) {
+        const meta = await generateLessonMetadata(id, locale);
+        expect(JSON.stringify(meta), `${locale} ${id}`).not.toMatch(/\{scenario/);
       }
   });
 });
