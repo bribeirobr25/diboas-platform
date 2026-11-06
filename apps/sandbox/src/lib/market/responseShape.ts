@@ -60,3 +60,49 @@ export function historyResponseIssue(body: unknown): string | null {
       : priceHistoryListIssue(body.priceHistories, 'priceHistories'))
   );
 }
+
+const DAY_RE = /^\d{4}-\d{2}-\d{2}$/;
+const UNAVAILABLE_REASONS = new Set([
+  'NO_HISTORY',
+  'NOT_OBSERVED',
+  'STALE',
+  'BASE_SPLIT_MISSING',
+  'TOO_LITTLE_HISTORY',
+]);
+const finiteNumber = (v: unknown): v is number => typeof v === 'number' && Number.isFinite(v);
+const wholeDays = (v: unknown) => finiteNumber(v) && Number.isInteger(v) && v > 0;
+const day = (v: unknown) => typeof v === 'string' && DAY_RE.test(v);
+
+/**
+ * PR 2 · `GET /api/market/rate-ranges` (`lib/rateRangesContract.ts`): every field the
+ * projection reads — finite rates with low ≤ high, whole positive day counts, calendar days,
+ * a known unavailable reason. A shape this code cannot use is an error (Case U), never data.
+ */
+export function rateRangesResponseIssue(body: unknown): string | null {
+  if (!isRecord(body)) return 'body';
+  if (!Array.isArray(body.strategies)) return 'strategies';
+  for (const [i, raw] of body.strategies.entries()) {
+    const at = `strategies[${i}]`;
+    if (!isRecord(raw) || typeof raw.strategyId !== 'string') return `${at}.strategyId`;
+    if (raw.available === false) {
+      if (!UNAVAILABLE_REASONS.has(raw.reason as string)) return `${at}.reason`;
+      continue;
+    }
+    if (raw.available !== true) return `${at}.available`;
+    for (const k of ['lowPercent', 'highPercent', 'todayPercent'] as const)
+      if (!finiteNumber(raw[k])) return `${at}.${k}`;
+    if ((raw.lowPercent as number) > (raw.highPercent as number)) return `${at}.highPercent`;
+    if (!wholeDays(raw.observedDays)) return `${at}.observedDays`;
+    for (const k of ['windowStart', 'windowEnd', 'oldestLegAsOf'] as const)
+      if (!day(raw[k])) return `${at}.${k}`;
+  }
+  const a = body.aggregate;
+  if (!isRecord(a) || typeof a.available !== 'boolean') return 'aggregate';
+  if (a.available) {
+    if (!finiteNumber(a.lowPercent)) return 'aggregate.lowPercent';
+    if (!finiteNumber(a.highPercent) || a.highPercent < a.lowPercent)
+      return 'aggregate.highPercent';
+    if (!wholeDays(a.observedDays)) return 'aggregate.observedDays';
+  }
+  return null;
+}

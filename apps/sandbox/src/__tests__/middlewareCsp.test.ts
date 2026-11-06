@@ -11,7 +11,8 @@ import { middleware } from '../middleware';
  * narrowing is a measured fact rather than a preference:
  *
  *   connect-src 'self'  — the market providers are instantiated ONLY in
- *                         `app/api/market/route.ts` and `.../history/route.ts`,
+ *                         `app/api/market/route.ts`, `.../history/route.ts` and
+ *                         `.../rate-ranges/route.ts` (PR 2),
  *                         so every external call is server-side and the browser
  *                         never contacts yields.llama.fi or api.coingecko.com.
  *   font-src 'self'     — `next/font/google` self-hosts Fraunces at build time;

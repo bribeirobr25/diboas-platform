@@ -169,3 +169,51 @@ test('BUILD SWAP: an open tab survives a deploy on the same origin', async ({ pa
     description: `${loads} document load(s) on the first in-app navigation after the deploy`,
   });
 });
+
+/**
+ * PR 2 (P3 §8): the harness serves FIXTURE stamps only, and a fixture is never an observed rate —
+ * so the rate ranges are unavailable and the goal's projection must say the rates can't be read
+ * (Case U), with no number. Asserted at the route AND on the real goal page.
+ */
+test('PROJECTION: under fixture data the goal block says the pool rates cannot be read', async ({
+  page,
+  request,
+}) => {
+  const res = await request.get('/api/market/rate-ranges');
+  expect(res.status()).toBe(200);
+  expect(res.headers()['cache-control']).toBe('public, max-age=0, s-maxage=60');
+  const body = (await res.json()) as {
+    strategies: Array<{ available: boolean; reason?: string }>;
+    aggregate: { available: boolean };
+  };
+  expect(body.strategies.length).toBeGreaterThan(0);
+  expect(body.strategies.every((s) => !s.available && s.reason === 'NOT_OBSERVED')).toBe(true);
+  expect(body.aggregate.available).toBe(false);
+
+  await onboard(page);
+  await page.goto('/en/goals/new');
+  await page.getByLabel('Goal name').fill('Trip');
+  await page.getByLabel('Target amount').fill('10000');
+  const [month, year] = await page.evaluate(() => [
+    new Date().getMonth(),
+    new Date().getFullYear() + 3,
+  ]);
+  await page.getByLabel('Month').selectOption(String(month));
+  await page.getByLabel('Year').selectOption(String(year));
+  await page.getByRole('button', { name: 'Create goal' }).click();
+  await page.waitForURL(/\/en$/);
+  const goalId = await page.evaluate((key) => {
+    const events = JSON.parse(localStorage.getItem(key) ?? '[]') as Array<{
+      type: string;
+      goalId?: string;
+    }>;
+    return events.find((e) => e.type === 'GoalCreated')?.goalId ?? '';
+  }, LEDGER_KEY);
+  expect(goalId).not.toBe('');
+
+  await page.goto(`/en/goals/${goalId}`);
+  const block = page.getByTestId('goal-projection');
+  await expect(block).toContainText("Pool rates can't be read right now");
+  await expect(block).not.toContainText('Illustrative projection');
+  expect(await block.textContent()).not.toMatch(/\d/);
+});

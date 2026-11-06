@@ -1,7 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '../marketCacheHeaders';
+import {
+  MARKET_CACHE_CONTROL,
+  MARKET_DEGRADED_CACHE_CONTROL,
+  MARKET_ERROR_CACHE_CONTROL,
+} from '../marketCacheHeaders';
 
 /**
  * The two market routes are PUBLICLY reachable (SANDBOX_PUBLIC_ACCESS, founder
@@ -9,7 +13,7 @@ import { MARKET_CACHE_CONTROL, MARKET_ERROR_CACHE_CONTROL } from '../marketCache
  * the quota protection, so the policy is guarded rather than trusted to survive
  * the next edit.
  */
-const ROUTES = ['route.ts', join('history', 'route.ts')].map((r) =>
+const ROUTES = ['route.ts', join('history', 'route.ts'), join('rate-ranges', 'route.ts')].map((r) =>
   join(__dirname, '..', '..', 'app', 'api', 'market', r)
 );
 
@@ -42,5 +46,25 @@ describe('market route cache policy', () => {
     expect(src).toContain('MARKET_CACHE_CONTROL');
     expect(src).toContain('MARKET_ERROR_CACHE_CONTROL');
     expect(src).not.toMatch(/'Cache-Control':\s*'no-store'/);
+  });
+
+  it('should cache a degraded success briefly and never in the browser (PR 2)', () => {
+    expect(MARKET_DEGRADED_CACHE_CONTROL).toMatch(/\bpublic\b/);
+    expect(MARKET_DEGRADED_CACHE_CONTROL).toMatch(/(^|,\s*)max-age=0(,|$)/);
+    const s = Number(MARKET_DEGRADED_CACHE_CONTROL.match(/s-maxage=(\d+)/)?.[1]);
+    const full = Number(MARKET_CACHE_CONTROL.match(/s-maxage=(\d+)/)?.[1]);
+    expect(s).toBeGreaterThan(0);
+    expect(s).toBeLessThan(full);
+    expect(MARKET_DEGRADED_CACHE_CONTROL).not.toMatch(/stale-while-revalidate/);
+  });
+
+  it('should pick the degraded header when any stable strategy is unavailable (rate-ranges route)', () => {
+    const src = readFileSync(
+      join(__dirname, '..', '..', 'app', 'api', 'market', 'rate-ranges', 'route.ts'),
+      'utf8'
+    );
+    expect(src).toMatch(
+      /isDegraded\(payload\)\s*\?\s*MARKET_DEGRADED_CACHE_CONTROL\s*:\s*MARKET_CACHE_CONTROL/
+    );
   });
 });

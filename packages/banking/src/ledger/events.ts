@@ -4,8 +4,18 @@
  * idempotent appends by eventId).
  *
  * Time note: `simDay` is SIMULATED time (day index from ledger genesis) — the
- * time machine advances it. Wall-clock `recordedAt` is telemetry only and
- * never participates in money math.
+ * time machine advances it. Wall-clock `recordedAt` is the REAL moment an event
+ * was recorded. It is never a term of the conservation formula, but it is NOT
+ * telemetry-only, and every reader is named here so a new one is a visible
+ * change (PR 2, P3 §5 P2):
+ *   - genesis: `projection/core.ts` stamps `genesisRecordedAt` from the first event;
+ *     `cadence.ts` `realDaysToSettle` (how many real days the settle catches up —
+ *     money-bearing) and `collectibleWeeks` read it;
+ *   - `apps/sandbox`: `lib/monthReport.ts` (the report's window), `lib/simulatedEvents.ts`
+ *     (the personal week), `lib/weeklyCycle.ts` (the credit meter's drain history),
+ *     `TimeMachineScreen.tsx` (the genesis date shown), and `view/home.ts`
+ *     `selectGoalDetailView` → `lib/goalMonths.ts` (a goal's months left, from its
+ *     `GoalCreated`).
  */
 
 export type JobBucket = 'floor' | 'cushion' | 'working';
@@ -31,7 +41,7 @@ export interface EventBase {
   eventId: string;
   /** Simulated day index (0 = genesis day). */
   simDay: number;
-  /** Wall-clock ISO timestamp when the event was recorded (telemetry only). */
+  /** Wall-clock ISO timestamp when the event was recorded (its readers: the note above). */
   recordedAt: string;
   correlationId: string;
   /**

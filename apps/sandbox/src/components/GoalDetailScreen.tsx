@@ -40,6 +40,9 @@ import { goalShowsCoinGeckoPrices } from '@/view/marketDataAttribution';
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { networkFeeLocal } from '@/lib/networkFee';
 import { Projection } from './Projection';
+import { useRateRanges } from '@/hooks/useRateRanges';
+import { goalMonthsLeft } from '@/lib/goalMonths';
+import { selectGoalProjectionFor, selectProjectionCanShow } from '@/view/projection';
 import { RecurringControl } from './RecurringControl';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Settlement } from './Settlement';
@@ -73,7 +76,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // ledger's — the same two positions read "$0.03" on /en and "US$ 0,16" on
   // /pt-BR. Wrong anywhere; unacceptable on the fee-truth screen.
   const { market } = useMarket(state.currency);
-  const { money } = useFormatters(state.currency);
+  const { money, moneyWhole } = useFormatters(state.currency);
 
   const goal = state.goals.find((g) => g.goalId === goalId);
   const openPositions = state.positions.filter((p) => p.goalId === goalId && p.open);
@@ -135,6 +138,11 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
    * the tests, which never exercised both branches in one mount.
    */
   const nowIso = useMemo(() => new Date().toISOString(), []);
+
+  /* PR 2 · the projection's observed rate ranges — fetched only when the block can show
+     something (never on a reached, paused or target-less goal). Above the early return for the
+     same rules-of-hooks reason as `nowIso`. */
+  const rateRanges = useRateRanges(selectProjectionCanShow(state, goalId));
 
   /*
    * P06 §34.1: settlement is the POST-completion state — "the decision is recorded;
@@ -286,13 +294,14 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // render sites. The selector returns both shapes its consumers need: display
   // strings for money, plain numbers for the numeric `Projection` props.
   const detail = selectGoalDetailView(state, goalId);
-  const {
-    targetReached,
-    ratioPercent: ratio,
-    percentShown,
-    goalMonthly,
-    contributionsTotal,
-  } = detail;
+  const { targetReached, ratioPercent: ratio, percentShown, contributionsTotal } = detail;
+  // PR 2 · months left in the goal's own calendar frame, read at the screen's one moment.
+  const projection = selectGoalProjectionFor(
+    state,
+    goalId,
+    goalMonthsLeft(goal.horizonMonths, detail.createdAt, new Date(nowIso)),
+    rateRanges
+  );
 
   const progressBar = (
     <span
@@ -490,15 +499,15 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             <FormattedMessage id="goalDetail.percentWay" />
           </p>
           {progressBar}
-          {goalMonthly > 0 ? (
-            <Projection
-              target={Number(goal.targetAmount)}
-              monthlyContribution={goalMonthly}
-              currentValue={detail.currentValue}
-              horizonMonths={goal.horizonMonths}
-              currency={state.currency}
-            />
-          ) : null}
+          {/* PR 2: routed by the selector, not by a monthly amount — Case 2 (no position, so
+              no plan) must be able to render. Simple renders the attribution itself; it is the
+              only one on this view (P3 §2, one per screen). */}
+          <Projection
+            view={projection}
+            target={moneyWhole(goal.targetAmount)}
+            currency={state.currency}
+            showAttribution={goalShowsCoinGeckoPrices(state, goal.goalId)}
+          />
 
           {/* ② what my money's doing — real per-position value + real series */}
           <h2 className={styles.sectionHead}>
@@ -657,15 +666,13 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             </div>
           ) : null}
 
-          {goalMonthly > 0 ? (
-            <Projection
-              target={Number(goal.targetAmount)}
-              monthlyContribution={goalMonthly}
-              currentValue={detail.currentValue}
-              horizonMonths={goal.horizonMonths}
-              currency={state.currency}
-            />
-          ) : null}
+          {/* Detailed already renders the screen's one CoinGecko attribution above. */}
+          <Projection
+            view={projection}
+            target={moneyWhole(goal.targetAmount)}
+            currency={state.currency}
+            showAttribution={false}
+          />
 
           {openPositions.length === 0 ? (
             <div className={styles.noPosition}>

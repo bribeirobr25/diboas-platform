@@ -243,13 +243,39 @@
   },
   "projection": {
     "heading": "El camino desde aquí",
-    "rangeLine": "Con {amount} al mes, un supuesto {low}% a {high}% llegaría a {target} en unos {minYears} a {maxYears} años.",
-    "singleLine": "Con {amount} al mes, un supuesto {low}% a {high}% llegaría a {target} en unos {years, plural, one {# año} other {# años}}.",
-    "caveat": "Una hipótesis que puedes comprobar, no una promesa. Los rendimientos reales se mueven y pueden ser negativos.",
-    "paceWithin": "Este ritmo cabe dentro de tu plazo de {months} meses.",
-    "paceEdge": "Este ritmo aterriza en torno a tu plazo de {months} meses.",
-    "paceBeyond": "Este ritmo se alarga más allá de tu plazo de {months} meses.",
-    "underYear": "Con {amount} al mes, un supuesto {low}% a {high}% llegaría a {target} en menos de un año."
+    "caveat": "Una hipótesis que puedes comprobar, no una promesa. Los resultados efectivos se mueven y pueden ser negativos.",
+    "paceWithin": "Este ritmo cabe {months, plural, one {en el # mes que le queda a tu plazo} other {en los # meses que le quedan a tu plazo}}.",
+    "paceEdge": "Este ritmo ronda {months, plural, one {el # mes que le queda a tu plazo} other {los # meses que le quedan a tu plazo}}.",
+    "paceBeyond": "Este ritmo se alarga más allá {months, plural, one {del # mes que le queda a tu plazo} other {de los # meses que le quedan a tu plazo}}.",
+    "tag": "Proyección ilustrativa · no es una previsión",
+    "when": {
+      "range": "en aproximadamente {minYears} a {maxYears} años",
+      "single": "{years, plural, one {en aproximadamente un año} other {en unos # años}}",
+      "underYear": "en menos de un año"
+    },
+    "live": {
+      "today": "Tasa base del pool observada: {rate} · registro {age}",
+      "todayRange": "Tasas base de los pools observadas: {low} a {high} · registro {age}",
+      "withPlan": "Con {amount} al mes, llegarías a {target} {when} si la tasa base del pool de tu estrategia se mantuviera entre {low} y {high} al año, el rango en el que se movió su media de 30 días {window, plural, one {en el último mes} other {en los últimos # meses}}.",
+      "noPlan": "Con lo que tiene esta meta, llegarías a {target} {when} si la tasa base del pool de tu estrategia se mantuviera entre {low} y {high} al año, el rango en el que se movió su media de 30 días {window, plural, one {en el último mes} other {en los últimos # meses}}."
+    },
+    "simulated": {
+      "needed": "Simulación: si todo estuviera en una estrategia estable, unos {amounts} al mes bastarían para llegar a {target} {months, plural, one {en el # mes que le queda a tu plazo} other {en los # meses que le quedan a tu plazo}}, a una tasa de entre {low} y {high} al año, el rango en el que se movieron las medias de 30 días de las tasas base de los pools de las estrategias estables {window, plural, one {en el último mes} other {en los últimos # meses}}.",
+      "neededUpTo": "Simulación: si todo estuviera en una estrategia estable, hasta {max} al mes bastarían para llegar a {target} {months, plural, one {en el # mes que le queda a tu plazo} other {en los # meses que le quedan a tu plazo}}, a una tasa de entre {low} y {high} al año, el rango en el que se movieron las medias de 30 días de las tasas base de los pools de las estrategias estables {window, plural, one {en el último mes} other {en los últimos # meses}}.",
+      "alreadyEnough": "Simulación: si todo estuviera en una estrategia estable, lo que tiene esta meta llegaría a {target} {months, plural, one {en el # mes que le queda a tu plazo} other {en los # meses que le quedan a tu plazo}} sin añadir más, a una tasa de entre {low} y {high} al año, el rango en el que se movieron las medias de 30 días de las tasas base de los pools de las estrategias estables {window, plural, one {en el último mes} other {en los últimos # meses}}.",
+      "withPlan": "Simulación: si todo estuviera en una estrategia estable, con {amount} al mes llegarías a {target} {when}, a una tasa de entre {low} y {high} al año, el rango en el que se movieron las medias de 30 días de las tasas base de los pools de las estrategias estables {window, plural, one {en el último mes} other {en los últimos # meses}}."
+    },
+    "amountRange": "{min} a {max}",
+    "growthNote": "Parte del dinero de esta meta se mueve con los precios de mercado, así que ninguna tasa puede decir cuándo se alcanzará la meta.",
+    "disclosure": "Las tasas son anuales y nominales. No se incluyen comisiones, inflación, impuestos ni el orden en que llegan los resultados.",
+    "disclosureUsdPools": "Las tasas son de pools en dólares estadounidenses; no se incluyen los movimientos de divisa.",
+    "method": {
+      "summary": "Cómo se calcula",
+      "body": "Las tasas de los pools son registros observados; la hora mostrada es la del más antiguo. El rango va de la media de 30 días más baja a la más alta de la tasa base en los meses observados. El dinero en una estrategia, y cada importe mensual una vez añadido, crece a la tasa; el dinero fuera de una estrategia se queda como está. Con varias estrategias, el rango va del mínimo más bajo al máximo más alto. En una simulación, todo el dinero de la meta se trata como si estuviera en una estrategia estable (sin exposición a precios de mercado). Practice usa solo dinero de práctica.",
+      "plan": "Supone que se añaden {amount} cada mes."
+    },
+    "loading": "Leyendo las tasas de los pools…",
+    "unavailable": "Ahora no se pueden leer las tasas de los pools, así que no hay proyección que mostrar. No ha cambiado nada de tu meta."
   },
   "geofence": {
     "badge": "Comprobación de región",

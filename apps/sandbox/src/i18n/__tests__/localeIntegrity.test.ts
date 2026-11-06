@@ -212,7 +212,11 @@ const CURRENCY_WORD_ALLOWLIST: ReadonlySet<string> = new Set([
   // it may not be reworded to satisfy a house-style guard.
   'common.dataGasReference',
   'common.frameCaption',
-  'projection.caveat',
+  // ⚑ `projection.caveat` REMOVED (PR 2): it was here for the pt-BR "resultados reais"; the
+  // approved v2 caveat reads "de verdade", so no locale's value names a currency any more.
+  // ⚑ ADDED (PR 2, P3 §4): FACTUAL — the rates are those of US-dollar pools, and the
+  // disclosure says so; attributing the rate to the pools is the GENIUS-safe form.
+  'projection.disclosureUsdPools',
   'move.practiceNote',
   'timeMachine.footnote',
   'rules.previewBasis',

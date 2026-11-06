@@ -501,16 +501,10 @@ describe('selectGoalDetailView', () => {
       ],
     } as unknown as Partial<LedgerState>); // events are deliberately partial shapes
 
-  it('should return BOTH shapes its consumers need — a display string and a number', () => {
+  it('should return the current value as a display string', () => {
     const v = selectGoalDetailView(st(), 'g1');
     expect(v.current).toBe('910.00');
-    expect(v.currentValue).toBe(910);
     expect(typeof v.current).toBe('string');
-    expect(typeof v.currentValue).toBe('number');
-  });
-
-  it('should sum recurring schedules for THIS goal only', () => {
-    expect(selectGoalDetailView(st(), 'g1').goalMonthly).toBe(50);
   });
 
   it('should count only GoalFunded events for THIS goal — not other goals, not other types', () => {
