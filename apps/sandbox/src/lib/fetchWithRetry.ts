@@ -18,21 +18,22 @@ export interface RetryOptions {
 export const FETCH_RETRIES = 2;
 const FETCH_BASE_DELAY_MS = 500;
 
-function abortError(): DOMException {
-  return new DOMException('The operation was aborted.', 'AbortError');
+/** The signal's own reason (a `TimeoutError` for `AbortSignal.timeout`), as `fetch` rejects with. */
+function abortReason(signal: AbortSignal): unknown {
+  return signal.reason ?? new DOMException('The operation was aborted.', 'AbortError');
 }
 
-/** A wait the caller's signal can cut short. */
+/** A wait the caller's signal can cut short — rejecting as `fetch` would (8th audit). */
 function wait(ms: number, signal?: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
-    if (signal?.aborted) return reject(abortError());
+    if (signal?.aborted) return reject(abortReason(signal));
     const timer = setTimeout(() => {
       signal?.removeEventListener('abort', onAbort);
       resolve();
     }, ms);
     function onAbort() {
       clearTimeout(timer);
-      reject(abortError());
+      reject(abortReason(signal!));
     }
     signal?.addEventListener('abort', onAbort, { once: true });
   });

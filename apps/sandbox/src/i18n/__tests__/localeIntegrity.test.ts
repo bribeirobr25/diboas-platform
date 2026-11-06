@@ -185,8 +185,8 @@ describe('locale collisions can only fall', () => {
 const CURRENCY_WORDS: Record<string, RegExp> = {
   en: /\b(dollars?|euros?|cents?)\b/i,
   de: /\b(Euros?|Dollars?|Cents?)\b/,
-  es: /\b(euros?|dólares?|centavos?)\b/i,
-  'pt-BR': /\b(reais|centavos?|dólares?|euros?)\b/i,
+  es: /\b(euros?|d[oó]lar(?:es)?|centavos?)\b/i,
+  'pt-BR': /\b(reais|centavos?|d[oó]lar(?:es)?|euros?)\b/i,
 };
 
 /** Keys allowed to name a currency, with why. `rules.subtitle` is the defect. */

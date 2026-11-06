@@ -53,14 +53,18 @@ export function Projection({
     });
   const cash = (m: ModelledAmount) => moneyWhole(m.amount);
   const when = (w: When) =>
-    w.kind === 'underYear'
-      ? intl.formatMessage({ id: 'projection.when.underYear' })
-      : w.kind === 'single'
-        ? intl.formatMessage({ id: 'projection.when.single' }, { years: w.years })
-        : intl.formatMessage(
-            { id: 'projection.when.range' },
-            { minYears: w.minYears, maxYears: w.maxYears }
-          );
+    w.kind === 'overCap'
+      ? intl.formatMessage({ id: 'projection.when.overCap' }, { years: w.years })
+      : w.kind === 'underYearToOverCap'
+        ? intl.formatMessage({ id: 'projection.when.underYearToOverCap' }, { years: w.years })
+        : w.kind === 'underYear'
+          ? intl.formatMessage({ id: 'projection.when.underYear' })
+          : w.kind === 'single'
+            ? intl.formatMessage({ id: 'projection.when.single' }, { years: w.years })
+            : intl.formatMessage(
+                { id: 'projection.when.range' },
+                { minYears: w.minYears, maxYears: w.maxYears }
+              );
   const age = (day: string) => {
     const ms = Math.max(0, readAt - Date.parse(`${day}T00:00:00Z`));
     const rtf = new Intl.RelativeTimeFormat(intl.locale, { numeric: 'always' });

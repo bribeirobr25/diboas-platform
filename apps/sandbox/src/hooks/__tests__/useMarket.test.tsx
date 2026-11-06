@@ -48,8 +48,10 @@ describe('useMarket', () => {
 
   it('should report a non-ok response as an ERROR, never as data', async () => {
     fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => BODY });
+    // R-8 (5.801): a 503 is transient, so it is retried twice with backoff before it is an error.
     const { result } = renderHook(() => useMarket('USD'));
-    await waitFor(() => expect(result.current.marketError).toBe(true));
+    await waitFor(() => expect(result.current.marketError).toBe(true), { timeout: 4000 });
+    expect(fetchMock).toHaveBeenCalledTimes(3);
     expect(result.current.market).toBeNull();
     expect(JSON.stringify(logs.calls('warn'))).toContain('http-503');
   });
@@ -100,6 +102,7 @@ describe('fetchSeries', () => {
   it('should throw on a non-ok response (the caller decides; nothing is invented)', async () => {
     fetchMock.mockResolvedValue({ ok: false, status: 503, json: async () => ({}) });
     await expect(fetchSeries(30)).rejects.toThrow('503');
+    expect(fetchMock).toHaveBeenCalledTimes(3); // R-8 (5.801): retried twice before it throws
   });
 });
 

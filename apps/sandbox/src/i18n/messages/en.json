@@ -251,7 +251,9 @@
     "when": {
       "range": "in about {minYears} to {maxYears} years",
       "single": "in about {years, plural, one {# year} other {# years}}",
-      "underYear": "within a year"
+      "underYear": "within a year",
+      "overCap": "in more than {years, plural, one {# year} other {# years}}",
+      "underYearToOverCap": "anywhere from within a year to more than {years, plural, one {# year} other {# years}}"
     },
     "live": {
       "today": "Base pool rate observed: {rate} · snapshot {age}",

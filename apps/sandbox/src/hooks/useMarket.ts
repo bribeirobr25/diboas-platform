@@ -9,6 +9,7 @@ import {
   type ProtocolApyHistory,
   type ProtocolPriceHistory,
 } from '@diboas/defi';
+import { fetchWithRetry } from '@/lib/fetchWithRetry';
 import { Logger } from '@/lib/monitoring/Logger';
 import { BoundedFailure, failureReason } from '@/lib/monitoring/failureReason';
 import { historyResponseIssue, marketResponseIssue } from '@/lib/market/responseShape';
@@ -53,7 +54,8 @@ export function useMarket(currency: DisplayCurrency) {
     let active = true;
     (async () => {
       try {
-        const res = await fetch(`/api/market?currency=${currency}`, {
+        // R-8: transient failures retried with backoff (5.801); the abort still ends it.
+        const res = await fetchWithRetry(`/api/market?currency=${currency}`, {
           signal: controller.signal,
         });
         if (!res.ok) throw new BoundedFailure(`http-${res.status}`);
@@ -112,7 +114,8 @@ export async function fetchHistories(days: number): Promise<ProtocolApyHistory[]
 export async function fetchSeries(
   days: number
 ): Promise<{ histories: ProtocolApyHistory[]; priceHistories: ProtocolPriceHistory[] }> {
-  const res = await fetch(`/api/market/history?days=${days}`, {
+  // R-8 (5.801): retries run inside the same 15 s limit.
+  const res = await fetchWithRetry(`/api/market/history?days=${days}`, {
     signal: AbortSignal.timeout(15000),
   });
   if (!res.ok) throw new BoundedFailure(`http-${res.status}`);
