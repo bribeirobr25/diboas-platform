@@ -33,7 +33,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { SERIES_SHAPES } from '../../../../scripts/market-refresh/tools-monthlies.mjs';
+import { PRICE_SERIES } from '../../../../scripts/market-data/publish.mjs';
 
 type Row = {
   ym: string;
@@ -70,7 +70,7 @@ const gapsIn = (months: { ym: string }[]) =>
 /**
  * Months where the adjustment factor falls by more than rounding can explain.
  * `prec` is the number of decimals the writer rounds `close` and
- * `closePriceOnly` to (`SERIES_SHAPES` in tools-monthlies.mjs, the one list that
+ * `closePriceOnly` to (`PRICE_SERIES` in market-data/publish.mjs, the one list that
  * shapes these rows); stored values with more decimals are rounded less, so half
  * a unit there bounds each value's rounding error.
  */
@@ -92,8 +92,8 @@ function factorFalls(months: Row[], prec: number): string[] {
 }
 
 const precisionOf = (code: string): number => {
-  const shape = (SERIES_SHAPES as Record<string, { prec: number }>)[code];
-  if (!shape) throw new Error(`${code}: no shape in tools-monthlies SERIES_SHAPES`);
+  const shape = (PRICE_SERIES as Record<string, { prec: number }>)[code];
+  if (!shape) throw new Error(`${code}: no shape in publish.mjs PRICE_SERIES`);
   return shape.prec;
 };
 
@@ -140,6 +140,28 @@ describe('MONTHLY-RULES-1: committed monthly price series keep their rules', () 
     'should never re-base later rows without the earlier ones when the fund is %s',
     (code, s) => {
       expect(factorFalls(s.months, precisionOf(code))).toEqual([]);
+    }
+  );
+
+  it.each(Object.keys(PRICE_SERIES))(
+    'should carry the unit the publisher writes when the series is %s',
+    (code) => {
+      const s = prices[code] as unknown as { unit?: string };
+      expect(s.unit).toBe((PRICE_SERIES as Record<string, { unit: string }>)[code].unit);
+    }
+  );
+
+  it.each(Object.keys(PRICE_SERIES))(
+    'should never jump by a factor of two or more between two months when the series is %s',
+    (code) => {
+      // A unit change (a GLD share at about $380 against an ounce at about
+      // $4,000) shows as a jump no real month of these series has made.
+      const m = prices[code].months;
+      const jumps = m
+        .slice(1)
+        .filter((r, i) => r.close / m[i].close >= 2 || r.close / m[i].close <= 0.5)
+        .map((r) => r.ym.slice(0, 7));
+      expect(jumps).toEqual([]);
     }
   );
 

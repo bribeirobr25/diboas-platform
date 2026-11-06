@@ -25,6 +25,9 @@
 import fs from 'node:fs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 
+/** A rehearsal run (its run title says so; it never opens a PR). */
+export const isRehearsal = (r) => /\bREHEARSAL\b/.test(r.displayTitle ?? '');
+
 /** Monday 00:00 UTC of the week containing `now`. */
 export function weekStartUtc(now) {
   const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
@@ -36,7 +39,7 @@ export function weekStartUtc(now) {
  * @param {{
  *   retrySchedule: boolean,
  *   openPrUrl: string,
- *   runs: { databaseId: number, conclusion: string | null, createdAt: string }[],
+ *   runs: { databaseId: number, conclusion: string | null, createdAt: string, displayTitle?: string }[],
  *   refusedRunIds?: string[],
  *   now: Date,
  * }} io
@@ -45,7 +48,10 @@ export function weekStartUtc(now) {
 export function retryDecision({ retrySchedule, openPrUrl, runs, now, refusedRunIds = [] }) {
   if (!retrySchedule) return { run: true, reason: 'the Monday schedule or a manual run' };
   const since = weekStartUtc(now).getTime();
-  const done = runs.find((r) => r.conclusion === 'success' && Date.parse(r.createdAt) >= since);
+  // A rehearsal (plan 5.760 §8.7) opens no PR, so it is not this week's refresh.
+  const done = runs.find(
+    (r) => r.conclusion === 'success' && Date.parse(r.createdAt) >= since && !isRehearsal(r)
+  );
   if (done) {
     return { run: false, reason: `this week's refresh already succeeded (run ${done.databaseId})` };
   }

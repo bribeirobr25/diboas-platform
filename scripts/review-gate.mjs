@@ -2928,6 +2928,10 @@ const CI_REHEARSAL = {
   'e2e.yml#sandbox-harness': 'local',
   'lighthouse.yml#lighthouse': 'local',
   'pr-record.yml#record': 'local',
+  // PUBLISH-1 (plan 5.760 increment 2): TOKEN=<any token that can read the store>
+  // bash apps/web/scripts/market-data/read-store.sh <dir> <manifest commit>, then
+  // node apps/web/scripts/market-data/publish.mjs --check --store <dir>/market
+  'market-publish-drift.yml#drift': 'local',
   'security.yml#secrets':
     'remote-only: gitleaks-action scans the pushed history; scripts/secrets-scan-staged.sh covers staged files only',
   'security.yml#audit': 'local',

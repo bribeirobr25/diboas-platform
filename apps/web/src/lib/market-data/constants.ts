@@ -547,10 +547,15 @@ export const FALLBACK_MARKET_DATA_METADATA = {
     source: 'docs/full-view/FEES.md (Hardcoded; never provider-driven per iter5-sdk-migration-map)',
   },
   monthlySeries: {
-    assets: { last_verified: '2026-05-23', source: 'Yahoo Finance v8 chart API (Phase A pull)' },
+    assets: {
+      last_verified: '2026-11-05',
+      source:
+        'diboas-analytics market store via scripts/market-data/publish.mjs (plan 5.760 increment 2); BTC: Yahoo via run.mjs --append-btc until increment 3',
+    },
     fx: {
-      last_verified: '2026-05-23',
-      source: 'BCB PTAX (BRL); ECB EXR cross-via-EUR (8 other currencies); 3 PENDING (ARS/CLP/COP)',
+      last_verified: '2026-11-05',
+      source:
+        'Fed H.10 month-end (8 currencies) via the diboas-analytics market store and publish.mjs; 3 PENDING (ARS/CLP/COP)',
     },
     inflation: {
       last_verified: '2026-05-23-PENDING',
