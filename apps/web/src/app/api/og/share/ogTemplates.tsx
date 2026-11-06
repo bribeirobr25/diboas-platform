@@ -13,7 +13,7 @@ import {
   type DefaultTemplateProps,
 } from './ogTypes';
 import { getTranslations, getDefaultName } from './ogTranslations';
-import { formatNumber, formatCurrency, formatResultCurrency } from './ogUtils';
+import { formatNumber, formatResultCurrency } from './ogUtils';
 import { OGMonogram } from '../_brand/monogram';
 
 /**
@@ -227,7 +227,8 @@ export function CalculatorTemplate({
           textShadow: `0 0 40px ${OG_COLORS.success}44`,
         }}
       >
-        {formatCurrency(futureAmount)}
+        {/* In the visitor's locale, as the share title (5.802). */}
+        {formatResultCurrency(futureAmount, 'USD', locale, 1)}
       </h1>
 
       {/* Strategy Info */}
@@ -239,7 +240,7 @@ export function CalculatorTemplate({
           marginTop: '32px',
         }}
       >
-        {initialInvestment && (
+        {initialInvestment ? (
           <div
             style={{
               display: 'flex',
@@ -263,11 +264,11 @@ export function CalculatorTemplate({
                 color: OG_COLORS.ink,
               }}
             >
-              {formatCurrency(initialInvestment)}
+              {formatResultCurrency(initialInvestment, 'USD', locale, 1)}
             </span>
           </div>
-        )}
-        {initialInvestment && (
+        ) : null}
+        {initialInvestment ? (
           <div
             style={{
               width: '1px',
@@ -275,7 +276,7 @@ export function CalculatorTemplate({
               background: OG_COLORS.inkMuted,
             }}
           />
-        )}
+        ) : null}
         <div
           style={{
             display: 'flex',

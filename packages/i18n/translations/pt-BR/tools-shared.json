@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Ferramentas financeiras — calculadoras gratuitas",
+      "title": "Ferramentas financeiras: calculadoras gratuitas",
       "description": "Calculadoras gratuitas para planejar sua aposentadoria, reserva de emergência e metas de poupança. Do diBoaS."
     },
     "hero": {
@@ -80,8 +80,8 @@
   },
   "confidence": {
     "high": "Alta confiança (±5%)",
-    "medium": "Confiança média — veja a nota de incerteza",
-    "low": "Baixa confiança — janela de alta volatilidade"
+    "medium": "Confiança média: veja a nota de incerteza",
+    "low": "Baixa confiança: janela de alta volatilidade"
   },
   "resultMoment": {
     "chartStart": "Hoje",

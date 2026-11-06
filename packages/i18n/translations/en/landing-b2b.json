@@ -281,13 +281,13 @@
       "ariaLabel": "Treasury idle cash calculator"
     },
     "originStory": {
-      "ariaLabel": "Origin story — Her name was Adelaide"
+      "ariaLabel": "Origin story: her name was Adelaide"
     },
     "businessBenefits": {
       "ariaLabel": "What your business gets with diBoaS"
     },
     "cashflowInvesting": {
-      "ariaLabel": "Cashflow investing — two wins from one change"
+      "ariaLabel": "Cashflow investing: two wins from one change"
     },
     "feeTable": {
       "ariaLabel": "Complete fee transparency table"
@@ -317,7 +317,7 @@
     "headline": "You didn't raise it to watch it sit still.",
     "subheadline": "Most of your round is runway you won't touch for months. It can wait somewhere you choose, with the cost and the risk in view, without ever leaving your control.",
     "body": {
-      "0": "A round lands. Payroll takes a slice every month. The rest — most of it — waits.",
+      "0": "A round lands. Payroll takes a slice every month. The rest, most of it, waits.",
       "1": "It waits in one account, at one bank, earning close to nothing. You already know what that sentence can cost.",
       "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it can go to work in digital-dollar strategies and stays under your control, ready to pull back when you need it. Every strategy carries risk, shown before you move."
     },
@@ -327,6 +327,6 @@
       "primary": "Talk to Bar"
     },
     "imageAlt": "A calm, sunlit workspace by a window in the morning light",
-    "ariaLabel": "Startup treasury — put idle runway to work"
+    "ariaLabel": "Startup treasury: put idle runway to work"
   }
 }

@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: ToolsPageProps): Promise<Meta
     return acc;
   }, {});
   const title =
-    messages['tools-shared.landing.seo.title'] ?? 'Money Tools — free financial calculators';
+    messages['tools-shared.landing.seo.title'] ?? 'Money Tools: free financial calculators';
   const description =
     messages['tools-shared.landing.seo.description'] ??
     'Free money calculators to plan your retirement, emergency fund, and savings goals.';
