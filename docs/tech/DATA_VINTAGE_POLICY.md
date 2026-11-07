@@ -5,7 +5,7 @@
 
 ## 1. The Policy
 
-**P-1 — Return/rate figures are multi-year averages.** Any figure presented as a return, yield, growth rate, depreciation rate, or scenario rate (on `/strategies`, `/tools`, `/learn`, PreDream, comparison tables) is derived from a multi-year historical window — never the current month, never an isolated last month. Trailing windows saturate at the full available series.
+**P-1 — Return/rate figures are multi-year averages.** Any figure presented as a return, yield, growth rate, depreciation rate, or scenario rate (on `/strategies`, `/tools`, `/learn`, PreDream, comparison tables; the Practice app under P-7) is derived from a multi-year historical window — never the current month, never an isolated last month. Trailing windows saturate at the full available series.
 
 **P-2 — The window ends at the last COMPLETE month.** The current (in-progress) month never enters any average.
 
@@ -16,6 +16,13 @@
 **P-5 — `/market` is exempt.** The BTC Macro Regime Dashboard runs on the diboas-analytics live pipeline with its own cadence, staleness gates, and data-status honesty rules.
 
 **P-6 — Every constant knows its provenance.** Market constants carry `lastVerified` metadata (source + date + window/methodology). A figure without provenance is a bug. This extends the `constants.ts` metadata convention to all data-fed surfaces, including `protocols.json`.
+
+**P-7 — The Practice app (`app.diboas.com`) is covered, with a spot carve-out** (founder B33, 2026-10-22; register `5.236`). P-1 to P-6 apply to its displayed figures, except that it MAY show a pool's **current spot rate** — never as an average, and only under its age rules:
+
+- it is labelled current and variable, with its provenance stamp (source and observation time);
+- its age is judged at every use against the Practice reference policy (`packages/defi/src/freshnessPolicy.ts`, evaluated by `freshness.ts`): up to 7 days it is usable as delayed, over 7 to 14 days it is stale and usable only under the bounded stale-simulation rule, and over 14 days it is refused for any current-facing use (`isRefusedForCurrentFacingUse`, `currentFacing.ts`) and the figure is shown as unavailable. A stricter source contract overrides these bands; they never loosen;
+- correctly preserved **historical replay** observations (the time machine, the charts) are history, not current figures, and are outside these bands;
+- a figure that projects forward from rates (the goal projection) uses an observed multi-month window and says so, never a spot rate alone.
 
 ## 2. Scope notes (founder-resolved 2026-07-05)
 
