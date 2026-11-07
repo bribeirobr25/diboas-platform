@@ -7,6 +7,7 @@ import { fxObservedRate, fxReference, fxUnavailable } from '../fxEvidence';
 import { FixtureGasProvider } from '../providers/gas';
 import { observedStamp } from '../testing';
 import { evidenceStamp } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 const stamp = evidenceStamp({ source: 'defillama', origin: 'OBSERVED', asOf: '2026-09-24' });
 const pt = (date: string, value: number) => ({ date, value });
@@ -68,7 +69,7 @@ describe('Block C · one historical contract, provider-neutral', () => {
      * a finding that is not there; comments are stripped before the scan.
      */
     const src = readFileSync(join(__dirname, '..', 'historicalEvidence.ts'), 'utf8');
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(src);
     expect(code).not.toMatch(/\b(interpolat|backfill|padSeries|fillGap)/i);
     /* And prove the stripper did not simply empty the file. */
     expect(code).toContain('buildHistoricalSeries');

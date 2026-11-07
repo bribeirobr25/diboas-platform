@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * HISTORICAL REPLAY IS EXEMPT FROM CURRENT-FACING AGE ENFORCEMENT.
@@ -34,9 +35,7 @@ const REPLAY_COMPOSITION = [
 
 /** Source with comments stripped — a symbol named in prose is not a call. */
 function codeOf(relative: string): string {
-  return readFileSync(new URL(relative, import.meta.url), 'utf8')
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+  return stripComments(readFileSync(new URL(relative, import.meta.url), 'utf8'), relative);
 }
 
 describe('historical replay is exempt from current-facing freshness enforcement', () => {

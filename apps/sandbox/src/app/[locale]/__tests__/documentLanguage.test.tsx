@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import type { ReactElement } from 'react';
 import LocaleRootLayout, { generateStaticParams } from '../layout';
 import { SANDBOX_LOCALES } from '@/i18n/config';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * `next/font/google` is a build-time transform with no runtime implementation,
@@ -66,7 +67,7 @@ describe('the document declares the language it is actually written in (5.203)',
     // Comments stripped first: this file's own docstring quotes the defect
     // (`<html lang="en">`) to explain it, and that prose must not trip the rule
     // it documents — the same reason `chartFillDarkMode` reads declarations only.
-    const code = source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(source, 'layout.tsx');
     expect(code).toContain('lang={locale}');
     expect(code).not.toMatch(/lang="[a-z]/);
   });

@@ -48,6 +48,7 @@ diboas-platform/
   packages/defi/       # @diboas/defi - strategy catalog-as-data + DeFiLlama/CoinGecko/gas providers (backs apps/sandbox)
   packages/investing/  # @diboas/investing - jobs split, goals, accrual replay (backs apps/sandbox)
   packages/format/     # @diboas/format - formatPercent ("7%", no space, every locale) for both apps
+  packages/test-support/ # @diboas/test-support - TEST-ONLY: stripComments/parseSource for source-scanning guards (devDependency)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
   docs/                # Documentation: only docs/tech/, docs/integrations/, docs/testing/ live here (tracked).
@@ -340,7 +341,7 @@ Turborepo scrubs them and source-map upload is skipped with no error.
 
 ## Dependencies Between Packages
 
-- `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, `@diboas/email` and `@diboas/format`; `apps/sandbox` on `@diboas/banking`, `@diboas/defi`, `@diboas/investing` and `@diboas/format`
+- `apps/web` depends on `@diboas/i18n`, `@diboas/ui`, `@diboas/email` and `@diboas/format`; `apps/sandbox` on `@diboas/banking`, `@diboas/defi`, `@diboas/investing` and `@diboas/format`; `@diboas/test-support` is a devDependency of both apps, `banking` and `defi` (every source-scanning test strips comments through it — `5.623`)
 - Every workspace package an app imports must be built before that app's dev/build/tests: turbo's `^build` covers `build`/`test`/`lint`/`type-check`/`dev`; outside turbo, build `--filter='<app>^...'` (the app's dependencies), never a hand-written package list (`pnpm dev:fresh`, `pnpm dev:sandbox` and the weekly /market workflow do this; guarded by `workspaceBuildOrder.test.ts`)
 - Turborepo handles build ordering via `turbo.json` task dependencies
 - **Dependency pinning strategy:** `next` is pinned exact (16.4.3 as of 2026-10-27 — bumped from 16.3.8 for two critical RCEs, GHSA-673q-mjm6-r5xr and GHSA-2464-fhr4-w9xw, and the Server Actions DoS GHSA-p3m5-59mp-jv5r; before that 16.3.8 for `next/og` GHSA-vcvr-r3jv-pc5j, PENDING_ALL 5.477; both `apps/web/package.json`, `apps/sandbox/package.json`, and root `package.json#pnpm.overrides.next` must stay aligned — AND the `postcss` devDep must match next's internal exact pin, see `docs/tech/implementation-notes.md` § postcss/storybook footgun). Other deps use caret ranges — `pnpm-lock.yaml` (committed) ensures reproducible builds. Do not delete or gitignore the lockfile.

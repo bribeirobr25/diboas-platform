@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import { isSourceUsable } from '../providerDisposition';
 import { EVIDENCE_SOURCES, type EvidenceSourceId } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 const SRC = join(__dirname, '..');
 const SOURCES = Object.keys(EVIDENCE_SOURCES) as EvidenceSourceId[];
@@ -53,9 +54,7 @@ describe('Block F · authorized ACTIVE providers stay active', () => {
      * the environment inside this package.
      */
     const offenders = productionFiles().filter((f) => {
-      const code = readFileSync(f, 'utf8')
-        .replace(/\/\*[\s\S]*?\*\//g, '')
-        .replace(/\/\/.*$/gm, '');
+      const code = stripComments(readFileSync(f, 'utf8'));
       return /DISABLE_|CONTAINMENT|disabledByDefault|DEFAULT_DISABLED/i.test(code);
     });
     expect(offenders.map((f) => f.replace(SRC, ''))).toEqual([]);
@@ -98,9 +97,7 @@ describe('Block F · provider state is INFRASTRUCTURE, never Product', () => {
     /* ⛑ CODE, NOT PROSE. The barrel's own comment explains which symbols were
        deliberately NOT exported and names them, so a raw scan flags the
        explanation of the rule as a breach of it. */
-    const barrel = readFileSync(join(SRC, 'index.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const barrel = stripComments(readFileSync(join(SRC, 'index.ts'), 'utf8'));
     for (const internal of [
       'SOURCE_DISPOSITIONS',
       'permitsUse',
@@ -125,9 +122,7 @@ describe('Block F · provider state is INFRASTRUCTURE, never Product', () => {
        not appear in a predicate that decides what Product shows. */
     const decisionModules = ['provenance.ts', 'rateAvailability.ts', 'currentFacing.ts'];
     for (const mod of decisionModules) {
-      const code = readFileSync(join(SRC, mod), 'utf8')
-        .replace(/\/\*[\s\S]*?\*\//g, '')
-        .replace(/\/\/.*$/gm, '');
+      const code = stripComments(readFileSync(join(SRC, mod), 'utf8'));
       for (const vendor of ['coingecko', 'defillama', 'CoinGecko', 'DeFiLlama']) {
         expect(code, `${mod} / ${vendor}`).not.toContain(vendor);
       }

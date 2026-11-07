@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * `5.436` · THE INVARIANTS THAT MUST HOLD BY NON-ACTION.
@@ -19,10 +20,7 @@ import { describe, expect, it } from 'vitest';
  * ```
  */
 
-const codeOf = (rel: string) =>
-  readFileSync(join(process.cwd(), rel), 'utf8')
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+const codeOf = (rel: string) => stripComments(readFileSync(join(process.cwd(), rel), 'utf8'), rel);
 
 /** Ledger and replay modules: settled state and history live here. */
 const SETTLED_STATE = [

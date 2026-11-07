@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createRevalidatingCache } from '../providers/revalidatingCache';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * The shared revalidation primitive.
@@ -174,10 +175,12 @@ describe('provider-agnostic by construction', () => {
   });
 
   it('should name no provider, evidence class, chain or payload field', async () => {
-    const src = (await import('node:fs'))
-      .readFileSync(new URL('../providers/revalidatingCache.ts', import.meta.url), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const src = stripComments(
+      (await import('node:fs')).readFileSync(
+        new URL('../providers/revalidatingCache.ts', import.meta.url),
+        'utf8'
+      )
+    );
     for (const forbidden of [
       'defillama',
       'coingecko',
@@ -199,10 +202,12 @@ describe('provider-agnostic by construction', () => {
   });
 
   it('should hold no freshness policy — cadence is not a freshness threshold', async () => {
-    const src = (await import('node:fs'))
-      .readFileSync(new URL('../providers/revalidatingCache.ts', import.meta.url), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const src = stripComments(
+      (await import('node:fs')).readFileSync(
+        new URL('../providers/revalidatingCache.ts', import.meta.url),
+        'utf8'
+      )
+    );
     for (const forbidden of [
       'CURRENT',
       'DELAYED',
