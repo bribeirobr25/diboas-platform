@@ -716,13 +716,17 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       values={{ amount: money(position.accrued) }}
                     />
                   </p>
-                  <RecurringControl
-                    goalId={goalId}
-                    positionId={position.positionId}
-                    schedule={state.recurring.find((r) => r.positionId === position.positionId)}
-                    workingBalance={state.buckets.working}
-                    currency={state.currency}
-                  />
+                  {/* K1 (5.534): deposits never run on an accomplished goal, so the control that
+                      sets them is not offered there. */}
+                  {goal.status !== 'accomplished' ? (
+                    <RecurringControl
+                      goalId={goalId}
+                      positionId={position.positionId}
+                      schedule={state.recurring.find((r) => r.positionId === position.positionId)}
+                      workingBalance={state.buckets.working}
+                      currency={state.currency}
+                    />
+                  ) : null}
 
                   <button
                     type="button"
@@ -744,7 +748,8 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             })
           )}
 
-          {detail.hasCash ? (
+          {/* K1 (5.534): money is not put to work toward a goal that is accomplished or dropped. */}
+          {detail.hasCash && goal.status !== 'accomplished' && goal.status !== 'dropped' ? (
             <div className={styles.investBlock}>
               {!pickerOpen ? (
                 <button
@@ -822,6 +827,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             setPauseSheet(false);
           }}
           onDismiss={() => setPauseSheet(false)}
+          hasOpenPositions={openPositions.length > 0}
           onStopStrategy={
             openPositions.length > 0 && canPriceExit
               ? () => {

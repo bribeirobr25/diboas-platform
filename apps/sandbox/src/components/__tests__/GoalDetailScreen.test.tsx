@@ -13,6 +13,7 @@ import {
   observedStamp,
 } from '@diboas/defi';
 import {
+  accomplishGoal,
   advanceTime,
   createGoal,
   enterStrategy,
@@ -21,6 +22,8 @@ import {
   grantPlayMoney,
   resetSandbox,
 } from '@/lib/ledgerClient';
+import { appendAll, base } from '@/lib/ledger/core';
+import type { LedgerEvent } from '@diboas/banking';
 import { GoalDetailScreen } from '../GoalDetailScreen';
 import { getMessages } from '@/i18n/loadMessages';
 
@@ -1034,5 +1037,78 @@ describe('PR 2 · one CoinGecko attribution per screen, Case 1 after a growth po
         .find((b) => b.hasAttribute('aria-pressed'))!
     );
     expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+  });
+});
+
+/**
+ * K1 (B14 "show only what's true", 5.534) — the controls a closed goal must not offer, by what the
+ * Detailed view RENDERS: "Put it to work" never on an accomplished or dropped goal; the monthly
+ * amount never on an accomplished one (its deposits never run). The same goal while active offers
+ * both, so the test is not vacuous.
+ */
+describe('GoalDetailScreen — K1: a closed goal offers only true controls', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  const openDetailed = () =>
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+
+  function investedGoal(): string {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 300, networkFeeLocal: 0 });
+    return goalId;
+  }
+
+  it('should offer put-to-work and the monthly amount while the goal is active', () => {
+    renderDetail(investedGoal());
+    openDetailed();
+    expect(screen.getByText('Put it to work')).toBeTruthy();
+    expect(screen.getByText('Add a monthly amount')).toBeTruthy();
+  });
+
+  it('should offer neither on an accomplished goal, though it still holds cash and a position', () => {
+    const goalId = investedGoal();
+    accomplishGoal(goalId, 'kept-working');
+    const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
+    expect(goal.status).toBe('accomplished');
+    expect(Number(goal.cash)).toBeGreaterThan(0); // the hidden control WOULD have rendered
+    renderDetail(goalId);
+    openDetailed();
+    expect(screen.queryByText('Put it to work')).toBeNull();
+    expect(screen.queryByText('Add a monthly amount')).toBeNull();
+  });
+
+  it('should not offer put-to-work on a dropped goal that regains cash from a legacy exit', () => {
+    const goalId = investedGoal();
+    const version = getLedgerState().goals.find((g) => g.goalId === goalId)!.version;
+    // A legacy log: the goal was dropped with its position still open (no screen emits this now).
+    appendAll([
+      {
+        ...base('k1-drop'),
+        type: 'GoalDropped',
+        goalId,
+        cashReleased: '700.00',
+        expectedVersion: version,
+      } as LedgerEvent,
+    ]);
+    exitPosition({ positionId: getLedgerState().positions[0].positionId, networkFeeLocal: 0 });
+    const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
+    expect(goal.status).toBe('dropped');
+    expect(Number(goal.cash)).toBeGreaterThan(0); // the exit booked cash into the dropped goal
+    renderDetail(goalId);
+    openDetailed();
+    expect(screen.queryByText('Put it to work')).toBeNull();
   });
 });
