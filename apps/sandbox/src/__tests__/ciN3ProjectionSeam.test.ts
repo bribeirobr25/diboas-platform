@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { resolveModule } from '@/test/importGraph';
-import { stripComments } from '@/test/stripComments';
+import { stripComments } from '@diboas/test-support';
 import type { RateRangesPayload } from '@/lib/rateRangesContract';
 import { selectGoalProjection, type ProjectionInput } from '../view/projection';
 

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * STAGE H · ACTIONABILITY HAS NO SUBJECT IN PRACTICE TODAY — MEASURED.
@@ -47,10 +48,7 @@ function productionSources(dir: string, out: string[] = []): string[] {
 }
 
 /** Source with comments stripped — a symbol discussed in prose is not a call. */
-const codeOf = (path: string) =>
-  readFileSync(path, 'utf8')
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+const codeOf = (path: string) => stripComments(readFileSync(path, 'utf8'));
 
 describe('actionability: no production subject exists, so H defers it', () => {
   it('should find no production CALLER of executableEvidence', () => {

@@ -7,6 +7,7 @@ import { toPayloadV1 } from '../evidencePayload';
 import { evidenceKey } from '../evidenceIdentity';
 import { evidenceStamp } from '../types';
 import { createHash } from 'node:crypto';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * The Legal/Data retention ruling of 2026-09-22, made executable.
@@ -314,10 +315,9 @@ describe('provider-agnostic lifecycle', () => {
   });
 
   it('should name no provider, chain or payload vendor shape', () => {
-    const src = require('node:fs')
-      .readFileSync(new URL('../evidenceRetention.ts', import.meta.url), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const src = stripComments(
+      require('node:fs').readFileSync(new URL('../evidenceRetention.ts', import.meta.url), 'utf8')
+    );
     for (const forbidden of ['chainstack', 'arbitrum', 'solana', 'defillama', 'coingecko', 'rpc']) {
       expect(
         src.toLowerCase(),

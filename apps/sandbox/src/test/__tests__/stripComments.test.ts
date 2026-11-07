@@ -2,8 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
-import { parseSource } from '../parseSource';
-import { stripComments } from '../stripComments';
+import { parseSource, stripComments } from '@diboas/test-support';
 
 /**
  * `stripComments` feeds CI-N1, CI-N3 and PRU-1: whatever it blanks, those
@@ -104,4 +103,73 @@ describe('stripComments · removes comments and never code', () => {
     expect(lost, 'stripComments changed the code of these files').toEqual([]);
     /* Parses every file twice: ~6.5 s under the full suite (measured 2026-10-16), so it gets its own budget. */
   }, 60_000);
+});
+
+/**
+ * 5.623 · ONE comment stripper. A test that rolls its own `//` regex truncates its scan at the
+ * first URL or string holding `//`, so the guard misses whatever follows (the defect `5.493` fixed
+ * in six guards survived in 21 more). Every test file in every workspace is parsed; a regex
+ * literal passed to `.replace(` that removes `//…` to the end of a line FAILS. Matching a pattern
+ * (`.match`) and stripping CSS block comments are not stripping TypeScript comments: they pass.
+ */
+describe('5.623 · every source-scanning test strips comments through @diboas/test-support', () => {
+  const REPO = resolve(__dirname, '../../../../..');
+  const LINE_COMMENT_REGEX = new RegExp(['\\\\/\\\\/', '(?:\\.\\*\\$|\\[\\^\\\\n\\]\\*)'].join(''));
+
+  /** Regex literals handed to `.replace(` that delete `//` line comments, in one source text. */
+  function ownStrippers(text: string, fileName: string): string[] {
+    const found: string[] = [];
+    const visit = (n: ts.Node) => {
+      if (
+        ts.isCallExpression(n) &&
+        ts.isPropertyAccessExpression(n.expression) &&
+        n.expression.name.text === 'replace' &&
+        n.arguments[0] &&
+        ts.isRegularExpressionLiteral(n.arguments[0]) &&
+        LINE_COMMENT_REGEX.test(n.arguments[0].text)
+      )
+        found.push(n.arguments[0].text);
+      ts.forEachChild(n, visit);
+    };
+    visit(parseSource(text, fileName));
+    return found;
+  }
+
+  it('should find no test file with its own // comment stripper', () => {
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir)) {
+        if (name === 'node_modules' || name === 'dist' || name.startsWith('.')) continue;
+        const p = join(dir, name);
+        if (statSync(p).isDirectory()) walk(p);
+        else if (/\.test\.tsx?$/.test(name)) files.push(p);
+      }
+    };
+    for (const ws of ['apps', 'packages'])
+      for (const pkg of readdirSync(join(REPO, ws))) {
+        const src = join(REPO, ws, pkg, 'src');
+        try {
+          if (statSync(src).isDirectory()) walk(src);
+        } catch {
+          /* a workspace without src */
+        }
+      }
+    expect(files.length, 'an empty corpus proves nothing').toBeGreaterThan(300);
+    const offenders = files.flatMap((f) =>
+      ownStrippers(readFileSync(f, 'utf8'), f).map((r) => `${f.slice(REPO.length + 1)}: ${r}`)
+    );
+    expect(offenders).toEqual([]);
+  }, 60_000);
+
+  it('should recognise the naive strippers, and pass a match or a CSS block stripper (non-vacuity)', () => {
+    const naive = [
+      "s.replace(/\\/\\/.*$/gm, '')",
+      "s.replace(/\\/\\*[\\s\\S]*?\\*\\/|\\/\\/.*$/gm, '')",
+      "s.replace(/(^|[^:])\\/\\/.*$/gm, '$1')",
+      "s.replace(/\\/\\/[^\\n]*/g, '')",
+    ];
+    for (const code of naive) expect(ownStrippers(code, 'x.ts'), code).toHaveLength(1);
+    expect(ownStrippers("s.match(/\\?\\?\\s*(?:\\/\\/[^\\n]*\\n)?'x'/)", 'x.ts')).toEqual([]);
+    expect(ownStrippers("css.replace(/\\/\\*[\\s\\S]*?\\*\\//g, '')", 'x.ts')).toEqual([]);
+  });
 });

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * The guard that keeps `VIEW-2`'s pass-in exception honest.
@@ -40,7 +41,7 @@ function componentFiles(dir: string): string[] {
 
 /** Strip comments so a name quoted in prose is never mistaken for a call. */
 function code(source: string): string {
-  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+  return stripComments(source, 'screen.tsx'); // every scanned file is a .tsx screen
 }
 
 describe('VIEW-2 pass-in exception — the four permitted helpers are passed, never called', () => {

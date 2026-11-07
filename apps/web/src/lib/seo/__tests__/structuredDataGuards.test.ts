@@ -26,6 +26,7 @@ import {
   STRUCTURED_DATA_FALLBACKS,
   type ServicePage,
 } from '../pageStructuredData';
+import { stripComments } from '@diboas/test-support';
 
 const WEB_SRC = path.resolve(__dirname, '../../..');
 const TRANSLATIONS = path.resolve(WEB_SRC, '../../../packages/i18n/translations');
@@ -126,10 +127,7 @@ describe('step 2 · 1 — structured data comes from the page catalogue, through
     const found: string[] = [];
     for (const f of webSourceFiles()) {
       if (OFFER_ALLOWED.has(f)) continue;
-      const src = fs
-        .readFileSync(path.join(WEB_SRC, f), 'utf8')
-        .replace(/\/\*[\s\S]*?\*\//g, '')
-        .replace(/(^|[^:])\/\/.*$/gm, '$1');
+      const src = stripComments(fs.readFileSync(path.join(WEB_SRC, f), 'utf8'), f);
       if (/areaServed\s*:|'@type':\s*'Offer'|\boffers\s*:/.test(src)) found.push(f);
     }
     expect(found).toEqual([]);

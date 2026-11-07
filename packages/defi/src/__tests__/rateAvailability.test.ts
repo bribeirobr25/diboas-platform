@@ -5,6 +5,7 @@ import { getStrategy } from '../catalog';
 import { strategyRateAvailability } from '../rateAvailability';
 import { observedStamp } from '../testing';
 import type { ProtocolApy } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * `5.436` — the rate half of the `5.309` age contract.
@@ -92,8 +93,7 @@ describe('a strategy rate is available only when every leg is', () => {
 });
 
 function readSource(): string {
-  return require('node:fs')
-    .readFileSync(new URL('../rateAvailability.ts', import.meta.url), 'utf8')
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+  return stripComments(
+    require('node:fs').readFileSync(new URL('../rateAvailability.ts', import.meta.url), 'utf8')
+  );
 }

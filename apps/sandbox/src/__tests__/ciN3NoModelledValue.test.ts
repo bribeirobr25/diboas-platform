@@ -3,7 +3,7 @@ import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import * as ledgerClient from '@/lib/ledgerClient';
 import { moduleBase, resolveModule, runtimeImports } from '@/test/importGraph';
-import { stripComments } from '@/test/stripComments';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * ⚙ `CI-N3` · NO MODELLED VALUE REACHES AN ACTUAL BALANCE OR GOAL COMPLETION.

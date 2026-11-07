@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { legRequiresCurrentRate } from '../catalogueEvidence';
 import { PROTOCOL_DOMAIN_IDENTITY } from '../domainIdentity';
 import { PROTOCOL_RETURN_MODEL, type ProtocolId } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 const PROTOCOLS = Object.keys(PROTOCOL_DOMAIN_IDENTITY) as ProtocolId[];
 
@@ -64,9 +65,7 @@ describe('S1 · the catalogue asks each leg for what its return mechanism produc
      * deliberately does not branch on, and a raw scan would flag the
      * explanation of the rule as a breach of it.
      */
-    const code = readFileSync(join(__dirname, '..', 'catalogueEvidence.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const code = stripComments(readFileSync(join(__dirname, '..', 'catalogueEvidence.ts'), 'utf8'));
     for (const id of PROTOCOLS) {
       expect(code, id).not.toContain(id);
     }
@@ -77,9 +76,7 @@ describe('S1 · the catalogue asks each leg for what its return mechanism produc
   });
 
   it('should stay NARROW — no universal resolver crept in', () => {
-    const code = readFileSync(join(__dirname, '..', 'catalogueEvidence.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const code = stripComments(readFileSync(join(__dirname, '..', 'catalogueEvidence.ts'), 'utf8'));
     for (const banned of ['ProductFunction', 'CURRENT_PRICE', 'REPLAY', 'EXIT', 'VALUATION']) {
       expect(code, banned).not.toContain(banned);
     }
