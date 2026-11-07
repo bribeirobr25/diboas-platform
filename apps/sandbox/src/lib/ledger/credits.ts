@@ -40,15 +40,16 @@ export function collectWeeklyCredits(nowIso = new Date().toISOString()): {
 }
 
 /**
- * The one-time W-5c comparison credit. The engine enforces both covenant
- * guards (once per ledger, only after the first strategy entry); this mirrors
- * them so the caller learns synchronously whether anything happened. The offer
- * SURFACE (never pre-announced, never a reward — the binding framing rules)
- * rides the §4 screens.
+ * The one-time W-5c comparison credit. UNCONDITIONAL (founder B9, Q8; register 5.453): no entry
+ * condition — a credit that required entering a strategy would be a funding incentive (CI-N2) —
+ * and once per ledger. The engine enforces the once-per-ledger rule; this mirrors it so the caller
+ * learns synchronously whether anything happened. Still unreachable: no screen offers it until a
+ * separate product decision (E5); the offer framing rules (never pre-announced, never a reward)
+ * bind that surface.
  */
 export function grantComparisonCredit(): boolean {
   const state = getLedgerState();
-  if (!state.initialized || state.comparisonCredited || state.positions.length === 0) return false;
+  if (!state.initialized || state.comparisonCredited) return false;
   appendAll([
     {
       ...base(generateId()),

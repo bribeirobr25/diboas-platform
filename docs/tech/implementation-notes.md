@@ -1015,8 +1015,9 @@ pinned by a test that was watched failing.
   - ⚑ **`CI-N2`'s primary half is the MECHANISM:** a benefit that scales with funding is the
     violation whatever it is called. Hold the genesis grant at the real constant and vary only
     funding — varying the grant instead trips `creditCeilingReached` and proves nothing about
-    deposits. The position-conditioned comparison credit (`5.453`) is NOT covered and awaits a
-    Legal ruling; an `it.todo` names it.
+    deposits. The comparison credit (`5.453`) is covered since 2026-11-07: founder B9 / Q8 made
+    it unconditional (no entry condition, once per ledger), and the gate fails if a position
+    condition returns in the client or the engine.
 
 - **`THE ROOT ERROR BOUNDARY HAS NO PROVIDERS, AND THAT SHAPES IT`** (`5.206`, 2026-09-25).
   `apps/sandbox/src/app/global-error.tsx` REPLACES the root layout, so there is no

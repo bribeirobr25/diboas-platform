@@ -4,6 +4,8 @@ import {
   createGoal,
   enterStrategy,
   getLedgerState,
+  exitPosition,
+  grantComparisonCredit,
   grantPlayMoney,
   resetSandbox,
 } from '@/lib/ledgerClient';
@@ -35,9 +37,9 @@ import { DENIAL_HINT, readsAsDenial } from '@/test/negation';
  * very different funding volumes and asserts the benefit is identical, before
  * it looks at any copy.
  *
- * ⚑ SCOPE LIMIT (stated, not hidden): the position-conditioned comparison
- * credit (`grantComparisonCredit`, register 5.453) is NOT ruled on and NOT
- * covered here — see the `it.todo` below.
+ * ⚑ THE COMPARISON CREDIT IS COVERED (founder B9 / Q8, register 5.453): it has
+ * no entry condition — granted the same with no position, an open one or only a
+ * closed one — and is once per ledger. This replaced the former SCOPE LIMIT.
  *
  * ⚑ THE EXISTING SCREEN-LOCAL GUARD IS NOT THIS GATE.
  * `WeeklyCycleScreen.test.tsx` bans reward vocabulary in ONE rendered screen.
@@ -167,9 +169,70 @@ describe('CI-N2 · the practice credit is flat and unconditional', () => {
     ).toEqual([]);
   });
 
-  it.todo(
-    'SCOPE LIMIT · 5.453 · the comparison credit requires an open position — awaiting a Legal ruling; NOT covered by this gate'
-  );
+  /**
+   * 5.453 (founder B9, Q8): the comparison credit has NO entry condition. The same credit with no
+   * position, with an open one, and with only a closed one; once per ledger in every case. If a
+   * condition on entering a strategy returns (in the client OR the engine), this fails.
+   */
+  it.each([
+    ['no position at all', 'none'],
+    ['an open position', 'open'],
+    ['only a closed position', 'closed'],
+  ] as const)('should grant the comparison credit with %s, once per ledger', (_label, held) => {
+    resetSandbox();
+    vi.setSystemTime(GENESIS);
+    grantPlayMoney(PLAY_MONEY_GRANT.b2c, 'BRL', 'b2c');
+    if (held !== 'none') {
+      const goalId = createGoal({
+        name: 'Trip',
+        icon: 'plane',
+        targetAmount: 4_000,
+        horizonMonths: 12,
+        fundAmount: 1_000,
+      });
+      enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 900, networkFeeLocal: 0 });
+      if (held === 'closed') {
+        const positionId = getLedgerState().positions[0].positionId;
+        exitPosition({ positionId, networkFeeLocal: 0 });
+      }
+    }
+    const before = getLedgerState().credited;
+    expect(grantComparisonCredit(), 'refused — an entry condition is back').toBe(true);
+    const state = getLedgerState();
+    expect(state.comparisonCredited).toBe(true);
+    // The engine applied it (the client mirror alone could still say true).
+    expect(Number(state.credited) - Number(before)).toBeGreaterThan(0);
+    expect(grantComparisonCredit(), 'granted twice').toBe(false);
+  });
+
+  it('should grant the comparison credit for the same amount whatever is held', () => {
+    const amountWith = (held: 'none' | 'open') => {
+      resetSandbox();
+      vi.setSystemTime(GENESIS);
+      grantPlayMoney(PLAY_MONEY_GRANT.b2c, 'BRL', 'b2c');
+      if (held === 'open') {
+        const goalId = createGoal({
+          name: 'Trip',
+          icon: 'plane',
+          targetAmount: 4_000,
+          horizonMonths: 12,
+          fundAmount: 1_500,
+        });
+        enterStrategy({
+          goalId,
+          strategyId: 'safeHarbor',
+          totalFromCash: 1_200,
+          networkFeeLocal: 0,
+        });
+      }
+      grantComparisonCredit();
+      return getLedgerState()
+        .events.filter((e) => e.type === 'ComparisonCreditGranted')
+        .map((e) => (e as { amount: string }).amount);
+    };
+    expect(amountWith('none')).toHaveLength(1);
+    expect(amountWith('none')).toEqual(amountWith('open'));
+  });
 });
 
 /* ── 2 · the copy ─────────────────────────────────────────────────────────── */
