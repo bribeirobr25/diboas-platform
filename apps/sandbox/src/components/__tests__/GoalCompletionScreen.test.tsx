@@ -2,7 +2,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createGoal, getLedgerState, grantPlayMoney, resetSandbox } from '@/lib/ledgerClient';
+import {
+  createGoal,
+  enterStrategy,
+  getLedgerState,
+  grantPlayMoney,
+  resetSandbox,
+} from '@/lib/ledgerClient';
 import { GoalCompletionScreen } from '../GoalCompletionScreen';
 
 const M = {
@@ -61,7 +67,8 @@ describe('GoalCompletionScreen — G4 dispositions (§4.4, mockup 16, board §3.
   it('should offer the dispositions with equal weight and no default selection', () => {
     renderCompletion(reachedGoal());
     expect(screen.getByText('What would you like to do next?')).toBeTruthy();
-    expect(screen.getByText('Keep working')).toBeTruthy();
+    // K1 (B14): a cash-only goal has nothing working — "Keep working" would be false.
+    expect(screen.queryByText('Keep working')).toBeNull();
     expect(screen.getByText('Hold as cash')).toBeTruthy();
     expect(screen.getByText('Move to another goal')).toBeTruthy();
     expect(screen.getByText('Raise the target')).toBeTruthy();
@@ -71,13 +78,39 @@ describe('GoalCompletionScreen — G4 dispositions (§4.4, mockup 16, board §3.
     expect(screen.getByText(/You stayed consistent/)).toBeTruthy();
   });
 
+  /**
+   * K1 (B14 "show only what's true", 5.533) — the state table, by what the menu RENDERS: "Keep
+   * working" exactly when an open position exists, "Hold as cash" exactly when none does.
+   */
+  it.each([
+    ['cash only', 0, false],
+    ['invested and cash (mixed)', 200, true],
+    ['all of it invested', 500, true],
+  ] as const)('should offer only the true choices — %s', (_label, invest, working) => {
+    const goalId = reachedGoal();
+    if (invest > 0)
+      enterStrategy({
+        goalId,
+        strategyId: 'safeHarbor',
+        totalFromCash: invest,
+        networkFeeLocal: 0,
+      });
+    renderCompletion(goalId);
+    expect(screen.queryByText('Keep working') !== null, 'Keep working').toBe(working);
+    expect(screen.queryByText('Hold as cash') !== null, 'Hold as cash').toBe(!working);
+    // Always offered, whatever is held.
+    expect(screen.getByText('Move to another goal')).toBeTruthy();
+    expect(screen.getByText('Raise the target')).toBeTruthy();
+  });
+
   it('should close as kept-working, leaving the goal cash where it is', () => {
     const goalId = reachedGoal();
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 200, networkFeeLocal: 0 });
     renderCompletion(goalId);
     fireEvent.click(screen.getByText('Keep working'));
     const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
     expect(goal.status).toBe('accomplished');
-    expect(goal.cash).toBe('500.00');
+    expect(goal.cash).toBe('300.00'); // the cash that was not invested stays where it is
   });
 
   it('should close as held-as-cash', () => {
@@ -148,7 +181,8 @@ describe('GoalCompletionScreen — G4 dispositions (§4.4, mockup 16, board §3.
         <GoalCompletionScreen goal={goal} state={state} onClose={onClose} />
       </IntlProvider>
     );
-    fireEvent.click(screen.getByText('Keep working'));
+    // A cash-only goal: its true disposition is 'Hold as cash' (K1 hides 'Keep working').
+    fireEvent.click(screen.getByText('Hold as cash'));
     expect(onClose).toHaveBeenCalledOnce();
   });
 
