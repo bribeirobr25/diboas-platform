@@ -1,11 +1,11 @@
 {
   "_comment": "Weekly refresh generated 2026-08-10 by apps/web/scripts/market-refresh/run.mjs (P2 fetch + fail-closed quality gate + shared engine) with editorial copy from generate.mjs (P3 template library; overrides in editorial-override.json). Cycle 2026-08-10: score 7 → 6, staying NEUTRAL_MIXED — REL-01 (BTC/Gold) flipped INACTIVE (ratio 14.947 vs 20-week trend 15.297). Structural signals anchor the confirmed July 31 monthly close per doc 02 §5.1 (BTC-02 + BTC-03 active; BTC-01 + BTC-04 inactive); weekly signals anchor the most recent confirmed Friday per source — NASDAQCOM/GC=F at 2026-08-07, DGS10/DTWEXBGS at 2026-07-31 (publication lag at the Monday 07:55 UTC run), M2SL at the June print (July due ~late August). ETF-01 evaluated UNAVAILABLE per doc 02 §10.1 while the Polygon shares-outstanding ledger warms up (4 of 5 weekly snapshots; first scorable evaluation expected ~2026-08-17). data_status carries the same source list as apps/web/data/market/data-status.json (byte-parity audit gate, F-M6). _translation_status sibling block tracks non-EN content review state per market-editorial.md §5.",
-  "score": 9,
+  "score": 6,
   "max_score": 14,
-  "regime_code": "CONSTRUCTIVE",
-  "regime_label": "Constructive",
-  "environment_bias": "CONSTRUCTIVE",
-  "last_updated_at": "2026-11-02T15:54:01.945Z",
+  "regime_code": "NEUTRAL_MIXED",
+  "regime_label": "Neutral / Mixed",
+  "environment_bias": "MIXED",
+  "last_updated_at": "2026-11-09T16:20:14.309Z",
   "summary": {
     "en": {
       "short": "The composite reads 9 of 14, Constructive, the same as a week ago, and every signal kept its state. The structural block still reads the September 30 close, six of six; the October 31 close is not yet part of this update. The dollar and the US 10-year now read their October 23 values, and both still work against the price, each a little closer to its trend than a week ago: the dollar 1.06% above its 20-week trend, the 10-year at 5.00% against a 4.84% trend. Liquidity now reads the September print. Bitcoin's lead over gold narrowed to 10.3%; its lead over the Nasdaq is about 7.8%, with the Nasdaq still on its October 23 value.",
@@ -24,7 +24,7 @@
         "The US 10-year at 5.00% is still above its 4.84% trend, the second macro read working against the price, though the gap narrowed again since the previous update",
         "The Nasdaq still sits 0.66% below its own 20-week trend (25,955 against 26,128, its October 23 value), so the wider risk-market signal stays off and relative strength holds at two of three points"
       ],
-      "plain": "A steady week — still 9 of 14. It's a constructive month for Bitcoin: more of what we track leans in the price's favor than against it. What we're watching: whether the stock market itself steadies, and whether the dollar loosens its grip."
+      "plain": "This week the read stepped down a level, from 9 to 6 of 14. The monthly read is genuinely mixed — half of what we track leans one way, half the other. What we're watching: whether the dollar loosens its grip, and whether the price can climb back above its long middle line."
     },
     "pt-BR": {
       "short": "O composto marca 9 de 14, Construtivo, o mesmo de uma semana atrás, e todos os sinais mantiveram seu estado. O bloco estrutural ainda lê o fechamento de 30 de setembro, seis de seis; o fechamento de 31 de outubro ainda não faz parte desta atualização. O dólar e a taxa de 10 anos dos EUA agora leem os valores de 23 de outubro, e os dois seguem trabalhando contra o preço, cada um um pouco mais perto da sua tendência do que há uma semana: o dólar 1,06% acima da sua tendência de 20 semanas, a taxa de 10 anos em 5,00% contra uma tendência de 4,84%. A liquidez agora lê o dado de setembro. A dianteira do Bitcoin contra o ouro diminuiu para 10,3%; contra o Nasdaq, ela é de cerca de 7,8%, com o Nasdaq ainda no valor de 23 de outubro.",
@@ -43,7 +43,7 @@
         "A taxa de 10 anos dos EUA, em 5,00%, segue acima da tendência de 4,84%, a segunda leitura macro que trabalha contra o preço, embora a distância tenha diminuído de novo desde a atualização anterior",
         "O Nasdaq segue 0,66% abaixo da sua própria tendência de 20 semanas (25.955 contra 26.128, valor de 23 de outubro), então o sinal do mercado de risco mais amplo segue desligado e a força relativa se mantém em dois de três pontos"
       ],
-      "plain": "Uma semana estável — ainda 9 de 14. É um mês construtivo para o Bitcoin: mais coisas que acompanhamos pendem a favor do preço do que contra. O que estamos observando: se a própria bolsa se firma, e se o dólar afrouxa o aperto."
+      "plain": "Nesta semana a leitura desceu um nível, de 9 para 6 de 14. A leitura do mês é genuinamente mista — metade do que acompanhamos pende para um lado, metade para o outro. O que estamos observando: se o dólar afrouxa o aperto, e se o preço consegue voltar acima da sua linha média longa."
     },
     "es": {
       "short": "El compuesto marca 9 de 14, Constructivo, lo mismo que hace una semana, y todas las señales mantuvieron su estado. El bloque estructural sigue leyendo el cierre del 30 de septiembre, seis de seis; el cierre del 31 de octubre todavía no forma parte de esta actualización. El dólar y el bono estadounidense a 10 años leen ahora sus valores del 23 de octubre, y ambos siguen trabajando en contra del precio, cada uno algo más cerca de su tendencia que hace una semana: el dólar un 1,06% por encima de su tendencia de 20 semanas, el bono a 10 años en el 5,00% frente a una tendencia del 4,84%. La liquidez lee ahora el dato de septiembre. La ventaja de Bitcoin frente al oro se redujo al 10,3%; frente al Nasdaq es de alrededor del 7,8%, con el Nasdaq todavía en su valor del 23 de octubre.",
@@ -62,7 +62,7 @@
         "El bono estadounidense a 10 años, en el 5,00%, sigue por encima de su tendencia del 4,84%, la segunda lectura macro que trabaja en contra del precio, aunque la distancia volvió a reducirse desde la actualización anterior",
         "El Nasdaq sigue un 0,66% por debajo de su propia tendencia de 20 semanas (25.955 frente a 26.128, su valor del 23 de octubre), así que la señal del mercado de riesgo más amplio sigue apagada y la fuerza relativa se mantiene en dos de tres puntos"
       ],
-      "plain": "Una semana estable — todavía 9 de 14. Es un mes constructivo para Bitcoin: la balanza de lo que seguimos se inclina a favor del precio. Lo que observamos: si la propia bolsa se afirma, y si el dólar afloja su presión."
+      "plain": "Esta semana la lectura bajó un nivel, de 9 a 6 de 14. La lectura del mes es realmente mixta: la mitad de lo que seguimos se inclina a un lado y la mitad al otro. Lo que observamos: si el dólar afloja su presión, y si el precio logra volver por encima de su línea media larga."
     },
     "de": {
       "short": "Der Gesamtwert steht bei 9 von 14, Konstruktiv, wie vor einer Woche, und alle Signale haben ihren Zustand behalten. Der strukturelle Block liest weiterhin den Schluss vom 30. September, sechs von sechs; der Schluss vom 31. Oktober ist in diesem Update noch nicht enthalten. Der Dollar und die US-Rendite auf zehn Jahre lesen jetzt ihre Werte vom 23. Oktober, und beide arbeiten weiterhin gegen den Preis, jeweils etwas näher an ihrem Trend als vor einer Woche: der Dollar 1,06% über seinem 20-Wochen-Trend, die Rendite bei 5,00% gegenüber einem Trend von 4,84%. Die Liquidität liest jetzt den September-Wert. Der Vorsprung von Bitcoin gegenüber Gold ist auf 10,3% geschrumpft; gegenüber dem Nasdaq liegt er bei rund 7,8%, wobei der Nasdaq weiterhin seinen Wert vom 23. Oktober liest.",
@@ -81,7 +81,7 @@
         "Die US-Rendite auf zehn Jahre liegt mit 5,00% weiterhin über ihrem Trend von 4,84%, der zweite Makrowert, der gegen den Preis arbeitet, auch wenn der Abstand seit dem vorigen Update erneut kleiner geworden ist",
         "Der Nasdaq liegt weiterhin 0,66% unter seinem eigenen 20-Wochen-Trend (25.955 gegenüber 26.128, sein Wert vom 23. Oktober), damit bleibt das Signal zum breiteren Risikomarkt inaktiv und die relative Stärke hält zwei von drei Punkten"
       ],
-      "plain": "Eine ruhige Woche — weiterhin 9 von 14. Es ist ein konstruktiver Monat für Bitcoin: Die Waage dessen, was wir verfolgen, neigt sich zugunsten des Preises. Worauf wir achten: ob der Aktienmarkt selbst zur Ruhe kommt und ob der Dollar seinen Griff lockert."
+      "plain": "Diese Woche rückte die Bewertung eine Stufe tiefer, von 9 auf 6 von 14. Die Lage im Monat ist wirklich gemischt — die Hälfte von dem, was wir verfolgen, neigt sich hierhin, die Hälfte dorthin. Worauf wir achten: ob der Dollar seinen Griff lockert und ob der Preis wieder über seine lange Mittellinie klettern kann."
     }
   },
   "signal_groups": [
@@ -94,14 +94,14 @@
         "es": "Estructura del BTC",
         "de": "BTC-Struktur"
       },
-      "status": "CONSTRUCTIVE",
-      "points_awarded": 6,
+      "status": "MIXED",
+      "points_awarded": 3,
       "max_points": 6,
       "summary": {
-        "en": "Bitcoin's structure is sound: price holds its monthly trend lines and momentum confirms (6 of 6 points).",
-        "pt-BR": "A estrutura do Bitcoin está sólida: o preço mantém as linhas de tendência mensais e o momentum confirma (6 de 6 pontos).",
-        "es": "La estructura de Bitcoin es sólida: el precio mantiene sus líneas de tendencia mensuales y el impulso confirma (6 de 6 puntos).",
-        "de": "Bitcoins Struktur ist solide: Der Preis hält seine monatlichen Trendlinien und das Momentum stützt (6 von 6 Punkten)."
+        "en": "Bitcoin's structure is split: the long-term trend and short-term momentum still holding, the mid-term trend and monthly momentum faltering (3 of 6 points).",
+        "pt-BR": "A estrutura do Bitcoin está dividida: a tendência de longo prazo e o momentum de curto prazo ainda se sustentando, a tendência de médio prazo e o momentum mensal enfraquecendo (3 de 6 pontos).",
+        "es": "La estructura de Bitcoin está dividida: la tendencia a largo plazo y el impulso a corto plazo aún aguantando, la tendencia a medio plazo y el impulso mensual flaqueando (3 de 6 puntos).",
+        "de": "Bitcoins Struktur ist gespalten: der langfristige Trend und das kurzfristige Momentum auf der stabilen Seite, der mittelfristige Trend und das monatliche Momentum auf der schwachen Seite (3 von 6 Punkten)."
       }
     },
     {
@@ -164,34 +164,34 @@
   ],
   "data_status": {
     "overall_confidence": "MODERATE",
-    "last_successful_update_at": "2026-11-02T15:54:01.945Z",
+    "last_successful_update_at": "2026-11-09T16:20:14.309Z",
     "sources": [
       {
         "source": "in-repo:monthlyPrices.json (BTC)",
         "status": "FRESH",
-        "last_updated_at": "2026-09-30T00:00:00Z",
-        "expected_next_update_at": "2026-10-31T23:59:59Z",
-        "stale_after": "2026-12-01T00:00:00Z",
-        "delayed_after": "2026-11-03T23:59:59.999Z",
-        "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last confirmed monthly close September 30, 2026. Next update due at the October 31 monthly close."
+        "last_updated_at": "2026-10-31T00:00:00Z",
+        "expected_next_update_at": "2026-11-30T23:59:59Z",
+        "stale_after": "2027-01-01T00:00:00Z",
+        "delayed_after": "2026-12-03T23:59:59.999Z",
+        "message": "BTC monthly price series spliced (CoinMetrics 2010-07 → 2014-08; Yahoo 2014-09 onwards). Authoritative for BTC structural signals (BTC-01..04). Last confirmed monthly close October 31, 2026. Next update due at the November 30 monthly close."
       },
       {
         "source": "FRED:DGS10",
         "status": "FRESH",
-        "last_updated_at": "2026-10-23T00:00:00Z",
-        "expected_next_update_at": "2026-11-06T20:00:00Z",
-        "stale_after": "2026-11-13T20:00:00Z",
-        "delayed_after": "2026-11-06T00:00:00Z",
-        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-10-23)."
+        "last_updated_at": "2026-10-30T00:00:00Z",
+        "expected_next_update_at": "2026-11-13T20:00:00Z",
+        "stale_after": "2026-11-20T20:00:00Z",
+        "delayed_after": "2026-11-13T00:00:00Z",
+        "message": "US 10-year constant-maturity yield. Weekly signal anchored at the most recent confirmed Friday close (2026-10-30)."
       },
       {
         "source": "FRED:DTWEXBGS",
         "status": "FRESH",
-        "last_updated_at": "2026-10-23T00:00:00Z",
-        "expected_next_update_at": "2026-11-06T20:00:00Z",
-        "stale_after": "2026-11-13T20:00:00Z",
-        "delayed_after": "2026-11-06T00:00:00Z",
-        "message": "Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY. Weekly signal anchored at the most recent confirmed Friday close (2026-10-23)."
+        "last_updated_at": "2026-10-30T00:00:00Z",
+        "expected_next_update_at": "2026-11-13T20:00:00Z",
+        "stale_after": "2026-11-20T20:00:00Z",
+        "delayed_after": "2026-11-13T00:00:00Z",
+        "message": "Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY. Weekly signal anchored at the most recent confirmed Friday close (2026-10-30)."
       },
       {
         "source": "FRED:M2SL",
@@ -205,29 +205,29 @@
       {
         "source": "FRED:NASDAQCOM",
         "status": "FRESH",
-        "last_updated_at": "2026-10-23T00:00:00Z",
-        "expected_next_update_at": "2026-11-06T20:00:00Z",
-        "stale_after": "2026-11-13T20:00:00Z",
-        "delayed_after": "2026-11-06T00:00:00Z",
-        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-10-23)."
+        "last_updated_at": "2026-11-06T00:00:00Z",
+        "expected_next_update_at": "2026-11-13T20:00:00Z",
+        "stale_after": "2026-11-20T20:00:00Z",
+        "delayed_after": "2026-11-20T00:00:00Z",
+        "message": "Nasdaq Composite close. Weekly signal anchored at the most recent confirmed Friday close (2026-11-06)."
       },
       {
         "source": "Yahoo:GC=F",
         "status": "FRESH",
-        "last_updated_at": "2026-10-30T00:00:00Z",
-        "expected_next_update_at": "2026-11-06T20:00:00Z",
-        "stale_after": "2026-11-13T20:00:00Z",
-        "delayed_after": "2026-11-13T00:00:00Z",
-        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-10-30."
+        "last_updated_at": "2026-11-06T00:00:00Z",
+        "expected_next_update_at": "2026-11-13T20:00:00Z",
+        "stale_after": "2026-11-20T20:00:00Z",
+        "delayed_after": "2026-11-20T00:00:00Z",
+        "message": "Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29). Weekly anchor 2026-11-06."
       },
       {
         "source": "Polygon:ETF (shares-outstanding)",
         "status": "UNAVAILABLE",
-        "last_updated_at": "2026-10-30T00:00:00Z",
-        "expected_next_update_at": "2026-11-06T00:00:00Z",
-        "stale_after": "2026-11-20T00:00:00Z",
+        "last_updated_at": "2026-11-06T00:00:00Z",
+        "expected_next_update_at": "2026-11-13T00:00:00Z",
+        "stale_after": "2026-11-27T00:00:00Z",
         "delayed_after": null,
-        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). ETF-01 is suspended from the 2026-10-19 cycle: the share-count route cannot support a weekly evaluation, so the signal is scored UNAVAILABLE (0 points), not weak. Collection is still attempted weekly. Ledger: 16 records, 15 complete (a share count and a price for every fund); completeness does not show that the share counts are current, and their observation dates are not provided. The latest complete record is anchored 2026-10-30. A successful collection does not reactivate the signal."
+        "message": "Spot-ETF net flows derived from the Polygon shares-outstanding weekly ledger (P4 route, 2026-07-11 — replaces the dead CoinGlass/Farside feeds). ETF-01 is suspended from the 2026-10-19 cycle: the share-count route cannot support a weekly evaluation, so the signal is scored UNAVAILABLE (0 points), not weak. Collection is still attempted weekly. Ledger: 17 records, 16 complete (a share count and a price for every fund); completeness does not show that the share counts are current, and their observation dates are not provided. The latest complete record is anchored 2026-11-06. A successful collection does not reactivate the signal."
       }
     ],
     "delayed_sources": [],
