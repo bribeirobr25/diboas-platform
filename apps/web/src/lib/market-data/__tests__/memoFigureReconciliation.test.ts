@@ -131,7 +131,8 @@ export function figuresIn(text: string, locale: MemoLocale = 'en'): MemoFigure[]
   const matches = cleaned.match(/\d[\d.,]*/g) ?? [];
   const { thousands, decimal } = SEPARATORS[locale];
   const wellFormed = new RegExp(
-    `^(?:\\d{1,3}(?:${esc(thousands)}\\d{3})+|\\d+)(?:${esc(decimal)}\\d+)?$`
+    // a thousands group never starts with 0: "0.020" in German is a misplaced decimal, not 20
+    `^(?:[1-9]\\d{0,2}(?:${esc(thousands)}\\d{3})+|\\d+)(?:${esc(decimal)}\\d+)?$`
   );
   return matches.map((raw) => {
     const t = raw.replace(/[.,]+$/, '');
@@ -286,6 +287,17 @@ describe('memo figures are read in the locale they are written in (5.642, MEMO-F
     expect(figuresIn('about 0,9% below', 'en')).toEqual([
       expect.objectContaining({ malformed: '0,9' }),
     ]);
+  });
+
+  it('should report a figure whose thousands group starts with 0', () => {
+    // "0.020" would otherwise read as 20 and "0.014" as 14, both structural numbers
+    expect(figuresIn('rund 0.020 Punkte', 'de')).toEqual([
+      expect.objectContaining({ malformed: '0.020' }),
+    ]);
+    expect(figuresIn('about 0,125 points', 'en')).toEqual([
+      expect.objectContaining({ malformed: '0,125' }),
+    ]);
+    expect(figuresIn('rund 1.020 Punkte', 'de')).toEqual([{ value: 1020, decimals: 0 }]);
   });
 
   it('should report a figure with two decimal separators', () => {

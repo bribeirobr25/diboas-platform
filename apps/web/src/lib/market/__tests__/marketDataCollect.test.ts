@@ -490,11 +490,12 @@ describe('the commit guard: append-only under market/, read from the index', () 
   });
   it('should refuse a collection that adds or changes a reviewed record under checks/reviews/ (5.776)', () => {
     const changes = parseNameStatus(
-      'A\0market/checks/reviews/btc-range-pass-2026-11-14.json\0A\0market/checks/20261114T092300Z.json\0'
+      'A\0market/checks/reviews/btc-range-pass-2026-11-14.json\0M\0market/checks/reviews/btc-definition-review-2022-06-30.json\0A\0market/checks/20261114T092300Z.json\0'
     );
     const refused = evaluateStaged(changes, ns());
-    expect(refused).toHaveLength(1);
+    expect(refused).toHaveLength(2);
     expect(refused[0]).toMatch(/reviews\/btc-range-pass/);
+    expect(refused[1]).toMatch(/reviews\/btc-definition-review/);
     expect(refused[0]).toMatch(/only a reviewed PR/);
   });
   it('should read paths with spaces and tabs exactly (NUL-separated)', () => {

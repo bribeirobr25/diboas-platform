@@ -250,14 +250,20 @@ function signalSlots(sig, locale, prior) {
  *  gapPct, so it is derived rather than required — the sentence needs it either
  *  way and a missing slot would (correctly) throw. */
 /**
- * Decimals for a gap shown as "about X%" (5.822): one below 10%, none from 10%, decided
- * on the ROUNDED value so 9.96 reads "10", not "10.0"; two below 0.05 so a real gap never
- * reads "0.0".
+ * Decimals for a gap shown as "about X%" (5.822): one below 10%, none from 10%, two when one
+ * decimal would read "0.0". Decided on the value as `Intl` rounds it (the formatter `num()`
+ * uses), not on `toFixed`, which rounds the binary value: 9.95 must read "10", never "10.0".
+ * A gap under 0.005% still reads "0.00", which is a true statement of a negligible gap.
  */
+const ONE_DECIMAL = new Intl.NumberFormat('en-US', {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+  useGrouping: false,
+});
 export function gapDigits(gap) {
-  const size = Math.abs(gap);
-  if (Number(size.toFixed(1)) >= 10) return 0;
-  if (Number(size.toFixed(1)) === 0) return 2;
+  const shown = Number(ONE_DECIMAL.format(Math.abs(gap)));
+  if (shown >= 10) return 0;
+  if (shown === 0) return 2;
   return 1;
 }
 

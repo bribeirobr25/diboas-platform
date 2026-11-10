@@ -33,6 +33,9 @@ describe('gapDigits (5.822)', () => {
   it('should read a whole percent when one decimal would round up to 10', () => {
     expect(fmt(9.96, 'en-US')).toBe('10');
     expect(fmt(9.94, 'en-US')).toBe('9.9');
+    // the exact tie: toFixed rounds the binary 9.95 down, Intl rounds it up
+    expect(fmt(9.95, 'en-US')).toBe('10');
+    expect(fmt(9.95, 'de-DE')).toBe('10');
   });
 
   it('should keep a real gap under 0.05% from reading as zero', () => {

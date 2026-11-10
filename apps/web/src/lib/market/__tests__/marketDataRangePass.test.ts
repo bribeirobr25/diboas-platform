@@ -189,9 +189,47 @@ describe('range-pass report (5.776, DATA-STORE-1)', () => {
         day: '2022-06-30',
         check_source: 'coinbase',
         stored: 15000,
+        let_through_by: 'another check agreed',
         agreed_by: 'bitstamp',
       }),
     ]);
+  }, 30_000);
+
+  it('should name a reviewed exception, not another check, when the exception let the day through', () => {
+    const root = STANDARD();
+    const exception = [
+      {
+        kind: 'check',
+        series: 'btc',
+        source: 'coinbase',
+        date: '2022-06-30',
+        primary: 15000,
+        reviewed_on: '2026-11-10',
+        reason: 'fixture: a reviewed check exception for this one stored value',
+      },
+    ];
+    fs.mkdirSync(path.join(root, 'market', 'checks'), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, 'market', 'checks', 'accepted-exceptions.json'),
+      JSON.stringify(exception)
+    );
+    expect(report(root).beyond_tolerance).toEqual([
+      expect.objectContaining({
+        day: '2022-06-30',
+        let_through_by: 'reviewed exception',
+        agreed_by: null,
+      }),
+    ]);
+  }, 30_000);
+
+  it('should skip and count a torn manifest line instead of refusing the report', () => {
+    const root = STANDARD();
+    fs.appendFileSync(path.join(root, 'market', 'raw', 'manifest.jsonl'), '{"fetched_at":"2026-11');
+    const r = rangePassReport(root, 'btc', '2026-11-10') as Report & {
+      unreadable_manifest_lines: number;
+    };
+    expect(r.unreadable_manifest_lines).toBe(1);
+    expect(r.rows).toHaveLength(2);
   }, 30_000);
 
   it('should use the newest stored response for a day when pages overlap', () => {
