@@ -39,6 +39,12 @@ vi.mock('@/lib/security/encryption', () => ({
   decrypt: vi.fn((v: string) => v.replace(/^enc:/, '')),
 }));
 
+// The real limiter is one in-memory window shared by every test (2 sends / 5 min per hash, and
+// every test hashes to 'test-hmac-hash'), so tests reaching a send starved their neighbours.
+vi.mock('@/lib/security/rateLimiter', () => ({
+  checkOutboundEmailRateLimit: vi.fn().mockResolvedValue({ success: true, reset: 0 }),
+}));
+
 vi.mock('@/lib/database/client', () => ({
   sql: vi.fn(),
 }));
@@ -84,6 +90,8 @@ import * as gdpr from '@/lib/audit/GdprDeletionLogger';
 import * as emailModule from '@/lib/email/sendEmail';
 import * as eventBus from '@/lib/events/ApplicationEventBus';
 import { sql } from '@/lib/database/client';
+import * as encryption from '@/lib/security/encryption';
+import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 
 const mockedSql = sql as unknown as Mock;
 
@@ -109,6 +117,50 @@ describe('WaitlistApplicationService.requestDeletion', () => {
     expect(mockedSql).not.toHaveBeenCalled();
     expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
   });
+
+  /** 5.824: with no usable key (production), refuse; never store the email in clear. */
+  it.each([
+    ['encrypt has no key', () => (encryption.encrypt as Mock).mockReturnValueOnce(null)],
+    ['the blind index has no key', () => (encryption.hmacHash as Mock).mockReturnValueOnce(null)],
+  ])('should write nothing and send no email when %s', async (_label, arrange) => {
+    (store.getByEmail as Mock).mockResolvedValue({
+      id: 'wl_1',
+      email: 'user@example.com',
+      locale: 'en',
+      name: 'User',
+    });
+    mockedSql.mockResolvedValue([]);
+    arrange();
+
+    const result = await service.requestDeletion({ email: 'user@example.com', correlationId: 'r' });
+
+    expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+    expect((result as { cause?: unknown }).cause).toBeInstanceOf(EncryptionUnavailableError);
+    expect(mockedSql).not.toHaveBeenCalled();
+    expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
+  });
+
+  /* twelfth audit: refusing only after the lookup answered 500 for a known email and 202 for
+   * an unknown one — an existence oracle whenever the key is unusable. */
+  it.each([
+    ['an existing entry', { id: 'wl_1', email: 'user@example.com', locale: 'en' }],
+    ['no entry', undefined],
+  ])(
+    'should refuse the same way, before any lookup, for %s when encryption is unavailable',
+    async (_l, entry) => {
+      (store.getByEmail as Mock).mockResolvedValue(entry);
+      (encryption.encrypt as Mock).mockReturnValueOnce(null);
+
+      const result = await service.requestDeletion({
+        email: 'user@example.com',
+        correlationId: 'r',
+      });
+
+      expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+      expect(store.getByEmail).not.toHaveBeenCalled();
+      expect(mockedSql).not.toHaveBeenCalled();
+    }
+  );
 
   it('issues a token, persists it, audits, and emails when the entry exists', async () => {
     (store.getByEmail as Mock).mockResolvedValue({

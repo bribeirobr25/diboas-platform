@@ -7,6 +7,7 @@
  * Security: recipient email is AES-256-GCM encrypted with HMAC blind index.
  */
 
+import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 import { sql } from '@/lib/database/client';
 import { encrypt, hmacHash } from '@/lib/security/encryption';
 import { Logger } from '@/lib/monitoring/Logger';
@@ -25,8 +26,11 @@ interface DeliveryLogInput {
 export async function logEmailDelivery(input: DeliveryLogInput): Promise<void> {
   try {
     const id = `edl_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
-    const recipientEnc = encrypt(input.recipientEmail) || input.recipientEmail;
-    const recipientHash = hmacHash(input.recipientEmail.toLowerCase().trim()) || '';
+    const recipientEnc = encrypt(input.recipientEmail);
+    const recipientHash = hmacHash(input.recipientEmail.toLowerCase().trim());
+    // 5.824: never write the address in clear or under an empty blind index. Refusing here
+    // skips the log row; the catch below records the failure (the logger never propagates).
+    if (!recipientEnc || !recipientHash) throw new EncryptionUnavailableError();
 
     await sql`
       INSERT INTO email_delivery_logs
