@@ -88,3 +88,94 @@ describe('scrubSentryEvent', () => {
     expect(scrubSentryEvent({ extra: { url: 42 } } as Event).extra).toEqual({ url: 42 });
   });
 });
+
+/**
+ * Thirteenth audit: shapes the real SDKs produce (agents ran @sentry/browser and @sentry/node
+ * 10.76 with a fake transport, and read next's base-server.js, which sets `http.target` to the
+ * raw request URL). The first scrubber missed every one of these.
+ */
+describe('scrubSentryEvent on a Next-shaped transaction and error', () => {
+  const S = 'SECRET_TOKEN_VALUE';
+  const transaction = (): Event =>
+    ({
+      type: 'transaction',
+      transaction: 'GET /[locale]/email-preferences',
+      contexts: {
+        trace: {
+          trace_id: 't',
+          span_id: 's',
+          data: {
+            'http.target': `/en/email-preferences?t=${S}`,
+            'url.full': `https://diboas.com/en/email-preferences?t=${S}&utm_source=mail`,
+            'http.url': `https://diboas.com/api/email/unsubscribe?t=${S}`,
+            'http.query': `t=${S}`,
+            'url.query': `t=${S}`,
+            'http.fragment': `#t=${S}`,
+            'http.request.header.referer': `https://diboas.com/en/delete-confirm?token=${S}`,
+            'http.method': 'GET',
+          },
+        },
+      },
+      spans: [
+        {
+          span_id: 'a',
+          trace_id: 't',
+          start_timestamp: 0,
+          description: `GET /en/delete-confirm?token=${S}`,
+          data: { 'url.full': `https://diboas.com/x?token=${S}` },
+        },
+      ],
+      breadcrumbs: [{ category: 'fetch', data: { 'url.full': `/api/x?t=${S}` } }],
+      exception: {
+        values: [
+          {
+            type: 'Error',
+            value: `failed to load https://diboas.com/en/email-preferences?t=${S}`,
+            stacktrace: {
+              frames: [
+                {
+                  abs_path: `https://diboas.com/en/delete-confirm?token=${S}`,
+                  filename: `https://diboas.com/en/delete-confirm?token=${S}`,
+                },
+                { function: 'f' },
+              ],
+            },
+          },
+        ],
+      },
+      logentry: { message: `visit /en/delete-confirm?token=${S}`, params: [`/x?t=${S}`, 3] },
+      extra: { nested: { request: { url: `/en/email-preferences?t=${S}` } } },
+    }) as unknown as Event;
+
+  it('should leave the token nowhere in the event', () => {
+    expect(JSON.stringify(scrubSentryEvent(transaction()))).not.toContain(S);
+  });
+
+  it('should keep the route, the method, allowlisted parameters and the stack', () => {
+    const e = scrubSentryEvent(transaction());
+    const data = (e.contexts?.trace?.data ?? {}) as Record<string, unknown>;
+    expect(data['http.target']).toBe('/en/email-preferences');
+    expect(data['url.full']).toBe('https://diboas.com/en/email-preferences?utm_source=mail');
+    expect(data['http.method']).toBe('GET');
+    expect(data).not.toHaveProperty('http.query');
+    expect(data).not.toHaveProperty('url.query');
+    expect(data).not.toHaveProperty('http.fragment');
+    expect(e.spans?.[0].description).toBe('GET /en/delete-confirm');
+    expect(e.exception?.values?.[0].stacktrace?.frames?.[0].filename).toBe(
+      'https://diboas.com/en/delete-confirm'
+    );
+    expect(e.exception?.values?.[0].stacktrace?.frames?.[1]).toEqual({ function: 'f' });
+    expect(e.logentry?.params).toEqual(['/x', 3]);
+  });
+
+  it('should scrub URLs inside arrays in a data bag', () => {
+    const e = scrubSentryEvent({ extra: { urls: [`/x?t=${S}`, 4] } } as Event);
+    expect(e.extra?.urls).toEqual(['/x', 4]);
+  });
+
+  it('should cut a data bag deeper than the limit', () => {
+    let deep: Record<string, unknown> = { leaf: `/x?t=${S}` };
+    for (let i = 0; i < 8; i += 1) deep = { d: deep };
+    expect(JSON.stringify(scrubSentryEvent({ extra: deep } as Event))).not.toContain(S);
+  });
+});

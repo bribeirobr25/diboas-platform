@@ -12,7 +12,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useUrlSecrets } from '@/hooks/useUrlSecrets';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
@@ -22,15 +22,16 @@ import styles from './EmailPreferences.module.css';
 type PageState = 'idle' | 'processing' | 'unsubscribed' | 'invalid' | 'error';
 
 export default function EmailPreferencesPage() {
-  const searchParams = useSearchParams();
   const { locale } = useLocale();
   const intl = useTranslation();
 
-  // Decode params: try `t` param first (new), then legacy `id`+`token`
-  const tParam = searchParams.get('t');
-  const decoded = tParam ? decodeUnsubToken(tParam) : null;
-  const id = decoded?.id ?? searchParams.get('id');
-  const token = decoded?.token ?? searchParams.get('token');
+  // Decode params: try `t` param first (new), then legacy `id`+`token`. Read once; the token
+  // then leaves the address bar (5.864).
+  const { id, token } = useUrlSecrets((params) => {
+    const tParam = params.get('t');
+    const decoded = tParam ? decodeUnsubToken(tParam) : null;
+    return { id: decoded?.id ?? params.get('id'), token: decoded?.token ?? params.get('token') };
+  });
 
   const [state, setState] = useState<PageState>(id && token ? 'idle' : 'invalid');
 

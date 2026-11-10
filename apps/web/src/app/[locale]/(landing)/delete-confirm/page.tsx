@@ -8,7 +8,7 @@
  */
 
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useUrlSecrets } from '@/hooks/useUrlSecrets';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import styles from './DeleteConfirm.module.css';
@@ -16,8 +16,8 @@ import styles from './DeleteConfirm.module.css';
 type DeletionState = 'idle' | 'confirming' | 'success' | 'expired' | 'error';
 
 export default function DeleteConfirmPage() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get('token');
+  // 5.864: read once, then the token leaves the address bar.
+  const token = useUrlSecrets((params) => params.get('token'));
   const intl = useTranslation();
   const { locale } = useLocale();
   // A missing/malformed token is an invalid-link case, not a system failure —

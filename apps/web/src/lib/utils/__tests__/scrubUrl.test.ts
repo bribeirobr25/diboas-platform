@@ -1,6 +1,6 @@
 import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
-import { SAFE_QUERY_PARAMS, SCRUB_URL_INLINE_JS, scrubUrl } from '../scrubUrl';
+import { SAFE_QUERY_PARAMS, SCRUB_URL_INLINE_JS, scrubUrl, scrubUrlsInText } from '../scrubUrl';
 
 /**
  * The browser copy GA4's inline bootstrap runs, compiled in a fresh context that holds only what a
@@ -21,6 +21,7 @@ const CASES: Array<[string, string]> = [
   // an email anywhere: query, path, fragment
   ['/api/x?email=ana%40example.com', '/api/x'],
   ['https://diboas.com/u/ana@example.com/x', 'https://diboas.com/u/[EMAIL_REDACTED]/x'],
+  ['https://diboas.com/u/ana%40example.com/x', 'https://diboas.com/u/[EMAIL_REDACTED]/x'],
   ['https://diboas.com/a#token=x', 'https://diboas.com/a'],
   // allowlisted parameters survive, unknown ones do not
   [
@@ -63,5 +64,14 @@ describe('SCRUB_URL_INLINE_JS (GA4 inline bootstrap)', () => {
 
   it('should agree with scrubUrl when the URL cannot be parsed', () => {
     expect(inline('http://[bad?token=x')).toBe(scrubUrl('http://[bad?token=x'));
+  });
+});
+
+describe('scrubUrlsInText', () => {
+  it('should scrub every URL inside free text and leave the rest', () => {
+    expect(
+      scrubUrlsInText('GET /en/delete-confirm?token=abc then https://diboas.com/x?t=1&ref=R1 ok')
+    ).toBe('GET /en/delete-confirm then https://diboas.com/x?ref=R1 ok');
+    expect(scrubUrlsInText('no url here, a/b and 50%')).toBe('no url here, a/b and 50%');
   });
 });

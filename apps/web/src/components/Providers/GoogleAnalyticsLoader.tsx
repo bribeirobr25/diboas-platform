@@ -92,7 +92,7 @@ export function GoogleAnalyticsLoader({ measurementId, nonce }: GoogleAnalyticsL
         nonce={nonce}
       />
       <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
-        {`var scrub=${SCRUB_URL_INLINE_JS};gtag('js', new Date()); gtag('config', '${measurementId}', { page_location: scrub(location.href), page_referrer: scrub(document.referrer) });`}
+        {`(function(){var scrub=${SCRUB_URL_INLINE_JS};gtag('js', new Date());gtag('set', { page_location: scrub(location.href), page_referrer: scrub(document.referrer) });gtag('config', '${measurementId}');})();`}
       </Script>
     </>
   );

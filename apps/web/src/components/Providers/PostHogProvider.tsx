@@ -81,9 +81,14 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
           // 5.864: tokens in page addresses (/delete-confirm?token=, /email-preferences?t=)
           // never leave the browser; only allowlisted query parameters are kept.
           before_send: scrubAnalyticsEvent,
+          // Thirteenth audit: mask the token parameters at the source, including the stored
+          // first-visit URL that flag requests send and before_send never sees.
+          mask_personal_data_properties: true,
+          custom_personal_data_properties: ['t', 'token', 'id', 'email'],
           capture_pageleave: true,
           respect_dnt: true,
-          advanced_disable_feature_flags: process.env.NODE_ENV === 'development',
+          // No feature flag is read anywhere in the app (git grep), so none is evaluated.
+          advanced_disable_feature_flags: true,
           loaded: (ph) => {
             if (process.env.NODE_ENV === 'development') {
               ph.debug(false);

@@ -46,6 +46,7 @@ export {
 } from './errorTypes';
 
 import type { IErrorReporter } from './errorReporterInterface';
+import { scrubUrl } from '@/lib/utils/scrubUrl';
 export type { IErrorReporter } from './errorReporterInterface';
 
 /**
@@ -171,7 +172,7 @@ export class ErrorReportingService implements IErrorReporter {
         // the originating request (caller-provided context can override).
         correlationId: Logger.getRequestId(),
         userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : undefined,
-        url: typeof window !== 'undefined' ? window.location.href : undefined,
+        url: typeof window !== 'undefined' ? scrubUrl(window.location.href) : undefined,
         breadcrumbs: this.breadcrumbManager.getAll(),
         ...options.context,
       };

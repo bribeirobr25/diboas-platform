@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { stripComments } from '@diboas/test-support';
 import { describe, expect, it } from 'vitest';
@@ -46,11 +46,25 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
     );
   });
 
-  it('should configure GA4 with a scrubbed page location and referrer', () => {
+  /* Thirteenth audit: a page_location given to `config` outranks every later `set`, so each
+   * route change reported the landing page. The scrubbed location is SET before config. */
+  it('should set a scrubbed page location and referrer BEFORE configuring GA4, inside a function', () => {
     const src = read('src/components/Providers/GoogleAnalyticsLoader.tsx');
-    expect(src).toContain('var scrub=${SCRUB_URL_INLINE_JS}');
-    expect(src).toMatch(/page_location:\s*scrub\(location\.href\)/);
-    expect(src).toMatch(/page_referrer:\s*scrub\(document\.referrer\)/);
+    expect(src).toContain('(function(){var scrub=${SCRUB_URL_INLINE_JS};');
+    const set = src.indexOf(
+      "gtag('set', { page_location: scrub(location.href), page_referrer: scrub(document.referrer) });"
+    );
+    const config = src.indexOf("gtag('config', '${measurementId}');");
+    expect(set).toBeGreaterThan(-1);
+    expect(config).toBeGreaterThan(set);
+    expect(src).not.toMatch(/gtag\('config',[^)]*page_location/);
+  });
+
+  it('should mask token parameters at the PostHog source and evaluate no feature flag', () => {
+    const src = read('src/components/Providers/PostHogProvider.tsx');
+    expect(src).toMatch(/mask_personal_data_properties:\s*true/);
+    expect(src).toMatch(/custom_personal_data_properties:\s*\[[^\]]*'t'[^\]]*'token'/);
+    expect(src).toMatch(/advanced_disable_feature_flags:\s*true/);
   });
 
   it('should set a scrubbed page location before each GA4 page view', () => {
@@ -64,5 +78,43 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
     const src = read('src/lib/analytics/service.ts');
     expect(src).toMatch(/page_location:[^\n]*scrubUrl\(window\.location\.href\)/);
     expect(src).toMatch(/referrer:[^\n]*scrubUrl\(document\.referrer\)/);
+  });
+});
+
+/**
+ * Thirteenth audit: a new raw door (`page_location: window.location.href` in the web-vitals
+ * sender) passed every test. Any READ of the page address or referrer anywhere in web source
+ * must sit inside a scrubber call on the same line; an assignment (navigation) is not a read.
+ */
+describe('5.864 · no source reads the page address without scrubbing it', () => {
+  const SRC = join(WEB, 'src');
+  const READ = /(?:location\.href(?!\s*=[^=])|document\.referrer)/;
+  const SCRUBBED = /\b(?:scrubUrl|scrub)\([^)]*(?:location\.href|document\.referrer)/;
+  const walk = (dir: string): string[] =>
+    readdirSync(dir, { withFileTypes: true }).flatMap((d) => {
+      const p = join(dir, d.name);
+      if (d.isDirectory()) return d.name === '__tests__' ? [] : walk(p);
+      return /\.(ts|tsx)$/.test(d.name) && !/\.(test|stories)\./.test(d.name) ? [p] : [];
+    });
+
+  it('should find every read wrapped in a scrubber', () => {
+    const raw = walk(SRC).flatMap((f) => {
+      const text = readFileSync(f, 'utf8');
+      if (!READ.test(text)) return [];
+      return stripComments(text, f)
+        .split('\n')
+        .map((line, i) => ({ line, at: `${f.slice(WEB.length + 1)}:${i + 1}` }))
+        .filter(({ line }) => READ.test(line) && !SCRUBBED.test(line))
+        .map(({ at }) => at);
+    });
+    expect(raw).toEqual([]);
+  });
+
+  it('should tell a read from a navigation and a scrubbed read (detector self-test)', () => {
+    expect(READ.test('page_location: window.location.href,')).toBe(true);
+    expect(READ.test("window.location.href = '/'")).toBe(false);
+    expect(READ.test('if (location.href === x)')).toBe(true);
+    expect(SCRUBBED.test('url: scrubUrl(window.location.href),')).toBe(true);
+    expect(SCRUBBED.test('url: window.location.href,')).toBe(false);
   });
 });
