@@ -738,12 +738,12 @@ export interface WeeklyCreditGranted extends EventBase {
 
 /**
  * The one-time W-5c comparison credit (3.10): extra practice money to try a
- * second goal or different strategy, offered only AFTER the first strategy
- * entry (comparison-learning material — never a reward, never pre-announced;
- * the BR-no-incentive covenant + MiCA inducement rules both forbid the
- * bonus-for-investing shape). Projection enforces both guards: once per
- * ledger AND only when a `StrategyEntered` precedes it (P2BD-10). Ingress →
- * `credited`; lands in Available.
+ * second goal or a different strategy — comparison-learning material, never a
+ * reward, never pre-announced. NO entry condition (founder B9 / Q8, register
+ * 5.453): a credit that required entering a strategy would be the
+ * bonus-for-investing shape the BR-no-incentive covenant (CI-N2) and MiCA
+ * inducement rules forbid. The projection enforces once per ledger (P2BD-10).
+ * Ingress → `credited`; lands in Available.
  */
 export interface ComparisonCreditGranted extends EventBase {
   type: 'ComparisonCreditGranted';

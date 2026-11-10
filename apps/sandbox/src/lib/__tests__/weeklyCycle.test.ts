@@ -71,17 +71,8 @@ describe('weekly cycle — Collect tap + standing proposal + ceremony guards (§
     expect(collectWeeklyCredits(afterGenesis(600))).toEqual({ granted: [], ceilingPaused: true });
   });
 
-  it('should grant the comparison credit only after the first strategy entry, once', () => {
-    expect(grantComparisonCredit()).toBe(false); // nothing to compare yet
-    const goalId = createGoal({
-      name: 'Trip',
-      icon: 'plane',
-      targetAmount: 3000,
-      horizonMonths: 12,
-      fundAmount: 2000,
-    });
-    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 1000, networkFeeLocal: 1 });
-    expect(grantComparisonCredit()).toBe(true);
+  it('should grant the comparison credit with no entry condition, once (B9, 5.453)', () => {
+    expect(grantComparisonCredit()).toBe(true); // no position needed (CI-N2 covers it)
     expect(grantComparisonCredit()).toBe(false); // once, ever
     const state = getLedgerState();
     expect(state.comparisonCredited).toBe(true);

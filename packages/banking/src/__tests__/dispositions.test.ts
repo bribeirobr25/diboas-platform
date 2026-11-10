@@ -86,8 +86,9 @@ const SITES: [site: string, prefix: () => LedgerEvent[], refused: () => LedgerEv
     () => ev('WeeklyCreditGranted', { week: 1, amount: '10' }),
   ],
   [
+    // B9 (5.453): no entry condition — the one refusal left is a SECOND credit on the ledger.
     'credits:ComparisonCreditGranted:not-eligible',
-    () => [grant()],
+    () => [grant(), ev('ComparisonCreditGranted', { amount: '10' })],
     () => ev('ComparisonCreditGranted', { amount: '10' }),
   ],
   [
@@ -749,6 +750,8 @@ describe('P8a · an APPLIED event changed the projection (catches a silent skip 
         'empty:PlayMoneyGranted:amount=negative',
         'empty:WeeklyCreditGranted:amount=zero',
         'empty:WeeklyCreditGranted:amount=negative',
+        'empty:ComparisonCreditGranted:amount=zero', // B9: applies without a position now
+        'empty:ComparisonCreditGranted:amount=negative',
         'open:PlayMoneyGranted:amount=zero',
         'open:PlayMoneyGranted:amount=negative',
         'open:WeeklyCreditGranted:amount=zero',

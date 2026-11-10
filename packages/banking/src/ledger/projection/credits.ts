@@ -26,10 +26,10 @@ export function applyCreditEvent(ctx: ProjectionContext, event: CreditEvent): vo
       break;
     }
     case 'ComparisonCreditGranted': {
-      // Both W-5c guards live HERE, not only on the offer surface (P2BD-10):
-      // once per ledger, and never before the first strategy entry (the
-      // comparison-learning covenant — there is nothing to compare yet).
-      if (ctx.state.comparisonCredited || ctx.positions.size === 0) {
+      // Once per ledger, enforced HERE, not only on the offer surface (P2BD-10). NO entry
+      // condition (founder B9, Q8; register 5.453): a credit that required a strategy position
+      // would be a funding incentive, which CI-N2 forbids — the gate fails if one returns.
+      if (ctx.state.comparisonCredited) {
         refuse(ctx, 'not-eligible');
         break;
       }
