@@ -164,6 +164,9 @@ describe('R-7: two collections write the same store (real git, local bare reposi
       git(saturday, 'add', '-A');
       git(saturday, ...id, 'commit', '-q', '-m', 'saturday');
       git(saturday, 'push', '-q', 'origin', 'HEAD:main');
+      // a HOME that, like GitHub's runners, gives git no identity: without this, macOS invents
+      // one and a missing identity in the step passed here and failed only on CI
+      fs.writeFileSync(path.join(root, '.gitconfig'), '[user]\n\tuseConfigOnly = true\n');
       // the top-up adds its own evidence, then runs the real commit step
       fs.mkdirSync(path.join(analytics, 'market/checks'), { recursive: true });
       fs.writeFileSync(path.join(analytics, 'market/checks/20261110T070000Z.json'), '{}\n');

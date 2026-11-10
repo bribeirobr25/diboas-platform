@@ -208,14 +208,19 @@ jobs:
           set -euo pipefail
           # every git call below, the commit guard's and the rebase's blob fetches included
           source apps/web/scripts/market-data/git-auth.sh
+          # The bot's identity for EVERY commit this step makes: the commit below and the rebase
+          # after a rejected push, which rewrites the commit and needs a committer. GitHub's runners
+          # have no default identity, so a rebase without these failed ("Committer identity
+          # unknown"): the rejected-push path never worked (found by the R-7 test on CI, MP-3b).
+          export GIT_AUTHOR_NAME='github-actions[bot]' GIT_COMMITTER_NAME='github-actions[bot]'
+          export GIT_AUTHOR_EMAIL='41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_COMMITTER_EMAIL='41898282+github-actions[bot]@users.noreply.github.com'
           cd analytics
           # -f: the analytics .gitignore ignores names such as logs/ and *.log
           git add -A -f market
           node ../apps/web/scripts/market-data/commit-guard.mjs
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
-          git -c user.name='github-actions[bot]' \
-            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-            commit --quiet -m "data(market): collection $(date -u +%F) (${MODE})" \
+          git commit --quiet -m "data(market): collection $(date -u +%F) (${MODE})" \
             -m "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           # The branch can move while a run collects (a merged PR): rebase the
           # data commit, which only adds under market/, and try again.
