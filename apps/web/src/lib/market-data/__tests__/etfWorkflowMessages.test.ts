@@ -46,7 +46,7 @@ import {
   ETF_SNAPSHOT_ATTEMPTS,
   ETF_SNAPSHOT_EXIT,
 } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
-import { REPO_ROOT } from '../../../../scripts/market-refresh/providers/inrepo.mjs';
+import { REPO_ROOT } from '../../../../scripts/market-refresh/lib/paths.mjs';
 
 const WEB = path.join(__dirname, '../../../..');
 const REPO = path.join(WEB, '../..');

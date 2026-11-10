@@ -52,6 +52,8 @@
  * --report says why).
  */
 
+import { isMonthComplete, lastTradingDay, calendarOf } from './calendar.mjs';
+import { SERIES_BY_ID } from './catalogue.mjs';
 import { execFileSync } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
@@ -174,14 +176,10 @@ const num = (v, what) => {
     throw new Error(`${what}: not a positive number`);
   return n;
 };
-const ymOf = (iso) => iso.slice(0, 7);
 
-/** The last Monday-to-Friday day of a month (YYYY-MM-DD). */
+/** The last Monday-to-Friday day of a month (YYYY-MM-DD); kept for existing callers. */
 export function lastWeekday(ym) {
-  const [y, m] = ym.split('-').map(Number);
-  const d = new Date(Date.UTC(y, m, 0));
-  while (d.getUTCDay() === 0 || d.getUTCDay() === 6) d.setUTCDate(d.getUTCDate() - 1);
-  return d.toISOString().slice(0, 10);
+  return lastTradingDay(ym, 'weekdays');
 }
 
 /** The last stored day of a store series (YYYY-MM-DD). */
@@ -195,12 +193,13 @@ function lastDailyDate(storeDir, id) {
 }
 
 /**
- * The latest month of a series that is complete: its last stored day is the
- * month's last weekday, or the store already holds a later day.
+ * The latest month of a series that is complete: its last stored day is the month's last
+ * trading day on the series' own calendar (weekdays, or every day for Bitcoin; 5.850), or
+ * the store already holds a later day.
  */
-export function lastCompleteMonth(rows, lastDay) {
+export function lastCompleteMonth(rows, lastDay, calendar = 'weekdays') {
   const last = rows.at(-1);
-  if (last.last_day >= lastWeekday(last.ym) || ymOf(lastDay) > last.ym) return last.ym;
+  if (isMonthComplete(last, lastDay, calendar)) return last.ym;
   return rows.at(-2)?.ym ?? null;
 }
 
@@ -229,7 +228,11 @@ export function buildPublication(storeDir, current) {
   // The last month every series has complete: prices and FX are joined month by month.
   const complete = {};
   for (const id of Object.keys(monthly))
-    complete[id] = lastCompleteMonth(monthly[id], lastDailyDate(storeDir, id));
+    complete[id] = lastCompleteMonth(
+      monthly[id],
+      lastDailyDate(storeDir, id),
+      calendarOf(SERIES_BY_ID.get(id))
+    );
   const through = Object.values(complete).sort()[0];
   if (!through) throw new Error('a store series has no complete month');
   const binding = Object.entries(complete)

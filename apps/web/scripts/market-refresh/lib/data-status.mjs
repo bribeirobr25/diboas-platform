@@ -33,6 +33,7 @@
  */
 
 import { expectedConfirmedMonthYM, MONTH_APPEND_GRACE_DAYS } from './regime-engine.mjs';
+import { PANEL_SOURCES } from './source-registry.mjs';
 import { WARMUP_SNAPSHOTS } from './etf-flows.mjs';
 import { ledgerCoverage } from './etf-coverage.mjs';
 import { ETF_VARIANT } from './regime-engine.mjs';
@@ -73,25 +74,20 @@ const at = (date, h, m = 0, s = 0) => {
 
 const WEEKLY_LAG_ALLOWANCE_DAYS = 14; // F-M3 publication-lag window
 
-/** One entry per panel source, in committed panel order. */
-export const SOURCE_REGISTRY = [
-  { source: 'in-repo:monthlyPrices.json (BTC)', kind: 'monthly-close', signal: 'BTC-01' },
-  { source: 'FRED:DGS10', kind: 'weekly-friday', signal: 'MAC-02' },
-  { source: 'FRED:DTWEXBGS', kind: 'weekly-friday', signal: 'MAC-01' },
-  { source: 'FRED:M2SL', kind: 'monthly-print', signal: 'MAC-03' },
-  { source: 'FRED:NASDAQCOM', kind: 'weekly-friday', signal: 'REL-03' },
-  { source: 'Yahoo:GC=F', kind: 'weekly-friday', signal: 'REL-01' },
-  { source: 'Polygon:ETF (shares-outstanding)', kind: 'warmup-ledger', signal: 'ETF-01' },
-];
+/**
+ * One entry per panel source, in committed panel order, DERIVED from the one source list
+ * (`lib/source-registry.mjs`, gate SRC-REG-1, plan MP-3a); never edit a copy here.
+ */
+export const SOURCE_REGISTRY = PANEL_SOURCES.map((s) => ({
+  source: s.label,
+  kind: s.panelKind,
+  signal: s.signals[0],
+}));
 
-const WEEKLY_DESC = {
-  'FRED:DGS10': 'US 10-year constant-maturity yield.',
-  'FRED:DTWEXBGS':
-    'Broad trade-weighted U.S. dollar index (FRED DTWEXBGS), a different index from the ICE DXY.',
-  'FRED:NASDAQCOM': 'Nasdaq Composite close.',
-  'Yahoo:GC=F':
-    'Gold futures front-month — SUBSTITUTE for the retired FRED LBMA series (methodology drift D-gold-2026-05-29).',
-};
+/** The panel text of each weekly source, from the same list. */
+const WEEKLY_DESC = Object.fromEntries(
+  PANEL_SOURCES.filter((s) => s.description).map((s) => [s.label, s.description])
+);
 
 function weeklyEntry(source, anchorStr, run) {
   const anchor = d(anchorStr);

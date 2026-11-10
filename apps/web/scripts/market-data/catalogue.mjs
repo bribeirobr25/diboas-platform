@@ -278,6 +278,8 @@ export const SERIES = [
     // source covers 2010-07 to 2012 (Bitstamp then traded thinly): that span
     // is single-source and the check report says so.
     since: '2010-07-18',
+    // Bitcoin trades every day: a month is complete only once its last calendar day is stored (5.850).
+    calendar: 'daily',
     // What the stored value IS (5.776, measured 2026-11-05): an exchange's daily close is
     // its last trade; this is not. A day the two disagree on can be a difference of
     // definition, not an error (2022-06-30: Coinbase moved about 5% in the last 15 minutes).

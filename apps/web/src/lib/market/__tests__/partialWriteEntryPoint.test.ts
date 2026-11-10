@@ -35,7 +35,7 @@ import { checkLedgerAppend } from '../../../../scripts/market-refresh/check-ledg
 import {
   MONTHLY_PRICES_PATH,
   REPO_ROOT as INREPO_REPO_ROOT,
-} from '../../../../scripts/market-refresh/providers/inrepo.mjs';
+} from '../../../../scripts/market-refresh/lib/paths.mjs';
 
 const REPO_ROOT = path.join(__dirname, '../../../../../..');
 const SCRIPTS = path.join(REPO_ROOT, 'apps/web/scripts/market-refresh');

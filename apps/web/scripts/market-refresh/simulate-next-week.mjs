@@ -68,7 +68,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { REPO_ROOT, SHARED_DIR, MONTHLY_PRICES_PATH } from './providers/inrepo.mjs';
+import { REPO_ROOT, SHARED_DIR, MONTHLY_PRICES_PATH } from './lib/paths.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 import { resolveEtfSignals, readSnapshots, recordEtfSnapshot } from './lib/etf-flows.mjs';
 import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';

@@ -30,6 +30,7 @@ import {
   M2_MONTHS_FOR_ROC,
 } from './regime-engine.mjs';
 import { resolveEtfSignals } from './etf-flows.mjs';
+import { FETCHED_SOURCES } from './source-registry.mjs';
 
 /**
  * Recency SLAs, in days, per source. FRED weekly-published series carry up to
@@ -37,14 +38,10 @@ import { resolveEtfSignals } from './etf-flows.mjs';
  * monthly with a ~4-week release lag (observation date = first of the data
  * month, so the worst case is ~88 days).
  */
-export const RECENCY_SLA_DAYS = Object.freeze({
-  'FRED:DTWEXBGS': 14,
-  'FRED:DGS10': 7,
-  'FRED:NASDAQCOM': 7,
-  'Yahoo:BTC-USD': 3,
-  'Yahoo:GC=F': 5,
-  'FRED:M2SL': 92,
-});
+/** The newest point of each fetched source may be at most this old (from the source list). */
+export const RECENCY_SLA_DAYS = Object.freeze(
+  Object.fromEntries(FETCHED_SOURCES.map((s) => [s.label, s.recencyMaxDays]))
+);
 
 /** The six weekly sources, with their windows. Throws on any fetch failure. */
 export async function fetchMarketSources() {
@@ -60,31 +57,26 @@ export async function fetchMarketSources() {
 }
 
 /** Fail-closed quality gate over the fetched sources (throws QualityGateError). */
-export function assertMarketSourcesQuality({ dxy, us10y, m2, nasdaq, btc, gold }, today) {
-  assertDailySeries('FRED:DTWEXBGS', dxy.series, {
-    maxMovePct: OUTLIER_BOUNDS_PCT.dollarIndexDaily,
-  });
-  assertRateSeries('FRED:DGS10', us10y.series);
-  assertDailySeries('FRED:NASDAQCOM', nasdaq.series, {
-    maxMovePct: OUTLIER_BOUNDS_PCT.equityIndexDaily,
-  });
-  assertDailySeries('Yahoo:BTC-USD', btc.series, { maxMovePct: OUTLIER_BOUNDS_PCT.yahooDaily });
-  assertDailySeries('Yahoo:GC=F', gold.series, { maxMovePct: OUTLIER_BOUNDS_PCT.yahooDaily });
-  assertMonthlySeries('FRED:M2SL', m2.series, {
-    minPoints: M2_MONTHS_FOR_ROC,
-    maxMovePct: OUTLIER_BOUNDS_PCT.m2Monthly,
-  });
-  const recency = [
-    ['FRED:DTWEXBGS', dxy],
-    ['FRED:DGS10', us10y],
-    ['FRED:NASDAQCOM', nasdaq],
-    ['Yahoo:BTC-USD', btc],
-    ['Yahoo:GC=F', gold],
-    ['FRED:M2SL', m2],
-  ];
-  for (const [label, src] of recency) {
-    assertRecency(label, src.series, today, { maxAgeDays: RECENCY_SLA_DAYS[label] });
+
+/**
+ * Every fetched source passes its quality check, then its recency limit, both read from the
+ * one source list (plan MP-3a). The order matches the list.
+ */
+export function assertMarketSourcesQuality(sources, today) {
+  for (const s of FETCHED_SOURCES) {
+    const series = sources[s.key].series;
+    if (s.check === 'rate') assertRateSeries(s.label, series);
+    else if (s.check === 'monthly')
+      assertMonthlySeries(s.label, series, {
+        minPoints: M2_MONTHS_FOR_ROC,
+        maxMovePct: OUTLIER_BOUNDS_PCT[s.boundsKey],
+      });
+    else assertDailySeries(s.label, series, { maxMovePct: OUTLIER_BOUNDS_PCT[s.boundsKey] });
   }
+  for (const s of FETCHED_SOURCES)
+    assertRecency(s.label, sources[s.key].series, today, {
+      maxAgeDays: s.recencyMaxDays,
+    });
 }
 
 /**

@@ -136,3 +136,46 @@ architecture map). None of that is improved by a language switch; all of it must
 - Current deployed stack (as-built): `docs/tech/infrastructure.md`.
 - Money-math model + guards: `docs/tech/financial-calculations.md`; the event-sourced ledger in `packages/banking`.
 - Analytics boundary (open contract-shape item, T5): `diboas-analytics/LEDGER.md` + doc-07; the Phase-2 sequence's analytics note.
+
+---
+
+## ADR-002 — The market data store: a private repository of checked daily files, collected by Node in the platform's Actions
+
+- **Status:** Accepted — 2026-11-10 (founder, program decision B-14, `decisions/DR-2026-11-10-market-program-plan-approval.md` in the private docs repository; the store's rules are the founder decisions of 2026-11-04).
+- **Review cadence:** annually, or when any Trigger below fires.
+- **Deciders:** founder + CC (market lane).
+- **Supersedes:** nothing; it **deviates from ADR-001** for the market data spine (see Consequences).
+
+### Context
+
+The website's market figures (the `/market` score and the Money Tools' history) came from several live fetches at build or run time, each with its own checks and none stored. A provider that changed, revised or failed silently changed what the site published, and nothing could be re-checked later. The founder ruled on 2026-11-04 that all market data lives in one private store, collected daily, checked against a second source wherever one exists, and kept append-only.
+
+### Decision
+
+- **The store is a private repository** (`diboas-analytics`, folder `market/`): daily values per series, the raw responses exactly as received (with their sha256), every cross-source check report, reviewed exceptions and records, and derived weekly/monthly files built from the stored days.
+- **The collector is Node**, in the platform repository (`apps/web/scripts/market-data/`), run by the platform's GitHub Actions on a schedule (`market-data-collect.yml`), writing the store with a token scoped to that repository only; a commit guard refuses deletions, renames, removed lines and any path outside `market/`, and refuses collection changes to the reviewed files (`checks/accepted-exceptions.json`, `checks/reviews/`).
+- **The website's interface is committed files.** `publish.mjs` writes the Money Tools' series from the store into the platform repository, recording the store commit (`store-manifest.json`); the drift check `PUBLISH-1` proves the committed files equal what the store at that commit yields. The website never reads the store at request time. The `/market` score moves to the store through one reader (`apps/web/scripts/market-refresh/lib/store-inputs.mjs`, plan MP-3a) in plan MP-4.
+- **One source list** for the score (`apps/web/scripts/market-refresh/lib/source-registry.mjs`, gate `SRC-REG-1`) links each score source to its store series.
+
+### Alternatives considered
+
+- **Python for the market data spine** (ADR-001's stated choice for quant/analytics): rejected for the collector because the work is I/O-bound collection, parsing and checking, the consumers (the weekly pipeline, the publisher, the tests) are already Node in this repository, and one language for the pipeline keeps one set of parsers, checks and tests. Quant analysis (the score's maths, research) is unaffected.
+- **A hosted database** (Neon/Postgres) as the store: rejected for now. Files in git give an append-only history, a reviewable diff for every change, and pinning by commit, at no cost; a database would need its own audit trail to match that.
+- **Live fetches with caching** (the previous model): rejected; it cannot re-check or reproduce a past figure.
+
+### Consequences
+
+- Every published market figure is reproducible from a store commit, and every stored day carries the check that let it in (since plan MP-2, also the days that passed only through a range rule).
+- **Deviation from ADR-001**, stated: the market data spine is Node, not Python. ADR-001's Python boundary still applies to quant/analytics beyond collection.
+- Costs: the store grows with raw responses (gzipped); a collection can be blocked by a failing check, and then its series keeps its last good data until a person reviews it.
+
+### Triggers to reconsider
+
+- The store's size makes clone or sparse checkout slow for the weekly run (minutes, not seconds).
+- A consumer needs the data at request time, or at a frequency above daily.
+- Quant work needs the store's history in Python at scale (then a Python reader, not a second collector).
+- A provider's terms require keeping data out of git.
+
+### References
+
+- The store's rules: `market/README.md` in `diboas-analytics`; DATA-STORE-1 and PUBLISH-1 in `docs/tech/engineering-gates.md`; `docs/tech/implementation-notes.md` § Market data store.

@@ -23,7 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { isDirectInvocation } from './invocation.mjs';
-import { SHARED_DIR } from '../providers/inrepo.mjs';
+import { SHARED_DIR } from './paths.mjs';
 
 export const STALENESS_LIMIT_DAYS = 14;
 const DAY_MS = 24 * 60 * 60 * 1000;

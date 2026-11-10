@@ -9,19 +9,9 @@
 import { writeJsonAtomic } from '../lib/atomic.mjs';
 import { assertNextMonth } from '../lib/regime-engine.mjs';
 import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { MONTHLY_PRICES_PATH } from '../lib/paths.mjs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-export const REPO_ROOT = path.resolve(__dirname, '../../../../..');
-/** The weekly run's shared outputs (all views read these; 5.92). */
-export const SHARED_DIR = path.join(REPO_ROOT, 'apps/web/data/market/shared');
-/** The run archive (provenance of every published run day), written by `run.mjs`. */
-export const RUN_ARCHIVE_PATH = path.join(SHARED_DIR, 'run-archive.jsonl');
-export const MONTHLY_PRICES_PATH = path.join(
-  REPO_ROOT,
-  'apps/web/src/lib/market-data/data/monthlyPrices.json'
-);
+// The file locations live in lib/paths.mjs (plan MP-3a); this module keeps the BTC candle functions.
 
 export function readMonthlyPrices() {
   return JSON.parse(fs.readFileSync(MONTHLY_PRICES_PATH, 'utf8'));

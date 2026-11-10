@@ -78,7 +78,7 @@ import { selectSignalTemplate } from './lib/template-select.mjs';
 import { isWeekApart, planWeeklyOpener } from './lib/weekly-opener.mjs';
 import { cycleCoverage } from './lib/coverage.mjs';
 import { BANDS } from './lib/regime-engine.mjs';
-import { RUN_ARCHIVE_PATH, SHARED_DIR } from './providers/inrepo.mjs'; // 5.92: run-shared outputs
+import { RUN_ARCHIVE_PATH, SHARED_DIR } from './lib/paths.mjs'; // 5.92: run-shared outputs
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const TPL_DIR = path.join(__dirname, 'templates');
