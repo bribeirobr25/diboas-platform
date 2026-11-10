@@ -45,7 +45,13 @@
     },
     "test:coverage": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/.github/workflows/ci.yml",
+        "$TURBO_ROOT$/turbo.json",
+        "$TURBO_ROOT$/package.json"
+      ],
       "passThroughEnv": ["DIBOAS_DOCS_DIR"],
       "outputs": ["coverage/**"]
     },

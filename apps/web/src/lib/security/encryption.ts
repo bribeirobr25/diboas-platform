@@ -161,52 +161,6 @@ function isLikelyUnencrypted(value: string): boolean {
 }
 
 /**
- * Encrypt an object's specified fields
- *
- * @param obj - The object to encrypt
- * @param fields - Array of field names to encrypt
- * @returns New object with encrypted fields
- */
-export function encryptFields<T extends Record<string, unknown>>(obj: T, fields: (keyof T)[]): T {
-  const result = { ...obj };
-
-  for (const field of fields) {
-    const value = obj[field];
-    if (typeof value === 'string' && value.length > 0) {
-      const encrypted = encrypt(value);
-      if (encrypted !== null) {
-        (result as Record<string, unknown>)[field as string] = encrypted;
-      }
-    }
-  }
-
-  return result;
-}
-
-/**
- * Decrypt an object's specified fields
- *
- * @param obj - The object to decrypt
- * @param fields - Array of field names to decrypt
- * @returns New object with decrypted fields
- */
-export function decryptFields<T extends Record<string, unknown>>(obj: T, fields: (keyof T)[]): T {
-  const result = { ...obj };
-
-  for (const field of fields) {
-    const value = obj[field];
-    if (typeof value === 'string' && value.length > 0) {
-      const decrypted = decrypt(value);
-      if (decrypted !== null) {
-        (result as Record<string, unknown>)[field as string] = decrypted;
-      }
-    }
-  }
-
-  return result;
-}
-
-/**
  * Get the dedicated HMAC key from environment.
  *
  * Uses a SEPARATE key from the AES encryption key to maintain proper
@@ -270,12 +224,4 @@ export function hmacHash(value: string): string | null {
   }
 
   return crypto.createHmac('sha256', key).update(value).digest('hex');
-}
-
-/**
- * Generate a new encryption key
- * For use in generating ENCRYPTION_KEY environment variable
- */
-export function generateEncryptionKey(): string {
-  return crypto.randomBytes(32).toString('base64');
 }

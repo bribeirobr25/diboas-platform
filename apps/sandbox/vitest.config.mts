@@ -3,17 +3,18 @@ import react from '@vitejs/plugin-react';
 import path from 'node:path';
 
 /**
- * COV-1 (register 5.70): a RATCHET. Each floor is the coverage measured on 2026-11-10, rounded
+ * COV-1 (register 5.70, 5.837): a RATCHET. Each floor is the coverage measured on 2026-11-10 (raised the same day after the eleventh audit), rounded
  * down; CI's `pnpm test:coverage` fails when any falls below. Raise a floor when coverage rises;
  * never lower one to make a run pass. CLAUDE.md requires 100% for security utilities.
  */
 const COVERAGE_THRESHOLDS = {
-  lines: 88,
+  lines: 89,
   branches: 81,
   functions: 87,
-  statements: 87,
+  statements: 88,
   'src/app/**': { lines: 72, branches: 58, functions: 62, statements: 73 },
-  'src/components/**': { lines: 76, branches: 70, functions: 78, statements: 76 },
+  'src/components/**': { lines: 79, branches: 70, functions: 79, statements: 78 },
+  'src/config/**': { 100: true },
   'src/hooks/**': { lines: 98, branches: 88, functions: 90, statements: 94 },
   'src/i18n/**': { lines: 100, branches: 100, functions: 95, statements: 98 },
   'src/lib/**': { lines: 97, branches: 92, functions: 96, statements: 95 },
@@ -23,6 +24,9 @@ const COVERAGE_THRESHOLDS = {
   'src/middleware.ts': { 100: true },
   'src/lib/ids.ts': { 100: true },
   'src/app/*/gate/actions.ts': { 100: true },
+  'src/lib/gate.ts': { 100: true },
+  'src/config/geofence.ts': { 100: true },
+  'src/lib/auth/admission.ts': { 100: true },
 };
 
 export default defineConfig({
@@ -77,7 +81,7 @@ export default defineConfig({
       provider: 'v8',
       // COV-1 (register 5.70): every source file counts, tested or not.
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['**/__tests__/**', '**/*.d.ts', 'src/test/**'],
+      exclude: ['**/__tests__/**', '**/*.stories.tsx', '**/*.d.ts', 'src/test/**'],
       reporter: ['text-summary', 'json-summary'],
       thresholds: COVERAGE_THRESHOLDS,
     },

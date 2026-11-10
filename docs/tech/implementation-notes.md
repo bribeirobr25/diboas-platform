@@ -1017,7 +1017,7 @@ pinned by a test that was watched failing.
   - ⚑ **`CI-N2`'s primary half is the MECHANISM:** a benefit that scales with funding is the
     violation whatever it is called. Hold the genesis grant at the real constant and vary only
     funding — varying the grant instead trips `creditCeilingReached` and proves nothing about
-    deposits. The comparison credit (`5.453`) is covered since 2026-11-07: founder B9 / Q8 made
+    deposits. The comparison credit (`5.453`) is covered since 2026-11-10 (platform #837): founder B9 / Q8 made
     it unconditional (no entry condition, once per ledger), and the gate fails if a position
     condition returns in the client or the engine.
 

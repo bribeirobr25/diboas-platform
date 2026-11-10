@@ -433,7 +433,7 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 - 80% coverage minimum for `lib/`, `hooks/`
 - 60% coverage minimum for components
 - 100% for security utilities
-- **Enforced as a ratchet by COV-1** (`pnpm test:coverage` in CI; per-directory floors in each vitest config, raised never lowered; the web app is still below 80/60 — register `5.70`)
+- **Enforced as a ratchet by COV-1** (`pnpm test:coverage` in CI; per-directory floors in each vitest config, raised never lowered; the web app is still below 80/60 — register `5.832`)
 - Naming: `should [expected behavior] when [condition]`
 - Required: hooks with async behavior, error handlers, security utilities, API routes
 - **Every defect leaves a guard:** a confirmed bug, regression or side effect closes only with an

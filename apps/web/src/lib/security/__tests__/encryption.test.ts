@@ -243,37 +243,6 @@ describe('encryption module', () => {
     });
   });
 
-  describe('encryptFields / decryptFields', () => {
-    it('should encrypt and decrypt specified fields', async () => {
-      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
-      setEnv('NODE_ENV', 'production');
-
-      const { encryptFields, decryptFields } = await import('@/lib/security/encryption');
-
-      const obj = { email: 'user@test.com', name: 'Alice', id: '123' };
-      const encrypted = encryptFields(obj, ['email', 'name']);
-
-      expect(encrypted.email).not.toBe('user@test.com');
-      expect(encrypted.name).not.toBe('Alice');
-      expect(encrypted.id).toBe('123'); // Unchanged
-
-      const decrypted = decryptFields(encrypted, ['email', 'name']);
-      expect(decrypted.email).toBe('user@test.com');
-      expect(decrypted.name).toBe('Alice');
-    });
-  });
-
-  describe('generateEncryptionKey', () => {
-    it('should generate a valid base64-encoded 32-byte key', async () => {
-      const { generateEncryptionKey } = await import('@/lib/security/encryption');
-
-      const key = generateEncryptionKey();
-      const buf = Buffer.from(key, 'base64');
-
-      expect(buf.length).toBe(32);
-    });
-  });
-
   describe('decrypt legacy unencrypted data (isLikelyUnencrypted)', () => {
     it('should return plain email when decryption fails on legacy unencrypted email', async () => {
       setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
@@ -453,45 +422,6 @@ describe('encryption module', () => {
       expect(Logger.error).toHaveBeenCalledWith('[Encryption] Decryption failed:', {
         error: 'raw decipher failure',
       });
-    });
-  });
-
-  describe('encryptFields / decryptFields edge cases', () => {
-    it('should leave non-string and empty fields untouched when encrypting and decrypting', async () => {
-      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
-      setEnv('NODE_ENV', 'production');
-
-      const { encryptFields, decryptFields } = await import('@/lib/security/encryption');
-
-      const obj: Record<string, unknown> = { empty: '', count: 3, missing: undefined };
-      const fields = ['empty', 'count', 'missing'];
-
-      expect(encryptFields(obj, fields)).toEqual(obj);
-      expect(decryptFields(obj, fields)).toEqual(obj);
-    });
-
-    // ⚠ Records CURRENT behaviour, reported as a fail-open finding (5.70):
-    // with encryption unavailable in production, encryptFields returns the
-    // field as plaintext instead of refusing. If this is changed to fail
-    // closed, change this test with it.
-    it('should leave the field as plaintext when encryption is unavailable in production', async () => {
-      deleteEnv('ENCRYPTION_KEY');
-      setEnv('NODE_ENV', 'production');
-
-      const { encryptFields } = await import('@/lib/security/encryption');
-
-      expect(encryptFields({ email: 'user@example.com' }, ['email'])).toEqual({
-        email: 'user@example.com',
-      });
-    });
-
-    it('should keep the stored value when decryption is unavailable in production', async () => {
-      deleteEnv('ENCRYPTION_KEY');
-      setEnv('NODE_ENV', 'production');
-
-      const { decryptFields } = await import('@/lib/security/encryption');
-
-      expect(decryptFields({ email: 'c2VhbGVk' }, ['email'])).toEqual({ email: 'c2VhbGVk' });
     });
   });
 });

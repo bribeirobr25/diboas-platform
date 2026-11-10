@@ -5,14 +5,7 @@
  */
 
 // Encryption
-export {
-  encrypt,
-  decrypt,
-  hmacHash,
-  encryptFields,
-  decryptFields,
-  generateEncryptionKey,
-} from './encryption';
+export { encrypt, decrypt, hmacHash } from './encryption';
 
 // Rate Limiting
 export {
