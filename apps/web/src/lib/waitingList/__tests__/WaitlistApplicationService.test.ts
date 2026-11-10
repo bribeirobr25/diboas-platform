@@ -84,6 +84,8 @@ import * as gdpr from '@/lib/audit/GdprDeletionLogger';
 import * as emailModule from '@/lib/email/sendEmail';
 import * as eventBus from '@/lib/events/ApplicationEventBus';
 import { sql } from '@/lib/database/client';
+import * as encryption from '@/lib/security/encryption';
+import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 
 const mockedSql = sql as unknown as Mock;
 
@@ -106,6 +108,28 @@ describe('WaitlistApplicationService.requestDeletion', () => {
     });
 
     expect(result).toEqual({ ok: true, entryExists: false });
+    expect(mockedSql).not.toHaveBeenCalled();
+    expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
+  });
+
+  /** 5.824: with no usable key (production), refuse; never store the email in clear. */
+  it.each([
+    ['encrypt has no key', () => (encryption.encrypt as Mock).mockReturnValueOnce(null)],
+    ['the blind index has no key', () => (encryption.hmacHash as Mock).mockReturnValueOnce(null)],
+  ])('should write nothing and send no email when %s', async (_label, arrange) => {
+    (store.getByEmail as Mock).mockResolvedValue({
+      id: 'wl_1',
+      email: 'user@example.com',
+      locale: 'en',
+      name: 'User',
+    });
+    mockedSql.mockResolvedValue([]);
+    arrange();
+
+    const result = await service.requestDeletion({ email: 'user@example.com', correlationId: 'r' });
+
+    expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+    expect((result as { cause?: unknown }).cause).toBeInstanceOf(EncryptionUnavailableError);
     expect(mockedSql).not.toHaveBeenCalled();
     expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
   });

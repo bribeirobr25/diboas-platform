@@ -47,7 +47,7 @@ import { generateDeletionToken, hashToken } from '@/lib/security';
 import { checkOutboundEmailRateLimit } from '@/lib/security/rateLimiter';
 import { sql } from '@/lib/database/client';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
-import { DuplicateEntryError } from '@/lib/errors/domainErrors';
+import { DuplicateEntryError, EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 
 // ---------------------------------------------------------------------------
 // Shared types
@@ -507,8 +507,11 @@ export class WaitlistApplicationService {
 
   private async persistDeletionToken(tokenHash: string, email: string): Promise<void> {
     const expiresAt = new Date(Date.now() + DELETION_TOKEN_TTL_MS).toISOString();
-    const emailEnc = encrypt(email) || email;
-    const emailHmac = hmacHash(email.toLowerCase().trim()) || '';
+    const emailEnc = encrypt(email);
+    const emailHmac = hmacHash(email.toLowerCase().trim());
+    // 5.824: never store the email in clear or under an empty blind index. Both are null only
+    // in production without a usable key; refuse as `addEntry` does (repository.ts).
+    if (!emailEnc || !emailHmac) throw new EncryptionUnavailableError();
 
     await sql`
       INSERT INTO deletion_tokens (token_hash, email, email_hash, expires_at)
