@@ -2,7 +2,8 @@
  * AuditService — retention purge (§5.39).
  *
  * Verifies purgeExpiredAuditLogs() deletes via the 90-day window, returns the
- * deleted count, and fails closed (returns 0, never throws) on a DB error.
+ * deleted count, and THROWS on a DB error — a failed purge must never read as
+ * "0 deleted" (twelfth audit: the cron route's 500 branch was unreachable).
  * The SQL client is mocked — no real database.
  */
 
@@ -42,8 +43,8 @@ describe('purgeExpiredAuditLogs', () => {
     expect(values).toContain(AUDIT_LOG_RETENTION_DAYS);
   });
 
-  it('should fail closed (return 0, never throw) on a DB error', async () => {
+  it('should throw, never report 0 deleted, when the DELETE fails', async () => {
     mockSql.mockRejectedValueOnce(new Error('connection lost'));
-    await expect(purgeExpiredAuditLogs()).resolves.toBe(0);
+    await expect(purgeExpiredAuditLogs()).rejects.toThrow('connection lost');
   });
 });
