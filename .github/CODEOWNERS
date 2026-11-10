@@ -39,3 +39,14 @@
 # owns the segment grid + the per-leg audit pinning. A wrong boundary or a
 # mis-pinned leg silently mis-states what the practice money did.
 /apps/sandbox/src/lib/advancePlanner.ts           @bribeirobr25
+
+# The market data store's collector and publisher, and the workflows that write the store or the
+# published series (plan MP-3 §10): a change here changes what the site publishes or who writes
+# the private store.
+/apps/web/scripts/market-data/catalogue.mjs        @bribeirobr25
+/apps/web/scripts/market-data/publish.mjs          @bribeirobr25
+/apps/web/scripts/market-data/git-auth.sh          @bribeirobr25
+/.github/workflows/market-data-collect.yml         @bribeirobr25
+/.github/workflows/market-data-collect-watchdog.yml @bribeirobr25
+/.github/workflows/market-publish-drift.yml        @bribeirobr25
+/.github/workflows/market-refresh-weekly.yml       @bribeirobr25

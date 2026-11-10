@@ -49,6 +49,9 @@ const WRITERS = [
   'protocols-tvl/refresh.mjs',
   // the Money Tools stress harness writes its baseline only when run directly (5.853)
   'tools-stress-test.mjs',
+  // plan MP-3b: two entry points that print and set the exit code; tests import both
+  'market-data/collect-watch.mjs',
+  'market-data/topup-series.mjs',
 ];
 
 describe('isDirectInvocation — the guard itself', () => {

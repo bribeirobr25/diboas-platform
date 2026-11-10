@@ -5,7 +5,7 @@
 > **Audience:** the editorial owner of `/market` (Adelaide Market). The macro analyst, content owner, or designated curator who keeps the regime score, signal states, and commentary fresh.
 > **Goal:** ship a regime-score / signals / commentary update in under 30 minutes, end-to-end, without engineering hand-holding.
 > **Weekly review checklist additions (2026-08-19):** (1) **The analyst memo (`summary.detailed`) and `key_supportive_factors`/`key_headwinds` are the LAST hand-editorial fields — the pipeline never regenerates them.** Every weekly review updates their cycle-dependent clauses, ESPECIALLY for any signal whose STATE changed this cycle (the 2026-08-17 lesson: the first hands-free cycle carried a stale "ETF unavailable" memo clause against a scored 2/2 group; 5.99 tracks template-generating these clauses). (1b) **A drifted memo no longer blocks the PR (2026-08-31, 5.151).** The memo gate used to sit in the bot's pre-flight, so a cycle whose figures had moved killed the job and opened **nothing**. Now the PR always opens when the DATA is sound; if the memo is stale it arrives titled **"MEMO REWRITE REQUIRED"**, labelled `memo-rewrite-required`, with the orphaned figures quoted in the body — and its CI is red until a human updates the four editorial fields ×4 locales on the branch. Red CI on that PR is the gate working, not a flake. (2) **Unreviewed-Monday policy = AUTO-HOLD (founder-ratified 2026-08-19):** if no one reviews/merges the bot PR, it simply waits — the page keeps serving the last cycle with visible dates and an honestly aging freshness panel (14-day staleness gate backstops). No auto-publish. This is the chosen policy, not an accident.
-> **⭐ STILL MERGE THE WEEKLY PR BEFORE THE NEXT MONDAY — BUT AN UNMERGED WEEK IS NO LONGER LOST (C1a, 2026-10-28, `5.632`).**
+> **⭐ MERGE THE WEEKLY PR BY WEDNESDAY (the run is on Tuesday since plan MP-3b, 2026-11-10; it was "before the next Monday") — BUT AN UNMERGED WEEK IS NO LONGER LOST (C1a, 2026-10-28, `5.632`).**
 > If the previous refresh PR is still open, the next run **carries** it: it starts from `main`, lays that
 > PR's data (and your memo edits, which live in `regime.json`) on top, adds its own week, and updates the
 > same PR. The PR body then has a section **"This PR carries an unmerged week"** naming the carried run days
@@ -118,14 +118,14 @@ The iter-2 fixtures at `apps/web/src/lib/analytics-sdk/fixtures/` (including `re
 
 ## 3. Editorial cadence guidance
 
-| File                      | Cadence                                     | Trigger                                                                                                                                                                                                                                                                                                                                      |
-| ------------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `regime.json`             | Weekly (or as the macro environment shifts) | The Monday refresh run writes it and opens the weekly PR; the memo fields are rewritten on that PR's branch before it merges. _(Superseded: "Tuesday before close is the default rhythm", a pre-automation cadence, `5.471`.)_                                                                                                               |
-| `historical.json`         | **Pipeline-owned — never edit by hand**     | `generate.mjs` appends one point per real run and flips `synthetic_seed`. Hand-adding a point publishes history that never happened (5.127). A 52-entry cap still exists in code and will start dropping the oldest points around mid-2027, at which point the "since the framework went live" copy needs revisiting — tracked as **5.139**. |
-| `signals.json`            | Weekly                                      | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others.                                                                                                                                                                                                                                                   |
-| `data-status.json`        | AUTO-GENERATED weekly (B3, 2026-08-11)      | Written by `generate.mjs` from `computed.json` anchors + the ETF ledger — never hand-edit; `--check` enforces.                                                                                                                                                                                                                               |
-| `methodology.json`        | Rare                                        | Only on methodology version bump.                                                                                                                                                                                                                                                                                                            |
-| `product-disclaimer.json` | Very rare                                   | Only on legal-driven copy change.                                                                                                                                                                                                                                                                                                            |
+| File                      | Cadence                                     | Trigger                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `regime.json`             | Weekly (or as the macro environment shifts) | The **Tuesday** refresh run writes it and opens the weekly PR (moved from Monday by plan MP-3b, founder 2026-11-10: the Fed's dollar index and exchange rates and Friday's 10-year publish on Monday, so a Monday run read them a week late); the memo is written on Tuesday on that PR's branch, and the founder merges by Wednesday. _(Superseded: "The Monday refresh run writes it"; and earlier "Tuesday before close is the default rhythm", a pre-automation cadence, `5.471`.)_ |
+| `historical.json`         | **Pipeline-owned — never edit by hand**     | `generate.mjs` appends one point per real run and flips `synthetic_seed`. Hand-adding a point publishes history that never happened (5.127). A 52-entry cap still exists in code and will start dropping the oldest points around mid-2027, at which point the "since the framework went live" copy needs revisiting — tracked as **5.139**.                                                                                                                                            |
+| `signals.json`            | Weekly                                      | Per-signal `state` + `last_updated_at`. Some sub-signals will be stale faster than others.                                                                                                                                                                                                                                                                                                                                                                                              |
+| `data-status.json`        | AUTO-GENERATED weekly (B3, 2026-08-11)      | Written by `generate.mjs` from `computed.json` anchors + the ETF ledger — never hand-edit; `--check` enforces.                                                                                                                                                                                                                                                                                                                                                                          |
+| `methodology.json`        | Rare                                        | Only on methodology version bump.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| `product-disclaimer.json` | Very rare                                   | Only on legal-driven copy change.                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
 
 **Hard floor:** `regime.json#last_updated_at` MUST be within **14 days**. Since 2026-09-29 (founder ruling, `5.468`) the backstop **blocks only where the market is the subject**: the weekly refresh workflow and any PR/push that touches market data or code (CI diffs the change and sets `MARKET_STALENESS_ENFORCE=1`). Other lanes' CI gets a visible `::warning::` and passes, and a local `pnpm validate:market-data` only warns. It still catches the "we forgot for a month" failure mode for this lane, without freezing everyone else's PRs. The rule lives in `apps/web/scripts/market-refresh/lib/staleness.mjs`; run it directly to check the age: `node apps/web/scripts/market-refresh/lib/staleness.mjs`.
 
@@ -251,8 +251,8 @@ Reference: `CLAUDE.md` §"Digital dollar terminology + jargon ban (Phase 7 Q2a/Q
 > and an unstamped or stale file is IGNORED with a warning, so a forgotten
 > override can never pin old copy onto a new cycle. Re-run the generator
 > after writing it. The whole flow is automated weekly by
-> `.github/workflows/market-refresh-weekly.yml` (Mondays 06:17 UTC → PR,
-> never a direct push).
+> `.github/workflows/market-refresh-weekly.yml` (Tuesdays 06:17 UTC → PR,
+> never a direct push; Mondays until plan MP-3b, 2026-11-10).
 
 ```bash
 # 1. Get the latest main
@@ -473,14 +473,27 @@ monthly averages (BRL: the PTAX month-end).
    the two writers fails the 2× rule.
 4. Open it as one reviewed PR, with the old → new values listed.
 
-### The Monday run was missed or failed: the Tuesday second attempt (C1d, 2026-10-21)
+### The Tuesday run was missed or failed: the Wednesday second attempt (C1d, 2026-10-21; moved a day by plan MP-3b, 2026-11-10)
 
-The workflow is also scheduled on **Tuesdays at 06:17 UTC**. Its first job decides, from the run history:
+The workflow is also scheduled on **Wednesdays at 06:17 UTC**. Its first job decides, from the run history:
 
-- this week (since Monday 00:00 UTC) already has a successful run: it skips;
-- otherwise (Monday was dropped by GitHub or failed): it runs the full refresh, **carrying** an open refresh PR if there is one (C1a, 2026-10-28; previously it skipped while a PR was open).
+- this cycle (since Tuesday 00:00 UTC) already has a successful run: it skips;
+- otherwise (Tuesday's run was dropped by GitHub or failed): it runs the full refresh, **carrying** an open refresh PR if there is one (C1a, 2026-10-28; previously it skipped while a PR was open).
 
-Monday runs and manual dispatches always refresh. The Monday-night watchdog still alarms on a missed Monday; dispatching by hand stays the faster fix. A Tuesday skip shows as a short green run in the Actions list; that is expected.
+Tuesday runs and manual dispatches always refresh. The Tuesday-night watchdog still alarms on a missed Tuesday; dispatching by hand stays the faster fix. A Wednesday skip shows as a short green run in the Actions list; that is expected. _(Superseded 2026-11-10: the Monday run and the Tuesday second attempt.)_
+
+### The store top-up did not finish, or a series is still blocked (plan MP-3b, decision B-2)
+
+Before the Tuesday refresh reads the store, a **top-up** job collects the series published on Monday (the Fed's broad dollar index and exchange rates, the 10-year, the Nasdaq Composite) and Bitcoin, plus any series Saturday's collection blocked. It never stops the refresh. The PR's **Market data store top-up** section says what happened:
+
+- **collected …**: nothing to do;
+- **still blocked: …**: those series keep their last checked values in the store; read the top-up job's log for the reason. Before plan MP-4 the /market score fetches its own sources, so its checks are unaffected; a series the score itself cannot read still stops the run as before;
+- **stopped before reporting**: read the top-up job's log; the store was read as it stood;
+- **skipped**: a rehearsal, a run from a branch, or the repository variable `MARKET_TOPUP` is `off` (the kill switch: set it to `off` to stop the top-up without a code change).
+
+### The Saturday collection did not run (COLLECT-WATCH-1)
+
+A watchdog runs on **Sunday at 23:00 UTC** and fails when no scheduled store collection started since Saturday 00:00 UTC (GitHub drops or delays scheduled runs). The remedy is in its log: a person dispatches **Market data collection** from `main` in the Actions tab (CC never dispatches a collection), then checks that the next refresh reads the new store commit.
 
 ## 9. What this doc deliberately does NOT cover
 

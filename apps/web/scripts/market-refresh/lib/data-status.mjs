@@ -20,11 +20,15 @@
  *   monthly-print   FRESH until the next print is overdue (~25th of
  *                   anchor month + 2), else DELAYED
  *   warmup-ledger   UNAVAILABLE below WARMUP_SNAPSHOTS, else FRESH
- *                   (DELAYED once the run passes the ledger's stale_after)
+ *                   (past the ledger's stale_after: STALE, by the next rule)
+ *   any row         then the read-time twin's thresholds at the run instant: FRESH or
+ *                   DELAYED past its stale_after -> STALE; FRESH past delayed_after ->
+ *                   DELAYED (plan MP-3b: the panel equals its own read at computed_at)
  *
  * overall_confidence (founder-ratified with the B3 go, 2026-08-11):
  *   HIGH when all sources FRESH · MODERATE when any DELAYED/UNAVAILABLE ·
- *   LOW when ≥2 UNAVAILABLE or any source already past its stale_after.
+ *   LOW when ≥2 UNAVAILABLE or any source already past its stale_after, and then
+ *   `low_confidence_causes` names them (as the read-time twin does).
  *
  * Messages are ops-facing EN templates (the panel's visible labels stay
  * localized via i18n). Stable provenance notes ride verbatim in the
@@ -252,14 +256,16 @@ function etfLedgerEntry(source, signal, snapshots, run, attempts = []) {
   if (count < WARMUP_SNAPSHOTS) {
     status = 'UNAVAILABLE';
     // The run that records the snapshot making the ledger scorable: the
-    // Monday after the ((target − count)th) future Friday anchor.
-    const scorable = addDays(anchor, 7 * (WARMUP_SNAPSHOTS - count) + 3);
+    // Tuesday after the ((target − count)th) future Friday anchor (the weekly run
+    // moved from Monday to Tuesday with plan MP-3b, so +4, not +3).
+    const scorable = addDays(anchor, 7 * (WARMUP_SNAPSHOTS - count) + 4);
     message =
       `${base} Warming up: ${count} of ${WARMUP_SNAPSHOTS} weekly snapshots recorded; ` +
       `4 weekly flows need ${WARMUP_SNAPSHOTS} snapshots. UNAVAILABLE (not weak), ` +
       `no guessed backfill; first scorable evaluation expected ~${ymd(scorable)}.`;
   } else if (run > staleAfter) {
-    status = 'DELAYED';
+    // past its stale_after: STALE, as the read-time twin reads it (plan MP-3b)
+    status = 'STALE';
     message = `${base} Ledger stale: last snapshot ${anchorStr}; weekly snapshots overdue.`;
   } else {
     status = 'FRESH';
@@ -321,6 +327,18 @@ function ledgerSentence(cov, attempts) {
  * @param etfAttempts  parsed etf-snapshot-attempts.jsonl rows (refused collections)
  * @returns the canonical data_status object (no `_`-annotations)
  */
+/**
+ * The headline confidence from the panel's rows at `run`: LOW when two or more are UNAVAILABLE or
+ * any is past its stale_after; MODERATE when any is DELAYED, STALE or UNAVAILABLE; else HIGH.
+ * Exported so the read-time twin's test compares against THIS rule, not a copy (MP-3b review).
+ */
+export function confidenceOf(sources, run) {
+  const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').length;
+  const delayed = sources.filter((s) => s.status === 'DELAYED' || s.status === 'STALE').length;
+  const pastStale = sources.some((s) => s.stale_after != null && run > new Date(s.stale_after));
+  return unavailable >= 2 || pastStale ? 'LOW' : delayed || unavailable ? 'MODERATE' : 'HIGH';
+}
+
 export function deriveDataStatus(computed, etfSnapshots, etfAttempts = []) {
   const run = new Date(computed.computed_at);
   const anchorOf = Object.fromEntries(computed.signals.map((s) => [s.id, s.anchor]));
@@ -328,13 +346,27 @@ export function deriveDataStatus(computed, etfSnapshots, etfAttempts = []) {
   // record itself (5.301 reads the gap off it), so resolve it here rather than
   // letting `signal?.values` quietly be undefined on a string.
   const signalOf = Object.fromEntries(computed.signals.map((s) => [s.id, s]));
+  const past = (instant) => instant != null && run > new Date(instant);
   const sources = SOURCE_REGISTRY.map((r) => {
     if (r.kind === 'weekly-friday') return weeklyEntry(r.source, anchorOf[r.signal], run);
     if (r.kind === 'monthly-close') return btcMonthlyEntry(r.source, anchorOf[r.signal], run);
     if (r.kind === 'monthly-print') return m2Entry(r.source, anchorOf[r.signal], run);
     return etfLedgerEntry(r.source, signalOf[r.signal], etfSnapshots, run, etfAttempts);
+  }).map((s) => {
+    // The read-time twin's two thresholds (`analytics-sdk/freshness.ts#applyReadTimeFreshness`),
+    // applied at the run instant so the panel equals its own read at computed_at in every week,
+    // not only in weeks where nothing is past a threshold (plan MP-3b; the equivalence guard in
+    // `freshness.test.ts` pins the two together).
+    if ((s.status === 'FRESH' || s.status === 'DELAYED') && past(s.stale_after))
+      return { ...s, status: 'STALE' };
+    if (s.status === 'FRESH' && past(s.delayed_after)) return { ...s, status: 'DELAYED' };
+    return s;
   });
-  const delayed = sources.filter((s) => s.status === 'DELAYED').map((s) => s.source);
+  // STALE is a worse DELAYED (as the twin lists it): the summary must name the source the
+  // headline blames.
+  const delayed = sources
+    .filter((s) => s.status === 'DELAYED' || s.status === 'STALE')
+    .map((s) => s.source);
   const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').map((s) => s.source);
   // Null-safe on purpose. `new Date(null)` is the epoch, so a source with no
   // stale_after would read as "past stale" and force LOW. No branch emits null
@@ -342,15 +374,18 @@ export function deriveDataStatus(computed, etfSnapshots, etfAttempts = []) {
   // (`analytics-sdk/freshness.ts`) returns FALSE for null — so the unguarded
   // form was a real divergence between two rules documented as mirroring each
   // other, waiting on the first cadence class that has no stale threshold.
-  const pastStale = sources.some((s) => s.stale_after != null && run > new Date(s.stale_after));
-  const overall =
-    unavailable.length >= 2 || pastStale
-      ? 'LOW'
-      : delayed.length || unavailable.length
-        ? 'MODERATE'
-        : 'HIGH';
+  const pastStaleSources = sources.filter((s) => past(s.stale_after)).map((s) => s.source);
+  const overall = confidenceOf(sources, run);
   return {
     overall_confidence: overall,
+    // Only when LOW, the facts that made it LOW, exactly as the read-time twin derives them
+    // (`analytics-sdk/freshness.ts#withLowCauses`, #741). Before, only the twin wrote them, so in
+    // any LOW week the panel and its own read at computed_at differed and the equivalence guard
+    // (`freshness.test.ts`, a weekly blocking test) would have stopped a run on a correct state
+    // (found by the week simulator's Bitcoin month-roll, plan MP-3b).
+    ...(overall === 'LOW'
+      ? { low_confidence_causes: { past_stale: pastStaleSources, unavailable } }
+      : {}),
     last_successful_update_at: computed.computed_at,
     sources,
     delayed_sources: delayed,

@@ -286,6 +286,9 @@ export const SERIES = [
     definition:
       'Coin Metrics daily PriceUSD behaves as a time average of roughly the last 30 minutes before 00:00 UTC; exchanges close on their last trade. Measured on 2022-06-30 (register 5.776); whether it holds in every year is not established.',
     primary: SOURCES.coinmetrics(),
+    // Bitcoin trades every day: Saturday's collection ends on Friday, already past the score's
+    // 3-day limit on a Tuesday. The Tuesday top-up brings it to Monday (MP-3b, scenario G).
+    topUp: true,
     checks: [
       {
         source: SOURCES.coinbase(),
@@ -317,6 +320,9 @@ export const SERIES = [
     // Gold futures (GC=F) were measured as a second check and rejected: their
     // basis to spot reached 6.9% in March 2020.
     primary: SOURCES.cnbc('XAU='),
+    // The score's gold limit is 5 days: Saturday's Friday close is past it by Wednesday's retry,
+    // so the Tuesday top-up adds Monday's (MP-3b review).
+    topUp: true,
     checks: [{ source: SOURCES.wgc(), tolerance: 0.035, relation: 'independent' }],
   },
   {
@@ -346,6 +352,9 @@ export const SERIES = [
     label: 'Nasdaq Composite (points)',
     since: '2010-01-01',
     primary: SOURCES.fred('NASDAQCOM'),
+    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
+    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    topUp: true,
     checks: [{ source: SOURCES.cnbc('.IXIC'), tolerance: 0.002, relation: 'independent' }],
   },
   // ---- official rates (one publisher; no independent second source exists) ----
@@ -355,6 +364,9 @@ export const SERIES = [
     label: 'Nominal broad US dollar index (Fed)',
     since: '2010-01-01',
     primary: SOURCES.fred('DTWEXBGS'),
+    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
+    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    topUp: true,
     checks: [],
   },
   {
@@ -363,6 +375,9 @@ export const SERIES = [
     label: 'US 10-year Treasury yield (%)',
     since: '2010-01-01',
     primary: SOURCES.fred('DGS10'),
+    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
+    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    topUp: true,
     checks: [],
   },
   {
@@ -394,6 +409,9 @@ export const SERIES = [
     label: `FX ${unit} (Fed H.10, noon New York)`,
     since: '2010-01-01',
     primary: SOURCES.fred(fred),
+    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
+    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    topUp: true,
     // A noon rate against a 17:00 close of the same pair: a day passes when
     // the two agree within the tolerance OR the stored noon rate lies inside
     // CNBC's traded range that day. Measured 2010-2026: at 0.5% + range, 0

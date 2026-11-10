@@ -27,6 +27,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { applyReadTimeFreshness } from '../freshness';
 import type { DataStatus } from '../types';
+import { confidenceOf } from '../../../../scripts/market-refresh/lib/data-status.mjs';
 
 const MARKET_DIR = join(__dirname, '../../../../data/market/shared');
 const readJson = (f: string) => JSON.parse(readFileSync(join(MARKET_DIR, f), 'utf8'));
@@ -339,12 +340,8 @@ describe('the two confidence rules agree on a source with NO stale threshold', (
    * LOW) while `isPast(null)` is false. Unreachable today, and exactly the kind
    * of divergence the plan warned a second derivation would create.
    */
-  const pipelineRule = (sources: DataStatus['sources'], run: Date) => {
-    const unavailable = sources.filter((s) => s.status === 'UNAVAILABLE').length;
-    const delayed = sources.filter((s) => s.status === 'DELAYED').length;
-    const pastStale = sources.some((s) => s.stale_after != null && run > new Date(s.stale_after));
-    return unavailable >= 2 || pastStale ? 'LOW' : delayed || unavailable ? 'MODERATE' : 'HIGH';
-  };
+  // the pipeline's own rule, not a copy (a copy went stale when STALE became a pipeline status)
+  const pipelineRule = (sources: DataStatus['sources'], run: Date) => confidenceOf(sources, run);
 
   it('should not treat a null stale_after as "already stale"', () => {
     const panel = PANEL_2026_09_07;
@@ -366,6 +363,9 @@ describe('the two confidence rules agree on a source with NO stale threshold', (
       ['UNAVAILABLE', 'FRESH'],
       ['UNAVAILABLE', 'UNAVAILABLE'],
       ['DELAYED', 'UNAVAILABLE'],
+      // STALE is a pipeline status since plan MP-3b: it must count as not fresh in both rules
+      ['STALE', 'FRESH'],
+      ['STALE', 'UNAVAILABLE'],
     ];
     const now = new Date('2026-09-15T00:00:00Z');
     for (const mix of mixes) {

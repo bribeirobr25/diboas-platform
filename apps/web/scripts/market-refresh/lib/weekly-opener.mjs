@@ -25,7 +25,7 @@ import { isSuspendedEtf } from './etf-suspension.mjs';
 /**
  * A comparison may be called "this week" only when the previous run is 7±1
  * days before this one (2026-10-21, founder decision on the review-gate
- * findings). After a missed or re-run Monday the previous run can be two weeks
+ * findings). After a missed or re-run weekly run the previous one can be two weeks
  * old, or two days, and a change over that span is not "this week".
  */
 export const WEEKLY_GAP_DAYS = { min: 6, max: 8 };

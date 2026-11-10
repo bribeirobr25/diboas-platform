@@ -1,15 +1,15 @@
 /**
- * simulate-next-week.mjs — run the weekly blocking gate against NEXT Monday's
- * data, before next Monday does (PENDING_ALL 5.363).
+ * simulate-next-week.mjs — run the weekly blocking gate against NEXT week's
+ * data, before next week's run does (Tuesdays since plan MP-3b; written when it was Monday) (PENDING_ALL 5.363).
  *
  * WHY THIS EXISTS. The weekly publish has failed four times in ten cycles, and
  * four of the five failures were the same step: the blocking test run. Three
  * different tests, one mechanism — each asserted something true of THIS week's
- * committed artefacts, and the refresh rewrites those artefacts every Monday.
+ * committed artefacts, and the refresh rewrites those artefacts every week.
  * The 2026-09-14 cycle died on `toBe(10)` run days when the run appended day 11.
  *
- * A test suite that is green today tells you nothing about Monday. This tells
- * you about Monday: it moves the clock forward a week the way a real run does,
+ * A test suite that is green today tells you nothing about next week's run. This
+ * tells you about it: it moves the clock forward a week the way a real run does,
  * regenerates the editorial layer with the REAL generator, and runs the exact
  * command the workflow's blocking step runs.
  *
@@ -75,8 +75,26 @@ import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { ETF01_SUSPENSION, isSuspendedEtf } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
 import { appendJsonlLine, readJsonlTolerant } from './lib/jsonl.mjs';
-import { scoreSignals, anchorCoherence, ETF_VARIANT, MAX_SCORE } from './lib/regime-engine.mjs';
-import { FX_SERIES, PRICE_SERIES, lastWeekday, main as publish } from '../market-data/publish.mjs';
+import {
+  scoreSignals,
+  anchorCoherence,
+  ETF_VARIANT,
+  MAX_SCORE,
+  evaluateBtcStructure,
+  expectedConfirmedMonthYM,
+  nextMonthYM,
+  strictFridayCloses,
+} from './lib/regime-engine.mjs';
+import { readStoreInputs } from './lib/store-inputs.mjs';
+import { FETCHED_SOURCES } from './lib/source-registry.mjs';
+import { assertMarketSourcesQuality } from './lib/market-sources.mjs';
+import {
+  FX_SERIES,
+  PRICE_SERIES,
+  PUBLISHED_FILES,
+  lastWeekday,
+  main as publish,
+} from '../market-data/publish.mjs';
 
 const SHARED = SHARED_DIR;
 // Scenario D (5.478) also writes the monthly series the pipeline and the store
@@ -84,9 +102,7 @@ const SHARED = SHARED_DIR;
 // dirty-tree refusal, snapshot and restore.
 const MONTHLY = MONTHLY_PRICES_PATH;
 const DATA_DIR = path.dirname(MONTHLY);
-const PUBLISHED = ['monthlyPrices.json', 'monthlyFx.json', 'store-manifest.json'].map((f) =>
-  path.join(DATA_DIR, f)
-);
+const PUBLISHED = Object.values(PUBLISHED_FILES).map((f) => path.join(DATA_DIR, f));
 const WATCHED = [SHARED, ...PUBLISHED];
 const DATA_KEY = (f) => `\u0000${f}`;
 /**
@@ -185,7 +201,7 @@ function rollMonths(n, factor) {
   }
   fs.writeFileSync(MONTHLY, `${JSON.stringify(data, null, 2)}\n`);
 
-  const fx = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'monthlyFx.json'), 'utf8'));
+  const fx = JSON.parse(fs.readFileSync(path.join(DATA_DIR, PUBLISHED_FILES.fx), 'utf8'));
   const store = fs.mkdtempSync(path.join(os.tmpdir(), 'sim-store-'));
   try {
     fs.mkdirSync(path.join(store, 'derived', 'monthly'), { recursive: true });
@@ -262,10 +278,46 @@ function rollMonths(n, factor) {
  *   the ETF leg failed: nothing collected); etfIncomplete = the pull came back
  *   without share counts and goes through the real refusal (scenario E)
  */
-function advance({ days, etfDays, etfIncomplete = false }) {
+function advance({ days, etfDays, etfIncomplete = false, btcRoll = false, correction = false }) {
   const p = (f) => path.join(SHARED, f);
   const computed = JSON.parse(fs.readFileSync(p('computed.json'), 'utf8'));
   computed.computed_at = shiftIso(computed.computed_at, days);
+  // 5.860 (scenario H): the month Bitcoin's confirmed candle rolls. The candle is appended
+  // as `run.mjs --append-btc` leaves it, and BTC-01..04 are recomputed by the real engine
+  // (evaluateBtcStructure throws if the expected month is missing, as on the real run).
+  if (btcRoll) {
+    const data = JSON.parse(fs.readFileSync(MONTHLY, 'utf8'));
+    const last = data.BTC.months.at(-1);
+    const ym = nextMonthYM(last.ym);
+    if (ym !== expectedConfirmedMonthYM(new Date(computed.computed_at)))
+      throw new Error(`scenario clock does not roll Bitcoin to ${ym}`);
+    const close = last.close * 1.08;
+    data.BTC.months.push({
+      ym,
+      open: last.close,
+      high: close * 1.03,
+      low: last.close * 0.95,
+      close,
+    });
+    fs.writeFileSync(MONTHLY, `${JSON.stringify(data, null, 2)}\n`);
+    const fresh = archiveSignals(
+      evaluateBtcStructure(data.BTC.months, new Date(computed.computed_at)),
+      {
+        etfSnapshotCount: 0,
+      }
+    );
+    computed.signals = computed.signals.map((s) => fresh.find((f) => f.id === s.id) ?? s);
+  }
+  // Scenario I: a same-day re-run that CORRECTS the first (a different score), so the check that
+  // the day's chart point follows the LAST run of the day can fail (SNAP-IMMUT-1, runDayIndex).
+  if (correction) {
+    const s = computed.signals.find(
+      (x) => /^(MAC|REL)-/.test(x.id) && (x.state === 'ACTIVE' || x.state === 'INACTIVE')
+    );
+    if (!s) throw new Error('no macro or relative-strength signal to correct');
+    s.state = s.state === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+    if ('points' in s) s.points = s.state === 'ACTIVE' ? s.weight : 0;
+  }
   // Weekly anchors move because the run re-fetches; monthly ones do not roll here
   // (deliberately — a late monthly print is a legitimate state, 5.462).
   let weekly = 0;
@@ -417,6 +469,31 @@ const SCENARIOS = [
     weeks: 2,
     expectEtf: etfExpectation(undefined),
     expectEtfSentence: SUSPENDED || undefined,
+  },
+  {
+    key: 'H',
+    name: 'Bitcoin month-roll through the blocking step (5.860)',
+    // the first weekly step whose clock needs the next Bitcoin month (computed in main). The ETF
+    // ledger moves one week while the clock moves several, so its row goes past its stale date:
+    // this also rehearses a LOW week, where the panel must equal its read-time rule (PIPE-5).
+    btcRoll: true,
+    etfDays: 7,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
+  {
+    key: 'I',
+    name: 'same-day re-run through the blocking step (5.860)',
+    days: 7,
+    etfDays: 7,
+    rerunSameDay: true,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
+  {
+    key: 'G',
+    name: "store-backed week: the score reader at next week's clock (plan MP-3)",
+    storeBacked: true,
   },
   {
     key: 'D',
@@ -620,6 +697,160 @@ function assertCarry({ baseline, generated }) {
   );
 }
 
+/** Days (a whole number of weeks, at least one) until the run needs the next Bitcoin month. */
+function daysToBtcRoll() {
+  const computed = JSON.parse(fs.readFileSync(path.join(SHARED, 'computed.json'), 'utf8'));
+  const months = JSON.parse(fs.readFileSync(MONTHLY, 'utf8')).BTC.months.map((m) => m.ym);
+  for (let d = 7; d <= 63; d += 7)
+    if (!months.includes(expectedConfirmedMonthYM(new Date(shiftIso(computed.computed_at, d)))))
+      return d;
+  throw new Error('no Bitcoin month-roll within nine weeks of the committed run');
+}
+
+/**
+ * Scenario G (plan MP-3): the score's store reader at the NEXT run's clock (the next Tuesday,
+ * where the weekly run sits since MP-3b). Offline, so "today's fetch output" is compared by its
+ * contract: the keys `fetchMarketSources()` returns (the registry's), [Date, number] pairs in
+ * date order, the score's own quality and recency checks, the Friday close and the Bitcoin
+ * month. Two stores:
+ *   - synthetic, as the Tuesday top-up leaves it (weekday series to the day before, Bitcoin to
+ *     Monday), read at the Tuesday clock;
+ *   - with `--store=<path>/market` (or SIM_STORE), the REAL store moved one week on, read at
+ *     the moment that week's Saturday collection would finish. It is not read at the Tuesday
+ *     clock because the real store holds no top-up days: read there, its Bitcoin (Friday's) is
+ *     past the score's 3-day limit, which is why the top-up collects Bitcoin (TOPUP-1).
+ */
+function storeBackedWeek() {
+  const computed = JSON.parse(fs.readFileSync(path.join(SHARED, 'computed.json'), 'utf8'));
+  const ranAt = new Date(computed.computed_at);
+  // the next Tuesday 6 to 8 days on: from a Monday run (the switch week) it is 8 days, from a
+  // Tuesday run 7, from a Wednesday retry 6 (WEEK-WORDING-1's window)
+  let toTuesday = 6;
+  while ((ranAt.getUTCDay() + toTuesday) % 7 !== 2) toTuesday += 1;
+  const today = new Date(shiftIso(computed.computed_at, toTuesday));
+  const fail = (msg) => {
+    throw Object.assign(new Error(msg), { stdout: '' });
+  };
+  const series = ['us10y', 'dollar_broad', 'nasdaq_composite', 'gold_spot', 'btc', 'us_m2'];
+  const check = (label, root, at) => {
+    const { sources, btcMonths } = readStoreInputs(root, {
+      today: at,
+      from: '2023-01-01',
+      // a stand-in commit: the reader requires one (G reads a temporary or moved copy)
+      storeCommit: '0'.repeat(40),
+    });
+    const keys = Object.keys(sources).sort();
+    const want = FETCHED_SOURCES.map((s) => s.key).sort();
+    if (JSON.stringify(keys) !== JSON.stringify(want)) fail(`${label}: keys ${keys} ≠ ${want}`);
+    for (const [k, s] of Object.entries(sources)) {
+      if (!s.series.length) fail(`${label}: ${k} is empty`);
+      for (let i = 0; i < s.series.length; i++) {
+        const [d, v] = s.series[i];
+        if (!(d instanceof Date) || !Number.isFinite(v))
+          fail(`${label}: ${k} row ${i} is not [Date, number]`);
+        if (i && d <= s.series[i - 1][0]) fail(`${label}: ${k} is not in date order at row ${i}`);
+      }
+    }
+    assertMarketSourcesQuality(sources, at);
+    const friday = strictFridayCloses(sources.dxy.series, at).at(-1)?.[0];
+    // the dollar index's own limit from the source list (the Fed publishes it a week late)
+    const limit = FETCHED_SOURCES.find((s) => s.key === 'dxy').recencyMaxDays;
+    if (!friday || at - friday > limit * DAY_MS)
+      fail(`${label}: no dollar-index Friday close within ${limit} days`);
+    const expected = expectedConfirmedMonthYM(at);
+    if (!btcMonths.some((m) => m.ym === expected)) fail(`${label}: Bitcoin lacks ${expected}`);
+    console.log(
+      `  ✓ ${label}: ${keys.length} sources pass the score's checks at ${at.toISOString().slice(0, 16)}Z; Friday ${friday.toISOString().slice(0, 10)}; Bitcoin through ${btcMonths.at(-1).ym}`
+    );
+  };
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'sim-store-g-'));
+  try {
+    // synthetic, per series as Saturday's collection and the Tuesday top-up leave it: Bitcoin
+    // and gold through Monday; the Fed and FRED series through Friday (the Fed publishes Friday's
+    // values on Monday, FRED a business day late, so Monday's are not out at 06:17 UTC Tuesday)
+    const daily = path.join(tmp, 'synthetic', 'daily');
+    fs.mkdirSync(daily, { recursive: true });
+    const monday = shiftDay(today.toISOString().slice(0, 10), -1);
+    const friday = shiftDay(today.toISOString().slice(0, 10), -4);
+    for (const id of series) {
+      const end = id === 'btc' || id === 'gold_spot' ? monday : friday;
+      const rows = [];
+      if (id === 'us_m2') {
+        for (let m = 30; m >= 2; m--) {
+          const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - m, 1));
+          rows.push(
+            `${d.toISOString().slice(0, 10)},,,,${(21000 + (30 - m) * 40).toFixed(1)},simulator`
+          );
+        }
+      } else {
+        for (let i = 760, v = 100; i >= 0; i--, v += 0.05) {
+          const day = shiftDay(end, -i);
+          const dow = new Date(`${day}T00:00:00Z`).getUTCDay();
+          if (id !== 'btc' && (dow === 0 || dow === 6)) continue;
+          rows.push(`${day},,,,${v.toFixed(4)},simulator`);
+        }
+      }
+      fs.writeFileSync(
+        path.join(daily, `${id}.csv`),
+        `date,open,high,low,close,source\n${rows.join('\n')}\n`
+      );
+    }
+    // the Tuesday run at 06:17 UTC, and the Wednesday retry when its own top-up failed (the
+    // store as Tuesday's left it): the score's limits must hold at both
+    const at = (d, hhmm) =>
+      new Date(`${shiftDay(today.toISOString().slice(0, 10), d)}T${hhmm}:00Z`);
+    check(
+      'synthetic store as the Tuesday top-up leaves it, Tuesday 06:17',
+      path.join(tmp, 'synthetic'),
+      at(0, '06:17')
+    );
+    check(
+      'the same store at the Wednesday retry, 06:17',
+      path.join(tmp, 'synthetic'),
+      at(1, '06:17')
+    );
+    const real =
+      process.argv.find((a) => a.startsWith('--store='))?.slice(8) ?? process.env.SIM_STORE;
+    if (real) {
+      // the real store, every daily row moved seven days on (M2 keeps its months)
+      const moved = path.join(tmp, 'real', 'daily');
+      fs.mkdirSync(moved, { recursive: true });
+      for (const id of series) {
+        const text = fs.readFileSync(path.join(real, 'daily', `${id}.csv`), 'utf8');
+        const out =
+          id === 'us_m2'
+            ? text
+            : text.replace(/^(\d{4}-\d{2}-\d{2})(?=,)/gm, (d) => shiftDay(d, 7));
+        fs.writeFileSync(path.join(moved, `${id}.csv`), out);
+      }
+      // the moment the moved Saturday collection would finish: the Saturday after its newest
+      // weekday close, 16:00 UTC (the collection starts 09:23 and has run hours late)
+      // the newest day of any moved series (the Fed's series are a week late; Bitcoin is not)
+      const newest = series
+        .filter((id) => id !== 'us_m2')
+        .map((id) =>
+          fs
+            .readFileSync(path.join(moved, `${id}.csv`), 'utf8')
+            .trim()
+            .split('\n')
+            .at(-1)
+            .slice(0, 10)
+        )
+        .sort()
+        .at(-1);
+      const toSaturday = (6 - new Date(`${newest}T00:00:00Z`).getUTCDay() + 7) % 7 || 7;
+      const saturday = new Date(`${shiftDay(newest, toSaturday)}T16:00:00Z`);
+      check(
+        'real store moved a week, read as its Saturday collection leaves it',
+        path.join(tmp, 'real'),
+        saturday
+      );
+    } else console.log('  (no --store given: the real store was not read; the synthetic one was)');
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
 function main() {
   assertClean();
   const snap = snapshot();
@@ -629,6 +860,12 @@ function main() {
     for (const sc of SCENARIOS.filter((x) => !only || x.key === only)) {
       restore(snap);
       try {
+        if (sc.storeBacked) {
+          console.log(`\n=== scenario ${sc.key}: ${sc.name} ===`);
+          storeBackedWeek();
+          continue;
+        }
+        if (sc.btcRoll) sc.days = daysToBtcRoll();
         if (sc.monthRolls) {
           // Scenario D gates the refresh PR's own CI, not the bot pre-flight: these
           // tests stay out of the blocking step on purpose (a failure there would
@@ -667,7 +904,26 @@ function main() {
           advance(sc);
           sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
         }
-        const moved = advance(sc);
+        let moved = advance(sc);
+        if (sc.rerunSameDay) {
+          // 5.860 (scenario I): a second run on the same UTC day (a manual dispatch after the
+          // schedule) that corrects the first: one signal's state differs, so the score does.
+          // The archive gains a second line for the day and the chart's point for that day must
+          // follow the LAST run (SNAP-IMMUT-1, in the blocking step below).
+          sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
+          const first = moved.score;
+          const ranAt = Date.parse(
+            JSON.parse(fs.readFileSync(path.join(SHARED, 'computed.json'), 'utf8')).computed_at
+          );
+          const endOfDay = Math.ceil((ranAt + 1) / DAY_MS) * DAY_MS;
+          const later = Math.min(3 * 3_600_000, Math.floor((endOfDay - ranAt) / 2)) / DAY_MS;
+          moved = advance({ days: later, etfDays: null, correction: true });
+          if (moved.score === first)
+            throw Object.assign(new Error('the same-day correction did not change the score'), {
+              stdout: '',
+            });
+          console.log(`  same-day correction: ${first} -> ${moved.score}/${MAX_SCORE}`);
+        }
         console.log(
           `\n=== scenario ${sc.key}: ${sc.name} ===\n` +
             `  computed_at +${sc.days}d · ${moved.weekly} weekly anchors moved · ` +

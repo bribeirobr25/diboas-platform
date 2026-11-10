@@ -276,8 +276,15 @@ describe('the 14-day staleness backstop is scoped to market (5.468)', () => {
       'apps/web/src/app/[locale]/(landing)/market/page.tsx',
       'apps/web/src/components/Analytics/RegimeScore/RegimeScore.tsx',
       '.github/workflows/market-refresh-weekly.yml',
+      // plan MP-3 §10: the store's collector, publisher and workflows are market changes too
+      'apps/web/scripts/market-data/publish.mjs',
+      'apps/web/scripts/market-data/catalogue.mjs',
+      '.github/workflows/market-data-collect.yml',
+      '.github/workflows/market-publish-drift.yml',
     ])
       expect(re.test(p), p).toBe(true);
+    // a here-string: a pipe with pipefail turned the backstop off on a long list
+    expect(ci).toMatch(/if grep -Eq "\$MARKET_PATHS" <<<"\$changed"; then enforce=1/);
     for (const p of [
       'apps/sandbox/src/lib/market/factory.ts', // the sandbox's own market module
       'apps/web/src/app/[locale]/(landing)/tools/page.tsx',
@@ -376,7 +383,14 @@ describe('weekly refresh — supply chain and a recorded ETF week that a later f
   it('should pin every action to a full commit SHA, never a movable tag', () => {
     const uses = [...weekly.matchAll(/^\s*(?:- )?uses: ([^\s#]+)/gm)].map((m) => m[1]);
     expect(uses.length).toBeGreaterThan(0);
-    expect(uses.filter((u) => !/@[0-9a-f]{40}$/.test(u))).toEqual([]);
+    // A reusable workflow of THIS repository (`./.github/workflows/<file>.yml`) is versioned with
+    // the commit that calls it, so it cannot move; anything else must be pinned (plan MP-3b: the
+    // top-up calls the collection workflow).
+    const LOCAL_WORKFLOW = /^\.\/\.github\/workflows\/[a-z0-9-]+\.yml$/;
+    expect(uses.filter((u) => !/@[0-9a-f]{40}$/.test(u) && !LOCAL_WORKFLOW.test(u))).toEqual([]);
+    expect(uses.filter((u) => u.startsWith('./'))).toEqual([
+      './.github/workflows/market-data-collect.yml',
+    ]);
   });
 
   it('should keep the ETF files as a run artifact whenever the run fails after the ETF leg wrote them', () => {

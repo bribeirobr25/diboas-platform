@@ -65,6 +65,12 @@ import { readCsv } from './store.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
 export const DATA_DIR = path.join(ROOT, 'apps/web/src/lib/market-data/data');
+/** The files this publisher writes into DATA_DIR (one list: the simulator and PUBLISH-1's tests read it). */
+export const PUBLISHED_FILES = Object.freeze({
+  prices: 'monthlyPrices.json',
+  fx: 'monthlyFx.json',
+  manifest: 'store-manifest.json',
+});
 const METHODOLOGY = path.join(ROOT, 'apps/web/data/market/shared/methodology.json');
 
 /**
@@ -469,9 +475,9 @@ export function main(argv = process.argv.slice(2), now = new Date()) {
     console.error(e.message);
     return 2;
   }
-  const pricesFile = path.join(args.out, 'monthlyPrices.json');
-  const fxFile = path.join(args.out, 'monthlyFx.json');
-  const manifestFile = path.join(args.out, 'store-manifest.json');
+  const pricesFile = path.join(args.out, PUBLISHED_FILES.prices);
+  const fxFile = path.join(args.out, PUBLISHED_FILES.fx);
+  const manifestFile = path.join(args.out, PUBLISHED_FILES.manifest);
   const refuse = (why) => {
     const msg = `the Money Tools series were not updated: ${why}`;
     console.error(msg);
