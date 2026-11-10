@@ -62,20 +62,20 @@ For the API surface specifically:
 
 ### 3.1 Public API endpoints (11 routes)
 
-| Endpoint                           | Methods             | Auth                             | Rate-limit class                        | CSRF                                         | Token gating                       |
-| ---------------------------------- | ------------------- | -------------------------------- | --------------------------------------- | -------------------------------------------- | ---------------------------------- |
-| `/api/waitlist/signup`             | POST                | None                             | **strict** (5/min)                      | ✓                                            | —                                  |
-| `/api/waitlist/delete`             | POST + DELETE       | None                             | strict                                  | ✓                                            | HMAC token (single-use, 15min TTL) |
-| `/api/waitlist/position`           | POST                | **API key** (`INTERNAL_API_KEY`) | standard                                | ✓                                            | —                                  |
-| `/api/waitlist/referral`           | GET                 | None                             | lenient (100/min)                       | —                                            | —                                  |
-| `/api/waitlist/stats`              | GET                 | None                             | lenient                                 | —                                            | —                                  |
-| `/api/email/unsubscribe`           | GET + POST          | None                             | standard                                | —                                            | HMAC token (constant-time verify)  |
+| Endpoint                 | Methods       | Auth                             | Rate-limit class   | CSRF | Token gating                       |
+| ------------------------ | ------------- | -------------------------------- | ------------------ | ---- | ---------------------------------- |
+| `/api/waitlist/signup`   | POST          | None                             | **strict** (5/min) | ✓    | —                                  |
+| `/api/waitlist/delete`   | POST + DELETE | None                             | strict             | ✓    | HMAC token (single-use, 15min TTL) |
+| `/api/waitlist/position` | POST          | **API key** (`INTERNAL_API_KEY`) | standard           | ✓    | —                                  |
+| `/api/waitlist/referral` | GET           | None                             | lenient (100/min)  | —    | —                                  |
+| `/api/waitlist/stats`    | GET           | None                             | lenient            | —    | —                                  |
+| `/api/email/unsubscribe` | GET + POST    | None                             | standard           | —    | HMAC token (constant-time verify)  |
 
 No endpoint takes an email address in its URL (twelfth audit, `5.861`): the unused `GET /api/waitlist/signup?email=` and `GET /api/waitlist/position?email=` were removed, because a query string reaches request logs and Sentry, and the position lookup leaked whether an email was on the list.
-| `/api/consent`                     | GET + POST + DELETE | None                             | standard / lenient                      | ✓ on mutate                                  | —                                  |
-| `/api/monitoring`                  | POST                | None                             | per-IP 1000/60s (F9, 2026-06-02)        | **NONE** (deliberate — SDK can't send token) | DSN regex + 1MB body cap           |
-| `/api/health` (+`/ready`, `/live`) | GET + HEAD          | Optional API key for detail      | lenient                                 | —                                            | —                                  |
-| `/api/og/*`                        | GET                 | None                             | per-IP `checkRateLimit` (lenient, Edge) | —                                            | —                                  |
+| `/api/consent` | GET + POST + DELETE | None | standard / lenient | ✓ on mutate | — |
+| `/api/monitoring` | POST | None | per-IP 1000/60s (F9, 2026-06-02) | **NONE** (deliberate — SDK can't send token) | DSN regex + 1MB body cap |
+| `/api/health` (+`/ready`, `/live`) | GET + HEAD | Optional API key for detail | lenient | — | — |
+| `/api/og/*` | GET | None | per-IP `checkRateLimit` (lenient, Edge) | — | — |
 
 **Key defenses already in place:**
 
