@@ -9,7 +9,7 @@
 
 import { describe, it, expect, beforeEach, vi, type Mock } from 'vitest';
 import { NextRequest } from 'next/server';
-import { POST, GET } from '../signup/route';
+import { POST } from '../signup/route';
 import * as store from '@/lib/waitingList/store';
 import * as security from '@/lib/security';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
@@ -508,72 +508,6 @@ describe('POST /api/waitlist/signup', () => {
 
       expect(response.status).toBe(403);
     });
-  });
-});
-
-describe('GET /api/waitlist/signup', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-
-    (security.checkRateLimit as Mock).mockResolvedValue({
-      success: true,
-      limit: 20,
-      remaining: 19,
-      reset: Math.floor(Date.now() / 1000) + 60,
-    });
-
-    (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
-  });
-
-  it('should return generic response regardless of email existence', async () => {
-    const request = createMockRequest({}, 'GET', { email: 'check@example.com' });
-
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(200);
-    expect(data.success).toBe(true);
-    expect(data.message).toContain('Check complete');
-    // Should NOT reveal if email exists
-    expect(data).not.toHaveProperty('position');
-    expect(data).not.toHaveProperty('referralCode');
-  });
-
-  it('should reject missing email parameter', async () => {
-    const request = createMockRequest({}, 'GET', {});
-
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(400);
-    expect(data.error).toContain('Email parameter required');
-  });
-
-  it('should reject invalid email format', async () => {
-    const request = createMockRequest({}, 'GET', { email: 'invalid' });
-
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(400);
-    expect(data.error).toContain('Invalid email');
-  });
-
-  it('should rate limit check requests', async () => {
-    (security.checkRateLimit as Mock).mockResolvedValue({
-      success: false,
-      limit: 20,
-      remaining: 0,
-      reset: Math.floor(Date.now() / 1000) + 60,
-    });
-
-    const request = createMockRequest({}, 'GET', { email: 'limited@example.com' });
-
-    const response = await GET(request);
-    const data = await response.json();
-
-    expect(response.status).toBe(429);
-    expect(data.error).toContain('Too many requests');
   });
 });
 

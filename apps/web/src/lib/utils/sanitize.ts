@@ -62,29 +62,6 @@ export function sanitizeText(text: string): string {
 }
 
 /**
- * Sanitize email address
- *
- * Normalizes and sanitizes email for safe storage and comparison:
- * - Converts to lowercase
- * - Trims whitespace
- * - Escapes HTML entities
- *
- * @param email - The email address to sanitize
- * @returns Sanitized email address
- *
- * @example
- * sanitizeEmail('  User@Example.COM  ')
- * // Returns: 'user@example.com'
- */
-export function sanitizeEmail(email: string): string {
-  if (typeof email !== 'string') {
-    return '';
-  }
-
-  return sanitizeText(email.toLowerCase().trim());
-}
-
-/**
  * Sanitize user name or display text
  *
  * Sanitizes user-provided names while preserving formatting:

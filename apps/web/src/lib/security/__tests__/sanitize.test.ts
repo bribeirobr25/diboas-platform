@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { sanitizeText, sanitizeEmail, sanitizeUserName } from '@/lib/utils/sanitize';
+import { sanitizeText, sanitizeUserName } from '@/lib/utils/sanitize';
 
 describe('sanitizeText', () => {
   describe('XSS Prevention', () => {
@@ -170,46 +170,6 @@ describe('sanitizeText', () => {
   });
 });
 
-describe('sanitizeEmail', () => {
-  it('should convert email to lowercase', () => {
-    expect(sanitizeEmail('USER@EXAMPLE.COM')).toBe('user@example.com');
-  });
-
-  it('should trim whitespace', () => {
-    expect(sanitizeEmail('  user@example.com  ')).toBe('user@example.com');
-  });
-
-  it('should escape XSS in email', () => {
-    const maliciousEmail = 'user"><script>@example.com';
-    const result = sanitizeEmail(maliciousEmail);
-    expect(result).not.toContain('<');
-    expect(result).not.toContain('>');
-    expect(result).not.toContain('"');
-  });
-
-  it('should return empty string for non-string input', () => {
-    expect(sanitizeEmail(null as unknown as string)).toBe('');
-    expect(sanitizeEmail(undefined as unknown as string)).toBe('');
-    expect(sanitizeEmail(123 as unknown as string)).toBe('');
-  });
-
-  it('should handle email with plus addressing', () => {
-    const email = 'user+tag@example.com';
-    expect(sanitizeEmail(email)).toBe('user+tag@example.com');
-  });
-
-  it('should handle email with dots in local part', () => {
-    const email = 'first.last@example.com';
-    expect(sanitizeEmail(email)).toBe('first.last@example.com');
-  });
-
-  it('should combine lowercase, trim, and escape', () => {
-    const input = '  User<script>@EXAMPLE.COM  ';
-    const result = sanitizeEmail(input);
-    expect(result).toBe('user&lt;script&gt;@example.com');
-  });
-});
-
 describe('sanitizeUserName', () => {
   it('should trim whitespace', () => {
     expect(sanitizeUserName('  John Doe  ')).toBe('John Doe');
@@ -281,12 +241,9 @@ describe('Security Guarantees', () => {
     ];
 
     for (const input of userInputs) {
+      // An email reaches storage through validateEmail → sanitizeText (routeHelpers).
       const sanitized =
-        input.type === 'email'
-          ? sanitizeEmail(input.value)
-          : input.type === 'name'
-            ? sanitizeUserName(input.value)
-            : sanitizeText(input.value);
+        input.type === 'name' ? sanitizeUserName(input.value) : sanitizeText(input.value);
 
       // Critical: No raw HTML tags should exist (< and > must be escaped)
       // This prevents browser from parsing as HTML elements
