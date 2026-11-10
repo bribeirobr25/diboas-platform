@@ -32,8 +32,11 @@ regexes = [
   '''aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=''',
 
   # CI stub HMAC key — same purpose as above. The literal string says
-  # "ci-stub" so it cannot be mistaken for a real secret.
+  # "ci-stub" so it cannot be mistaken for a real secret. The first decodes to
+  # only 28 bytes (too short for HMAC; kept as the env test's malformed-key
+  # fixture); the workflows use the second, which decodes to 36 (5.865).
   '''ci-stub-hmac-key-32-chars-padding-here''',
+  '''ci-stub-hmac-key-for-tests-only-not-a-real-secret''',
 
   # RFC-1918 private-IP literals used as test fixtures in
   # apps/web/src/app/api/waitlist/__tests__/*.test.ts and

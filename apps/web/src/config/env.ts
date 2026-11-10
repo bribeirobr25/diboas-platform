@@ -64,6 +64,31 @@ function warnMissingBuildTimePublicVars(): void {
   }
 }
 
+/**
+ * 5.865 (founder rulings 2026-11-10: key length validated at production startup; the signal
+ * is a Sentry alert and the site stays up). A key that is present but the wrong length is as
+ * good as missing: every route that stores personal data refuses with it. This returns the
+ * problems; `src/instrumentation.ts` `register()` sends them to Sentry as a FATAL event once
+ * per server start. Nothing is printed: production builds strip every console call
+ * (`next.config.js` removeConsole), which is how the first version of this check went unseen.
+ * Decoded exactly as `lib/security/encryption.ts` decodes it (lenient base64). A MISSING key
+ * still throws above.
+ */
+export function malformedKeyProblems(): string[] {
+  if (process.env.NODE_ENV !== 'production') return [];
+  if (process.env.NEXT_PHASE === 'phase-production-build') return [];
+  if (typeof window !== 'undefined') return [];
+
+  const problems: string[] = [];
+  const enc = process.env.ENCRYPTION_KEY;
+  if (enc && Buffer.from(enc, 'base64').length !== 32)
+    problems.push('ENCRYPTION_KEY must decode to 32 bytes');
+  const hmac = process.env.HMAC_KEY;
+  if (hmac && Buffer.from(hmac, 'base64').length < 32)
+    problems.push('HMAC_KEY must decode to at least 32 bytes');
+  return problems;
+}
+
 validateProductionSecrets();
 warnMissingBuildTimePublicVars();
 

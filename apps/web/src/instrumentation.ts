@@ -11,6 +11,7 @@ import { scrubUrl } from '@/lib/utils/scrubUrl';
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     await import('../sentry.server.config');
+    await alertOnMalformedKeys();
   }
 
   if (process.env.NEXT_RUNTIME === 'edge') {
@@ -53,4 +54,22 @@ export async function onRequestError(
       routeType: context.routeType,
     },
   });
+}
+
+/**
+ * 5.865 (founder ruling 2026-11-10): a wrong-length encryption key raises a FATAL Sentry event
+ * once per server start; the site stays up and every personal-data route refuses as before.
+ * If env.ts cannot even load (a MISSING secret throws there), this does nothing: requests then
+ * fail and report exactly as they do today, and startup is not turned into a crash.
+ */
+export async function alertOnMalformedKeys(): Promise<void> {
+  let problems: string[];
+  try {
+    problems = (await import('@/config/env')).malformedKeyProblems();
+  } catch {
+    return;
+  }
+  if (problems.length === 0) return;
+  const Sentry = await import('@sentry/nextjs');
+  Sentry.captureMessage(`Malformed production secret: ${problems.join('; ')}`, 'fatal');
 }

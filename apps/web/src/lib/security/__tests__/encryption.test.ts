@@ -32,7 +32,7 @@ describe('encryption module', () => {
   beforeEach(() => {
     vi.resetModules();
     // Save current values of keys we'll mutate
-    for (const key of ['ENCRYPTION_KEY', 'HMAC_KEY', 'NODE_ENV']) {
+    for (const key of ['ENCRYPTION_KEY', 'HMAC_KEY', 'NODE_ENV', 'DATABASE_URL']) {
       savedEnv[key] = process.env[key as keyof NodeJS.ProcessEnv] as string | undefined;
     }
   });
@@ -46,6 +46,52 @@ describe('encryption module', () => {
         setEnv(key, value);
       }
     }
+  });
+
+  /* 5.865 (founder ruling 2026-11-10): with a database configured and no key, refuse in every
+   * environment; the pass-through stays only for development with no database. */
+  describe('no key: pass-through only without a database', () => {
+    it.each(['development', 'test'])(
+      'should refuse to encrypt or hash when NODE_ENV is %s and a database is configured',
+      async (env) => {
+        deleteEnv('ENCRYPTION_KEY');
+        deleteEnv('HMAC_KEY');
+        setEnv('NODE_ENV', env);
+        setEnv('DATABASE_URL', 'postgresql://dev:dev@localhost:5432/dev');
+        const { encrypt, hmacHash } = await import('@/lib/security/encryption');
+        expect(encrypt('ana@example.com')).toBeNull();
+        expect(hmacHash('ana@example.com')).toBeNull();
+      }
+    );
+
+    it('should pass through under NODE_ENV=test when no database is configured', async () => {
+      deleteEnv('ENCRYPTION_KEY');
+      deleteEnv('HMAC_KEY');
+      deleteEnv('DATABASE_URL');
+      setEnv('NODE_ENV', 'test');
+      const { encrypt } = await import('@/lib/security/encryption');
+      expect(encrypt('ana@example.com')).toBe('ana@example.com');
+    });
+
+    /* Thirteenth audit: production's real shape is a valid ENCRYPTION_KEY beside a short
+     * HMAC_KEY; the blind index must refuse, never fall back to the encryption key. */
+    it('should refuse the blind index when HMAC_KEY is short beside a valid ENCRYPTION_KEY', async () => {
+      setEnv('ENCRYPTION_KEY', Buffer.alloc(32, 3).toString('base64'));
+      setEnv('HMAC_KEY', Buffer.alloc(16, 3).toString('base64'));
+      setEnv('NODE_ENV', 'production');
+      const { hmacHash } = await import('@/lib/security/encryption');
+      expect(hmacHash('ana@example.com')).toBeNull();
+    });
+
+    it('should pass through in development when no database is configured', async () => {
+      deleteEnv('ENCRYPTION_KEY');
+      deleteEnv('HMAC_KEY');
+      deleteEnv('DATABASE_URL');
+      setEnv('NODE_ENV', 'development');
+      const { encrypt, hmacHash } = await import('@/lib/security/encryption');
+      expect(encrypt('ana@example.com')).toBe('ana@example.com');
+      expect(hmacHash('ana@example.com')).toMatch(/^[a-f0-9]{64}$/);
+    });
   });
 
   describe('hmacHash', () => {
@@ -140,6 +186,7 @@ describe('encryption module', () => {
     });
 
     it('should return plain SHA-256 in dev mode when no key is set', async () => {
+      deleteEnv('DATABASE_URL'); // the pass-through exists only without a database (5.865)
       deleteEnv('ENCRYPTION_KEY');
       deleteEnv('HMAC_KEY');
       setEnv('NODE_ENV', 'development');
@@ -222,6 +269,7 @@ describe('encryption module', () => {
     });
 
     it('should return plaintext in dev mode without key', async () => {
+      deleteEnv('DATABASE_URL'); // the pass-through exists only without a database (5.865)
       deleteEnv('ENCRYPTION_KEY');
       setEnv('NODE_ENV', 'development');
 

@@ -70,7 +70,7 @@ jobs:
           DATABASE_URL: 'postgresql://stub:stub@localhost:5432/stub'
           INTERNAL_API_KEY: 'ci-stub-key'
           RESEND_API_KEY: 're_ci_stub'
-          HMAC_KEY: 'ci-stub-hmac-key-32-chars-padding-here'
+          HMAC_KEY: 'ci-stub-hmac-key-for-tests-only-not-a-real-secret' # decodes to 36 bytes (5.865)
           # C-2: now a required prod var (valid-format stub so the startup gate
           # passes and Sentry.init doesn't reject the DSN).
           NEXT_PUBLIC_SENTRY_DSN: 'https://ci-stub@o0.ingest.sentry.io/0'

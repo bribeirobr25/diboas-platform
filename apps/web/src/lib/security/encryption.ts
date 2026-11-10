@@ -20,6 +20,16 @@ const AUTH_TAG_LENGTH = 16;
 const ENCODING = 'base64';
 
 /**
+ * May `encrypt`/`hmacHash` pass a value through when no key exists? Only outside production AND
+ * with no database configured, so local UI work runs without secrets. With a database configured
+ * they refuse whatever NODE_ENV is (5.865, founder ruling 2026-11-10): a development server
+ * pointed at a real database never writes personal data in clear or under an unkeyed index.
+ */
+function plaintextFallbackAllowed(): boolean {
+  return process.env.NODE_ENV !== 'production' && !process.env.DATABASE_URL;
+}
+
+/**
  * Get encryption key from environment
  * Key must be 32 bytes (256 bits), base64-encoded
  */
@@ -27,8 +37,8 @@ function getEncryptionKey(): Buffer | null {
   const keyBase64 = process.env.ENCRYPTION_KEY;
 
   if (!keyBase64) {
-    if (process.env.NODE_ENV === 'production') {
-      Logger.error('[Encryption] ENCRYPTION_KEY not set in production');
+    if (!plaintextFallbackAllowed()) {
+      Logger.error('[Encryption] ENCRYPTION_KEY not set (production, or a database is configured)');
     }
     return null;
   }
@@ -56,8 +66,8 @@ export function encrypt(plaintext: string): string | null {
   const key = getEncryptionKey();
 
   if (!key) {
-    // Return plaintext if encryption not configured (dev mode)
-    if (process.env.NODE_ENV !== 'production') {
+    // Pass through only in development with no database (5.865); otherwise refuse.
+    if (plaintextFallbackAllowed()) {
       return plaintext;
     }
     return null;
@@ -216,8 +226,8 @@ export function hmacHash(value: string): string | null {
   const key = getHmacKey();
 
   if (!key) {
-    // In dev mode without any key, return a plain hash for testing
-    if (process.env.NODE_ENV !== 'production') {
+    // An unkeyed hash only in development with no database (5.865); otherwise refuse.
+    if (plaintextFallbackAllowed()) {
       return crypto.createHash('sha256').update(value).digest('hex');
     }
     return null;
