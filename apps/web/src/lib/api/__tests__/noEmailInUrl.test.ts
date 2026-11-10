@@ -12,14 +12,16 @@ import { describe, expect, it } from 'vitest';
  * day; a real code never changed). Nothing called either, and both were removed. An email
  * reaches a route only in a POST body.
  *
- * Scope limit: matches a `.get('email')` read from a `searchParams`-named object (comments
- * stripped), and an `?email=` built into a URL string under `src/`. An email read from a
- * differently named parameter is not matched.
+ * Scope limit: matches `searchParams.get/getAll/set/append/has('email')`, a `URLSearchParams({ email })`
+ * object, and an `?email=` built into a URL string, anywhere under `src/` (comments stripped).
+ * An email carried under a differently named parameter is not matched.
  */
 
 const SRC = resolve(__dirname, '../../..');
 const APP = join(SRC, 'app');
-const EMAIL_PARAM = /searchParams\s*\.\s*get\s*\(\s*['"`]email['"`]\s*\)/;
+/** Reading `email` from a query (get/getAll) or writing one into a URL (set/append, a params object). */
+const EMAIL_PARAM =
+  /searchParams\s*\.\s*(?:get|getAll|set|append|has)\s*\(\s*['"`]email['"`]|new\s+URLSearchParams\s*\(\s*\{[^}]*\bemail\b/;
 const EMAIL_IN_URL = /[?&]email=/;
 
 const files = (dir: string, keep: (name: string) => boolean): string[] =>
@@ -41,8 +43,8 @@ describe('5.861 · no route takes an email address in its URL', { timeout: 30_00
     expect(files(join(APP, 'api'), (n) => n === 'route.ts').length).toBeGreaterThanOrEqual(10);
   });
 
-  it('should read no email from any route query string', () => {
-    const offenders = files(APP, (n) => n === 'route.ts')
+  it('should read or write no email in any query string, in routes, pages or library code', () => {
+    const offenders = files(SRC, (n) => /\.(ts|tsx)$/.test(n) && !/\.(test|stories)\./.test(n))
       .filter((f) => hits(f, EMAIL_PARAM))
       .map((f) => relative(SRC, f));
     expect(offenders).toEqual([]);
@@ -59,6 +61,9 @@ describe('5.861 · no route takes an email address in its URL', { timeout: 30_00
     for (const bad of [
       "const email = searchParams.get('email');",
       'request.nextUrl.searchParams .get( "email" )',
+      "searchParams.getAll('email')", // thirteenth audit: three forms passed the first guard
+      "url.searchParams.set('email', email)",
+      "fetch('/api/x?' + new URLSearchParams({ email }))",
     ])
       expect(EMAIL_PARAM.test(bad), bad).toBe(true);
     expect(EMAIL_IN_URL.test('fetch(`/api/waitlist/position?email=${e}`)')).toBe(true);
