@@ -37,6 +37,9 @@ const COVERAGE_THRESHOLDS = {
   'src/lib/utils/scrubUrl.ts': { 100: true },
   'src/lib/monitoring/sentryScrub.ts': { 100: true },
   'src/lib/analytics/scrubAnalyticsEvent.ts': { 100: true },
+  // 5.866: the GDPR erasure door and the store helpers under every waitlist read and write.
+  'src/app/api/waitlist/delete/route.ts': { 100: true },
+  'src/lib/waitingList/store/internals.ts': { 100: true },
 };
 
 export default defineConfig({

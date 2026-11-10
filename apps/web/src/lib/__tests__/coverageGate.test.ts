@@ -48,6 +48,8 @@ const SECURITY_AT_100: Record<string, string[]> = {
     'src/lib/utils/scrubUrl.ts',
     'src/lib/monitoring/sentryScrub.ts',
     'src/lib/analytics/scrubAnalyticsEvent.ts',
+    'src/app/api/waitlist/delete/route.ts',
+    'src/lib/waitingList/store/internals.ts',
   ],
   sandbox: [
     'src/lib/security/**',
