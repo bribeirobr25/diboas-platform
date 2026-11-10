@@ -9,6 +9,8 @@ import {
   grantPlayMoney,
   resetSandbox,
 } from '@/lib/ledgerClient';
+import { appendAll, base } from '@/lib/ledger/core';
+import { generateId } from '@/lib/ids';
 import { PLAY_MONEY_GRANT, SANDBOX_LOCALES } from '@/i18n/config';
 import { getMessages } from '@/i18n/loadMessages';
 import { DENIAL_EXCEPTIONS, excepted, staleExceptions, textDigest } from '@/test/denialExceptions';
@@ -205,12 +207,17 @@ describe('CI-N2 · the practice credit is flat and unconditional', () => {
     expect(grantComparisonCredit(), 'granted twice').toBe(false);
   });
 
-  it('should grant the comparison credit for the same amount whatever is held', () => {
-    const amountWith = (held: 'none' | 'open') => {
+  it('should CREDIT the same amount whatever is held — none, open, or only closed', () => {
+    /**
+     * What the LEDGER credits, not what the event says (10th audit: an engine paying a tenth
+     * without a position passed when only event amounts were compared). Measured as the change in
+     * `credited` the credit causes, with no position, an open one, and only a closed one.
+     */
+    const creditedBy = (held: 'none' | 'open' | 'closed') => {
       resetSandbox();
       vi.setSystemTime(GENESIS);
       grantPlayMoney(PLAY_MONEY_GRANT.b2c, 'BRL', 'b2c');
-      if (held === 'open') {
+      if (held !== 'none') {
         const goalId = createGoal({
           name: 'Trip',
           icon: 'plane',
@@ -224,14 +231,32 @@ describe('CI-N2 · the practice credit is flat and unconditional', () => {
           totalFromCash: 1_200,
           networkFeeLocal: 0,
         });
+        if (held === 'closed')
+          exitPosition({
+            positionId: getLedgerState().positions[0].positionId,
+            networkFeeLocal: 0,
+          });
       }
+      const before = Number(getLedgerState().credited);
       grantComparisonCredit();
-      return getLedgerState()
-        .events.filter((e) => e.type === 'ComparisonCreditGranted')
-        .map((e) => (e as { amount: string }).amount);
+      return Number(getLedgerState().credited) - before;
     };
-    expect(amountWith('none')).toHaveLength(1);
-    expect(amountWith('none')).toEqual(amountWith('open'));
+    const none = creditedBy('none');
+    expect(none, 'no credit was applied — the test proves nothing').toBeGreaterThan(0);
+    expect(creditedBy('open')).toBe(none);
+    expect(creditedBy('closed')).toBe(none);
+  });
+
+  it('should apply the comparison credit ONCE in the engine, whatever the client allows', () => {
+    // The client mirrors the rule; the ENGINE is the authority (P2BD-10). A second event that
+    // reaches the log anyway is refused there.
+    resetSandbox();
+    vi.setSystemTime(GENESIS);
+    grantPlayMoney(PLAY_MONEY_GRANT.b2c, 'BRL', 'b2c');
+    expect(grantComparisonCredit()).toBe(true);
+    const once = getLedgerState().credited;
+    appendAll([{ ...base(generateId()), type: 'ComparisonCreditGranted', amount: '1000.00' }]);
+    expect(getLedgerState().credited, 'a second credit was applied').toBe(once);
   });
 });
 
