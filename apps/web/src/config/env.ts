@@ -64,7 +64,36 @@ function warnMissingBuildTimePublicVars(): void {
   }
 }
 
+/**
+ * 5.865 (founder ruling 2026-11-10: key length validated at production startup). A key that is
+ * present but the wrong length is as good as missing: every route that stores personal data
+ * refuses with it. It is REPORTED on every server start, not thrown: those routes already fail
+ * closed, and a throw here would take down every page, the ones that store nothing included,
+ * for a fault it cannot repair (CI's own stub HMAC_KEY decoded to 28 bytes for months). Decoded
+ * exactly as `lib/security/encryption.ts` decodes it (lenient base64), so a key that works there
+ * is never reported here. A MISSING key still throws above.
+ *
+ * Exported for unit testing — also invoked once at module load below.
+ */
+export function reportMalformedKeys(): string[] {
+  if (process.env.NODE_ENV !== 'production') return [];
+  if (process.env.NEXT_PHASE === 'phase-production-build') return [];
+  if (typeof window !== 'undefined') return [];
+
+  const problems: string[] = [];
+  const enc = process.env.ENCRYPTION_KEY;
+  if (enc && Buffer.from(enc, 'base64').length !== 32)
+    problems.push('ENCRYPTION_KEY must decode to 32 bytes');
+  const hmac = process.env.HMAC_KEY;
+  if (hmac && Buffer.from(hmac, 'base64').length < 32)
+    problems.push('HMAC_KEY must decode to at least 32 bytes');
+  for (const problem of problems)
+    console.error(`[env] Malformed production secret: ${problem}; personal-data writes refuse.`);
+  return problems;
+}
+
 validateProductionSecrets();
+reportMalformedKeys();
 warnMissingBuildTimePublicVars();
 
 // =============================================================================

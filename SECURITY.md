@@ -78,4 +78,4 @@ The following are intentionally committed and are not secrets:
 - `apps/web/.env.example` — variable-name template; all secret values are empty
 - `pnpm-lock.yaml` — contains base64 SHA-512 content hashes that look like secrets to naïve scanners
 - `apps/web/src/lib/market-data/data/*.json` — public market reference data (FX series, asset prices, inflation series)
-- The CI stub strings `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=` and `ci-stub-hmac-key-32-chars-padding-here` in `.github/workflows/*.yml` — placeholder values used only to satisfy the env validator during accessibility / e2e / lighthouse CI runs
+- The CI stub strings `aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=` and `ci-stub-hmac-key-for-tests-only-not-a-real-secret` in `.github/workflows/*.yml` — placeholder values used only to satisfy the env validator during accessibility / e2e / lighthouse CI runs; `ci-stub-hmac-key-32-chars-padding-here` (too short for HMAC) survives only as the env test's malformed-key fixture
