@@ -90,6 +90,7 @@ import * as gdpr from '@/lib/audit/GdprDeletionLogger';
 import * as emailModule from '@/lib/email/sendEmail';
 import * as eventBus from '@/lib/events/ApplicationEventBus';
 import { sql } from '@/lib/database/client';
+import * as rateLimiter from '@/lib/security/rateLimiter';
 import * as encryption from '@/lib/security/encryption';
 import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 
@@ -258,6 +259,26 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
 
     expect(result).toEqual({ ok: false, code: 'INVALID_TOKEN' });
     expect(store.deleteByEmail).not.toHaveBeenCalled();
+  });
+
+  /* Thirteenth audit: the per-address limiter used to ALLOW a send when the blind index was null,
+   * so a refactor away from the earlier refusals would have switched off anti-bombing. */
+  it('should send no email, never asking the limiter, when the blind index is unavailable', async () => {
+    mockedSql.mockResolvedValue([{ email: 'enc:user@example.com' }]);
+    (store.getByEmail as Mock).mockResolvedValue({
+      id: 'wl_1',
+      email: 'user@example.com',
+      locale: 'en',
+    });
+    (store.deleteByEmail as Mock).mockResolvedValue(true);
+    (encryption.hmacHash as Mock).mockReturnValue(null);
+
+    const result = await service.confirmDeletion({ token: 'tok' });
+
+    expect(result).toMatchObject({ ok: true, deleted: true });
+    expect(rateLimiter.checkOutboundEmailRateLimit).not.toHaveBeenCalled();
+    expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
+    (encryption.hmacHash as Mock).mockReturnValue('test-hmac-hash');
   });
 
   it('deletes, audits, GDPR-logs, emits event, and emails on a valid token', async () => {

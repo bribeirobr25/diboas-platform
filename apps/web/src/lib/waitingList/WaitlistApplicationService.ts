@@ -438,8 +438,10 @@ export class WaitlistApplicationService {
    */
   private async allowOutboundEmail(email: string, template: string): Promise<boolean> {
     const emailHash = hmacHash(email);
-    // Dev without HMAC_KEY: allow (production env-validation guarantees the key).
-    if (!emailHash) return true;
+    // No usable key: hmacHash is null only where personal-data writes refuse (production, or a
+    // configured database; 5.865), so refuse the send too: the anti-bombing limit fails closed.
+    // (Development without a database gets an unkeyed hash, never null.)
+    if (!emailHash) return false;
     const result = await checkOutboundEmailRateLimit(emailHash);
     if (!result.success) {
       Logger.warn('[Email] Per-address rate limit hit — skipping send', {

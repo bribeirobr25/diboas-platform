@@ -53,7 +53,9 @@ const nextConfig = {
 
   // Compiler optimizations
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    // Errors and warnings stay: stripping every console call left production with no server log
+    // at all (thirteenth audit). Logger redacts context before it prints (logRedactor).
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
     reactRemoveProperties: process.env.NODE_ENV === 'production' ? true : false,
   },
 

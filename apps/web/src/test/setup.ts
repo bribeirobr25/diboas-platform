@@ -8,7 +8,9 @@ import { vi, beforeEach, afterEach } from 'vitest';
 
 // Mock environment variables for tests
 // Note: NODE_ENV is typically set by the test runner, not here
-process.env.ENCRYPTION_KEY = 'dGVzdC1lbmNyeXB0aW9uLWtleS0zMi1ieXRlcyE='; // 32-byte base64 key for testing
+// A real 32-byte key ("diboas-unit-test-encryption-key!"). The previous value decoded to 29 bytes,
+// so every test silently ran on the plaintext pass-through (thirteenth audit, 5.865).
+process.env.ENCRYPTION_KEY = Buffer.from('diboas-unit-test-encryption-key!').toString('base64');
 
 // Mock Logger to avoid console noise in tests.
 // Keep this surface in sync with `Logger`'s static methods that production hot

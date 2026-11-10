@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { reportMalformedKeys, validateProductionSecrets } from '@/config/env';
+import { malformedKeyProblems, validateProductionSecrets } from '@/config/env';
 
 const REQUIRED = [
   'ENCRYPTION_KEY',
@@ -55,54 +55,64 @@ describe('validateProductionSecrets (C-2)', () => {
   });
 });
 
-/* 5.865 (twelfth audit): a present but wrong-length key makes every personal-data route refuse;
- * it is reported at startup, never thrown (the routes already fail closed). */
-describe('reportMalformedKeys (5.865)', () => {
+/* 5.865 (founder rulings 2026-11-10): a present but wrong-length key makes every personal-data
+ * route refuse; it is returned here and sent to Sentry as FATAL at server start (instrumentation). */
+describe('malformedKeyProblems (5.865)', () => {
   beforeEach(() => {
     vi.stubEnv('NODE_ENV', 'production');
     vi.stubEnv('NEXT_PHASE', undefined);
     vi.stubEnv('ENCRYPTION_KEY', KEY_32);
     vi.stubEnv('HMAC_KEY', KEY_32);
-    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   afterEach(() => {
     vi.unstubAllEnvs();
-    vi.restoreAllMocks();
   });
 
-  it('should report nothing when both keys have their lengths', () => {
-    expect(reportMalformedKeys()).toEqual([]);
-    expect(console.error).not.toHaveBeenCalled();
+  it('should find nothing when both keys have their lengths', () => {
+    expect(malformedKeyProblems()).toEqual([]);
   });
 
-  it('should report, never throw, a wrong-length ENCRYPTION_KEY and a short HMAC_KEY', () => {
-    vi.stubEnv('ENCRYPTION_KEY', KEY_16);
-    vi.stubEnv('HMAC_KEY', 'ci-stub-hmac-key-32-chars-padding-here'); // 28 bytes
-    expect(() => reportMalformedKeys()).not.toThrow();
-    expect(reportMalformedKeys()).toEqual([
+  it.each([
+    [
+      'a 16-byte ENCRYPTION_KEY',
+      'ENCRYPTION_KEY',
+      KEY_16,
       'ENCRYPTION_KEY must decode to 32 bytes',
+    ],
+    [
+      'a 48-byte ENCRYPTION_KEY (64 hex characters)',
+      'ENCRYPTION_KEY',
+      Buffer.alloc(48, 7).toString('base64'),
+      'ENCRYPTION_KEY must decode to 32 bytes',
+    ],
+    [
+      'a 28-byte HMAC_KEY',
+      'HMAC_KEY',
+      'ci-stub-hmac-key-32-chars-padding-here',
       'HMAC_KEY must decode to at least 32 bytes',
-    ]);
-    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('ENCRYPTION_KEY'));
+    ],
+  ])('should name %s', (_l, name, value, problem) => {
+    vi.stubEnv(name, value);
+    expect(malformedKeyProblems()).toEqual([problem]);
   });
 
   it('should accept a key the encryption module accepts, a trailing newline included', () => {
     vi.stubEnv('ENCRYPTION_KEY', `${KEY_32}\n`);
     vi.stubEnv('HMAC_KEY', Buffer.alloc(48, 1).toString('base64'));
-    expect(reportMalformedKeys()).toEqual([]);
+    expect(malformedKeyProblems()).toEqual([]);
   });
 
   it('should check nothing outside production, during the build, or for an absent key', () => {
     vi.stubEnv('ENCRYPTION_KEY', KEY_16);
     vi.stubEnv('NODE_ENV', 'development');
-    expect(reportMalformedKeys()).toEqual([]);
+    expect(malformedKeyProblems()).toEqual([]);
     vi.stubEnv('NODE_ENV', 'production');
     vi.stubEnv('NEXT_PHASE', 'phase-production-build');
-    expect(reportMalformedKeys()).toEqual([]);
+    expect(malformedKeyProblems()).toEqual([]);
     vi.stubEnv('NEXT_PHASE', undefined);
     vi.stubEnv('ENCRYPTION_KEY', undefined);
     vi.stubEnv('HMAC_KEY', undefined);
-    expect(reportMalformedKeys()).toEqual([]);
+    expect(malformedKeyProblems()).toEqual([]);
   });
 });
