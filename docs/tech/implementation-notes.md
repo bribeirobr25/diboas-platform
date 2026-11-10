@@ -211,9 +211,11 @@ These forward-looking React performance rules remain in `CLAUDE.md` § React Per
   admission check BEFORE setting any cookie, sending an unadmitted visitor to `/gate`. ⚑ **Do not
   turn "no grant" into "redirect to the gate"**: in public mode with no password configured
   there is nothing to grant and the visitor is still admitted — that is the live public app.
-  Walked on a local production build in both modes. `/consent` and `/claim` still RENDER without
-  the gate in gated mode; they grant no session and write only the device-local ledger, and the
-  interior stays gated (`5.522`).
+  Walked on a local production build in both modes. **Since 2026-11-07 (founder B15, `5.522`)**
+  `/consent` and `/claim` are behind the gate in gated mode too (`/welcome` stays public): their
+  pages and the consent action run `requireAdmission` (`lib/auth/admission.ts`, the one
+  admission check, shared with the `(app)` layout and `startOnboarding`), and the gate returns
+  the visitor to an allow-listed page (`?next=consent|claim`, never a path from the request).
 - **The public market routes are CDN-cached; failures are not.** `/api/market` and
   `/api/market/history` send `public, max-age=0, s-maxage=300, stale-while-revalidate=3600` from the
   shared constant in `apps/sandbox/src/lib/marketCacheHeaders.ts`. They proxy a metered free-tier

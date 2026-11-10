@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { isPublicAccess } from '@/lib/gate';
 import { isSandboxLocale } from '@/i18n/config';
+import { isGateReturnPage } from '@/lib/auth/admission';
 import { GateForm } from './GateForm';
 
 /**
@@ -28,11 +29,19 @@ import { GateForm } from './GateForm';
  */
 export const dynamic = 'force-dynamic';
 
-export default async function GatePage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale: localeRaw } = await params;
+export default async function GatePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams?: Promise<{ next?: string | string[] }>;
+}) {
+  const [{ locale: localeRaw }, search] = await Promise.all([params, searchParams]);
   // The same allow-list the server actions use (2026-10-18 lane audit, P8): a redirect
   // never interpolates an unchecked path segment, whatever error ordering Next applies.
   const locale = isSandboxLocale(localeRaw) ? localeRaw : 'en';
   if (isPublicAccess()) redirect(`/${locale}/welcome`);
-  return <GateForm />;
+  // Where to return once admitted (B15): only an allow-listed onboarding page name passes.
+  const next = isGateReturnPage(search?.next) ? search.next : undefined;
+  return <GateForm next={next} />;
 }

@@ -3,12 +3,14 @@
 import { useActionState } from 'react';
 import { useParams } from 'next/navigation';
 import { FormattedMessage, useIntl } from 'react-intl';
+import type { GateReturnPage } from '@/lib/auth/admission';
 import { enterSandbox, type GateState } from './actions';
 import styles from './GateForm.module.css';
 
 const INITIAL: GateState = { error: null };
 
-export function GateForm() {
+/** `next`: the onboarding page to return to once admitted (B15), already allow-listed by the page. */
+export function GateForm({ next }: { next?: GateReturnPage } = {}) {
   const intl = useIntl();
   const params = useParams<{ locale: string }>();
   const [state, formAction, pending] = useActionState(enterSandbox, INITIAL);
@@ -26,6 +28,7 @@ export function GateForm() {
           <FormattedMessage id="gate.subtitle" />
         </p>
         <input type="hidden" name="locale" value={params.locale} />
+        {next ? <input type="hidden" name="next" value={next} /> : null}
         <label className={styles.label} htmlFor="gate-password">
           <FormattedMessage id="gate.passwordLabel" />
         </label>
