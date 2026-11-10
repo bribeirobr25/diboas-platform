@@ -11,6 +11,7 @@ import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
   EXEMPT_HEADS,
+  isExempt,
   recordProblems,
   recordSpec,
 } from '../../../../../scripts/check-pr-record.mjs';
@@ -32,10 +33,16 @@ function body({ except = '', blank = '', state = 'IMPLEMENTED ON BRANCH (feat/x)
   ].join('\n');
 }
 
-function cli(text: string, head = 'feat/x'): { code: number; out: string } {
+const SAME_REPO = { PR_HEAD_REPO: 'o/r', PR_BASE_REPO: 'o/r' };
+
+function cli(
+  text: string,
+  head = 'feat/x',
+  extra: Record<string, string> = {}
+): { code: number; out: string } {
   try {
     const out = execFileSync('node', [join(REPO, 'scripts/check-pr-record.mjs')], {
-      env: { ...process.env, PR_BODY: text, PR_HEAD: head },
+      env: { ...process.env, PR_BODY: text, PR_HEAD: head, ...extra },
       encoding: 'utf8',
       stdio: 'pipe',
     });
@@ -74,10 +81,48 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
   });
 
   it('should exempt only the weekly market refresh and Dependabot', () => {
-    expect(cli('no record', 'editorial/market-refresh-auto').code).toBe(0);
-    expect(cli('no record', 'dependabot/npm_and_yarn/next-16.5.0').code).toBe(0);
-    expect(cli('no record', 'editorial/market-refresh-manual').code).toBe(1);
+    expect(cli('no record', 'editorial/market-refresh-auto', SAME_REPO).code).toBe(0);
+    expect(
+      cli('no record', 'dependabot/npm_and_yarn/next-16.5.0', {
+        ...SAME_REPO,
+        PR_AUTHOR: 'dependabot[bot]',
+      }).code
+    ).toBe(0);
+    expect(cli('no record', 'editorial/market-refresh-manual', SAME_REPO).code).toBe(1);
     expect(EXEMPT_HEADS).toHaveLength(2);
+  });
+
+  /** 5.835 — a branch NAME alone never exempts. */
+  describe('5.835 · an exemption needs the right author and a same-repository head', () => {
+    const dep = 'dependabot/npm_and_yarn/next-16.5.0';
+    it('should check the record when a person names a branch dependabot/…', () => {
+      expect(isExempt({ head: dep, author: 'someone', headRepo: 'o/r', baseRepo: 'o/r' })).toBe(
+        false
+      );
+      expect(cli('no record', dep, { ...SAME_REPO, PR_AUTHOR: 'someone' }).code).toBe(1);
+    });
+    it('should check the record when an exempt branch comes from a fork', () => {
+      expect(
+        isExempt({ head: dep, author: 'dependabot[bot]', headRepo: 'fork/r', baseRepo: 'o/r' })
+      ).toBe(false);
+      expect(
+        isExempt({ head: 'editorial/market-refresh-auto', headRepo: 'fork/r', baseRepo: 'o/r' })
+      ).toBe(false);
+    });
+    it('should fail closed when the repository values are missing', () => {
+      expect(isExempt({ head: dep, author: 'dependabot[bot]' })).toBe(false);
+      expect(cli('no record', 'editorial/market-refresh-auto').code).toBe(1);
+    });
+    it('should exempt the market branch from this repository whoever opened it', () => {
+      expect(
+        isExempt({
+          head: 'editorial/market-refresh-auto',
+          author: 'a-person',
+          headRepo: 'o/r',
+          baseRepo: 'o/r',
+        })
+      ).toBe(true);
+    });
   });
 
   it('should fail closed when the gate document loses its return block', () => {
@@ -91,7 +136,25 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
    */
   describe('5.818 · the workflow never cancels a run and reads the body when it runs', () => {
     const wf = readFileSync(join(REPO, '.github/workflows/pr-record.yml'), 'utf8');
-    const runLines = wf.split('\n').filter((l) => /^\s*(?:- )?run:/.test(l));
+    /** Every shell line: a single-line `run:` and each continuation line of a `run: |` block (5.835). */
+    const runLines = (() => {
+      const lines = wf.split('\n');
+      const out: string[] = [];
+      lines.forEach((l, i) => {
+        const m = l.match(/^(\s*)(?:- )?run:\s*(.*)$/);
+        if (!m) return;
+        out.push(l);
+        if (!/^[|>]/.test(m[2])) return;
+        const indent = m[1].length;
+        for (let j = i + 1; j < lines.length; j += 1) {
+          const next = lines[j];
+          if (next.trim() === '') continue;
+          if (next.length - next.trimStart().length <= indent) break;
+          out.push(next);
+        }
+      });
+      return out;
+    })();
 
     it('should have no concurrency group when a cancelled run would block a required check', () => {
       expect(wf).not.toMatch(/^concurrency:/m);

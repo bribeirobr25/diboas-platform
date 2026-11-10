@@ -18,7 +18,7 @@
  * Exempt, by head branch: the weekly market refresh (`editorial/market-refresh-auto`, written by
  * a workflow, reviewed as editorial content) and Dependabot (`dependabot/…`).
  *
- * Usage:  PR_BODY=… PR_HEAD=… node scripts/check-pr-record.mjs   (CI: from the event, via env)
+ * Usage:  PR_BODY=… PR_HEAD=… PR_AUTHOR=… PR_HEAD_REPO=… PR_BASE_REPO=… node scripts/check-pr-record.mjs
  *         node scripts/check-pr-record.mjs --file body.md          (rehearse a body locally)
  */
 
@@ -30,6 +30,18 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const GATE_DOC = 'docs/tech/increment-review-gate.md';
 
 export const EXEMPT_HEADS = [/^editorial\/market-refresh-auto$/, /^dependabot\//];
+
+/**
+ * 5.835 — a branch NAME alone never exempts: anyone can name a branch `dependabot/…`.
+ * An exemption needs the exempt head pattern AND a head in this repository (never a fork)
+ * AND, for `dependabot/**`, the Dependabot author. A missing value fails closed (not exempt).
+ */
+export function isExempt({ head = '', author = '', headRepo = '', baseRepo = '' }) {
+  if (!EXEMPT_HEADS.some((re) => re.test(head))) return false;
+  if (!headRepo || headRepo !== baseRepo) return false;
+  if (/^dependabot\//.test(head) && author !== 'dependabot[bot]') return false;
+  return true;
+}
 
 /** The field names and the allowed STATE values, from the gate document itself. */
 export function recordSpec(gateText) {
@@ -68,7 +80,13 @@ function main(argv, env) {
   const at = argv.indexOf('--file');
   const body = at >= 0 ? readFileSync(argv[at + 1], 'utf8') : (env.PR_BODY ?? '');
   const head = env.PR_HEAD ?? '';
-  if (EXEMPT_HEADS.some((re) => re.test(head))) {
+  const exempt = isExempt({
+    head,
+    author: env.PR_AUTHOR,
+    headRepo: env.PR_HEAD_REPO,
+    baseRepo: env.PR_BASE_REPO,
+  });
+  if (exempt) {
     console.log(`PR-RECORD · exempt head branch ${head}`);
     return 0;
   }
