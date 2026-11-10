@@ -106,8 +106,8 @@ function translateValue(
     const slotValues = valuesByKey?.get(resolvedKey);
 
     // Dev-only warning when a key has values mapped but the ICU template is
-    // missing one of those slots — likely a misnamed slot. Stripped in production
-    // by `removeConsole` + `NODE_ENV` gate.
+    // missing one of those slots — likely a misnamed slot. The `NODE_ENV` gate removes it
+    // from production builds (`removeConsole` keeps `warn` since 5.876, so it is not what strips it).
     if (process.env.NODE_ENV === 'development' && slotValues) {
       const template = (intl.messages as Record<string, string | undefined>)[resolvedKey];
       if (typeof template === 'string') {
