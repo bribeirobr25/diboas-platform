@@ -30,12 +30,13 @@ Single web application (`apps/web`). No backend services, no microservices, no m
 
 ## 2. Hosting — Vercel
 
-- **Project:** Vercel project `diboas-platform-web` (team / project IDs held in the Vercel dashboard and `.env` — not published here).
+- **Projects:** two, one per app: `diboas-platform-web` (Root Directory `apps/web`, diboas.com) and `diboas-platform-sandbox` (Root Directory `apps/sandbox`, app.diboas.com, the Practice app). Team / project IDs are held in the Vercel dashboard and `.env`, not published here.
 - **Auto-deploy:** Pushes to `main` trigger production deployments.
-- **Preview deployments:** off. The Ignored Build Step builds production only, and Vercel skips a production build when nothing in the project's Root Directory, its workspace packages or the lockfile changed (founder, 2026-11-10). A change ONLY to a repo-root file the build reads (e.g. `config/design-tokens.json`) does not deploy by itself (register `5.817`).
+- **Preview deployments:** off in BOTH projects. Each project's Ignored Build Step builds production only (web set by the founder; Practice set to the same on 2026-11-10, register `5.834`, after it had kept building every preview), and Vercel skips a production build when nothing in the project's Root Directory, its workspace packages or the lockfile changed (founder, 2026-11-10). A change ONLY to a repo-root file the build reads (e.g. `config/design-tokens.json`) does not deploy by itself (register `5.817`).
 - **Cost settings (Pro, founder 2026-11-10):** fixed standard build machine, no on-demand concurrent builds; function max duration 30 s; Web Analytics off; deployments kept 7 days (production 14).
 - **Runtime:** Node.js (serverless functions for API routes).
-- **Build command:** `pnpm build` (Turborepo orchestrates workspace dependency order).
+- **Build command:** the dashboard leaves it empty, so Vercel runs the framework default for each Root Directory (`next build`) with its monorepo handling; Turborepo orders workspace builds in CI and locally (`pnpm build`).
+- **`apps/sandbox/vercel.json`** holds the same Dependabot deploy-gating for the Practice project (`5.834`).
 - **`apps/web/vercel.json`** holds Dependabot deploy-gating + the audit-log retention cron (`/api/cron/purge-audit-logs`, daily 03:00 UTC). Vercel reads `vercel.json` from the project's Root Directory (`apps/web`), never the repository root: until `5.816` the file sat at the root and the cron was never deployed. Guarded by `apps/web/src/lib/__tests__/vercelProjectConfig.test.ts`. All other configuration is via the Vercel dashboard and `next.config.js`.
 
 ## 3. DNS & CDN — Cloudflare

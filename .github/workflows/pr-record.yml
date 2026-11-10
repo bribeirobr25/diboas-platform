@@ -4,8 +4,9 @@ name: PR record
 # Each run reads the body from the API WHEN IT RUNS, not from its triggering event, and no run
 # is ever cancelled (register 5.818): a push and a body edit in the same second started two
 # runs, the concurrency rule cancelled one, and the cancelled run of this REQUIRED check
-# blocked the merge (#840). Without cancellation every run finishes, and the newest run,
-# which GitHub's required check counts, checks the newest body.
+# blocked the merge (#840). GitHub counts EVERY run of a required check on the commit, not
+# only the newest (5.835): a run that failed before the body was fixed stays red until it is
+# re-run, and a re-run reads the current body, so re-running the red run is the remedy.
 # The body never passes through the shell: `gh` writes it to a file the script reads, so a
 # crafted body cannot run commands. Rehearse locally with
 # `node scripts/check-pr-record.mjs --file <body.md>`.
@@ -22,7 +23,9 @@ jobs:
   record:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -35,3 +38,6 @@ jobs:
       - run: node scripts/check-pr-record.mjs --file "$RUNNER_TEMP/pr-body.md"
         env:
           PR_HEAD: ${{ github.event.pull_request.head.ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          PR_BASE_REPO: ${{ github.repository }}
