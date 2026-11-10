@@ -76,13 +76,19 @@ import { ETF01_SUSPENSION, isSuspendedEtf } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
 import { appendJsonlLine, readJsonlTolerant } from './lib/jsonl.mjs';
 import { scoreSignals, anchorCoherence, ETF_VARIANT, MAX_SCORE } from './lib/regime-engine.mjs';
+import { FX_SERIES, PRICE_SERIES, lastWeekday, main as publish } from '../market-data/publish.mjs';
 
 const SHARED = SHARED_DIR;
-// Scenario D (5.478) also writes the monthly series the pipeline appends to, so
-// it is covered by the same dirty-tree refusal, snapshot and restore.
+// Scenario D (5.478) also writes the monthly series the pipeline and the store
+// publisher write (plan 5.760 increment 2), so they are covered by the same
+// dirty-tree refusal, snapshot and restore.
 const MONTHLY = MONTHLY_PRICES_PATH;
-const WATCHED = [SHARED, MONTHLY];
-const MONTHLY_KEY = '\u0000monthlyPrices.json';
+const DATA_DIR = path.dirname(MONTHLY);
+const PUBLISHED = ['monthlyPrices.json', 'monthlyFx.json', 'store-manifest.json'].map((f) =>
+  path.join(DATA_DIR, f)
+);
+const WATCHED = [SHARED, ...PUBLISHED];
+const DATA_KEY = (f) => `\u0000${f}`;
 /**
  * Test directories OUTSIDE the weekly blocking step whose tests read the monthly
  * series the pipeline writes (they gate the refresh PR's own CI). Exported so
@@ -135,7 +141,7 @@ const snapshot = () => ({
   ...Object.fromEntries(
     fs.readdirSync(SHARED).map((f) => [f, fs.readFileSync(path.join(SHARED, f))])
   ),
-  [MONTHLY_KEY]: fs.readFileSync(MONTHLY),
+  ...Object.fromEntries(PUBLISHED.map((f) => [DATA_KEY(f), fs.readFileSync(f)])),
 });
 
 const restore = (snap) => {
@@ -143,15 +149,21 @@ const restore = (snap) => {
   // was not there, or it leaks into the next scenario and dirties the tree.
   for (const f of fs.readdirSync(SHARED)) if (!(f in snap)) fs.rmSync(path.join(SHARED, f));
   for (const [f, buf] of Object.entries(snap))
-    fs.writeFileSync(f === MONTHLY_KEY ? MONTHLY : path.join(SHARED, f), buf);
+    fs.writeFileSync(f.startsWith('\u0000') ? f.slice(1) : path.join(SHARED, f), buf);
 };
 
 /**
- * Append `n` synthetic month-rolls to EVERY price series, each a large move
- * (`factor` per month) with a consistent OHLC bar and the price-only close scaled
- * with it. The values are deliberately extreme: a test that only passes for this
- * month's prices — a band on a moving number, a bounded month count — fails here
- * before a real month-roll fails it on a Monday (5.478).
+ * Roll every monthly series `n` months on, each a large move (`factor` per
+ * month), the way Monday's run would leave them. The values are deliberately
+ * extreme: a test that only passes for this month's prices — a band on a moving
+ * number, a bounded month count — fails here before a real month-roll fails it on
+ * a Monday (5.478).
+ *
+ * BTC is appended directly, as `run.mjs --append-btc` does. Every other series
+ * goes through the REAL path (plan 5.760 increment 2): a store is built from the
+ * committed series plus the new months, and `publish.mjs` writes prices, FX and
+ * the manifest from it, so its rules (every series has the month; bars hold
+ * their close; nothing published is removed) run here too.
  */
 function rollMonths(n, factor) {
   const data = JSON.parse(fs.readFileSync(MONTHLY, 'utf8'));
@@ -159,23 +171,88 @@ function rollMonths(n, factor) {
     const [y, m] = ym.split('-').map(Number);
     return new Date(Date.UTC(y, m, 1)).toISOString().slice(0, 10);
   };
-  for (const series of Object.values(data)) {
-    for (let i = 0; i < n; i++) {
-      const last = series.months[series.months.length - 1];
-      const close = last.close * factor;
-      const bar = {
-        ym: nextYm(last.ym),
-        open: last.close,
-        high: Math.max(last.close, close) * 1.02,
-        low: Math.min(last.close, close) * 0.98,
-        close,
-      };
-      if (last.closePriceOnly != null) bar.closePriceOnly = last.closePriceOnly * factor;
-      series.months.push(bar);
-    }
+  const btc = data.BTC;
+  for (let i = 0; i < n; i++) {
+    const last = btc.months[btc.months.length - 1];
+    const close = last.close * factor;
+    btc.months.push({
+      ym: nextYm(last.ym),
+      open: last.close,
+      high: Math.max(last.close, close) * 1.02,
+      low: Math.min(last.close, close) * 0.98,
+      close,
+    });
   }
   fs.writeFileSync(MONTHLY, `${JSON.stringify(data, null, 2)}\n`);
-  return data;
+
+  const fx = JSON.parse(fs.readFileSync(path.join(DATA_DIR, 'monthlyFx.json'), 'utf8'));
+  const store = fs.mkdtempSync(path.join(os.tmpdir(), 'sim-store-'));
+  try {
+    fs.mkdirSync(path.join(store, 'derived', 'monthly'), { recursive: true });
+    fs.mkdirSync(path.join(store, 'daily'));
+    const write = (id, rows) => {
+      const ym = (r) => r.ym.slice(0, 7);
+      const body = rows.map(
+        (r) =>
+          `${ym(r)},${r.open},${r.high},${r.low},${r.close},${r.tr ?? ''},0,${lastWeekday(ym(r))}`
+      );
+      fs.writeFileSync(
+        path.join(store, 'derived', 'monthly', `${id}.csv`),
+        `ym,open,high,low,close,tr_close,distributions,last_day\n${body.join('\n')}\n`
+      );
+      const lastDay = lastWeekday(ym(rows.at(-1)));
+      fs.writeFileSync(
+        path.join(store, 'daily', `${id}.csv`),
+        `date,open,high,low,close,source\n${lastDay},,,,${rows.at(-1).close},simulator\n`
+      );
+    };
+    for (const [code, s] of Object.entries(PRICE_SERIES)) {
+      const rows = data[code].months.map((r) => ({
+        ym: r.ym,
+        open: r.open,
+        high: r.high,
+        low: r.low,
+        close: r.closePriceOnly ?? r.close,
+        tr: s.totalReturn ? r.close : undefined,
+      }));
+      for (let i = 0; i < n; i++) {
+        const last = rows.at(-1);
+        const close = last.close * factor;
+        rows.push({
+          ym: nextYm(last.ym),
+          open: last.close,
+          high: Math.max(last.close, close) * 1.02,
+          low: Math.min(last.close, close) * 0.98,
+          close,
+          tr: s.totalReturn ? last.tr * factor : undefined,
+        });
+      }
+      write(s.store, rows);
+    }
+    for (const [code, s] of Object.entries(FX_SERIES)) {
+      const v = (r) => (s.usdPerLocal ? r.closeUsdPerLocal : r.closeLocalPerUsd);
+      const rows = fx[code].months.map((r) => ({
+        ym: r.ym,
+        open: v(r),
+        high: v(r),
+        low: v(r),
+        close: v(r),
+      }));
+      for (let i = 0; i < n; i++) rows.push({ ...rows.at(-1), ym: nextYm(rows.at(-1).ym) });
+      write(s.store, rows);
+    }
+    const quiet = console.log;
+    console.log = () => {};
+    let code;
+    try {
+      code = publish(['--store', store, '--store-commit', '0'.repeat(40), '--out', DATA_DIR]);
+    } finally {
+      console.log = quiet;
+    }
+    if (code !== 0) throw new Error(`publish.mjs refused the rolled store (exit ${code})`);
+  } finally {
+    fs.rmSync(store, { recursive: true, force: true });
+  }
 }
 
 /**
@@ -559,13 +636,19 @@ function main() {
           rollMonths(sc.monthRolls, sc.factor);
           console.log(
             `\n=== scenario ${sc.key}: ${sc.name} ===\n` +
-              `  ${sc.monthRolls} synthetic bars appended to every monthly price series`
+              `  ${sc.monthRolls} months rolled: BTC appended, every other series published from a store by publish.mjs`
           );
           execFileSync(
             'pnpm',
             ['--filter', 'web', 'exec', 'vitest', 'run', ...PIPELINE_READER_DIRS],
             { cwd: REPO_ROOT, encoding: 'utf8', stdio: 'pipe' }
           );
+          // PUBLISH-1's secret-free half, as every PR runs it
+          execFileSync('node', ['apps/web/scripts/market-data/publish.mjs', '--verify-manifest'], {
+            cwd: REPO_ROOT,
+            encoding: 'utf8',
+            stdio: 'pipe',
+          });
           console.log(`  ✓ the tests reading pipeline-written monthly data pass (scenario D)`);
           continue;
         }

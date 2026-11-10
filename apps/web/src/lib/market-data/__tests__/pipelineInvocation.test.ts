@@ -10,8 +10,9 @@
  *
  * `compute-regime.mjs` had been guarded since 5.137 "(allows import for
  * tests)". `run.mjs`, `generate.mjs` and `tools-monthlies.mjs` had not — and
- * all three write to committed data, `tools-monthlies.mjs` to the file the
- * Money Tools calculators also read.
+ * all three wrote to committed data. `tools-monthlies.mjs` was replaced in plan
+ * 5.760 increment 2 by `market-data/publish.mjs`, which writes the same files
+ * and is guarded the same way.
  */
 
 import {
@@ -33,7 +34,8 @@ const SCRIPTS = join(__dirname, '../../../../scripts');
 const WRITERS = [
   'market-refresh/run.mjs',
   'market-refresh/generate.mjs',
-  'market-refresh/tools-monthlies.mjs',
+  // the Money Tools series from the store (5.760 increment 2; replaced tools-monthlies.mjs)
+  'market-data/publish.mjs',
   'data-fetchers/compute-regime.mjs',
   // the market data store (2026-11-05): both write (the store; the guard exits)
   'market-data/collect.mjs',

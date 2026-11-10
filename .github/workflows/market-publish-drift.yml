@@ -1,0 +1,68 @@
+# PUBLISH-1 — the published Money Tools series equal what the market data
+# store produces (plan 5.760, increment 2).
+#
+# Rebuilds every series publish.mjs owns from the store, at the commit
+# recorded in store-manifest.json, and compares them by hash (never by value:
+# these logs are public). The store is read with MARKET_DATA_READ_TOKEN
+# (read-only, diboas-analytics only), outside the repository, before anything
+# is installed. A PR without the secret (a fork, Dependabot) skips with a
+# stated reason; the secret-free half of PUBLISH-1 (`--verify-manifest`) runs
+# in ci.yml on every PR.
+
+name: Market publish drift (PUBLISH-1)
+
+on:
+  pull_request:
+    paths:
+      - 'apps/web/scripts/market-data/**'
+      - 'apps/web/src/lib/market-data/data/monthlyPrices.json'
+      - 'apps/web/src/lib/market-data/data/monthlyFx.json'
+      - 'apps/web/src/lib/market-data/data/store-manifest.json'
+      - '.github/workflows/market-publish-drift.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-publish-drift-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+
+      - name: Read the store at the manifest's commit (read-only)
+        id: store
+        env:
+          TOKEN: ${{ secrets.MARKET_DATA_READ_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::notice::PUBLISH-1 skipped: this PR has no MARKET_DATA_READ_TOKEN (a fork or Dependabot). The manifest half still runs in CI."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          commit="$(node -e "process.stdout.write(require('./apps/web/src/lib/market-data/data/store-manifest.json').store_commit || '')")"
+          if ! [[ "$commit" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::store-manifest.json records no store commit, so there is nothing fixed to rebuild from. Re-run publish.mjs with --store-commit."
+            exit 1
+          fi
+          # Not captured: on Actions its first line is the ::add-mask:: command.
+          bash apps/web/scripts/market-data/read-store.sh "$RUNNER_TEMP/analytics" "$commit"
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild every published series from the store and compare (hashes only)
+        if: steps.store.outputs.skip == 'false'
+        env:
+          STORE_COMMIT: ${{ steps.store.outputs.commit }}
+        run: node apps/web/scripts/market-data/publish.mjs --check --store "$RUNNER_TEMP/analytics/market" --store-commit "$STORE_COMMIT"

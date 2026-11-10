@@ -159,7 +159,7 @@ describe('every weekly release gate is declared, not inherited from a directory 
  *
  * The block above guards the two directories the weekly workflow's blocking step
  * runs. But the pipeline also WRITES `src/lib/market-data/data/monthlyPrices.json`
- * (the BTC candle via `--append-btc`, the tool series via `tools-monthlies.mjs`),
+ * (the BTC candle via `--append-btc`, the tool series via `market-data/publish.mjs`),
  * and tests elsewhere read it through `marketDataService`. On 2026-10-05 one of
  * them — `asset-history/__tests__/calculator.test.ts`, bounding a value every
  * month-roll moves — failed on the refresh PR, which therefore opened with red CI

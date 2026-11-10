@@ -426,12 +426,41 @@ Readers skip an unparseable line and the next append starts a fresh line, so an 
 
 ### A monthly series is missing a month (2026-10-21)
 
-- **The tools series** (SP500, QQQ, MSCI_WORLD, GOLD, TLT, IBOVESPA, DAX):
-  - `tools-monthlies.mjs` backfills every month between a series' last row and the due month, oldest first, from the same Yahoo fetch and with the same checks;
-  - if Yahoo has not closed a month yet, that series stops there, and the run prints a warning naming it. `--check` fails on it;
-  - the next weekly run picks it up. Nothing is ever appended with a hole.
-- **A tools series could not be read at all** (C1c, 2026-10-21): a Yahoo error, a timeout or a bar that fails its checks stops only that series. The others still update, the run continues, and the weekly PR has a section **"Money Tools monthly prices behind"** naming the series and the reason. It is not a reason to hold the PR: these series feed the Money Tools only, never the /market score. The next run retries; if the same series is named for several weeks, ask the market lane to look at its source.
+- **The tools series** (SP500, QQQ, MSCI_WORLD, GOLD, TLT, IBOVESPA, DAX) and the FX rates
+  (plan `5.760` increment 2): `apps/web/scripts/market-data/publish.mjs` rebuilds them every week
+  from the market data store (collected on Saturdays), so a missing month cannot leave a hole. A
+  month is published only once EVERY one of those series and every currency has it complete (its
+  month-end is stored). The Fed's exchange rates reach the store about a week late, so in the
+  first week of a month nothing new is published, and the PR body's section **"Money Tools series
+  (from the market data store)"** says which series are still waiting. The next weekly run
+  publishes it.
+- **The tools series were not published at all** (C1c, 2026-10-21; since increment 2: the store
+  could not be read, or `publish.mjs` refused it): the committed series stay as they are, the run
+  continues, and the same PR section says why. It is not a reason to hold the PR: these series
+  feed the Money Tools only, never the /market score. The next run retries; if the same reason
+  shows for several weeks, ask the market lane to look at the store. `publish.mjs` refuses, rather
+  than publish, a value that is not a positive number, a bar that does not hold its own close, and
+  a run that would remove a month the site already shows.
 - **BTC is different:** a gap stops the refresh, because the score is never computed over a missing month. The run fails with "does not follow the last row … (expected …)". Ask the market lane to append the missing month(s) first, with the usual dual-source check, as a reviewed change, then re-run.
+
+### Reverting the store publisher (plan `5.760` §8.13)
+
+Increment 2 (`publish.mjs`) can be reverted on its own, but **never mix the two writers' rows**:
+the store's gold is spot (USD per troy ounce) and the old file's is the GLD fund (USD per share),
+about ten times apart, and its exchange rates are Fed month-ends where the old ones were ECB
+monthly averages (BRL: the PTAX month-end).
+
+1. Revert the increment's commit in a branch from `main`.
+2. Take `monthlyPrices.json` and `monthlyFx.json` whole from the commit before the increment
+   (`git show <commit before #827>:apps/web/src/lib/market-data/data/monthlyPrices.json`), then put
+   back every BTC row `main` has gained since (BTC was never written by `publish.mjs`). Delete
+   `store-manifest.json`.
+3. Keep the 2× level-jump rule in `monthlySeriesRules.test.ts` (it arrived with the increment,
+   so the revert removes it: re-apply that test hunk), then run
+   `node apps/web/scripts/market-refresh/tools-monthlies.mjs` (restored by the revert) to append the
+   months since, and `pnpm --filter web exec vitest run src/lib/asset-history`. A file that mixes
+   the two writers fails the 2× rule.
+4. Open it as one reviewed PR, with the old → new values listed.
 
 ### The Monday run was missed or failed: the Tuesday second attempt (C1d, 2026-10-21)
 
