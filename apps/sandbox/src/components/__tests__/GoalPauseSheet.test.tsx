@@ -19,13 +19,20 @@ import { GoalPauseSheet } from '../GoalPauseSheet';
  */
 const M = getMessages('en');
 
-function renderSheet(props?: { onConfirm?: () => void; onDismiss?: () => void }) {
+function renderSheet(props?: {
+  onConfirm?: () => void;
+  onDismiss?: () => void;
+  hasOpenPositions?: boolean;
+  onStopStrategy?: () => void;
+}) {
   return render(
     <IntlProvider locale="en" messages={M}>
       <GoalPauseSheet
         currency="USD"
         onConfirm={props?.onConfirm}
         onDismiss={props?.onDismiss ?? vi.fn()}
+        hasOpenPositions={props?.hasOpenPositions ?? true}
+        onStopStrategy={'onStopStrategy' in (props ?? {}) ? props?.onStopStrategy : vi.fn()}
       />
     </IntlProvider>
   );
@@ -48,6 +55,23 @@ describe('GoalPauseSheet (Phase B — W-17d naming duality)', () => {
     expect(screen.getByText(/minimum of \$0\.25 per exited position/)).toBeTruthy();
     // And it must no longer claim the fee is levied in Practice (`5.420`).
     expect(screen.getByText(/not charged or deducted in Practice/)).toBeTruthy();
+  });
+
+  /**
+   * K1 (B14, 5.534) — the state table, by the rendered TEXT: a goal with nothing invested is never
+   * told its invested money keeps working, and the stop question appears only with its button.
+   */
+  it.each([
+    ['cash only', false, false],
+    ['invested, exit not priceable now', true, false],
+    ['invested, stop offered', true, true],
+  ] as const)('should say only what is true — %s', (_label, invested, stoppable) => {
+    renderSheet({ hasOpenPositions: invested, onStopStrategy: stoppable ? vi.fn() : undefined });
+    expect(screen.getByText('Plan paused')).toBeTruthy(); // what happens is always stated
+    expect(screen.queryByText('Invested money still working') !== null).toBe(invested);
+    expect(screen.queryByText(/your invested money keeps working/i) !== null).toBe(invested);
+    expect(screen.queryByText(/0\.39\s*%/) !== null).toBe(stoppable);
+    expect(screen.queryByRole('button', { name: M['goalPause.stopCta'] }) !== null).toBe(stoppable);
   });
 
   it('should fire onConfirm on Pause and onDismiss on Keep going', () => {
