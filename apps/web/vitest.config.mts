@@ -6,23 +6,30 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /**
- * COV-1 (register 5.70): a RATCHET. Each floor is the coverage measured on 2026-11-10, rounded
+ * COV-1 (register 5.70, 5.837): a RATCHET. Each floor is the coverage measured on 2026-11-10 (raised the same day after the eleventh audit), rounded
  * down; CI's `pnpm test:coverage` fails when any falls below. Raise a floor when coverage rises;
- * never lower one to make a run pass. Below the 80/60 policy: see register 5.70 (web is ratcheted, not yet compliant). CLAUDE.md requires 100% for security utilities.
+ * never lower one to make a run pass. Below the 80/60 policy: see register 5.832 (web is ratcheted, not yet compliant). CLAUDE.md requires 100% for security utilities.
  */
 const COVERAGE_THRESHOLDS = {
-  lines: 32,
-  branches: 27,
-  functions: 27,
-  statements: 32,
-  'src/app/**': { lines: 15, branches: 12, functions: 18, statements: 15 },
+  lines: 34,
+  branches: 29,
+  functions: 28,
+  statements: 34,
+  'src/app/**': { lines: 26, branches: 21, functions: 23, statements: 27 },
   'src/components/**': { lines: 12, branches: 12, functions: 11, statements: 12 },
-  'src/config/**': { lines: 28, branches: 48, functions: 22, statements: 29 },
+  'src/config/**': { lines: 31, branches: 49, functions: 27, statements: 31 },
   'src/hooks/**': { lines: 54, branches: 51, functions: 58, statements: 54 },
-  'src/lib/**': { lines: 57, branches: 48, functions: 49, statements: 56 },
+  'src/lib/**': { lines: 58, branches: 50, functions: 50, statements: 58 },
   // Security utilities: 100% on every metric.
   'src/lib/security/**': { 100: true },
   'middleware.ts': { 100: true },
+  'src/app/api/email/unsubscribe/route.ts': { 100: true },
+  'src/app/api/cron/purge-audit-logs/route.ts': { 100: true },
+  'src/app/api/consent/route.ts': { 100: true },
+  'src/app/api/monitoring/route.ts': { 100: true },
+  'src/lib/api/routeHelpers.ts': { 100: true },
+  'src/lib/api/validators.ts': { 100: true },
+  'src/lib/utils/redactContext.ts': { 100: true },
 };
 
 export default defineConfig({

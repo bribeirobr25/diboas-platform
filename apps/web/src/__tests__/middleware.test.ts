@@ -73,6 +73,27 @@ describe('middleware', () => {
       expect(csp).not.toContain("'unsafe-eval'");
     });
 
+    /**
+     * 5.839 · CLAUDE.md prohibits 'unsafe-inline' for scripts (nonce-based CSP). A plant adding it
+     * to the production script-src passed the whole suite while this file sat at 100% coverage.
+     * Every script directive is read, in production and in development; style-src may keep it.
+     */
+    it.each(['production', 'development'])(
+      "should never allow 'unsafe-inline' for scripts and always carry the nonce when NODE_ENV is %s",
+      (env) => {
+        vi.stubEnv('NODE_ENV', env);
+        const response = middleware(makeRequest('/en/about'));
+        const csp = response.headers.get('Content-Security-Policy') ?? '';
+        const scriptDirectives = csp
+          .split(';')
+          .map((d) => d.trim())
+          .filter((d) => /^script-src(?:-elem|-attr)?\s/.test(d));
+        expect(scriptDirectives.length).toBeGreaterThan(0);
+        for (const d of scriptDirectives) expect(d).not.toContain("'unsafe-inline'");
+        expect(scriptDirectives.find((d) => d.startsWith('script-src '))).toMatch(/'nonce-[^']+'/);
+      }
+    );
+
     it('should include unsafe-eval in development', () => {
       vi.stubEnv('NODE_ENV', 'development');
       const response = middleware(makeRequest('/en/about'));

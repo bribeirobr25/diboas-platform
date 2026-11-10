@@ -7,7 +7,7 @@
 The current codebase is a Next.js marketing site with waitlist signup functionality. Security covers:
 
 - **CSP**: Nonce-based Content Security Policy generated per request in middleware
-- **Input sanitization**: DOMPurify for HTML, text sanitization for form fields, URL validation
+- **Input sanitization**: DOMPurify for HTML, text sanitization for form fields
 - **Rate limiting**: Upstash Redis (sliding window) with in-memory fallback
 - **CSRF protection**: Origin/Referer validation on all mutation endpoints
 - **Encryption**: AES-256-GCM for PII at rest, HMAC-SHA256 blind index for searchable fields
@@ -107,15 +107,13 @@ Key management:
 - In development without a key, plaintext passthrough for convenience
 - In production, missing key logs an error and returns `null`
 
-Provides `encryptFields()` / `decryptFields()` helpers for encrypting specific object fields.
-
 ### HMAC-SHA256 blind index
 
 `hmacHash()` generates a deterministic hash for searchable encrypted fields (e.g., `email_hash` column for `WHERE email_hash = $1` queries). Uses a dedicated `HMAC_KEY` env var, separate from the encryption key for cryptographic separation. Falls back to `ENCRYPTION_KEY` in non-production environments.
 
 ### Deletion tokens
 
-**File:** `apps/web/src/lib/security/authentication.ts` (these helpers live here, NOT in `encryption.ts` — which only exports `encrypt`/`decrypt`/`hmacHash`/`encryptFields`/`decryptFields`).
+**File:** `apps/web/src/lib/security/authentication.ts` (these helpers live here, NOT in `encryption.ts` — which only exports `encrypt`/`decrypt`/`hmacHash`).
 
 `generateDeletionToken()` creates a 32-byte random hex token. `hashToken()` stores the SHA-256 hash. `verifyToken()` compares using timing-safe comparison.
 
