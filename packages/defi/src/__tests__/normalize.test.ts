@@ -9,6 +9,7 @@ import {
 } from '../providers/normalize';
 import { evidenceStamp } from '../types';
 import type { GasQuote, StrategyDef } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 const RATE_STAMP = evidenceStamp({
   source: 'coingecko',
@@ -149,7 +150,7 @@ describe('network-cost normalization — three NAMED refusals, never a zero', ()
 describe('network-cost normalization — what this layer must NOT do (G/H boundary)', () => {
   it('should read no clock and compute no freshness', () => {
     const src = readFileSync(new URL('../providers/normalize.ts', import.meta.url), 'utf8');
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(src);
     for (const forbidden of ['Date.now', 'dataFreshness', 'TimeState', 'STALE', 'DELAYED']) {
       expect(code, `${forbidden} would put H's judgement in G's layer`).not.toContain(forbidden);
     }
@@ -157,7 +158,7 @@ describe('network-cost normalization — what this layer must NOT do (G/H bounda
 
   it('should take no mode, scope or journey-state argument', () => {
     const src = readFileSync(new URL('../providers/normalize.ts', import.meta.url), 'utf8');
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(src);
     for (const forbidden of ['LedgerScope', 'practice', 'Practice', 'journey']) {
       expect(code).not.toContain(forbidden);
     }

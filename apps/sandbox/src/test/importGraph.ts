@@ -1,6 +1,6 @@
 import { dirname, join, normalize } from 'node:path';
 import ts from 'typescript';
-import { parseSource } from './parseSource';
+import { parseSource } from '@diboas/test-support';
 
 /**
  * Module-import reading shared by the source guards `CI-N3` and `PRU-1`.

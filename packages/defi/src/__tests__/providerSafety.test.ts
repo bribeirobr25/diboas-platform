@@ -29,6 +29,7 @@ import { isRefusedForCurrentFacingUse } from '../currentFacing';
 import { strategyProvenance } from '../provenance';
 import { getStrategy } from '../catalog';
 import type { ProtocolApy } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 /** A fetch that records every call. The instrument for "no request was issued". */
 function countingFetch() {
@@ -287,7 +288,7 @@ describe('5.110 INTERLOCK — freshness must never grant eligibility', () => {
     const url = await import('node:url');
     const here = url.fileURLToPath(import.meta.url);
     const src = fs.readFileSync(here.replace(/__tests__\/.*$/, 'fallbackEligibility.ts'), 'utf8');
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(src);
     for (const clockToken of ['Date', 'now', 'asOf', 'freshness', 'Freshness']) {
       expect(code, `fallbackEligibility must not reference ${clockToken}`).not.toContain(
         clockToken

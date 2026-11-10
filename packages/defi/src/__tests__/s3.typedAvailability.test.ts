@@ -8,6 +8,7 @@ import { STRATEGY_CATALOG } from '../catalog';
 import { FIXTURE_STAMP } from '../fixtures';
 import { observedStamp } from '../testing';
 import type { ProtocolApy, ProtocolId, StrategyDef } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 const NOW = '2026-09-22T00:00:00Z';
 const FRESH = '2026-09-20T00:00:00Z';
@@ -136,9 +137,7 @@ describe('S3 · availability asks each leg only for what it owes', () => {
       expect(strategyRateAvailability(s, accrualRates(s), NOW), s.id).toEqual({ available: true });
     }
     /* And the gate names no protocol — scanned as CODE, not prose. */
-    const code = readFileSync(join(__dirname, '..', 'rateAvailability.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const code = stripComments(readFileSync(join(__dirname, '..', 'rateAvailability.ts'), 'utf8'));
     for (const id of ['jupiterJlp', 'sanctumInf', 'jito', 'skySsr', 'aaveV3', 'compoundV3']) {
       expect(code, id).not.toContain(id);
     }

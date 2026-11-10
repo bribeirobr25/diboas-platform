@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { __resetEvidencePersistence, getEvidencePersistence } from '../factory';
 import { PostgresEvidenceStore } from '../PostgresEvidenceStore';
+import { stripComments } from '@diboas/test-support';
 
 const ORIGINAL = { ...process.env };
 
@@ -62,7 +63,7 @@ describe('evidence persistence selection', () => {
     /* Read the SOURCE, not the behaviour: the prohibition is that no code path
        here can construct one, and a behavioural test can only sample paths. */
     const source = readFileSync(join(__dirname, '..', 'factory.ts'), 'utf8');
-    const code = source.replace(/\/\*[\s\S]*?\*\/|\/\/.*$/gm, '');
+    const code = stripComments(source);
     expect(code).not.toContain('InMemoryEvidenceStore');
     expect(code).not.toContain('testing');
   });
