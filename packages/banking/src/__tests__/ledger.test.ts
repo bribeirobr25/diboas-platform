@@ -1429,13 +1429,15 @@ describe('§2.3 weekly cycle (WG-1 + D-r §3) — the credited term goes live', 
     expect(reconcile(state)).toBe('0.00');
   });
 
-  it('should grant the comparison credit once, and only after a strategy entry exists (P2BD-10)', () => {
+  it('should grant the comparison credit once, with no entry condition (P2BD-10; B9, 5.453)', () => {
     const before: LedgerEvent[] = [
       grantAt(genesis),
-      { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' }, // no position yet → no-op
+      { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' }, // no position: applied (B9)
+      { ...base(), type: 'ComparisonCreditGranted', amount: '1000.00' }, // second → no-op
     ];
-    expect(project(before).credited).toBe('0.00');
-    expect(project(before).comparisonCredited).toBe(false);
+    expect(project(before).credited).toBe('1000.00');
+    expect(project(before).comparisonCredited).toBe(true);
+    expect(reconcile(project(before))).toBe('0.00');
 
     const after: LedgerEvent[] = [
       grantAt(genesis),

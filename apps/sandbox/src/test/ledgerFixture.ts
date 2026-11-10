@@ -181,7 +181,8 @@ const ONE_OF_EACH: OneOfEach = {
   // ── §2.3 weekly cycle ───────────────────────────────────────────────────
   // Both credits are ingress (the `credited` term) landing in Available —
   // conserving by the symmetric formula. ComparisonCreditGranted is valid here
-  // because a StrategyEntered precedes it (the engine's P2BD-10 guard);
+  // as the ledger's first such credit (once per ledger, P2BD-10; no entry
+  // condition since B9 / 5.453);
   // RuleApplied is a zero-value approval marker (its money rode GoalFunded).
   WeeklyCreditGranted: {
     ...base('e23'),

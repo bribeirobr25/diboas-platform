@@ -3,8 +3,9 @@
  *
  * Deletes `audit_logs` rows older than AUDIT_LOG_RETENTION_DAYS (90), enforcing
  * GDPR storage-limitation on the raw-IP audit trail. Scheduled via the `crons`
- * entry in vercel.json (Vercel invokes it with `Authorization: Bearer
- * ${CRON_SECRET}` on the production deployment only).
+ * entry in apps/web/vercel.json, the project's Root Directory, where Vercel reads
+ * it (5.816: a repo-root copy was ignored, so the job never ran). Vercel invokes
+ * it with `Authorization: Bearer ${CRON_SECRET}` on the production deployment only.
  *
  * Security:
  *   - Inert until configured: if CRON_SECRET is unset → 503 (it can NEVER run
