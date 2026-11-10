@@ -5,7 +5,7 @@
 
 ## 1. The Policy
 
-**P-1 — Return/rate figures are multi-year averages.** Any figure presented as a return, yield, growth rate, depreciation rate, or scenario rate (on `/strategies`, `/tools`, `/learn`, PreDream, comparison tables) is derived from a multi-year historical window — never the current month, never an isolated last month. Trailing windows saturate at the full available series.
+**P-1 — Return/rate figures are multi-year averages.** Any figure presented as a return, yield, growth rate, depreciation rate, or scenario rate (on `/strategies`, `/tools`, `/learn`, PreDream, comparison tables; the Practice app under P-7) is derived from a multi-year historical window — never the current month, never an isolated last month. Trailing windows saturate at the full available series.
 
 **P-2 — The window ends at the last COMPLETE month.** The current (in-progress) month never enters any average.
 
@@ -16,6 +16,16 @@
 **P-5 — `/market` is exempt.** The BTC Macro Regime Dashboard runs on the diboas-analytics live pipeline with its own cadence, staleness gates, and data-status honesty rules.
 
 **P-6 — Every constant knows its provenance.** Market constants carry `lastVerified` metadata (source + date + window/methodology). A figure without provenance is a bug. This extends the `constants.ts` metadata convention to all data-fed surfaces, including `protocols.json`.
+
+**P-7 — The Practice app (`app.diboas.com`) is covered, with two carve-outs** (founder B33, 2026-10-22, register `5.236`; the projection window, founder 2026-11-05). P-1 to P-6 apply to its displayed figures, except:
+
+- **The current spot rate (B33).** The app MAY show a pool's current spot rate, never as an average:
+  - with its source stamp (for a multi-leg strategy, the stamp shown is the newest leg's);
+  - judged against the Practice reference age bands (`packages/defi/src/freshnessPolicy.ts`, evaluated by `freshness.ts`): up to 7 days old it is DELAYED; over 7 up to 14 days it is STALE; over 14 days, unparseable, or more than a day in the future it is refused for current-facing use (`isRefusedForCurrentFacingUse`, `currentFacing.ts`) and shown as unavailable. A stricter source contract overrides these bands; they never loosen;
+  - the age is judged when the screen renders (a screen left open keeps its first judgement);
+  - a DELAYED or STALE rate must be shown as such, never as current. **Today a STALE rate is still labelled "Current pool rate" — register `5.814` owes that fix** (it needs new copy ×4).
+- **The goal projection window (PR 2, `PROJECTION_POLICY` in `packages/investing/src/projection.ts`).** The projection states a RANGE: the lowest and highest 30-day average of the observed rates within the last 365 days, ending at the latest observation, and it needs at least 90 overlapping observed days. That is neither P-1's multi-year average nor P-2's complete-month end; it is an observed recent range, labelled "not a forecast" in the app, and never a spot rate alone.
+- **Historical replay** (the time machine, the charts) shows preserved observations; it is history, outside the age bands above.
 
 ## 2. Scope notes (founder-resolved 2026-07-05)
 
