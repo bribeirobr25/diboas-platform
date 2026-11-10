@@ -38,3 +38,6 @@ updates:
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 5
+    # The same 3-day wait the npm side gets from pnpm's minimumReleaseAge.
+    cooldown:
+      default-days: 3
