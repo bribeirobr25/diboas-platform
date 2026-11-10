@@ -1,8 +1,13 @@
 name: PR record
 # PR-RECORD (register 5.727): every pull request body carries the increment-review record
 # (docs/tech/increment-review-gate.md § Return block). Re-runs when the body is edited.
-# The body reaches the script only through an environment variable, never interpolated into
-# the shell, so a crafted body cannot run commands. Rehearse locally with
+# Each run reads the body from the API WHEN IT RUNS, not from its triggering event, and no run
+# is ever cancelled (register 5.818): a push and a body edit in the same second started two
+# runs, the concurrency rule cancelled one, and the cancelled run of this REQUIRED check
+# blocked the merge (#840). Without cancellation every run finishes, and the newest run,
+# which GitHub's required check counts, checks the newest body.
+# The body never passes through the shell: `gh` writes it to a file the script reads, so a
+# crafted body cannot run commands. Rehearse locally with
 # `node scripts/check-pr-record.mjs --file <body.md>`.
 on:
   pull_request:
@@ -11,10 +16,7 @@ on:
 
 permissions:
   contents: read
-
-concurrency:
-  group: pr-record-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  pull-requests: read
 
 jobs:
   record:
@@ -24,7 +26,12 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-      - run: node scripts/check-pr-record.mjs
+      - name: Read the current PR body
+        run: gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.body // ""' > "$RUNNER_TEMP/pr-body.md"
         env:
-          PR_BODY: ${{ github.event.pull_request.body }}
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+      - run: node scripts/check-pr-record.mjs --file "$RUNNER_TEMP/pr-body.md"
+        env:
           PR_HEAD: ${{ github.event.pull_request.head.ref }}
