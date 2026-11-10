@@ -46,6 +46,10 @@ import type { DivergenceSeries } from '@/components/UI/DivergenceChart';
 import {
   calculateCurrencyDepreciationForward,
   calculateCurrencyDepreciationRetrospective,
+  formatRetrospectiveChange,
+  formatRetrospectiveNumber,
+  showsAnchorCorrection,
+  EUR_ANCHOR_CORRECTION,
   CURRENCY_DEPRECIATION_OPTIONS,
   CURRENCY_DEPRECIATION_SCENARIO_USD_PERCENT,
   type CurrencyDepreciationOption,
@@ -141,7 +145,8 @@ export function CurrencyDepreciationCalculator() {
   // (the math converts to dollars), so they should always format under en-US
   // conventions — not the page locale. Forward cards keep `localeKey`. Making
   // this explicit prevents a future "fix" from applying the wrong locale to
-  // either branch.
+  // either branch. (Market lane MP-1a keeps C32: only the rate notes and the
+  // loss card below follow the reader's locale, the `5.820` carve-out.)
   const usdLocale: SupportedLocale = 'en';
 
   const snapshot = marketDataService.getSync();
@@ -173,6 +178,9 @@ export function CurrencyDepreciationCalculator() {
   // methodology footnote must all equal the series' anchor pair — never a
   // hand-typed date in the i18n string. Derived from the snapshot (not the
   // result) so the footnote renders even when the amount input is invalid.
+  // Today's date, read once (lazy init keeps render pure); decides whether the dated
+  // euro correction note is still inside its four weeks (5.848, B-13).
+  const [todayIso] = useState(() => new Date().toISOString().slice(0, 10));
   const retrospectiveVintage = useMemo(() => {
     const rate = snapshot.exchangeRates.rates[form.currency];
     if (!rate?.historicalAnchorStart || !rate?.historicalAnchorEnd) return null;
@@ -186,6 +194,7 @@ export function CurrencyDepreciationCalculator() {
     return {
       startMonth: fmt.format(start),
       asOfMonth: fmt.format(end),
+      correctionMonth: fmt.format(new Date(EUR_ANCHOR_CORRECTION.correctedOn)),
       years: Math.round((end.getTime() - start.getTime()) / (365.25 * 24 * 60 * 60 * 1000)),
     };
   }, [snapshot, form.currency, localeKey]);
@@ -486,7 +495,7 @@ export function CurrencyDepreciationCalculator() {
             <p className={styles.resultRate}>
               {t('output.retrospectiveThenNote', {
                 currency,
-                rate: retrospectiveResult.rateStart.toFixed(2),
+                rate: formatRetrospectiveNumber(retrospectiveResult.rateStart, localeKey),
               })}
             </p>
           </div>
@@ -502,22 +511,35 @@ export function CurrencyDepreciationCalculator() {
             <p className={styles.resultRate}>
               {t('output.retrospectiveNowNote', {
                 currency,
-                rate: retrospectiveResult.rateEnd.toFixed(2),
+                rate: formatRetrospectiveNumber(retrospectiveResult.rateEnd, localeKey),
               })}
             </p>
           </div>
           <div className={styles.resultCardDiboas}>
             <p className={styles.resultLabel}>{t('output.retrospectiveLossLabel')}</p>
             <p className={styles.resultValue}>
-              −{retrospectiveResult.percentLossInUsdTerms.toFixed(0)}%
+              {formatRetrospectiveChange(retrospectiveResult.percentLossInUsdTerms, localeKey)}
             </p>
             <p className={styles.resultRate}>
               {t('output.retrospectiveLossNote', {
                 currency,
-                cagr: (retrospectiveResult.historicalCagr * 100).toFixed(2),
+                cagr: formatRetrospectiveNumber(
+                  retrospectiveResult.historicalCagr * 100,
+                  localeKey
+                ),
                 years: retrospectiveVintage.years,
               })}
             </p>
+            {/* 5.848 / B-13: a dated correction note under the euro's result for four weeks
+                after the fix; it hides itself after EUR_ANCHOR_CORRECTION.showUntil. */}
+            {showsAnchorCorrection(currency, todayIso) ? (
+              <p className={styles.resultRate}>
+                {t('output.retrospectiveCorrectionNote', {
+                  correctionMonth: retrospectiveVintage.correctionMonth,
+                  startMonth: retrospectiveVintage.startMonth,
+                })}
+              </p>
+            ) : null}
             {/* FX-16 Phase 2 step 4 baseline (2026-05-26): confidence map
                 rewritten — ARS/CLP/COP branches deleted (per FX model §5
                 hyperinflation exclusion); MXN activated at MEDIUM (currency-pain

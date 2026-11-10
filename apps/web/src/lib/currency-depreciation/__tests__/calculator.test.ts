@@ -2,6 +2,7 @@
  * Phase 2 §2.4 — `lib/currency-depreciation/` extraction regression tests.
  */
 
+import monthlyFx from '@/lib/market-data/data/monthlyFx.json';
 import { describe, it, expect } from 'vitest';
 import {
   calculateCurrencyDepreciationForward,
@@ -232,8 +233,37 @@ describe('FX-16 retrospective gate (D4 — BRL/EUR only)', () => {
     expect(r).not.toBeNull();
     // EUR historicalCagr remains 1.23% — the retrospective endpoint-pair CAGR
     // is unchanged by D1 (which only moved the forward field). Anchor pair
-    // 1.4272 → 1.1706 USD/EUR over 16.33y produces 1.227% CAGR.
+    // 0.70067 → 0.85426 EUR per USD (1.4272 → 1.1706 USD per EUR) over 16.33y
+    // implies 1.221% a year; the stored 0.0123 is the ECB endpoint-pair figure on its
+    // own basis (the mismatch is registered, not fixed here).
     expect(r!.historicalCagr).toBeCloseTo(0.0123, 3);
+  });
+
+  it('should move in the same direction as the Fed series between the anchor months (5.848)', () => {
+    // Requirement: the result's direction follows the published Fed series, never the
+    // storage convention of a constant. Compared at the ANCHOR months, which are fixed,
+    // so a later market move can never turn this red (the 5.478 rule).
+    const fx = monthlyFx as unknown as Record<
+      string,
+      { months: { ym: string; closeLocalPerUsd: number }[] }
+    >;
+    const rates = snapshot.exchangeRates.rates as Record<
+      string,
+      { historicalAnchorStart?: string; historicalAnchorEnd?: string }
+    >;
+    const fedAt = (currency: string, iso: string) =>
+      fx[currency].months.find((m) => m.ym === `${iso.slice(0, 7)}-01`)?.closeLocalPerUsd;
+    for (const currency of ['BRL', 'EUR'] as const) {
+      const start = fedAt(currency, rates[currency].historicalAnchorStart!);
+      const end = fedAt(currency, rates[currency].historicalAnchorEnd!);
+      expect(start, `${currency} Fed month at the start anchor`).toBeDefined();
+      expect(end, `${currency} Fed month at the end anchor`).toBeDefined();
+      const fedSaysFell = end! > start!;
+      const r = calculateCurrencyDepreciationRetrospective({ amount: 10000, currency }, snapshot);
+      expect(r, currency).not.toBeNull();
+      expect(r!.percentLossInUsdTerms > 0, currency).toBe(fedSaysFell);
+      expect(r!.usdValueNow < r!.usdValueThen, currency).toBe(fedSaysFell);
+    }
   });
 
   it('carries the locked anchor dates on the result (MSG-08 vintage labels)', () => {

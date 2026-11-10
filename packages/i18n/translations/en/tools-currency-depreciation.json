@@ -38,6 +38,7 @@
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "USD-purchasing-power change",
     "retrospectiveLossNote": "{currency} weakened {cagr}% / year against USD over {years, plural, one {# year} other {# years}}",
+    "retrospectiveCorrectionNote": "Correction ({correctionMonth}): an earlier version of this result wrongly showed the euro gaining value against the US dollar since {startMonth}. The euro lost value, as shown above.",
     "depSourceForward": "Forward depreciation: horizon-matched CAGR derived from the {years}-year trailing FX window.",
     "depSourceRetrospective": "Retrospective: based on the actual {currency}/USD anchor pair {startMonth} → {asOfMonth}.",
     "depSourcePeg": "{currency} is pegged to the US dollar by central-bank policy. FX change is 0 by design.",

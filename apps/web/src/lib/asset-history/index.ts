@@ -6,6 +6,7 @@ export {
   // legacy fallback's only reachable path).
   calculateAssetHistoryDcaReplay,
   calculateAssetHistoryLumpSum,
+  assetHistoryStartYears,
   type AssetHistoryDcaReplayArgs,
   type AssetHistoryRangeResult,
   type AssetHistoryStartYear,

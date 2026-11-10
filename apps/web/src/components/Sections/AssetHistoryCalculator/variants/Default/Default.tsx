@@ -25,6 +25,7 @@ import { useCalculatorAnalytics } from '@/hooks/useCalculatorAnalytics';
 import {
   calculateAssetHistoryDcaReplay,
   calculateAssetHistoryLumpSum,
+  assetHistoryStartYears,
   AssetHistoryDataError,
   type ReturnsBasis,
 } from '@/lib/asset-history';
@@ -155,6 +156,18 @@ export function AssetHistoryCalculatorDefault() {
     return 'USD';
   }, [localeKey]);
 
+  // 5.819: only the years the selected asset's published series covers are offered;
+  // a remembered year the new asset does not cover falls back to its first year.
+  // Derived during render (no effect): recomputed when the asset or the series load changes.
+  const startYearOptions = useMemo(() => {
+    if (!seriesLoaded) return START_YEAR_OPTIONS;
+    const years = assetHistoryStartYears(form.asset, START_YEAR_OPTIONS);
+    return years.length > 0 ? years : START_YEAR_OPTIONS;
+  }, [form.asset, seriesLoaded]);
+  const startYear: AssetHistoryStartYear = startYearOptions.includes(form.startYear)
+    ? form.startYear
+    : startYearOptions[0];
+
   // C21 close (2026-05-25): the engine SHOULD only throw AssetHistoryDataError.
   // Any other throw (NaN/TypeError from unexpected data, missing monthlySeries
   // shape, non-positive finalBar.close) used to propagate out of the useMemo
@@ -173,7 +186,7 @@ export function AssetHistoryCalculatorDefault() {
     try {
       const args = {
         asset: form.asset,
-        startYear: form.startYear,
+        startYear,
         amount: form.amount,
         returnsBasis: form.returnsBasis,
         displayCurrency,
@@ -190,13 +203,18 @@ export function AssetHistoryCalculatorDefault() {
         unexpectedError: err instanceof Error ? err : new Error(String(err)),
       };
     }
-  }, [form, seriesLoaded, displayCurrency]);
+  }, [form, startYear, seriesLoaded, displayCurrency]);
 
   const result = computed.result;
 
   // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
   // (Separate from the existing CALCULATOR_UNEXPECTED_ERROR telemetry below.)
-  useCalculatorAnalytics('asset-history', localeKey, result ? JSON.stringify(form) : null);
+  // The payload carries the year actually computed (5.819), not a remembered one the asset lacks.
+  useCalculatorAnalytics(
+    'asset-history',
+    localeKey,
+    result ? JSON.stringify({ ...form, startYear }) : null
+  );
 
   useEffect(() => {
     if (!computed.unexpectedError) return;
@@ -209,7 +227,7 @@ export function AssetHistoryCalculatorDefault() {
     // separable in dashboards (per ApplicationEventType v1.2 split).
     const context = {
       asset: form.asset,
-      startYear: form.startYear,
+      startYear,
       mode: form.mode,
       returnsBasis: form.returnsBasis,
       displayCurrency,
@@ -230,7 +248,7 @@ export function AssetHistoryCalculatorDefault() {
   }, [
     computed.unexpectedError,
     form.asset,
-    form.startYear,
+    startYear,
     form.mode,
     form.returnsBasis,
     displayCurrency,
@@ -328,10 +346,10 @@ export function AssetHistoryCalculatorDefault() {
           </label>
           <Select
             id={`${baseId}-startYear`}
-            value={form.startYear}
+            value={startYear}
             onChange={(e) => handleStartYear(Number(e.target.value) as AssetHistoryStartYear)}
           >
-            {START_YEAR_OPTIONS.map((y) => (
+            {startYearOptions.map((y) => (
               <option key={y} value={y}>
                 {y === 2010 ? t('inputs.startYear2010Label') : String(y)}
               </option>
@@ -435,7 +453,7 @@ export function AssetHistoryCalculatorDefault() {
                 headlineFormatter={fmtMoney}
                 headlineTone="neutral"
                 headlineOverride={`${fmtMoney(result.rangeLow!)} – ${fmtMoney(result.rangeHigh!)}`}
-                headlineCaption={`${assetName} · ${startMonthLabel} ${form.startYear}`}
+                headlineCaption={`${assetName} · ${startMonthLabel} ${startYear}`}
                 supportingPoints={[investedPoint]}
                 disclaimer={disclaimer}
                 cta={cta}
@@ -476,16 +494,16 @@ export function AssetHistoryCalculatorDefault() {
               headlineCaption={t('resultMoment.heroCaption', {
                 asset: assetName,
                 startMonth: startMonthLabel,
-                startYear: form.startYear,
+                startYear,
                 gain: gainStr,
               })}
               chart={{
                 series,
-                xCaptions: [`${startMonthLabel} ${form.startYear}`, t('resultMoment.chartToday')],
+                xCaptions: [`${startMonthLabel} ${startYear}`, t('resultMoment.chartToday')],
                 formatValue: fmtMoney,
                 ariaLabel: t('resultMoment.chartAria', {
                   asset: assetName,
-                  startYear: form.startYear,
+                  startYear,
                 }),
               }}
               supportingPoints={points}

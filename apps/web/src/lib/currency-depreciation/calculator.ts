@@ -27,6 +27,8 @@ import {
 } from '@/lib/market-data/formulas';
 import type { MarketDataSnapshot } from '@/lib/market-data/types';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
+import { getIntlLocale } from '@/config/formats';
+import { formatPercent } from '@diboas/format';
 import type { SupportedLocale } from '@diboas/i18n/config';
 
 export const CURRENCY_DEPRECIATION_SCENARIO_USD_PERCENT = SCENARIO_RATES.historical;
@@ -180,6 +182,54 @@ export function calculateCurrencyDepreciationForward(
     // bank card on null. Components MUST handle null — type-checked.
     bankRatePercent: bankRate,
   };
+}
+
+/**
+ * 5.848: the "change in USD purchasing power" card's figure, signed by the value.
+ * A loss (the currency fell against the dollar) reads "−18%"; a gain reads "+5%";
+ * the sign never doubles ("−-22%" was shown while the EUR anchors were inverted).
+ * Rounds to whole percent, as the card always has (locale formatting is `5.820`).
+ */
+export function formatRetrospectiveChange(
+  percentLossInUsdTerms: number,
+  locale: SupportedLocale
+): string {
+  const rounded = Math.round(Math.abs(percentLossInUsdTerms));
+  // PCT-1: "18%" in every locale, so the shared formatter, never Intl's percent style.
+  const figure = formatPercent(rounded / 100, getIntlLocale(locale), { maximumFractionDigits: 0 });
+  if (rounded === 0) return figure;
+  return `${percentLossInUsdTerms > 0 ? '−' : '+'}${figure}`;
+}
+
+/**
+ * A plain number in the reader's locale (5.848 / 5.820 carve-out): the retrospective
+ * card's exchange rates and yearly change were written with `toFixed`, so a German
+ * reader saw "0.70" and "1.23%" instead of "0,70" and "1,23".
+ */
+export function formatRetrospectiveNumber(
+  value: number,
+  locale: SupportedLocale,
+  digits = 2
+): string {
+  return new Intl.NumberFormat(getIntlLocale(locale), {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  }).format(value);
+}
+
+/**
+ * The euro's retrospective anchors were inverted until 2026-11 (5.848). Decision B-13
+ * (DR-2026-11-10): a dated correction note under the euro's result for four weeks. The
+ * note hides itself after `showUntil`; the register row closes when this constant and
+ * the note are deleted. `correctedOn` is the month the note names.
+ */
+export const EUR_ANCHOR_CORRECTION = {
+  correctedOn: '2026-11-10',
+  showUntil: '2026-12-14',
+} as const;
+
+export function showsAnchorCorrection(currency: string, todayIso: string): boolean {
+  return currency === 'EUR' && todayIso.slice(0, 10) <= EUR_ANCHOR_CORRECTION.showUntil;
 }
 
 export function calculateCurrencyDepreciationRetrospective(
