@@ -7,6 +7,7 @@ export {
   calculateAssetHistoryDcaReplay,
   calculateAssetHistoryLumpSum,
   assetHistoryStartYears,
+  assetHistoryFirstPartialMonth,
   type AssetHistoryDcaReplayArgs,
   type AssetHistoryRangeResult,
   type AssetHistoryStartYear,

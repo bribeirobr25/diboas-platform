@@ -70,7 +70,6 @@ export interface CurrencyRate {
   // docs/researches/btc-vs-assets-inflation-fx-final-analysis.md. Optional so
   // partial-ship scenarios (SDK without history) and SupportedLocale rows
   // without a historical research source remain valid.
-  readonly historicalCagr?: number;
   readonly historicalAnchorStart?: string;
   readonly historicalAnchorEnd?: string;
   readonly historicalRateStart?: number;

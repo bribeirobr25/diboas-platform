@@ -62,6 +62,19 @@ describe('the published Bitcoin cards quote the gap at the rule precision (5.822
   };
   const INTL = { en: 'en-US', 'pt-BR': 'pt-BR', es: 'es-ES', de: 'de-DE' } as const;
 
+  // 5.858: a price is written the way each locale writes dollars (pt-BR "US$ 77.435",
+  // es/de "77.435 $"), never "$77.435", which is native in none of them.
+  it("should write Bitcoin prices in each locale's dollar format on the cards", () => {
+    for (const id of ['BTC-01', 'BTC-02']) {
+      const card = cards.groups.flatMap((g) => g.signals).find((s) => s.id === id);
+      expect(card?.summary['pt-BR'], `${id} pt-BR`).toMatch(/US\$ \d/);
+      for (const locale of ['pt-BR', 'es', 'de'])
+        expect(card?.summary[locale], `${id} ${locale}`).not.toMatch(/(?<!US)\$\d/);
+      for (const locale of ['es', 'de'])
+        expect(card?.summary[locale], `${id} ${locale}`).toMatch(/\d \$/);
+    }
+  });
+
   for (const id of ['BTC-01', 'BTC-02']) {
     const gap = computed.signals.find((s) => s.id === id)?.values?.gapPct;
     const card = cards.groups.flatMap((g) => g.signals).find((s) => s.id === id);
