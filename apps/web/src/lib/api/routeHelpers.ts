@@ -28,6 +28,22 @@ type RateLimitPreset = keyof typeof RateLimitPresets;
  *
  * Phase 2 M1 (audit/2026-05-08): unified entry point for distributed tracing.
  */
+/**
+ * Read a JSON request body as a plain object (5.823 family: 5.846, 5.847).
+ *
+ * Unparseable JSON or a non-object value (null, a number, a string, an array) reads as `{}`,
+ * so the route's own validation answers 400 instead of the parse error escaping as a 500.
+ * The fields are NOT validated here: `T` is the shape the route then checks, as before.
+ */
+export async function readJsonObject<T extends object = Record<string, unknown>>(
+  request: Request
+): Promise<T> {
+  const parsed: unknown = await request.json().catch(() => null);
+  return (
+    parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}
+  ) as T;
+}
+
 export function getCorrelationId(request: NextRequest): string {
   const fromHeader = request.headers.get('x-request-id');
   if (fromHeader) return fromHeader;

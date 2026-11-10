@@ -16,7 +16,7 @@ import { timingSafeEqual } from 'crypto';
 import { detectPreferredLocale } from '@diboas/i18n/config';
 import { hmacHash } from '@/lib/security/encryption';
 import { decodeUnsubToken } from '@/lib/email/unsubscribeUrl';
-import { applyRateLimit } from '@/lib/api/routeHelpers';
+import { applyRateLimit, readJsonObject } from '@/lib/api/routeHelpers';
 import { logAuditEvent } from '@/lib/audit/AuditService';
 import { Logger } from '@/lib/monitoring/Logger';
 import { sql } from '@/lib/database/client';
@@ -111,9 +111,8 @@ export async function POST(request: NextRequest) {
 
   try {
     const { searchParams } = request.nextUrl;
-    // 5.847: `null` (or any non-object) is valid JSON; treat it like an empty body, not a 500.
-    const parsed: unknown = await request.json().catch(() => null);
-    const body = (parsed && typeof parsed === 'object' ? parsed : {}) as Record<string, unknown>;
+    // 5.847: `null` (or any non-object) is valid JSON; it reads as an empty body, not a 500.
+    const body = await readJsonObject(request);
     const action = (body.action as string) || 'unsubscribe';
 
     const params = extractIdToken(searchParams, body);

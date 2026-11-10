@@ -34,6 +34,7 @@ import {
   errorResponse,
   successResponse,
   handleRouteError,
+  readJsonObject,
 } from '../routeHelpers';
 import { RateLimitPresets } from '@/lib/security';
 import { ApplicationEventType } from '@/lib/events/ApplicationEventBus';
@@ -44,6 +45,30 @@ const req = (headers: Record<string, string> = {}, method = 'GET') =>
 
 afterEach(() => {
   vi.unstubAllGlobals();
+});
+
+/** 5.823 family (5.846, 5.847): a bad body reads as `{}` so the route answers 400, never 500. */
+describe('readJsonObject', () => {
+  const req = (raw: string) =>
+    new NextRequest('https://diboas.com/api/x', { method: 'POST', body: raw });
+
+  it('should return the parsed object when the body is a JSON object', async () => {
+    expect(await readJsonObject(req('{"email":"a@b.co","n":1}'))).toEqual({
+      email: 'a@b.co',
+      n: 1,
+    });
+  });
+
+  it.each([
+    ['JSON null', 'null'],
+    ['a JSON number', '42'],
+    ['a JSON string', '"yes"'],
+    ['a JSON array', '[1,2]'],
+    ['malformed JSON', '{not json'],
+    ['an empty body', ''],
+  ])('should read %s as an empty object instead of throwing', async (_label, raw) => {
+    expect(await readJsonObject(req(raw))).toEqual({});
+  });
 });
 
 describe('getCorrelationId', () => {

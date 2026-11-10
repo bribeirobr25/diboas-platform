@@ -146,6 +146,22 @@ describe('POST /api/waitlist/signup', () => {
     (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
   });
 
+  /** 5.823 family: a bad body is a 400 (email required), never a 500. */
+  it.each([
+    ['JSON null', 'null'],
+    ['malformed JSON', '{not json'],
+  ])('should answer 400 EMAIL_REQUIRED when the body is %s', async (_label, raw) => {
+    const response = await POST(
+      new NextRequest('http://localhost:3000/api/waitlist/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Origin: 'http://localhost:3000' },
+        body: raw,
+      })
+    );
+    expect(response.status).toBe(400);
+    expect((await response.json()).errorCode).toBe('EMAIL_REQUIRED');
+  });
+
   describe('Happy Path', () => {
     it('should successfully create a new signup', async () => {
       const mockEntry = {

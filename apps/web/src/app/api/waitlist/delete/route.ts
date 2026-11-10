@@ -14,7 +14,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
+import { applyRateLimit, applyCsrf, emitErrorEvent, readJsonObject } from '@/lib/api/routeHelpers';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { isValidEmail } from '@/lib/waitingList/helpers';
 import { Logger } from '@/lib/monitoring/Logger';
@@ -51,8 +51,7 @@ export async function POST(request: Request): Promise<NextResponse> {
   if (rateLimited) return rateLimited;
 
   try {
-    const body = await request.json();
-    const { email } = body;
+    const { email } = await readJsonObject<{ email?: unknown }>(request);
 
     if (!email || typeof email !== 'string') {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 });
@@ -120,8 +119,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
   if (rateLimited) return rateLimited;
 
   try {
-    const body = await request.json();
-    const { token } = body;
+    const { token } = await readJsonObject<{ token?: unknown }>(request);
 
     if (!token || typeof token !== 'string') {
       return NextResponse.json(

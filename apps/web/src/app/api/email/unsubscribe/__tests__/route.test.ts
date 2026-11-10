@@ -17,9 +17,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createHmac } from 'crypto';
 
 const applyRateLimit = vi.fn();
-vi.mock('@/lib/api/routeHelpers', () => ({
-  applyRateLimit: (...args: unknown[]) => applyRateLimit(...args),
-}));
+vi.mock('@/lib/api/routeHelpers', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/api/routeHelpers')>();
+  return { ...actual, applyRateLimit: (...args: unknown[]) => applyRateLimit(...args) };
+});
 
 // Deterministic stand-in for the keyed HMAC (fake key; the real key never enters tests).
 const fakeHmac = (value: string) =>

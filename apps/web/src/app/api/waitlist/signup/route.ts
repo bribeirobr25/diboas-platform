@@ -12,7 +12,13 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { getIdempotentResponse, cacheIdempotentResponse } from '@/lib/security';
-import { applyRateLimit, applyCsrf, validateEmail, emitErrorEvent } from '@/lib/api/routeHelpers';
+import {
+  applyRateLimit,
+  applyCsrf,
+  validateEmail,
+  emitErrorEvent,
+  readJsonObject,
+} from '@/lib/api/routeHelpers';
 import { isValidLocale, isValidSource, isValidTags, isValidName } from '@/lib/api/validators';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { Logger } from '@/lib/monitoring/Logger';
@@ -88,7 +94,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     // Fire-and-forget: classifyRequest never rejects (fail-open, unit-proven).
     void classifyRequest('waitlist-signup');
 
-    const body = (await request.json()) as SignupRequestBody;
+    const body = await readJsonObject<SignupRequestBody>(request);
 
     // ---- Validation (HTTP layer) -------------------------------------------
     if (!body.email) return validationError('Email is required', 'EMAIL_REQUIRED');

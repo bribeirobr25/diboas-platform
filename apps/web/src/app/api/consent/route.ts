@@ -19,7 +19,7 @@ import {
   CookieConfig,
 } from '@/lib/security/cookies';
 import { logAuditEvent } from '@/lib/audit/AuditService';
-import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
+import { applyRateLimit, applyCsrf, emitErrorEvent, readJsonObject } from '@/lib/api/routeHelpers';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
@@ -52,10 +52,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
 
   try {
     // 5.846: unparseable JSON or a non-object body is a bad request (400), never a 500.
-    const body = (await request.json().catch(() => null)) as ConsentRequest | null;
+    const body = await readJsonObject<Partial<ConsentRequest>>(request);
 
     // Validate input
-    if (!body || typeof body !== 'object' || typeof body.analytics !== 'boolean') {
+    if (typeof body.analytics !== 'boolean') {
       return NextResponse.json(
         { success: false, error: 'Invalid consent data. analytics must be boolean.' },
         { status: 400 }

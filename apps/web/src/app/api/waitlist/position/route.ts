@@ -18,7 +18,12 @@ import { requireAuth, hmacHash } from '@/lib/security';
 import { sanitizeEmail } from '@/lib/utils/sanitize';
 import { toISODateString } from '@/lib/utils/date';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
-import { applyRateLimit, applyCsrf, handleRouteError } from '@/lib/api/routeHelpers';
+import {
+  applyRateLimit,
+  applyCsrf,
+  handleRouteError,
+  readJsonObject,
+} from '@/lib/api/routeHelpers';
 import { Logger } from '@/lib/monitoring/Logger';
 import { getByEmail, updateEntry, processReferral } from '@/lib/waitingList/store';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
@@ -142,8 +147,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
   if (rateLimited) return rateLimited as NextResponse<PositionResponse>;
 
   try {
-    const body = await request.json();
-    const { email, newPosition, incrementReferral } = body;
+    const { email, newPosition, incrementReferral } = await readJsonObject<{
+      email?: string;
+      newPosition?: unknown;
+      incrementReferral?: unknown;
+    }>(request);
 
     if (!email) {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 });
