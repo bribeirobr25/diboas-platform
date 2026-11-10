@@ -296,6 +296,9 @@ export class WaitlistApplicationService {
 
   async requestDeletion(input: RequestDeletionInput): Promise<RequestDeletionResult> {
     try {
+      // 5.824 + twelfth audit: seal BEFORE the lookup. Refusing only after finding an entry
+      // made "encryption unavailable" a 500 for known emails and a 202 for unknown ones.
+      const sealed = this.sealEmail(input.email);
       const entry = await getByEmail(input.email);
 
       if (!entry) {
@@ -307,7 +310,7 @@ export class WaitlistApplicationService {
       // Generate + persist token (15 min TTL, encrypted email at rest).
       const token = generateDeletionToken();
       const tokenHash = hashToken(token);
-      await this.persistDeletionToken(tokenHash, input.email);
+      await this.persistDeletionToken(tokenHash, sealed);
 
       Logger.info('[GDPR] Deletion requested for email, token generated');
 
@@ -505,13 +508,23 @@ export class WaitlistApplicationService {
     }
   }
 
-  private async persistDeletionToken(tokenHash: string, email: string): Promise<void> {
-    const expiresAt = new Date(Date.now() + DELETION_TOKEN_TTL_MS).toISOString();
+  /**
+   * The email as stored at rest: ciphertext plus blind index. 5.824: never in clear or under an
+   * empty blind index. Both are null only in production without a usable key; refuse as
+   * `addEntry` does (repository.ts).
+   */
+  private sealEmail(email: string): { emailEnc: string; emailHmac: string } {
     const emailEnc = encrypt(email);
     const emailHmac = hmacHash(email.toLowerCase().trim());
-    // 5.824: never store the email in clear or under an empty blind index. Both are null only
-    // in production without a usable key; refuse as `addEntry` does (repository.ts).
     if (!emailEnc || !emailHmac) throw new EncryptionUnavailableError();
+    return { emailEnc, emailHmac };
+  }
+
+  private async persistDeletionToken(
+    tokenHash: string,
+    { emailEnc, emailHmac }: { emailEnc: string; emailHmac: string }
+  ): Promise<void> {
+    const expiresAt = new Date(Date.now() + DELETION_TOKEN_TTL_MS).toISOString();
 
     await sql`
       INSERT INTO deletion_tokens (token_hash, email, email_hash, expires_at)

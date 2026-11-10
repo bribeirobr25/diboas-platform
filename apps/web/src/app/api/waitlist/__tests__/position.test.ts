@@ -7,7 +7,7 @@
  * seed is `${todayUTC}|${email}` and changes across UTC days.
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi, type Mock } from 'vitest';
 import { NextRequest } from 'next/server';
 
 vi.mock('@/lib/api/routeHelpers', () => ({
@@ -49,6 +49,8 @@ vi.mock('@/lib/events/ApplicationEventBus', () => ({
 
 import { GET } from '../position/route';
 import * as security from '@/lib/security';
+import * as routeHelpers from '@/lib/api/routeHelpers';
+import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 
 const req = (email: string) =>
   new NextRequest(`https://diboas.com/api/waitlist/position?email=${encodeURIComponent(email)}`);
@@ -85,5 +87,25 @@ describe('GET /api/waitlist/position — F13 daily-rotating dummy (not-found)', 
 
     expect(security.hmacHash).toHaveBeenCalledWith('2026-06-02|ghost@example.com');
     expect(security.hmacHash).toHaveBeenCalledWith('2026-06-03|ghost@example.com');
+  });
+
+  /* twelfth audit: without an HMAC key the old fallback derived the dummy from the date alone
+   * (every unknown email got the same values). It must refuse instead, never answer a dummy. */
+  it('should refuse through the route error handler, never a dummy, when the HMAC key is unusable', async () => {
+    vi.setSystemTime(new Date('2026-06-02T12:00:00Z'));
+    (security.hmacHash as Mock).mockReturnValueOnce(null);
+    (routeHelpers.handleRouteError as Mock).mockReturnValueOnce(
+      new Response(JSON.stringify({ success: false }), { status: 500 })
+    );
+
+    const res = await GET(req('ghost@example.com'));
+
+    expect(res.status).toBe(500);
+    expect(routeHelpers.handleRouteError).toHaveBeenCalledWith(
+      expect.any(EncryptionUnavailableError),
+      'waitlist',
+      'position_lookup',
+      'Position lookup error'
+    );
   });
 });

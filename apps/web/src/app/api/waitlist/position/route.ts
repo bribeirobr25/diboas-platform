@@ -20,6 +20,7 @@ import { toISODateString } from '@/lib/utils/date';
 import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
 import { applyRateLimit, applyCsrf, handleRouteError } from '@/lib/api/routeHelpers';
 import { Logger } from '@/lib/monitoring/Logger';
+import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 import { getByEmail, updateEntry, processReferral } from '@/lib/waitingList/store';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
@@ -71,14 +72,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<PositionRe
       // the dummy changes every UTC midnight; the 1-10000 range still overlaps
       // real positions to defeat range-based enumeration.
       const todayUTC = toISODateString(new Date()); // YYYY-MM-DD
-      const hash = hmacHash(`${todayUTC}|${sanitizedEmail}`);
-      // Fallback to a simple hash if HMAC key is unavailable (also rotates daily)
-      const hashHex =
-        hash ||
-        `${todayUTC}|${sanitizedEmail}`
-          .split('')
-          .reduce((acc, c) => acc + c.charCodeAt(0).toString(16), '')
-          .slice(0, 16);
+      const hashHex = hmacHash(`${todayUTC}|${sanitizedEmail}`);
+      // No usable HMAC key (production misconfiguration): refuse. The old fallback hex-encoded
+      // "date|email" and kept 16 characters — the date alone — so every unknown email got the
+      // same dummy (twelfth audit). Without the key no lookup can find an entry either, so
+      // every email takes this branch and gets the same 500: nothing to enumerate.
+      if (!hashHex) throw new EncryptionUnavailableError();
       const hashInt = parseInt(hashHex.slice(0, 8), 16);
       // Range 1-10000 overlaps with real positions to prevent range-based enumeration
       const dummyPosition = (hashInt % 10000) + 1;
