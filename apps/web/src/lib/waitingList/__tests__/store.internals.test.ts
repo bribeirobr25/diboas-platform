@@ -121,18 +121,40 @@ describe('validateRow', () => {
     expect(validateRows([ROW, ROW])).toHaveLength(2);
   });
 
+  it('should throw for a non-object row', () => {
+    expect(() => validateRow(null)).toThrow(/expected an object/);
+  });
+
+  /* Thirteenth audit: one field per type was tested, so dropping `email_hash` from the
+   * required list passed. Every required field is now pinned. */
   it.each([
-    ['a non-object', null, /expected an object/],
-    ['a string field of the wrong type', { ...ROW, email: 1 }, /string for "email"/],
-    ['a number field of the wrong type', { ...ROW, version: '3' }, /number for "version"/],
-    ['tags that are not an array', { ...ROW, tags: 'a' }, /array for "tags"/],
-    [
-      'gdpr_accepted that is not a boolean',
-      { ...ROW, gdpr_accepted: 'yes' },
-      /boolean for "gdpr_accepted"/,
-    ],
-  ])('should throw for %s', (_l, row, message) => {
-    expect(() => validateRow(row)).toThrow(message);
+    'id',
+    'email',
+    'email_hash',
+    'referral_code',
+    'locale',
+    'source',
+    'tier',
+    'created_at',
+    'updated_at',
+  ])('should throw when the string field %s is not a string', (field) => {
+    expect(() => validateRow({ ...ROW, [field]: 1 })).toThrow(new RegExp(`string for "${field}"`));
+  });
+
+  it.each(['position', 'original_position', 'referral_count', 'version'])(
+    'should throw when the number field %s is not a number',
+    (field) => {
+      expect(() => validateRow({ ...ROW, [field]: '1' })).toThrow(
+        new RegExp(`number for "${field}"`)
+      );
+    }
+  );
+
+  it('should throw for tags that are not an array and a gdpr_accepted that is not a boolean', () => {
+    expect(() => validateRow({ ...ROW, tags: 'a' })).toThrow(/array for "tags"/);
+    expect(() => validateRow({ ...ROW, gdpr_accepted: 'yes' })).toThrow(
+      /boolean for "gdpr_accepted"/
+    );
   });
 });
 
@@ -159,7 +181,22 @@ describe('executeOptimisticUpdate', () => {
     await expect(executeOptimisticUpdate('h1', update([]), 3, 'stale')).rejects.toThrow(
       ConcurrencyConflictError
     );
+    // the existence check asks about THIS email's blind index, nothing else
+    expect(mockSql.mock.calls[0][0]).toMatch(/FROM waitlist_entries WHERE email_hash = \?/);
     expect(mockSql.mock.calls[0][1]).toEqual(['h1']);
+  });
+
+  it('should check for a conflict at version 0 too', async () => {
+    mockSql.mockResolvedValueOnce([{ '?column?': 1 }]);
+    await expect(executeOptimisticUpdate('h1', update([]), 0, 'stale')).rejects.toThrow(
+      ConcurrencyConflictError
+    );
+  });
+
+  it('should validate the row it returns', async () => {
+    await expect(
+      executeOptimisticUpdate('h1', update([{ ...ROW, email_hash: 7 }]), undefined, 'x')
+    ).rejects.toThrow(/string for "email_hash"/);
   });
 
   it('should return undefined when the row is gone, and use a given existence check', async () => {

@@ -235,3 +235,70 @@ describe('/api/waitlist/delete — every answer (5.866)', () => {
     expect(res.status).toBe(500);
   });
 });
+
+/**
+ * Thirteenth audit (agent C): removing the anti-enumeration delay, moving it, or answering an
+ * existing email with a different message passed every test above. These pin the RULE.
+ */
+describe('/api/waitlist/delete — anti-enumeration and limits (5.866)', () => {
+  beforeEach(() => {
+    requestDeletion.mockReset();
+    confirmDeletion.mockReset();
+    (routeHelpers.applyCsrf as Mock).mockReturnValue(null);
+    (routeHelpers.applyRateLimit as Mock).mockReset().mockResolvedValue(null);
+  });
+
+  it('should answer an existing and an unknown email with the byte-identical body', async () => {
+    requestDeletion.mockResolvedValueOnce({ ok: true, entryExists: true });
+    const known = await (await POST(json('POST', { email: 'ana@example.com' }))).text();
+    requestDeletion.mockResolvedValueOnce({ ok: true, entryExists: false });
+    const unknown = await (await POST(json('POST', { email: 'bob@example.com' }))).text();
+    expect(unknown).toBe(known);
+  });
+
+  it('should hold an unknown email for at least 100 ms and never delay an existing one', async () => {
+    vi.useFakeTimers();
+    try {
+      requestDeletion.mockResolvedValue({ ok: true, entryExists: false });
+      let unknownDone = false;
+      const unknown = POST(json('POST', { email: 'bob@example.com' })).then(() => {
+        unknownDone = true;
+      });
+      await vi.advanceTimersByTimeAsync(99);
+      expect(unknownDone).toBe(false);
+      await vi.advanceTimersByTimeAsync(201);
+      await unknown;
+      expect(unknownDone).toBe(true);
+
+      requestDeletion.mockResolvedValue({ ok: true, entryExists: true });
+      let knownDone = false;
+      const known = POST(json('POST', { email: 'ana@example.com' })).then(() => {
+        knownDone = true;
+      });
+      await vi.advanceTimersByTimeAsync(0);
+      await known;
+      expect(knownDone).toBe(true);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it('should rate-limit requests and confirmations in their own strict buckets', async () => {
+    requestDeletion.mockResolvedValue({ ok: true, entryExists: true });
+    confirmDeletion.mockResolvedValue({ ok: true, deleted: true });
+    await POST(json('POST', { email: 'ana@example.com' }));
+    await DELETE(json('DELETE', { token: 'tok' }));
+    expect(routeHelpers.applyRateLimit).toHaveBeenNthCalledWith(
+      1,
+      expect.anything(),
+      'delete',
+      'strict'
+    );
+    expect(routeHelpers.applyRateLimit).toHaveBeenNthCalledWith(
+      2,
+      expect.anything(),
+      'delete-confirm',
+      'strict'
+    );
+  });
+});
