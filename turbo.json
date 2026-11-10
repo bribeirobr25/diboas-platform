@@ -43,6 +43,12 @@
       "passThroughEnv": ["DIBOAS_DOCS_DIR"],
       "outputs": ["coverage/**"]
     },
+    "test:coverage": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**"],
+      "passThroughEnv": ["DIBOAS_DOCS_DIR"],
+      "outputs": ["coverage/**"]
+    },
     "clean": {
       "cache": false
     },

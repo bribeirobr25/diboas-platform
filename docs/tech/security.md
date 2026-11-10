@@ -55,12 +55,6 @@ Uses DOMPurify with a restricted allowlist. Default allowed tags: `strong`, `em`
 
 API routes sanitize text inputs via `sanitizeText()` and validate/normalize emails with `validateEmail()` (`apps/web/src/lib/api/routeHelpers.ts`) before processing. (`isValidEmail()` in `apps/web/src/lib/waitingList/helpers.ts` is a separate boolean predicate used in the waiting-list domain, not the route-level validator.) User names are sanitized with `sanitizeUserName()`.
 
-### URL validation
-
-**File:** `apps/web/src/lib/security/urlValidator.ts`
-
-`isValidUrl()` checks URLs against an allowed scheme list (`https:`, `http:`, `mailto:`, `tel:`). `sanitizeUrl()` returns `'#'` for invalid URLs.
-
 ## 4. Rate Limiting
 
 **File:** `apps/web/src/lib/security/rateLimiter.ts`
