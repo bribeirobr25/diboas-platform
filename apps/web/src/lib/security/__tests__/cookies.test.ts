@@ -110,6 +110,57 @@ describe('cookies', () => {
       expect(getConsentFromRequest(request)).toBeNull();
     });
 
+    /** 5.823: one malformed cookie (anyone's) must never break reading consent. */
+    it('should still read a valid consent when another cookie has malformed percent-encoding', () => {
+      const consent = { analytics: true, version: '1.0', timestamp: 1 };
+      const request = new Request('https://example.com', {
+        headers: {
+          cookie: `other=%E0%A4%A; diboas-consent=${encodeURIComponent(JSON.stringify(consent))}`,
+        },
+      });
+      expect(getConsentFromRequest(request)).toEqual(consent);
+    });
+
+    it('should read no consent, failing closed, when the consent cookie itself is malformed', () => {
+      const request = new Request('https://example.com', {
+        headers: { cookie: 'diboas-consent=%E0%A4%A' },
+      });
+      expect(getConsentFromRequest(request)).toBeNull();
+    });
+
+    /* twelfth audit: skipping a malformed copy let an EARLIER valid copy grant consent. */
+    it('should read no consent when a malformed copy of the consent cookie follows a valid one', () => {
+      const granted = encodeURIComponent(
+        JSON.stringify({ analytics: true, version: '1.0', timestamp: 1 })
+      );
+      const request = new Request('https://example.com', {
+        headers: { cookie: `diboas-consent=${granted}; diboas-consent=%E0%A4%A` },
+      });
+      expect(getConsentFromRequest(request)).toBeNull();
+    });
+
+    it('should read the last copy when a repeated consent cookie is well formed', () => {
+      const first = { analytics: true, version: '1.0', timestamp: 1 };
+      const last = { analytics: false, version: '1.0', timestamp: 2 };
+      const enc = (v: object) => encodeURIComponent(JSON.stringify(v));
+      const request = new Request('https://example.com', {
+        headers: { cookie: `diboas-consent=${enc(first)}; diboas-consent=${enc(last)}` },
+      });
+      expect(getConsentFromRequest(request)).toEqual(last);
+    });
+
+    it.each([
+      ['a JSON string', '"x"'],
+      ['JSON null', 'null'],
+      ['an array', '[true]'],
+      ['a number', '1'],
+    ])('should read no consent when the consent cookie holds %s', (_l, raw) => {
+      const request = new Request('https://example.com', {
+        headers: { cookie: `diboas-consent=${encodeURIComponent(raw)}` },
+      });
+      expect(getConsentFromRequest(request)).toBeNull();
+    });
+
     it('should handle multiple cookies in header', () => {
       const consent: ConsentValue = {
         analytics: false,
@@ -181,6 +232,14 @@ describe('cookies', () => {
     it('should return null when cookie is not found', async () => {
       vi.mocked(cookies).mockResolvedValue({
         get: vi.fn().mockReturnValue(undefined),
+      } as never);
+
+      expect(await getConsentFromCookies()).toBeNull();
+    });
+
+    it('should return null when the stored value is not a JSON object', async () => {
+      vi.mocked(cookies).mockResolvedValue({
+        get: vi.fn().mockReturnValue({ value: '"granted"' }),
       } as never);
 
       expect(await getConsentFromCookies()).toBeNull();

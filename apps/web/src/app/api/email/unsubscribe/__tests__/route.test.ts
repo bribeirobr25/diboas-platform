@@ -17,9 +17,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createHmac } from 'crypto';
 
 const applyRateLimit = vi.fn();
-vi.mock('@/lib/api/routeHelpers', () => ({
-  applyRateLimit: (...args: unknown[]) => applyRateLimit(...args),
-}));
+vi.mock('@/lib/api/routeHelpers', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/api/routeHelpers')>();
+  return { ...actual, applyRateLimit: (...args: unknown[]) => applyRateLimit(...args) };
+});
 
 // Deterministic stand-in for the keyed HMAC (fake key; the real key never enters tests).
 const fakeHmac = (value: string) =>
@@ -127,6 +128,20 @@ describe('GET /api/email/unsubscribe — redirect only', () => {
 });
 
 describe('POST /api/email/unsubscribe — HMAC verification', () => {
+  /** 5.847: `null` is valid JSON; it must read as an empty body (400), never a 500. */
+  it.each([
+    ['JSON null', 'null'],
+    ['a JSON number', '42'],
+    ['malformed JSON', '{not json'],
+  ])(
+    'should answer 400 and write nothing when the body is %s and the URL has no token',
+    async (_l, raw) => {
+      const res = await POST(postReq('', undefined, raw));
+      expect(res.status).toBe(400);
+      expect(mockSql).not.toHaveBeenCalled();
+    }
+  );
+
   it('should return the rate-limit response and write nothing when the client is limited', async () => {
     const limited = NextResponse.json({ errorCode: 'RATE_LIMITED' }, { status: 429 });
     applyRateLimit.mockResolvedValue(limited);

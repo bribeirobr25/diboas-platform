@@ -146,6 +146,22 @@ describe('POST /api/waitlist/signup', () => {
     (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
   });
 
+  /** 5.823 family: a bad body is a 400 (email required), never a 500. */
+  it.each([
+    ['JSON null', 'null'],
+    ['malformed JSON', '{not json'],
+  ])('should answer 400 EMAIL_REQUIRED when the body is %s', async (_label, raw) => {
+    const response = await POST(
+      new NextRequest('http://localhost:3000/api/waitlist/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Origin: 'http://localhost:3000' },
+        body: raw,
+      })
+    );
+    expect(response.status).toBe(400);
+    expect((await response.json()).errorCode).toBe('EMAIL_REQUIRED');
+  });
+
   describe('Happy Path', () => {
     it('should successfully create a new signup', async () => {
       const mockEntry = {
@@ -322,6 +338,30 @@ describe('POST /api/waitlist/signup', () => {
 
       expect(response.status).toBe(400);
       expect(data.errorCode).toBe('CONSENT_REQUIRED');
+    });
+
+    /* twelfth audit: a non-string email reached `.toLowerCase()` (a 500). */
+    it.each([
+      ['a number', 123],
+      ['an array', ['valid@example.com']],
+    ])('should reject with INVALID_EMAIL when the email is %s', async (_l, email) => {
+      const response = await POST(createMockRequest({ email, locale: 'en', gdprAccepted: true }));
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe('INVALID_EMAIL');
+    });
+
+    /* twelfth audit: any truthy value counted as consent, including the string "false". */
+    it.each([
+      ['the string "false"', 'false'],
+      ['the string "true"', 'true'],
+      ['the number 1', 1],
+    ])('should reject with CONSENT_REQUIRED when gdprAccepted is %s', async (_l, gdprAccepted) => {
+      const response = await POST(
+        createMockRequest({ email: 'valid@example.com', locale: 'en', gdprAccepted })
+      );
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe('CONSENT_REQUIRED');
+      expect(store.addEntry).not.toHaveBeenCalled();
     });
 
     it('should reject when gdprAccepted is not provided', async () => {

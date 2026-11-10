@@ -92,11 +92,7 @@ export function getConsentFromRequest(request: Request): ConsentValue | null {
     return null;
   }
 
-  try {
-    return JSON.parse(consentStr) as ConsentValue;
-  } catch {
-    return null;
-  }
+  return parseConsentValue(consentStr);
 }
 
 /**
@@ -111,7 +107,23 @@ export async function getConsentFromCookies(): Promise<ConsentValue | null> {
       return null;
     }
 
-    return JSON.parse(consent.value) as ConsentValue;
+    return parseConsentValue(consent.value);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Read a stored consent value. Anything that is not a JSON object (unparseable, `null`, a
+ * string, an array) is no consent: it fails closed (twelfth audit: a JSON string came back
+ * cast as a `ConsentValue`).
+ */
+function parseConsentValue(raw: string): ConsentValue | null {
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    return parsed !== null && typeof parsed === 'object' && !Array.isArray(parsed)
+      ? (parsed as ConsentValue)
+      : null;
   } catch {
     return null;
   }
@@ -143,7 +155,16 @@ export function clearConsentCookie(response: NextResponse): NextResponse {
 }
 
 /**
- * Parse cookies from header string
+ * Parse cookies from header string.
+ *
+ * 5.823: each value is decoded on its own. A cookie with malformed percent-encoding (any
+ * cookie on the domain, not only ours) is skipped instead of throwing, so one bad cookie can
+ * never turn the consent route into a 500.
+ *
+ * A repeated name resolves last-wins, and a malformed copy also counts as the last word: it
+ * REMOVES any earlier value of that name. So a malformed consent cookie reads as no consent
+ * even when a valid copy precedes it (twelfth audit: skipping it let the earlier copy grant
+ * consent), which fails closed.
  */
 function parseCookies(cookieHeader: string): Record<string, string> {
   const cookies: Record<string, string> = {};
@@ -151,7 +172,13 @@ function parseCookies(cookieHeader: string): Record<string, string> {
   cookieHeader.split(';').forEach((cookie) => {
     const [name, ...rest] = cookie.split('=');
     if (name && rest.length > 0) {
-      cookies[name.trim()] = decodeURIComponent(rest.join('=').trim());
+      const key = name.trim();
+      try {
+        cookies[key] = decodeURIComponent(rest.join('=').trim());
+      } catch {
+        // malformed encoding: this name has no readable value
+        delete cookies[key];
+      }
     }
   });
 

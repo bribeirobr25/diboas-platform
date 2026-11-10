@@ -19,7 +19,7 @@ import {
   CookieConfig,
 } from '@/lib/security/cookies';
 import { logAuditEvent } from '@/lib/audit/AuditService';
-import { applyRateLimit, applyCsrf, emitErrorEvent } from '@/lib/api/routeHelpers';
+import { applyRateLimit, applyCsrf, emitErrorEvent, readJsonObject } from '@/lib/api/routeHelpers';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
@@ -51,7 +51,8 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
   if (rateLimited) return rateLimited as NextResponse<ConsentResponse>;
 
   try {
-    const body = (await request.json()) as ConsentRequest;
+    // 5.846: unparseable JSON or a non-object body is a bad request (400), never a 500.
+    const body = await readJsonObject<Partial<ConsentRequest>>(request);
 
     // Validate input
     if (typeof body.analytics !== 'boolean') {

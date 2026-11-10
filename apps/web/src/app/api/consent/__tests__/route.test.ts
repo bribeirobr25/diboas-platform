@@ -9,11 +9,9 @@
  *     the authoritative cookie is HttpOnly + SameSite=Strict.
  *   - Failures return a generic 500 that never echoes the error.
  *
- * Known defect NOT asserted here (register 5.823, fixed separately): a
- * malformed percent-encoding in the cookie header makes
- * `cookies.ts#parseCookies` throw. No test sends a malformed cookie; the GET
- * catch path is exercised by an injected reader failure instead, so the
- * assertions survive the 5.823 fix unchanged.
+ * 5.823 (fixed): a cookie with malformed percent-encoding is skipped by
+ * `cookies.ts#parseCookies`, so it can no longer make the route throw; the GET
+ * catch path is exercised by an injected reader failure.
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -199,12 +197,30 @@ describe('POST /api/consent', () => {
     );
   });
 
-  it('should refuse without setting a cookie or echoing the parser error when the body is not JSON', async () => {
-    const res = await POST(post(undefined, SITE, '{not json'));
-    expect(res.ok).toBe(false);
-    expect(await res.json()).toEqual({ success: false, error: 'Failed to set consent' });
+  /** 5.846: unparseable JSON and a non-object body are bad requests (400), never a 500. */
+  it.each([
+    ['the body is not JSON', '{not json'],
+    ['the body is JSON null', 'null'],
+    ['the body is a JSON string', '"yes"'],
+  ])('should answer 400, set no cookie and raise no error event when %s', async (_label, raw) => {
+    const res = await POST(post(undefined, SITE, raw));
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({
+      success: false,
+      error: 'Invalid consent data. analytics must be boolean.',
+    });
     expect(setCookies(res)).toEqual([]);
     expect(logAuditEvent).not.toHaveBeenCalled();
+    expect(emitErrorEvent).not.toHaveBeenCalled();
+  });
+
+  it('should return a generic 500 that never echoes the error when a step after validation fails', async () => {
+    emit.mockImplementation(() => {
+      throw new Error('event bus down');
+    });
+    const res = await POST(post({ analytics: true }));
+    expect(res.status).toBe(500);
+    expect(await res.json()).toEqual({ success: false, error: 'Failed to set consent' });
     expect(emitErrorEvent).toHaveBeenCalledWith(
       'consent',
       'consent_set',

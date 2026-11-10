@@ -82,13 +82,18 @@ export async function POST(req: Request): Promise<Response> {
   // `dsn` the SDK was initialized with. We extract it to derive the upstream
   // ingestion URL (host + project ID) and validate it points at Sentry.
   const headerLine = envelope.split('\n', 1)[0];
-  let header: { dsn?: string };
+  let header: { dsn?: unknown };
   try {
     header = JSON.parse(headerLine);
   } catch {
     return NextResponse.json({ error: 'invalid_envelope' }, { status: 400 });
   }
-  if (!header.dsn) {
+  // A header line of `null`, a number or an array parses fine but is no envelope header
+  // (twelfth audit: `null` reached `header.dsn` and threw a 500).
+  if (header === null || typeof header !== 'object' || Array.isArray(header)) {
+    return NextResponse.json({ error: 'invalid_envelope' }, { status: 400 });
+  }
+  if (!header.dsn || typeof header.dsn !== 'string') {
     return NextResponse.json({ error: 'missing_dsn' }, { status: 400 });
   }
 
