@@ -190,19 +190,25 @@ describe('CI-N1 · the reachable source carries no transition path', () => {
     expect(FILES.length, 'the source scan was empty').toBeGreaterThan(150);
   });
 
-  it.each(PROHIBITED.map((c) => [c.name, c] as const))('should contain no %s', (name, klass) => {
-    const hits: string[] = [];
-    for (const file of FILES) {
-      strippedSource(file)
-        .split('\n')
-        .forEach((line, i) => {
-          if (klass.pattern.test(line)) {
-            hits.push(`${file.split('/').slice(-3).join('/')}:${i + 1}: ${line.trim()}`);
-          }
-        });
-    }
-    expect(hits, `${name}\n${hits.join('\n')}`).toEqual([]);
-  });
+  it.each(PROHIBITED.map((c) => [c.name, c] as const))(
+    'should contain no %s',
+    (name, klass) => {
+      const hits: string[] = [];
+      for (const file of FILES) {
+        strippedSource(file)
+          .split('\n')
+          .forEach((line, i) => {
+            if (klass.pattern.test(line)) {
+              hits.push(`${file.split('/').slice(-3).join('/')}:${i + 1}: ${line.trim()}`);
+            }
+          });
+      }
+      expect(hits, `${name}\n${hits.join('\n')}`).toEqual([]);
+      /* Scans every stripped source file per class: 2.7 s on CI under coverage (COV-1, 5.70,
+       * 2026-11-10), past half the shared budget. Its own budget; no assertion changes. */
+    },
+    20_000
+  );
 
   it('should strip real comments and keep code that follows a URL, a template or a regex (PB-3)', () => {
     const kyc = PROHIBITED[0]!.pattern;
