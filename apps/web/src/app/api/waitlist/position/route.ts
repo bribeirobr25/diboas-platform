@@ -1,23 +1,19 @@
 /**
- * Waitlist Position API Route
+ * Waitlist Position API Route — the admin-only position update.
  *
- * Handles position queries and updates:
- * - Get current position by email
- * - Get referral stats
- * - Track referral attributions
+ * Twelfth audit (5.861): the public `GET ?email=` lookup is gone. Nothing called it, it put an
+ * email address in the URL (request logs, Sentry `extra.path`), and its anti-enumeration dummy
+ * rotated daily while a real referral code never changed, so two lookups either side of UTC
+ * midnight showed whether an email was on the list.
  *
- * Security:
- * - No email enumeration (generic responses)
- * - Rate limiting
- * - Zero-Trust authentication for POST
+ * Security: Zero-Trust authentication (admin API key), CSRF, rate limiting; the response never
+ * reveals whether an email exists.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { REFERRAL_CONFIG } from '@/lib/waitingList/constants';
-import { requireAuth, hmacHash } from '@/lib/security';
-import { sanitizeEmail } from '@/lib/utils/sanitize';
-import { toISODateString } from '@/lib/utils/date';
-import { generateReferralUrl, isValidEmail } from '@/lib/waitingList/helpers';
+import { requireAuth } from '@/lib/security';
+import { generateReferralUrl } from '@/lib/waitingList/helpers';
 import {
   applyRateLimit,
   applyCsrf,
@@ -25,9 +21,7 @@ import {
   readJsonObject,
 } from '@/lib/api/routeHelpers';
 import { Logger } from '@/lib/monitoring/Logger';
-import { EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 import { getByEmail, updateEntry, processReferral } from '@/lib/waitingList/store';
-import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 interface PositionResponse {
   success: boolean;
@@ -36,94 +30,6 @@ interface PositionResponse {
   referralUrl?: string | null;
   referralCount?: number | null;
   error?: string;
-}
-
-/**
- * GET /api/waitlist/position?email=user@example.com
- *
- * Returns the user's waitlist position and referral info.
- * Returns same structure regardless of email existence to prevent enumeration.
- */
-export async function GET(request: NextRequest): Promise<NextResponse<PositionResponse>> {
-  const rateLimited = await applyRateLimit(request, 'position', 'standard');
-  if (rateLimited) return rateLimited as NextResponse<PositionResponse>;
-
-  try {
-    const searchParams = request.nextUrl.searchParams;
-    const email = searchParams.get('email');
-
-    if (!email) {
-      return NextResponse.json(
-        { success: false, error: 'Email parameter required' },
-        { status: 400 }
-      );
-    }
-
-    const sanitizedEmail = sanitizeEmail(email);
-
-    if (!isValidEmail(sanitizedEmail)) {
-      return NextResponse.json({ success: false, error: 'Invalid email format' }, { status: 400 });
-    }
-
-    const userData = await getByEmail(sanitizedEmail);
-
-    // Add artificial delay to prevent timing attacks (100-300ms)
-    await new Promise((resolve) => setTimeout(resolve, 100 + Math.random() * 200));
-
-    if (!userData) {
-      // Return dummy non-null values to prevent email enumeration, but rotate
-      // them daily so the per-email value is no longer a stable fingerprint.
-      // F13 (Bar R2 exception, 2026-06-02): seed the HMAC with the UTC date so
-      // the dummy changes every UTC midnight; the 1-10000 range still overlaps
-      // real positions to defeat range-based enumeration.
-      const todayUTC = toISODateString(new Date()); // YYYY-MM-DD
-      const hashHex = hmacHash(`${todayUTC}|${sanitizedEmail}`);
-      // No usable HMAC key (production misconfiguration): refuse. The old fallback hex-encoded
-      // "date|email" and kept 16 characters — the date alone — so every unknown email got the
-      // same dummy (twelfth audit). Without the key no lookup can find an entry either, so
-      // every email takes this branch and gets the same 500: nothing to enumerate.
-      if (!hashHex) throw new EncryptionUnavailableError();
-      const hashInt = parseInt(hashHex.slice(0, 8), 16);
-      // Range 1-10000 overlaps with real positions to prevent range-based enumeration
-      const dummyPosition = (hashInt % 10000) + 1;
-      const dummyCode = `${REFERRAL_CONFIG.codePrefix}${hashHex.slice(0, 6).toUpperCase()}`;
-
-      return NextResponse.json({
-        success: true,
-        position: dummyPosition,
-        referralCode: dummyCode,
-        referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, dummyCode),
-        referralCount: 0,
-      });
-    }
-
-    // Emit position checked event for analytics (only when user exists)
-    applicationEventBus.emit(ApplicationEventType.WAITLIST_POSITION_CHECKED, {
-      domain: 'waitlist',
-      source: 'waitlist',
-      timestamp: Date.now(),
-      correlationId: request.headers.get('x-request-id') || undefined,
-      metadata: {
-        hasReferrals: userData.referralCount > 0,
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      position: userData.position,
-      referralCode: userData.referralCode,
-      referralUrl: generateReferralUrl(REFERRAL_CONFIG.referralBaseUrl, userData.referralCode),
-      referralCount: userData.referralCount,
-    });
-  } catch (error) {
-    Logger.error('Position lookup error', {}, error instanceof Error ? error : undefined);
-    return handleRouteError(
-      error,
-      'waitlist',
-      'position_lookup',
-      'Position lookup error'
-    ) as NextResponse<PositionResponse>;
-  }
 }
 
 /**

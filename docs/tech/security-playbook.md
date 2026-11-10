@@ -52,7 +52,7 @@ OWASP Top 10:2025 was finalized in January 2026 ([owasp.org/Top10/2025/](https:/
 
 For the API surface specifically:
 
-- **API1: Broken Object Level Authorization (BOLA)** — `/api/waitlist/delete?token=...`, `/api/email/unsubscribe?t=...`, `/api/waitlist/position?email=...`. The token-to-record binding must be cryptographic, not just "the token exists in the table."
+- **API1: Broken Object Level Authorization (BOLA)** — `/api/waitlist/delete?token=...`, `/api/email/unsubscribe?t=...`. The token-to-record binding must be cryptographic, not just "the token exists in the table."
 - **API4: Unrestricted Resource Consumption** — `/api/og` carries billing-amplification risk (Vercel Function-second pricing; a sustained flood adds up). **The og routes now apply a per-IP `checkRateLimit`** (`[page]`/`share`/`dream`), so the residual exposure is the Edge in-memory-fallback weakness (per-isolate, ineffective without Upstash) rather than an unguarded endpoint — keep Upstash reachable for og.
 - **API6: Unrestricted Access to Sensitive Business Flows** — `/api/waitlist/signup` is the textbook example. 10K rotating IPs at 1 RPS each defeats classic per-IP rate limits. Behavioral signals are required.
 
@@ -60,14 +60,12 @@ For the API surface specifically:
 
 ## 3. Attack surface map
 
-### 3.1 Public API endpoints (11 routes)
+### 3.1 Public API endpoints
 
 | Endpoint                           | Methods             | Auth                             | Rate-limit class                        | CSRF                                         | Token gating                       |
 | ---------------------------------- | ------------------- | -------------------------------- | --------------------------------------- | -------------------------------------------- | ---------------------------------- |
 | `/api/waitlist/signup`             | POST                | None                             | **strict** (5/min)                      | ✓                                            | —                                  |
-| `/api/waitlist/signup`             | GET                 | None                             | standard (30/min)                       | —                                            | —                                  |
 | `/api/waitlist/delete`             | POST + DELETE       | None                             | strict                                  | ✓                                            | HMAC token (single-use, 15min TTL) |
-| `/api/waitlist/position`           | GET                 | None                             | standard                                | —                                            | —                                  |
 | `/api/waitlist/position`           | POST                | **API key** (`INTERNAL_API_KEY`) | standard                                | ✓                                            | —                                  |
 | `/api/waitlist/referral`           | GET                 | None                             | lenient (100/min)                       | —                                            | —                                  |
 | `/api/waitlist/stats`              | GET                 | None                             | lenient                                 | —                                            | —                                  |
@@ -76,6 +74,8 @@ For the API surface specifically:
 | `/api/monitoring`                  | POST                | None                             | per-IP 1000/60s (F9, 2026-06-02)        | **NONE** (deliberate — SDK can't send token) | DSN regex + 1MB body cap           |
 | `/api/health` (+`/ready`, `/live`) | GET + HEAD          | Optional API key for detail      | lenient                                 | —                                            | —                                  |
 | `/api/og/*`                        | GET                 | None                             | per-IP `checkRateLimit` (lenient, Edge) | —                                            | —                                  |
+
+No endpoint takes an email address in its URL (twelfth audit, `5.861`): the unused `GET /api/waitlist/signup?email=` and `GET /api/waitlist/position?email=` were removed, because a query string reaches request logs and Sentry, and the position lookup leaked whether an email was on the list.
 
 **Key defenses already in place:**
 
@@ -88,14 +88,13 @@ For the API surface specifically:
 
 ### 3.2 Form inputs
 
-The site has exactly five user-facing forms:
+The site has exactly four user-facing forms:
 
 | Form              | Fields                                                    | Client validation       | Server validation                                     | Sanitization                                   |
 | ----------------- | --------------------------------------------------------- | ----------------------- | ----------------------------------------------------- | ---------------------------------------------- |
 | Waitlist signup   | email, name (optional), gdprAccepted, referredBy (hidden) | Zod-like in custom hook | `validateEmail()`, `isValidName()` (length 100, trim) | `sanitizeText()`; stored AES-256-GCM encrypted |
 | Email unsubscribe | id (HMAC hash), token (HMAC sig), action (enum)           | Format check            | `verifyToken()` constant-time                         | Tokens are HMAC-signed, no plaintext           |
 | Consent banner    | analytics (boolean)                                       | Type guard              | Type guard                                            | Cookie write (SameSite=Strict)                 |
-| Position lookup   | email (query param)                                       | Loose regex             | `sanitizeEmail() + isValidEmail()`                    | Read-only; no rendering                        |
 | Referral lookup   | code (query param)                                        | Format check            | `isValidReferralCode()` (format only)                 | Read-only                                      |
 
 **`name` is the only user-supplied text that reaches storage.** It's length-capped (100 chars) and sanitized; stored encrypted; surfaces only in React Email templates (which auto-escape JSX expressions). No XSS path identified.

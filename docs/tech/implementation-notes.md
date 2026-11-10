@@ -152,7 +152,7 @@ _The investor vertical and its room were removed on 2026-10-30 (founder, registe
 - **Protected route = `POST /api/waitlist/signup`, nothing else** (`POST /api/investor-request` left with the investor vertical, 2026-10-30).
   `POST /api/email/unsubscribe` is NEVER protected: RFC 8058 one-click unsubscribe must accept
   mail-provider bots. `DELETE /api/waitlist/delete` (token-gated GDPR flow), `/api/consent`,
-  `/api/waitlist/position` and the `/api/monitoring` Sentry tunnel stay unprotected by design.
+  `POST /api/waitlist/position` (admin API key) and the `/api/monitoring` Sentry tunnel stay unprotected by design.
   The `initBotId({ protect })` list in `instrumentation-client.ts` and the server checks must match.
 - **The middleware matcher excludes the BotID proxy prefix** (`/149e9513-…`). Those paths are not
   under `/api/*`, so without the exclusion the locale middleware redirects them and every protected

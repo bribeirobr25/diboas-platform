@@ -14,7 +14,6 @@ export enum ApplicationEventType {
   WAITLIST_DELETION_COMPLETED = 'waitlist:deletionCompleted',
   WAITLIST_POSITION_UPDATED = 'waitlist:positionUpdated',
   WAITLIST_REFERRAL_USED = 'waitlist:referralUsed',
-  WAITLIST_POSITION_CHECKED = 'waitlist:positionChecked',
 
   // Share Events
   SHARE_INITIATED = 'share:initiated',
@@ -161,7 +160,6 @@ export const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
   [ApplicationEventType.WAITLIST_DELETION_COMPLETED]: ['domain', 'source'],
   [ApplicationEventType.WAITLIST_POSITION_UPDATED]: ['domain', 'source'],
   [ApplicationEventType.WAITLIST_REFERRAL_USED]: ['domain', 'source'],
-  [ApplicationEventType.WAITLIST_POSITION_CHECKED]: ['domain', 'source'],
   [ApplicationEventType.SHARE_INITIATED]: ['domain', 'source', 'platform', 'locale'],
   [ApplicationEventType.SHARE_COMPLETED]: ['domain', 'source', 'platform', 'locale'],
   [ApplicationEventType.SHARE_FAILED]: ['domain', 'source', 'platform', 'locale'],
