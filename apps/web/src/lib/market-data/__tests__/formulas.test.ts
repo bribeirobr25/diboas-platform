@@ -310,8 +310,9 @@ describe('monthsToInflationAdjustedTarget — initialAmount support', () => {
 describe('Phase A (2026-05-16) / Phase C (2026-05-23 TOOLS_IMPROVEMENT) — exchange-rate historical anchors', () => {
   // 5.854 (2026-11-10): the stored `historicalCagr` fields were removed; the retrospective
   // card computes its yearly rate from the anchor pair (currency-depreciation calculator
-  // tests). The BRL forward fallback `annualDepreciation` 0.0621 (PA1) is a separate field.
-  it('should keep the BRL forward fallback at the signed full-series rate (PA1)', () => {
+  // tests, and PA1, re-signed 2026-11-10 at the card's 6.19%). The BRL forward fallback
+  // `annualDepreciation` 0.0621 (the full-series PTAX CAGR) is a separate calibration field.
+  it('should keep the BRL forward fallback at the full-series rate', () => {
     expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBeCloseTo(0.0621, 4);
   });
 
@@ -338,7 +339,7 @@ describe('Phase A (2026-05-16) / Phase C (2026-05-23 TOOLS_IMPROVEMENT) — exch
     // EUR 0.0055 (FX-16 adoption D1, Bar 2026-05-26): forward calibration assumption
     // from long-horizon FRED AEXUSEU annual series — supersedes prior PT3 1.23%
     // which was an endpoint-pair retrospective CAGR mistakenly placed in the
-    // forward field. 1.23% now lives in `historicalCagr` only.
+    // forward field. The retrospective card computes its own rate from its anchors (5.854).
     expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBeCloseTo(0.0621, 4);
     expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.annualDepreciation).toBeCloseTo(0.0055, 4);
   });

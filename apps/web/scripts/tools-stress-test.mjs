@@ -47,7 +47,7 @@ assertUniqueYm('monthlyFx', monthlyFx);
 // ────────────────────────────────────────────────────────────────────────
 // FALLBACK_MARKET_DATA mirror (synced with apps/web/src/lib/market-data/constants.ts)
 // ────────────────────────────────────────────────────────────────────────
-const FALLBACK = {
+export const FALLBACK = {
   bankRates: {
     en: { savings: 0.38, savingsHighYield: 4.1 },
     'pt-BR': { savings: 6.83, savingsCurrent: 6.17, selicAnnualPct: 14.5, trMonthlyPct: 0.0 },

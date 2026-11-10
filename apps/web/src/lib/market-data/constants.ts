@@ -427,7 +427,7 @@ export const FALLBACK_MARKET_DATA_METADATA = {
       annualDepreciation: {
         last_verified: '2026-05-26',
         source:
-          'FX-16 adoption D1 (Bar 2026-05-26): forward calibration assumption from long-horizon FRED AEXUSEU annual series, USD per 1 EUR, Fed G.5A — supersedes prior PT3 ECB-EXR endpoint-pair CAGR which now lives in historicalCagr only',
+          'FX-16 adoption D1 (Bar 2026-05-26): forward calibration assumption from long-horizon FRED AEXUSEU annual series, USD per 1 EUR, Fed G.5A — supersedes prior PT3 ECB-EXR endpoint-pair CAGR; the retrospective card computes its own rate from its anchors (5.854)',
       },
     },
     // FX-16 adoption 2026-05-26 (Bar D1+D8): 14 new currencies. Each `rateToUsd`

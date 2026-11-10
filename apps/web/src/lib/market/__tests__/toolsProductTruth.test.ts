@@ -18,10 +18,12 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { FALLBACK_MARKET_DATA } from '@/lib/market-data/constants';
 import {
+  FALLBACK as HARNESS_FALLBACK,
   annuityFV,
   assetHistoryDcaReplay as harnessReplay,
   effRate,
 } from '../../../../scripts/tools-stress-test.mjs';
+import { calculateCurrencyDepreciationRetrospective } from '@/lib/currency-depreciation/calculator';
 
 /** The harness is plain JavaScript; its result shape, typed for this test. */
 const assetHistoryDcaReplay = harnessReplay as unknown as (
@@ -97,14 +99,55 @@ describe('TOOLS-PT-1: the signed product-truth gates (5.853)', () => {
     ).toBe(true);
   }, 30_000);
 
-  it('should keep the BRL forward fallback inside its signed tolerance (PA1)', () => {
-    const v = FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation;
+  // PA1 re-signed 2026-11-10 at the card's computed value (DR answer 7): it checks the PRODUCT's
+  // own figure, the retrospective calculator's yearly rate for the real.
+  it('should keep the BRL yearly rate the card shows at its signed value (PA1)', () => {
+    const r = calculateCurrencyDepreciationRetrospective(
+      { amount: 1000, currency: 'BRL' },
+      FALLBACK_MARKET_DATA
+    );
+    const v = r!.historicalCagr;
     expect(within(v, G.PA1.expectedBrlFullSeriesCagr as number, G.PA1.tolerance.absolute)).toBe(
       true
     );
   }, 30_000);
 
   it('should pin every gate that reads market data to an end month', () => {
-    for (const id of ['PT2', 'BTC_RECON']) expect(G[id].endYm, id).toMatch(/^\d{4}-\d{2}-01$/);
+    // every gate of a tool that reads the monthly series, not a hand list (MP-1c review)
+    const reading = Object.entries(G).filter(
+      ([, g]) => (g as { tool?: string }).tool === 'assetHistory'
+    );
+    expect(reading.map(([id]) => id)).toContain('BTC_RECON');
+    for (const [id, g] of reading) expect((g as Gate).endYm, id).toMatch(/^\d{4}-\d{2}-01$/);
+  });
+
+  // Review of MP-1c: the harness computes from its own copy of the product's rates ("synced with
+  // constants.ts", enforced by nothing). Every value it copies must equal the product's.
+  it("should compute from exactly the product's rates (the harness copy equals constants.ts)", () => {
+    const h = HARNESS_FALLBACK as unknown as {
+      bankRates: Record<string, Record<string, number>>;
+      inflationRates: Record<string, Record<string, number>>;
+      scenarioRates: Record<string, number>;
+      exchangeRates: Record<string, { annualDepreciation: number }>;
+    };
+    const p = FALLBACK_MARKET_DATA as unknown as {
+      rates: {
+        bankRates: Record<string, Record<string, unknown>>;
+        scenarioRates: Record<string, number>;
+      };
+      inflationRates: { rates: Record<string, Record<string, number>> };
+      exchangeRates: { rates: Record<string, { annualDepreciation: number }> };
+    };
+    for (const [loc, fields] of Object.entries(h.bankRates))
+      for (const [k, v] of Object.entries(fields))
+        expect(p.rates.bankRates[loc]?.[k], `bankRates.${loc}.${k}`).toBe(v);
+    expect(h.scenarioRates).toEqual(p.rates.scenarioRates);
+    for (const [loc, fields] of Object.entries(h.inflationRates))
+      for (const [k, v] of Object.entries(fields))
+        expect(p.inflationRates.rates[loc]?.[k], `inflationRates.${loc}.${k}`).toBe(v);
+    for (const [ccy, r] of Object.entries(h.exchangeRates))
+      expect(p.exchangeRates.rates[ccy]?.annualDepreciation, `exchangeRates.${ccy}`).toBe(
+        r.annualDepreciation
+      );
   });
 });

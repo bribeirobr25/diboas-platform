@@ -15,6 +15,7 @@ import { join } from 'node:path';
 import { describe, it, expect, beforeAll } from 'vitest';
 import { calculateAssetHistoryDcaReplay, AssetHistoryDataError } from '../calculator';
 import { marketDataService } from '@/lib/market-data';
+import { assetHistoryDcaReplay as harnessReplay } from '../../../../scripts/tools-stress-test.mjs';
 
 /**
  * An INDEPENDENT replay of a close-based DCA from the committed monthly series
@@ -39,6 +40,30 @@ describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', ()
   beforeAll(async () => {
     // Load monthlySeries via the async path so the FallbackProvider populates it.
     await marketDataService.get();
+  });
+
+  // TOOLS-PT-1 binds the founder-signed results to the stress harness's replay; this binds the
+  // harness to the PRODUCT (review of MP-1c: the gate ran only the harness's own copy). A rule
+  // over the same live series, never a value: both read the committed months to the same end.
+  it('should equal the stress harness replay over the same months (TOOLS-PT-1 speaks for the product)', () => {
+    for (const [asset, amount] of [
+      ['BTC', 100],
+      ['SP500', 100],
+    ] as const) {
+      const product = calculateAssetHistoryDcaReplay({ asset, startYear: 2016, amount });
+      const harness = (
+        harnessReplay as unknown as (
+          a: string,
+          y: number,
+          amt: number,
+          b: string,
+          c: string,
+          o: { endYm: string }
+        ) => { terminalValue: number; endYm: string }
+      )(asset, 2016, amount, 'total_return', 'USD', { endYm: product.endYm });
+      expect(harness.endYm, asset).toBe(product.endYm);
+      expect(Math.abs(harness.terminalValue - product.terminalValue), asset).toBeLessThan(1);
+    }
   });
 
   it('should match an independent close-based replay of the committed BTC series (2016 DCA)', () => {
