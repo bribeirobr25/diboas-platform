@@ -855,7 +855,7 @@ pinned by a test that was watched failing.
     integer part may be plain `\d+`, so `1000.00` / `12345.67` are caught (the first pattern
     could not see an ungrouped 4+-digit integer); still zero false positives in four catalogues.
   - **Source-scanning guards strip comments with the TypeScript PARSER** (`CI-N1`, `CI-N3`,
-    `PRU-1` via `apps/sandbox/src/test/stripComments.ts`, 2026-10-15). A regex stripper deleted
+    `PRU-1` via `packages/test-support/src/stripComments.ts`, 2026-10-15). A regex stripper deleted
     everything after `//`, so code following a URL in a string was never scanned. JSX text is
     not trivia: `<p> // docs</p>` is visible text, and a comment range starting inside it is kept.
     ⛑ **2026-10-16 (R4-3):** never walk INTO a JSDoc node — from inside `/** … // old */` the trivia

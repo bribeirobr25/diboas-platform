@@ -48,7 +48,9 @@ diboas-platform/
   packages/defi/       # @diboas/defi - strategy catalog-as-data + DeFiLlama/CoinGecko/gas providers (backs apps/sandbox)
   packages/investing/  # @diboas/investing - jobs split, goals, accrual replay (backs apps/sandbox)
   packages/format/     # @diboas/format - formatPercent ("7%", no space, every locale) for both apps
-  packages/test-support/ # @diboas/test-support - TEST-ONLY: stripComments/parseSource for source-scanning guards (devDependency)
+  packages/test-support/
+                       # @diboas/test-support - TEST-ONLY: stripComments/parseSource (a devDependency;
+                       #   every source-scanning test strips comments through it, 5.623)
   config/              # Design tokens JSON + schema
   scripts/             # Build/validation scripts
   docs/                # Documentation: only docs/tech/, docs/integrations/, docs/testing/ live here (tracked).

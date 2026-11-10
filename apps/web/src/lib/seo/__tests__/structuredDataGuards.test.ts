@@ -131,7 +131,8 @@ describe('step 2 · 1 — structured data comes from the page catalogue, through
       if (/areaServed\s*:|'@type':\s*'Offer'|\boffers\s*:/.test(src)) found.push(f);
     }
     expect(found).toEqual([]);
-  });
+    /* Parses every web source file (5.623: comments by the parser, ~1 s alone); its own budget. */
+  }, 30_000);
 });
 
 describe('step 2 · 2 — every English fallback equals the en value it backs', () => {
