@@ -168,6 +168,17 @@ describe('closes checked against a second source', () => {
     ];
     const r = compareCloses(noon, close, 0.015, { rangeSlack: 0.003 });
     expect(r.passedByRange).toBe(1);
+    // 5.776: each range-passed day is LISTED with what was compared, not only counted
+    expect(r.rangePassDays).toEqual([
+      {
+        date: '2026-10-29',
+        stored: 5.4,
+        check_low: 5.35,
+        check_high: 5.52,
+        check_close: 5.5,
+        diff: 0.018519,
+      },
+    ]);
     expect(r.outliers.map((o: { date: string }) => o.date)).toEqual(['2026-10-30']);
     expect(compareCloses(noon, close, 0.015).outliers).toHaveLength(2);
   });

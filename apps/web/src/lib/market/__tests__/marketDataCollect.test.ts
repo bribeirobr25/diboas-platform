@@ -488,6 +488,15 @@ describe('the commit guard: append-only under market/, read from the index', () 
     expect(refused.join('\n')).toMatch(/only a reviewed PR/);
     expect(refused.join('\n')).toMatch(/not an append-only file/);
   });
+  it('should refuse a collection that adds or changes a reviewed record under checks/reviews/ (5.776)', () => {
+    const changes = parseNameStatus(
+      'A\0market/checks/reviews/btc-range-pass-2026-11-14.json\0A\0market/checks/20261114T092300Z.json\0'
+    );
+    const refused = evaluateStaged(changes, ns());
+    expect(refused).toHaveLength(1);
+    expect(refused[0]).toMatch(/reviews\/btc-range-pass/);
+    expect(refused[0]).toMatch(/only a reviewed PR/);
+  });
   it('should read paths with spaces and tabs exactly (NUL-separated)', () => {
     expect(parseNameStatus('A\0market/raw/a b.json.gz\0')).toEqual([
       { status: 'A', path: 'market/raw/a b.json.gz' },
