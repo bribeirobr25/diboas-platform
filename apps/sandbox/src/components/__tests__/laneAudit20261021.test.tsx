@@ -14,6 +14,11 @@ import { ThemeProvider, useTheme, __resetThemeStore } from '../ThemeProvider';
 import { THEME_STORAGE_KEY } from '../ThemeScript';
 import { recurringAmountBooks } from '@/view/home';
 
+/* The consent and claim pages check admission (B15, 5.522) — covered by gatedOnboarding.test.tsx.
+   Here the visitor is admitted, as every visitor is while the app is public, so these tests keep
+   asserting only the landmark. */
+vi.mock('@/lib/auth/admission', () => ({ requireAdmission: async () => undefined }));
+
 /**
  * Lane audit 2026-10-21 — the component-side fixes, each pinned to the requirement it
  * restores (R3 WCAG 4.1.3, R2 WCAG 1.3.1, C4 the stamp invariant, Z12/Z13 R-9 and one

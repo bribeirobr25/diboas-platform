@@ -92,7 +92,7 @@ describe('P1 · onboarding cannot skip the private gate', () => {
   });
 
   it('(b) should set NO cookie and send to the gate when public access is OFF and no gate grant is held', async () => {
-    expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate');
+    expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate?next=consent');
     expect(jar.has(SANDBOX_GATE_COOKIE), 'a session cookie was set without the gate').toBe(false);
   });
 
@@ -108,12 +108,12 @@ describe('P1 · onboarding cannot skip the private gate', () => {
   it('(d) should refuse a wrong password and leave onboarding closed', async () => {
     expect(await enterSandbox({ error: null }, gateForm('wrong'))).toEqual({ error: 'wrong' });
     expect(jar.has(SANDBOX_GATE_COOKIE)).toBe(false);
-    expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate');
+    expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate?next=consent');
   });
 
   it('(b) should not accept a forged cookie as a gate grant', async () => {
     jar.set(SANDBOX_GATE_COOKIE, 'forged-value');
-    expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate');
+    expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate?next=consent');
     expect(jar.get(SANDBOX_GATE_COOKIE)).toBe('forged-value'); // untouched, not upgraded
   });
 });

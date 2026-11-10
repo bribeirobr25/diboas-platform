@@ -10,6 +10,7 @@ import {
   isGateConfigured,
 } from '@/lib/gate';
 import { isSandboxLocale } from '@/i18n/config';
+import { isGateReturnPage } from '@/lib/auth/admission';
 
 export interface GateState {
   error: 'wrong' | 'unconfigured' | null;
@@ -31,10 +32,12 @@ export async function enterSandbox(_prev: GateState, formData: FormData): Promis
     return { error: 'wrong' };
   }
 
+  // Back to the onboarding page that sent the visitor here (B15) — an allow-listed NAME only.
+  const next = formData.get('next');
   const token = gateGrantToken();
   if (token) {
     const cookieStore = await cookies();
     cookieStore.set(SANDBOX_GATE_COOKIE, token, gateCookieOptions());
   }
-  redirect(`/${locale}`);
+  redirect(isGateReturnPage(next) ? `/${locale}/${next}` : `/${locale}`);
 }
