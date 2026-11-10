@@ -117,6 +117,11 @@ describe('POST /api/monitoring — envelope and DSN validation', () => {
   it.each([
     ['the header line is not JSON', envelope('not json'), 'invalid_envelope'],
     ['the header has no dsn', envelope({ event_id: '1' }), 'missing_dsn'],
+    /* twelfth audit: `null` parsed fine and then threw on `header.dsn` (a 500). */
+    ['the header line is JSON null', envelope('null'), 'invalid_envelope'],
+    ['the header line is a number', envelope('42'), 'invalid_envelope'],
+    ['the header line is an array', envelope('[]'), 'invalid_envelope'],
+    ['the dsn is not a string', envelope({ dsn: 42 }), 'missing_dsn'],
     ['the dsn is not a URL', envelope({ dsn: 'not a url' }), 'invalid_dsn'],
   ])('should return 400 and forward nothing when %s', async (_label, body, error) => {
     const res = await POST(tunnel(body));

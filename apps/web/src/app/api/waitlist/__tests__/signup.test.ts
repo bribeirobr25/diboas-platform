@@ -340,6 +340,30 @@ describe('POST /api/waitlist/signup', () => {
       expect(data.errorCode).toBe('CONSENT_REQUIRED');
     });
 
+    /* twelfth audit: a non-string email reached `.toLowerCase()` (a 500). */
+    it.each([
+      ['a number', 123],
+      ['an array', ['valid@example.com']],
+    ])('should reject with INVALID_EMAIL when the email is %s', async (_l, email) => {
+      const response = await POST(createMockRequest({ email, locale: 'en', gdprAccepted: true }));
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe('INVALID_EMAIL');
+    });
+
+    /* twelfth audit: any truthy value counted as consent, including the string "false". */
+    it.each([
+      ['the string "false"', 'false'],
+      ['the string "true"', 'true'],
+      ['the number 1', 1],
+    ])('should reject with CONSENT_REQUIRED when gdprAccepted is %s', async (_l, gdprAccepted) => {
+      const response = await POST(
+        createMockRequest({ email: 'valid@example.com', locale: 'en', gdprAccepted })
+      );
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe('CONSENT_REQUIRED');
+      expect(store.addEntry).not.toHaveBeenCalled();
+    });
+
     it('should reject when gdprAccepted is not provided', async () => {
       const request = createMockRequest({
         email: 'valid@example.com',

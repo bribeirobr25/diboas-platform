@@ -102,7 +102,9 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     const email = validateEmail(body.email);
     if (!email) return validationError('Invalid email address', 'INVALID_EMAIL');
 
-    if (!body.gdprAccepted) return validationError('Consent is required', 'CONSENT_REQUIRED');
+    // Consent is the boolean `true`, never a truthy stand-in such as the string "false".
+    if (body.gdprAccepted !== true)
+      return validationError('Consent is required', 'CONSENT_REQUIRED');
 
     if (body.locale && !isValidLocale(body.locale))
       return validationError('Invalid locale', 'INVALID_LOCALE');

@@ -33,10 +33,11 @@ export const generateReferralCode = (prefix: string = 'REF', length: number = 6)
 };
 
 /**
- * Validates a referral code format
+ * Validates a referral code format. Any non-string is invalid: `RegExp.test` would coerce an
+ * array such as `['REFABCD']` to a matching string (twelfth audit).
  */
-export const isValidReferralCode = (code: string, prefix: string = 'REF'): boolean => {
-  if (!code) return false;
+export const isValidReferralCode = (code: unknown, prefix: string = 'REF'): code is string => {
+  if (typeof code !== 'string' || !code) return false;
   const pattern = new RegExp(`^${prefix}[A-Z0-9]{4,8}$`, 'i');
   return pattern.test(code);
 };

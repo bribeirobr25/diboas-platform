@@ -162,6 +162,15 @@ describe('validateEmail', () => {
     expect(validateEmail('   ')).toBeNull();
   });
 
+  it.each([
+    ['a number', 123],
+    ['an array', ['a@example.com']],
+    ['null', null],
+    ['an object', { email: 'a@example.com' }],
+  ])('should return null, never throw, when the email is %s', (_l, value) => {
+    expect(validateEmail(value)).toBeNull();
+  });
+
   it('should return the email entity-encoded, never as raw markup, when it carries HTML characters', () => {
     expect(validateEmail('<b>"x"@example.com')).toBe('&lt;b&gt;&quot;x&quot;@example.com');
   });

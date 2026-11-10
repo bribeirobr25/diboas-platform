@@ -21,14 +21,6 @@ import { applicationEventBus, ApplicationEventType } from '@/lib/events/Applicat
 type RateLimitPreset = keyof typeof RateLimitPresets;
 
 /**
- * Read the request's `x-request-id` header (set by middleware) for use as
- * the `correlationId` on emitted events. Falls back to a fresh UUID if the
- * header is missing — but this should not happen in normal flow because
- * `apps/web/middleware.ts` always sets it.
- *
- * Phase 2 M1 (audit/2026-05-08): unified entry point for distributed tracing.
- */
-/**
  * Read a JSON request body as a plain object (5.823 family: 5.846, 5.847).
  *
  * Unparseable JSON or a non-object value (null, a number, a string, an array) reads as `{}`,
@@ -44,6 +36,14 @@ export async function readJsonObject<T extends object = Record<string, unknown>>
   ) as T;
 }
 
+/**
+ * Read the request's `x-request-id` header (set by middleware) for use as
+ * the `correlationId` on emitted events. Falls back to a fresh UUID if the
+ * header is missing — but this should not happen in normal flow because
+ * `apps/web/middleware.ts` always sets it.
+ *
+ * Phase 2 M1 (audit/2026-05-08): unified entry point for distributed tracing.
+ */
 export function getCorrelationId(request: NextRequest): string {
   const fromHeader = request.headers.get('x-request-id');
   if (fromHeader) return fromHeader;
@@ -89,9 +89,11 @@ export function applyCsrf(request: NextRequest): NextResponse | null {
 
 /**
  * Validate and sanitize an email address.
- * Returns sanitized email or null if invalid.
+ * Returns sanitized email or null if invalid — including any non-string value, since a
+ * request body's fields are unchecked JSON (twelfth audit: a numeric `email` was a 500).
  */
-export function validateEmail(rawEmail: string): string | null {
+export function validateEmail(rawEmail: unknown): string | null {
+  if (typeof rawEmail !== 'string') return null;
   const email = sanitizeText(rawEmail.toLowerCase().trim());
   return isValidEmail(email) ? email : null;
 }

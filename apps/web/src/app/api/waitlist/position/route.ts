@@ -148,12 +148,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<PositionR
 
   try {
     const { email, newPosition, incrementReferral } = await readJsonObject<{
-      email?: string;
+      email?: unknown;
       newPosition?: unknown;
       incrementReferral?: unknown;
     }>(request);
 
-    if (!email) {
+    if (!email || typeof email !== 'string') {
       return NextResponse.json({ success: false, error: 'Email is required' }, { status: 400 });
     }
 
