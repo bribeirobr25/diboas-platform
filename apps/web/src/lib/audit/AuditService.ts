@@ -90,32 +90,25 @@ export async function logAuditEvent(event: AuditEvent): Promise<void> {
 export const AUDIT_LOG_RETENTION_DAYS = 90;
 
 /**
- * Delete audit_logs rows older than the retention window. Safe to call
- * periodically (mirrors `dbCleanupIdempotencyCache`); invoked by the
- * `/api/cron/purge-audit-logs` Vercel cron. Returns the number of rows
- * deleted. Failures are logged, never thrown.
+ * Delete audit_logs rows older than the retention window; returns the number deleted.
+ * Invoked by the `/api/cron/purge-audit-logs` Vercel cron, its only caller.
+ *
+ * A failure THROWS (it is never reported as "0 deleted"): the route turns it into a 500,
+ * so a failed run shows as failed in the cron log instead of passing for "nothing to
+ * purge" — the privacy policy's 90-day promise depends on telling those apart.
  */
 export async function purgeExpiredAuditLogs(): Promise<number> {
-  try {
-    const rows = await sql`
-      DELETE FROM audit_logs
-      WHERE created_at < NOW() - make_interval(days => ${AUDIT_LOG_RETENTION_DAYS})
-      RETURNING id
-    `;
-    const deleted = rows.length;
-    if (deleted > 0) {
-      Logger.info('[AuditService] Purged expired audit logs', {
-        deleted,
-        retentionDays: AUDIT_LOG_RETENTION_DAYS,
-      });
-    }
-    return deleted;
-  } catch (error) {
-    Logger.error(
-      '[AuditService] Failed to purge expired audit logs',
-      { retentionDays: AUDIT_LOG_RETENTION_DAYS },
-      error instanceof Error ? error : undefined
-    );
-    return 0;
+  const rows = await sql`
+    DELETE FROM audit_logs
+    WHERE created_at < NOW() - make_interval(days => ${AUDIT_LOG_RETENTION_DAYS})
+    RETURNING id
+  `;
+  const deleted = rows.length;
+  if (deleted > 0) {
+    Logger.info('[AuditService] Purged expired audit logs', {
+      deleted,
+      retentionDays: AUDIT_LOG_RETENTION_DAYS,
+    });
   }
+  return deleted;
 }
