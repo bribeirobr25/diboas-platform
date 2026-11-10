@@ -10,10 +10,13 @@ import { afterEach, describe, expect, it } from 'vitest';
 import {
   btcMonthsFromStore,
   readStoreInputs,
+  toPairs,
+  windowStart,
 } from '../../../../scripts/market-refresh/lib/store-inputs.mjs';
 import { assertMarketSourcesQuality } from '../../../../scripts/market-refresh/lib/market-sources.mjs';
 import { strictFridayCloses } from '../../../../scripts/market-refresh/lib/regime-engine.mjs';
-import { lastTradingDay } from '../../../../scripts/market-data/calendar.mjs';
+import { isMonthComplete, lastTradingDay } from '../../../../scripts/market-data/calendar.mjs';
+import { FETCHED_SOURCES } from '../../../../scripts/market-refresh/lib/source-registry.mjs';
 
 const roots: string[] = [];
 afterEach(() => {
@@ -62,10 +65,15 @@ function makeStore({ btcTo = '2026-11-08' } = {}) {
 }
 
 const TODAY = new Date('2026-11-10T06:20:00Z');
+const SHA = '0'.repeat(40);
 
 describe('the store reader (plan MP-3a)', () => {
   it('should return the six sources fetchMarketSources() returns, as [Date, number] pairs', () => {
-    const { sources } = readStoreInputs(makeStore(), { today: TODAY, from: '2026-01-01' });
+    const { sources } = readStoreInputs(makeStore(), {
+      today: TODAY,
+      from: '2026-01-01',
+      storeCommit: SHA,
+    });
     expect(Object.keys(sources).sort()).toEqual(['btc', 'dxy', 'gold', 'm2', 'nasdaq', 'us10y']);
     for (const [key, src] of Object.entries(sources) as [string, { series: [Date, number][] }][]) {
       expect(src.series.length, key).toBeGreaterThan(0);
@@ -83,7 +91,11 @@ describe('the store reader (plan MP-3a)', () => {
   }, 30_000);
 
   it("should pass the score's own quality and recency checks, and feed strictFridayCloses", () => {
-    const { sources } = readStoreInputs(makeStore(), { today: TODAY, from: '2025-06-01' });
+    const { sources } = readStoreInputs(makeStore(), {
+      today: TODAY,
+      from: '2025-06-01',
+      storeCommit: SHA,
+    });
     expect(() => assertMarketSourcesQuality(sources, TODAY)).not.toThrow();
     const fridays = strictFridayCloses(sources.dxy.series, TODAY);
     expect(fridays.at(-1)![0].toISOString().slice(0, 10)).toBe('2026-11-06');
@@ -113,6 +125,63 @@ describe('the store reader (plan MP-3a)', () => {
   it("should refuse a store that lacks a source's series", () => {
     const root = makeStore();
     fs.rmSync(path.join(root, 'daily', 'gold_spot.csv'));
-    expect(() => readStoreInputs(root, { today: TODAY })).toThrow(/gold_spot/);
+    expect(() => readStoreInputs(root, { today: TODAY, storeCommit: SHA })).toThrow(/gold_spot/);
   }, 30_000);
+
+  it('should require the store commit, so a reading never passes as pinned without one', () => {
+    expect(() => readStoreInputs(makeStore(), { today: TODAY } as never)).toThrow(
+      /store commit is required/
+    );
+  });
+
+  it('should read the window each live fetch covers (Yahoo 6 months / 1 year, FRED 2023 on)', () => {
+    const src = (key: string) => (FETCHED_SOURCES as { key: string }[]).find((s) => s.key === key)!;
+    expect(windowStart(src('btc'), TODAY)).toBe('2026-05-10');
+    expect(windowStart(src('gold'), TODAY)).toBe('2025-11-10');
+    expect(windowStart(src('us10y'), TODAY)).toBe('2023-01-01');
+    const { sources } = readStoreInputs(makeStore(), {
+      today: TODAY,
+      from: '2023-01-01',
+      storeCommit: SHA,
+    });
+    expect(sources.btc.series[0][0].toISOString().slice(0, 10)).toBe('2026-05-10');
+  }, 30_000);
+
+  it.each([
+    ['a malformed date', '2026-13-01'],
+    ['an impossible date', '2026-02-30'],
+    ['a hex close', '0x10'],
+    ['an empty close', ''],
+    ['a close with a unit', '12.5 USD'],
+  ])('should refuse %s, naming the series and the row', (what, bad) => {
+    const rows = [
+      { date: '2026-01-02', close: '1' },
+      bad.startsWith('20') ? { date: bad, close: '1' } : { date: '2026-01-05', close: bad },
+    ];
+    expect(() => toPairs(rows, '2020-01-01', 'us10y')).toThrow(/daily\/us10y\.csv row 3/);
+  });
+
+  it('should refuse a repeated or out-of-order day, and a file without the columns', () => {
+    const r = (date: string) => ({ date, close: '1' });
+    expect(() => toPairs([r('2026-01-05'), r('2026-01-05')], '2020-01-01', 'x')).toThrow(
+      /out of order or repeated/
+    );
+    expect(() => toPairs([r('2026-01-06'), r('2026-01-05')], '2020-01-01', 'x')).toThrow(
+      /out of order or repeated/
+    );
+    expect(() => toPairs([{ date: '2026-01-05', price: '1' }], '2020-01-01', 'x')).toThrow(
+      /no date and close columns/
+    );
+  });
+
+  it('should keep a Bitcoin month with a missing last day incomplete, even once later days exist', () => {
+    // every-day calendar: a missing month-end is a gap, not a holiday
+    expect(isMonthComplete({ ym: '2025-11', last_day: '2025-11-29' }, '2025-12-03', 'daily')).toBe(
+      false
+    );
+    // an exchange holiday month-end stays complete once a later day is stored
+    expect(
+      isMonthComplete({ ym: '2025-12', last_day: '2025-12-30' }, '2026-01-02', 'weekdays')
+    ).toBe(true);
+  });
 });

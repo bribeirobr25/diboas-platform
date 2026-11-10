@@ -23,9 +23,13 @@ export function lastTradingDay(ym, calendar = 'weekdays') {
 }
 
 /**
- * Is a derived month complete? Its last stored day is the month's last trading day, or the
- * store already holds a later day.
+ * Is a derived month complete? Its last stored day is the month's last trading day, or, for an
+ * exchange calendar only, the store already holds a later day (a holiday month-end: B3 closes on
+ * December 31). An every-day series has no holidays, so a missing last day is a gap, never a
+ * holiday, and the month stays incomplete (review of MP-3a: the later-day clause let a Bitcoin
+ * month with a missing month-end publish its last present day as the close).
  */
 export function isMonthComplete(row, lastStoredDay, calendar = 'weekdays') {
-  return row.last_day >= lastTradingDay(row.ym, calendar) || lastStoredDay.slice(0, 7) > row.ym;
+  if (row.last_day >= lastTradingDay(row.ym, calendar)) return true;
+  return calendar !== 'daily' && lastStoredDay.slice(0, 7) > row.ym;
 }
