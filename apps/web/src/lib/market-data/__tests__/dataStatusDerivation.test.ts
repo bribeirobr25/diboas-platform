@@ -18,6 +18,8 @@ import {
   SOURCE_REGISTRY,
 } from '../../../../scripts/market-refresh/lib/data-status.mjs';
 import { readAttempts, readSnapshots } from '../../../../scripts/market-refresh/lib/etf-flows.mjs';
+import { applyReadTimeFreshness } from '../../analytics-sdk/freshness';
+import type { DataStatus } from '../../analytics-sdk/types';
 
 const MARKET_DIR = join(__dirname, '../../../../data/market/shared');
 const readJson = (f: string) => JSON.parse(readFileSync(join(MARKET_DIR, f), 'utf8'));
@@ -142,7 +144,9 @@ describe('M2 monthly-print source', () => {
 });
 
 describe('Polygon warm-up ledger source (doc 02 §10.1 honesty)', () => {
-  it('should be UNAVAILABLE below 5 snapshots and name the first scorable Monday', () => {
+  // the first scorable run is the Tuesday after the fifth Friday anchor (the run moved from
+  // Monday to Tuesday with plan MP-3b: it read ~2026-08-17 before)
+  it('should be UNAVAILABLE below 5 snapshots and name the first scorable Tuesday', () => {
     const ds = deriveDataStatus(
       mkComputed('2026-08-10T07:55:30.136Z', {}),
       mkLedger(['2026-07-10', '2026-07-24', '2026-07-31', '2026-08-07'])
@@ -150,7 +154,7 @@ describe('Polygon warm-up ledger source (doc 02 §10.1 honesty)', () => {
     const etf = bySource(ds, 'Polygon')!;
     expect(etf.status).toBe('UNAVAILABLE');
     expect(etf.message).toContain('4 of 5 weekly snapshots');
-    expect(etf.message).toContain('~2026-08-17');
+    expect(etf.message).toContain('~2026-08-18');
     expect(ds.unavailable_sources).toEqual(['Polygon:ETF (shares-outstanding)']);
   });
 
@@ -172,7 +176,9 @@ describe('Polygon warm-up ledger source (doc 02 §10.1 honesty)', () => {
     expect(ds.unavailable_sources).toEqual([]);
   });
 
-  it('should flip DELAYED when the ledger goes stale past 21 days', () => {
+  // Plan MP-3b: past its stale_after the row reads STALE, as the read-time twin has shown it
+  // since #741 (this asserted DELAYED, the pipeline's half of a divergence between the two).
+  it('should flip to STALE when the ledger goes stale past 21 days', () => {
     const ds = deriveDataStatus(
       mkComputed('2026-09-10T07:55:30.000Z', {
         'BTC-01': '2026-08-01',
@@ -184,7 +190,8 @@ describe('Polygon warm-up ledger source (doc 02 §10.1 honesty)', () => {
       }),
       mkLedger(FIVE_SNAPSHOTS)
     );
-    expect(bySource(ds, 'Polygon')!.status).toBe('DELAYED');
+    expect(bySource(ds, 'Polygon')!.status).toBe('STALE');
+    expect(ds.delayed_sources).toContain(bySource(ds, 'Polygon')!.source);
   });
 });
 
@@ -213,8 +220,36 @@ describe('overall_confidence derivation', () => {
       mkComputed('2026-08-10T07:55:30.136Z', { 'BTC-01': '2026-04-01' }),
       mkLedger(FIVE_SNAPSHOTS)
     );
-    expect(bySource(ds, 'monthlyPrices')!.status).toBe('DELAYED');
+    // past its stale_after: STALE (the twin's word for it; plan MP-3b)
+    expect(bySource(ds, 'monthlyPrices')!.status).toBe('STALE');
     expect(ds.overall_confidence).toBe('LOW');
+  });
+
+  // Plan MP-3b (found by the week simulator): in a LOW week the pipeline must write the same
+  // causes the page's read-time rule derives, or the panel and its own read at computed_at
+  // differ and the weekly equivalence guard stops a run on a correct state.
+  it('should name the causes of a LOW, exactly as the read-time rule does at the run instant', () => {
+    const at = '2026-08-10T07:55:30.136Z';
+    const ds = deriveDataStatus(
+      mkComputed(at, { 'BTC-01': '2026-04-01' }),
+      mkLedger(FIVE_SNAPSHOTS)
+    );
+    expect(ds.low_confidence_causes).toEqual({
+      past_stale: [bySource(ds, 'monthlyPrices')!.source],
+      unavailable: [],
+    });
+    // the pipeline is untyped JavaScript; the twin takes the site's DataStatus type
+    const panel = ds as unknown as DataStatus;
+    expect(applyReadTimeFreshness(panel, new Date(at))).toEqual(panel);
+  });
+
+  it('should write no causes when the confidence is not LOW', () => {
+    const ds = deriveDataStatus(
+      mkComputed('2026-08-10T07:55:30.136Z', {}),
+      mkLedger(FIVE_SNAPSHOTS)
+    );
+    expect(ds.overall_confidence).not.toBe('LOW');
+    expect(ds).not.toHaveProperty('low_confidence_causes');
   });
 });
 

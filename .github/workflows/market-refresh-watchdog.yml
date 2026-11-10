@@ -29,16 +29,16 @@ name: Market Refresh Watchdog
 
 on:
   schedule:
-    # Mondays 22:00 UTC — deliberately LATE in the day, not shortly after the
+    # Tuesdays 22:00 UTC (moved with the refresh, founder 2026-11-10) — deliberately LATE in the day, not shortly after the
     # 06:17 window. The first version sat at 09:23 on the assumption that a
     # delayed run arrives 1-2h late (07:06-07:52 historically). That assumption
     # was wrong: the 2026-08-31 schedule fired at 13:19 UTC, 7h19m late. A
     # 09:23 check would have alarmed while the run was still coming — a false
     # alarm, which is worse than a late one because it teaches people to ignore
     # the alarm. At 22:00 a 06:17 run is 15h43m old and a 13:19 run 8h41m old
-    # (both inside MAX_AGE_HOURS), while a genuinely missed Monday is ~7 days
+    # (both inside MAX_AGE_HOURS), while a genuinely missed Tuesday is ~7 days
     # old and still alarms the same day. PENDING_ALL 5.151.
-    - cron: '0 22 * * 1'
+    - cron: '0 22 * * 2'
   workflow_dispatch: {}
 
 permissions:
@@ -82,7 +82,7 @@ jobs:
             echo "::error::Remedy: dispatch it manually —"
             echo "::error::  gh workflow run market-refresh-weekly.yml --ref main"
             echo "::error::/market data ages toward its 14-day staleness gate until a refresh merges."
-            echo "::error::A second attempt is scheduled for Tuesday 06:17 UTC (C1d); dispatching now is still the faster fix."
+            echo "::error::A second attempt is scheduled for Wednesday 06:17 UTC (C1d); dispatching now is still the faster fix."
             exit 1
           fi
 

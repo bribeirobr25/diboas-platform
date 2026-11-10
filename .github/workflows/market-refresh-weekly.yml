@@ -1,4 +1,5 @@
-# Weekly /market refresh — automated PR (P3, founder ruling 2026-07-11: Mondays 06:00 UTC).
+# Weekly /market refresh — automated PR (P3, founder ruling 2026-07-11; Tuesdays 06:17 UTC since
+# plan MP-3b, founder 2026-11-10: Mondays before).
 #
 # The pipeline NEVER pushes to main. It opens a PR with the compute log in the
 # body; CODEOWNERS reviews the editorial copy and merges. The 14-day staleness
@@ -37,7 +38,7 @@
 
 name: Market Refresh (weekly)
 # 5.760 increment 2 (plan §8.7): a rehearsal is named in its run title, so the
-# Tuesday retry and the watchdog can leave it out (it opens no PR).
+# Wednesday retry and the watchdog can leave it out (it opens no PR).
 run-name: ${{ inputs.rehearsal && 'Market Refresh REHEARSAL (no PR)' || 'Market Refresh (weekly)' }}
 
 on:
@@ -47,11 +48,11 @@ on:
     # workflow has been dropped, and every one starts hours late (measured
     # +1h06m to +7h19m through 2026-09-07; 12:19-15:24 UTC since). The Tuesday
     # attempt and the watchdog (market-refresh-watchdog.yml) cover a late,
-    # failed or missing Monday.
-    - cron: '17 6 * * 1' # Mondays 06:17 UTC
+    # failed or missing Tuesday.
+    - cron: '17 6 * * 2' # Tuesdays 06:17 UTC (moved from Monday: the Fed's Monday data is in; founder 2026-11-10)
     # C1d (2026-10-21): the second attempt. It refreshes only when this week
-    # has no successful run yet (a dropped or failed Monday); see `decide`.
-    - cron: '17 6 * * 2' # Tuesdays 06:17 UTC
+    # has no successful run yet (a dropped or failed Tuesday); see `decide`.
+    - cron: '17 6 * * 3' # Wednesdays 06:17 UTC: the second attempt
   workflow_dispatch:
     inputs:
       # 5.760 increment 2 (plan §8.7): run the real workflow from any branch
@@ -74,7 +75,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # C1d: Monday and manual runs always refresh; the Tuesday run refreshes only
+  # C1d: Tuesday and manual runs always refresh; the Wednesday run refreshes only
   # when this week has no successful run (scripts/market-refresh/retry-decision.mjs).
   # Since C1a an open refresh PR no longer stops it: the run carries that PR.
   # Fail-closed: if the lookup
@@ -99,7 +100,8 @@ jobs:
         id: decide
         env:
           GH_TOKEN: ${{ github.token }}
-          RETRY_SCHEDULE: ${{ github.event_name == 'schedule' && github.event.schedule == '17 6 * * 2' }}
+          RETRY_SCHEDULE: ${{ github.event_name == 'schedule' && github.event.schedule == '17 6 * * 3' }}
+          SCHEDULED: ${{ github.event_name == 'schedule' }}
         run: |
           set -euo pipefail
           gh run list --repo "$GITHUB_REPOSITORY" --workflow market-refresh-weekly.yml --limit 20 \
@@ -118,12 +120,45 @@ jobs:
               refused="$refused,$id"
             fi
           done
-          OPEN_PR="$open" REFUSED_RUNS="$refused" RUNS_FILE="$RUNNER_TEMP/runs.json" \
+          # MP-3b: runs that did not succeed but whose refresh job did (a failed or cancelled
+          # fail-open top-up): they ARE this cycle's refresh and must not be refreshed again.
+          refreshed=''
+          for id in $(jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled") | .databaseId' "$RUNNER_TEMP/runs.json" | head -5); do
+            if gh run view "$id" --repo "$GITHUB_REPOSITORY" --json jobs \
+              --jq '.jobs[] | select(.name == "refresh" and .conclusion == "success") | .name' \
+              | grep -q .; then
+              refreshed="$refreshed,$id"
+            fi
+          done
+          OPEN_PR="$open" REFUSED_RUNS="$refused" REFRESHED_RUNS="$refreshed" RUNS_FILE="$RUNNER_TEMP/runs.json" \
             node apps/web/scripts/market-refresh/retry-decision.mjs >> "$GITHUB_OUTPUT"
 
-  refresh:
+  # TOPUP-1 (plan MP-3b; decision B-2, answer 13): before the refresh reads the store, collect
+  # the series published on Monday (the Fed's broad dollar index and H.10 exchange rates, the
+  # 10-year, the Nasdaq Composite) and re-run any series Saturday's collection blocked. It
+  # reuses the collection workflow (same steps, same append-only guard, same job-level
+  # concurrency group, so it never writes the store at the same time as Saturday's run).
+  # FAIL-OPEN: the refresh runs whatever the top-up concludes, and its PR says what happened.
+  # Only on the SCHEDULE from main (decision A-5: store writes happen only on schedule from
+  # main), so never in a rehearsal or a manual dispatch; off when the repository variable
+  # MARKET_TOPUP is 'off'.
+  topup:
     needs: decide
-    if: needs.decide.outputs.run == 'true'
+    if: >-
+      needs.decide.outputs.run == 'true' && github.event_name == 'schedule' &&
+      github.ref == 'refs/heads/main' && vars.MARKET_TOPUP != 'off'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/market-data-collect.yml
+    with:
+      topup: true
+    secrets:
+      MARKET_DATA_TOKEN: ${{ secrets.MARKET_DATA_TOKEN }}
+
+  refresh:
+    needs: [decide, topup]
+    # `!cancelled()`, not the default: a failed or skipped top-up must not stop the refresh.
+    if: ${{ !cancelled() && needs.decide.outputs.run == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     # 5.135: the SECRET itself is now STEP-scoped (only the ETF-01 leg runs the
@@ -408,6 +443,11 @@ jobs:
           LEDGER_STATUS: ${{ steps.ledgers.outputs.status }}
           CARRY_DECISION: ${{ steps.carry.outputs.decision }}
           REHEARSAL: ${{ inputs.rehearsal }}
+          TOPUP_RESULT: ${{ needs.topup.result }}
+          TOPUP_STATUS: ${{ needs.topup.outputs.status }}
+          TOPUP_SERIES: ${{ needs.topup.outputs.series }}
+          TOPUP_BLOCKED: ${{ needs.topup.outputs.blocked }}
+          TOPUP_BEHIND: ${{ needs.topup.outputs.behind }}
         run: |
           BODY="$RUNNER_TEMP/pr-body.md"
           {
@@ -461,6 +501,32 @@ jobs:
                 echo 'The check did not run to completion, so the ledgers are unverified (read the "Ledger append check" step log).'
               fi
             } >> "$BODY"
+          fi
+          # TOPUP-1: what the top-up concluded, naming the series (decision B-2). The run carried on
+          # either way (fail-open); before MP-4 the score fetches its own sources, so its checks are
+          # unchanged by what the store holds.
+          # Printed only when the workflow supplied the top-up's result (always, on Actions).
+          if [ -n "${TOPUP_RESULT:-}" ]; then
+            AFFECTS='This affects the Money Tools series published from the store; the /market score reads its own sources until plan MP-4.'
+            if [ "$TOPUP_RESULT" = 'skipped' ]; then
+              TOPUP_LINE='The store top-up was not run (it runs only on the Tuesday schedule from main, and not when MARKET_TOPUP is off): the store was read as it stood.'
+            else
+              case "${TOPUP_STATUS:-}" in
+                complete) TOPUP_LINE="The store top-up ran for ${TOPUP_SERIES//,/, } before the store was read; no series was blocked." ;;
+                blocked)
+                  if [ -n "${TOPUP_BLOCKED:-}" ]; then
+                    TOPUP_LINE="The store top-up ran, but these series are still blocked and keep their last checked values: ${TOPUP_BLOCKED//,/, }. $AFFECTS See the top-up job's log."
+                  else
+                    TOPUP_LINE="The store top-up ran and reported a blocked series without naming it: see the top-up job's log. $AFFECTS"
+                  fi ;;
+                failed) TOPUP_LINE="The store top-up failed; it was to collect: ${TOPUP_SERIES:-the late and blocked series}. The store was read as it stood. $AFFECTS See the top-up job's log." ;;
+                *) TOPUP_LINE="The store top-up ended without a report (${TOPUP_RESULT}). The store was read as it stood. $AFFECTS See the top-up job's log." ;;
+              esac
+            fi
+            if [ -n "${TOPUP_BEHIND:-}" ]; then
+              TOPUP_LINE="$TOPUP_LINE Still a week behind after the top-up (the Fed publishes a day late after a US holiday Monday): ${TOPUP_BEHIND//,/, }."
+            fi
+            { echo; echo '## Market data store top-up'; echo; echo "$TOPUP_LINE"; } >> "$BODY"
           fi
           if [ -s "$RUNNER_TEMP/tools-note.md" ]; then
             {

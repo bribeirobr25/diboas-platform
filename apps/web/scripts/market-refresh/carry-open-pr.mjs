@@ -176,7 +176,7 @@ export function prepare({ cwd, openPrs, ref = MAIN_REF, remote = 'origin' }) {
   if (startHead !== pr.headRefOid) {
     return refuse(
       `the refresh branch head (${startHead || 'none'}) is not the open PR #${pr.number}'s head (${pr.headRefOid}): the branch moved while this run started`,
-      'Run again (the Tuesday attempt or a manual dispatch from main).',
+      'Run again (the Wednesday attempt or a manual dispatch from main).',
       ids
     );
   }
@@ -355,7 +355,7 @@ if (isDirectInvocation(import.meta.url)) {
     if (!res.ok) {
       console.log(`::error::Refusing to publish: ${oneLine(res.reason)}.`);
       console.log(
-        `::error::This week's ETF-01 collection, if any, is kept as the run artifact. Remedy: review the refresh PR as it now stands and run again (the Tuesday attempt or a manual dispatch from main). ${NEVER_CLOSE}`
+        `::error::This week's ETF-01 collection, if any, is kept as the run artifact. Remedy: review the refresh PR as it now stands and run again (the Wednesday attempt or a manual dispatch from main). ${NEVER_CLOSE}`
       );
       process.exit(1);
     }

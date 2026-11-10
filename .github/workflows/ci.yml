@@ -57,11 +57,13 @@ jobs:
       # computed, the backstop enforces.
       - name: /market staleness backstop (blocks market changes only)
         env:
-          MARKET_PATHS: '^(apps/web/data/market/|apps/web/scripts/market-refresh/|apps/web/scripts/data-fetchers/|apps/web/src/lib/(market-data|analytics-sdk|market)/|apps/web/src/app/\[locale\]/\(landing\)/market/|apps/web/src/components/(Analytics|Market)/|\.github/workflows/market-refresh)'
+          MARKET_PATHS: '^(apps/web/data/market/|apps/web/scripts/market-refresh/|apps/web/scripts/data-fetchers/|apps/web/src/lib/(market-data|analytics-sdk|market)/|apps/web/src/app/\[locale\]/\(landing\)/market/|apps/web/src/components/(Analytics|Market)/|apps/web/scripts/market-data/|\.github/workflows/market-(refresh|data|publish))'
         run: |
           set -uo pipefail
           if changed=$(git diff --name-only HEAD^1 HEAD); then
-            if printf '%s\n' "$changed" | grep -Eq "$MARKET_PATHS"; then enforce=1; else enforce=0; fi
+            # a here-string, not a pipe: with pipefail an early grep match on a long list read as "no
+            # market change" and turned the backstop off (MP-3b review, the drift check's twin)
+            if grep -Eq "$MARKET_PATHS" <<<"$changed"; then enforce=1; else enforce=0; fi
           else
             echo "::warning::could not compute the changed files — enforcing the /market backstop"
             enforce=1

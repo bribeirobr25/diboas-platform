@@ -13,6 +13,7 @@ import * as prettier from 'prettier';
 import { afterEach, describe, expect, it } from 'vitest';
 import {
   DATA_DIR,
+  PUBLISHED_FILES,
   FX_SERIES,
   PRICE_SERIES,
   buildPublication,
@@ -697,13 +698,13 @@ describe('the rehearsal input (plan 5.760 §8.7)', () => {
     expect(runScript(WEEKLY, 'Rehearsal summary (no PR)')).toMatch(/>> "\$GITHUB_STEP_SUMMARY"/);
   });
 
-  it('should never count a rehearsal as this week’s refresh (the Tuesday retry)', () => {
-    const now = new Date('2026-11-10T06:20:00Z');
+  it('should never count a rehearsal as this cycle’s refresh (the Wednesday retry)', () => {
+    const now = new Date('2026-11-11T06:20:00Z'); // a Wednesday (the refresh runs on Tuesday, MP-3b)
     const runs = [
       {
         databaseId: 7,
         conclusion: 'success',
-        createdAt: '2026-11-09T10:00:00Z',
+        createdAt: '2026-11-10T10:00:00Z',
         displayTitle: 'Market Refresh REHEARSAL (no PR)',
       },
     ];
@@ -733,4 +734,89 @@ describe('the rehearsal input (plan 5.760 §8.7)', () => {
     },
     TIMEOUT
   );
+});
+
+describe('PUBLISH-1 always reports (plan MP-3b, B-8): the path decision, run as on Actions', () => {
+  const script = runScript(DRIFT, 'Did this PR change a publish path?');
+
+  function decide(changed: string[], event = 'pull_request') {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'drift-paths-'));
+    const bin = path.join(root, 'bin');
+    fs.mkdirSync(bin);
+    fs.writeFileSync(
+      path.join(bin, 'git'),
+      `#!/bin/bash\nprintf '%s\\n' ${changed.map((c) => `'${c}'`).join(' ')}\n`,
+      {
+        mode: 0o755,
+      }
+    );
+    const out = path.join(root, 'out');
+    fs.writeFileSync(out, '');
+    const r = spawnSync('bash', ['-c', script], {
+      encoding: 'utf8',
+      env: {
+        NODE_ENV: 'test',
+        PATH: `${bin}:${process.env.PATH}`,
+        GITHUB_OUTPUT: out,
+        EVENT: event,
+        BASE: SHA40,
+      } as NodeJS.ProcessEnv,
+    });
+    const relevant = /relevant=(\w+)/.exec(fs.readFileSync(out, 'utf8'))?.[1];
+    fs.rmSync(root, { recursive: true, force: true });
+    return { status: r.status, relevant, stdout: r.stdout };
+  }
+
+  it(
+    'should run the full check when a publish path changed, every published file included',
+    () => {
+      // every file publish.mjs writes, from its own list: a new output cannot escape the filter
+      const published = Object.values(PUBLISHED_FILES).map((f) =>
+        path.relative(REPO, path.join(DATA_DIR, f))
+      );
+      expect(published).toHaveLength(3);
+      for (const f of [
+        'apps/web/scripts/market-data/publish.mjs',
+        ...published,
+        '.github/workflows/market-publish-drift.yml',
+        // what publish.mjs reads beyond its own folder
+        'apps/web/data/market/shared/methodology.json',
+        'apps/web/scripts/market-refresh/lib/atomic.mjs',
+        'apps/web/scripts/market-refresh/lib/invocation.mjs',
+        'apps/web/scripts/market-refresh/lib/jsonl.mjs',
+      ])
+        expect(decide(['README.md', f]).relevant, f).toBe('true');
+      // a long list with the publish file first: a pipe with pipefail read this as "no path"
+      const many = Array.from({ length: 6000 }, (_, i) => `docs/some/long/path/number-${i}.md`);
+      expect(decide(['apps/web/scripts/market-data/publish.mjs', ...many]).relevant).toBe('true');
+    },
+    TIMEOUT
+  );
+
+  it(
+    'should pass with a stated reason when no publish path changed',
+    () => {
+      const r = decide(['apps/web/src/app/page.tsx', 'docs/tech/engineering-gates.md']);
+      expect(r).toMatchObject({ status: 0, relevant: 'false' });
+      expect(r.stdout).toMatch(/changes no publish path/);
+    },
+    TIMEOUT
+  );
+
+  it('should list renamed files under both paths', () => {
+    expect(DRIFT).toMatch(/git diff --no-renames --name-only "\$BASE\.\.\.HEAD"/);
+  });
+
+  it(
+    'should always run the full check on a manual dispatch',
+    () => {
+      expect(decide([], 'workflow_dispatch').relevant).toBe('true');
+    },
+    TIMEOUT
+  );
+
+  it('should run on every PR, with no paths filter', () => {
+    expect(DRIFT).toMatch(/\non:\n(?:\s*#.*\n)*\s*pull_request:\n\s*workflow_dispatch:/);
+    expect(DRIFT).not.toMatch(/\n\s+paths:\n/);
+  });
 });

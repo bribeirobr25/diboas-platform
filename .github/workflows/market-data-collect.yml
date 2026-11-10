@@ -48,18 +48,53 @@ on:
         description: 'diboas-analytics branch to write to (main, or data/...)'
         type: string
         default: 'main'
+  # The Tuesday top-up (plan MP-3b, TOPUP-1; decisions B-2 and answer 13): the weekly refresh
+  # calls this workflow before it reads the store, to collect the series published on Monday
+  # and re-run any series Saturday blocked. Same steps, guard and concurrency group as Saturday.
+  workflow_call:
+    inputs:
+      topup:
+        description: 'Collect the late and blocked series only (the weekly refresh calls this)'
+        type: boolean
+        default: false
+    secrets:
+      MARKET_DATA_TOKEN:
+        required: true
+    outputs:
+      status:
+        description: 'complete | blocked | failed (empty: the job did not reach its report)'
+        value: ${{ jobs.collect.outputs.status }}
+      series:
+        description: 'The series the top-up tried to collect'
+        value: ${{ jobs.collect.outputs.series }}
+      blocked:
+        description: 'The series still blocked after the top-up'
+        value: ${{ jobs.collect.outputs.blocked }}
+      behind:
+        description: 'Weekday series still a week behind after the top-up (answer 13)'
+        value: ${{ jobs.collect.outputs.behind }}
 
 permissions:
   contents: read
-
-concurrency:
-  group: market-data-collect
-  cancel-in-progress: false
 
 jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 50
+    # Job-level, so a call from the weekly refresh (the top-up) and Saturday's schedule share
+    # it: the store is never written by two collections at once.
+    concurrency:
+      group: market-data-collect
+      cancel-in-progress: false
+    # The top-up is fail-open (decision B-2): its failure shows on this job but never marks the
+    # weekly run failed, so the Wednesday retry still judges the cycle by the refresh itself.
+    # A scheduled or manual collection is not affected (`inputs.topup` is unset there).
+    continue-on-error: ${{ inputs.topup == true }}
+    outputs:
+      status: ${{ steps.report.outputs.status }}
+      series: ${{ steps.report.outputs.series }}
+      blocked: ${{ steps.report.outputs.blocked }}
+      behind: ${{ steps.report.outputs.behind }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
@@ -77,9 +112,14 @@ jobs:
           IN_BRANCH: ${{ inputs.target_branch }}
           IN_BACKFILL: ${{ inputs.backfill }}
           IN_SERIES: ${{ inputs.series }}
+          IN_TOPUP: ${{ inputs.topup }}
         run: |
           set -euo pipefail
-          if [ "$EVENT" = "schedule" ]; then
+          if [ "${IN_TOPUP:-false}" = "true" ]; then
+            # the top-up writes the store's main; the caller runs it only on its schedule from
+            # main, and the check below still refuses a call from any other branch
+            branch='main'; backfill=false; series=''
+          elif [ "$EVENT" = "schedule" ]; then
             branch='main'; backfill=false; series=''
           else
             branch="${IN_BRANCH:-main}"; backfill="${IN_BACKFILL:-false}"; series="${IN_SERIES:-}"
@@ -96,8 +136,9 @@ jobs:
             echo "branch=$branch"
             echo "backfill=$backfill"
             echo "series=$series"
+            echo "topup=${IN_TOPUP:-false}"
           } >> "$GITHUB_OUTPUT"
-          echo "target: diboas-analytics@$branch backfill=$backfill series=${series:-all}"
+          echo "target: diboas-analytics@$branch backfill=$backfill series=${series:-all} topup=${IN_TOPUP:-false}"
 
       - name: Check out diboas-analytics
         id: analytics
@@ -106,7 +147,10 @@ jobs:
           BRANCH: ${{ steps.target.outputs.branch }}
         run: |
           set -euo pipefail
-          git clone --quiet --filter=blob:none "https://x-access-token:${TOKEN}@github.com/bribeirobr25/diboas-analytics.git" analytics
+          # Header authentication for EVERY git call in this step, git's on-demand blob fetches
+          # included: the token is never in a URL or in the clone's .git/config (plan MP-3b).
+          source apps/web/scripts/market-data/git-auth.sh
+          git clone --quiet --filter=blob:none "https://github.com/bribeirobr25/diboas-analytics.git" analytics
           cd analytics
           if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
             git checkout --quiet "$BRANCH"
@@ -119,12 +163,22 @@ jobs:
           fi
           mkdir -p market/checks
 
+      - name: Plan the top-up (the late and the blocked series)
+        id: plan
+        if: steps.target.outputs.topup == 'true'
+        run: |
+          set -euo pipefail
+          series="$(node apps/web/scripts/market-data/topup-series.mjs --store analytics/market)"
+          [[ "$series" =~ ^[a-z0-9_]+(,[a-z0-9_]+)*$ ]] || { echo "refusing top-up series list"; exit 1; }
+          echo "series=$series" >> "$GITHUB_OUTPUT"
+          echo "top-up: $series"
+
       - name: Collect
         id: collect
         timeout-minutes: 40
         env:
           BACKFILL: ${{ steps.target.outputs.backfill }}
-          SERIES: ${{ steps.target.outputs.series }}
+          SERIES: ${{ steps.plan.outputs.series || steps.target.outputs.series }}
         run: |
           # GitHub runs `bash -e -o pipefail`: without `set +e` a blocked
           # series (exit 1) would end this step before the evidence is
@@ -144,19 +198,29 @@ jobs:
       # Runs even when Collect failed or hit its time limit, so the evidence
       # written up to that point is kept.
       - name: Commit under market/ only
+        id: commit
         if: always() && steps.analytics.outcome == 'success'
         env:
           BRANCH: ${{ steps.target.outputs.branch }}
+          TOKEN: ${{ secrets.MARKET_DATA_TOKEN }}
+          MODE: ${{ steps.target.outputs.topup == 'true' && 'top-up' || github.event_name }}
         run: |
           set -euo pipefail
+          # every git call below, the commit guard's and the rebase's blob fetches included
+          source apps/web/scripts/market-data/git-auth.sh
+          # The bot's identity for EVERY commit this step makes: the commit below and the rebase
+          # after a rejected push, which rewrites the commit and needs a committer. GitHub's runners
+          # have no default identity, so a rebase without these failed ("Committer identity
+          # unknown"): the rejected-push path never worked (found by the R-7 test on CI, MP-3b).
+          export GIT_AUTHOR_NAME='github-actions[bot]' GIT_COMMITTER_NAME='github-actions[bot]'
+          export GIT_AUTHOR_EMAIL='41898282+github-actions[bot]@users.noreply.github.com'
+          export GIT_COMMITTER_EMAIL='41898282+github-actions[bot]@users.noreply.github.com'
           cd analytics
           # -f: the analytics .gitignore ignores names such as logs/ and *.log
           git add -A -f market
           node ../apps/web/scripts/market-data/commit-guard.mjs
           if git diff --cached --quiet; then echo "nothing new"; exit 0; fi
-          git -c user.name='github-actions[bot]' \
-            -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
-            commit --quiet -m "data(market): collection $(date -u +%F) (${GITHUB_EVENT_NAME})" \
+          git commit --quiet -m "data(market): collection $(date -u +%F) (${MODE})" \
             -m "Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           # The branch can move while a run collects (a merged PR): rebase the
           # data commit, which only adds under market/, and try again.
@@ -172,6 +236,39 @@ jobs:
           done
           echo "push failed three times"; exit 1
 
+      # The top-up's report to the weekly refresh, which names it in the PR (decision B-2).
+      # Values are validated before they reach GITHUB_OUTPUT.
+      - name: Report the top-up to the weekly refresh
+        id: report
+        if: always() && steps.target.outputs.topup == 'true'
+        env:
+          CODE: ${{ steps.collect.outputs.code }}
+          OUTCOME: ${{ steps.collect.outcome }}
+          COMMIT: ${{ steps.commit.outcome }}
+          SERIES: ${{ steps.plan.outputs.series }}
+        run: |
+          set -uo pipefail
+          blocked=''
+          behind=''
+          if [ "${CODE:-}" = "1" ] && [ -d analytics/market/checks ]; then
+            blocked="$(node apps/web/scripts/market-data/topup-series.mjs --store analytics/market --blocked || true)"
+          fi
+          if [ -d analytics/market/daily ]; then
+            behind="$(node apps/web/scripts/market-data/topup-series.mjs --store analytics/market --behind || true)"
+          fi
+          if [ "$OUTCOME" = "success" ] && [ "${CODE:-}" = "0" ] && [ "$COMMIT" = "success" ]; then status=complete
+          elif [ "$OUTCOME" = "success" ] && [ "${CODE:-}" = "1" ] && [ "$COMMIT" = "success" ]; then status=blocked
+          else status=failed; fi
+          ids='^([a-z0-9_]+(,[a-z0-9_]+)*)?$'
+          [[ "$SERIES" =~ $ids ]] || SERIES=''
+          [[ "$blocked" =~ $ids ]] || blocked=''
+          [[ "$behind" =~ $ids ]] || behind=''
+          { echo "status=$status"; echo "series=$SERIES"; echo "blocked=$blocked"; echo "behind=$behind"; } >> "$GITHUB_OUTPUT"
+          echo "top-up: $status; tried ${SERIES:-none}; still blocked: ${blocked:-none}; a week behind: ${behind:-none}"
+          if [ "$status" != "complete" ] || [ -n "$behind" ]; then
+            echo "::warning::Store top-up: $status; still blocked: ${blocked:-none}; a week behind: ${behind:-none}. The weekly refresh carries on (fail-open)."
+          fi
+
       - name: Fail unless every series was stored
         if: always()
         env:
@@ -182,3 +279,8 @@ jobs:
           grep -E 'BLOCKED|RUN FAILED' collect.log 2>/dev/null || true
           echo "Collect outcome: ${OUTCOME}, exit code: ${CODE:-none}. Evidence is committed; blocked series kept their values."
           exit 1
+
+      # The clone held a writer's work for this run only: delete it, whatever happened.
+      - name: Delete the store clone
+        if: always()
+        run: rm -rf analytics

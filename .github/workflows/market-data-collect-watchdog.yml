@@ -1,0 +1,37 @@
+# COLLECT-WATCH-1 — did the store's Saturday collection run? (plan MP-3b)
+#
+# Sunday 23:00 UTC: GitHub starts scheduled runs hours late (the refresh has started 6-9h
+# late), so this checks a day and a half after the 09:23 Saturday slot. It fails visibly
+# when no collection from main (scheduled, or the manual remedy) was created since Saturday
+# 00:00 UTC; a person then dispatches the collection from main (CC never dispatches a
+# collection, decision A-5).
+name: Market data collection watchdog (COLLECT-WATCH-1)
+
+on:
+  schedule:
+    - cron: '0 23 * * 0'
+  workflow_dispatch: {}
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  assert-collection-ran:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      - name: Assert a collection ran since Saturday 00:00 UTC
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh run list --repo "$GITHUB_REPOSITORY" --workflow market-data-collect.yml --branch main \
+            --limit 10 --json createdAt,event,status,conclusion > "$RUNNER_TEMP/collect-runs.json"
+          RUNS_FILE="$RUNNER_TEMP/collect-runs.json" node apps/web/scripts/market-data/collect-watch.mjs

@@ -163,7 +163,7 @@ pnpm check:dead-code           # Dead code detection (knip)
 ### Market data refresh (`/market` — Adelaide Market)
 
 Build-time pipeline; never runs at request time. Editorial writes go out as a
-PR, never a direct push (weekly workflow: `.github/workflows/market-refresh-weekly.yml`).
+PR, never a direct push (weekly workflow: `.github/workflows/market-refresh-weekly.yml`, **Tuesdays** 06:17 UTC since plan MP-3b, retry Wednesday; it first tops up the store with Monday's late series and Bitcoin, fail-open, `MARKET_TOPUP=off` to stop it).
 
 ```bash
 # full pipeline: fetch -> fail-closed quality gate -> engine -> computed.json (+ run archive)
@@ -178,6 +178,8 @@ node apps/web/scripts/market-data/publish.mjs --check --store <dir>/market   # P
 gh workflow run market-refresh-weekly.yml --ref <branch> -f rehearsal=true   # rehearse the weekly run: no carry, no ETF leg, no PR
 node apps/web/scripts/market-data/publish.mjs --verify-manifest              # PUBLISH-1: committed series match store-manifest.json (CI)
 node apps/web/scripts/data-fetchers/compute-regime.mjs       # thin CLI over the shared engine (manual score check)
+node apps/web/scripts/market-refresh/simulate-next-week.mjs [--scenario=X] [--store=<dir>/market]   # rehearse next week through the blocking gate (A-I; G reads the store at the next Tuesday clock)
+node apps/web/scripts/market-data/topup-series.mjs --store <dir>/market   # the series the Tuesday top-up would collect (--blocked: only the blocked ones)
 ```
 
 ### Formatting

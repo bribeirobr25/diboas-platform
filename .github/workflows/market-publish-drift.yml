@@ -12,13 +12,10 @@
 name: Market publish drift (PUBLISH-1)
 
 on:
+  # Every PR (plan MP-3b, B-8): the job always reports, so it can be a REQUIRED check. Its
+  # first step decides whether a publish path changed; when none did, it passes with that
+  # reason in seconds and reads nothing.
   pull_request:
-    paths:
-      - 'apps/web/scripts/market-data/**'
-      - 'apps/web/src/lib/market-data/data/monthlyPrices.json'
-      - 'apps/web/src/lib/market-data/data/monthlyFx.json'
-      - 'apps/web/src/lib/market-data/data/store-manifest.json'
-      - '.github/workflows/market-publish-drift.yml'
   workflow_dispatch:
 
 permissions:
@@ -36,12 +33,35 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           persist-credentials: false
+          fetch-depth: 0
+
+      - name: Did this PR change a publish path?
+        id: paths
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" != "pull_request" ]; then echo "relevant=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          # --no-renames: a moved file is listed under its old AND new path. A here-string, not a
+          # pipe: with pipefail, `grep -q` exiting on an early match would fail a long printf and
+          # read as "no publish path" (review of MP-3b). The pattern covers every file publish.mjs
+          # writes or reads, its imports from market-refresh/lib included.
+          changed="$(git diff --no-renames --name-only "$BASE...HEAD")"
+          if grep -qE '^(apps/web/scripts/market-data/|apps/web/scripts/market-refresh/lib/(invocation|atomic|jsonl)\.mjs$|apps/web/data/market/shared/methodology\.json$|apps/web/src/lib/market-data/data/(monthlyPrices|monthlyFx)\.json$|apps/web/src/lib/market-data/data/store-manifest\.json$|\.github/workflows/market-publish-drift\.yml$)' <<<"$changed"; then
+            echo "relevant=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::notice::PUBLISH-1: this PR changes no publish path; nothing to compare."
+            echo "relevant=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        if: steps.paths.outputs.relevant == 'true'
         with:
           node-version: 24
 
       - name: Read the store at the manifest's commit (read-only)
+        if: steps.paths.outputs.relevant == 'true'
         id: store
         env:
           TOKEN: ${{ secrets.MARKET_DATA_READ_TOKEN }}
@@ -62,7 +82,7 @@ jobs:
           echo "commit=$commit" >> "$GITHUB_OUTPUT"
 
       - name: Rebuild every published series from the store and compare (hashes only)
-        if: steps.store.outputs.skip == 'false'
+        if: steps.paths.outputs.relevant == 'true' && steps.store.outputs.skip == 'false'
         env:
           STORE_COMMIT: ${{ steps.store.outputs.commit }}
         run: node apps/web/scripts/market-data/publish.mjs --check --store "$RUNNER_TEMP/analytics/market" --store-commit "$STORE_COMMIT"

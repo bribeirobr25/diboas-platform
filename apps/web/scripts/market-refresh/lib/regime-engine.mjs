@@ -31,7 +31,8 @@
  *   - Else if any Mon-Thu of that week is in the data → use the most recent
  *     prior trading day of that week (handles bank holidays falling on Friday).
  *   - Else → SKIP.
- * Monday and Tuesday runs are unaffected: their last Friday is already over.
+ * Tuesday and Wednesday runs (Monday and Tuesday before plan MP-3b) are unaffected: their
+ * last Friday is already over.
  *
  * @param {Array<[Date, number]>} daily — sorted ascending by date
  * @param {Date} today — injected clock (pipeline passes run time)
