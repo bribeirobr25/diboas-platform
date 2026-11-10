@@ -304,6 +304,14 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // render sites. The selector returns both shapes its consumers need: display
   // strings for money, plain numbers for the numeric `Projection` props.
   const detail = selectGoalDetailView(state, goalId);
+  /* K1 (B14, 5.534): money is put to work only toward a goal still being worked on — never an
+     accomplished or dropped one. ONE condition for every entry point (the Simple view's "Add
+     money" tile and the Detailed view's block; 10th audit: the tile was left offering it). */
+  const canPutToWork =
+    detail.hasCash && goal.status !== 'accomplished' && goal.status !== 'dropped';
+  /* K1: monthly deposits run only for active goals; accomplished and dropped never resume, so
+     the control that sets them is not offered there (a paused goal keeps it: deposits resume). */
+  const offersMonthlyAmount = goal.status !== 'accomplished' && goal.status !== 'dropped';
   const { targetReached, ratioPercent: ratio, percentShown, contributionsTotal } = detail;
   const projection = selectGoalProjectionFor(state, goalId, projectionMonthsLeft, rateRanges);
 
@@ -557,7 +565,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             3. <FormattedMessage id="goalDual.nextLabel" />
           </h2>
           <div className={styles.actionTiles}>
-            {detail.hasCash ? (
+            {canPutToWork ? (
               <button
                 type="button"
                 className={styles.actionTile}
@@ -716,9 +724,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       values={{ amount: money(position.accrued) }}
                     />
                   </p>
-                  {/* K1 (5.534): deposits never run on an accomplished goal, so the control that
-                      sets them is not offered there. */}
-                  {goal.status !== 'accomplished' ? (
+                  {offersMonthlyAmount ? (
                     <RecurringControl
                       goalId={goalId}
                       positionId={position.positionId}
@@ -748,8 +754,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             })
           )}
 
-          {/* K1 (5.534): money is not put to work toward a goal that is accomplished or dropped. */}
-          {detail.hasCash && goal.status !== 'accomplished' && goal.status !== 'dropped' ? (
+          {canPutToWork ? (
             <div className={styles.investBlock}>
               {!pickerOpen ? (
                 <button

@@ -1112,3 +1112,80 @@ describe('GoalDetailScreen — K1: a closed goal offers only true controls', () 
     expect(screen.queryByText('Put it to work')).toBeNull();
   });
 });
+
+/**
+ * 10th audit · the K1 gaps: the Simple view's "Add money" tile, the dropped goal's monthly control,
+ * the pause sheet's wiring from the screen, and an empty goal — each by what RENDERS.
+ */
+describe('GoalDetailScreen — K1: every entry point tells the same truth', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  const openDetailed = () =>
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+  const goal = (fundAmount: number, invest = 0) => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount,
+    });
+    if (invest > 0)
+      enterStrategy({
+        goalId,
+        strategyId: 'safeHarbor',
+        totalFromCash: invest,
+        networkFeeLocal: 0,
+      });
+    return goalId;
+  };
+
+  it('should offer the Simple "Add money" tile on an active goal with cash, and never on an accomplished one', () => {
+    const active = goal(1000, 300);
+    const { unmount } = renderDetail(active);
+    expect(screen.getByRole('button', { name: /Add money/ })).toBeTruthy();
+    unmount();
+    accomplishGoal(active, 'kept-working');
+    renderDetail(active);
+    expect(screen.queryByRole('button', { name: /Add money/ })).toBeNull();
+  });
+
+  it('should not offer the monthly amount on a dropped goal that still has a legacy position', () => {
+    const goalId = goal(1000, 300);
+    const version = getLedgerState().goals.find((g) => g.goalId === goalId)!.version;
+    appendAll([
+      {
+        ...base('k1-drop-monthly'),
+        type: 'GoalDropped',
+        goalId,
+        cashReleased: '700.00',
+        expectedVersion: version,
+      } as LedgerEvent,
+    ]);
+    expect(getLedgerState().positions.some((p) => p.goalId === goalId && p.open)).toBe(true);
+    renderDetail(goalId);
+    openDetailed();
+    expect(screen.queryByText('Add a monthly amount')).toBeNull();
+  });
+
+  it.each([
+    ['cash only', 1000, 0, false],
+    ['empty (nothing in it)', 0, 0, false],
+    ['invested', 1000, 300, true],
+  ] as const)(
+    'should open the pause sheet telling only the truth — %s',
+    (_label, fund, invest, invested) => {
+      renderDetail(goal(fund, invest));
+      fireEvent.click(screen.getByRole('button', { name: /Pause plan/ }));
+      expect(screen.getByText('Plan paused')).toBeTruthy();
+      expect(screen.queryByText('Invested money still working') !== null).toBe(invested);
+    }
+  );
+});

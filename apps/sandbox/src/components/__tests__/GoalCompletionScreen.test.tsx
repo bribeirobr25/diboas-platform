@@ -5,6 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   createGoal,
   enterStrategy,
+  exitPosition,
   getLedgerState,
   grantPlayMoney,
   resetSandbox,
@@ -101,6 +102,34 @@ describe('GoalCompletionScreen — G4 dispositions (§4.4, mockup 16, board §3.
     // Always offered, whatever is held.
     expect(screen.getByText('Move to another goal')).toBeTruthy();
     expect(screen.getByText('Raise the target')).toBeTruthy();
+  });
+
+  it("should count only THIS goal's OPEN positions (10th audit: neither condition was pinned)", () => {
+    // A position that was exited is not money working.
+    const exited = reachedGoal('Exited');
+    enterStrategy({
+      goalId: exited,
+      strategyId: 'safeHarbor',
+      totalFromCash: 200,
+      networkFeeLocal: 0,
+    });
+    exitPosition({ positionId: getLedgerState().positions[0].positionId, networkFeeLocal: 0 });
+    const { unmount } = renderCompletion(exited);
+    expect(screen.queryByText('Keep working')).toBeNull();
+    expect(screen.getByText('Hold as cash')).toBeTruthy();
+    unmount();
+    // Another goal's open position is not this goal's money.
+    const other = reachedGoal('Other');
+    enterStrategy({
+      goalId: other,
+      strategyId: 'safeHarbor',
+      totalFromCash: 200,
+      networkFeeLocal: 0,
+    });
+    const cashOnly = reachedGoal('Cash only');
+    renderCompletion(cashOnly);
+    expect(screen.queryByText('Keep working')).toBeNull();
+    expect(screen.getByText('Hold as cash')).toBeTruthy();
   });
 
   it('should close as kept-working, leaving the goal cash where it is', () => {
