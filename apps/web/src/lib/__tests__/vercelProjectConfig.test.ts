@@ -41,7 +41,16 @@ const CONFIG_FORMS = [
   'vercel.toml',
 ];
 
+/**
+ * Twelfth audit (agent C, LOW-6): the build-skip rule lived only in each project's dashboard,
+ * untracked. It is now the repo's: production builds (exit 1), every other deployment is skipped
+ * (exit 0), so PRs and Dependabot branches build nothing. `=` (POSIX), never bash's `==`, so the
+ * rule cannot invert under a non-bash `sh` (under dash `==` errors and exits 0: production skipped).
+ */
+const PRODUCTION_ONLY = 'if [ "$VERCEL_ENV" = "production" ]; then exit 1; else exit 0; fi';
+
 interface VercelConfig {
+  ignoreCommand?: string;
   crons?: { path: string; schedule: string }[];
   schedules?: { path?: string }[];
   git?: { deploymentEnabled?: Record<string, boolean> };
@@ -104,6 +113,10 @@ describe('5.816 · Vercel project config lives where Vercel reads it', () => {
     for (const cron of readConfig('web')?.crons ?? []) {
       expect(cron.schedule.trim().split(/\s+/)).toHaveLength(5);
     }
+  });
+
+  it.each(APPS)('should build only production deployments of the %s project', (app) => {
+    expect(readConfig(app)?.ignoreCommand, app).toBe(PRODUCTION_ONLY);
   });
 
   it.each(APPS)('should keep Dependabot branches from deploying the %s project', (app) => {
