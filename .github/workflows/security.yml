@@ -12,15 +12,16 @@ jobs:
     name: Secrets scan (gitleaks)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
+          persist-credentials: false
           # Full history so gitleaks can diff PR commits against base.
           # Configured via .gitleaks.toml at repo root.
           # Historical findings to skip are pinned by fingerprint in .gitleaksignore.
           fetch-depth: 0
       - name: Gitleaks
         id: gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@ff98106e4c7b2bc287b24eaf42907196329070c7 # v2.3.9
         env:
           # Required so the action can post a summary comment on PRs.
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,9 +33,11 @@ jobs:
     name: Dependency vulnerability audit
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           # Phase 4.2 (audit/2026-05-08): bumped from 20 → 24 — see ci.yml.
           node-version: '24'
@@ -95,7 +98,7 @@ jobs:
 
       - name: Notify Slack on Failure
         if: steps.audit.outputs.failed == 'true'
-        uses: slackapi/slack-github-action@v3
+        uses: slackapi/slack-github-action@0d95c9a7becc1e6e297d76df9bc735c44f4cbcbc # v3.0.5
         with:
           webhook: ${{ secrets.SLACK_WEBHOOK_ALERT }}
           webhook-type: incoming-webhook

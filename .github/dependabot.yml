@@ -29,3 +29,15 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: 'knip'
         update-types: ['version-update:semver-major']
+
+  # GitHub Actions, pinned to commit SHAs (register 5.868): Dependabot bumps the SHA and its
+  # `# vN` comment together, so pins stay current without hand edits.
+  # Guard: apps/web/src/lib/__tests__/workflowPins.test.ts
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 5
+    # The same 3-day wait the npm side gets from pnpm's minimumReleaseAge.
+    cooldown:
+      default-days: 3
