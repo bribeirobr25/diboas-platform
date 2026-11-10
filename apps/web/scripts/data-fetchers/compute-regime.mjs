@@ -50,12 +50,8 @@ import {
   evaluateMarketSignals,
 } from '../market-refresh/lib/market-sources.mjs';
 import { MAX_BY_GROUP } from '../market-refresh/lib/group-summaries.mjs';
-import {
-  btcMonths,
-  REPO_ROOT,
-  RUN_ARCHIVE_PATH,
-  SHARED_DIR,
-} from '../market-refresh/providers/inrepo.mjs';
+import { btcMonths } from '../market-refresh/providers/inrepo.mjs';
+import { REPO_ROOT, RUN_ARCHIVE_PATH, SHARED_DIR } from '../market-refresh/lib/paths.mjs';
 
 const REGIME_PATH = path.join(SHARED_DIR, 'regime.json');
 const ARCHIVE_PATH = RUN_ARCHIVE_PATH;

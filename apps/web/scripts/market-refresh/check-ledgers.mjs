@@ -41,7 +41,7 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
-import { REPO_ROOT, RUN_ARCHIVE_PATH, SHARED_DIR } from './providers/inrepo.mjs';
+import { REPO_ROOT, RUN_ARCHIVE_PATH, SHARED_DIR } from './lib/paths.mjs';
 import { ETF_SHARES_ARCHIVE } from './lib/etf-flows.mjs';
 import { isDirectInvocation } from './lib/invocation.mjs';
 

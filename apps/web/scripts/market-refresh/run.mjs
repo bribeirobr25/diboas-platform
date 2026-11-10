@@ -51,14 +51,8 @@ import { archiveSignals, archiveLine, publishRun } from './lib/archive.mjs';
 import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { fetchYahooDaily, fetchYahooMonthlyBars } from './providers/yahoo.mjs';
 import { fetchBtcMonthCloseVerifier } from './providers/coingecko.mjs';
-import {
-  btcMonths,
-  appendBtcMonth,
-  MONTHLY_PRICES_PATH,
-  REPO_ROOT,
-  RUN_ARCHIVE_PATH,
-  SHARED_DIR,
-} from './providers/inrepo.mjs';
+import { btcMonths, appendBtcMonth } from './providers/inrepo.mjs';
+import { MONTHLY_PRICES_PATH, REPO_ROOT, RUN_ARCHIVE_PATH, SHARED_DIR } from './lib/paths.mjs';
 
 // 5.92 (2026-08-19): the weekly run's outputs are SHARED across views (bitcoin,
 // backdrop, umbrella) — `SHARED_DIR` (providers/inrepo.mjs, one definition).

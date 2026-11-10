@@ -22,7 +22,7 @@
 import { appendJsonlLine, readJsonlTolerant } from './jsonl.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
-import { SHARED_DIR } from '../providers/inrepo.mjs';
+import { SHARED_DIR } from './paths.mjs';
 import {
   evaluateEtfManual,
   WARMUP_SNAPSHOTS,
