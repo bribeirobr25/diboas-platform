@@ -52,18 +52,24 @@ vi.mock('../factory', async (importOriginal) => {
   };
 });
 
-describe('F-A runtime producer', () => {
-  beforeEach(async () => {
-    const { InMemoryEvidenceStore } = await import('@diboas/defi');
-    store.current = new InMemoryEvidenceStore();
-    store.enabled = true;
-    __resetEvidencePersistence();
-  });
-  afterEach(() => {
-    process.env = { ...ORIGINAL };
-    __resetEvidencePersistence();
-  });
+/**
+ * Every test starts clean, whatever ran before it (A-11, 2026-11-10). The blocks share
+ * the hoisted `store`, and a test may swap in a store whose `put` throws or turn
+ * persistence off — so the reset lives at the top level, not in one block: under
+ * `--sequence.shuffle` a block without its own reset inherited the last test's store.
+ */
+beforeEach(async () => {
+  const { InMemoryEvidenceStore } = await import('@diboas/defi');
+  store.current = new InMemoryEvidenceStore();
+  store.enabled = true;
+  __resetEvidencePersistence();
+});
+afterEach(() => {
+  process.env = { ...ORIGINAL };
+  __resetEvidencePersistence();
+});
 
+describe('F-A runtime producer', () => {
   it('should persist fixture network cost under kind:subject:unit and activate it', async () => {
     const outcome = await ingestNetworkCost(fixtureQuote(), WITHIN_RETENTION);
     expect(outcome).toMatchObject({
@@ -199,7 +205,6 @@ describe('F-A runtime producer · contradiction and failure are results', () => 
     const { InMemoryEvidenceStore } = await import('@diboas/defi');
     memory = new InMemoryEvidenceStore();
     store.current = memory;
-    store.enabled = true;
   });
 
   it('should report a CONTRADICTION and keep the stored value when the same observation arrives with a different payload', async () => {
@@ -254,20 +259,19 @@ describe('F-A runtime producer · contradiction and failure are results', () => 
     ).toBeNull();
   });
 
-  it('should never activate a record whose custody clock cannot be read (retention fails closed)', async () => {
+  it('should activate nothing when the custody clock cannot be read (retention fails closed)', async () => {
     const outcome = await ingestNetworkCost(fixtureQuote(), 'not a timestamp');
-    expect(outcome).toMatchObject({ status: 'INGESTED', activated: false });
+    /* Only what holds in BOTH stores is asserted: nothing becomes active. The outcome
+       STATUS is store-dependent — the in-memory store keeps the record un-activated
+       (INGESTED, activated:false) while Postgres refuses the unparseable timestamp at the
+       insert (FAILED) — so pinning either one would pin a value the other contradicts. */
+    expect(outcome.status === 'INGESTED' && outcome.activated).toBe(false);
     expect(memory.activePointerCount()).toBe(0);
+    expect(await memory.readActive(networkCostKey('Arbitrum'), WITHIN_RETENTION)).toBeNull();
   });
 });
 
 describe('ingestNetworkCosts · one outcome per quote, in order', () => {
-  beforeEach(async () => {
-    const { InMemoryEvidenceStore } = await import('@diboas/defi');
-    store.current = new InMemoryEvidenceStore();
-    store.enabled = true;
-  });
-
   it('should ingest every chain and return the outcomes in the order of the quotes', async () => {
     const outcomes = await ingestNetworkCosts(
       [fixtureQuote('Solana', 0.001), fixtureQuote('Arbitrum', 0.03)],

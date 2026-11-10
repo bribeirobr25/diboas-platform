@@ -57,15 +57,54 @@ interface Row {
   ingestedAt: string;
 }
 
+/**
+ * Evaluate a statement's `WHERE a = b AND c = d …` against one row, as SQL would.
+ *
+ * Each operand is either a bound parameter (`${…}` in the template) or a column of
+ * `row`; anything else is refused loudly, so a statement this evaluator cannot read
+ * fails the test instead of being guessed at. Only `=` joined by `AND` is modelled —
+ * the shape the adapter's `DELETE` statements use.
+ */
+function whereMatches(
+  strings: TemplateStringsArray,
+  values: unknown[],
+  row: Record<string, unknown>
+): boolean {
+  const text = strings.reduce((acc, s, i) => acc + s + (i < values.length ? ` $${i} ` : ''), '');
+  const clause = /\bWHERE\b([\s\S]*?)(?:\bRETURNING\b|$)/i.exec(text)?.[1];
+  if (clause === undefined) throw new Error(`mock sql: no WHERE in: ${text}`);
+  const operand = (token: string): unknown => {
+    const param = /^\$(\d+)$/.exec(token);
+    if (param) return values[Number(param[1])];
+    if (Object.prototype.hasOwnProperty.call(row, token)) return row[token];
+    throw new Error(`mock sql: unrecognized operand "${token}" in: ${clause.trim()}`);
+  };
+  return clause.split(/\bAND\b/i).every((condition) => {
+    const parts = /^\s*(\S+)\s*=\s*(\S+)\s*$/.exec(condition);
+    if (!parts) throw new Error(`mock sql: unrecognized condition "${condition.trim()}"`);
+    return operand(parts[1]) === operand(parts[2]);
+  });
+}
+
+/** The value bound to the parameter that directly follows `<column> =` in a statement. */
+function boundTo(strings: readonly string[], values: unknown[], column: string): unknown {
+  const i = strings.findIndex((s) => new RegExp(`\\b${column}\\s*=\\s*$`).test(s));
+  return i === -1 || i >= values.length ? undefined : values[i];
+}
+
 function makeMockSql(): {
   sql: SqlExecutor;
   activeRows: () => Map<string, number>;
   recordSeqs: () => number[];
+  /** Every statement issued, with its literal parts and its bound values, in order. */
+  issued: () => Array<{ strings: readonly string[]; values: unknown[] }>;
 } {
   const records: Row[] = [];
   const active = new Map<string, number>();
+  const log: Array<{ strings: readonly string[]; values: unknown[] }> = [];
   let seq = 1;
   const sql: SqlExecutor = async (strings, ...values) => {
+    log.push({ strings: [...strings], values });
     const q = strings.join(' ? ');
     if (q.includes('INSERT INTO evidence_records')) {
       const [recordId, key, , ingestionKey, payloadDigest, payload, ingestedAt] = values as [
@@ -113,10 +152,17 @@ function makeMockSql(): {
       }));
     }
     if (q.includes('DELETE FROM evidence_active')) {
-      const [key, recordSeq] = values as [string, number];
-      if (active.get(key) !== recordSeq) return [];
-      active.delete(key);
-      return [{ evidence_key: key }];
+      /* The mock applies the statement's OWN `WHERE` to every pointer row — it never
+         re-decides which pointer "should" go. A mock that compared pointer and record
+         itself let `AND ${seq} = ${seq}` (which deletes every pointer of the key) pass
+         every purge test (A-11, 2026-11-10). */
+      const deleted: Array<{ evidence_key: string }> = [];
+      for (const [key, recordSeq] of [...active]) {
+        if (!whereMatches(strings, values, { evidence_key: key, record_seq: recordSeq })) continue;
+        active.delete(key);
+        deleted.push({ evidence_key: key });
+      }
+      return deleted;
     }
     if (q.includes('DELETE FROM evidence_records')) {
       const [recordSeq] = values as [number];
@@ -172,7 +218,12 @@ function makeMockSql(): {
     }
     throw new Error(`mock sql: unrecognized query: ${q}`);
   };
-  return { sql, activeRows: () => new Map(active), recordSeqs: () => records.map((r) => r.seq) };
+  return {
+    sql,
+    activeRows: () => new Map(active),
+    recordSeqs: () => records.map((r) => r.seq),
+    issued: () => [...log],
+  };
 }
 
 function candidate(value = 0.03, asOf?: string, unit = 'USD'): EvidenceRecordCandidate {
@@ -437,6 +488,55 @@ describe('PostgresEvidenceStore — purgeExpired (5.70)', () => {
     });
     expect(recordSeqs()).toEqual(records);
     expect(activeRows()).toEqual(pointers);
+  });
+
+  /**
+   * The normal state after a second ingestion (A-11, 2026-11-10): ONE identity holding an
+   * expired older record and a newer, still-valid record that is the active one. Purging
+   * the old record must leave the newer record's pointer alone — the pointer delete is
+   * bound to the expired record's own seq, never to the identity as a whole.
+   */
+  async function supersededThenExpired() {
+    const mock = makeMockSql();
+    const store = new PostgresEvidenceStore(mock.sql);
+    const older = custodyCandidate('Arbitrum', '2026-07-18T00:00:00.000Z', OLD);
+    const newer = custodyCandidate('Arbitrum', '2026-09-30T00:00:00.000Z', RECENT);
+    const oldPut = await store.put(older);
+    await store.activate(older.evidenceKey, oldPut.seq, OLD);
+    const newPut = await store.put(newer);
+    await store.activate(newer.evidenceKey, newPut.seq, RECENT);
+    return { ...mock, store, key: older.evidenceKey, oldSeq: oldPut.seq, newSeq: newPut.seq };
+  }
+
+  it('should keep the newer active pointer when an older record of the same identity expires', async () => {
+    const { store, activeRows, recordSeqs, key, oldSeq, newSeq } = await supersededThenExpired();
+    expect(activeRows().get(key)).toBe(newSeq);
+    expect(await store.purgeExpired({ now: PURGE_AT })).toEqual({
+      purgedRecords: 1,
+      purgedPointers: 0,
+      heldRecords: 0,
+    });
+    expect(recordSeqs()).toEqual([newSeq]);
+    expect(recordSeqs()).not.toContain(oldSeq);
+    expect(activeRows()).toEqual(new Map([[key, newSeq]]));
+    expect(await store.readActive(key, PURGE_AT)).toMatchObject({ seq: newSeq, evidenceKey: key });
+  });
+
+  it('should bind the pointer delete to the expired record seq when it issues the SQL', async () => {
+    const { store, issued, key, oldSeq } = await supersededThenExpired();
+    await store.purgeExpired({ now: PURGE_AT });
+    const pointerDeletes = issued().filter((s) =>
+      s.strings.join(' ? ').includes('DELETE FROM evidence_active')
+    );
+    expect(pointerDeletes).toHaveLength(1);
+    const [{ strings, values }] = pointerDeletes;
+    /* The statement names BOTH the identity and the expired record — a condition that
+       compares a bound value with itself (`${seq} = ${seq}`) binds neither column. */
+    expect(strings.join(' ? ')).toMatch(
+      /WHERE\s+evidence_key\s*=\s*\?\s+AND\s+record_seq\s*=\s*\?/
+    );
+    expect(boundTo(strings, values, 'evidence_key')).toBe(key);
+    expect(boundTo(strings, values, 'record_seq')).toBe(oldSeq);
   });
 });
 
