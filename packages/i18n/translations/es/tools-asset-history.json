@@ -11,7 +11,7 @@
   "inputs": {
     "assetLabel": "Activo",
     "startYearLabel": "Año de inicio",
-    "startYear2010Label": "2010 (desde julio)",
+    "startYearFromLabel": "{year} (desde {month})",
     "modeLabel": "Modo",
     "contributionLabel": "{mode, select, lumpSum {Cantidad única} other {Aportación mensual}}",
     "returnsBasisLabel": "Base de retorno",

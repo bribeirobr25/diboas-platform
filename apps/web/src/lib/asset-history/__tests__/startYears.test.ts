@@ -7,6 +7,7 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { marketDataService } from '@/lib/market-data';
 import {
+  assetHistoryFirstPartialMonth,
   assetHistoryStartYears,
   calculateAssetHistoryLumpSum,
   type AssetHistoryStartYear,
@@ -41,5 +42,18 @@ describe('assetHistoryStartYears', () => {
         ).not.toThrow();
       }
     }
+  });
+});
+
+describe('assetHistoryFirstPartialMonth (5.856)', () => {
+  it('should name the first month only when a series starts after January, from the published data', () => {
+    for (const asset of ['DAX', 'MSCI_WORLD', 'BTC', 'SP500'] as const) {
+      const first = marketDataService.getMonthlySeries()!.assets![asset]!.months[0].ym;
+      const expected = first.slice(5, 7) === '01' ? null : first;
+      expect(assetHistoryFirstPartialMonth(asset), asset).toBe(expected);
+    }
+    // the cases the old "2010 (from July)" label got wrong
+    expect(assetHistoryFirstPartialMonth('DAX')).toBe('2010-06-01');
+    expect(assetHistoryFirstPartialMonth('MSCI_WORLD')).toBe('2012-02-01');
   });
 });

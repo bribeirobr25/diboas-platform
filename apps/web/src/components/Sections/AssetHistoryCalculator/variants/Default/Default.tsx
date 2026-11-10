@@ -26,6 +26,7 @@ import {
   calculateAssetHistoryDcaReplay,
   calculateAssetHistoryLumpSum,
   assetHistoryStartYears,
+  assetHistoryFirstPartialMonth,
   AssetHistoryDataError,
   type ReturnsBasis,
 } from '@/lib/asset-history';
@@ -164,6 +165,16 @@ export function AssetHistoryCalculatorDefault() {
     const years = assetHistoryStartYears(form.asset, START_YEAR_OPTIONS);
     return years.length > 0 ? years : START_YEAR_OPTIONS;
   }, [form.asset, seriesLoaded]);
+  // 5.856: the first offered year names the month the asset's series starts in, when that
+  // is not January (DAX from June 2010, MSCI World from February 2012). Derived during render.
+  const firstPartial = useMemo(() => {
+    const ym = seriesLoaded ? assetHistoryFirstPartialMonth(form.asset) : null;
+    if (!ym) return { year: null as number | null, month: '' };
+    const month = new Intl.DateTimeFormat(localeKey, { month: 'long', timeZone: 'UTC' }).format(
+      new Date(`${ym}T00:00:00Z`)
+    );
+    return { year: parseInt(ym.slice(0, 4), 10), month };
+  }, [form.asset, seriesLoaded, localeKey]);
   const startYear: AssetHistoryStartYear = startYearOptions.includes(form.startYear)
     ? form.startYear
     : startYearOptions[0];
@@ -351,7 +362,9 @@ export function AssetHistoryCalculatorDefault() {
           >
             {startYearOptions.map((y) => (
               <option key={y} value={y}>
-                {y === 2010 ? t('inputs.startYear2010Label') : String(y)}
+                {y === firstPartial.year
+                  ? t('inputs.startYearFromLabel', { year: y, month: firstPartial.month })
+                  : String(y)}
               </option>
             ))}
           </Select>

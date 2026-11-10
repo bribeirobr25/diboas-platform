@@ -308,17 +308,11 @@ describe('monthsToInflationAdjustedTarget — initialAmount support', () => {
 // ─── Phase A (2026-05-16) — calibration: historical anchor fields ──────
 
 describe('Phase A (2026-05-16) / Phase C (2026-05-23 TOOLS_IMPROVEMENT) — exchange-rate historical anchors', () => {
-  it('BRL.historicalCagr matches Phase A live BCB PTAX full-series CAGR (6.21%)', () => {
-    // Phase C: refreshed from research-narrative 6.71% to live full-series
-    // CAGR Jan 2010 → May 2026 = 6.21% (Phase A measurement).
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.historicalCagr).toBeCloseTo(0.0621, 3);
-  });
-
-  it('EUR.historicalCagr matches Phase A live ECB EXR full-series CAGR (1.23%)', () => {
-    // Phase C: refreshed from research-narrative 1.45% to live full-series
-    // EUR-depreciation CAGR Jan 2010 → Apr 2026 = 1.23% (sign-corrected per
-    // Phase A; ECB EXR inverted to EUR_per_USD canonical form).
-    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.EUR.historicalCagr).toBeCloseTo(0.0123, 3);
+  // 5.854 (2026-11-10): the stored `historicalCagr` fields were removed; the retrospective
+  // card computes its yearly rate from the anchor pair (currency-depreciation calculator
+  // tests). The BRL forward fallback `annualDepreciation` 0.0621 (PA1) is a separate field.
+  it('should keep the BRL forward fallback at the signed full-series rate (PA1)', () => {
+    expect(FALLBACK_MARKET_DATA.exchangeRates.rates.BRL.annualDepreciation).toBeCloseTo(0.0621, 4);
   });
 
   it('BRL historical anchors span Jan 2010 → May 2026 (Phase A live)', () => {

@@ -62,8 +62,8 @@ const FALLBACK = {
   },
   exchangeRates: {
     BRL: { annualDepreciation: 0.0621 },
-    // FX-16 D1 (Bar 2026-05-26): EUR forward 1.23% → 0.55%. 1.23% remains in
-    // historicalCagr (retrospective field only) per the D1 field-placement fix.
+    // FX-16 D1 (Bar 2026-05-26): EUR forward 1.23% → 0.55%. the retrospective
+    // card computes its own yearly rate from the anchor pair (5.854).
     EUR: { annualDepreciation: 0.0055 },
     // FX-16 D8: 14 new currencies (forward rates from FX model §6).
     GBP: { annualDepreciation: 0.009 },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-11T15:59:19.906Z",
+  "generatedAt": "2026-11-10T17:09:27.858Z",
   "schema": "tools-stress-test-v1",
   "inputData": {
     "bankRates": {
@@ -102,11 +102,11 @@
       }
     },
     "horizonMatchedDepreciations": {
-      "BRL_5y": 0.0021751401012342075,
-      "BRL_10y": 0.04842537524102308,
-      "BRL_25y": 0.0638407709181612,
-      "EUR_5y": 0.005309290173594494,
-      "EUR_25y": 0.013145233463686123
+      "BRL_5y": -0.008469947957591595,
+      "BRL_10y": 0.048703414421836344,
+      "BRL_25y": 0.06546753195813904,
+      "EUR_5y": 0.002249458625480205,
+      "EUR_25y": 0.013046967589738445
     }
   },
   "scenarios": {
@@ -993,16 +993,16 @@
           "displayCurrency": "USD"
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 197364,
-          "rangeLow": 179756,
-          "rangeHigh": 230450,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 261403,
+          "rangeLow": 238087,
+          "rangeHigh": 305201,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1017,16 +1017,16 @@
           "displayCurrency": "BRL"
         },
         "output": {
-          "months": 126,
-          "totalContributed": 63000,
-          "terminalValue": 1437414,
-          "rangeLow": 1311873,
-          "rangeHigh": 1682463,
+          "months": 130,
+          "totalContributed": 65000,
+          "terminalValue": 1995032,
+          "rangeLow": 1820834,
+          "rangeHigh": 2334925,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "BRL",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1041,16 +1041,16 @@
           "displayCurrency": "EUR"
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 190332,
-          "rangeLow": 173324,
-          "rangeHigh": 222366,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 260102,
+          "rangeLow": 236846,
+          "rangeHigh": 303846,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "EUR",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1065,16 +1065,16 @@
           "displayCurrency": "EUR"
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 190332,
-          "rangeLow": 173324,
-          "rangeHigh": 222366,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 260102,
+          "rangeLow": 236846,
+          "rangeHigh": 303846,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "EUR",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1087,16 +1087,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 197364,
-          "rangeLow": 179756,
-          "rangeHigh": 230450,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 261403,
+          "rangeLow": 238087,
+          "rangeHigh": 305201,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1109,16 +1109,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 29898,
-          "rangeLow": 29180,
-          "rangeHigh": 31221,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 30778,
+          "rangeLow": 30041,
+          "rangeHigh": 32129,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1131,16 +1131,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 41615,
-          "rangeLow": 40392,
-          "rangeHigh": 43920,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 39502,
+          "rangeLow": 38334,
+          "rangeHigh": 41683,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1153,16 +1153,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 26795,
-          "rangeLow": 26130,
-          "rangeHigh": 27914,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 27599,
+          "rangeLow": 26917,
+          "rangeHigh": 28742,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1175,16 +1175,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 28757,
-          "rangeLow": 27965,
-          "rangeHigh": 29710,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 28821,
+          "rangeLow": 27956,
+          "rangeHigh": 29861,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1197,16 +1197,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 11008,
-          "rangeLow": 10721,
-          "rangeHigh": 11350,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 11048,
+          "rangeLow": 10758,
+          "rangeHigh": 11388,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1219,16 +1219,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 19403,
-          "rangeLow": 18638,
-          "rangeHigh": 20519,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 18433,
+          "rangeLow": 17801,
+          "rangeHigh": 19307,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1241,16 +1241,16 @@
           "amount": 100
         },
         "output": {
-          "months": 126,
-          "totalContributed": 12600,
-          "terminalValue": 22810,
-          "rangeLow": 22094,
-          "rangeHigh": 23877,
+          "months": 130,
+          "totalContributed": 13000,
+          "terminalValue": 23388,
+          "rangeLow": 22648,
+          "rangeHigh": 24474,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2016-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1263,16 +1263,16 @@
           "amount": 100
         },
         "output": {
-          "months": 192,
-          "totalContributed": 19200,
-          "terminalValue": 403685774,
-          "rangeLow": 348533386,
-          "rangeHigh": 542463348,
+          "months": 196,
+          "totalContributed": 19600,
+          "terminalValue": 533810458,
+          "rangeLow": 460880191,
+          "rangeHigh": 717321710,
           "confidence": "LOW",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2010-07-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         },
         "note": "expected: error (BTC Yahoo data starts Sep 2014); 2010 BTC handled by legacy path with research-anchored range"
       },
@@ -1286,16 +1286,16 @@
           "amount": 100
         },
         "output": {
-          "months": 150,
-          "totalContributed": 15000,
-          "terminalValue": 613220,
-          "rangeLow": 535895,
-          "rangeHigh": 703907,
+          "months": 154,
+          "totalContributed": 15400,
+          "terminalValue": 811306,
+          "rangeLow": 709024,
+          "rangeHigh": 931274,
           "confidence": "MEDIUM",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2014-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {
@@ -1308,9 +1308,9 @@
           "amount": 100
         },
         "output": {
-          "totalReturn": 70080,
-          "priceOnly": 59007,
-          "deltaPct": 18.77
+          "totalReturn": 71611,
+          "priceOnly": 60113,
+          "deltaPct": 19.13
         }
       },
       {
@@ -1323,8 +1323,8 @@
           "dcaAmount": 100
         },
         "output": {
-          "lumpSum": 1937316,
-          "dca": 197364
+          "lumpSum": 2561791,
+          "dca": 261403
         },
         "note": "Compound input: lumpSum leg uses lumpSumAmount (one-time at 2016-01-01 close); DCA leg uses dcaAmount per month × 125 months. Auditor implementations key into each leg via the explicit fields. F6 schema split landed 2026-05-23 v2 vectors per Auditor 4 finding."
       },
@@ -1338,16 +1338,16 @@
           "amount": 100
         },
         "output": {
-          "months": 6,
-          "totalContributed": 600,
-          "terminalValue": 635,
-          "rangeLow": 624,
-          "rangeHigh": 665,
+          "months": 10,
+          "totalContributed": 1000,
+          "terminalValue": 1045,
+          "rangeLow": 1026,
+          "rangeHigh": 1082,
           "confidence": "HIGH",
           "basis": "total_return",
           "displayCurrency": "USD",
           "startYm": "2026-01-01",
-          "endYm": "2026-06-01"
+          "endYm": "2026-10-01"
         }
       },
       {

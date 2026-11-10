@@ -11,7 +11,7 @@
   "inputs": {
     "assetLabel": "Vermögenswert",
     "startYearLabel": "Startjahr",
-    "startYear2010Label": "2010 (ab Juli)",
+    "startYearFromLabel": "{year} (ab {month})",
     "modeLabel": "Modus",
     "contributionLabel": "{mode, select, lumpSum {Einmalbetrag} other {Monatlicher Beitrag}}",
     "returnsBasisLabel": "Renditebasis",

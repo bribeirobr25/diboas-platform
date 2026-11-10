@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isDirectInvocation } from './market-refresh/lib/invocation.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'src', 'lib', 'market-data', 'data');
@@ -63,7 +64,7 @@ const FALLBACK = {
   exchangeRates: {
     BRL: { annualDepreciation: 0.0621 },
     // FX-16 D1 (Bar 2026-05-26): forward annualDepreciation moved from 1.23%
-    // to 0.55%. 1.23% remains in historicalCagr (retrospective field only).
+    // to 0.55%. The retrospective card computes its yearly rate from the anchors (5.854).
     EUR: { annualDepreciation: 0.0055 },
     // 14 new currencies (FX-16 D1+D8 / Bar 2026-05-26). Forward calibration
     // assumptions per `docs/tools/usd_fx_projection_model_consolidated.md` §6.
@@ -94,7 +95,7 @@ function lumpSumFV(p, r, y) {
   return p * Math.pow(1 + r, y);
 }
 
-function annuityFV(pmt, r, n) {
+export function annuityFV(pmt, r, n) {
   if (n <= 0 || pmt <= 0) return 0;
   const i = annualToMonthly(r);
   return i === 0 ? pmt * n : (pmt * (Math.pow(1 + i, n) - 1)) / i;
@@ -136,7 +137,7 @@ function resolveDep(currency, years) {
   return live;
 }
 
-function effRate(usdPct, locale, years) {
+export function effRate(usdPct, locale, years) {
   const currency = LOCALE_CURRENCY[locale];
   const dep = resolveDep(currency, years);
   return (1 + usdPct / 100) * (1 + dep) - 1;
@@ -234,18 +235,22 @@ function buildFxLookup(fromCcy, toCcy) {
 }
 
 // Asset history monthly replay (cross-currency aware as of 2026-05-23).
-function assetHistoryDcaReplay(
+export function assetHistoryDcaReplay(
   asset,
   startYear,
   amount,
   basis = 'total_return',
-  displayCurrency = 'USD'
+  displayCurrency = 'USD',
+  { endYm = null } = {}
 ) {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
   const startIdx = series.findIndex((m) => parseInt(m.ym.slice(0, 4), 10) === startYear);
   if (startIdx === -1) return { error: `no data for ${asset} in ${startYear}` };
-  const window = series.slice(startIdx);
+  // A product-truth gate is pinned to an end month (5.853), so a monthly append never moves it.
+  const endIdx = endYm == null ? series.length - 1 : series.findIndex((m) => m.ym === endYm);
+  if (endIdx === -1) return { error: `no data for ${asset} in ${endYm}` };
+  const window = series.slice(startIdx, endIdx + 1);
   const assetCcy = ASSET_NATIVE_CCY[asset];
   const fxIn = displayCurrency === assetCcy ? null : buildFxLookup(displayCurrency, assetCcy);
   const fxOut = displayCurrency === assetCcy ? null : buildFxLookup(assetCcy, displayCurrency);
@@ -1190,59 +1195,64 @@ function runBrazilPoupanca() {
 // ────────────────────────────────────────────────────────────────────────
 // Main
 // ────────────────────────────────────────────────────────────────────────
-const outArg = process.argv.indexOf('--out');
-const outPath =
-  outArg !== -1 ? process.argv[outArg + 1] : path.join(__dirname, 'tools-stress-test-out.json');
+/** Write the baseline. Only when run directly, so the gates test can import the functions (5.853). */
+export function main(argv = process.argv) {
+  const outArg = argv.indexOf('--out');
+  const outPath =
+    outArg !== -1 ? argv[outArg + 1] : path.join(__dirname, 'tools-stress-test-out.json');
 
-const baseline = {
-  generatedAt: new Date().toISOString(),
-  schema: 'tools-stress-test-v1',
-  inputData: {
-    bankRates: FALLBACK.bankRates,
-    scenarioRates: FALLBACK.scenarioRates,
-    inflationRates: FALLBACK.inflationRates,
-    exchangeRates: FALLBACK.exchangeRates,
-    horizonMatchedDepreciations: {
-      BRL_5y: deriveHorizonMatchedCAGR('BRL', 5),
-      BRL_10y: deriveHorizonMatchedCAGR('BRL', 10),
-      BRL_25y: deriveHorizonMatchedCAGR('BRL', 25),
-      EUR_5y: deriveHorizonMatchedCAGR('EUR', 5),
-      EUR_25y: deriveHorizonMatchedCAGR('EUR', 25),
+  const baseline = {
+    generatedAt: new Date().toISOString(),
+    schema: 'tools-stress-test-v1',
+    inputData: {
+      bankRates: FALLBACK.bankRates,
+      scenarioRates: FALLBACK.scenarioRates,
+      inflationRates: FALLBACK.inflationRates,
+      exchangeRates: FALLBACK.exchangeRates,
+      horizonMatchedDepreciations: {
+        BRL_5y: deriveHorizonMatchedCAGR('BRL', 5),
+        BRL_10y: deriveHorizonMatchedCAGR('BRL', 10),
+        BRL_25y: deriveHorizonMatchedCAGR('BRL', 25),
+        EUR_5y: deriveHorizonMatchedCAGR('EUR', 5),
+        EUR_25y: deriveHorizonMatchedCAGR('EUR', 25),
+      },
     },
-  },
-  scenarios: {
-    compoundInterest: runCompoundInterest(),
-    retirement: runRetirement(),
-    goalSavings: runGoalSavings(),
-    emergencyFund: runEmergencyFund(),
-    timeToTarget: runTimeToTarget(),
-    assetHistory: runAssetHistory(),
-    inflationImpact: runInflationImpact(),
-    currencyDepreciation: runCurrencyDepreciation(),
-    cardFees: runCardFees(),
-    idleCash: runIdleCash(),
-    moneyJobs: runMoneyJobs(),
-    brazilPoupanca: runBrazilPoupanca(),
-  },
-};
+    scenarios: {
+      compoundInterest: runCompoundInterest(),
+      retirement: runRetirement(),
+      goalSavings: runGoalSavings(),
+      emergencyFund: runEmergencyFund(),
+      timeToTarget: runTimeToTarget(),
+      assetHistory: runAssetHistory(),
+      inflationImpact: runInflationImpact(),
+      currencyDepreciation: runCurrencyDepreciation(),
+      cardFees: runCardFees(),
+      idleCash: runIdleCash(),
+      moneyJobs: runMoneyJobs(),
+      brazilPoupanca: runBrazilPoupanca(),
+    },
+  };
 
-// Replace Infinity with string "INF" for JSON serialization
-function sanitize(o) {
-  if (o === null || o === undefined) return o;
-  if (typeof o === 'number') return Number.isFinite(o) ? o : 'INF';
-  if (Array.isArray(o)) return o.map(sanitize);
-  if (typeof o === 'object') {
-    const r = {};
-    for (const k of Object.keys(o)) r[k] = sanitize(o[k]);
-    return r;
+  // Replace Infinity with string "INF" for JSON serialization
+  function sanitize(o) {
+    if (o === null || o === undefined) return o;
+    if (typeof o === 'number') return Number.isFinite(o) ? o : 'INF';
+    if (Array.isArray(o)) return o.map(sanitize);
+    if (typeof o === 'object') {
+      const r = {};
+      for (const k of Object.keys(o)) r[k] = sanitize(o[k]);
+      return r;
+    }
+    return o;
   }
-  return o;
+
+  fs.writeFileSync(outPath, JSON.stringify(sanitize(baseline), null, 2));
+  let totalScenarios = 0;
+  for (const k of Object.keys(baseline.scenarios)) totalScenarios += baseline.scenarios[k].length;
+  console.log(`Wrote ${outPath}`);
+  console.log(
+    `Total scenarios: ${totalScenarios} across ${Object.keys(baseline.scenarios).length} tools`
+  );
 }
 
-fs.writeFileSync(outPath, JSON.stringify(sanitize(baseline), null, 2));
-let totalScenarios = 0;
-for (const k of Object.keys(baseline.scenarios)) totalScenarios += baseline.scenarios[k].length;
-console.log(`Wrote ${outPath}`);
-console.log(
-  `Total scenarios: ${totalScenarios} across ${Object.keys(baseline.scenarios).length} tools`
-);
+if (isDirectInvocation(import.meta.url)) main();

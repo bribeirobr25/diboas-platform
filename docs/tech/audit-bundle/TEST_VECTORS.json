@@ -64,7 +64,7 @@
         "absolute": 200,
         "unit": "currency units"
       },
-      "note": "pt-BR Retirement Bar-signed acceptance (2026-05-23)"
+      "note": "pt-BR Retirement Bar-signed acceptance (2026-05-23) No market-data dependency (scenario constants only), so no end month applies."
     },
     "PT2": {
       "tool": "assetHistory",
@@ -79,7 +79,8 @@
         "absolute": 2,
         "unit": "percentage points"
       },
-      "note": "SP500 2010 DCA total_return vs price_only delta. Updated 2026-05-23 v1.2 from 18.76 → 18.33 after F1 dedup (Auditor 4 N1). Still within Bar-signed ±2pp envelope."
+      "note": "SP500 2010 DCA total_return vs price_only delta. Updated 2026-05-23 v1.2 from 18.76 → 18.33 after F1 dedup (Auditor 4 N1). Still within Bar-signed ±2pp envelope. Pinned 2026-11-10 to end month 2026-10 (5.853): 19.13 there, inside the signed ±2pp envelope; the signed 18.33 predates the 2026-11 total-return corrections (5.633), so no month reproduces it exactly.",
+      "endYm": "2026-10-01"
     },
     "PT3": {
       "tool": "retirement",
@@ -93,7 +94,7 @@
         "absolute": 20,
         "unit": "currency units"
       },
-      "note": "PT3' Bar-signed re-acceptance 2026-05-26 (FX-16 adoption D1+D2). Retired prior PT3 €608,815 which reflected the now-corrected EUR field-placement error (annualDepreciation was carrying a retrospective endpoint-pair CAGR 1.23% misplaced in the forward field; now carries the locked forward calibration assumption 0.55%)."
+      "note": "PT3' Bar-signed re-acceptance 2026-05-26 (FX-16 adoption D1+D2). Retired prior PT3 €608,815 which reflected the now-corrected EUR field-placement error (annualDepreciation was carrying a retrospective endpoint-pair CAGR 1.23% misplaced in the forward field; now carries the locked forward calibration assumption 0.55%). No market-data dependency (scenario constants only), so no end month applies."
     },
     "PA1": {
       "gate": "BRL full-series CAGR (Jan 2010 → May 2026)",
@@ -102,7 +103,7 @@
         "absolute": 0.005,
         "unit": "decimal"
       },
-      "note": "BRL full-series geometric CAGR Jan 2010 → May 2026 from BCB PTAX OData (192 monthly observations). Tolerance ±0.5%. Auditor 4 rename — was \"BRL 16y CAGR\", which was ambiguous about endpoint choice."
+      "note": "BRL full-series geometric CAGR Jan 2010 → May 2026 from BCB PTAX OData (192 monthly observations). Tolerance ±0.5%. Auditor 4 rename — was \"BRL 16y CAGR\", which was ambiguous about endpoint choice. Signs the BRL forward fallback `annualDepreciation` (constants.ts). The currency card computes its own yearly rate from its anchor pair (5.854), a different quantity."
     },
     "BTC_RECON": {
       "tool": "assetHistory",
@@ -112,12 +113,13 @@
         "mode": "monthlyDca",
         "amount": 100
       },
-      "expectedTerminal": 261202,
+      "expectedTerminal": 261403,
       "tolerance": {
         "absolute": 50,
         "unit": "currency units"
       },
-      "note": "Phase A BTC reconciliation. Updated 2026-05-23 from $254,188 → $261,202 after F1 dedup fix (Yahoo partial-trailing-bar duplicates removed; finalPrice now reflects full-month May 2026 close $77,539 not partial $75,427). Jan-2016 start per v1.1 UX spec. Product-owner (Bar) re-ack pending for the updated point estimate; within originally-accepted $200k–$280k research-anchored envelope."
+      "note": "Phase A BTC reconciliation. Updated 2026-05-23 from $254,188 → $261,202 after F1 dedup fix (Yahoo partial-trailing-bar duplicates removed; finalPrice now reflects full-month May 2026 close $77,539 not partial $75,427). Jan-2016 start per v1.1 UX spec. Product-owner (Bar) re-ack pending for the updated point estimate; within originally-accepted $200k–$280k research-anchored envelope. Re-signed by the founder 2026-11-10 at 261,403, pinned to end month 2026-10 (DR-2026-11-10-market-open-decisions answer 8; 5.853): the gate had no end month, so every monthly append moved it (signed 261,202 before).",
+      "endYm": "2026-10-01"
     }
   },
   "scenarios": {

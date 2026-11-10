@@ -11,7 +11,7 @@
   "inputs": {
     "assetLabel": "Asset",
     "startYearLabel": "Start year",
-    "startYear2010Label": "2010 (from July)",
+    "startYearFromLabel": "{year} (from {month})",
     "modeLabel": "Mode",
     "contributionLabel": "{mode, select, lumpSum {Lump-sum amount} other {Monthly contribution}}",
     "returnsBasisLabel": "Returns basis",

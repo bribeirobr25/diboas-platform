@@ -253,11 +253,22 @@ export function calculateCurrencyDepreciationRetrospective(
   const usdValueThen = input.amount / currencyRate.historicalRateStart;
   const usdValueNow = input.amount / currencyRate.historicalRateEnd;
   const percentLossInUsdTerms = (1 - usdValueNow / usdValueThen) * 100;
+  // 5.854: the yearly rate is computed from the same two rates the card shows (the stored
+  // figure was an ECB endpoint calculation on another basis, so "1.23%" sat beside rates
+  // implying 1.22%). Positive = the currency weakened against the dollar.
+  const years =
+    (Date.parse(currencyRate.historicalAnchorEnd) -
+      Date.parse(currencyRate.historicalAnchorStart)) /
+    (365.25 * 86_400_000);
+  const historicalCagr =
+    years > 0
+      ? Math.pow(currencyRate.historicalRateEnd / currencyRate.historicalRateStart, 1 / years) - 1
+      : 0;
   return {
     usdValueThen,
     usdValueNow,
     percentLossInUsdTerms,
-    historicalCagr: currencyRate.historicalCagr ?? 0,
+    historicalCagr,
     rateStart: currencyRate.historicalRateStart,
     rateEnd: currencyRate.historicalRateEnd,
     anchorStart: currencyRate.historicalAnchorStart,

@@ -47,6 +47,8 @@ const WRITERS = [
   'market-refresh/check-ledgers.mjs',
   'market-refresh/simulate-next-week.mjs',
   'protocols-tvl/refresh.mjs',
+  // the Money Tools stress harness writes its baseline only when run directly (5.853)
+  'tools-stress-test.mjs',
 ];
 
 describe('isDirectInvocation — the guard itself', () => {

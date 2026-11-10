@@ -225,18 +225,38 @@ describe('FX-16 retrospective gate (D4 — BRL/EUR only)', () => {
     expect(r).not.toBeNull();
   });
 
-  it('returns a result for EUR (anchor data present; historicalCagr === 0.0123)', () => {
-    const r = calculateCurrencyDepreciationRetrospective(
+  it('should compute the yearly rate from the two rates the card shows (5.854)', () => {
+    // Requirement: one card, one basis. EUR 0.70067 -> 0.85426 over 2010-01-01..2026-04-30
+    // and BRL 1.874 -> 5.0134 over 2010-01-01..2026-05-22.
+    const eur = calculateCurrencyDepreciationRetrospective(
       { amount: 50000, currency: 'EUR' },
       snapshot
     );
-    expect(r).not.toBeNull();
-    // EUR historicalCagr remains 1.23% — the retrospective endpoint-pair CAGR
-    // is unchanged by D1 (which only moved the forward field). Anchor pair
-    // 0.70067 → 0.85426 EUR per USD (1.4272 → 1.1706 USD per EUR) over 16.33y
-    // implies 1.221% a year; the stored 0.0123 is the ECB endpoint-pair figure on its
-    // own basis (the mismatch is registered, not fixed here).
-    expect(r!.historicalCagr).toBeCloseTo(0.0123, 3);
+    const brl = calculateCurrencyDepreciationRetrospective(
+      { amount: 50000, currency: 'BRL' },
+      snapshot
+    );
+    for (const [r, years] of [
+      [eur!, (Date.parse('2026-04-30') - Date.parse('2010-01-01')) / (365.25 * 86_400_000)],
+      [brl!, (Date.parse('2026-05-22') - Date.parse('2010-01-01')) / (365.25 * 86_400_000)],
+    ] as const) {
+      expect(r.historicalCagr).toBeCloseTo(Math.pow(r.rateEnd / r.rateStart, 1 / years) - 1, 10);
+    }
+    expect((eur!.historicalCagr * 100).toFixed(2)).toBe('1.22');
+    expect((brl!.historicalCagr * 100).toFixed(2)).toBe('6.19');
+  });
+
+  it('should only show a yearly rate for a currency that weakened, as the card words it', () => {
+    // The card reads "{currency} weakened {cagr}% / year against USD". A currency whose anchor
+    // pair shows it strengthening needs other wording x4 before its anchors ship (plan MP-9).
+    const rates = snapshot.exchangeRates.rates as Record<
+      string,
+      { historicalRateStart?: number; historicalRateEnd?: number }
+    >;
+    const anchored = Object.entries(rates).filter(([, r]) => r.historicalRateStart !== undefined);
+    expect(anchored.length).toBeGreaterThanOrEqual(2);
+    for (const [currency, r] of anchored)
+      expect(r.historicalRateEnd! > r.historicalRateStart!, currency).toBe(true);
   });
 
   it('should move in the same direction as the Fed series between the anchor months (5.848)', () => {

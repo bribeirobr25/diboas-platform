@@ -88,7 +88,6 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   },
   // FX rate unit-convention header (R2 — Phase 1 step 4 / FX-16 adoption 2026-05-26):
   //   • `annualDepreciation`         — decimal (0.0055 = 0.55%; negative = local currency strengthened)
-  //   • `historicalCagr`             — decimal (same scale as annualDepreciation)
   //   • `historicalRateStart`/`End`  — units of local currency per 1 USD (anchor-pair endpoints),
   //                                    the same convention as `rateToUsd` and `monthlyFx.json`'s
   //                                    `closeLocalPerUsd` (FX-ANCHOR-1; 5.848: the EUR pair was stored
@@ -110,7 +109,6 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
         rateDate: '2026-06-26',
         depreciationBasis:
           'live full-series CAGR Jan 2010 → May 2026 (BCB PTAX); horizon-matched at runtime via monthlySeries.fx[BRL]',
-        historicalCagr: 0.0621,
         historicalAnchorStart: '2010-01-01',
         historicalAnchorEnd: '2026-05-22',
         historicalRateStart: 1.874,
@@ -120,14 +118,13 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
         rateToUsd: 0.8771,
         // FX-16 adoption D1 ACCEPTED 2026-05-26 (Bar): retired prior PT3 1.23% in
         // `annualDepreciation` — 1.23% was an endpoint-pair retrospective CAGR
-        // mistakenly placed in the forward field. 1.23% remains in `historicalCagr`
-        // (correct field) for the locked 2010→2026 anchor pair; 0.55% is the
-        // forward calibration assumption. See `docs/audit/PENDING_ALL.md` D1.
+        // mistakenly placed in the forward field; 0.55% is the forward calibration
+        // assumption. The retrospective card computes its yearly rate from the
+        // anchor pair below (5.854). See `docs/audit/PENDING_ALL.md` D1.
         annualDepreciation: 0.0055,
         rateDate: '2026-06-26',
         depreciationBasis:
           'Bar-signed forward calibration assumption (NOT a literal series CAGR). FRED AEXUSEU annual series 2010→2025 endpoint-pair CAGR is ~1.07%; 2005→2025 annual-average CAGR is ~0.48%. The 0.55% value is calibrated between those frames as a smoothed long-horizon projection assumption — see decision register D1 (2026-05-26) for the reasoning, and `docs/tech/audit-bundle/GLOSSARY_AND_LIMITATIONS.md` §"FX-16 forward calibration provenance" for the auditor-facing disclosure.',
-        historicalCagr: 0.0123,
         historicalAnchorStart: '2010-01-01',
         historicalAnchorEnd: '2026-04-30',
         // EUR per USD (the Jan-2010 and Apr-2026 averages were 1.4272 and 1.1706 USD per EUR;
@@ -139,7 +136,7 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
       // `docs/tools/usd_fx_projection_model_consolidated.md` §6. Each carries
       // ONLY the 4 required `CurrencyRate` fields (rateToUsd / annualDepreciation
       // / rateDate / depreciationBasis). The 5 `historical*` fields are LEFT
-      // ABSENT — populating `historicalCagr` without the matching anchor pair
+      // ABSENT — populating the anchors without the matching dates
       // would produce a malformed `CurrencyRate` and contradict D4 (retrospective
       // mode stays BRL/EUR-only; `HistoricalAnchorsData.fxBuckets` is a closed
       // 2-key type). `depreciationBasis` strings use calibration-smoothing framing
@@ -425,18 +422,12 @@ export const FALLBACK_MARKET_DATA_METADATA = {
         last_verified: '2026-05-22',
         source: 'BCB PTAX OData full-series CAGR Jan 2010 → May 2026 (Phase A)',
       },
-      historicalCagr: { last_verified: '2026-05-22', source: 'Same series; identical methodology' },
     },
     EUR: {
       annualDepreciation: {
         last_verified: '2026-05-26',
         source:
           'FX-16 adoption D1 (Bar 2026-05-26): forward calibration assumption from long-horizon FRED AEXUSEU annual series, USD per 1 EUR, Fed G.5A — supersedes prior PT3 ECB-EXR endpoint-pair CAGR which now lives in historicalCagr only',
-      },
-      historicalCagr: {
-        last_verified: '2026-05-22',
-        source:
-          'ECB EXR Jan 2010 → Apr 2026 endpoint-pair CAGR (the source quotes USD per EUR, 1.4272 → 1.1706; the anchors are stored as EUR per USD, 0.70067 → 0.85426, 5.848); retrospective field only — see D1 (2026-05-26)',
       },
     },
     // FX-16 adoption 2026-05-26 (Bar D1+D8): 14 new currencies. Each `rateToUsd`

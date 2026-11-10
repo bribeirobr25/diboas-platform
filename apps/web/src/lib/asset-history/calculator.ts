@@ -115,6 +115,17 @@ export function assetHistoryStartYears(
   return candidates.filter((y) => y >= first && y <= last);
 }
 
+/**
+ * The month an asset's published series starts, when it starts after January (5.856):
+ * the year option then says so ("2010 (from June)" for DAX, "2012 (from February)" for MSCI
+ * World). Null when the series starts in January or is not loaded.
+ */
+export function assetHistoryFirstPartialMonth(asset: AssetCode): string | null {
+  const first = marketDataService.getMonthlySeries()?.assets?.[asset]?.months?.[0]?.ym;
+  if (!first || first.slice(5, 7) === '01') return null;
+  return first;
+}
+
 export class AssetHistoryDataError extends Error {
   constructor(reason: string) {
     super(`Asset history data unavailable: ${reason}`);
