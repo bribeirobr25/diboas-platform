@@ -56,6 +56,34 @@ describe('5.341 · selectExitPreview reads the snapshot it is given, never the l
     expect(selectExitPreview({ ...input, snapshot: getLedgerState() })?.gross).toBe('200.00');
   });
 
+  it('should return the same goal preview for the same input after its position closes', () => {
+    // 10th audit: a live read inside `openPositionsOf` passed the second-entry case (the new
+    // position is not in the snapshot, so the preview drops it anyway). Closing the goal's only
+    // position is what a live read cannot hide: it would find nothing open.
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4_000,
+      horizonMonths: 12,
+      fundAmount: 1_000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 100, networkFeeLocal: 0 });
+    const input = {
+      intent: { scope: 'goal' as const },
+      canPrice: true,
+      goalId,
+      snapshot: getLedgerState(),
+      feeFor: () => 0,
+      previewGoal: previewGoalStop,
+      previewPosition: previewPositionStop,
+    };
+    const first = selectExitPreview(input);
+    expect(first?.gross).toBe('100.00');
+    exitPosition({ positionId: getLedgerState().positions[0].positionId, networkFeeLocal: 0 });
+    expect(selectExitPreview(input)).toEqual(first);
+    expect(selectExitPreview({ ...input, snapshot: getLedgerState() })).toBeNull(); // non-vacuity
+  });
+
   it('should return the same position preview for the same input after that position closes', () => {
     const goalId = createGoal({
       name: 'Trip',
