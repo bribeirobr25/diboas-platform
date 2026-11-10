@@ -9,8 +9,8 @@
  * never the working tree.
  *
  * Allowed:
- *   - A (added) anywhere under `market/` except `checks/accepted-exceptions.json`
- *     (only a person changes that file, through a reviewed PR);
+ *   - A (added) anywhere under `market/` except `checks/accepted-exceptions.json` and
+ *     `checks/reviews/` (only a person changes those, through a reviewed PR; 5.776);
  *   - M (modified) on files that only ever grow: `daily/*.csv`,
  *     `events/*.distributions.csv`, `raw/manifest.jsonl`, `revisions.jsonl`,
  *     with ZERO deleted lines; the daily file of a `revisable` catalogue series
@@ -55,7 +55,7 @@ export function evaluateStaged(changes, numstat) {
     const kind = status[0];
     if (!path.startsWith('market/')) refused.push(`${path}: outside market/`);
     else if (HUMAN_ONLY.test(path))
-      refused.push(`${path}: only a reviewed PR changes the exceptions`);
+      refused.push(`${path}: only a reviewed PR changes the exceptions or the review records`);
     else if (kind === 'A') continue;
     else if (kind === 'M') {
       if (REBUILT.test(path) || REVISABLE.some((r) => r.test(path))) continue;

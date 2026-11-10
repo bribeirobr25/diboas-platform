@@ -29,6 +29,7 @@ import zlib from 'node:zlib';
 import { SERIES_BY_ID } from './catalogue.mjs';
 import { compareCloses } from './checks.mjs';
 import { comparable } from './collect.mjs';
+import { checkException, parseExceptions } from './exceptions.mjs';
 import { PARSE } from './fetch-source.mjs';
 import { readCsv } from './store.mjs';
 import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
@@ -38,19 +39,14 @@ import { isDirectInvocation } from '../market-refresh/lib/invocation.mjs';
  * A response that cannot be read or parsed is skipped and listed, never fatal: the
  * collector keeps the body of a 200 that carried the wrong content before retrying it.
  */
-export function storedCheckRows(storeRoot, check, seriesId) {
+export function storedCheckRows(storeRoot, check, seriesId, manifestEntries) {
   const market = path.join(storeRoot, 'market');
   const provider = check.source.provider;
   const parse = PARSE[check.source.parser];
   if (!parse) throw new Error(`no parser ${check.source.parser}`);
-  if (check.source.perYear) throw new Error(`${provider}: per-year sources are not supported`);
-  const entries = fs
-    .readFileSync(path.join(market, 'raw', 'manifest.jsonl'), 'utf8')
-    .split('\n')
-    .filter(Boolean)
-    .map((l) => JSON.parse(l))
+  const entries = manifestEntries
     .filter((e) => e.provider === provider && e.series === seriesId && e.status === 200)
-    .sort((a, b) => a.fetched_at.localeCompare(b.fetched_at));
+    .sort((a, b) => String(a.fetched_at).localeCompare(String(b.fetched_at)));
   const byDate = new Map();
   const missing = [];
   const unreadable = [];
@@ -91,14 +87,40 @@ export function rangePassReport(storeRoot, seriesId, today) {
   for (const f of [dailyFile, manifest])
     if (!fs.existsSync(f)) throw new Error(`not a market data store: ${f} is missing`);
   const stored = readCsv(dailyFile).map((r) => ({ date: r.date, close: Number(r.close) }));
+  // The manifest is appended by a job that can be killed mid-write: a line that does not
+  // parse is skipped and counted, never fatal (the same reasoning as a torn response).
+  const manifestLines = fs.readFileSync(manifest, 'utf8').split('\n').filter(Boolean);
+  const manifestEntries = [];
+  let unreadableManifestLines = 0;
+  for (const line of manifestLines) {
+    try {
+      manifestEntries.push(JSON.parse(line));
+    } catch {
+      unreadableManifestLines += 1;
+    }
+  }
+  const exceptionsFile = path.join(storeRoot, 'market', 'checks', 'accepted-exceptions.json');
+  const exceptions = fs.existsSync(exceptionsFile)
+    ? parseExceptions(fs.readFileSync(exceptionsFile, 'utf8'))
+    : [];
   const checks = [];
   const rows = [];
   const confirmedElsewhere = [];
   const results = [];
-  for (const c of series.checks.filter((x) => x.rangeSlack != null)) {
+  // Every check is compared, as the collector does, so a day one check disputes can be
+  // matched to another that agreed; only checks with a range rule have range passes.
+  for (const c of series.checks) {
     const provider = c.source.provider;
     const since = c.since ?? series.since;
-    const got = storedCheckRows(storeRoot, c, seriesId);
+    if (c.source.perYear) {
+      checks.push({
+        check_source: provider,
+        since,
+        note: 'per-year source: not read by this report',
+      });
+      continue;
+    }
+    const got = storedCheckRows(storeRoot, c, seriesId, manifestEntries);
     const base = {
       check_source: provider,
       since,
@@ -125,13 +147,13 @@ export function rangePassReport(storeRoot, seriesId, today) {
       ...base,
       through: last,
       tolerance: c.tolerance,
-      rangeSlack: c.rangeSlack,
+      rangeSlack: c.rangeSlack ?? null,
       compared_days: res.common,
       stored_days_without_a_check_value: cmp.primary.filter((p) => !checkDays.has(p.date)).length,
-      passed_by_range: res.passedByRange,
+      passed_by_range: res.passedByRange ?? 0,
       beyond_tolerance: res.outliers.length,
     });
-    for (const d of res.rangePassDays)
+    for (const d of res.rangePassDays ?? [])
       rows.push({
         series: seriesId,
         check_source: provider,
@@ -143,20 +165,22 @@ export function rangePassReport(storeRoot, seriesId, today) {
         passed_by: 'range',
       });
   }
-  // Days beyond one check's tolerance and range: the collector lets them through only when
-  // another check agreed that day (two of three sources), or a reviewed exception covers
-  // them. Listed so the record states what happened to each.
+  // Days beyond one check's tolerance and range: the collector lets them through when a
+  // reviewed exception covers them, or else when another check agreed that day (two of
+  // three sources), in that order (`collect.mjs`). Listed so the record states which.
   for (const r of results)
     for (const o of r.res.outliers) {
-      const by = results.find(
-        (x) => x !== r && x.checkDays.has(o.date) && !x.outlierDays.has(o.date)
-      );
+      const excepted = Boolean(checkException(exceptions, seriesId, r.provider, o));
+      const by = excepted
+        ? null
+        : results.find((x) => x !== r && x.checkDays.has(o.date) && !x.outlierDays.has(o.date));
       confirmedElsewhere.push({
         day: o.date,
         check_source: r.provider,
         stored: o.primary,
         check_close: o.check,
         diff: o.diff,
+        let_through_by: excepted ? 'reviewed exception' : by ? 'another check agreed' : 'nothing',
         agreed_by: by ? by.provider : null,
       });
     }
@@ -166,6 +190,7 @@ export function rangePassReport(storeRoot, seriesId, today) {
     definition: series.definition ?? null,
     method:
       "read-only: stored daily values against the check responses kept in market/raw/ (newest response per day; the collector used each run's own response), prepared with the collector's comparable() and compared with its compareCloses; no fetch",
+    unreadable_manifest_lines: unreadableManifestLines,
     checks,
     rows: rows.sort(
       (a, b) => a.day.localeCompare(b.day) || a.check_source.localeCompare(b.check_source)

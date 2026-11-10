@@ -42,6 +42,11 @@ const WRITERS = [
   'market-data/commit-guard.mjs',
   // the read-only range-pass report writes one record with --write (5.776, plan MP-2)
   'market-data/range-pass-report.mjs',
+  // writers that carried the guard but were missing from this list (post-merge audit 2026-11-10)
+  'market-refresh/carry-open-pr.mjs',
+  'market-refresh/check-ledgers.mjs',
+  'market-refresh/simulate-next-week.mjs',
+  'protocols-tvl/refresh.mjs',
 ];
 
 describe('isDirectInvocation — the guard itself', () => {

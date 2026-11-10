@@ -201,7 +201,7 @@ Every locale-keyed string field MUST carry all 4 locales: `en`, `pt-BR`, `es`, `
 | es     | `.`       | `,`     | `77.434,75` | `4,94%` |
 | de     | `.`       | `,`     | `77.434,75` | `4,94%` |
 
-A thousands separator must be followed by exactly three digits. Anything else written the other locale's way (a pt-BR `4.94%`, a German `1.4%`, an English `0,9%`) is reported as "not written in that locale's convention" and the PR stays red until it is fixed. The percent sign sits right after the number in every locale (`PCT-1`).
+A thousands separator must be followed by exactly three digits, and a figure never starts a thousands group with 0 (`0.020` in German is reported, not read as 20). Anything else written the other locale's way (a pt-BR `4.94%`, a German `1.4%`, an English `0,9%`) is reported as "not written in that locale's convention" and the PR stays red until it is fixed. The percent sign sits right after the number in every locale (`PCT-1`).
 
 ---
 
