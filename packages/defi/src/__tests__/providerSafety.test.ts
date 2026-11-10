@@ -148,6 +148,70 @@ describe('fallback eligibility', () => {
   });
 });
 
+/**
+ * `5.70` · THE RUNTIME EXPENDITURE RE-CHECK, EXERCISED IN `fallbackFor` ITSELF.
+ *
+ * The Sabotage G case above applies a LOCAL COPY of the guard to a hand-built
+ * decision, so it stays green with the module's own re-check deleted — coverage
+ * shows that line never ran. The table is module-private and cannot be edited
+ * from a test, so a costly eligible declaration is delivered the way the
+ * module's own note says one can arrive: through a path the type system does
+ * not see. Here that is an inherited property — `FALLBACKS[subject]` is a plain
+ * property read, so a key the table lacks resolves through the prototype.
+ *
+ * The property is defined non-enumerable and removed in `finally`, so nothing
+ * else in the process can observe it.
+ *
+ * ⚑ This seam exists only because the table lookup is not own-property-only
+ * (reported with `5.70`). If the lookup is hardened to own keys, these cases
+ * answer NO_DECLARED_FALLBACK — still a refusal — and must move to whatever
+ * injection seam that change provides; they must not be deleted, or the
+ * re-check is untested again.
+ */
+describe('fallback eligibility — the paid-fallback re-check runs inside fallbackFor', () => {
+  const SUBJECT = '__5_70_paid_declaration__';
+
+  function withInheritedDeclaration<T>(declaration: unknown, run: () => T): T {
+    Object.defineProperty(Object.prototype, SUBJECT, {
+      value: declaration,
+      configurable: true,
+      enumerable: false,
+      writable: false,
+    });
+    try {
+      return run();
+    } finally {
+      delete (Object.prototype as Record<string, unknown>)[SUBJECT];
+    }
+  }
+
+  it('should refuse EXPENDITURE_NOT_AUTHORIZED when an eligible declaration carries any expenditure', () => {
+    for (const expenditure of ['AUTHORIZED', 'PAID', '', undefined]) {
+      const decision = withInheritedDeclaration(
+        { eligible: true, source: 'fixture', clearance: 'pretend', expenditure },
+        () => fallbackFor(SUBJECT as EvidenceSubject)
+      );
+      expect(decision, String(expenditure)).toEqual({
+        eligible: false,
+        reason: 'EXPENDITURE_NOT_AUTHORIZED',
+      });
+      // The costly declaration is not handed back, so no caller can read `source` off it.
+      expect(decision, String(expenditure)).not.toHaveProperty('source');
+    }
+    expect(Object.prototype).not.toHaveProperty(SUBJECT);
+  });
+
+  it('should refuse the paid declaration before the substitute disposition is even asked', () => {
+    /* Ordering: with the fixture ALSO disabled, the expenditure refusal still
+       wins — a paid fallback is never reported as merely "not permitted". */
+    const decision = withInheritedDeclaration(
+      { eligible: true, source: 'fixture', clearance: 'pretend', expenditure: 'AUTHORIZED' },
+      () => fallbackFor(SUBJECT as EvidenceSubject, NO_FIXTURE)
+    );
+    expect(decision).toEqual({ eligible: false, reason: 'EXPENDITURE_NOT_AUTHORIZED' });
+  });
+});
+
 describe('the kill switch stops COLLECTION, not just consumption', () => {
   it('should issue ZERO requests when the APY source may not collect', async () => {
     // Sabotage B. Counting at the seam: a downstream unavailable would look
@@ -242,6 +306,10 @@ describe('fallback-only ports (what a disabled source resolves to)', () => {
     ).resolves.toEqual([]);
     await expect(
       new FallbackOnlyApyProvider(NO_FIXTURE).getApyHistory('skySsr', 5)
+    ).resolves.toBeNull();
+    /* `5.70`: the fourth port was the one refusal no test reached. */
+    await expect(
+      new FallbackOnlyPriceProvider(NO_FIXTURE).getPriceHistory('jito', 5)
     ).resolves.toBeNull();
   });
 });

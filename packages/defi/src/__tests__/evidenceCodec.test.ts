@@ -75,4 +75,14 @@ describe('evidence codec — malformed persisted values are REJECTED, never coer
     expect(() => decodeDecimal(0.03 as unknown as string)).toThrow(EvidenceCodecError);
     expect(() => decodeDecimal(null as unknown as string)).toThrow(EvidenceCodecError);
   });
+
+  it('should reject a canonical-looking string that parses to Infinity', () => {
+    /* `5.70`: the pattern admits any digit run, and `Number('1' + 400 zeros)` is
+       Infinity — the finiteness check is the only thing between that row and a
+       stored non-quantity. */
+    const overlong = `1${'0'.repeat(400)}`;
+    expect(Number(overlong)).toBe(Number.POSITIVE_INFINITY);
+    expect(() => decodeDecimal(overlong)).toThrow(/does not parse to a finite number/);
+    expect(() => decodeDecimal(`-${overlong}`)).toThrow(/does not parse to a finite number/);
+  });
 });

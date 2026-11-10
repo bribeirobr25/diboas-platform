@@ -152,6 +152,32 @@ describe('5.213 · the limiter refuses past its limit', () => {
   });
 });
 
+describe('5.70 · a cap with nothing left to evict still limits', () => {
+  it('should admit, then still limit, a client when the cap is zero and the map is empty', async () => {
+    /**
+     * The eviction step can find NO oldest window (an empty map at a cap of zero — reachable
+     * only through the test seam; production's cap is 10 000). The fallback must then neither
+     * throw nor wave traffic through: the client gets a window and that window still counts.
+     */
+    __setMemoryMaxKeysForTest(0);
+    const now = 7_000_000;
+    const a = headersFor('10.0.1.1');
+    const first = await checkMarketRateLimit(a, now);
+    expect(first).toMatchObject({ allowed: true, remaining: MARKET_RATE_LIMIT - 1 });
+    expect(__memoryKeyCount()).toBe(1);
+    for (let i = 1; i < MARKET_RATE_LIMIT; i += 1) await checkMarketRateLimit(a, now);
+    expect((await checkMarketRateLimit(a, now)).allowed, 'a zero cap waved A through').toBe(false);
+  });
+
+  it('should hold at most one window at a cap of zero, evicting the older client', async () => {
+    __setMemoryMaxKeysForTest(0);
+    const now = 7_000_000;
+    await checkMarketRateLimit(headersFor('10.0.1.1'), now);
+    await checkMarketRateLimit(headersFor('10.0.1.2'), now);
+    expect(__memoryKeyCount()).toBe(1);
+  });
+});
+
 /** A remote tier whose answer the test controls. */
 function remoteAnswering(answer: Awaited<ReturnType<RemoteLimiter['limit']>>): RemoteLimiter & {
   calls: number;

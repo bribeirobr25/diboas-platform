@@ -14,8 +14,13 @@ import { expectedLogs } from '@/test/expectedLogs';
 // Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
 expectedLogs({
   strict: true,
-  error: ['PostgresEvidenceStore activate failed'],
-  requiredIn: /REFUSED BY THE FOREIGN KEY/,
+  error: [
+    'PostgresEvidenceStore activate failed',
+    'PostgresEvidenceStore put failed',
+    'PostgresEvidenceStore readActive failed',
+    'PostgresEvidenceStore purgeExpired failed',
+  ],
+  requiredIn: /REFUSED BY THE FOREIGN KEY|LOGGED AND RETHROWN/,
 });
 
 /**
@@ -52,7 +57,11 @@ interface Row {
   ingestedAt: string;
 }
 
-function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number> } {
+function makeMockSql(): {
+  sql: SqlExecutor;
+  activeRows: () => Map<string, number>;
+  recordSeqs: () => number[];
+} {
   const records: Row[] = [];
   const active = new Map<string, number>();
   let seq = 1;
@@ -163,7 +172,7 @@ function makeMockSql(): { sql: SqlExecutor; activeRows: () => Map<string, number
     }
     throw new Error(`mock sql: unrecognized query: ${q}`);
   };
-  return { sql, activeRows: () => new Map(active) };
+  return { sql, activeRows: () => new Map(active), recordSeqs: () => records.map((r) => r.seq) };
 }
 
 function candidate(value = 0.03, asOf?: string, unit = 'USD'): EvidenceRecordCandidate {
@@ -299,5 +308,159 @@ describe('PostgresEvidenceStore — the SQL it actually issues', () => {
     expect(insert).not.toContain('DO UPDATE');
     /* The guard is the whole point of the activation statement. */
     expect(activate).toContain('WHERE evidence_active.record_seq < EXCLUDED.record_seq');
+  });
+});
+
+/**
+ * Register 5.70 — the adapter's retention, purge and failure branches, against the same
+ * constraint-modelling mock. Expectations come from the adapter's own contracts (Legal
+ * 2026-09-22): an expired record "is never eligible for activation"; it is "excluded from
+ * operational AND ordinary audit reads at expiry, not at purge time"; `purgeExpired` deletes
+ * every record past its window, pointer first, holds what is held, and has "NO FALLBACK
+ * ACTIVATION"; every failure is logged and rethrown.
+ */
+const NINETY_DAYS_LATER = '2026-10-18T00:00:00.000Z'; // WITHIN_RETENTION + 90 days
+
+/** A record of `subject`, observed at `asOf` (its identity) and taken into custody at `retrievedAt`. */
+function custodyCandidate(
+  subject: 'Arbitrum' | 'Solana',
+  asOf: string,
+  retrievedAt: string
+): EvidenceRecordCandidate {
+  const envelope = referenceEvidence({
+    value: 0.03,
+    stamp: { ...FIXTURE_STAMP, asOf, observedAt: asOf },
+    normalization: { converted: false },
+    coverage: NETWORK,
+  });
+  if (envelope.availability !== 'AVAILABLE') throw new Error('unreachable');
+  return buildEvidenceCandidate({
+    evidenceKey: evidenceKey({ kind: 'network-cost', subject, unit: 'USD' }),
+    envelope,
+    unit: 'USD',
+    recordId: `00000000-0000-4000-8000-${sha256(subject + asOf).slice(0, 12)}`,
+    hash: sha256,
+    retrievedAt,
+  });
+}
+
+describe('PostgresEvidenceStore — retention at activation and read (5.70)', () => {
+  it('should refuse to activate an EXPIRED record and write no pointer', async () => {
+    const { sql, activeRows } = makeMockSql();
+    const store = new PostgresEvidenceStore(sql);
+    const c = candidate();
+    const put = await store.put(c);
+    expect(await store.activate(c.evidenceKey, put.seq, NINETY_DAYS_LATER)).toEqual({
+      status: 'EXPIRED',
+      retrievedAt: WITHIN_RETENTION,
+    });
+    expect(activeRows().size).toBe(0);
+  });
+
+  it('should stop serving an active record the moment it expires, before any purge', async () => {
+    const { sql, activeRows } = makeMockSql();
+    const store = new PostgresEvidenceStore(sql);
+    const c = candidate();
+    const put = await store.put(c);
+    await store.activate(c.evidenceKey, put.seq, WITHIN_RETENTION);
+    expect(await store.readActive(c.evidenceKey, '2026-10-17T00:00:00.000Z')).not.toBeNull();
+    expect(await store.readActive(c.evidenceKey, NINETY_DAYS_LATER)).toBeNull();
+    // The pointer is still there — expiry, not deletion, is what hides it.
+    expect(activeRows().get(c.evidenceKey)).toBe(put.seq);
+  });
+
+  it('should answer NOT_NEWER when the CAS loses and the pointer is gone by the time it is read', async () => {
+    /* A concurrent purge between the upsert and the follow-up read: zero rows from both. */
+    const sql: SqlExecutor = async (strings) => {
+      const q = strings.join(' ? ');
+      if (q.includes('SELECT ingested_at')) return [{ ingested_at: WITHIN_RETENTION }];
+      return [];
+    };
+    const store = new PostgresEvidenceStore(sql);
+    expect(await store.activate(candidate().evidenceKey, 7, WITHIN_RETENTION)).toMatchObject({
+      status: 'NOT_NEWER',
+    });
+  });
+});
+
+describe('PostgresEvidenceStore — purgeExpired (5.70)', () => {
+  const PURGE_AT = '2026-10-20T00:00:00.000Z';
+  const OLD = WITHIN_RETENTION; // 92 days before PURGE_AT: expired
+  const RECENT = '2026-10-01T00:00:00.000Z'; // 19 days before PURGE_AT: retained
+
+  /** Arbitrum: two expired records, the newer one active. Solana: one retained, active. */
+  async function seeded() {
+    const mock = makeMockSql();
+    const store = new PostgresEvidenceStore(mock.sql);
+    const a1 = custodyCandidate('Arbitrum', '2026-07-18T00:00:00.000Z', OLD);
+    const a2 = custodyCandidate('Arbitrum', '2026-07-19T00:00:00.000Z', OLD);
+    const s1 = custodyCandidate('Solana', '2026-09-30T00:00:00.000Z', RECENT);
+    const [p1, p2, p3] = [await store.put(a1), await store.put(a2), await store.put(s1)];
+    await store.activate(a2.evidenceKey, p2.seq, OLD);
+    await store.activate(s1.evidenceKey, p3.seq, RECENT);
+    return { ...mock, store, keys: { a: a1.evidenceKey, s: s1.evidenceKey }, seqs: [p1, p2, p3] };
+  }
+
+  it('should delete every expired record and its pointer, keep the rest, and promote nothing', async () => {
+    const { store, activeRows, recordSeqs, keys, seqs } = await seeded();
+    expect(await store.purgeExpired({ now: PURGE_AT })).toEqual({
+      purgedRecords: 2,
+      purgedPointers: 1,
+      heldRecords: 0,
+    });
+    expect(recordSeqs()).toEqual([seqs[2].seq]);
+    // NO FALLBACK ACTIVATION: the purged identity is left with no pointer at all.
+    expect(activeRows()).toEqual(new Map([[keys.s, seqs[2].seq]]));
+    expect(await store.readActive(keys.a, PURGE_AT)).toBeNull();
+    expect(await store.readActive(keys.s, PURGE_AT)).not.toBeNull();
+  });
+
+  it('should keep every record of a held identity, counting it, while purging the rest', async () => {
+    const { store, activeRows, recordSeqs, keys, seqs } = await seeded();
+    expect(await store.purgeExpired({ now: PURGE_AT, hold: new Set([keys.a]) })).toEqual({
+      purgedRecords: 0,
+      purgedPointers: 0,
+      heldRecords: 2,
+    });
+    expect(recordSeqs()).toEqual(seqs.map((p) => p.seq));
+    expect(activeRows().get(keys.a)).toBe(seqs[1].seq);
+  });
+
+  it('should delete nothing when nothing has expired', async () => {
+    const { store, activeRows, recordSeqs } = await seeded();
+    const pointers = activeRows();
+    const records = recordSeqs();
+    expect(await store.purgeExpired({ now: '2026-10-17T00:00:00.000Z' })).toEqual({
+      purgedRecords: 0,
+      purgedPointers: 0,
+      heldRecords: 0,
+    });
+    expect(recordSeqs()).toEqual(records);
+    expect(activeRows()).toEqual(pointers);
+  });
+});
+
+describe('PostgresEvidenceStore — every failure is LOGGED AND RETHROWN (5.70)', () => {
+  const failing: SqlExecutor = async () => {
+    throw new Error('connection terminated');
+  };
+
+  it('should refuse a put whose key was neither inserted nor found — LOGGED AND RETHROWN', async () => {
+    const store = new PostgresEvidenceStore(async () => []);
+    await expect(store.put(candidate())).rejects.toThrow(/neither inserted nor found/);
+  });
+
+  it('should rethrow a failed read — LOGGED AND RETHROWN', async () => {
+    const store = new PostgresEvidenceStore(failing);
+    await expect(store.readActive(candidate().evidenceKey, WITHIN_RETENTION)).rejects.toThrow(
+      'connection terminated'
+    );
+  });
+
+  it('should rethrow a failed purge — LOGGED AND RETHROWN', async () => {
+    const store = new PostgresEvidenceStore(failing);
+    await expect(store.purgeExpired({ now: WITHIN_RETENTION })).rejects.toThrow(
+      'connection terminated'
+    );
   });
 });

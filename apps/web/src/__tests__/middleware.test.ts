@@ -271,6 +271,81 @@ describe('middleware', () => {
     });
   });
 
+  // ── Production CSP (no dev-only origins) ─────────────────────────
+
+  describe('production CSP origins', () => {
+    it('should omit every localhost and staging origin when NODE_ENV is production', () => {
+      vi.stubEnv('NODE_ENV', 'production');
+      const csp = middleware(makeRequest('/en')).headers.get('Content-Security-Policy') ?? '';
+
+      expect(csp).not.toContain('localhost');
+      expect(csp).not.toContain('staging.api.diboas-analytics.com');
+      expect(csp).not.toContain('https://nextjs.org');
+      expect(csp).toContain(
+        "img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com; "
+      );
+      expect(csp).toContain("media-src 'self' https://cdn.diboas.com; ");
+    });
+
+    it('should set the same CSP and nonce on a locale redirect as on a pass-through', () => {
+      vi.stubEnv('NODE_ENV', 'production');
+      const response = middleware(makeRequest('/about'));
+      const csp = response.headers.get('Content-Security-Policy') ?? '';
+      const nonce = response.headers.get('x-nonce');
+
+      expect(response.status).toBe(307);
+      expect(nonce).toMatch(CSP_NONCE_BASE64_REGEX);
+      expect(csp).toContain(`'nonce-${nonce}'`);
+      expect(response.headers.get('x-request-id')).toMatch(UUID_REGEX);
+    });
+
+    it('should issue a fresh nonce on every request', () => {
+      const first = middleware(makeRequest('/en')).headers.get('x-nonce');
+      const second = middleware(makeRequest('/en')).headers.get('x-nonce');
+
+      expect(first).not.toBe(second);
+    });
+  });
+
+  // ── Fail-open error path (a middleware crash must not 500 the site) ──
+
+  describe('error path (fails open by design)', () => {
+    it('should pass the request through with a request id and no CSP when nonce generation throws', () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.spyOn(globalThis.crypto, 'getRandomValues').mockImplementation(() => {
+        throw new Error('entropy unavailable');
+      });
+
+      const response = middleware(makeRequest('/about'));
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get('Location')).toBeNull();
+      expect(response.headers.get('Content-Security-Policy')).toBeNull();
+      expect(response.headers.get('x-nonce')).toBeNull();
+      expect(response.headers.get('x-request-id')).toMatch(UUID_REGEX);
+      expect(consoleSpy).toHaveBeenCalledWith(
+        '[middleware] Unhandled error — failing open:',
+        expect.objectContaining({ message: 'entropy unavailable' })
+      );
+    });
+
+    it('should pass the request through without a request id when crypto.randomUUID also throws', () => {
+      vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.spyOn(globalThis.crypto, 'getRandomValues').mockImplementation(() => {
+        throw new Error('entropy unavailable');
+      });
+      vi.spyOn(globalThis.crypto, 'randomUUID').mockImplementation(() => {
+        throw new Error('uuid unavailable');
+      });
+
+      const response = middleware(makeRequest('/en/about'));
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get('x-request-id')).toBeNull();
+      expect(response.headers.get('Content-Security-Policy')).toBeNull();
+    });
+  });
+
   // ── config.matcher ────────────────────────────────────────────────
 
   describe('config.matcher', () => {

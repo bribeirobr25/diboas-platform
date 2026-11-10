@@ -124,6 +124,44 @@ describe('cookies', () => {
 
       expect(getConsentFromRequest(request)).toEqual(consent);
     });
+
+    it('should skip segments with no name or no value when the header holds malformed pairs', () => {
+      const consent: ConsentValue = {
+        analytics: true,
+        version: '1.0',
+        timestamp: 1700000000000,
+      };
+      const request = new Request('https://example.com', {
+        headers: {
+          cookie: `flagonly; =orphan-value; diboas-consent=${encodeURIComponent(JSON.stringify(consent))}`,
+        },
+      });
+
+      expect(getConsentFromRequest(request)).toEqual(consent);
+    });
+
+    it('should keep the valid consent when a later bare consent name without a value follows it', () => {
+      const consent: ConsentValue = {
+        analytics: false,
+        version: '1.0',
+        timestamp: 1700000000000,
+      };
+      const request = new Request('https://example.com', {
+        headers: {
+          cookie: `diboas-consent=${encodeURIComponent(JSON.stringify(consent))}; diboas-consent`,
+        },
+      });
+
+      expect(getConsentFromRequest(request)).toEqual(consent);
+    });
+
+    it('should return null when the consent name appears only without a value', () => {
+      const request = new Request('https://example.com', {
+        headers: { cookie: 'diboas-consent; theme=dark' },
+      });
+
+      expect(getConsentFromRequest(request)).toBeNull();
+    });
   });
 
   describe('getConsentFromCookies', () => {

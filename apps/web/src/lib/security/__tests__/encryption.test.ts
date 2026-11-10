@@ -365,9 +365,133 @@ describe('encryption module', () => {
     });
   });
 
-  // Note: Key validation edge cases (wrong length, invalid base64) at lines 39-45
-  // require testing the module-level getKey() initialization, which caches the key
-  // and has complex fallback behavior. The remaining uncovered lines are deep
-  // initialization paths that would require process.env manipulation at import time.
-  // Current coverage: 93.5% — acceptable per team discussion.
+  // 5.70 (100% for security utilities): the key is read per call, not cached
+  // at import, so every key-validation and cipher-failure path is reachable.
+  describe('invalid ENCRYPTION_KEY (fails closed in production)', () => {
+    it('should refuse to encrypt, decrypt or hash when the key is not 32 bytes in production', async () => {
+      setEnv('ENCRYPTION_KEY', crypto.randomBytes(16).toString('base64'));
+      deleteEnv('HMAC_KEY');
+      setEnv('NODE_ENV', 'production');
+
+      const { encrypt, decrypt, hmacHash } = await import('@/lib/security/encryption');
+      const { Logger } = await import('@/lib/monitoring/Logger');
+
+      expect(encrypt('user@example.com')).toBeNull();
+      expect(decrypt('user@example.com')).toBeNull();
+      expect(hmacHash('user@example.com')).toBeNull();
+      expect(Logger.error).toHaveBeenCalledWith(
+        '[Encryption] Invalid key length. Expected 32 bytes (256 bits)'
+      );
+    });
+
+    it('should refuse to encrypt when decoding the key throws in production', async () => {
+      setEnv('ENCRYPTION_KEY', 'trigger-key-throw');
+      setEnv('NODE_ENV', 'production');
+
+      const originalFrom = Buffer.from;
+      vi.spyOn(Buffer, 'from').mockImplementation((...args: any[]) => {
+        if (args[0] === 'trigger-key-throw' && args[1] === 'base64') {
+          throw new Error('Simulated Buffer.from failure');
+        }
+        return originalFrom(args[0], args[1]);
+      });
+
+      const { encrypt } = await import('@/lib/security/encryption');
+      const { Logger } = await import('@/lib/monitoring/Logger');
+
+      expect(encrypt('user@example.com')).toBeNull();
+      expect(Logger.error).toHaveBeenCalledWith('[Encryption] Invalid base64 key format');
+    });
+  });
+
+  describe('cipher failures (fail closed)', () => {
+    it('should return null and log the message when the cipher throws an Error', async () => {
+      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
+      setEnv('NODE_ENV', 'production');
+      vi.spyOn(crypto, 'createCipheriv').mockImplementation(() => {
+        throw new Error('cipher unavailable');
+      });
+
+      const { encrypt } = await import('@/lib/security/encryption');
+      const { Logger } = await import('@/lib/monitoring/Logger');
+
+      expect(encrypt('user@example.com')).toBeNull();
+      expect(Logger.error).toHaveBeenCalledWith('[Encryption] Encryption failed:', {
+        error: 'cipher unavailable',
+      });
+    });
+
+    it('should return null and log the stringified value when the cipher throws a non-Error', async () => {
+      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
+      setEnv('NODE_ENV', 'production');
+      vi.spyOn(crypto, 'createCipheriv').mockImplementation(() => {
+        throw 'raw cipher failure';
+      });
+
+      const { encrypt } = await import('@/lib/security/encryption');
+      const { Logger } = await import('@/lib/monitoring/Logger');
+
+      expect(encrypt('user@example.com')).toBeNull();
+      expect(Logger.error).toHaveBeenCalledWith('[Encryption] Encryption failed:', {
+        error: 'raw cipher failure',
+      });
+    });
+
+    it('should return null and log the stringified value when the decipher throws a non-Error', async () => {
+      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
+      setEnv('NODE_ENV', 'production');
+      vi.spyOn(crypto, 'createDecipheriv').mockImplementation(() => {
+        throw 'raw decipher failure';
+      });
+
+      const { decrypt } = await import('@/lib/security/encryption');
+      const { Logger } = await import('@/lib/monitoring/Logger');
+
+      // Long enough to attempt decryption; looks like neither an email nor a name.
+      const garbage = crypto.randomBytes(64).toString('base64');
+      expect(decrypt(garbage)).toBeNull();
+      expect(Logger.error).toHaveBeenCalledWith('[Encryption] Decryption failed:', {
+        error: 'raw decipher failure',
+      });
+    });
+  });
+
+  describe('encryptFields / decryptFields edge cases', () => {
+    it('should leave non-string and empty fields untouched when encrypting and decrypting', async () => {
+      setEnv('ENCRYPTION_KEY', TEST_KEY_BASE64);
+      setEnv('NODE_ENV', 'production');
+
+      const { encryptFields, decryptFields } = await import('@/lib/security/encryption');
+
+      const obj: Record<string, unknown> = { empty: '', count: 3, missing: undefined };
+      const fields = ['empty', 'count', 'missing'];
+
+      expect(encryptFields(obj, fields)).toEqual(obj);
+      expect(decryptFields(obj, fields)).toEqual(obj);
+    });
+
+    // ⚠ Records CURRENT behaviour, reported as a fail-open finding (5.70):
+    // with encryption unavailable in production, encryptFields returns the
+    // field as plaintext instead of refusing. If this is changed to fail
+    // closed, change this test with it.
+    it('should leave the field as plaintext when encryption is unavailable in production', async () => {
+      deleteEnv('ENCRYPTION_KEY');
+      setEnv('NODE_ENV', 'production');
+
+      const { encryptFields } = await import('@/lib/security/encryption');
+
+      expect(encryptFields({ email: 'user@example.com' }, ['email'])).toEqual({
+        email: 'user@example.com',
+      });
+    });
+
+    it('should keep the stored value when decryption is unavailable in production', async () => {
+      deleteEnv('ENCRYPTION_KEY');
+      setEnv('NODE_ENV', 'production');
+
+      const { decryptFields } = await import('@/lib/security/encryption');
+
+      expect(decryptFields({ email: 'c2VhbGVk' }, ['email'])).toEqual({ email: 'c2VhbGVk' });
+    });
+  });
 });

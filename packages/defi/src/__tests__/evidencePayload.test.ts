@@ -118,6 +118,42 @@ describe('payload v1 — malformed rows are REJECTED, not cast', () => {
       EvidencePayloadError
     );
   });
+
+  it('should read an absent UNAVAILABLE coverage as null, never as a default category', () => {
+    /* `5.70`: the `coverage ?? null` arm. A row written without coverage claims
+       no category, so the decode must not invent one. */
+    expect(fromPayloadV1({ availability: 'UNAVAILABLE', reason: 'NO_OBSERVATION' })).toEqual({
+      availability: 'UNAVAILABLE',
+      reason: 'NO_OBSERVATION',
+      coverage: null,
+    });
+  });
+
+  it('should reject an EXECUTABLE row that lacks its validity or its identity', () => {
+    /* `5.70`: the EXECUTABLE arm's own refusal was never reached. An executable
+       claim with no window or no route reference is not executable evidence, so
+       the row must fail loudly rather than decode as a plausible quote. */
+    const good = {
+      ...(toPayloadV1(fixtureEnvelope(), 'USD') as Record<string, unknown>),
+      actionability: 'EXECUTABLE',
+      validity: { validFrom: '2026-09-18T00:00:00Z', validUntil: '2026-09-18T00:05:00Z' },
+      identity: { providerId: 'defillama', reference: 'route-1' },
+    };
+    const decoded = fromPayloadV1(good);
+    expect(decoded).toMatchObject({ actionability: 'EXECUTABLE', identity: good.identity });
+    for (const broken of [
+      { ...good, validity: undefined },
+      { ...good, validity: { validFrom: '2026-09-18T00:00:00Z' } },
+      { ...good, validity: { validFrom: '2026-09-18T00:00:00Z', validUntil: '' } },
+      { ...good, identity: undefined },
+      { ...good, identity: { providerId: 'defillama' } },
+      { ...good, identity: { providerId: 'defillama', reference: '' } },
+    ]) {
+      expect(() => fromPayloadV1(broken), JSON.stringify(broken)).toThrow(
+        /EXECUTABLE payload is missing validity or identity/
+      );
+    }
+  });
 });
 
 describe('observation identity — WHICH observation, never which value', () => {

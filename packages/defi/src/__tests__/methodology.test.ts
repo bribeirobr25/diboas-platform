@@ -132,6 +132,21 @@ describe('a missing leg makes the fee UNAVAILABLE, never zero', () => {
     }
   });
 
+  it('should refuse a chain that has no fee formula rather than borrow another chain', () => {
+    /* `5.70`: the final `else` arm was never taken. An archetype for a network
+       with no formula (Sui, Bitcoin) must yield nothing — never the Arbitrum or
+       Solana arithmetic applied to a foreign observation. */
+    for (const chain of ['Sui', 'Bitcoin', 'Ethereum'] as const) {
+      const r = deriveNetworkFee({
+        observation: { ...arbObs, chain },
+        archetype: { ...ARBITRUM_STRATEGY_ENTRY_V1, network: chain },
+        inputs: { gasUnits: 300_000, signatures: 1, computeUnits: 200_000 },
+        nativeTokenPriceUsd: 2500,
+      });
+      expect(r, chain).toBeNull();
+    }
+  });
+
   it('should refuse a mismatched chain and archetype', () => {
     expect(
       deriveNetworkFee({
