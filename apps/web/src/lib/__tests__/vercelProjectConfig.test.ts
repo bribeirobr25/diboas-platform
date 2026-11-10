@@ -17,15 +17,33 @@ import { describe, expect, it } from 'vitest';
  *    `apps/<app>/vercel.json`, and every scheduled path is an existing cron route.
  * 3. The web project keeps its Dependabot deploy-gating.
  *
+ * **5.836 / 5.834 (eleventh audit):** Vercel reads more config forms than `vercel.json`; one
+ * app may hold only one; nested cron routes count; a `schedules` entry may not repeat a cron;
+ * and every app (derived from `apps/`, never a hard-coded list) keeps Dependabot from deploying.
+ *
  * **Scope limit:** this proves where the file is, not what the dashboard says. That the
  * project's Root Directory is `apps/web` is checked after deploy (`vercel crons ls`).
  */
 
 const REPO = resolve(__dirname, '../../../../..');
-const APPS = ['web', 'sandbox'];
+/** Every app is its own Vercel project — derived, so a new app cannot slip past. */
+const APPS = readdirSync(join(REPO, 'apps'), { withFileTypes: true })
+  .filter((d) => d.isDirectory() && existsSync(join(REPO, 'apps', d.name, 'package.json')))
+  .map((d) => d.name);
+/** Every config file name Vercel reads. */
+const CONFIG_FORMS = [
+  'vercel.json',
+  'vercel.ts',
+  'vercel.js',
+  'vercel.mjs',
+  'vercel.cjs',
+  'vercel.mts',
+  'vercel.toml',
+];
 
 interface VercelConfig {
   crons?: { path: string; schedule: string }[];
+  schedules?: { path?: string }[];
   git?: { deploymentEnabled?: Record<string, boolean> };
 }
 
@@ -34,24 +52,45 @@ const readConfig = (app: string): VercelConfig | null => {
   return existsSync(file) ? (JSON.parse(readFileSync(file, 'utf8')) as VercelConfig) : null;
 };
 
+/** Every `route.ts` under `api/cron/`, at any depth. */
 const cronRoutes = (app: string): string[] => {
-  const dir = join(REPO, 'apps', app, 'src', 'app', 'api', 'cron');
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && existsSync(join(dir, d.name, 'route.ts')))
-    .map((d) => `/api/cron/${d.name}`)
-    .sort();
+  const root = join(REPO, 'apps', app, 'src', 'app', 'api', 'cron');
+  if (!existsSync(root)) return [];
+  const found: string[] = [];
+  const walk = (dir: string, prefix: string) => {
+    for (const d of readdirSync(dir, { withFileTypes: true })) {
+      if (!d.isDirectory()) continue;
+      const path = `${prefix}/${d.name}`;
+      if (existsSync(join(dir, d.name, 'route.ts'))) found.push(path);
+      walk(join(dir, d.name), path);
+    }
+  };
+  walk(root, '/api/cron');
+  return found.sort();
 };
 
 describe('5.816 · Vercel project config lives where Vercel reads it', () => {
-  it('should find the web cron route when scanning (non-vacuity)', () => {
+  it('should find the web cron route and both apps when scanning (non-vacuity)', () => {
     expect(cronRoutes('web')).toContain('/api/cron/purge-audit-logs');
+    expect(APPS).toEqual(expect.arrayContaining(['web', 'sandbox']));
   });
 
-  it('should keep no vercel.json or vercel.ts at the repository root when each app is its own project', () => {
-    expect(existsSync(join(REPO, 'vercel.json'))).toBe(false);
-    expect(existsSync(join(REPO, 'vercel.ts'))).toBe(false);
+  it('should keep no Vercel config of any form at the repository root when each app is its own project', () => {
+    for (const form of CONFIG_FORMS) expect(existsSync(join(REPO, form)), form).toBe(false);
   });
+
+  it.each(APPS)('should give apps/%s at most one Vercel config, a vercel.json', (app) => {
+    const present = CONFIG_FORMS.filter((f) => existsSync(join(REPO, 'apps', app, f)));
+    expect(present.filter((f) => f !== 'vercel.json')).toEqual([]);
+  });
+
+  it.each(APPS)(
+    'should never schedule a cron route a second time under schedules in apps/%s',
+    (app) => {
+      const schedules = (readConfig(app)?.schedules ?? []).map((x) => x.path);
+      for (const cron of readConfig(app)?.crons ?? []) expect(schedules).not.toContain(cron.path);
+    }
+  );
 
   it.each(APPS)(
     'should schedule exactly the existing cron routes in apps/%s/vercel.json',
@@ -67,7 +106,7 @@ describe('5.816 · Vercel project config lives where Vercel reads it', () => {
     }
   });
 
-  it('should keep Dependabot branches from deploying the web project', () => {
-    expect(readConfig('web')?.git?.deploymentEnabled?.['dependabot/**']).toBe(false);
+  it.each(APPS)('should keep Dependabot branches from deploying the %s project', (app) => {
+    expect(readConfig(app)?.git?.deploymentEnabled?.['dependabot/**'], app).toBe(false);
   });
 });
