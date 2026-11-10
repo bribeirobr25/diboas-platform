@@ -16,6 +16,7 @@ import {
   ApplicationEventType,
   type ConsentEventPayload,
 } from '@/lib/events/ApplicationEventBus';
+import { scrubAnalyticsEvent } from '@/lib/analytics/scrubAnalyticsEvent';
 
 // Lazy-loaded PostHog types
 type PostHogInstance = {
@@ -77,6 +78,9 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
           // quota slot. GDPR-friendly + cost-effective for pre-launch.
           person_profiles: 'identified_only',
           capture_pageview: true,
+          // 5.864: tokens in page addresses (/delete-confirm?token=, /email-preferences?t=)
+          // never leave the browser; only allowlisted query parameters are kept.
+          before_send: scrubAnalyticsEvent,
           capture_pageleave: true,
           respect_dnt: true,
           advanced_disable_feature_flags: process.env.NODE_ENV === 'development',

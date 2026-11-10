@@ -48,7 +48,11 @@ export function getConnectionType(): string | undefined {
  * Type for window with gtag
  */
 export type WindowWithGtag = Window & {
-  gtag?: (command: string, action: string, params: Record<string, unknown>) => void;
+  gtag?: (
+    command: string,
+    actionOrParams: string | Record<string, unknown>,
+    params?: Record<string, unknown>
+  ) => void;
 };
 
 /**

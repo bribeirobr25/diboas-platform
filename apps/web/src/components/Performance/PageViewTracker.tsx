@@ -11,6 +11,7 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { analyticsService } from '@/lib/analytics/service';
+import { scrubUrl } from '@/lib/utils/scrubUrl';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import type { WindowWithGtag } from './webVitalsUtils';
 
@@ -53,6 +54,8 @@ export function PageViewTracker() {
       // GA4 direct pageview — fire alongside the analytics service
       const windowWithGtag = window as WindowWithGtag;
       if (windowWithGtag.gtag) {
+        // GA4 attaches the page address to every event; keep only allowlisted parameters (5.864).
+        windowWithGtag.gtag('set', { page_location: scrubUrl(window.location.href) });
         windowWithGtag.gtag('event', 'page_view', {
           page_path: pathname,
           page_title: pageTitle,

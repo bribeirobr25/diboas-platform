@@ -45,6 +45,9 @@ const SECURITY_AT_100: Record<string, string[]> = {
     'src/lib/utils/redactContext.ts',
     'src/lib/email/unsubscribeUrl.ts',
     'src/lib/email/unsubscribeToken.ts',
+    'src/lib/utils/scrubUrl.ts',
+    'src/lib/monitoring/sentryScrub.ts',
+    'src/lib/analytics/scrubAnalyticsEvent.ts',
   ],
   sandbox: [
     'src/lib/security/**',

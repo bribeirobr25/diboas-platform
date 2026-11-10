@@ -38,6 +38,7 @@ import {
   ApplicationEventType,
   type ConsentEventPayload,
 } from '@/lib/events/ApplicationEventBus';
+import { SCRUB_URL_INLINE_JS } from '@/lib/utils/scrubUrl';
 
 interface GoogleAnalyticsLoaderProps {
   measurementId: string;
@@ -91,7 +92,7 @@ export function GoogleAnalyticsLoader({ measurementId, nonce }: GoogleAnalyticsL
         nonce={nonce}
       />
       <Script id="google-analytics" strategy="afterInteractive" nonce={nonce}>
-        {`gtag('js', new Date()); gtag('config', '${measurementId}');`}
+        {`var scrub=${SCRUB_URL_INLINE_JS};gtag('js', new Date()); gtag('config', '${measurementId}', { page_location: scrub(location.href), page_referrer: scrub(document.referrer) });`}
       </Script>
     </>
   );
