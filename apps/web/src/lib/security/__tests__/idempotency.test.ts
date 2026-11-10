@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Mock next/server before imports
 vi.mock('next/server', () => ({
@@ -17,6 +17,7 @@ vi.mock('../DatabaseIdempotencyStore', () => ({
 }));
 
 import { getIdempotentResponse, cacheIdempotentResponse } from '../idempotency';
+import { dbGetIdempotentResponse, dbCacheIdempotentResponse } from '../DatabaseIdempotencyStore';
 
 describe('idempotency', () => {
   beforeEach(() => {
@@ -130,6 +131,73 @@ describe('idempotency', () => {
       // An old expired entry should no longer be retrievable
       const oldResult = await getIdempotentResponse('evict-stale-0');
       expect(oldResult).toBeNull();
+    });
+  });
+
+  describe('database-backed path (DATABASE_URL set)', () => {
+    beforeEach(() => {
+      vi.stubEnv('DATABASE_URL', 'postgres://test-only/never-connected');
+    });
+
+    afterEach(() => {
+      vi.unstubAllEnvs();
+    });
+
+    it('should replay the database response when the database holds the key', async () => {
+      vi.mocked(dbGetIdempotentResponse).mockResolvedValueOnce({
+        status: 201,
+        body: { replayed: true },
+      });
+
+      const result = await getIdempotentResponse(`db-hit-${Math.random()}`);
+
+      expect(result).toEqual({ body: { replayed: true }, status: 201 });
+    });
+
+    it('should fall back to the in-memory cache when the database has no row for the key', async () => {
+      const key = `db-miss-${Math.random()}`;
+      await cacheIdempotentResponse(key, 202, { fromMemory: true });
+      vi.mocked(dbGetIdempotentResponse).mockResolvedValueOnce(null);
+
+      const result = await getIdempotentResponse(key);
+
+      expect(dbGetIdempotentResponse).toHaveBeenCalledWith(key);
+      expect(result).toEqual({ body: { fromMemory: true }, status: 202 });
+    });
+
+    it('should return null when neither the database nor memory holds the key', async () => {
+      vi.mocked(dbGetIdempotentResponse).mockResolvedValueOnce(null);
+
+      expect(await getIdempotentResponse(`db-none-${Math.random()}`)).toBeNull();
+    });
+
+    it('should persist the response to the database with the 5-minute TTL when caching', async () => {
+      const key = `db-write-${Math.random()}`;
+
+      await cacheIdempotentResponse(key, 201, { id: 1 });
+
+      expect(dbCacheIdempotentResponse).toHaveBeenCalledWith(key, 201, { id: 1 }, 5 * 60 * 1000);
+    });
+  });
+
+  describe('in-memory only path (DATABASE_URL unset)', () => {
+    beforeEach(() => {
+      vi.stubEnv('DATABASE_URL', '');
+    });
+
+    afterEach(() => {
+      vi.unstubAllEnvs();
+    });
+
+    it('should never query or write the database when DATABASE_URL is empty', async () => {
+      const key = `mem-only-${Math.random()}`;
+
+      await cacheIdempotentResponse(key, 200, { ok: true });
+      const result = await getIdempotentResponse(key);
+
+      expect(result).toEqual({ body: { ok: true }, status: 200 });
+      expect(dbGetIdempotentResponse).not.toHaveBeenCalled();
+      expect(dbCacheIdempotentResponse).not.toHaveBeenCalled();
     });
   });
 });

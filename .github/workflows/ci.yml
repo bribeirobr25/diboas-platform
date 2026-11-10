@@ -43,12 +43,15 @@ jobs:
       # the same in every clone; run nowhere before, it sat red on main for nine days
       # (2026-10-21 → 10-30, register 5.704 audit).
       - run: pnpm review:doc1
-      - run: pnpm test
+      # COV-1 (register 5.70): the suite runs ONCE, with coverage, and every workspace's
+      # `coverage.thresholds` (a per-directory ratchet; security utilities at 100) fail
+      # the job when coverage drops. Plain `pnpm test` enforced none of them.
+      - run: pnpm test:coverage
       # 5.468 (founder-ruled 2026-09-29): the /market 14-day staleness backstop
       # BLOCKS only a change that touches market data or code; every other
       # lane gets a visible ::warning:: and passes. Before this, a stale /market
       # turned EVERY lane's CI red (it would have tripped 2026-09-29 13:20 UTC).
-      # `pnpm test` above runs the same rule warn-only; this step is where the
+      # `pnpm test:coverage` above runs the same rule warn-only; this step is where the
       # scope decision is made. Fail-closed: if the changed-file list cannot be
       # computed, the backstop enforces.
       - name: /market staleness backstop (blocks market changes only)

@@ -9,6 +9,12 @@ import {
   isCalendarDay,
   isStampTime,
 } from '../index';
+import {
+  apyHistoryListIssue,
+  gasQuoteListIssue,
+  priceHistoryListIssue,
+  protocolApyListIssue,
+} from '../marketShape';
 import { buildHistoricalSeries } from '../historicalEvidence';
 
 /**
@@ -106,5 +112,148 @@ describe('market wire-format primitives', () => {
         expect(built.available, dates.join(',')).toBe(datesAreConsecutiveDays(dates));
       else expect(built.available).toBe(false);
     }
+  });
+});
+
+/**
+ * `5.70` · EVERY FIELD REFUSAL OF THE LIST CHECKS, EACH ONE REACHED.
+ *
+ * The app's market boundary refuses a response through these checks, and most of
+ * their per-field refusals were never taken by a test — so any one of them could
+ * start passing a malformed entry and nothing would go red. Each case breaks ONE
+ * field of an otherwise valid list and asserts the exact path refused; the valid
+ * list itself is asserted `null` first, so every refusal below is caused by the
+ * one mutation and not by a broken baseline.
+ */
+describe('market list checks — each malformed field is refused at its own path', () => {
+  type Rec = Record<string, unknown>;
+  const stamp: Rec = { ...FIXTURE_STAMP };
+  const apy: Rec = {
+    protocolId: 'aaveV3',
+    apyPercent: 5.2,
+    tvlUsd: null,
+    chain: 'Arbitrum',
+    stamp,
+  };
+  const gasQuote: Rec = { chain: 'Arbitrum', typicalFeeUsd: 0.03, stamp };
+  const apySeries: Rec = {
+    protocolId: 'aaveV3',
+    points: [
+      { date: '2026-10-17', apyPercent: 5, apyBasePercent: 5 },
+      { date: '2026-10-18', apyPercent: 5.1, apyBasePercent: null },
+    ],
+    stamp,
+  };
+  const priceSeries: Rec = {
+    protocolId: 'jito',
+    points: [
+      { date: '2026-10-17', priceUsd: 70.1 },
+      { date: '2026-10-18', priceUsd: 70.4 },
+    ],
+    stamp,
+  };
+  const withPoint = (s: Rec, i: number, patch: Rec): Rec => ({
+    ...s,
+    points: (s.points as Rec[]).map((p, j) => (j === i ? { ...p, ...patch } : p)),
+  });
+
+  it('should accept each valid baseline, so every refusal below is caused by its mutation', () => {
+    expect(protocolApyListIssue([apy, { ...apy, protocolId: 'skySsr' }], 'apys')).toBeNull();
+    expect(protocolApyListIssue([{ ...apy, tvlUsd: undefined }], 'apys')).toBeNull();
+    expect(gasQuoteListIssue([gasQuote, { ...gasQuote, chain: 'Solana' }], 'gas')).toBeNull();
+    expect(apyHistoryListIssue([apySeries], 'h')).toBeNull();
+    expect(priceHistoryListIssue([priceSeries], 'p')).toBeNull();
+    expect(
+      dataStampIssue(
+        { ...stamp, derivedAt: '2026-10-18T00:00:00Z', methodology: 'm', proxyOf: 'x' },
+        's'
+      )
+    ).toBeNull();
+  });
+
+  it('should refuse a malformed rate entry at the failing field', () => {
+    const cases: Array<[unknown, string]> = [
+      ['not a list', 'apys'],
+      [{ 0: apy }, 'apys'],
+      [[null], 'apys[0]'],
+      [[[apy]], 'apys[0]'],
+      [[{ ...apy, protocolId: 'unknownProtocol' }], 'apys[0].protocolId'],
+      [[{ ...apy, apyPercent: '5.2' }], 'apys[0].apyPercent'],
+      [[{ ...apy, apyPercent: Number.NaN }], 'apys[0].apyPercent'],
+      [[{ ...apy, tvlUsd: 'big' }], 'apys[0].tvlUsd'],
+      [[{ ...apy, tvlUsd: Number.POSITIVE_INFINITY }], 'apys[0].tvlUsd'],
+      [[{ ...apy, chain: 'Mars' }], 'apys[0].chain'],
+      [[{ ...apy, stamp: { ...stamp, origin: 'GUESS' } }], 'apys[0].stamp.origin'],
+      [[apy, { ...apy }], 'apys[1]'], // one entry per protocol: a duplicate is refused
+    ];
+    for (const [v, path] of cases) expect(protocolApyListIssue(v, 'apys'), path).toBe(path);
+  });
+
+  it('should refuse a malformed network-cost entry at the failing field', () => {
+    const cases: Array<[unknown, string]> = [
+      [{}, 'gas'],
+      [[null], 'gas[0]'],
+      [[{ ...gasQuote, chain: 'Mars' }], 'gas[0].chain'],
+      [[{ ...gasQuote, typicalFeeUsd: '0.03' }], 'gas[0].typicalFeeUsd'],
+      [[{ ...gasQuote, typicalFeeUsd: Number.NaN }], 'gas[0].typicalFeeUsd'],
+      [[{ ...gasQuote, stamp: null }], 'gas[0].stamp'],
+      [[gasQuote, { ...gasQuote }], 'gas[1]'], // one quote per chain
+    ];
+    for (const [v, path] of cases) expect(gasQuoteListIssue(v, 'gas'), path).toBe(path);
+  });
+
+  it('should refuse a malformed series at the failing field', () => {
+    const cases: Array<[unknown, string]> = [
+      [[null], 'h[0]'],
+      [[{ ...apySeries, protocolId: 'unknownProtocol' }], 'h[0].protocolId'],
+      [[{ ...apySeries, points: {} }], 'h[0].points'],
+      [[{ ...apySeries, points: [null] }], 'h[0].points[0]'],
+      [[withPoint(apySeries, 0, { date: '2026-02-30' })], 'h[0].points[0].date'],
+      [[withPoint(apySeries, 1, { apyPercent: null })], 'h[0].points[1].apyPercent'],
+      [[withPoint(apySeries, 1, { apyPercent: '5.1' })], 'h[0].points[1].apyPercent'],
+      [[withPoint(apySeries, 0, { apyBasePercent: '5' })], 'h[0].points[0].apyBasePercent'],
+      [[withPoint(apySeries, 0, { apyBasePercent: Number.NaN })], 'h[0].points[0].apyBasePercent'],
+      [[withPoint(apySeries, 1, { date: '2026-10-19' })], 'h[0].points'], // a missing day
+      [[withPoint(apySeries, 1, { date: '2026-10-17' })], 'h[0].points'], // a repeated day
+      [[{ ...apySeries, stamp: { ...stamp, asOf: 'yesterday' } }], 'h[0].stamp.asOf'],
+      [[apySeries, { ...apySeries }], 'h[1]'], // one series per protocol
+    ];
+    for (const [v, path] of cases) expect(apyHistoryListIssue(v, 'h'), path).toBe(path);
+
+    expect(priceHistoryListIssue([withPoint(priceSeries, 0, { priceUsd: '70' })], 'p')).toBe(
+      'p[0].points[0].priceUsd'
+    );
+    expect(priceHistoryListIssue([withPoint(priceSeries, 1, { priceUsd: undefined })], 'p')).toBe(
+      'p[0].points[1].priceUsd'
+    );
+    /* The base-rate check belongs to APY series only: a price point is not
+       refused for a field it does not carry. */
+    expect(
+      priceHistoryListIssue([withPoint(priceSeries, 0, { apyBasePercent: 'n/a' })], 'p')
+    ).toBeNull();
+  });
+
+  it('should refuse a malformed stamp at the failing field', () => {
+    const noObservedAt: Rec = { ...stamp };
+    delete noObservedAt.observedAt;
+    const noFixtureVersion: Rec = { ...stamp };
+    delete noFixtureVersion.fixtureVersion;
+    const cases: Array<[unknown, string]> = [
+      [{ ...stamp, source: 42 }, 's.source'],
+      [{ ...stamp, asOf: '2026-10-19T24:00:00Z' }, 's.asOf'],
+      [noObservedAt, 's.observedAt'],
+      [{ ...stamp, observedAt: 'later' }, 's.observedAt'],
+      [{ ...stamp, derivedAt: 'later' }, 's.derivedAt'],
+      [{ ...stamp, fallbackUsed: 'true' }, 's.fallbackUsed'],
+      [noFixtureVersion, 's.fixtureVersion'],
+      [{ ...stamp, fixtureVersion: 3 }, 's.fixtureVersion'],
+      [{ ...stamp, methodology: 7 }, 's.methodology'],
+      [{ ...stamp, proxyOf: false }, 's.proxyOf'],
+    ];
+    for (const [v, path] of cases) expect(dataStampIssue(v, 's'), path).toBe(path);
+    /* `null` is the declared "none" for the nullable stamp times and the version. */
+    expect(
+      dataStampIssue({ ...stamp, observedAt: null, derivedAt: null, fixtureVersion: null }, 's')
+    ).toBeNull();
   });
 });

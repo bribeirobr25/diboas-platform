@@ -527,7 +527,10 @@ describe('split bounds are whole cents, so the stated minimum can be entered (5.
       }
     }
     expect(refused).toEqual([]);
-  });
+    /* CPU-heavy (every Available balance × both bounds): 0.66 s alone, 5.1 s on CI under coverage
+     * (COV-1, 5.70, 2026-11-10; the 5.397/5.590 notes in vitest.config.mts name this test). Its own
+     * budget; the shared 5 s floor does not move. */
+  }, 20_000);
 
   it('should state an unsigned zero when the split empties Available exactly', () => {
     // The visual pass found "Available $128.39 → -$0.00" on this exact entry:

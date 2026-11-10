@@ -2,6 +2,29 @@ import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
 import path from 'node:path';
 
+/**
+ * COV-1 (register 5.70): a RATCHET. Each floor is the coverage measured on 2026-11-10, rounded
+ * down; CI's `pnpm test:coverage` fails when any falls below. Raise a floor when coverage rises;
+ * never lower one to make a run pass. CLAUDE.md requires 100% for security utilities.
+ */
+const COVERAGE_THRESHOLDS = {
+  lines: 88,
+  branches: 81,
+  functions: 87,
+  statements: 87,
+  'src/app/**': { lines: 72, branches: 58, functions: 62, statements: 73 },
+  'src/components/**': { lines: 76, branches: 70, functions: 78, statements: 76 },
+  'src/hooks/**': { lines: 98, branches: 88, functions: 90, statements: 94 },
+  'src/i18n/**': { lines: 100, branches: 100, functions: 95, statements: 98 },
+  'src/lib/**': { lines: 97, branches: 92, functions: 96, statements: 95 },
+  'src/view/**': { lines: 100, branches: 96, functions: 100, statements: 99 },
+  // Security utilities: 100% on every metric.
+  'src/lib/security/**': { 100: true },
+  'src/middleware.ts': { 100: true },
+  'src/lib/ids.ts': { 100: true },
+  'src/app/*/gate/actions.ts': { 100: true },
+};
+
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -50,5 +73,13 @@ export default defineConfig({
     maxWorkers: 3,
     include: ['src/**/__tests__/**/*.test.ts', 'src/**/__tests__/**/*.test.tsx'],
     setupFiles: ['./src/test/setup.ts'],
+    coverage: {
+      provider: 'v8',
+      // COV-1 (register 5.70): every source file counts, tested or not.
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: ['**/__tests__/**', '**/*.d.ts', 'src/test/**'],
+      reporter: ['text-summary', 'json-summary'],
+      thresholds: COVERAGE_THRESHOLDS,
+    },
   },
 });

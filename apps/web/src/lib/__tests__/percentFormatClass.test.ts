@@ -167,7 +167,10 @@ const rule1Files = [...APP_SRC, ...APP_SCRIPTS, ...PACKAGE_SRC].flatMap((root) =
 );
 const rule2Files = [...APP_SRC, ...PACKAGE_SRC].flatMap((root) => files(join(REPO, root)));
 
-describe('5.729 · percent formatting lives only in @diboas/format', () => {
+/* Parses every web and sandbox source file with the TypeScript parser: ~1.3 s alone, ~2.9 s
+ * quiet and 5.7 s loaded under coverage (COV-1, 5.70, measured 2026-11-10), so the block gets
+ * its own budget instead of the shared 5 s floor moving. */
+describe('5.729 · percent formatting lives only in @diboas/format', { timeout: 30_000 }, () => {
   it('should find no "percent" string outside packages/format except icon names (rule 1)', () => {
     const found = rule1Files.flatMap((file) =>
       percentLiterals(read(file), file).map((line) => `${relative(REPO, file)}:${line}`)

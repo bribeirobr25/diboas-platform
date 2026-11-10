@@ -146,6 +146,26 @@ describe('REFERENCE never silently becomes EXECUTABLE', () => {
     expect(isExecutable(quote, '2026-09-18T00:05:01Z')).toBe(false);
   });
 
+  it('should refuse executable evidence whose window or reference time cannot be read', () => {
+    /* `5.70`: an unparsable validity must never read as "still valid". */
+    const quote = (validUntil: string) =>
+      executableEvidence({
+        value: 1,
+        stamp: stampOf('OBSERVED'),
+        normalization: { converted: false },
+        coverage,
+        validity: { validFrom: AT, validUntil },
+        identity: { providerId: 'defillama', reference: 'route-1' },
+      });
+    expect(isExecutable(quote('not a time'), '2026-09-18T00:04:59Z')).toBe(false);
+    expect(isExecutable(quote('2026-09-18T00:05:00Z'), 'not a time')).toBe(false);
+    expect(isExecutable(quote('2026-09-18T00:05:00Z'), new Date(Number.NaN))).toBe(false);
+    // The Date form of `now` reaches the same decision as the string form.
+    expect(isExecutable(quote('2026-09-18T00:05:00Z'), new Date('2026-09-18T00:04:59Z'))).toBe(
+      true
+    );
+  });
+
   it('should refuse unavailable evidence outright', () => {
     expect(isExecutable(unavailableEvidence('REFUSED_BY_CONTRACT'), AT)).toBe(false);
   });

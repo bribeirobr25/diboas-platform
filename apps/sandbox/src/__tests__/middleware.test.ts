@@ -334,3 +334,36 @@ describe('the geofence test-override is never trusted in production (covenant)',
     expect(middleware(request('/en/welcome', { country: 'RU' })).status).toBe(451);
   });
 });
+
+/**
+ * A path made only of slashes (`//`, `///`) names no segment at all. It is not the bare
+ * path (`/`), so it gets no locale redirect; it is not a gated route and not the missing
+ * surface, so it is neither refused nor rewritten. What it must still get is everything the
+ * middleware owes every request: the geofence's decision first, and the CSP. Register 5.70 —
+ * the empty-segment fallback in `lastSegment` was the one branch no test reached.
+ */
+describe('a slash-only path names no segment (5.70)', () => {
+  const slashes = (path: string, country?: string) => {
+    const headers = new Headers();
+    if (country) headers.set('x-vercel-ip-country', country);
+    return new NextRequest(`${BASE}${path}`, { headers });
+  };
+
+  it.each(['//', '///'])(
+    'should pass %j through to routing with the policy attached when the visitor is allowed',
+    (path) => {
+      const res = middleware(slashes(path, 'BR'));
+      expect(res.status).toBe(200);
+      expect(res.headers.get('location')).toBeNull();
+      expect(res.headers.get('x-middleware-rewrite')).toBeNull();
+      expect(res.headers.get('content-security-policy')).toContain("script-src 'self' 'nonce-");
+    }
+  );
+
+  it('should still let the geofence refuse a slash-only path first', () => {
+    const res = middleware(slashes('//', 'CN'));
+    expect(res.status).toBe(451);
+    // NextURL keeps the request's trailing slash on a rewrite (as for `/de/` → `/de/unavailable/`).
+    expect(target(res)).toMatch(/^\/en\/unavailable\/?$/);
+  });
+});

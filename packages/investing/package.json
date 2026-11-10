@@ -16,9 +16,11 @@
     "build": "tsup",
     "dev": "tsup --watch",
     "type-check": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.5",
     "tsup": "^8.0.0",
     "typescript": "~5.9.3",
     "vitest": "^4.1.5"

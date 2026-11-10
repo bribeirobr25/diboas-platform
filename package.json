@@ -9,6 +9,7 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test --concurrency=1",
+    "test:coverage": "turbo run test:coverage --concurrency=1",
     "type-check": "turbo run type-check",
     "clean": "turbo run clean",
     "validate:design-tokens": "node scripts/validate-design-tokens.js",

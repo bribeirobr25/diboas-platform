@@ -1,7 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { FIXTURE_STAMP, networkCostEvidence, type GasQuote } from '@diboas/defi';
 import { __resetEvidencePersistence } from '../factory';
-import { ingestNetworkCost, networkCostKey } from '../ingest';
+import { ingestNetworkCost, ingestNetworkCosts, networkCostKey } from '../ingest';
+import { expectedLogs } from '@/test/expectedLogs';
+
+// Failure paths below LOG by design (R-14); asserted, not silenced (2026-10-19 cleanup).
+const logs = expectedLogs({
+  strict: true,
+  error: ['evidence contradiction', 'evidence ingestion failed'],
+  requiredIn:
+    /when the same observation arrives with a different payload|when the store throws|when the clock is an invalid Date/,
+});
 
 /**
  * ⛑ RETENTION (Legal 2026-09-22). Activation and reads now take the
@@ -174,5 +183,108 @@ describe('ingestion anchors retention on CUSTODY, never on the fixture date', ()
     const active = await store.current.readActive(networkCostKey('Arbitrum'), INGESTED_AT);
     expect(active?.payload).toMatchObject({ stamp: { asOf: FIXTURE_STAMP.asOf } });
     expect(FIXTURE_STAMP.asOf).not.toBe(INGESTED_AT);
+  });
+});
+
+/**
+ * The producer's non-ingested outcomes (register 5.70). The module contract: "every
+ * non-ingested outcome is a RESULT, not an exception … only an unexpected failure is logged
+ * as an error". So a contradiction is REPORTED and never resolved — history is not
+ * overwritten — and a failure returns `FAILED` with nothing activated.
+ */
+describe('F-A runtime producer · contradiction and failure are results', () => {
+  let memory: InstanceType<typeof import('@diboas/defi').InMemoryEvidenceStore>;
+
+  beforeEach(async () => {
+    const { InMemoryEvidenceStore } = await import('@diboas/defi');
+    memory = new InMemoryEvidenceStore();
+    store.current = memory;
+    store.enabled = true;
+  });
+
+  it('should report a CONTRADICTION and keep the stored value when the same observation arrives with a different payload', async () => {
+    const first = await ingestNetworkCost(fixtureQuote('Arbitrum', 0.03), WITHIN_RETENTION);
+    if (first.status !== 'INGESTED') throw new Error(`unexpected ${first.status}`);
+    // Same chain, same fixture stamp → same observation identity; a different value.
+    const second = await ingestNetworkCost(fixtureQuote('Arbitrum', 0.05), WITHIN_RETENTION);
+    expect(second).toEqual({
+      status: 'CONTRADICTION',
+      evidenceKey: 'network-cost:Arbitrum:USD',
+      seq: first.seq,
+    });
+    const active = await memory.readActive(networkCostKey('Arbitrum'), WITHIN_RETENTION);
+    expect(active?.payload).toMatchObject({ value: '0.03' });
+    expect(logs.calls('error')).toHaveLength(1);
+  });
+
+  it('should return FAILED and activate nothing when the store throws', async () => {
+    const down = new Error('connection refused');
+    store.current = {
+      put: async () => {
+        throw down;
+      },
+      activate: memory.activate.bind(memory),
+      readActive: memory.readActive.bind(memory),
+      purgeExpired: memory.purgeExpired.bind(memory),
+    };
+    expect(await ingestNetworkCost(fixtureQuote(), WITHIN_RETENTION)).toEqual({
+      status: 'FAILED',
+      error: down,
+    });
+    expect(memory.activePointerCount()).toBe(0);
+  });
+
+  it('should return FAILED and write nothing when the clock is an invalid Date', async () => {
+    const outcome = await ingestNetworkCost(fixtureQuote(), new Date('not a date'));
+    expect(outcome.status).toBe('FAILED');
+    expect(memory.activePointerCount()).toBe(0);
+    // Nothing was put: the same observation is still NEW afterwards, not a DUPLICATE.
+    expect((await ingestNetworkCost(fixtureQuote(), WITHIN_RETENTION)).status).toBe('INGESTED');
+  });
+
+  it('should anchor custody on a Date clock exactly as on its ISO string', async () => {
+    const outcome = await ingestNetworkCost(fixtureQuote(), new Date('2026-09-22T00:00:00.000Z'));
+    expect(outcome).toMatchObject({ status: 'INGESTED', activated: true });
+    // 89 days after custody began: retained. 90 days: gone.
+    expect(
+      await memory.readActive(networkCostKey('Arbitrum'), '2026-12-20T00:00:00.000Z')
+    ).not.toBeNull();
+    expect(
+      await memory.readActive(networkCostKey('Arbitrum'), '2026-12-21T00:00:00.000Z')
+    ).toBeNull();
+  });
+
+  it('should never activate a record whose custody clock cannot be read (retention fails closed)', async () => {
+    const outcome = await ingestNetworkCost(fixtureQuote(), 'not a timestamp');
+    expect(outcome).toMatchObject({ status: 'INGESTED', activated: false });
+    expect(memory.activePointerCount()).toBe(0);
+  });
+});
+
+describe('ingestNetworkCosts · one outcome per quote, in order', () => {
+  beforeEach(async () => {
+    const { InMemoryEvidenceStore } = await import('@diboas/defi');
+    store.current = new InMemoryEvidenceStore();
+    store.enabled = true;
+  });
+
+  it('should ingest every chain and return the outcomes in the order of the quotes', async () => {
+    const outcomes = await ingestNetworkCosts(
+      [fixtureQuote('Solana', 0.001), fixtureQuote('Arbitrum', 0.03)],
+      WITHIN_RETENTION
+    );
+    expect(outcomes).toMatchObject([
+      { status: 'INGESTED', evidenceKey: 'network-cost:Solana:USD', activated: true },
+      { status: 'INGESTED', evidenceKey: 'network-cost:Arbitrum:USD', activated: true },
+    ]);
+  });
+
+  it('should return a disabled outcome per quote when persistence is off', async () => {
+    store.enabled = false;
+    const disabled = { status: 'PERSISTENCE_DISABLED', reason: 'NOT_CONFIGURED' };
+    expect(
+      await ingestNetworkCosts([fixtureQuote('Solana'), fixtureQuote('Arbitrum')], WITHIN_RETENTION)
+    ).toEqual([disabled, disabled]);
+    expect(await ingestNetworkCosts([], WITHIN_RETENTION)).toEqual([]);
   });
 });

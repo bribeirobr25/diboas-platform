@@ -107,6 +107,14 @@ describe('Block C · FX is its own evidence class', () => {
     expect(r.evidence.stamp.source).toBe('fixture');
   });
 
+  it('should refuse a currency with no documented reference rate rather than defaulting to 1:1', () => {
+    /* `5.70`: the refusal arm of `fxReference` was never taken. A currency the
+       documented set does not carry has no rate — never a 1:1 conversion. */
+    const r = fxReference('JPY' as unknown as Parameters<typeof fxReference>[0]);
+    expect(r).toEqual({ available: false, reason: 'NO_OBSERVATION' });
+    expect(r).not.toHaveProperty('evidence');
+  });
+
   it('should NOT manufacture a rate by dividing two prices', () => {
     /* Structural: the module exposes no division-of-prices path at all. */
     const src = readFileSync(join(__dirname, '..', 'fxEvidence.ts'), 'utf8');

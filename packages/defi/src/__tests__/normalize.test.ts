@@ -147,6 +147,54 @@ describe('network-cost normalization — three NAMED refusals, never a zero', ()
   });
 });
 
+/**
+ * `5.70` · the strategy-level bounds guard, reached in BOTH units.
+ *
+ * `networkCostEvidenceFor` checks the quote against the NETWORK_COST bounds
+ * before it does anything else. In USD the inner `networkCostEvidence` would
+ * refuse it anyway, so the USD case alone cannot tell whether this guard exists;
+ * the CONVERTED case can — without it, an out-of-bounds fee is multiplied by the
+ * rate and served, or (with no rate) mis-reported as a conversion problem.
+ */
+describe('network-cost normalization — an out-of-bounds quote is REFUSED_BY_CONTRACT in every unit', () => {
+  /* 0 would read as free (UNAVAILABLE ≠ FREE); 10 001 is a unit error. */
+  const OUT_OF_BOUNDS = [0, -0.01, 10_000.01, 1e9, Number.NaN, Number.POSITIVE_INFINITY];
+
+  it('should refuse the quote with no value at all when its fee is outside the bounds', () => {
+    for (const fee of OUT_OF_BOUNDS) {
+      for (const unit of [
+        { toCurrency: NETWORK_COST_NATIVE_UNIT, rate: 1, rateStamp: RATE_STAMP },
+        { toCurrency: 'EUR', rate: 0.92, rateStamp: RATE_STAMP },
+        { toCurrency: 'BRL', rate: null, rateStamp: null },
+      ]) {
+        const label = `fee=${fee} → ${unit.toCurrency}`;
+        const e = networkCostEvidenceFor({ gas: [gas(entry(), fee)], strategy: single, ...unit });
+        expect(e, label).toEqual({
+          availability: 'UNAVAILABLE',
+          reason: 'REFUSED_BY_CONTRACT',
+          coverage: { kind: 'single', category: 'network' },
+        });
+        /* Neither the raw fee nor a converted one leaves the function, and the
+           refusal is not mistaken for a missing rate. */
+        expect(JSON.stringify(e), label).not.toContain('"value"');
+        expect(e, label).not.toHaveProperty('normalization');
+      }
+    }
+  });
+
+  it('should still convert a fee sitting exactly on the inclusive ceiling', () => {
+    const e = networkCostEvidenceFor({
+      gas: [gas(entry(), 10_000)],
+      strategy: single,
+      toCurrency: 'EUR',
+      rate: 0.5,
+      rateStamp: RATE_STAMP,
+    });
+    if (e.availability !== 'AVAILABLE') throw new Error('expected AVAILABLE');
+    expect(e.value).toBe(5_000);
+  });
+});
+
 describe('network-cost normalization — what this layer must NOT do (G/H boundary)', () => {
   it('should read no clock and compute no freshness', () => {
     const src = readFileSync(new URL('../providers/normalize.ts', import.meta.url), 'utf8');
