@@ -33,6 +33,10 @@ const COVERAGE_THRESHOLDS = {
   // Twelfth audit: the unsubscribe token's mint and decode (the only authority to unsubscribe).
   'src/lib/email/unsubscribeUrl.ts': { 100: true },
   'src/lib/email/unsubscribeToken.ts': { 100: true },
+  // 5.862 / 5.864: the scrubbers between the site and Sentry, PostHog and GA4.
+  'src/lib/utils/scrubUrl.ts': { 100: true },
+  'src/lib/monitoring/sentryScrub.ts': { 100: true },
+  'src/lib/analytics/scrubAnalyticsEvent.ts': { 100: true },
 };
 
 export default defineConfig({

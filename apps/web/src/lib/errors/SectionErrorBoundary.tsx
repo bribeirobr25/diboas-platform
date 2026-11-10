@@ -26,6 +26,7 @@ import {
   shouldAttemptRecovery,
   calculateRetryDelay,
 } from './errorUtils';
+import { scrubUrl } from '@/lib/utils/scrubUrl';
 
 // Re-export types for backwards compatibility
 export type { SectionErrorTranslations, SectionErrorFallbackProps } from './types';
@@ -91,7 +92,7 @@ export class SectionErrorBoundary extends Component<
       retryCount: this.state.retryCount,
       timestamp: new Date().toISOString(),
       userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : 'unknown',
-      url: typeof window !== 'undefined' ? window.location.href : 'unknown',
+      url: typeof window !== 'undefined' ? scrubUrl(window.location.href) : 'unknown',
     });
 
     // Report to Sentry via abstraction layer
@@ -232,7 +233,7 @@ export class SectionErrorBoundary extends Component<
             context: this.props.context,
             timestamp: new Date().toISOString(),
             userAgent: navigator.userAgent,
-            url: window.location.href,
+            url: scrubUrl(window.location.href),
           }),
         }).catch(() => {
           // Silent fail for error reporting to prevent error loops

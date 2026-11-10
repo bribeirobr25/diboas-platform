@@ -14,6 +14,7 @@ import {
 } from './types';
 import { MONITORING_DEFAULTS } from './constants';
 import { errorReportingService } from '@/lib/errors/ErrorReportingService';
+import { scrubUrl } from '@/lib/utils/scrubUrl';
 
 class MonitoringCoordinatorService implements MonitoringService {
   private config: MonitoringConfig;
@@ -76,7 +77,7 @@ class MonitoringCoordinatorService implements MonitoringService {
       id: this.generateId(),
       message: error.message,
       stack: error.stack,
-      url: typeof window !== 'undefined' ? window.location.href : '',
+      url: typeof window !== 'undefined' ? scrubUrl(window.location.href) : '',
       timestamp: Date.now(),
       userId: this.userContext.userId as string | undefined,
       sessionId: this.userContext.sessionId as string | undefined,

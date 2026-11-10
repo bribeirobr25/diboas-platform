@@ -7,6 +7,7 @@
  */
 
 import * as Sentry from '@sentry/nextjs';
+import { scrubSentryEvent } from './src/lib/monitoring/sentryScrub';
 
 const SENTRY_DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
 
@@ -27,14 +28,15 @@ if (SENTRY_DSN) {
     // Debug mode disabled to reduce log noise
     debug: false,
 
-    // Filter out noisy errors
+    // Filter out noisy errors; scrub personal data and URL tokens (5.862).
     beforeSend(event) {
       // Filter out expected errors
       if (event.message?.includes('NEXT_NOT_FOUND')) {
         return null;
       }
 
-      return event;
+      return scrubSentryEvent(event);
     },
+    beforeSendTransaction: (event) => scrubSentryEvent(event),
   });
 }

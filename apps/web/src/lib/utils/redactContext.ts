@@ -30,14 +30,15 @@ const SENSITIVE_KEYS = [
 
 const MAX_DEPTH = 5;
 
-function redactString(value: string): string {
+/** Email addresses and IPv4 addresses in free text, redacted (error messages, breadcrumb text). */
+export function redactText(value: string): string {
   return value.replace(EMAIL_PATTERN, '[EMAIL_REDACTED]').replace(IPV4_PATTERN, '[IP_REDACTED]');
 }
 
 function redactValue(value: unknown, depth: number): unknown {
   if (depth > MAX_DEPTH) return '[DEPTH_LIMIT]';
 
-  if (typeof value === 'string') return redactString(value);
+  if (typeof value === 'string') return redactText(value);
   if (Array.isArray(value)) return value.map((item) => redactValue(item, depth + 1));
 
   if (typeof value === 'object' && value !== null) {

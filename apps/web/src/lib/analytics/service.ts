@@ -19,6 +19,7 @@ import {
 import { ConnectionMonitor } from './connectionMonitor';
 import { type IAnalyticsBackend, GA4Backend, PostHogBackend } from './backends';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
+import { scrubUrl } from '@/lib/utils/scrubUrl';
 
 const UTM_STORAGE_KEY = 'diboas-utm-params';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
@@ -151,9 +152,9 @@ class AnalyticsTrackingService implements AnalyticsService {
       parameters: {
         page_path: path,
         page_title: title,
-        page_location: typeof window !== 'undefined' ? window.location.href : '',
+        page_location: typeof window !== 'undefined' ? scrubUrl(window.location.href) : '',
         locale,
-        referrer: typeof document !== 'undefined' ? document.referrer : '',
+        referrer: typeof document !== 'undefined' ? scrubUrl(document.referrer) : '',
       },
     });
   }

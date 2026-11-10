@@ -6,6 +6,8 @@
  * https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation
  */
 
+import { scrubUrl } from '@/lib/utils/scrubUrl';
+
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     await import('../sentry.server.config');
@@ -41,10 +43,11 @@ export async function onRequestError(
   Sentry.captureException(error, {
     // E-2: tag with the request id (middleware-set x-request-id) so this server
     // door correlates with the client door (ErrorReportingService.captureException).
-    // beforeSend scrubs user/extra/breadcrumbs but NOT tags, so the id survives.
+    // beforeSend (sentry.server.config.ts → scrubSentryEvent, 5.862) scrubs the user, request,
+    // extra and breadcrumbs but NOT tags, so the id survives.
     tags: { correlationId: request.headers['x-request-id'] },
     extra: {
-      path: request.path,
+      path: scrubUrl(request.path), // a query string may carry a token (5.862)
       method: request.method,
       routePath: context.routePath,
       routeType: context.routeType,
