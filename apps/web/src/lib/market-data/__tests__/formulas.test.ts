@@ -333,8 +333,10 @@ describe('Phase A (2026-05-16) / Phase C (2026-05-23 TOOLS_IMPROVEMENT) — exch
     const eur = FALLBACK_MARKET_DATA.exchangeRates.rates.EUR;
     expect(eur.historicalAnchorStart).toBe('2010-01-01');
     expect(eur.historicalAnchorEnd).toBe('2026-04-30');
-    expect(eur.historicalRateStart).toBeCloseTo(1.4272, 2);
-    expect(eur.historicalRateEnd).toBeCloseTo(1.1706, 2);
+    // Local currency per USD, like every anchor (5.848): the Jan-2010 and Apr-2026 averages
+    // were 1.4272 and 1.1706 USD per EUR, i.e. 0.70067 and 0.85426 EUR per USD.
+    expect(eur.historicalRateStart).toBeCloseTo(0.70067, 4);
+    expect(eur.historicalRateEnd).toBeCloseTo(0.85426, 4);
   });
 
   it('forward annualDepreciation matches calibrated values per FX-16 D1/D8', () => {

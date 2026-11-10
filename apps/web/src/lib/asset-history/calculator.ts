@@ -98,6 +98,23 @@ export interface AssetHistoryRangeResult {
   returnsBasis: ReturnsBasis;
 }
 
+/**
+ * 5.819: the start years a visitor may pick for an asset are the years its published
+ * series covers, from the year of its first month to the year of its last. Offering a
+ * year before the series begins made the result disappear with no explanation (MSCI
+ * World starts in 2012-02). Returns [] when the series is not loaded.
+ */
+export function assetHistoryStartYears(
+  asset: AssetCode,
+  candidates: ReadonlyArray<AssetHistoryStartYear>
+): AssetHistoryStartYear[] {
+  const months = marketDataService.getMonthlySeries()?.assets?.[asset]?.months;
+  if (!months || months.length === 0) return [];
+  const first = parseInt(months[0].ym.slice(0, 4), 10);
+  const last = parseInt(months[months.length - 1].ym.slice(0, 4), 10);
+  return candidates.filter((y) => y >= first && y <= last);
+}
+
 export class AssetHistoryDataError extends Error {
   constructor(reason: string) {
     super(`Asset history data unavailable: ${reason}`);

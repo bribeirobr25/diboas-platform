@@ -38,6 +38,7 @@
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "Mudança no poder de compra em USD",
     "retrospectiveLossNote": "{currency} enfraqueceu {cagr}% ao ano frente ao USD em {years, plural, one {# ano} other {# anos}}",
+    "retrospectiveCorrectionNote": "Correção ({correctionMonth}): uma versão anterior deste resultado mostrava, por engano, o euro ganhando valor frente ao dólar americano desde {startMonth}. O euro perdeu valor, como mostrado acima.",
     "depSourceForward": "Depreciação projetada: CAGR ajustado ao horizonte com base na janela de {years, plural, one {# ano} other {# anos}} da série de câmbio.",
     "depSourceRetrospective": "Retrospectivo: baseado nos pontos âncora do par {currency}/USD entre {startMonth} e {asOfMonth}.",
     "depSourcePeg": "{currency} é atrelada ao dólar dos EUA por política do banco central. A variação cambial é 0 por desenho.",

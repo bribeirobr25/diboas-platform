@@ -1,6 +1,10 @@
 export {
   calculateCurrencyDepreciationForward,
   calculateCurrencyDepreciationRetrospective,
+  formatRetrospectiveChange,
+  formatRetrospectiveNumber,
+  showsAnchorCorrection,
+  EUR_ANCHOR_CORRECTION,
   CURRENCY_DEPRECIATION_OPTIONS,
   CURRENCY_DEPRECIATION_SCENARIO_USD_PERCENT,
   CURRENCY_TO_LOCALE,

@@ -184,6 +184,8 @@ const PIPELINE_DATA_READERS: Record<string, string> = {
     'DCA replay over the live monthly series; values asserted against an INDEPENDENT replay of the committed JSON (5.478), never a band',
   'lib/asset-history/__tests__/monthlySeriesRules.test.ts':
     'asserts rules every correct series keeps (consecutive months, consistent bars, a total-return factor that never falls), never a value',
+  'lib/asset-history/__tests__/startYears.test.ts':
+    '5.819: asserts the offered years equal the years the published series covers (derived from the series), never a value',
   'lib/asset-history/__tests__/unexpectedError.test.ts':
     'loads the live series only to exercise the error path; asserts error handling, not values',
   'lib/time-to-target/__tests__/calculator.test.ts':
@@ -198,6 +200,8 @@ const PIPELINE_DATA_READERS: Record<string, string> = {
     'asserts directional rules (real value below nominal, loss below 100%) that hold for any inflation series',
   'lib/currency-depreciation/__tests__/calculator.test.ts':
     'asserts identities (USD stays 10000 against itself) and direction, not a dated rate',
+  'lib/currency-depreciation/__tests__/anchorConvention.test.ts':
+    'FX-ANCHOR-1: asserts a quote convention (closer to the Fed month-end than its inverse, within 5%), never a dated rate',
 };
 
 function walkTests(dir: string, out: string[] = []): string[] {

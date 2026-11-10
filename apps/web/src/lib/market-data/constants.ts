@@ -89,7 +89,10 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
   // FX rate unit-convention header (R2 — Phase 1 step 4 / FX-16 adoption 2026-05-26):
   //   • `annualDepreciation`         — decimal (0.0055 = 0.55%; negative = local currency strengthened)
   //   • `historicalCagr`             — decimal (same scale as annualDepreciation)
-  //   • `historicalRateStart`/`End`  — USD per 1 unit of local currency (anchor-pair endpoints)
+  //   • `historicalRateStart`/`End`  — units of local currency per 1 USD (anchor-pair endpoints),
+  //                                    the same convention as `rateToUsd` and `monthlyFx.json`'s
+  //                                    `closeLocalPerUsd` (FX-ANCHOR-1; 5.848: the EUR pair was stored
+  //                                    the other way round, so the retrospective result was inverted)
   //   • `rateToUsd`                  — units of local currency per 1 USD (current spot)
   // Pegged currencies (HKD, AED) carry `annualDepreciation: 0` — see FX-16 plan D3 + model §8.3.
   // Negative-FX currencies (CHF, SGD, ILS) carry negative decimals — local currency strengthened
@@ -127,8 +130,10 @@ export const FALLBACK_MARKET_DATA: MarketDataSnapshot = {
         historicalCagr: 0.0123,
         historicalAnchorStart: '2010-01-01',
         historicalAnchorEnd: '2026-04-30',
-        historicalRateStart: 1.4272,
-        historicalRateEnd: 1.1706,
+        // EUR per USD (the Jan-2010 and Apr-2026 averages were 1.4272 and 1.1706 USD per EUR;
+        // stored inverted until 5.848). Founder re-sign requested in the PR (DATA_VINTAGE_POLICY §2).
+        historicalRateStart: 0.70067,
+        historicalRateEnd: 0.85426,
       },
       // FX-16 adoption 2026-05-26 (Bar D1–D8): 14 new currencies added per
       // `docs/tools/usd_fx_projection_model_consolidated.md` §6. Each carries
@@ -431,7 +436,7 @@ export const FALLBACK_MARKET_DATA_METADATA = {
       historicalCagr: {
         last_verified: '2026-05-22',
         source:
-          'ECB EXR Jan 2010 → Apr 2026 endpoint-pair CAGR (anchor pair 1.4272 → 1.1706 USD/EUR); retrospective field only — see D1 (2026-05-26)',
+          'ECB EXR Jan 2010 → Apr 2026 endpoint-pair CAGR (the source quotes USD per EUR, 1.4272 → 1.1706; the anchors are stored as EUR per USD, 0.70067 → 0.85426, 5.848); retrospective field only — see D1 (2026-05-26)',
       },
     },
     // FX-16 adoption 2026-05-26 (Bar D1+D8): 14 new currencies. Each `rateToUsd`
