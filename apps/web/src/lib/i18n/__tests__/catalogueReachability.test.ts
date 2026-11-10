@@ -309,7 +309,7 @@ describe('5.800 · every website catalogue key is read by code (ratchet)', () =>
           `${p} reads nothing only it can read`
         ).toBeGreaterThan(before);
       }
-  });
+  }, 30_000); // 5.859: one full reachability pass per declared reader (1.6 s alone, 6.4 s under coverage)
 
   it('should keep every declared injected-translator reader load-bearing', () => {
     const before = unread.length;
