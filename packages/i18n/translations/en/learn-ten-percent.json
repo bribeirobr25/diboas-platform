@@ -26,7 +26,7 @@
     "title": "Where the pieces click.",
     "intro": [
       "Now three things click together: 10% (this talk), paid first (Talk 3), pointed at a goal and left to compound (Talks 2 and 1).",
-      "Here's an illustration, and it is only that. Ten percent of a $3,000 paycheck (use your own) is $300 a month. Paid first, at a careful 7%, twelve years is an **estimate** of around **$66,000**. Not a promise, an estimate. The real cost of not starting was never the $300 a month, it was the ~$66,000 you skipped.",
+      "Here's an illustration, and it is only that. Ten percent of a $3,000 paycheck (use your own) is $300 a month. Paid first, at a careful {scenarioConservative}, twelve years is an **estimate** of around **{scenarioMonthlyResult}**. Not a promise, an estimate. The real cost of not starting was never the $300 a month, it was the ~{scenarioMonthlyResult} you skipped.",
       "So don't take my $300 and my 12 years. Put in your own paycheck, your percentage, your years, and point it at the goal you named in Talk 2.",
       "I run diBoaS, so check the math yourself."
     ],

@@ -182,9 +182,12 @@ describe('market data is bound to the currency asked for (2026-10-19 review)', (
   it('should never expose USD data while EUR is pending, nor after EUR fails', async () => {
     const usd = body();
     let failEur!: () => void;
+    let eurCalls = 0;
     fetchMock.mockImplementation(async (url: string) => {
       if (url.endsWith('USD')) return ok(usd);
-      await new Promise<void>((r) => (failEur = r));
+      // The first EUR attempt hangs until released; its retries (R-8, 5.801) fail at once.
+      eurCalls += 1;
+      if (eurCalls === 1) await new Promise<void>((r) => (failEur = r));
       return { ok: false, status: 503, json: async () => ({}) };
     });
     const { result, rerender } = renderHook(({ c }) => useMarket(c), {
@@ -199,7 +202,9 @@ describe('market data is bound to the currency asked for (2026-10-19 review)', (
       failEur();
       await new Promise((r) => setTimeout(r, 0));
     });
-    expect(result.current.marketError).toBe(true);
+    // Still pending while the retries run: no USD data shown for EUR in the meantime.
+    expect(result.current.market).toBeNull();
+    await waitFor(() => expect(result.current.marketError).toBe(true), { timeout: 4000 });
     expect(result.current.market).toBeNull();
     // …and back to USD: its own data, and EUR's failure is not reported for it.
     rerender({ c: 'USD' });
@@ -226,11 +231,12 @@ describe('market data is bound to the currency asked for (2026-10-19 review)', (
     const first = body();
     fetchMock
       .mockResolvedValueOnce(ok(first))
-      .mockResolvedValueOnce({ ok: false, status: 503, json: async () => ({}) });
+      .mockResolvedValue({ ok: false, status: 503, json: async () => ({}) }); // an outage, retried (R-8)
     const { result } = renderHook(() => useMarket('USD'));
     await waitFor(() => expect(result.current.market).toEqual(first));
     act(() => result.current.refreshMarket());
-    await waitFor(() => expect(result.current.marketError).toBe(true));
+    expect(result.current.market).toEqual(first); // kept while the retries run
+    await waitFor(() => expect(result.current.marketError).toBe(true), { timeout: 4000 });
     expect(result.current.market).toEqual(first);
   });
 });

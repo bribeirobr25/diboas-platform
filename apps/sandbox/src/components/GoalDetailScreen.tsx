@@ -22,6 +22,7 @@ import {
   selectCanInvest,
   selectEntrySplit,
   selectExitPreview,
+  selectGoalCreatedAt,
   selectGoalDetailView,
   selectPositionValue,
 } from '@/view/home';
@@ -40,6 +41,9 @@ import { goalShowsCoinGeckoPrices } from '@/view/marketDataAttribution';
 import { CoinGeckoAttribution } from './CoinGeckoAttribution';
 import { networkFeeLocal } from '@/lib/networkFee';
 import { Projection } from './Projection';
+import { useRateRanges } from '@/hooks/useRateRanges';
+import { goalMonthsLeft } from '@/lib/goalMonths';
+import { selectGoalProjectionFor, selectProjectionCanShow } from '@/view/projection';
 import { RecurringControl } from './RecurringControl';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Settlement } from './Settlement';
@@ -73,7 +77,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // ledger's — the same two positions read "$0.03" on /en and "US$ 0,16" on
   // /pt-BR. Wrong anywhere; unacceptable on the fee-truth screen.
   const { market } = useMarket(state.currency);
-  const { money } = useFormatters(state.currency);
+  const { money, moneyWhole } = useFormatters(state.currency);
 
   const goal = state.goals.find((g) => g.goalId === goalId);
   const openPositions = state.positions.filter((p) => p.goalId === goalId && p.open);
@@ -135,6 +139,20 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
    * the tests, which never exercised both branches in one mount.
    */
   const nowIso = useMemo(() => new Date().toISOString(), []);
+
+  /* PR 2 · months left in the goal's own calendar frame, read at the screen's one moment, and
+     the observed rate ranges — fetched only when the block can show something (the selector's
+     own routing asked without rates). Above the early return for the same rules-of-hooks reason
+     as `nowIso`. */
+  const goalForMonths = state.goals.find((g) => g.goalId === goalId);
+  const projectionMonthsLeft = goalForMonths
+    ? goalMonthsLeft(
+        goalForMonths.horizonMonths,
+        selectGoalCreatedAt(state, goalId),
+        new Date(nowIso)
+      )
+    : null;
+  const rateRanges = useRateRanges(selectProjectionCanShow(state, goalId, projectionMonthsLeft));
 
   /*
    * P06 §34.1: settlement is the POST-completion state — "the decision is recorded;
@@ -286,13 +304,16 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
   // render sites. The selector returns both shapes its consumers need: display
   // strings for money, plain numbers for the numeric `Projection` props.
   const detail = selectGoalDetailView(state, goalId);
-  const {
-    targetReached,
-    ratioPercent: ratio,
-    percentShown,
-    goalMonthly,
-    contributionsTotal,
-  } = detail;
+  /* K1 (B14, 5.534): money is put to work only toward a goal still being worked on — never an
+     accomplished or dropped one. ONE condition for every entry point (the Simple view's "Add
+     money" tile and the Detailed view's block; 10th audit: the tile was left offering it). */
+  const canPutToWork =
+    detail.hasCash && goal.status !== 'accomplished' && goal.status !== 'dropped';
+  /* K1: monthly deposits run only for active goals; accomplished and dropped never resume, so
+     the control that sets them is not offered there (a paused goal keeps it: deposits resume). */
+  const offersMonthlyAmount = goal.status !== 'accomplished' && goal.status !== 'dropped';
+  const { targetReached, ratioPercent: ratio, percentShown, contributionsTotal } = detail;
+  const projection = selectGoalProjectionFor(state, goalId, projectionMonthsLeft, rateRanges);
 
   const progressBar = (
     <span
@@ -490,15 +511,15 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             <FormattedMessage id="goalDetail.percentWay" />
           </p>
           {progressBar}
-          {goalMonthly > 0 ? (
-            <Projection
-              target={Number(goal.targetAmount)}
-              monthlyContribution={goalMonthly}
-              currentValue={detail.currentValue}
-              horizonMonths={goal.horizonMonths}
-              currency={state.currency}
-            />
-          ) : null}
+          {/* PR 2: routed by the selector, not by a monthly amount — Case 2 (no position, so
+              no plan) must be able to render. Simple renders the attribution itself; it is the
+              only one on this view (P3 §2, one per screen). */}
+          <Projection
+            view={projection}
+            target={moneyWhole(goal.targetAmount)}
+            currency={state.currency}
+            showAttribution={goalShowsCoinGeckoPrices(state, goal.goalId)}
+          />
 
           {/* ② what my money's doing — real per-position value + real series */}
           <h2 className={styles.sectionHead}>
@@ -544,7 +565,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             3. <FormattedMessage id="goalDual.nextLabel" />
           </h2>
           <div className={styles.actionTiles}>
-            {detail.hasCash ? (
+            {canPutToWork ? (
               <button
                 type="button"
                 className={styles.actionTile}
@@ -657,15 +678,13 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             </div>
           ) : null}
 
-          {goalMonthly > 0 ? (
-            <Projection
-              target={Number(goal.targetAmount)}
-              monthlyContribution={goalMonthly}
-              currentValue={detail.currentValue}
-              horizonMonths={goal.horizonMonths}
-              currency={state.currency}
-            />
-          ) : null}
+          {/* Detailed already renders the screen's one CoinGecko attribution above. */}
+          <Projection
+            view={projection}
+            target={moneyWhole(goal.targetAmount)}
+            currency={state.currency}
+            showAttribution={false}
+          />
 
           {openPositions.length === 0 ? (
             <div className={styles.noPosition}>
@@ -705,13 +724,15 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       values={{ amount: money(position.accrued) }}
                     />
                   </p>
-                  <RecurringControl
-                    goalId={goalId}
-                    positionId={position.positionId}
-                    schedule={state.recurring.find((r) => r.positionId === position.positionId)}
-                    workingBalance={state.buckets.working}
-                    currency={state.currency}
-                  />
+                  {offersMonthlyAmount ? (
+                    <RecurringControl
+                      goalId={goalId}
+                      positionId={position.positionId}
+                      schedule={state.recurring.find((r) => r.positionId === position.positionId)}
+                      workingBalance={state.buckets.working}
+                      currency={state.currency}
+                    />
+                  ) : null}
 
                   <button
                     type="button"
@@ -733,7 +754,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             })
           )}
 
-          {detail.hasCash ? (
+          {canPutToWork ? (
             <div className={styles.investBlock}>
               {!pickerOpen ? (
                 <button
@@ -811,6 +832,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
             setPauseSheet(false);
           }}
           onDismiss={() => setPauseSheet(false)}
+          hasOpenPositions={openPositions.length > 0}
           onStopStrategy={
             openPositions.length > 0 && canPriceExit
               ? () => {

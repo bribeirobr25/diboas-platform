@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { can } from '@/lib/capabilities';
 import { SHELL_SURFACES, SHELL_SURFACE_IDS } from '@/lib/shell/family';
-import { stripComments } from '@/test/stripComments';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * ⚙ `CI-N1` · NO AUTOMATIC PRACTICE → KYC / FUNDING / REAL TRANSITION.

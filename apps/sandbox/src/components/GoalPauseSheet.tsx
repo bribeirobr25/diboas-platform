@@ -25,6 +25,7 @@ export function GoalPauseSheet({
   onConfirm,
   onDismiss,
   onStopStrategy,
+  hasOpenPositions,
 }: {
   /** The LEDGER's currency — the exit floor is per-currency (FEES.md FE-1a). */
   currency: FeeCurrency;
@@ -33,13 +34,19 @@ export function GoalPauseSheet({
   /** Wired when the goal has open positions (G3): opens the REAL exit
    *  manifest — the fee is disclosed in the alsoStop line before the tap. */
   onStopStrategy?: () => void;
+  /** K1 (B14 "show only what's true", 5.534): whether any money of this goal is invested. */
+  hasOpenPositions: boolean;
 }) {
   const { money } = useFormatters(currency);
   return (
     <BottomSheet titleId="goalPause.title" onClose={onDismiss} tone="light">
-      <p className={styles.body}>
-        <FormattedMessage id="goalPause.body" />
-      </p>
+      {/* K1 interim (5.534): the body says the invested money keeps working — false without a
+          position, and it may not be split, so it is hidden until a no-position wording exists. */}
+      {hasOpenPositions ? (
+        <p className={styles.body}>
+          <FormattedMessage id="goalPause.body" />
+        </p>
+      ) : null}
 
       {/* The two-line honest state preview (the naming duality). */}
       <div className={styles.state}>
@@ -47,21 +54,26 @@ export function GoalPauseSheet({
           <LucideIcon name="clock" size={16} />
           <FormattedMessage id="goalPause.statePlan" />
         </span>
-        <span className={styles.stateMoney}>
-          <LucideIcon name="sprout" size={16} />
-          <FormattedMessage id="goalPause.stateMoney" />
-        </span>
+        {hasOpenPositions ? (
+          <span className={styles.stateMoney}>
+            <LucideIcon name="sprout" size={16} />
+            <FormattedMessage id="goalPause.stateMoney" />
+          </span>
+        ) : null}
       </div>
 
-      <p className={styles.alsoStop}>
-        {/* FEES.md FE-1: the floor is disclosed NEXT TO THE RATE wherever the
+      {/* The question appears only with its button (K1): never a stop offered that cannot be taken. */}
+      {onStopStrategy ? (
+        <p className={styles.alsoStop}>
+          {/* FEES.md FE-1: the floor is disclosed NEXT TO THE RATE wherever the
             rate appears. Bare, "0.39%" understates a small exit — on $50 the
             real cost is the $0.25 floor, not $0.20. */}
-        <FormattedMessage
-          id="goalPause.alsoStop"
-          values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
-        />
-      </p>
+          <FormattedMessage
+            id="goalPause.alsoStop"
+            values={{ min: money(EXIT_FEE_FLOOR[currency].toNumber()) }}
+          />
+        </p>
+      ) : null}
       {onStopStrategy ? (
         <button type="button" className={styles.stopLink} onClick={onStopStrategy}>
           <FormattedMessage id="goalPause.stopCta" />

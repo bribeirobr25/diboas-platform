@@ -13,13 +13,17 @@ import {
   observedStamp,
 } from '@diboas/defi';
 import {
+  accomplishGoal,
   advanceTime,
   createGoal,
   enterStrategy,
+  exitPosition,
   getLedgerState,
   grantPlayMoney,
   resetSandbox,
 } from '@/lib/ledgerClient';
+import { appendAll, base } from '@/lib/ledger/core';
+import type { LedgerEvent } from '@diboas/banking';
 import { GoalDetailScreen } from '../GoalDetailScreen';
 import { getMessages } from '@/i18n/loadMessages';
 
@@ -72,6 +76,33 @@ vi.mock('@/hooks/useMarket', () => ({
   fetchHistories: () =>
     h.historiesFail ? Promise.reject(new Error('chart SECRET-789')) : Promise.resolve([]),
 }));
+
+/* PR 2 · the projection's rate ranges, controlled per test (the hook's own fetch, timeout and
+   abort are proven in hooks/__tests__/useRateRanges.test.tsx). `enabledCalls` records what the
+   screen asked for, so the fetch gate is asserted at the mount site. */
+const rr = vi.hoisted(() => ({
+  ranges: null as unknown,
+  enabledCalls: [] as boolean[],
+  attribution: false,
+}));
+vi.mock('@/hooks/useRateRanges', () => ({
+  useRateRanges: (enabled: boolean) => {
+    rr.enabledCalls.push(enabled);
+    return enabled ? rr.ranges : null;
+  },
+}));
+vi.mock('@/view/marketDataAttribution', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/view/marketDataAttribution')>();
+  return {
+    ...actual,
+    goalShowsCoinGeckoPrices: (...args: Parameters<typeof actual.goalShowsCoinGeckoPrices>) =>
+      rr.attribution || actual.goalShowsCoinGeckoPrices(...args),
+  };
+});
+const RANGES_OK = {
+  strategies: [],
+  aggregate: { available: true, lowPercent: 2.7, highPercent: 3.8, observedDays: 266 },
+};
 
 const MARKET_OK = {
   apys: [],
@@ -889,4 +920,272 @@ describe('GoalDetailScreen — a chart failure after leaving is not news', () =>
       warn.mockRestore();
     }
   });
+});
+
+describe('PR 2 · the projection at its mount sites', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    rr.ranges = RANGES_OK;
+    rr.enabledCalls = [];
+    rr.attribution = false;
+  });
+
+  const newGoal = (targetAmount: number, fundAmount: number) =>
+    createGoal({ name: 'Trip', icon: 'plane', targetAmount, horizonMonths: 36, fundAmount });
+
+  it('should render Case 2 (no position, so no plan) — the old monthly-amount gate hid it', () => {
+    renderDetail(newGoal(10_000, 2_000));
+    expect(rr.enabledCalls.at(-1)).toBe(true);
+    expect(screen.getByText(/^Simulated: if all of it were in a stable strategy/)).toBeTruthy();
+    expect(screen.getByText('Illustrative projection · not a forecast')).toBeTruthy();
+  });
+
+  it('should not ask for the rates when the block cannot show (target reached)', () => {
+    renderDetail(newGoal(1_000, 1_000));
+    expect(rr.enabledCalls.length).toBeGreaterThan(0);
+    expect(rr.enabledCalls.every((e) => e === false)).toBe(true);
+    expect(screen.queryByText(/Illustrative projection/)).toBeNull();
+  });
+
+  it('should say the rates cannot be read (Case U) and show no projection number', () => {
+    rr.ranges = 'error';
+    renderDetail(newGoal(10_000, 2_000));
+    expect(screen.getByText(/Pool rates can't be read right now/)).toBeTruthy();
+    expect(screen.queryByText(/Simulated:/)).toBeNull();
+  });
+
+  it('should carry exactly ONE CoinGecko attribution per screen, in Simple and in Detailed', () => {
+    rr.attribution = true;
+    renderDetail(newGoal(10_000, 2_000));
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    expect(screen.getByText(/^Simulated: if all of it were in a stable strategy/)).toBeTruthy();
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+  });
+});
+
+/**
+ * P3 §2 (7th audit) · the attribution in the state that REALLY shows it — not forced by a mock:
+ * a growth position whose replay consumed provider prices, then exited, and a stable position
+ * entered — Case 1 with a price-replayed outcome inside the goal's value. One per screen.
+ */
+describe('PR 2 · one CoinGecko attribution per screen, Case 1 after a growth position exited', () => {
+  const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+    rr.attribution = false; // the REAL condition decides here
+    rr.enabledCalls = [];
+    rr.ranges = {
+      strategies: [
+        {
+          strategyId: 'safeHarbor',
+          available: true,
+          lowPercent: 2.8,
+          highPercent: 3.7,
+          windowStart: '2026-02-13',
+          windowEnd: '2026-07-24',
+          observedDays: 160,
+          todayPercent: 3.5,
+          oldestLegAsOf: '2026-07-24',
+        },
+      ],
+      aggregate: { available: true, lowPercent: 2.7, highPercent: 3.8, observedDays: 160 },
+    };
+  });
+
+  it('should show exactly one attribution in Simple and in Detailed', () => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 20_000,
+      horizonMonths: 48,
+      fundAmount: 2_000,
+    });
+    enterStrategy({ goalId, strategyId: 'fullThrottle', totalFromCash: 1000, networkFeeLocal: 0 });
+    advanceTime(
+      180,
+      PROTOCOLS.map((protocolId) => ({
+        protocolId,
+        points: fixturePriceSeries(protocolId, 400).map((pt) => ({ date: pt.date, apyPercent: 5 })),
+        stamp: FIXTURE_STAMP,
+      })),
+      'machine',
+      PROTOCOLS.map((protocolId) => ({
+        protocolId,
+        points: fixturePriceSeries(protocolId, 400),
+        stamp: observedStamp('coingecko', '2026-07-24T00:00:00.000Z'),
+      }))
+    );
+    const growth = getLedgerState().positions.find((p) => p.goalId === goalId && p.open)!;
+    exitPosition({ positionId: growth.positionId, networkFeeLocal: 0 });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 500, networkFeeLocal: 0 });
+    const open = getLedgerState().positions.filter((p) => p.goalId === goalId && p.open);
+    expect(open.map((p) => p.strategyId)).toEqual(['safeHarbor']); // Case 1
+
+    renderDetail(goalId);
+    expect(screen.getByText(/^From what this goal holds/)).toBeTruthy(); // the block shows Case 1
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+    expect(screen.getAllByText(/Data provided by CoinGecko/)).toHaveLength(1);
+  });
+});
+
+/**
+ * K1 (B14 "show only what's true", 5.534) — the controls a closed goal must not offer, by what the
+ * Detailed view RENDERS: "Put it to work" never on an accomplished or dropped goal; the monthly
+ * amount never on an accomplished one (its deposits never run). The same goal while active offers
+ * both, so the test is not vacuous.
+ */
+describe('GoalDetailScreen — K1: a closed goal offers only true controls', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  const openDetailed = () =>
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+
+  function investedGoal(): string {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount: 1000,
+    });
+    enterStrategy({ goalId, strategyId: 'safeHarbor', totalFromCash: 300, networkFeeLocal: 0 });
+    return goalId;
+  }
+
+  it('should offer put-to-work and the monthly amount while the goal is active', () => {
+    renderDetail(investedGoal());
+    openDetailed();
+    expect(screen.getByText('Put it to work')).toBeTruthy();
+    expect(screen.getByText('Add a monthly amount')).toBeTruthy();
+  });
+
+  it('should offer neither on an accomplished goal, though it still holds cash and a position', () => {
+    const goalId = investedGoal();
+    accomplishGoal(goalId, 'kept-working');
+    const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
+    expect(goal.status).toBe('accomplished');
+    expect(Number(goal.cash)).toBeGreaterThan(0); // the hidden control WOULD have rendered
+    renderDetail(goalId);
+    openDetailed();
+    expect(screen.queryByText('Put it to work')).toBeNull();
+    expect(screen.queryByText('Add a monthly amount')).toBeNull();
+  });
+
+  it('should not offer put-to-work on a dropped goal that regains cash from a legacy exit', () => {
+    const goalId = investedGoal();
+    const version = getLedgerState().goals.find((g) => g.goalId === goalId)!.version;
+    // A legacy log: the goal was dropped with its position still open (no screen emits this now).
+    appendAll([
+      {
+        ...base('k1-drop'),
+        type: 'GoalDropped',
+        goalId,
+        cashReleased: '700.00',
+        expectedVersion: version,
+      } as LedgerEvent,
+    ]);
+    exitPosition({ positionId: getLedgerState().positions[0].positionId, networkFeeLocal: 0 });
+    const goal = getLedgerState().goals.find((g) => g.goalId === goalId)!;
+    expect(goal.status).toBe('dropped');
+    expect(Number(goal.cash)).toBeGreaterThan(0); // the exit booked cash into the dropped goal
+    renderDetail(goalId);
+    openDetailed();
+    expect(screen.queryByText('Put it to work')).toBeNull();
+  });
+});
+
+/**
+ * 10th audit · the K1 gaps: the Simple view's "Add money" tile, the dropped goal's monthly control,
+ * the pause sheet's wiring from the screen, and an empty goal — each by what RENDERS.
+ */
+describe('GoalDetailScreen — K1: every entry point tells the same truth', () => {
+  beforeEach(() => {
+    resetSandbox();
+    grantPlayMoney(10_000, 'USD', 'b2c');
+  });
+
+  const openDetailed = () =>
+    fireEvent.click(
+      screen
+        .getAllByRole('button', { name: 'Detailed' })
+        .find((b) => b.hasAttribute('aria-pressed'))!
+    );
+  const goal = (fundAmount: number, invest = 0) => {
+    const goalId = createGoal({
+      name: 'Trip',
+      icon: 'plane',
+      targetAmount: 4000,
+      horizonMonths: 12,
+      fundAmount,
+    });
+    if (invest > 0)
+      enterStrategy({
+        goalId,
+        strategyId: 'safeHarbor',
+        totalFromCash: invest,
+        networkFeeLocal: 0,
+      });
+    return goalId;
+  };
+
+  it('should offer the Simple "Add money" tile on an active goal with cash, and never on an accomplished one', () => {
+    const active = goal(1000, 300);
+    const { unmount } = renderDetail(active);
+    expect(screen.getByRole('button', { name: /Add money/ })).toBeTruthy();
+    unmount();
+    accomplishGoal(active, 'kept-working');
+    renderDetail(active);
+    expect(screen.queryByRole('button', { name: /Add money/ })).toBeNull();
+  });
+
+  it('should not offer the monthly amount on a dropped goal that still has a legacy position', () => {
+    const goalId = goal(1000, 300);
+    const version = getLedgerState().goals.find((g) => g.goalId === goalId)!.version;
+    appendAll([
+      {
+        ...base('k1-drop-monthly'),
+        type: 'GoalDropped',
+        goalId,
+        cashReleased: '700.00',
+        expectedVersion: version,
+      } as LedgerEvent,
+    ]);
+    expect(getLedgerState().positions.some((p) => p.goalId === goalId && p.open)).toBe(true);
+    renderDetail(goalId);
+    openDetailed();
+    expect(screen.queryByText('Add a monthly amount')).toBeNull();
+  });
+
+  it.each([
+    ['cash only', 1000, 0, false],
+    ['empty (nothing in it)', 0, 0, false],
+    ['invested', 1000, 300, true],
+  ] as const)(
+    'should open the pause sheet telling only the truth — %s',
+    (_label, fund, invest, invested) => {
+      renderDetail(goal(fund, invest));
+      fireEvent.click(screen.getByRole('button', { name: /Pause plan/ }));
+      expect(screen.getByText('Plan paused')).toBeTruthy();
+      expect(screen.queryByText('Invested money still working') !== null).toBe(invested);
+    }
+  );
 });

@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getAuthProvider } from '@/lib/auth/factory';
 import { isSandboxLocale } from '@/i18n/config';
+import { requireAdmission } from '@/lib/auth/admission';
 
 /**
  * Onboarding sign-in (A2). Goes through the IAuthProvider SEAM (Principle 3) —
@@ -20,8 +21,9 @@ export async function startOnboarding(method: string, localeRaw: string): Promis
   /* ⛑ P1 (register 5.480): the same admission check runs BEFORE any cookie is set. A visitor
      the provider does not admit gets no cookie and is sent to the gate. A provider that is
      public but has nothing to grant (no password configured) still admits — that is the live
-     public app, and onboarding must keep working there. */
-  if (!provider.verifySession(current)) redirect(`/${locale}/gate`);
+     public app, and onboarding must keep working there. One owner (`requireAdmission`, B15):
+     after the gate the visitor comes back to consent, the next onboarding step. */
+  await requireAdmission(locale, 'consent');
   const grant = provider.establishSession(method, current);
   if (grant) cookieStore.set(grant.cookieName, grant.cookieValue, grant.cookieOptions);
   redirect(`/${locale}/consent`);

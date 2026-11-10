@@ -26,7 +26,7 @@
     "title": "Onde as peças se encaixam.",
     "intro": [
       "Agora três coisas se encaixam: 10% (este papo), separado primeiro (Papo 3), apontado pra uma meta e deixado render (Papos 2 e 1).",
-      "Aqui vai uma ilustração, e é só isso que ela é. Dez por cento de um salário de R$ 3.000 (usa o seu) dá R$ 300 por mês. Separado primeiro, num ritmo cauteloso de 7%, doze anos é uma **estimativa** de uns **R$ 66.000**. Não é promessa, é estimativa. O custo real de não começar nunca foi os R$ 300 por mês, foi os ~R$ 66.000 que você deixou passar.",
+      "Aqui vai uma ilustração, e é só isso que ela é. Dez por cento de um salário de R$ 3.000 (usa o seu) dá R$ 300 por mês. Separado primeiro, num ritmo cauteloso de {scenarioConservative}, doze anos é uma **estimativa** de uns **{scenarioMonthlyResult}**. Não é promessa, é estimativa. O custo real de não começar nunca foi os R$ 300 por mês, foi os ~{scenarioMonthlyResult} que você deixou passar.",
       "Então não fica com os meus R$ 300 e os meus 12 anos. Coloca o seu próprio salário, a sua porcentagem, os seus anos, e aponta ela pra aquela meta que você batizou no Papo 2.",
       "Eu toco a diBoaS, então confere a conta você mesmo."
     ],

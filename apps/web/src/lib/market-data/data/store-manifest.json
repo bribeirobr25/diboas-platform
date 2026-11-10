@@ -1,7 +1,7 @@
 {
   "_comment": "Written by apps/web/scripts/market-data/publish.mjs. One sha256 per series; PUBLISH-1 rebuilds them from the store at this commit.",
-  "store_commit": "130e839bd3bd0c3a178b18c424cd8473eef05ce7",
-  "published_at": "2026-11-06T01:00:25.378Z",
+  "store_commit": "360d0d185df1c5fa689369ade7255674e691b9dc",
+  "published_at": "2026-11-10T07:50:35.798Z",
   "methodology_version": "1.1.0",
   "through": "2026-10",
   "not_covered": "prices.BTC (appended by run.mjs --append-btc until increment 3)",

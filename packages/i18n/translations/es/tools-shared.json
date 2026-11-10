@@ -1,7 +1,7 @@
 {
   "landing": {
     "seo": {
-      "title": "Herramientas financieras — calculadoras gratuitas",
+      "title": "Herramientas financieras: calculadoras gratuitas",
       "description": "Calculadoras gratuitas para planificar tu jubilación, fondo de emergencia y metas de ahorro. De diBoaS."
     },
     "hero": {
@@ -53,9 +53,9 @@
   "scenarios": {
     "bank": "Tu banco",
     "bankApyDisplay": "{label} ({rate}%)",
-    "conservative": "Conservador (7%)",
-    "historical": "Histórico (10%)",
-    "optimistic": "Optimista (14%)",
+    "conservative": "Conservador ({scenarioConservative})",
+    "historical": "Histórico ({scenarioHistorical})",
+    "optimistic": "Optimista ({scenarioOptimistic})",
     "digitalDollarSuffix": " en dólar digital",
     "conservativeTooltip": "Rango conservador de rendimiento de la estrategia a largo plazo, basado en los mejores tipos de depósito disponibles en 2026.",
     "historicalTooltip": "Rango de la estrategia diBoaS multi-activos basado en la CAGR de retorno total del S&P 500 a largo plazo (1928–2024).",
@@ -80,12 +80,12 @@
   },
   "confidence": {
     "high": "Alta confianza (±5%)",
-    "medium": "Confianza media — ver nota de incertidumbre",
-    "low": "Baja confianza — ventana de alta volatilidad"
+    "medium": "Confianza media: ver nota de incertidumbre",
+    "low": "Baja confianza: ventana de alta volatilidad"
   },
   "resultMoment": {
     "chartStart": "Hoy",
-    "chartEnd": "En {years} años",
+    "chartEnd": "En {years, plural, one {# año} other {# años}}",
     "chartCash": "Efectivo",
     "chartBank": "Banco",
     "chartDiboas": "diBoaS",

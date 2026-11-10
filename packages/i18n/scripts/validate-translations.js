@@ -19,6 +19,11 @@
  *   0 - All locales match
  *   1 - Mismatches found (missing/orphaned files, missing/orphaned keys,
  *       or ICU slot-name set divergence per key)
+ *
+ * Arrays (register 5.733): an array's items are keys like any other — `.0`, `.1` … — the
+ * same flattening the site reads (`apps/web/src/lib/learn/i18nArrays.ts`). So an array
+ * string gets slot parity, and an item-count difference is a missing or orphaned index
+ * key. The pure functions are exported for tests; `main()` runs only when executed.
  */
 
 const fs = require('fs');
@@ -37,7 +42,10 @@ const LOCALE_SPECIFIC_KEYS = {
     'landing-b2b.json': ['calculator.fields.currencyLoss', 'footer.bcbDisclaimer'],
     'landing-b2c.json': ['demo.pain.pixHeader', 'footer.brDisclaimer', 'ptbr'],
     'legal/cookies.json': ['sections.brazilNote'],
-    'legal/privacy.json': ['sections.brazilNote'],
+    // `sections.yourRights.table.rows.7` — Brazil's LGPD adds an eighth right (Revisão de
+    // Decisões Automatizadas), the last row of the rights table. Owned by Legal: the
+    // exclusion names that one index, so any other row-count change still fails (5.733).
+    'legal/privacy.json': ['sections.brazilNote', 'sections.yourRights.table.rows.7'],
     'legal/terms.json': ['sections.brazilNote'],
     'strategies.json': ['footer.bcbDisclaimer'],
     'waitlist.json': ['legal.bcbDisclaimer'],
@@ -116,27 +124,26 @@ function discoverJsonFiles(dir, base) {
   return results.sort();
 }
 
-/**
- * Extract all key paths from a nested object (dot-separated).
- */
-function extractKeys(obj, prefix) {
-  prefix = prefix || '';
-  const keys = [];
-  for (const key of Object.keys(obj)) {
-    const fullKey = prefix ? prefix + '.' + key : key;
-    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
-      keys.push(...extractKeys(obj[key], fullKey));
-    } else {
-      keys.push(fullKey);
-    }
-  }
-  return keys.sort();
+/** An object or array: its entries are keys (array items by index, `.0`, `.1` …). */
+function isBranch(value) {
+  return typeof value === 'object' && value !== null;
 }
 
 /**
- * Build a flat Map<keyPath, string-value> for all leaf string values.
- * Non-string leaves (booleans, numbers, arrays) are skipped — slot-name
- * parity only meaningful for string templates.
+ * Extract every key the site can read, sorted: exactly the string leaves, with arrays by
+ * index (5.733), as `flattenMessages` builds the runtime catalogue. So an item-count
+ * mismatch is a missing or orphaned `.N` key, and a message the site cannot read in a
+ * locale (an empty object, a number, null where the reference has a string) is missing —
+ * never a key that merely exists.
+ */
+function extractKeys(obj) {
+  return Array.from(extractStringLeaves(obj).keys()).sort();
+}
+
+/**
+ * Build a flat Map<keyPath, string-value> for all leaf string values, descending into
+ * arrays by index (5.733: array strings get slot parity too). Non-string leaves
+ * (booleans, numbers) are skipped — slot-name parity is only meaningful for templates.
  */
 function extractStringLeaves(obj, prefix, out) {
   prefix = prefix || '';
@@ -144,13 +151,65 @@ function extractStringLeaves(obj, prefix, out) {
   for (const key of Object.keys(obj)) {
     const fullKey = prefix ? prefix + '.' + key : key;
     const value = obj[key];
-    if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+    if (isBranch(value)) {
       extractStringLeaves(value, fullKey, out);
     } else if (typeof value === 'string') {
       out.set(fullKey, value);
     }
   }
   return out;
+}
+
+/** True when `key` is `prefix` itself or sits under it. */
+function underPrefix(key, prefixes) {
+  for (let i = 0; i < prefixes.length; i++) {
+    if (key === prefixes[i] || key.indexOf(prefixes[i] + '.') === 0) return true;
+  }
+  return false;
+}
+
+/**
+ * Compare one catalogue file of a target locale with the reference (pure: no I/O).
+ * Returns the reference keys the locale misses, the locale keys the reference lacks
+ * (both after the documented exclusions), and every ICU slot-name mismatch.
+ */
+function compareFile(file, locale, refContent, localeContent) {
+  const refKeys = extractKeys(refContent);
+  const localeKeys = extractKeys(localeContent);
+  const refKeySet = new Set(refKeys);
+  const localeKeySet = new Set(localeKeys);
+  const refOnly = REFERENCE_ONLY_KEYS[file] || [];
+  const localeOnly = (LOCALE_SPECIFIC_KEYS[locale] && LOCALE_SPECIFIC_KEYS[locale][file]) || [];
+
+  const missing = refKeys.filter(function (k) {
+    return !localeKeySet.has(k) && !underPrefix(k, refOnly);
+  });
+  const orphaned = localeKeys.filter(function (k) {
+    return !refKeySet.has(k) && !underPrefix(k, localeOnly);
+  });
+
+  // Slot-name parity (audit L24): for every key present in BOTH ref and locale, the ICU
+  // slot-name set must be identical. Mismatch = silent-fallback bug at render time.
+  const refLeaves = extractStringLeaves(refContent);
+  const localeLeaves = extractStringLeaves(localeContent);
+  const slotMismatches = [];
+  const slotExclusions = LOCALE_SPECIFIC_SLOTS[file] || {};
+  for (const [keyPath, refValue] of refLeaves) {
+    const localeValue = localeLeaves.get(keyPath);
+    if (typeof localeValue !== 'string') continue; // key absent / not a string in locale
+    // Skip keys that intentionally diverge per locale (documented carry-forwards).
+    const exclusionLocales = slotExclusions[keyPath];
+    if (Array.isArray(exclusionLocales) && exclusionLocales.indexOf(locale) !== -1) continue;
+    const refSlots = extractSlots(refValue);
+    const localeSlots = extractSlots(localeValue);
+    // Only check keys that have slots in at least one side.
+    if (refSlots.size === 0 && localeSlots.size === 0) continue;
+    const diff = diffSlots(refSlots, localeSlots);
+    if (diff !== null) {
+      slotMismatches.push({ key: keyPath, missing: diff.missing, extra: diff.extra });
+    }
+  }
+  return { missing: missing, orphaned: orphaned, slotMismatches: slotMismatches };
 }
 
 /**
@@ -285,65 +344,10 @@ function main() {
         continue;
       }
 
-      const refKeys = extractKeys(refContent);
-      const localeKeys = extractKeys(localeContent);
-
-      const refOnlyExclusions = REFERENCE_ONLY_KEYS[file] || [];
-      const missing = refKeys.filter(function (k) {
-        if (localeKeys.indexOf(k) !== -1) return false;
-        // Suppress reference-only keys (exist in en by design; not mirrored to targets).
-        for (var j = 0; j < refOnlyExclusions.length; j++) {
-          if (k === refOnlyExclusions[j] || k.indexOf(refOnlyExclusions[j] + '.') === 0) {
-            return false;
-          }
-        }
-        return true;
-      });
-      const localeExclusions =
-        (LOCALE_SPECIFIC_KEYS[locale] && LOCALE_SPECIFIC_KEYS[locale][file]) || [];
-      const orphaned = localeKeys.filter(function (k) {
-        if (refKeys.indexOf(k) !== -1) return false;
-        // Check if this key matches any locale-specific exclusion prefix
-        for (var i = 0; i < localeExclusions.length; i++) {
-          if (k === localeExclusions[i] || k.indexOf(localeExclusions[i] + '.') === 0) {
-            return false;
-          }
-        }
-        return true;
-      });
-
-      if (missing.length > 0) {
-        missingKeys[file] = missing;
-      }
-      if (orphaned.length > 0) {
-        orphanedKeys[file] = orphaned;
-      }
-
-      // Slot-name parity (audit L24 — Phase 7 Followup carry-forward #6).
-      // For every key present in BOTH ref and locale, the ICU slot-name set
-      // must be identical. Mismatch = silent-fallback bug at render time.
-      const refLeaves = extractStringLeaves(refContent);
-      const localeLeaves = extractStringLeaves(localeContent);
-      const fileSlotMismatches = [];
-      const slotExclusions = LOCALE_SPECIFIC_SLOTS[file] || {};
-      for (const [keyPath, refValue] of refLeaves) {
-        const localeValue = localeLeaves.get(keyPath);
-        if (typeof localeValue !== 'string') continue; // key absent / not a string in locale
-        // Skip keys that intentionally diverge per locale (documented carry-forwards).
-        const exclusionLocales = slotExclusions[keyPath];
-        if (Array.isArray(exclusionLocales) && exclusionLocales.indexOf(locale) !== -1) continue;
-        const refSlots = extractSlots(refValue);
-        const localeSlots = extractSlots(localeValue);
-        // Only check keys that have slots in at least one side.
-        if (refSlots.size === 0 && localeSlots.size === 0) continue;
-        const diff = diffSlots(refSlots, localeSlots);
-        if (diff !== null) {
-          fileSlotMismatches.push({ key: keyPath, missing: diff.missing, extra: diff.extra });
-        }
-      }
-      if (fileSlotMismatches.length > 0) {
-        slotMismatches[file] = fileSlotMismatches;
-      }
+      const result = compareFile(file, locale, refContent, localeContent);
+      if (result.missing.length > 0) missingKeys[file] = result.missing;
+      if (result.orphaned.length > 0) orphanedKeys[file] = result.orphaned;
+      if (result.slotMismatches.length > 0) slotMismatches[file] = result.slotMismatches;
     }
 
     // Report for this locale
@@ -420,4 +424,13 @@ function main() {
   }
 }
 
-main();
+module.exports = {
+  extractKeys: extractKeys,
+  extractStringLeaves: extractStringLeaves,
+  extractSlots: extractSlots,
+  diffSlots: diffSlots,
+  compareFile: compareFile,
+  LOCALE_SPECIFIC_KEYS: LOCALE_SPECIFIC_KEYS,
+};
+
+if (require.main === module) main();

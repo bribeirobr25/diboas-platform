@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
           url: `${siteUrl}/api/og/protocols`,
           width: 1200,
           height: 630,
-          alt: title,
+          alt: seo.ogTitle || title,
         },
       ],
     },

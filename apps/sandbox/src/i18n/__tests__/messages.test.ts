@@ -1,6 +1,17 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import {
+  isArgumentElement,
+  isDateElement,
+  isNumberElement,
+  isPluralElement,
+  isSelectElement,
+  isTagElement,
+  isTimeElement,
+  parse,
+  type MessageFormatElement,
+} from '@formatjs/icu-messageformat-parser';
 import { STRATEGY_CATALOG } from '@diboas/defi';
 import { GOAL_ICONS } from '@diboas/investing';
 import { SANDBOX_LOCALES } from '../config';
@@ -37,6 +48,40 @@ describe('goal-icon accessible labels (F-1: no raw Lucide tokens as aria-labels)
   });
 });
 
+/** The argument names of an ICU message, read by react-intl's own parser (sorted, unique). */
+function icuArguments(message: string): string[] {
+  /*
+   * Each argument as `name:kind` and each tag as `<name>` (7th audit): the first version kept
+   * only names, so a German plural flattened to a bare `{months}`, or the `<privacy>` link
+   * dropped from consent text, kept the same set and passed.
+   */
+  const names = new Set<string>();
+  const walk = (nodes: MessageFormatElement[]): void => {
+    for (const node of nodes) {
+      if (isPluralElement(node)) {
+        names.add(`${node.value}:${node.pluralType === 'ordinal' ? 'selectordinal' : 'plural'}`);
+        for (const option of Object.values(node.options)) walk(option.value);
+      } else if (isSelectElement(node)) {
+        names.add(`${node.value}:select`);
+        for (const option of Object.values(node.options)) walk(option.value);
+      } else if (isTagElement(node)) {
+        names.add(`<${node.value}>`);
+        walk(node.children);
+      } else if (isNumberElement(node)) {
+        names.add(`${node.value}:number`);
+      } else if (isDateElement(node)) {
+        names.add(`${node.value}:date`);
+      } else if (isTimeElement(node)) {
+        names.add(`${node.value}:time`);
+      } else if (isArgumentElement(node)) {
+        names.add(`${node.value}:argument`);
+      }
+    }
+  };
+  walk(parse(message));
+  return [...names].sort();
+}
+
 describe('message key parity (the app-local validate:translations, G-1)', () => {
   const flat = Object.fromEntries(
     SANDBOX_LOCALES.map((l) => [l, Object.keys(getMessages(l)).sort()])
@@ -57,14 +102,46 @@ describe('message key parity (the app-local validate:translations, G-1)', () => 
     }
   });
 
+  /**
+   * ⚑ PR 2 (P3 §6 guard 12) · ON THE REAL PARSER. The argument reader was a regex
+   * (`/\{(\w+)/g`), which reads every `{word` — so a plural branch that starts with a
+   * word (pt-BR `{window, plural, one {no último mês} other {nos últimos # meses}}`)
+   * looked like two extra arguments, `no` and `nos`, and failed a correct message. The
+   * parser is react-intl's own (`@formatjs/icu-messageformat-parser`, the version
+   * react-intl resolves), so this reads a message exactly as the app does — and a
+   * message that does not parse FAILS here, not at render time.
+   */
   it('should carry identical ICU argument sets per key across locales', () => {
-    const args = (msg: string) => (msg.match(/\{(\w+)/g) ?? []).map((m) => m.slice(1)).sort();
     for (const id of flat.en) {
-      const reference = args(getMessages('en')[id]);
+      const reference = icuArguments(getMessages('en')[id]);
       for (const locale of SANDBOX_LOCALES) {
-        expect(args(getMessages(locale)[id]), `${locale}:${id}`).toEqual(reference);
+        expect(icuArguments(getMessages(locale)[id]), `${locale}:${id}`).toEqual(reference);
       }
     }
+  });
+
+  it('should read arguments the way react-intl does (both directions, non-vacuity)', () => {
+    // A word-led plural branch is not an argument.
+    expect(
+      icuArguments('{window, plural, one {no último mês} other {nos últimos # meses}}')
+    ).toEqual(['window:plural']);
+    // Arguments nested inside a branch are found.
+    expect(icuArguments('{n, plural, one {# day} other {{amount} over # days}}')).toEqual([
+      'amount:argument',
+      'n:plural',
+    ]);
+    // A plural flattened to a bare argument, or a dropped link tag, changes the set.
+    expect(icuArguments('{months} left')).not.toEqual(
+      icuArguments('{months, plural, one {# month} other {# months}} left')
+    );
+    expect(icuArguments('Read the <privacy>policy</privacy>.')).toEqual(['<privacy>']);
+    expect(icuArguments('Read the policy.')).toEqual([]);
+    // A missing argument in one locale changes the set — the parity check fires.
+    expect(icuArguments('At {amount} a month, {target}')).not.toEqual(
+      icuArguments('Com {amount} por mês')
+    );
+    // A message that does not parse is a failure, never an empty set.
+    expect(() => icuArguments('{unclosed')).toThrow();
   });
 });
 

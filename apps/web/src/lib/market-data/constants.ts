@@ -6,17 +6,14 @@
  * Brazil bank rates are NET (after 22.5% IR tax). FDIC/FRED/BCB/B3/ECB/Tesoro
  * bank rates are 5-year averages (2021-2025) per Strategy Board decision.
  *
- * diBoaS scenarioRates were updated 2026-05-12 from 4/7/10 → 7/10/14 to
- * reflect the actual digital-dollar yield envelope diBoaS delivers via the
- * Solana-first DeFi stack (Sky, Aave, Compound, Jito, Jupiter):
- *   - Conservative 7%: top-tier passive (Aave/Compound high-utilization,
- *     Morpho curated vaults, Kamino JLP). Sources: Aavescan, Compound V3,
- *     Sky SSR (3.75-4.5% base + Solana premium).
- *   - Historical 10%: blended active across base + Solana mid-tier strategies.
- *   - Optimistic 14%: curated/looped strategies via diversified Solana yield routes.
- * Substantiation tracked in `docs/audit/YIELD_INFLATION_FX.md`. Rates are
- * gross (before platform fees and user-specific tax). Regulatory disclaimers
- * (MiCA / FTC / CVM) remain in the relevant locale translation files.
+ * scenarioRates (conservative / historical / optimistic) are ILLUSTRATIVE scenarios for the
+ * educational calculators and the Learn talks, not a rate any product pays. They were set
+ * 2026-05-12 (from 4/7/10) with this historical rationale: the conservative scenario drew on
+ * lending-protocol rates (sources consulted: Aavescan, Compound V3, Sky SSR); the historical and
+ * optimistic scenarios on blended and more active strategy mixes. Measured stable-pool rates have
+ * since been lower (register 5.163), which is why every figure is labelled a scenario. Rates are gross (before fees and tax). The copy states
+ * them through `lib/compound-interest/scenarioCopy.ts`, never as typed figures (5.730).
+ * Regulatory disclaimers (MiCA / FTC / CVM) remain in the locale translation files.
  */
 
 import type { MarketDataSnapshot } from './types';

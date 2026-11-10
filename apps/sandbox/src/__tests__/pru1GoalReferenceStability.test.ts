@@ -11,7 +11,7 @@ import {
 import { PLAY_MONEY_GRANT } from '@/i18n/config';
 import { goalCurrentValue, goalTargetReached } from '@/lib/goalValue';
 import { moduleBase, runtimeImports } from '@/test/importGraph';
-import { stripComments } from '@/test/stripComments';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * ⚙ `PRU-1` · A GOAL TARGET REFERENCE IS NEVER RECOMPUTED WITH A LATER RATE.

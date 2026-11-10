@@ -85,8 +85,12 @@ export default async function LegalPrivacyPage({ params }: LocalePageProps) {
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Privacy Policy', url: ROUTES.LEGAL.PRIVACY },
+      // Crumb names from the catalogues, never English literals (5.766).
+      { name: pageMessages['landing-b2c.seo.jsonLd.breadcrumbHome'] ?? 'Home', url: '/' },
+      {
+        name: pageMessages['legal/privacy.seo.title'] ?? 'Privacy Policy',
+        url: ROUTES.LEGAL.PRIVACY,
+      },
     ],
     locale
   );

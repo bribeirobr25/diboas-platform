@@ -109,7 +109,7 @@ describe('P8a · case 3 — every reader agrees with the applied state', () => {
 
   it('HOME / GOAL DETAIL: the goal is worth 100 (20 cash + 80 invested)', () => {
     const { goalId, state } = case3();
-    expect(selectGoalDetailView(state, goalId).currentValue).toBeCloseTo(100, 2);
+    expect(selectGoalDetailView(state, goalId).current).toBe('100.00');
   });
 
   /** The goal detail's "you put in" walks the log; the raw walk counted a refused funding. */

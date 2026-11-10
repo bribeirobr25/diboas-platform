@@ -166,6 +166,14 @@ function seriesIssue(v: unknown, path: string, valueKey: 'apyPercent' | 'priceUs
     if (!isObj(p)) return `${path}.points[${i}]`;
     if (!isCalendarDay(p.date)) return `${path}.points[${i}].date`;
     if (!isFiniteNumber(p[valueKey])) return `${path}.points[${i}].${valueKey}`;
+    // PR 2: an APY point's base rate is optional; when present it is a finite number or null.
+    if (
+      valueKey === 'apyPercent' &&
+      p.apyBasePercent !== undefined &&
+      p.apyBasePercent !== null &&
+      !isFiniteNumber(p.apyBasePercent)
+    )
+      return `${path}.points[${i}].apyBasePercent`;
   }
   if (!datesAreConsecutiveDays((v.points as Obj[]).map((p) => p.date as string)))
     return `${path}.points`;

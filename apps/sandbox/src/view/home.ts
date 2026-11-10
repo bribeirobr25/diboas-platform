@@ -498,8 +498,6 @@ export function selectWithdrawFeeExample(feeRate: Decimal | string | number): Wi
 export interface GoalDetailView {
   /** Current value as a display string (`money(...)` takes it directly). */
   current: string;
-  /** The same figure as a number, for numeric props like `Projection`. */
-  currentValue: number;
   target: string;
   /** 0-100, clamped. Consumed by the progress bar's fill. */
   ratioPercent: number;
@@ -510,8 +508,6 @@ export interface GoalDetailView {
   targetReached: boolean;
   /** The goal's uninvested cash. */
   cash: string;
-  /** Total recurring monthly across the goal's positions, as a number. */
-  goalMonthly: number;
   /** Sum of `GoalFunded` amounts for this goal. */
   contributionsTotal: string;
   /**
@@ -531,11 +527,6 @@ export function selectGoalDetailView(state: LedgerState, goalId: string): GoalDe
   const progress = selectGoalProgress(state, goalId);
   const current = goalCurrentValue(state, goalId);
 
-  const goalMonthly = state.recurring
-    .filter((r) => r.goalId === goalId)
-    .reduce((acc, r) => acc.plus(r.monthlyAmount), new Decimal(0))
-    .toNumber();
-
   // `LedgerEvent` IS a discriminated union on `type`, but `Array.prototype.filter`
   // does not narrow it — which is why this money sum previously went through two
   // unchecked `as` casts (`e as { amount: string }`). Narrowing inside the reduce
@@ -552,14 +543,12 @@ export function selectGoalDetailView(state: LedgerState, goalId: string): GoalDe
 
   return {
     current: progress.current,
-    currentValue: current.toNumber(),
     target: progress.target,
     ratioPercent: progress.ratioPercent,
     percentShown: progress.percentShown,
     hasTarget: progress.hasTarget,
     targetReached: progress.targetReached,
     cash: new Decimal(goal?.cash ?? 0).toFixed(2),
-    goalMonthly,
     contributionsTotal,
     hasCash: new Decimal(goal?.cash ?? 0).gt(0),
   };
@@ -682,4 +671,16 @@ export function selectExitPreview<T>(input: {
   if (intent.scope === 'goal') return input.previewGoal(snapshot, input.goalId, input.feeFor);
   if (!intent.positionId) return null;
   return input.previewPosition(snapshot, intent.positionId, input.feeFor(intent.positionId));
+}
+
+/**
+ * PR 2 · a goal's `GoalCreated.recordedAt` (wall clock), read through `appliedEvents` (LEDGER-1)
+ * — the start of the goal's calendar frame for the months left (`lib/goalMonths.ts`). Only THIS
+ * goal's creation counts; null if absent.
+ */
+export function selectGoalCreatedAt(state: LedgerState, goalId: string): string | null {
+  return (
+    appliedEvents(state).find((e) => e.type === 'GoalCreated' && e.goalId === goalId)?.recordedAt ??
+    null
+  );
 }

@@ -87,8 +87,9 @@ export default async function HelpPage({ params }: LocalePageProps) {
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Help', url: '/help' },
+      // Crumb names from the catalogues, never English literals (5.766).
+      { name: pageMessages['landing-b2c.seo.jsonLd.breadcrumbHome'] ?? 'Home', url: '/' },
+      { name: pageMessages['landing-help.seo.title'] ?? 'Help Center', url: '/help' },
     ],
     locale
   );

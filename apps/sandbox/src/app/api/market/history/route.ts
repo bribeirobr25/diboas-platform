@@ -53,7 +53,14 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
      * series instead would have required inventing a stamp for a value that
      * does not exist.
      */
-    const histories = apyResults.filter((h) => h !== null);
+    /* 5.801 · each point travels as its date and TOTAL rate only: the base rate (`apyBasePercent`,
+       PR 2) is read by the projection's own route, never here, and only made this payload heavier. */
+    const histories = apyResults
+      .filter((h) => h !== null)
+      .map((h) => ({
+        ...h,
+        points: h.points.map(({ date, apyPercent }) => ({ date, apyPercent })),
+      }));
     const priceHistories = priceResults.filter((h) => h !== null);
     return NextResponse.json(
       { days, histories, priceHistories },

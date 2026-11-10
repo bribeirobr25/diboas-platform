@@ -163,7 +163,6 @@
       }
     },
     "disclaimer": "*Taxas diBoaS mostradas. Taxas de terceiros, provedores de entrada e saída, redes, bancos, câmbio, liquidação ou compliance podem se aplicar e serão exibidas quando disponíveis antes da confirmação.",
-    "pricingNote": "Comparações de preços baseadas em tarifas públicas de fevereiro de 2026. As faixas refletem preços comuns entre os principais provedores. O preço real de cada concorrente varia por provedor, volume e condições contratuais.",
     "example": "Um usuário diBoaS te paga R$5.000 em dólar digital: você fica com R$5.000 na sua conta diBoaS. Sacar para o banco é uma saída (off-ramp): {cashOutRate} se aplica. Um pagamento via cartão é uma entrada (on-ramp), com custos de cartão e de entrada exibidos antes de mover dinheiro.",
     "footerLine": "Todo custo deveria aparecer antes do caixa sair do lugar.",
     "transitionHook": "Custo primeiro. Depois vamos ver se isso encaixa."
@@ -214,7 +213,6 @@
   "waitlist": {
     "header": "Construa um caixa melhor.",
     "description": "Pagamentos. Caixa parado. Piso operacional. Dólar. Custo. Liquidez. Risco. Entre na lista de empresas e seja um dos primeiros a testar o diBoaS para Empresas quando abrir.",
-    "spotsCounter": "{count} vagas de membros fundadores restantes",
     "noSpam": "Sem spam. Só atualizações do produto, acesso antecipado e mudanças antes do lançamento."
   },
   "faq": {
@@ -283,13 +281,13 @@
       "ariaLabel": "Calculadora de caixa inativo de tesouraria"
     },
     "originStory": {
-      "ariaLabel": "História de origem — O nome dela era Adelaide"
+      "ariaLabel": "História de origem: o nome dela era Adelaide"
     },
     "businessBenefits": {
       "ariaLabel": "O que sua empresa ganha com o diBoaS"
     },
     "cashflowInvesting": {
-      "ariaLabel": "Investimento de fluxo de caixa — dois ganhos com uma mudança"
+      "ariaLabel": "Investimento de fluxo de caixa: dois ganhos com uma mudança"
     },
     "feeTable": {
       "ariaLabel": "Tabela completa de transparência de taxas"
@@ -319,7 +317,7 @@
     "headline": "Você não levantou capital para vê-lo parado.",
     "subheadline": "A maior parte da sua rodada é runway que você não vai tocar por meses. Ela pode esperar em um lugar que você escolhe, com custo e risco à vista, sem nunca sair do seu controle.",
     "body": {
-      "0": "A rodada cai na conta. A folha leva uma parte todo mês. O resto — a maior parte — espera.",
+      "0": "A rodada cai na conta. A folha leva uma parte todo mês. O resto, a maior parte, espera.",
       "1": "Espera em uma conta, em um único banco, rendendo quase nada. Você já sabe quanto essa frase pode custar.",
       "2": "diBoaS não pede que você aposte seu runway. Defina o piso do que você precisa. O que fica acima pode ir para estratégias de dólar digital e continua sob o seu controle, pronto para resgatar quando você precisar. Toda estratégia tem risco, mostrado antes de você mover."
     },

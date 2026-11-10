@@ -43,3 +43,43 @@ describe('formatResultCurrency', () => {
     expect(formatResultCurrency(16105, '<script>')).toBe('$16K');
   });
 });
+
+/**
+ * 5.802 · the calculator share title and card state the amount in the visitor's locale
+ * (German "Mio.", Portuguese "mi", a decimal comma), never one English compact form for every language.
+ */
+describe('5.802 · the calculator amount in the visitor locale', () => {
+  it.each([
+    ['en', '$1.5M'],
+    ['pt-BR', 'US$ 1,5 mi'],
+    ['es', '1,5 M US$'],
+    ['de', '1,5 Mio. $'],
+  ])('should format 1,500,000 in %s as %s', (locale, expected) => {
+    expect(formatResultCurrency(1_500_000, 'USD', locale, 1).replace(/\u00a0/g, ' ')).toBe(
+      expected
+    );
+  });
+
+  it('should never print a trailing ".0" on a whole compact figure', () => {
+    expect(formatResultCurrency(150_000, 'USD', 'en', 1)).toBe('$150K');
+  });
+
+  it('should leave no hard-coded "$…M" / "$…K" formatter in the share title or card', async () => {
+    const { readFileSync } = await import('node:fs');
+    const { join } = await import('node:path');
+    const share = join(
+      __dirname,
+      '..',
+      '..',
+      '..',
+      '..',
+      '[locale]',
+      '(landing)',
+      'share',
+      'page.tsx'
+    );
+    const card = join(__dirname, '..', 'ogTemplates.tsx');
+    for (const file of [share, card])
+      expect(readFileSync(file, 'utf8'), file).not.toMatch(/toFixed\(\d\)\}[MK]`/);
+  });
+});

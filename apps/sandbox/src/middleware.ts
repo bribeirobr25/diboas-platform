@@ -126,8 +126,9 @@ function missingResponse(req: NextRequest, requestHeaders: Headers): NextRespons
  * It is deliberately not a copy of `apps/web`'s. Measured, not assumed:
  *
  * - **`connect-src 'self'`** — the market providers (`DefiLlamaApyProvider`,
- *   `CoinGeckoPriceProvider`) are instantiated ONLY in `app/api/market/route.ts`
- *   and `app/api/market/history/route.ts`. Every external call is server-side, so
+ *   `CoinGeckoPriceProvider`) are instantiated ONLY in `app/api/market/route.ts`,
+ *   `app/api/market/history/route.ts` and `app/api/market/rate-ranges/route.ts`
+ *   (PR 2). Every external call is server-side, so
  *   the browser never contacts `yields.llama.fi` or `api.coingecko.com`. Granting
  *   them would widen the policy for traffic that does not exist.
  * - **`font-src 'self'`** — `next/font/google` self-hosts `Fraunces` at build

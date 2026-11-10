@@ -10,6 +10,7 @@ import {
   recordEvidenceEvent,
 } from '../evidenceObservability';
 import { fallbackFor } from '../fallbackEligibility';
+import { stripComments } from '@diboas/test-support';
 
 const pool = (over: Record<string, unknown> = {}) => ({
   pool: 'p1',
@@ -142,18 +143,18 @@ describe('Block G · reporting, never control', () => {
     /* An event about no particular leg says so, rather than inventing one. */
     expect(e.leg).toBeNull();
     /* Structural: the module has no way to accept a value or a response. */
-    const code = readFileSync(join(__dirname, '..', 'evidenceObservability.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const code = stripComments(
+      readFileSync(join(__dirname, '..', 'evidenceObservability.ts'), 'utf8')
+    );
     for (const banned of ['value', 'payload', 'url', 'apiKey', 'body', 'response']) {
       expect(code, banned).not.toMatch(new RegExp(`\\b${banned}\\b`));
     }
   });
 
   it('should perform NO I/O of its own — this package stays environment-free', () => {
-    const code = readFileSync(join(__dirname, '..', 'evidenceObservability.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    const code = stripComments(
+      readFileSync(join(__dirname, '..', 'evidenceObservability.ts'), 'utf8')
+    );
     for (const banned of ['console', 'fetch', 'process.env', 'writeFile', 'setInterval']) {
       expect(code, banned).not.toContain(banned);
     }

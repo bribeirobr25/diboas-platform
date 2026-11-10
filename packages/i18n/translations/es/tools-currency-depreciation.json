@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de depreciación monetaria",
-    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en una estrategia en dólar digital (10% histórico al año)."
+    "description": "Calculadora gratuita de depreciación monetaria. Compara tu moneda local en efectivo, en el banco y en una estrategia en dólar digital ({scenarioHistorical} histórico al año)."
   },
   "hero": {
     "kicker": "Calculadora de depreciación monetaria",
@@ -37,8 +37,8 @@
     "retrospectiveNowLabel": "Ahora ({asOfMonth})",
     "retrospectiveNowNote": "1 USD = {rate} {currency}",
     "retrospectiveLossLabel": "Cambio del poder de compra en USD",
-    "retrospectiveLossNote": "El {currency} se debilitó {cagr}% al año frente al USD durante {years} años",
-    "depSourceForward": "Depreciación proyectada: CAGR ajustado al horizonte derivado de la ventana de {years} años de la serie de tipos de cambio.",
+    "retrospectiveLossNote": "El {currency} se debilitó {cagr}% al año frente al USD durante {years, plural, one {# año} other {# años}}",
+    "depSourceForward": "Depreciación proyectada: CAGR ajustado al horizonte derivado de la ventana de {years, plural, one {# año} other {# años}} de la serie de tipos de cambio.",
     "depSourceRetrospective": "Retrospectivo: basado en los puntos ancla del par {currency}/USD entre {startMonth} y {asOfMonth}.",
     "depSourcePeg": "El {currency} está vinculado al dólar estadounidense por política del banco central. La variación cambiaria es 0 por diseño.",
     "uncertaintyMedium": "Esta moneda tuvo volatilidad moderada en la ventana. El CAGR puntual refleja el comportamiento promedio; el movimiento acumulado fue desigual año a año.",
@@ -47,9 +47,9 @@
   "resultMoment": {
     "eyebrow": "Lo que tu dinero realmente gana",
     "eyebrowUsd": "Lo que ganan tus dólares parados",
-    "chartAria": "Cómo se compara el {currency} en {years} años mantenido en efectivo, en un banco local y en dólar digital en diBoaS.",
-    "chartAriaUsd": "Cómo se comparan tus dólares en {years} años en un banco frente a dólar digital en diBoaS.",
-    "shareText": "En {years} años, mis {currency} podrían valer {value} en dólar digital en diBoaS. Mira cómo aguanta el tuyo."
+    "chartAria": "Cómo se compara el {currency} en {years, plural, one {# año} other {# años}} mantenido en efectivo, en un banco local y en dólar digital en diBoaS.",
+    "chartAriaUsd": "Cómo se comparan tus dólares en {years, plural, one {# año} other {# años}} en un banco frente a dólar digital en diBoaS.",
+    "shareText": "En {years, plural, one {# año} other {# años}}, mis {currency} podrían valer {value} en dólares digitales con diBoaS. Mira cómo les iría a los tuyos."
   },
   "vignette": {
     "subtitle": "Dónde guardas tu dinero importa. La moneda en la que rinde, importa más."

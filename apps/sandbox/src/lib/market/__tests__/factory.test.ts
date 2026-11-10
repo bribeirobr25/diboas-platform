@@ -14,6 +14,7 @@ import {
   getGasProvider,
   getPriceProvider,
 } from '../factory';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * `5.414` — the market-provider seam is exercised, and its reset helper has a caller.
@@ -57,7 +58,7 @@ const FACTORY = join(__dirname, '..', 'factory.ts');
 
 /** Strip comments, so vocabulary quoted in prose is never read as code. */
 function code(source: string): string {
-  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+  return stripComments(source);
 }
 
 beforeEach(() => {

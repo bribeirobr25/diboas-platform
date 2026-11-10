@@ -6,6 +6,8 @@ import {
   checkMarketRateLimit,
 } from '@/lib/security/rateLimiter';
 import { marketUpstream } from '@/test/marketUpstream';
+import { MARKET_CACHE_CONTROL } from '@/lib/marketCacheHeaders';
+import { rateRangesResponseIssue } from '@/lib/market/responseShape';
 
 /**
  * `5.213` · THE ROUTE REFUSES, AND REFUSES BEFORE IT SPENDS ANYTHING.
@@ -138,6 +140,53 @@ describe('GET /api/market/history — 5.213 rate limit (PB-2)', () => {
     expect(response.status).toBe(200);
     expect(hoisted.providerCalls).toBeGreaterThan(0);
   });
+
+  it('should send each history point as its date and total rate only (5.801: no base, no extra payload)', async () => {
+    __resetRateLimiter();
+    const { GET } = await import('../history/route');
+    const body = (await (await GET(historyRequest())).json()) as {
+      histories: Array<{ points: Array<Record<string, unknown>> }>;
+    };
+    const points = body.histories.flatMap((h) => h.points);
+    expect(points.length).toBeGreaterThan(0);
+    for (const pt of points) expect(Object.keys(pt).sort()).toEqual(['apyPercent', 'date']);
+  });
+});
+
+describe('GET /api/market/rate-ranges — PR 2 rate limit and the observed answer', () => {
+  const request = () =>
+    new NextRequest(new URL('http://localhost/api/market/rate-ranges'), {
+      headers: { 'x-real-ip': '203.0.113.49' },
+    });
+
+  it('should answer 429 without reaching any provider once the window is exhausted', async () => {
+    const headers = new Headers({ 'x-real-ip': '203.0.113.49' });
+    for (let i = 0; i <= MARKET_RATE_LIMIT; i += 1) await checkMarketRateLimit(headers);
+    hoisted.providerCalls = 0;
+    const { GET } = await import('../rate-ranges/route');
+    const response = await GET(request());
+    expect(response.status).toBe(429);
+    expect(hoisted.providerCalls, 'rate-ranges reached a provider despite being rate limited').toBe(
+      0
+    );
+  });
+
+  it('should answer 200 with every stable strategy available, the full cache and a shape the client accepts (observed upstream)', async () => {
+    __resetRateLimiter();
+    const { GET } = await import('../rate-ranges/route');
+    const response = await GET(request());
+    expect(response.status).toBe(200);
+    expect(response.headers.get('cache-control')).toBe(MARKET_CACHE_CONTROL);
+    const body: unknown = await response.json();
+    expect(rateRangesResponseIssue(body)).toBeNull();
+    const b = body as {
+      strategies: Array<{ available: boolean }>;
+      aggregate: { available: boolean };
+    };
+    expect(b.strategies.length).toBeGreaterThan(0);
+    expect(b.strategies.every((s) => s.available)).toBe(true);
+    expect(b.aggregate.available).toBe(true);
+  });
 });
 
 /**
@@ -149,6 +198,7 @@ describe('market routes — an unexpected error is logged, not swallowed', () =>
   for (const [route, url, ip] of [
     ['../route', 'http://localhost/api/market', '203.0.113.46'],
     ['../history/route', 'http://localhost/api/market/history?days=30', '203.0.113.47'],
+    ['../rate-ranges/route', 'http://localhost/api/market/rate-ranges', '203.0.113.48'],
   ] as const) {
     it(`should answer 503 and log the cause (${route})`, async () => {
       const err = vi.spyOn(console, 'error').mockImplementation(() => {});

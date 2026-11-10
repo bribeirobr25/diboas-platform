@@ -49,7 +49,7 @@
         "title": "Datos de Dream Mode:",
         "items": [
           "Entradas de simulación (cantidad de depósito, selección de estrategia)",
-          "Estos datos se almacenan localmente en tu dispositivo, no en nuestros servidores"
+          "Estas entradas solo se usan en tu navegador mientras usas el Modo Sueño; no se guardan, ni en tu dispositivo ni en nuestros servidores"
         ]
       }
     },

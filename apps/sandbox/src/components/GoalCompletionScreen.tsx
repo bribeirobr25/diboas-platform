@@ -116,29 +116,32 @@ export function GoalCompletionScreen({
             <FormattedMessage id="goalComplete.whatNext" />
           </h2>
           <ul className={styles.rows}>
-            <li>
-              <button
-                type="button"
-                className={styles.row}
-                onClick={() => {
-                  accomplishGoal(goal.goalId, 'kept-working');
-                  onClose();
-                }}
-              >
-                <span className={styles.rowIcon}>
-                  <LucideIcon name="trending-up" size={18} />
-                </span>
-                <span className={styles.rowBody}>
-                  <span className={styles.rowLabel}>
-                    <FormattedMessage id="goalComplete.keepWorking" />
+            {/* K1 (B14, 5.533): "Keep working" only while money IS working — an open position. */}
+            {hasPositions ? (
+              <li>
+                <button
+                  type="button"
+                  className={styles.row}
+                  onClick={() => {
+                    accomplishGoal(goal.goalId, 'kept-working');
+                    onClose();
+                  }}
+                >
+                  <span className={styles.rowIcon}>
+                    <LucideIcon name="trending-up" size={18} />
                   </span>
-                  <span className={styles.rowNote}>
-                    <FormattedMessage id="goalComplete.keepWorkingNote" />
+                  <span className={styles.rowBody}>
+                    <span className={styles.rowLabel}>
+                      <FormattedMessage id="goalComplete.keepWorking" />
+                    </span>
+                    <span className={styles.rowNote}>
+                      <FormattedMessage id="goalComplete.keepWorkingNote" />
+                    </span>
                   </span>
-                </span>
-                <LucideIcon name="chevron-right" size={18} />
-              </button>
-            </li>
+                  <LucideIcon name="chevron-right" size={18} />
+                </button>
+              </li>
+            ) : null}
 
             {hasPositions && onStopStrategy ? (
               <li>
@@ -159,29 +162,32 @@ export function GoalCompletionScreen({
               </li>
             ) : null}
 
-            <li>
-              <button
-                type="button"
-                className={styles.row}
-                onClick={() => {
-                  accomplishGoal(goal.goalId, 'held-as-cash');
-                  onClose();
-                }}
-              >
-                <span className={styles.rowIcon}>
-                  <LucideIcon name="wallet" size={18} />
-                </span>
-                <span className={styles.rowBody}>
-                  <span className={styles.rowLabel}>
-                    <FormattedMessage id="goalComplete.holdAsCash" />
+            {/* K1 (B14, 5.533): "Hold as cash" only when nothing is invested. */}
+            {!hasPositions ? (
+              <li>
+                <button
+                  type="button"
+                  className={styles.row}
+                  onClick={() => {
+                    accomplishGoal(goal.goalId, 'held-as-cash');
+                    onClose();
+                  }}
+                >
+                  <span className={styles.rowIcon}>
+                    <LucideIcon name="wallet" size={18} />
                   </span>
-                  <span className={styles.rowNote}>
-                    <FormattedMessage id="goalComplete.holdAsCashNote" />
+                  <span className={styles.rowBody}>
+                    <span className={styles.rowLabel}>
+                      <FormattedMessage id="goalComplete.holdAsCash" />
+                    </span>
+                    <span className={styles.rowNote}>
+                      <FormattedMessage id="goalComplete.holdAsCashNote" />
+                    </span>
                   </span>
-                </span>
-                <LucideIcon name="chevron-right" size={18} />
-              </button>
-            </li>
+                  <LucideIcon name="chevron-right" size={18} />
+                </button>
+              </li>
+            ) : null}
 
             <li>
               <button type="button" className={styles.row} onClick={() => setStep('transfer')}>

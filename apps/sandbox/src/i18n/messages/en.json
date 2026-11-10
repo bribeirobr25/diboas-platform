@@ -243,13 +243,41 @@
   },
   "projection": {
     "heading": "The path from here",
-    "rangeLine": "At {amount} a month, an assumed {low}% to {high}% would reach {target} in about {minYears} to {maxYears} years.",
-    "singleLine": "At {amount} a month, an assumed {low}% to {high}% would reach {target} in about {years, plural, one {# year} other {# years}}.",
-    "caveat": "An assumption you can check, not a promise. Real returns move around and can be negative.",
-    "paceWithin": "This pace fits inside your {months}-month timeframe.",
-    "paceEdge": "This pace lands around your {months}-month timeframe.",
-    "paceBeyond": "This pace runs longer than your {months}-month timeframe.",
-    "underYear": "At {amount} a month, an assumed {low}% to {high}% would reach {target} within a year."
+    "caveat": "An assumption you can check, not a promise. Real results move around and can be negative.",
+    "paceWithin": "This pace fits inside the {months, plural, one {# month} other {# months}} left in your timeframe.",
+    "paceEdge": "This pace lands around the {months, plural, one {# month} other {# months}} left in your timeframe.",
+    "paceBeyond": "This pace runs longer than the {months, plural, one {# month} other {# months}} left in your timeframe.",
+    "tag": "Illustrative projection · not a forecast",
+    "when": {
+      "range": "in about {minYears} to {maxYears} years",
+      "single": "in about {years, plural, one {# year} other {# years}}",
+      "underYear": "within a year",
+      "overCap": "in more than {years, plural, one {# year} other {# years}}",
+      "underYearToOverCap": "anywhere from within a year to more than {years, plural, one {# year} other {# years}}"
+    },
+    "live": {
+      "today": "Base pool rate observed: {rate} · snapshot {age}",
+      "todayRange": "Base pool rates observed: {low} to {high} · snapshot {age}",
+      "withPlan": "At {amount} a month, {target} would be reached {when} if your strategy's base pool rate stays between {low} and {high} a year, the range its 30-day average moved in over the past {window, plural, one {# month} other {# months}}.",
+      "noPlan": "From what this goal holds, {target} would be reached {when} if your strategy's base pool rate stays between {low} and {high} a year, the range its 30-day average moved in over the past {window, plural, one {# month} other {# months}}."
+    },
+    "simulated": {
+      "needed": "Simulated: if all of it were in a stable strategy, about {amounts} a month would reach {target} in the {months, plural, one {# month} other {# months}} left in your timeframe, at {low} to {high} a year, the range the stable strategies' 30-day average base pool rates moved in over the past {window, plural, one {# month} other {# months}}.",
+      "neededUpTo": "Simulated: if all of it were in a stable strategy, up to {max} a month would reach {target} in the {months, plural, one {# month} other {# months}} left in your timeframe, at {low} to {high} a year, the range the stable strategies' 30-day average base pool rates moved in over the past {window, plural, one {# month} other {# months}}.",
+      "alreadyEnough": "Simulated: if all of it were in a stable strategy, what this goal holds would reach {target} in the {months, plural, one {# month} other {# months}} left in your timeframe without adding more, at {low} to {high} a year, the range the stable strategies' 30-day average base pool rates moved in over the past {window, plural, one {# month} other {# months}}.",
+      "withPlan": "Simulated: if all of it were in a stable strategy, at {amount} a month {target} would be reached {when} at {low} to {high} a year, the range the stable strategies' 30-day average base pool rates moved in over the past {window, plural, one {# month} other {# months}}."
+    },
+    "amountRange": "{min} to {max}",
+    "growthNote": "Part of this goal's money moves with market prices, so no rate can say when it gets there.",
+    "disclosure": "Rates are yearly and nominal. This leaves out fees, inflation, taxes and the order in which results arrive.",
+    "disclosureUsdPools": "Rates are for US-dollar pools; currency movements are left out.",
+    "method": {
+      "summary": "How this is worked out",
+      "body": "Pool rates are observed snapshots; the time shown is the oldest of them. The range is the lowest and highest 30-day average base rate over the observed months. Money in a strategy, and new monthly amounts once added, grow at the rate; cash outside a strategy stays as it is. With several strategies, the range runs from the lowest of their lows to the highest of their highs. In a simulation, everything the goal holds is treated as if it were in a stable strategy (one with no market-price exposure). Practice uses play money only.",
+      "plan": "It assumes {amount} is added each month."
+    },
+    "loading": "Reading pool rates…",
+    "unavailable": "Pool rates can't be read right now, so there is no projection to show. Nothing about your goal has changed."
   },
   "geofence": {
     "badge": "Region check",

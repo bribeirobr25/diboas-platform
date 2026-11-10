@@ -5,8 +5,9 @@
  * fixtures are NEVER silently blended with live data.
  *
  * Sources (documented 2026-07-18):
- * - APYs: midpoints of the shipped per-strategy "typical annual return" ranges
- *   in `strategies.json` (protocol-level estimates consistent with that copy).
+ * - APYs: midpoints of the per-strategy "typical annual return" ranges once shipped in
+ *   `en/strategies.json` (removed 2026-11-06, register 5.788, unread; history:
+ *   `git log -- packages/i18n/translations/en/strategies.json`).
  * - Prices: order-of-magnitude placeholders for offline dev ONLY — the price
  *   provider is expected to reach CoinGecko in any networked environment.
  * - Gas: typical values researched for the PreDemo fee-display work

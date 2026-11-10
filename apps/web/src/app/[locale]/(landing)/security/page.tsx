@@ -97,8 +97,9 @@ export default async function SecurityPage({ params }: LocalePageProps) {
 
   const breadcrumbData = SEOMetadataFactory.generateBreadcrumbs(
     [
-      { name: 'Home', url: '/' },
-      { name: 'Security', url: '/security' },
+      // Crumb names from the catalogues, never English literals (5.766).
+      { name: pageMessages['landing-b2c.seo.jsonLd.breadcrumbHome'] ?? 'Home', url: '/' },
+      { name: pageMessages['security.seo.title'] ?? 'Security', url: '/security' },
     ],
     locale
   );

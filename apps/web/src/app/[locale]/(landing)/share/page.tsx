@@ -11,6 +11,7 @@
  */
 
 import { redirect } from 'next/navigation';
+import { formatResultCurrency, isValidCalculatorInput } from '@/app/api/og/share/ogUtils';
 import type { Metadata } from 'next';
 import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
 import { pageTitle } from '@/lib/seo/pageTitle';
@@ -47,25 +48,6 @@ interface ShareOg {
   calculator: OgStrings;
   toolResult: ToolResultOg;
   default: OgStrings;
-}
-
-/**
- * Format a tool-result value for the social-preview title in the holder's
- * locale currency (compact). Mirrors the OG image formatter so the card and the
- * link preview agree. Falls back to a plain integer on an unexpected currency.
- */
-function formatToolResultValue(value: number, currency: string, locale: string): string {
-  if (!/^[A-Z]{3}$/.test(currency)) return value.toLocaleString();
-  try {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency,
-      maximumFractionDigits: 0,
-      notation: 'compact',
-    }).format(value);
-  } catch {
-    return value.toLocaleString();
-  }
 }
 
 /**
@@ -144,9 +126,13 @@ export async function generateMetadata({
     };
   }
 
-  if (type === 'calculator') {
-    const amount = parseInt(search.amount || '0', 10);
-    const years = search.years || '10';
+  const calcAmount = parseInt(search.amount || '0', 10);
+  const calcYears = search.years || '10';
+  // The card's own validator (8th audit): no NaN or negative amount in a title; an invalid amount gets
+  // the default metadata, as the card gets its default image.
+  if (type === 'calculator' && isValidCalculatorInput(calcAmount, parseInt(calcYears, 10))) {
+    const amount = calcAmount;
+    const years = calcYears;
     const strategy = search.strategy;
     const initial = search.initial;
 
@@ -160,16 +146,13 @@ export async function generateMetadata({
       ogParams.set('initial', initial);
     }
 
-    const formattedAmount =
-      amount >= 1000000
-        ? `$${(amount / 1000000).toFixed(1)}M`
-        : amount >= 1000
-          ? `$${(amount / 1000).toFixed(0)}K`
-          : `$${amount.toLocaleString()}`;
+    // In the visitor's locale (German "Mio.", Portuguese "mi"), as on the share card (5.802).
+    const formattedAmount = formatResultCurrency(amount, 'USD', locale, 1);
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
     const title = fillSlot(og.calculator.title, '{formattedAmount}', formattedAmount);
-    const description = fillSlot(og.calculator.description, '{years}', years);
+    // The description names no year count (5.793): no slot to fill.
+    const description = og.calculator.description;
 
     return {
       title: pageTitle(title),
@@ -220,7 +203,7 @@ export async function generateMetadata({
       ogParams.set('tone', tone);
     }
 
-    const formattedValue = formatToolResultValue(value, currency, locale);
+    const formattedValue = formatResultCurrency(value, currency, locale);
 
     const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
     // Per-tool title override keeps each tool honest (e.g. asset-history is

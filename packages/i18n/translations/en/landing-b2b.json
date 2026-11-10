@@ -163,7 +163,6 @@
       }
     },
     "disclaimer": "*diBoaS fees shown. Third-party provider, ramp, network, banking, settlement, compliance, or exchange fees may apply and are shown before confirmation where available.",
-    "pricingNote": "Pricing comparisons based on publicly available rates as of February 2026. Ranges reflect common pricing across major providers. Actual competitor pricing varies by provider, volume, and agreement terms.",
     "example": "A diBoaS user pays you $1,000 in digital dollars: you keep $1,000 in your diBoaS account. Cash out to your bank as an off-ramp: {cashOutRate} applies. A card-funded payment is an on-ramp, with card and ramp costs shown before funds move.",
     "footerLine": "Every cost should be visible before business funds move.",
     "transitionHook": "Costs first. Then let's see if this is a fit."
@@ -214,7 +213,6 @@
   "waitlist": {
     "header": "Build a better cash policy.",
     "description": "Payment costs. Idle balances. Operating floors. Strategy risk. Join the business waitlist and be among the first to test diBoaS for Business when it opens.",
-    "spotsCounter": "{count} founding members spots remaining",
     "noSpam": "No spam. Just product updates, early access, and what changes before launch."
   },
   "faq": {
@@ -283,13 +281,13 @@
       "ariaLabel": "Treasury idle cash calculator"
     },
     "originStory": {
-      "ariaLabel": "Origin story — Her name was Adelaide"
+      "ariaLabel": "Origin story: her name was Adelaide"
     },
     "businessBenefits": {
       "ariaLabel": "What your business gets with diBoaS"
     },
     "cashflowInvesting": {
-      "ariaLabel": "Cashflow investing — two wins from one change"
+      "ariaLabel": "Cashflow investing: two wins from one change"
     },
     "feeTable": {
       "ariaLabel": "Complete fee transparency table"
@@ -319,7 +317,7 @@
     "headline": "You didn't raise it to watch it sit still.",
     "subheadline": "Most of your round is runway you won't touch for months. It can wait somewhere you choose, with the cost and the risk in view, without ever leaving your control.",
     "body": {
-      "0": "A round lands. Payroll takes a slice every month. The rest — most of it — waits.",
+      "0": "A round lands. Payroll takes a slice every month. The rest, most of it, waits.",
       "1": "It waits in one account, at one bank, earning close to nothing. You already know what that sentence can cost.",
       "2": "diBoaS doesn't ask you to gamble your runway. Set the floor for what you need. What sits above it can go to work in digital-dollar strategies and stays under your control, ready to pull back when you need it. Every strategy carries risk, shown before you move."
     },
@@ -329,6 +327,6 @@
       "primary": "Talk to Bar"
     },
     "imageAlt": "A calm, sunlit workspace by a window in the morning light",
-    "ariaLabel": "Startup treasury — put idle runway to work"
+    "ariaLabel": "Startup treasury: put idle runway to work"
   }
 }

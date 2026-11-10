@@ -4,8 +4,19 @@
  * idempotent appends by eventId).
  *
  * Time note: `simDay` is SIMULATED time (day index from ledger genesis) — the
- * time machine advances it. Wall-clock `recordedAt` is telemetry only and
- * never participates in money math.
+ * time machine advances it. Wall-clock `recordedAt` is the REAL moment an event
+ * was recorded. It is never a term of the conservation formula, but it is NOT
+ * telemetry-only, and every reader is named here so a new one is a visible
+ * change (PR 2, P3 §5 P2):
+ *   - genesis: `projection/core.ts` stamps `genesisRecordedAt` from the first event;
+ *     `cadence.ts` `realDaysToSettle` (how many real days the settle catches up —
+ *     money-bearing; called by `apps/sandbox` `hooks/useSettleToNow.ts`) and
+ *     `collectibleWeeks` read it;
+ *   - `apps/sandbox`: `lib/monthReport.ts` (the report's window), `lib/simulatedEvents.ts`
+ *     (the personal week), `lib/weeklyCycle.ts` (the credit meter's drain history),
+ *     `TimeMachineScreen.tsx` (the genesis date shown), and `view/home.ts`
+ *     `selectGoalDetailView` → `lib/goalMonths.ts` (a goal's months left, from its
+ *     `GoalCreated`).
  */
 
 export type JobBucket = 'floor' | 'cushion' | 'working';
@@ -31,7 +42,7 @@ export interface EventBase {
   eventId: string;
   /** Simulated day index (0 = genesis day). */
   simDay: number;
-  /** Wall-clock ISO timestamp when the event was recorded (telemetry only). */
+  /** Wall-clock ISO timestamp when the event was recorded (its readers: the note above). */
   recordedAt: string;
   correlationId: string;
   /**
@@ -727,12 +738,12 @@ export interface WeeklyCreditGranted extends EventBase {
 
 /**
  * The one-time W-5c comparison credit (3.10): extra practice money to try a
- * second goal or different strategy, offered only AFTER the first strategy
- * entry (comparison-learning material — never a reward, never pre-announced;
- * the BR-no-incentive covenant + MiCA inducement rules both forbid the
- * bonus-for-investing shape). Projection enforces both guards: once per
- * ledger AND only when a `StrategyEntered` precedes it (P2BD-10). Ingress →
- * `credited`; lands in Available.
+ * second goal or a different strategy — comparison-learning material, never a
+ * reward, never pre-announced. NO entry condition (founder B9 / Q8, register
+ * 5.453): a credit that required entering a strategy would be the
+ * bonus-for-investing shape the BR-no-incentive covenant (CI-N2) and MiCA
+ * inducement rules forbid. The projection enforces once per ledger (P2BD-10).
+ * Ingress → `credited`; lands in Available.
  */
 export interface ComparisonCreditGranted extends EventBase {
   type: 'ComparisonCreditGranted';

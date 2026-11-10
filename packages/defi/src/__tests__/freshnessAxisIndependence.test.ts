@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { enforceCurrentFacingAvailability, isRefusedForCurrentFacingUse } from '../currentFacing';
 import { referenceEvidence, type CostCoverage } from '../evidence';
 import { evidenceStamp, type DataStamp } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * STAGE H · MODE IS NOT AN AXIS, AND NEITHER IS ORIGIN.
@@ -39,9 +40,7 @@ const stampOf = (origin: DataStamp['origin'], days: number): DataStamp =>
 
 /** Source with comments stripped — prose naming a concept is not a dependency. */
 const codeOf = (relative: string) =>
-  readFileSync(new URL(relative, import.meta.url), 'utf8')
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+  stripComments(readFileSync(new URL(relative, import.meta.url), 'utf8'));
 
 describe('freshness ≠ origin — every origin is judged by the same clock', () => {
   it.each(ORIGINS)('should give %s the same verdict as every other origin', (origin) => {

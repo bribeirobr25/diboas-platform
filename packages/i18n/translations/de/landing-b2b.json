@@ -163,7 +163,6 @@
       }
     },
     "disclaimer": "*Angezeigt werden diBoaS-Gebühren. Gebühren von Drittanbietern, Ramp-Anbietern, Netzwerken, Banken, Abwicklungspartnern, Compliance-Prüfungen oder Wechselkursanbietern können anfallen und werden, soweit verfügbar, vor der Bestätigung angezeigt.",
-    "pricingNote": "Preisvergleiche basieren auf öffentlich verfügbaren Tarifen, Stand Februar 2026. Die Spannen spiegeln gängige Preise bei großen Anbietern wider. Die tatsächlichen Preise variieren je nach Anbieter, Volumen und Vertragsbedingungen.",
     "example": "Ein diBoaS-Nutzer zahlt dir 1.000 € in digitalen Dollar: Du behältst 1.000 € in deinem diBoaS-Konto. Auszahlung auf dein Bankkonto als Off-Ramp: {cashOutRate} fällt an. Eine kartengedeckte Zahlung ist ein On-Ramp, mit Karten- und Ramp-Kosten, die vor der Bewegung angezeigt werden.",
     "footerLine": "Jede relevante Gebühr sollte sichtbar sein, bevor Unternehmensgeld bewegt wird.",
     "transitionHook": "Kosten zuerst. Dann sehen wir, ob es passt."
@@ -214,7 +213,6 @@
   "waitlist": {
     "header": "Baue bessere Regeln.",
     "description": "Zahlungskosten. Rücklagen. Untergrenzen. Strategierisiko. Trag dich in die Unternehmens-Warteliste ein und gehöre zu den Ersten, die diBoaS für Unternehmen testen, wenn es verfügbar ist.",
-    "spotsCounter": "{count} Gründungsmitglieder-Plätze verbleibend",
     "noSpam": "Kein Spam. Nur Produktupdates, früher Zugang und Änderungen vor dem Start."
   },
   "faq": {
@@ -283,13 +281,13 @@
       "ariaLabel": "Rechner für ungenutztes Kassenkapital"
     },
     "originStory": {
-      "ariaLabel": "Entstehungsgeschichte — Ihr Name war Adelaide"
+      "ariaLabel": "Entstehungsgeschichte: Ihr Name war Adelaide"
     },
     "businessBenefits": {
       "ariaLabel": "Was dein Unternehmen mit diBoaS bekommt"
     },
     "cashflowInvesting": {
-      "ariaLabel": "Cashflow-Investieren — zwei Vorteile durch eine Änderung"
+      "ariaLabel": "Cashflow-Investieren: zwei Vorteile durch eine Änderung"
     },
     "feeTable": {
       "ariaLabel": "Vollständige Gebührentransparenztabelle"
@@ -319,7 +317,7 @@
     "headline": "Du hast es nicht eingesammelt, damit es brachliegt.",
     "subheadline": "Der Großteil deiner Runde ist Runway, den du monatelang nicht anfasst. Er kann an einem Ort warten, den du wählst, mit Kosten und Risiko im Blick, ohne je deine Kontrolle zu verlassen.",
     "body": {
-      "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest — das meiste davon — wartet.",
+      "0": "Eine Runde kommt rein. Die Gehälter nehmen sich jeden Monat ihren Teil. Der Rest, das meiste davon, wartet.",
       "1": "Er wartet auf einem Konto, bei einer Bank, und bringt fast nichts. Du weißt bereits, was dieser Satz kosten kann.",
       "2": "diBoaS verlangt nicht, dass du deinen Runway aufs Spiel setzt. Leg den Boden fest für das, was du brauchst. Was darüber liegt, kann in Digital-Dollar-Strategien gehen und bleibt unter deiner Kontrolle, sofort abrufbar, sobald du es brauchst. Jede Strategie trägt Risiko, sichtbar vor jeder Bewegung."
     },
@@ -329,6 +327,6 @@
       "primary": "Mit Bar sprechen"
     },
     "imageAlt": "Ein ruhiger, sonnendurchfluteter Arbeitsplatz am Fenster im Morgenlicht",
-    "ariaLabel": "Startup-Treasury — ungenutzten Runway arbeiten lassen"
+    "ariaLabel": "Startup-Treasury: ungenutzten Runway arbeiten lassen"
   }
 }

@@ -16,7 +16,7 @@
     "body": [
       "Put $1,000 in a savings account a year ago, and today it's worth about… $1,003. That's the whole problem, and it isn't your fault. Nobody ever showed you the other half.",
       "$1,000 saved is $1,000. In six months. In a year. In forty years.",
-      "But that same $1,000, left to grow, **even at a careful 7%**, could become about **$2,252 in 12 years.** You didn't add a cent. The growth started earning its own growth.",
+      "But that same $1,000, left to grow, **even at a careful {scenarioConservative}**, could become about **{scenarioLumpSumResult} in 12 years.** You didn't add a cent. The growth started earning its own growth.",
       "That's compound interest, the math every bank and every Wall Street firm has used for centuries.",
       "It isn't hidden in a vault. Nobody just ever sat you down and explained it. (My grandmother did everything right for decades and was never shown this.)",
       "It's the most powerful force in money, and almost nobody outside that world actually uses it. The talks ahead are about *why*. This one is about *how it works*."
@@ -30,7 +30,7 @@
       "So forget rules. Think about the small stuff you already spend on without thinking."
     ],
     "habitsLine": "Your daily latte. Your Friday takeout. Your monthly streaming bundle.",
-    "vignettesIntro": "That was a one-time $1,000. Habits are different: they *repeat*. So picture redirecting one small habit, month after month, for 12 years. A $5-a-day coffee is about $150 a month. Kept invested at that same careful 7%, here's where each one could land:",
+    "vignettesIntro": "That was a one-time $1,000. Habits are different: they *repeat*. So picture redirecting one small habit, month after month, for 12 years. A $5-a-day coffee is about $150 a month. Kept invested at that same careful {scenarioConservative}, here's where each one could land:",
     "vignettes": [
       {
         "habit": "Daily latte ($5)",
@@ -54,7 +54,7 @@
       "twelveYear": "Could become in 12 years (estimate)"
     },
     "vignettesOutro": "Same money. Different job.",
-    "vignettesDisclaimer": "Illustrative figures assume that habit is invested in equal monthly amounts, month after month, for 12 years at a careful 7% compound rate; the historical 10% and an optimistic 14% are in the calculator below. Past performance does not guarantee future results.",
+    "vignettesDisclaimer": "Illustrative figures assume that habit is invested in equal monthly amounts, month after month, for 12 years at a careful {scenarioConservative} compound rate; the historical {scenarioHistorical} and an optimistic {scenarioOptimistic} are in the calculator below. Past performance does not guarantee future results.",
     "habitsRecap": "Nobody's asking you to give up your latte, your takeout, or your streaming. Keep what makes life good.",
     "outro": [
       "But if even one of them, just one, went to work for you instead of vanishing every month, that's the math you just saw.",
@@ -104,17 +104,17 @@
     "yearsLabel": "Years",
     "yearsTooltip": "One time = single deposit at the start. Daily uses 365 days; weekly 52; monthly 12; quarterly 4; semi-annual 2; yearly 1.",
     "outputBank": "Your bank",
-    "outputConservative": "Conservative (7%)",
-    "outputHistorical": "Historical (10%)",
-    "outputOptimistic": "Optimistic (14%)",
-    "summaryHeader": "In {years} years, your monthly {amount} could become…",
-    "oneTimeSummaryHeader": "In {years} years, your initial deposit of {amount} could become…",
+    "outputConservative": "Conservative ({scenarioConservative})",
+    "outputHistorical": "Historical ({scenarioHistorical})",
+    "outputOptimistic": "Optimistic ({scenarioOptimistic})",
+    "summaryHeader": "In {years, plural, one {# year} other {# years}}, your monthly {amount} could become…",
+    "oneTimeSummaryHeader": "In {years, plural, one {# year} other {# years}}, your initial deposit of {amount} could become…",
     "chartAriaLabel": "Compound growth chart comparing your bank rate against three scenario rates over time.",
     "tableHeaderScenario": "Scenario",
     "tableHeaderRate": "Annual rate",
-    "tableHeaderTotal": "After {years} years",
+    "tableHeaderTotal": "After {years, plural, one {# year} other {# years}}",
     "loadingState": "Calculating…",
-    "calibrationNote": "What the rates mean. The 7% conservative rate is the steadier scenario, 10% historical is the mid-range, and 14% optimistic is the more active one. These are scenarios, not promises, and every rate carries risk. Independently: the S&P 500 total return has averaged about 10% a year over the long run (nominal, with dividends reinvested; roughly 7% after inflation), and gold about 7% a year (full numbers in our research notes)."
+    "calibrationNote": "What the rates mean. The {scenarioConservative} conservative rate is the steadier scenario, {scenarioHistorical} historical is the mid-range, and {scenarioOptimistic} optimistic is the more active one. These are scenarios, not promises, and every rate carries risk. Independently: the S&P 500 total return has averaged about 10% a year over the long run (nominal, with dividends reinvested; roughly 7% after inflation), and gold about 7% a year (full numbers in our research notes)."
   },
   "quiz": {
     "q1": {
@@ -126,8 +126,12 @@
       ]
     },
     "q2": {
-      "question": "The $1,000 to ~$2,252 example used which rate?",
-      "options": ["a careful 7%", "a guaranteed 20%", "whatever the bank promises"]
+      "question": "The $1,000 to ~{scenarioLumpSumResult} example used which rate?",
+      "options": [
+        "a careful {scenarioConservative}",
+        "a guaranteed 20%",
+        "whatever the bank promises"
+      ]
     },
     "reflection": "Look at last month and name one small spend you wouldn't really miss. No pressure to change it. Just notice it.",
     "share": {

@@ -22,6 +22,7 @@
  */
 
 import { flattenMessages } from '@diboas/i18n';
+import { fillScenarioCopy } from '../src/lib/compound-interest/scenarioCopy';
 
 // ---- en ----
 import enCommon from '../../../packages/i18n/translations/en/common.json';
@@ -133,7 +134,7 @@ function buildLocale(
   };
 }
 
-export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>> = {
+const RAW_MESSAGES: Record<SupportedLocale, Record<string, string>> = {
   en: buildLocale(
     enCommon as Record<string, unknown>,
     enToolsShared as Record<string, unknown>,
@@ -203,3 +204,11 @@ export const STORYBOOK_MESSAGES: Record<SupportedLocale, Record<string, string>>
     deShare as Record<string, unknown>
   ),
 };
+
+/** Filled as the page loader fills them, per locale (5.730): stories show the rates, never a slot. */
+export const STORYBOOK_MESSAGES = Object.fromEntries(
+  Object.entries(RAW_MESSAGES).map(([locale, messages]) => [
+    locale,
+    fillScenarioCopy(messages, locale),
+  ])
+) as Record<SupportedLocale, Record<string, string>>;

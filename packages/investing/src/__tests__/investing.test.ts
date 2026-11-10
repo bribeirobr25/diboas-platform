@@ -11,16 +11,11 @@ import {
   FINANCIAL_FREEDOM_SWR,
   GOAL_ICONS,
   MONTHLY_INVEST_SHARE,
-  SCENARIO_RATES,
   type GoalMarket,
   emergencyFundTarget,
   financialFreedomTarget,
-  paceStatus,
-  projectionDisplay,
-  projectionRange,
   suggestedMonthlyContribution,
   validateGoalDraft,
-  yearsToTarget,
 } from '../goals';
 import { DEFAULT_SPLIT, MONEY_JOBS_MODEL, illustrativeMirror, isValidSplit } from '../jobs';
 
@@ -151,85 +146,6 @@ describe('replayEarnings (accuracy vs. a known series — the P.5 gate)', () => 
   });
 });
 
-describe('projectionRange + SCENARIO_RATES (C2 honest projection)', () => {
-  it('should be the three digital-dollar envelope rates', () => {
-    expect(SCENARIO_RATES).toEqual({ conservative: 7, historical: 10, optimistic: 14 });
-  });
-
-  it('should return a range where the optimistic edge is fewer years than conservative', () => {
-    const range = projectionRange(22320, 600);
-    expect(range).not.toBeNull();
-    expect(range!.minYears).toBeLessThan(range!.maxYears);
-    // minYears uses optimistic (14%), maxYears conservative (7%).
-    expect(range!.maxYears).toBeCloseTo(yearsToTarget(22320, 600, 7)!, 5);
-    expect(range!.minYears).toBeCloseTo(yearsToTarget(22320, 600, 14)!, 5);
-  });
-
-  it('should return null when the contribution or target is non-positive', () => {
-    expect(projectionRange(0, 600)).toBeNull();
-    expect(projectionRange(1000, 0)).toBeNull();
-  });
-});
-
-describe('paceStatus (WS-E on-track — compared to the full real-life horizon)', () => {
-  it('should be within when both edges land inside the horizon', () => {
-    // range 2 to 4 years, horizon 60 months (5y) → within.
-    expect(paceStatus({ minYears: 2, maxYears: 4 }, 60)).toBe('within');
-  });
-
-  it('should be edge when the horizon falls inside the range', () => {
-    // range 2 to 6 years, horizon 48 months (4y) → the horizon splits the range.
-    expect(paceStatus({ minYears: 2, maxYears: 6 }, 48)).toBe('edge');
-  });
-
-  it('should be beyond when even the fast edge runs longer than the horizon', () => {
-    // range 5 to 6 years, horizon 24 months (2y) → beyond.
-    expect(paceStatus({ minYears: 5, maxYears: 6 }, 24)).toBe('beyond');
-  });
-
-  it('should return null for a null range or non-positive horizon', () => {
-    expect(paceStatus(null, 24)).toBeNull();
-    expect(paceStatus({ minYears: 2, maxYears: 4 }, 0)).toBeNull();
-  });
-});
-
-describe('projectionDisplay (CLO board F-CLO-B3 / CC-1: reach line and pace never contradict)', () => {
-  it('should reproduce the board R1 case as a consistent "about 2 years", not "2 to 3 / fits inside"', () => {
-    // target 15000, initial fund 2000 → remaining 13000, monthly 500, horizon 24mo.
-    const d = projectionDisplay(13000, 500, 24)!;
-    expect(d.underYear).toBe(false);
-    expect(d.single).toBe(true);
-    expect(d.minYears).toBe(2);
-    // ~2.0y straddling a 24-month horizon → NOT 'beyond', NOT a false 'within'-vs-"3 years".
-    expect(d.pace === 'within' || d.pace === 'edge').toBe(true);
-  });
-
-  it('should keep displayed years and the pace word consistent across a wide sweep (no rounding-boundary contradiction)', () => {
-    for (let t = 1000; t <= 120000; t += 2500) {
-      for (let m = 50; m <= 2000; m += 100) {
-        for (let h = 1; h <= 360; h += 7) {
-          const d = projectionDisplay(t, m, h);
-          if (!d || d.underYear) continue; // "within a year" is a coarse, complementary line
-          const horizonYears = h / 12;
-          // The invariant: 'within' ⇒ the displayed upper bound is within the horizon;
-          // 'beyond' ⇒ the displayed lower bound exceeds it. Never contradictory.
-          if (d.pace === 'within') {
-            expect(d.maxYears, `within@t${t}/m${m}/h${h}`).toBeLessThanOrEqual(horizonYears);
-          }
-          if (d.pace === 'beyond') {
-            expect(d.minYears, `beyond@t${t}/m${m}/h${h}`).toBeGreaterThan(horizonYears);
-          }
-        }
-      }
-    }
-  });
-
-  it('should return null when the target is unreachable or already met', () => {
-    expect(projectionDisplay(0, 500, 24)).toBeNull();
-    expect(projectionDisplay(1000, 0, 24)).toBeNull();
-  });
-});
-
 describe('goal-preset constants (attestation drift guard — SANDBOX_GOAL_CONSTANTS_ATTESTATION.md)', () => {
   const MARKETS: GoalMarket[] = ['US', 'BR', 'DE', 'ES'];
 
@@ -277,22 +193,6 @@ describe('goal-preset constants (attestation drift guard — SANDBOX_GOAL_CONSTA
       expect(emergencyFundTarget(bad, 'US')).toBe(0);
       expect(suggestedMonthlyContribution(bad)).toBe(0);
     }
-  });
-
-  it('should project whole years-to-target (annuity FV, the minimal FF projection)', () => {
-    // Financial Freedom: ~$1.85M at $600/mo, 7% → decades (honest)
-    expect(yearsToTarget(1846154, 600, 7)).toBeCloseTo(43, 0);
-    // Emergency Fund: $22,320 at $600/mo, 7% → a few years
-    expect(yearsToTarget(22320, 600, 7)).toBeCloseTo(2.8, 1);
-    // 0% growth falls back to linear: 1200 / 100/mo = 12 months = 1 year
-    expect(yearsToTarget(1200, 100, 0)).toBeCloseTo(1, 6);
-  });
-
-  it('should return null for invalid projection inputs', () => {
-    expect(yearsToTarget(0, 600, 7)).toBeNull();
-    expect(yearsToTarget(1000, 0, 7)).toBeNull();
-    expect(yearsToTarget(1000, -5, 7)).toBeNull();
-    expect(yearsToTarget(NaN, 600, 7)).toBeNull();
   });
 });
 

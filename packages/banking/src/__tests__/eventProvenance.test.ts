@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { entryNetworkFeeOf, exitFeesOf } from '../ledger/events';
 import type { StrategyEnteredV2, StrategyExitedV2 } from '../ledger/events';
+import { stripComments } from '@diboas/test-support';
 
 /**
  * EVENT-LEVEL EVIDENCE PROVENANCE (Founder determination 2026-09-22).
@@ -104,9 +105,7 @@ describe('event provenance is optional, and absence means UNRECORDED', () => {
 
 describe('what event provenance must NOT do', () => {
   const src = () =>
-    readFileSync(join(process.cwd(), 'src/ledger/events.ts'), 'utf8')
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '');
+    stripComments(readFileSync(join(process.cwd(), 'src/ledger/events.ts'), 'utf8'));
 
   it('should not bump schemaVersion merely because optional fields were added', () => {
     /* V1 -> V2 discriminated a RENAME, which changed an existing field's

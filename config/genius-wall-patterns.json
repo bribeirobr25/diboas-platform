@@ -1,5 +1,5 @@
 {
   "$comment": "US GENIUS covenant: a payment stablecoin is never described as earning or yielding. ONE source for both walls (apps/web genius-stablecoin-wall.test.ts and the apps/sandbox mirror in messages.test.ts), so they cannot drift (register 5.749). Patterns may only WIDEN: a narrowing is a covenant relaxation. A pairing = an earn-word within 40 characters of a stablecoin word, case-insensitive.",
   "earn": "earn|yield|rendend|rend[eo]|verdien|rendi",
-  "stable": "digital(?:e[nmrs]?)?[- ]?dollar|d[oó]lar[es]* digital|d[oó]lares digitais|USDC|stablecoin"
+  "stable": "digital(?:e[nmrs]?)?[- ]?dollar|d[oó]lar[es]* digital|d[oó]lares digitais|USDC|stablecoin|US[- ]?dollar pools?|US-Dollar-Pools?|pools? em d[oó]lar americano|pools? en d[oó]lares estadounidenses"
 }

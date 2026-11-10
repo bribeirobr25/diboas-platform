@@ -10,6 +10,7 @@ import {
 import { fallbackFor } from '../fallbackEligibility';
 import { DEFAULT_PRACTICE_REFERENCE_POLICY } from '../freshnessPolicy';
 import { SANDBOX_MARKET_TTL_MS } from '../types';
+import { stripComments } from '@diboas/test-support';
 
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
@@ -69,7 +70,7 @@ describe('Block E · the Practice standard is declared, not scattered', () => {
      * its VALUES, not in its shape.
      */
     const src = readFileSync(join(__dirname, '..', 'practicePolicy.ts'), 'utf8');
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(src);
     expect(code).toContain('PRACTICE_REFERENCE_POLICY');
     for (const banned of ['LedgerScope', "'real'", "'practice'", 'isReal', 'mode']) {
       expect(code, banned).not.toContain(banned);
@@ -81,7 +82,7 @@ describe('Block E · the Practice standard is declared, not scattered', () => {
        agreement. Nothing in the module decides eligibility, refuses a value or
        computes freshness — it declares and it compares. */
     const src = readFileSync(join(__dirname, '..', 'practicePolicy.ts'), 'utf8');
-    const code = src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
+    const code = stripComments(src);
     for (const banned of ['permitsUse', 'fallbackFor', 'dataFreshness', 'boundsRefusal']) {
       expect(code, banned).not.toContain(banned);
     }

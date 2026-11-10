@@ -9,7 +9,7 @@
  *
  * Slug naming: matches i18n keys in protocols.json cards.{slug}
  * Badge: 'warning' (amber) for exploit/regulatory risk, 'success' (green) for exceptional compliance
- * usedInStrategies: i18n key suffixes — resolved to localized names in the component
+ * usedInStrategies: the strategies a protocol backs — the card shows how many (`.length`)
  */
 
 import type { ProtocolCategory } from './types';

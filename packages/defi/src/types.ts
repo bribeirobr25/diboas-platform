@@ -27,7 +27,7 @@ type MissingChain = Exclude<Chain, (typeof CHAINS)[number]>;
 const _chainsExhaustive: [MissingChain] extends [never] ? true : never = true;
 void _chainsExhaustive;
 
-/** The six execution protocols behind the strategy catalog (strategies.json canon). */
+/** The six execution protocols behind the strategy catalog (`catalog.ts`). */
 export type ProtocolId = 'skySsr' | 'aaveV3' | 'compoundV3' | 'sanctumInf' | 'jupiterJlp' | 'jito';
 
 /**
@@ -317,6 +317,12 @@ export interface ApyPoint {
   /** ISO date (day precision). */
   date: string;
   apyPercent: number;
+  /**
+   * The BASE rate (PR 2, Q5 — projection only): the source's `apyBase` when supplied, else the
+   * total when the reward is null or 0, else `null` (unusable: a reward without a base split).
+   * Absent on a series that does not report it (fixtures). Resolved at ingest, never downstream.
+   */
+  apyBasePercent?: number | null;
 }
 
 export interface ProtocolApyHistory {

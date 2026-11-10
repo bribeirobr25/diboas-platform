@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
 import ts from 'typescript';
 import { describe, expect, it } from 'vitest';
-import { parseSource } from '@/test/parseSource';
+import { parseSource } from '@diboas/test-support';
 
 /**
  * ⚙ P8a · no reader walks the ledger's RAW log (register `5.485`).
