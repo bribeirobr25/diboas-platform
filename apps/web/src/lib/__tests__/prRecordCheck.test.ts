@@ -6,7 +6,7 @@
  * or leaving any of them as the template fails, and the two automated PR sources stay exempt.
  */
 import { execFileSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
@@ -52,6 +52,12 @@ function cli(
     return { code: err.status, out: `${err.stdout}${err.stderr}` };
   }
 }
+
+/** A line whose whole value is one expression under an UPPER_CASE env name. */
+const ENV_VALUE_LINE = /^\s+[A-Z][A-Z0-9_]*:\s*\$\{\{[^}]*\}\}\s*$/;
+/** Contexts a PR author, commenter or committer controls (GitHub's security-hardening list). */
+const UNTRUSTED =
+  /github\.(?:head_ref\b|event\.(?:issue|pull_request|comment|review|review_comment|pages|commits|head_commit|discussion|workflow_run)\b)/;
 
 describe('PR-RECORD · the increment-review record is in every PR body (5.727)', () => {
   it('should read all fields and the three states from the gate document itself', () => {
@@ -157,7 +163,9 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
     })();
 
     it('should have no concurrency group when a cancelled run would block a required check', () => {
-      expect(wf).not.toMatch(/^concurrency:/m);
+      /* Twelfth audit (agent E): `^concurrency:` saw only a workflow-level block; a job-level
+       * one (indented) cancels pending runs just the same. */
+      expect(wf).not.toMatch(/^\s*concurrency:/m);
       expect(wf).not.toMatch(/cancel-in-progress/);
     });
 
@@ -172,6 +180,67 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
     it('should interpolate no expression into a shell line (values arrive through env)', () => {
       expect(runLines.length).toBeGreaterThanOrEqual(2);
       for (const line of runLines) expect(line).not.toMatch(/\$\{\{/);
+    });
+
+    /* Twelfth audit (agent C, LOW-2): the run-line reader missed a quoted `"run":` key, a
+     * multi-line quoted or plain scalar and `actions/github-script`'s `script:`. Whatever the
+     * YAML shape, here an expression may only be an environment variable's whole value. */
+    it('should hold every expression as a whole env value, never anywhere a shell can read it', () => {
+      const exprLines = wf.split('\n').filter((l) => l.includes('${{'));
+      expect(exprLines.length).toBeGreaterThanOrEqual(4);
+      for (const l of exprLines) expect(l, l).toMatch(ENV_VALUE_LINE);
+    });
+
+    /* Agent C LOW-3: a tag can be moved to other code; this required check pins every action. */
+    it('should pin every action it uses to a full commit SHA', () => {
+      const uses = wf.split('\n').filter((l) => /^\s*(?:- )?uses:/.test(l));
+      expect(uses.length).toBeGreaterThanOrEqual(2);
+      for (const l of uses) expect(l, l).toMatch(/uses:\s*[\w.-]+\/[\w.-]+@[0-9a-f]{40}\b/);
+    });
+  });
+
+  /**
+   * Twelfth audit (agent C, LOW-2) · EVERY workflow: an expression reading data a PR author or
+   * commenter controls (title, body, branch name, commit messages, comments, …) may appear only
+   * as an environment variable's whole value, where the shell receives it as data. Pasted into a
+   * `run:` script, a `script:` or any other field, it is code a stranger wrote.
+   */
+  describe('workflow injection · untrusted event data reaches a step only through env', () => {
+    const WORKFLOWS = join(REPO, '.github/workflows');
+    const files = readdirSync(WORKFLOWS).filter((f) => /\.ya?ml$/.test(f));
+
+    it('should read every workflow file (non-vacuity)', () => {
+      expect(files.length).toBeGreaterThanOrEqual(5);
+      expect(files).toContain('pr-record.yml');
+    });
+
+    it('should hold untrusted event data only as a whole env value in every workflow', () => {
+      const offenders = files.flatMap((f) =>
+        readFileSync(join(WORKFLOWS, f), 'utf8')
+          .split('\n')
+          .map((l, i) => ({ l, at: `${f}:${i + 1}` }))
+          .filter(({ l }) => UNTRUSTED.test(l) && !ENV_VALUE_LINE.test(l))
+          .map(({ at }) => at)
+      );
+      expect(offenders).toEqual([]);
+    });
+
+    it('should tell an env value from every other place an expression can sit (detector self-test)', () => {
+      expect(
+        ENV_VALUE_LINE.test('          PR_HEAD: ${{ github.event.pull_request.head.ref }}')
+      ).toBe(true);
+      for (const bad of [
+        '        run: echo "${{ github.event.pull_request.title }}"',
+        '        "run": echo ${{ github.head_ref }}',
+        '          script: core.info("${{ github.event.pull_request.body }}")',
+        '          echo ${{ github.event.issue.title }}',
+        '          PR_HEAD: x${{ github.event.pull_request.head.ref }}',
+      ]) {
+        expect(UNTRUSTED.test(bad), bad).toBe(true);
+        expect(ENV_VALUE_LINE.test(bad), bad).toBe(false);
+      }
+      expect(UNTRUSTED.test('${{ github.event.pull_request.number }}')).toBe(true);
+      expect(UNTRUSTED.test('${{ github.repository }}')).toBe(false);
     });
   });
 });
