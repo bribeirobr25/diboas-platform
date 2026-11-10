@@ -85,9 +85,30 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
     expect(recordProblems(body(), spec)[0]).toMatch(/no fields found/);
   });
 
-  it('should hand the body to the script only through the environment, never the shell', () => {
+  /**
+   * 5.818 — a push and a body edit in the same second started two runs; the concurrency rule
+   * cancelled one, and the cancelled run of this REQUIRED check blocked #840's merge.
+   */
+  describe('5.818 · the workflow never cancels a run and reads the body when it runs', () => {
     const wf = readFileSync(join(REPO, '.github/workflows/pr-record.yml'), 'utf8');
-    expect(wf).toMatch(/PR_BODY: \$\{\{ github\.event\.pull_request\.body \}\}/);
-    expect(wf).not.toMatch(/run:[^\n]*github\.event\.pull_request\.body/);
+    const runLines = wf.split('\n').filter((l) => /^\s*(?:- )?run:/.test(l));
+
+    it('should have no concurrency group when a cancelled run would block a required check', () => {
+      expect(wf).not.toMatch(/^concurrency:/m);
+      expect(wf).not.toMatch(/cancel-in-progress/);
+    });
+
+    it('should read the body from the API at run time, never from the triggering event', () => {
+      expect(wf).not.toMatch(/github\.event\.pull_request\.body/);
+      expect(wf).toMatch(
+        /gh api "repos\/\$REPO\/pulls\/\$PR_NUMBER" --jq '\.body \/\/ ""' > "\$RUNNER_TEMP\/pr-body\.md"/
+      );
+      expect(wf).toMatch(/check-pr-record\.mjs --file "\$RUNNER_TEMP\/pr-body\.md"/);
+    });
+
+    it('should interpolate no expression into a shell line (values arrive through env)', () => {
+      expect(runLines.length).toBeGreaterThanOrEqual(2);
+      for (const line of runLines) expect(line).not.toMatch(/\$\{\{/);
+    });
   });
 });
