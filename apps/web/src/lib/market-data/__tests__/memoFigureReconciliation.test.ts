@@ -104,25 +104,44 @@ const DATE_PATTERNS = [
   new RegExp(`\\b\\d{1,2}\\.?\\s*(?:de\\s+)?(?:${MONTH_NAMES})\\b`, 'gi'),
 ];
 
-/** Pull measurement-looking numbers out of prose (handles , and . decimals). */
-function figuresIn(text: string): { value: number; decimals: number }[] {
+/**
+ * Pull measurement-looking numbers out of prose, read in the locale's own convention
+ * (5.642): en writes "77,434.75" (comma = thousands), pt-BR/es/de write "77.434,75"
+ * (dot = thousands). Guessing the convention per number misread "77.434,75" as 77.43475
+ * and a German "83.554" (83,554) as 83.554, so true figures were reported as orphans.
+ *
+ * A thousands separator counts only when exactly three digits follow each one. Anything
+ * else is a figure written in the wrong convention and comes back `malformed`, which the
+ * gate reports: a German "1.4 %" must not become 14 and slip through as a structural
+ * number (the audit of MP-1b showed exactly that with a first, looser reader).
+ */
+export type MemoLocale = 'en' | 'pt-BR' | 'es' | 'de';
+export type MemoFigure = { value: number; decimals: number; malformed?: string };
+const SEPARATORS: Record<MemoLocale, { thousands: string; decimal: string }> = {
+  en: { thousands: ',', decimal: '.' },
+  'pt-BR': { thousands: '.', decimal: ',' },
+  es: { thousands: '.', decimal: ',' },
+  de: { thousands: '.', decimal: ',' },
+};
+const esc = (c: string) => (c === '.' ? '\\.' : c);
+export function figuresIn(text: string, locale: MemoLocale = 'en'): MemoFigure[] {
   let stripped = text;
   for (const re of DATE_PATTERNS) stripped = stripped.replace(re, ' ');
   const cleaned = stripped.replace(/\$\s?([\d.,]+)/g, ' $1 ');
   const matches = cleaned.match(/\d[\d.,]*/g) ?? [];
-  return matches
-    .map((raw) => {
-      const t = raw.replace(/[.,]$/, '');
-      // 1.234,56 (de/pt/es) vs 1,234.56 (en)
-      const normalized =
-        /,\d{1,2}$/.test(t) && !/\.\d/.test(t)
-          ? t.replace(/\./g, '').replace(',', '.')
-          : t.replace(/,/g, '');
-      const value = Number.parseFloat(normalized);
-      const decimals = normalized.includes('.') ? normalized.split('.')[1].length : 0;
-      return { value, decimals };
-    })
-    .filter((f) => Number.isFinite(f.value));
+  const { thousands, decimal } = SEPARATORS[locale];
+  const wellFormed = new RegExp(
+    `^(?:\\d{1,3}(?:${esc(thousands)}\\d{3})+|\\d+)(?:${esc(decimal)}\\d+)?$`
+  );
+  return matches.map((raw) => {
+    const t = raw.replace(/[.,]+$/, '');
+    if (!wellFormed.test(t)) return { value: Number.NaN, decimals: 0, malformed: t };
+    const [whole, frac = ''] = t.split(decimal);
+    return {
+      value: Number.parseFloat(`${whole.split(thousands).join('')}.${frac || '0'}`),
+      decimals: frac.length,
+    };
+  });
 }
 
 describe('memo figures reconcile with the engine (5.128)', () => {
@@ -168,8 +187,10 @@ describe('memo figures reconcile with the engine (5.128)', () => {
       ];
       const orphans: string[] = [];
       for (const [field, text] of fields) {
-        for (const { value, decimals } of figuresIn(text)) {
-          if (!matches(value, decimals)) orphans.push(`${field}: ${value}`);
+        for (const { value, decimals, malformed } of figuresIn(text, locale)) {
+          if (malformed)
+            orphans.push(`${field}: "${malformed}" is not written in ${locale}'s convention`);
+          else if (!matches(value, decimals)) orphans.push(`${field}: ${value}`);
         }
       }
       expect(
@@ -212,10 +233,14 @@ function expresses(figure: { value: number; decimals: number }, millions: number
   );
 }
 
-export function latestEtfWeekProblem(memoText: string, weeks: number[]): string | null {
+export function latestEtfWeekProblem(
+  memoText: string,
+  weeks: number[],
+  locale: MemoLocale = 'en'
+): string | null {
   const latest = weeks[weeks.length - 1];
   const older = weeks.slice(0, -1).filter((w) => Math.abs(w) !== Math.abs(latest));
-  const figs = figuresIn(memoText);
+  const figs = figuresIn(memoText, locale);
   const quotesLatest = figs.some((f) => expresses(f, latest));
   const quotedOlder = older.filter((w) => figs.some((f) => expresses(f, w)));
   if (quotedOlder.length && !quotesLatest) {
@@ -224,6 +249,51 @@ export function latestEtfWeekProblem(memoText: string, weeks: number[]): string 
   }
   return null;
 }
+
+describe('memo figures are read in the locale they are written in (5.642, MEMO-FIG-1)', () => {
+  it('should read a pt-BR thousands figure with decimals as one number', () => {
+    expect(figuresIn('o bitcoin fechou em US$ 77.434,75', 'pt-BR')).toEqual([
+      { value: 77434.75, decimals: 2 },
+    ]);
+  });
+
+  it('should read a German thousands figure without decimals as thousands, not as a decimal', () => {
+    expect(figuresIn('der Index lag bei 83.554 Punkten', 'de')).toEqual([
+      { value: 83554, decimals: 0 },
+    ]);
+  });
+
+  it('should read an English figure with a thousands comma as one number', () => {
+    expect(figuresIn('bitcoin closed at $77,434.75', 'en')).toEqual([
+      { value: 77434.75, decimals: 2 },
+    ]);
+  });
+
+  it('should report a decimal written the English way in a pt-BR memo', () => {
+    expect(figuresIn('o rendimento de 10 anos está em 4.94%', 'pt-BR')).toContainEqual(
+      expect.objectContaining({ malformed: '4.94' })
+    );
+  });
+
+  it('should report a German "1.4 %" instead of reading it as the structural number 14', () => {
+    // The first MP-1b reader turned this into 14, which the STRUCTURAL set accepts.
+    expect(figuresIn('rund 1.4 % unter dem Trend', 'de')).toEqual([
+      expect.objectContaining({ malformed: '1.4' }),
+    ]);
+  });
+
+  it('should report an English figure written with a decimal comma', () => {
+    expect(figuresIn('about 0,9% below', 'en')).toEqual([
+      expect.objectContaining({ malformed: '0,9' }),
+    ]);
+  });
+
+  it('should report a figure with two decimal separators', () => {
+    expect(figuresIn('Werte 1,2,3', 'de')).toEqual([
+      expect.objectContaining({ malformed: '1,2,3' }),
+    ]);
+  });
+});
 
 describe('the memo names the LATEST spot-ETF week (5.469, interim)', () => {
   const computed = JSON.parse(readFileSync(join(MARKET_DIR, 'computed.json'), 'utf8'));
@@ -255,20 +325,29 @@ describe('the memo names the LATEST spot-ETF week (5.469, interim)', () => {
     const w = [362, 548, -236, 1182];
     expect(latestEtfWeekProblem('a creation of about $1,182M after -$236M', w)).toBeNull();
     expect(
-      latestEtfWeekProblem('criação de cerca de US$ 1,18 bilhão; antes -US$ 236 milhões', w)
+      latestEtfWeekProblem(
+        'criação de cerca de US$ 1,18 bilhão; antes -US$ 236 milhões',
+        w,
+        'pt-BR'
+      )
     ).toBeNull();
     expect(latestEtfWeekProblem('no fund-flow amount in this memo', w)).toBeNull();
   });
 
   for (const locale of LOCALES) {
-    it(`should name the latest spot-ETF week whenever it quotes one, in ${locale}`, () => {
-      if (!weeks) return; // gapped / warm-up / manual route: no weekly aggregates to check
-      const s = regime.summary[locale];
-      const text = [s.short, s.detailed, ...s.key_supportive_factors, ...s.key_headwinds].join(
-        '\n'
-      );
-      const problem = latestEtfWeekProblem(text, weeks);
-      expect(problem, `latest spot-ETF week missing — ${locale}: ${problem}`).toBeNull();
-    });
+    // Skipped, visibly, while ETF-01 publishes no weekly figures (suspension, gap, warm-up):
+    // MEMO-3 is inert then (5.638) and a green PASS would overstate what it checked.
+    it.skipIf(!weeks)(
+      `should name the latest spot-ETF week whenever it quotes one, in ${locale}`,
+      () => {
+        if (!weeks) return;
+        const s = regime.summary[locale];
+        const text = [s.short, s.detailed, ...s.key_supportive_factors, ...s.key_headwinds].join(
+          '\n'
+        );
+        const problem = latestEtfWeekProblem(text, weeks, locale);
+        expect(problem, `latest spot-ETF week missing — ${locale}: ${problem}`).toBeNull();
+      }
+    );
   }
 });

@@ -52,6 +52,14 @@ type Cls = 'WEEKLY-GATE' | 'UNIT-READS-LIVE';
  * does, it becomes a weekly outage. Prefer a fixture.
  */
 const ALLOWED: Record<string, { cls: Cls; why: string }> = {
+  'gapDigits.test.ts': {
+    cls: 'UNIT-READS-LIVE',
+    why: '5.822: the BTC-01/02 cards quote the engine gap at the gapDigits precision (a relationship, never a weekly value)',
+  },
+  'snapshotImmutability.test.ts': {
+    cls: 'WEEKLY-GATE',
+    why: 'SNAP-IMMUT-1 (5.180): every published history point equals the last run of its day; a mismatch is a pipeline defect',
+  },
   'computedReconciliation.test.ts': {
     cls: 'WEEKLY-GATE',
     why: 'regime.json mirrors must equal computed.json — the drift gate itself',
@@ -146,11 +154,13 @@ describe('every weekly release gate is declared, not inherited from a directory 
     // Not a floor, a LEDGER: this number going up is the thing to notice. Nine
     // of twenty-six files carried the weekly publish when this was written;
     // methodologyAttestation took it to ten on 2026-09-16.
+    // snapshotImmutability (SNAP-IMMUT-1, 5.180) took the WEEKLY-GATE class to five on
+    // 2026-11-10: a published history point that disagrees with its run must stop the run.
     const gates = Object.values(ALLOWED).filter((e) => e.cls === 'WEEKLY-GATE').length;
     const units = Object.values(ALLOWED).filter((e) => e.cls === 'UNIT-READS-LIVE').length;
     expect(gates + units).toBe(Object.keys(ALLOWED).length);
-    expect(gates).toBe(4);
-    expect(units).toBe(7);
+    expect(gates).toBe(5);
+    expect(units).toBe(8);
   });
 });
 

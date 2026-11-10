@@ -1103,6 +1103,10 @@ pinned by a test that was watched failing.
   - ⚑ `projection.caveat` (_"An assumption you can check, not a promise…"_) is honest and
     stays — it is **not** a substitute for this disclosure.
 
+- **A signal card's "about X%" gap has one decimal below 10% (`5.822`, market program MP-1b).** `generate.mjs` `gapDigits()` sets the decimals of the `gapAbs` slot (the unused `priorGapAbs` slot was deleted), so the card and the memo quote the same gap ("about 1.5%", not "about 1%") and a real gap never reads "about 0%" (two decimals below 0.05%). From 10% up the gap stays a whole percent; the choice is made on the rounded value, so 9.96 reads "10", never "10.0". The `*Precise` slots (two decimals) stay for the `/market/backdrop` depth sentences. Guard: `gapDigits.test.ts`; the memo side is `MEMO-FIG-1`.
+- **Memo figures are read in the memo's own language (`5.642`, `MEMO-FIG-1`).** `figuresIn(text, locale)` in `memoFigureReconciliation.test.ts`: en uses the comma for thousands, pt-BR/es/de the dot, and a separator counts as thousands only when exactly three digits follow it; any other shape is reported. Never go back to guessing the convention per number, and never loosen the shape check (a German "1.4 %" would become 14 and pass as a structural number).
+- **A published history point never changes after its run (`5.180`, `SNAP-IMMUT-1`).** A correction to a past week is a new run on a new day, never an edit to `historical.json` or a back-dated line in `run-archive.jsonl` (the archive must stay in time order). If the guard fails, restore the published value from git history.
+
 ## Market data store (`apps/web/scripts/market-data/`, founder decisions 2026-11-04)
 
 > **Scope.** These rules govern the STORE (the collector and the private `diboas-analytics`
