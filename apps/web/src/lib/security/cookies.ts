@@ -143,7 +143,12 @@ export function clearConsentCookie(response: NextResponse): NextResponse {
 }
 
 /**
- * Parse cookies from header string
+ * Parse cookies from header string.
+ *
+ * 5.823: each value is decoded on its own. A cookie with malformed percent-encoding (any
+ * cookie on the domain, not only ours) is skipped instead of throwing, so one bad cookie can
+ * never turn the consent route into a 500. A malformed consent cookie therefore reads as no
+ * consent, which fails closed.
  */
 function parseCookies(cookieHeader: string): Record<string, string> {
   const cookies: Record<string, string> = {};
@@ -151,7 +156,11 @@ function parseCookies(cookieHeader: string): Record<string, string> {
   cookieHeader.split(';').forEach((cookie) => {
     const [name, ...rest] = cookie.split('=');
     if (name && rest.length > 0) {
-      cookies[name.trim()] = decodeURIComponent(rest.join('=').trim());
+      try {
+        cookies[name.trim()] = decodeURIComponent(rest.join('=').trim());
+      } catch {
+        // malformed encoding: skip this cookie only
+      }
     }
   });
 

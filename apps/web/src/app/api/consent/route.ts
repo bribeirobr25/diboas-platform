@@ -51,10 +51,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
   if (rateLimited) return rateLimited as NextResponse<ConsentResponse>;
 
   try {
-    const body = (await request.json()) as ConsentRequest;
+    // 5.846: unparseable JSON or a non-object body is a bad request (400), never a 500.
+    const body = (await request.json().catch(() => null)) as ConsentRequest | null;
 
     // Validate input
-    if (typeof body.analytics !== 'boolean') {
+    if (!body || typeof body !== 'object' || typeof body.analytics !== 'boolean') {
       return NextResponse.json(
         { success: false, error: 'Invalid consent data. analytics must be boolean.' },
         { status: 400 }

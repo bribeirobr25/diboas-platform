@@ -110,6 +110,24 @@ describe('cookies', () => {
       expect(getConsentFromRequest(request)).toBeNull();
     });
 
+    /** 5.823: one malformed cookie (anyone's) must never break reading consent. */
+    it('should still read a valid consent when another cookie has malformed percent-encoding', () => {
+      const consent = { analytics: true, version: '1.0', timestamp: 1 };
+      const request = new Request('https://example.com', {
+        headers: {
+          cookie: `other=%E0%A4%A; diboas-consent=${encodeURIComponent(JSON.stringify(consent))}`,
+        },
+      });
+      expect(getConsentFromRequest(request)).toEqual(consent);
+    });
+
+    it('should read no consent, failing closed, when the consent cookie itself is malformed', () => {
+      const request = new Request('https://example.com', {
+        headers: { cookie: 'diboas-consent=%E0%A4%A' },
+      });
+      expect(getConsentFromRequest(request)).toBeNull();
+    });
+
     it('should handle multiple cookies in header', () => {
       const consent: ConsentValue = {
         analytics: false,

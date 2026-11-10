@@ -111,7 +111,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const { searchParams } = request.nextUrl;
-    const body = await request.json().catch(() => ({}));
+    // 5.847: `null` (or any non-object) is valid JSON; treat it like an empty body, not a 500.
+    const parsed: unknown = await request.json().catch(() => null);
+    const body = (parsed && typeof parsed === 'object' ? parsed : {}) as Record<string, unknown>;
     const action = (body.action as string) || 'unsubscribe';
 
     const params = extractIdToken(searchParams, body);
