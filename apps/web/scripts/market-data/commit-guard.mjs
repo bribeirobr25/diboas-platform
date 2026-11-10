@@ -40,7 +40,9 @@ const REVISABLE = SERIES.filter((s) => s.revisable).map(
   (s) => new RegExp(`^market/daily/${s.id}\\.csv$`)
 );
 const REBUILT = /^market\/derived\//;
-const HUMAN_ONLY = /^market\/checks\/accepted-exceptions\.json$/;
+// Changed only through a reviewed pull request, never by a collection: the exceptions
+// file and the reviewed records (the range-pass report and its reviews, 5.776).
+const HUMAN_ONLY = /^market\/checks\/(?:accepted-exceptions\.json|reviews\/)/;
 
 /**
  * @param {{status:string, path:string}[]} changes from `git diff --cached --name-status`

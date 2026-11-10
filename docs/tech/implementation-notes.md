@@ -1143,6 +1143,8 @@ pinned by a test that was watched failing.
 > half of that: a row appended on a newer adjusted basis than the rows before it (the factor
 > falls); a dividend absent from the source leaves the factor flat and passes it.
 
+- **A day that passes a check only through the range rule is listed, never only counted (`5.776`, plan MP-2).** `compareCloses` returns `rangePassDays` with what was compared, and every collection's check report carries it. Every day beyond tolerance is listed too, with what let it through; the commit guard refuses any collection change under `checks/reviews/`. The range rule itself is unchanged (no tolerance change is allowed here). Bitcoin's stored value has a written `definition` in the catalogue: Coin Metrics' daily value is a late-day time average, not a last trade, so a fast last half hour can put it 3% from an exchange's close without either being wrong (2022-06-30). `range-pass-report.mjs` rebuilds the full list from stored responses, with no fetch; the reviewed record lives in the store under `market/checks/reviews/`.
+
 - **The store lives in the private `diboas-analytics` repository under `market/`.** Collection runs
   here in Actions (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped
   to that one repository. Data commits go to its `main`, under `market/` only; collector code

@@ -92,6 +92,9 @@ export function compareCloses(
   const outliers = [];
   let common = 0;
   let passedByRange = 0;
+  // 5.776: the days that passed ONLY through the range rule, listed, not just counted, so
+  // a reviewer can see each one (a 3.3% Bitcoin month-end passed this way unseen).
+  const rangePassDays = [];
   let maxDiff = 0;
   let maxAt = null;
   for (const r of primary) {
@@ -111,6 +114,14 @@ export function compareCloses(
       r.close <= c.high * (1 + rangeSlack)
     ) {
       passedByRange += 1;
+      rangePassDays.push({
+        date: r.date,
+        stored: r.close,
+        check_low: c.low,
+        check_high: c.high,
+        check_close: c.close,
+        diff: round(d),
+      });
       continue;
     }
     outliers.push({ date: r.date, primary: r.close, check: c.close, diff: round(d) });
@@ -144,7 +155,7 @@ export function compareCloses(
   return {
     tolerance,
     ...(mode !== 'relative' ? { mode } : {}),
-    ...(rangeSlack != null ? { rangeSlack, passedByRange } : {}),
+    ...(rangeSlack != null ? { rangeSlack, passedByRange, rangePassDays } : {}),
     common,
     checkRows: check.length,
     primaryOnly: primary.filter((r) => !other.has(r.date)).length,

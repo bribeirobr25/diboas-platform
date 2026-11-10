@@ -30,7 +30,8 @@ export const SOURCE_TIMEOUT_MS = 45_000;
 export const SOURCE_RETRIES = 2;
 export const SOURCE_RETRY_BASE_MS = 5_000;
 
-const PARSE = {
+/** Parser by catalogue name; exported for the read-only range-pass report (5.776). */
+export const PARSE = {
   yahoo: (b, l) => P.parseYahooChart(b, l),
   cnbc: (b, l) => P.parseCnbcBars(b, l),
   fred: (b, l) => P.parseFredCsv(b, l),

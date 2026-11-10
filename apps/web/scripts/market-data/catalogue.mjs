@@ -278,6 +278,11 @@ export const SERIES = [
     // source covers 2010-07 to 2012 (Bitstamp then traded thinly): that span
     // is single-source and the check report says so.
     since: '2010-07-18',
+    // What the stored value IS (5.776, measured 2026-11-05): an exchange's daily close is
+    // its last trade; this is not. A day the two disagree on can be a difference of
+    // definition, not an error (2022-06-30: Coinbase moved about 5% in the last 15 minutes).
+    definition:
+      'Coin Metrics daily PriceUSD behaves as a time average of roughly the last 30 minutes before 00:00 UTC; exchanges close on their last trade. Measured on 2022-06-30 (register 5.776); whether it holds in every year is not established.',
     primary: SOURCES.coinmetrics(),
     checks: [
       {

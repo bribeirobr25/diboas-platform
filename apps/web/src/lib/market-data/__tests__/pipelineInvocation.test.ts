@@ -40,6 +40,8 @@ const WRITERS = [
   // the market data store (2026-11-05): both write (the store; the guard exits)
   'market-data/collect.mjs',
   'market-data/commit-guard.mjs',
+  // the read-only range-pass report writes one record with --write (5.776, plan MP-2)
+  'market-data/range-pass-report.mjs',
 ];
 
 describe('isDirectInvocation — the guard itself', () => {
