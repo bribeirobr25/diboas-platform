@@ -84,6 +84,12 @@ describe('B15 · consent and claim are behind the gate when the app is gated', (
     h.session = true;
     expect(await redirectedTo(() => submitConsent('pt-BR'))).toBe('/pt-BR/claim');
   });
+
+  it('should fall back to English when the consent action gets an unsupported locale', async () => {
+    const { submitConsent } = await import('../consent/actions');
+    h.session = true;
+    expect(await redirectedTo(() => submitConsent('xx-YY'))).toBe('/en/claim');
+  });
 });
 
 describe('B15 · the gate returns to an allow-listed onboarding page only', () => {

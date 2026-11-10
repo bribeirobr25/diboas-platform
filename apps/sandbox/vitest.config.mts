@@ -27,6 +27,11 @@ const COVERAGE_THRESHOLDS = {
   'src/lib/gate.ts': { 100: true },
   'src/config/geofence.ts': { 100: true },
   'src/lib/auth/admission.ts': { 100: true },
+  // Twelfth audit: the session seam and the onboarding actions that issue or check admission.
+  'src/lib/auth/SimulatedAuthProvider.ts': { 100: true },
+  'src/lib/auth/factory.ts': { 100: true },
+  'src/app/*/welcome/actions.ts': { 100: true },
+  'src/app/*/consent/actions.ts': { 100: true },
 };
 
 export default defineConfig({

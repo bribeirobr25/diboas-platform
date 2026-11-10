@@ -111,6 +111,11 @@ describe('P1 · onboarding cannot skip the private gate', () => {
     expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate?next=consent');
   });
 
+  it('should fall back to English when the locale is not supported', async () => {
+    process.env.SANDBOX_PUBLIC_ACCESS = 'true';
+    expect(await redirectOf(() => startOnboarding('email', 'xx-YY'))).toBe('/en/consent');
+  });
+
   it('(b) should not accept a forged cookie as a gate grant', async () => {
     jar.set(SANDBOX_GATE_COOKIE, 'forged-value');
     expect(await redirectOf(() => startOnboarding('email', 'de'))).toBe('/de/gate?next=consent');

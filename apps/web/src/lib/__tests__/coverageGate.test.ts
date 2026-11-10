@@ -17,6 +17,15 @@ import { describe, expect, it } from 'vitest';
  * Scope limit: the floors' VALUES are a ratchet, not the policy. The web app sits far below the
  * 80/60 policy; that gap is registered, not hidden. This guard keeps the gate wired; the run
  * itself is what fails when coverage drops.
+ *
+ * Twelfth audit (agent D): the gate stayed wired but could be SOFTENED without this file
+ * noticing — a locked file added to `coverage.exclude` (vitest scores an empty glob `Unknown`,
+ * which passes 100), `coverage.include` narrowed to a few files, floors lowered or deleted (a
+ * negative floor means "at most N uncovered" and switches it off), a second softer config that
+ * vitest loads first, a `v8 ignore` comment, an `if:` on the quality job. So the measured scope
+ * is PINNED below, every floor has a BASELINE it may rise above but never fall below, each
+ * workspace has exactly one config, and coverage-ignore comments are banned. Changing a pin or
+ * lowering a baseline means editing this file: a visible, reviewable act.
  */
 
 const REPO = resolve(__dirname, '../../../../..');
@@ -34,6 +43,8 @@ const SECURITY_AT_100: Record<string, string[]> = {
     'src/lib/api/routeHelpers.ts',
     'src/lib/api/validators.ts',
     'src/lib/utils/redactContext.ts',
+    'src/lib/email/unsubscribeUrl.ts',
+    'src/lib/email/unsubscribeToken.ts',
   ],
   sandbox: [
     'src/lib/security/**',
@@ -43,8 +54,85 @@ const SECURITY_AT_100: Record<string, string[]> = {
     'src/lib/gate.ts',
     'src/config/geofence.ts',
     'src/lib/auth/admission.ts',
+    'src/lib/auth/SimulatedAuthProvider.ts',
+    'src/lib/auth/factory.ts',
+    'src/app/*/welcome/actions.ts',
+    'src/app/*/consent/actions.ts',
   ],
 };
+
+/** The measured scope of each workspace, exactly (agent D findings 1–2). */
+const PINNED_SCOPE: Record<string, { include: string[]; exclude: string[] }> = {
+  web: {
+    include: ['src/**/*.{ts,tsx}', 'middleware.ts'],
+    exclude: [
+      '**/__tests__/**',
+      '**/*.test.{ts,tsx}',
+      '**/*.stories.tsx',
+      '**/*.d.ts',
+      'src/test/**',
+    ],
+  },
+  sandbox: {
+    include: ['src/**/*.{ts,tsx}'],
+    exclude: ['**/__tests__/**', '**/*.stories.tsx', '**/*.d.ts', 'src/test/**'],
+  },
+  banking: { include: ['src/**/*.ts'], exclude: ['src/**/__tests__/**', 'src/index.ts'] },
+  defi: { include: ['src/**/*.ts'], exclude: ['src/**/__tests__/**'] },
+  investing: { include: ['src/**/*.ts'], exclude: ['src/**/__tests__/**'] },
+  format: { include: ['src/**/*.ts'], exclude: ['src/**/__tests__/**'] },
+};
+
+type Floor = Partial<Record<(typeof METRICS)[number], number>> | { 100: true };
+
+/**
+ * The ratchet's floor (agent D finding 3): measured 2026-11-10. A config may RAISE any value and
+ * add keys; it may not lower, drop or negate one. Raise these when a config's floors rise.
+ */
+const FLOOR_BASELINE: Record<string, Record<string, Floor | number>> = {
+  web: {
+    lines: 34,
+    branches: 29,
+    functions: 28,
+    statements: 34,
+    'src/app/**': { lines: 26, branches: 21, functions: 23, statements: 27 },
+    'src/components/**': { lines: 12, branches: 12, functions: 11, statements: 12 },
+    'src/config/**': { lines: 31, branches: 49, functions: 27, statements: 31 },
+    'src/hooks/**': { lines: 54, branches: 51, functions: 58, statements: 54 },
+    'src/lib/**': { lines: 58, branches: 50, functions: 50, statements: 58 },
+  },
+  sandbox: {
+    lines: 89,
+    branches: 81,
+    functions: 87,
+    statements: 88,
+    'src/app/**': { lines: 72, branches: 58, functions: 62, statements: 73 },
+    'src/components/**': { lines: 79, branches: 70, functions: 79, statements: 78 },
+    'src/config/**': { 100: true },
+    'src/hooks/**': { lines: 98, branches: 88, functions: 90, statements: 94 },
+    'src/i18n/**': { lines: 100, branches: 100, functions: 95, statements: 98 },
+    'src/lib/**': { lines: 97, branches: 92, functions: 96, statements: 95 },
+    'src/view/**': { lines: 100, branches: 96, functions: 100, statements: 99 },
+  },
+  banking: { lines: 99, branches: 96, functions: 100, statements: 98 },
+  defi: {
+    lines: 99,
+    branches: 96,
+    functions: 100,
+    statements: 98,
+    'src/providers/**': { lines: 100, branches: 98, functions: 100, statements: 100 },
+  },
+  investing: { lines: 99, branches: 92, functions: 100, statements: 96 },
+  format: { lines: 100, branches: 88, functions: 100, statements: 100 },
+};
+
+/** Every config file name vitest (or vite, which it falls back to) reads. */
+const CONFIG_NAMES = ['vitest', 'vite'].flatMap((base) =>
+  ['ts', 'mts', 'cts', 'js', 'mjs', 'cjs'].map((ext) => `${base}.config.${ext}`)
+);
+
+/** A comment that tells the coverage tool to skip code (agent D finding 5). */
+const COVERAGE_IGNORE = /\b(?:v8|c8|istanbul)\s+ignore\b/;
 
 /** Files (not directories) a glob matches under a workspace directory. */
 const filesMatching = (dir: string, glob: string): string[] =>
@@ -73,14 +161,22 @@ function vitestWorkspaces(): Workspace[] {
   );
 }
 
+/** The workspace's one config file; vitest loads `.ts` before `.mts`, so a second is a decoy. */
+const configFileOf = (w: Workspace): string[] =>
+  CONFIG_NAMES.filter((f) => existsSync(join(REPO, w.dir, f)));
+
 async function coverageOf(w: Workspace) {
-  const file = ['vitest.config.mts', 'vitest.config.ts'].find((f) =>
-    existsSync(join(REPO, w.dir, f))
-  );
-  expect(file, `${w.dir} has no vitest config`).toBeDefined();
-  const config = (await import(join(REPO, w.dir, file!))).default;
+  const files = configFileOf(w);
+  expect(files, `${w.dir}: exactly one vitest/vite config`).toHaveLength(1);
+  const config = (await import(join(REPO, w.dir, files[0]))).default;
   return config.test?.coverage ?? {};
 }
+
+/** Every source file of a workspace (its `src/`, plus web's root middleware). */
+const sourceFiles = (w: Workspace): string[] =>
+  [...filesMatching(w.dir, 'src/**/*.{ts,tsx}'), ...filesMatching(w.dir, 'middleware.ts')]
+    .filter((f) => !/__tests__|\.test\.|\.d\.ts$/.test(f))
+    .map((f) => join(REPO, w.dir, f));
 
 describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 30_000 }, () => {
   const workspaces = vitestWorkspaces();
@@ -111,6 +207,61 @@ describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 3
         expect(cov.thresholds[m], `${w.dir}: thresholds.${m}`).toBeGreaterThan(0);
       }
     }
+  });
+
+  it('should measure exactly the pinned scope in every workspace', async () => {
+    expect(Object.keys(PINNED_SCOPE).sort()).toEqual(workspaces.map((w) => w.name).sort());
+    for (const w of workspaces) {
+      const cov = await coverageOf(w);
+      expect({ include: cov.include, exclude: cov.exclude }, w.dir).toEqual(PINNED_SCOPE[w.name]);
+    }
+  });
+
+  it('should keep every floor at or above its baseline, none dropped or negated', async () => {
+    expect(Object.keys(FLOOR_BASELINE).sort()).toEqual(workspaces.map((w) => w.name).sort());
+    for (const w of workspaces) {
+      const thresholds = (await coverageOf(w)).thresholds ?? {};
+      for (const [key, base] of Object.entries(FLOOR_BASELINE[w.name])) {
+        const actual = thresholds[key];
+        const at = `${w.dir}: thresholds['${key}']`;
+        if (typeof base === 'number') {
+          expect(actual, at).toBeGreaterThanOrEqual(base);
+        } else if (100 in base) {
+          expect(actual, at).toEqual({ 100: true });
+        } else {
+          expect(actual, `${at} is missing`).toBeDefined();
+          if (actual?.[100] === true) continue;
+          for (const m of METRICS) expect(actual[m], `${at}.${m}`).toBeGreaterThanOrEqual(base[m]!);
+        }
+      }
+      /* A key added beyond the baseline may only add strictness: no negative or zero values. */
+      for (const [key, value] of Object.entries(thresholds)) {
+        if (typeof value === 'number') expect(value, `${w.dir}: ${key}`).toBeGreaterThan(0);
+        else if (value && typeof value === 'object' && !(value as { 100?: boolean })[100])
+          for (const v of Object.values(value as Record<string, unknown>))
+            if (typeof v === 'number') expect(v, `${w.dir}: ${key}`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  it('should hold no coverage-ignore comment in any measured source file', () => {
+    const files = workspaces.flatMap(sourceFiles);
+    expect(files.length).toBeGreaterThan(500);
+    const offenders = files
+      .filter((f) => COVERAGE_IGNORE.test(readFileSync(f, 'utf8')))
+      .map((f) => f.slice(REPO.length + 1));
+    expect(offenders).toEqual([]);
+  });
+
+  it('should recognise every coverage-ignore form (detector self-test)', () => {
+    for (const c of [
+      '/* v8 ignore next */',
+      '/* v8 ignore next -- @preserve */',
+      '// istanbul ignore else',
+      '/* c8 ignore start */',
+    ])
+      expect(COVERAGE_IGNORE.test(c), c).toBe(true);
+    expect(COVERAGE_IGNORE.test('// ignore the v8 engine here')).toBe(false);
   });
 
   it('should hold each app’s security utilities at 100% when its config is read', async () => {
@@ -171,5 +322,10 @@ describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 3
     const job = lines.slice(0, at).join('\n');
     const quality = job.slice(job.lastIndexOf('\n  quality:'));
     expect(quality).not.toMatch(/continue-on-error:\s*true/);
+    /* Agent D finding 6: a skipped required job counts as passing. The job header — every line
+     * of the job before `steps:` — may hold no `if:`. */
+    const header = quality.slice(0, quality.indexOf('\n    steps:'));
+    expect(header.length, 'the quality job has a steps: block').toBeGreaterThan(0);
+    expect(header).not.toMatch(/^\s{4}if:/m);
   });
 });

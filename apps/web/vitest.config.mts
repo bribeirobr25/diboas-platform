@@ -30,6 +30,9 @@ const COVERAGE_THRESHOLDS = {
   'src/lib/api/routeHelpers.ts': { 100: true },
   'src/lib/api/validators.ts': { 100: true },
   'src/lib/utils/redactContext.ts': { 100: true },
+  // Twelfth audit: the unsubscribe token's mint and decode (the only authority to unsubscribe).
+  'src/lib/email/unsubscribeUrl.ts': { 100: true },
+  'src/lib/email/unsubscribeToken.ts': { 100: true },
 };
 
 export default defineConfig({

@@ -64,15 +64,32 @@ describe('the CSP rides on EVERY response path (5.212)', () => {
 });
 
 describe('the policy says what it must, and refuses what it must', () => {
-  it('should carry a nonce in script-src, and NEVER unsafe-inline for scripts', () => {
-    const policy = csp('/en/welcome');
-    const scriptSrc = policy.split('; ').find((d) => d.startsWith('script-src')) ?? '';
-    expect(scriptSrc).toMatch(/'nonce-[A-Za-z0-9+/]+={0,2}'/);
-    // CLAUDE.md § Security: 'unsafe-inline' is prohibited for scripts. The three
-    // inline scripts in the document (ThemeScript + two Next RSC bootstraps) are
-    // covered by the nonce instead.
-    expect(scriptSrc).not.toContain("'unsafe-inline'");
+  afterEach(() => {
+    vi.unstubAllEnvs();
   });
+
+  /**
+   * CLAUDE.md § Security: 'unsafe-inline' is prohibited for scripts. The three inline scripts in
+   * the document (ThemeScript + two Next RSC bootstraps) are covered by the nonce instead.
+   * Twelfth audit (the sandbox twin of web's 5.839): this used to read only the first
+   * `script-src` and only under NODE_ENV=test, so `'unsafe-inline'` added for production only,
+   * or in a `script-src-elem` directive, passed. Every script directive is read, in both modes.
+   */
+  it.each(['production', 'development'])(
+    "should carry a nonce and NEVER allow 'unsafe-inline' in any script directive when NODE_ENV is %s",
+    (env) => {
+      vi.stubEnv('NODE_ENV', env);
+      const scriptDirectives = csp('/en/welcome')
+        .split(';')
+        .map((d) => d.trim())
+        .filter((d) => /^script-src(?:-elem|-attr)?\s/.test(d));
+      expect(scriptDirectives.length).toBeGreaterThan(0);
+      for (const d of scriptDirectives) expect(d).not.toContain("'unsafe-inline'");
+      expect(scriptDirectives.find((d) => d.startsWith('script-src '))).toMatch(
+        /'nonce-[A-Za-z0-9+/]+={0,2}'/
+      );
+    }
+  );
 
   it('should keep the nonce in the header and the response IDENTICAL, or the script is blocked', () => {
     // The plumbing contract: the layout reads `x-nonce` and puts that value on
