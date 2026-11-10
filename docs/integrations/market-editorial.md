@@ -192,6 +192,17 @@ Every locale-keyed string field MUST carry all 4 locales: `en`, `pt-BR`, `es`, `
 
 **Don't push English-only edits and plan to translate later.** CI will reject the PR.
 
+**Numbers in the memo follow each locale's own convention (`MEMO-FIG-1`, market program MP-1b, `5.642`).** The memo figure gate reads each locale the way its readers do:
+
+| Locale | Thousands | Decimal | Example     | Percent |
+| ------ | --------- | ------- | ----------- | ------- |
+| en     | `,`       | `.`     | `77,434.75` | `4.94%` |
+| pt-BR  | `.`       | `,`     | `77.434,75` | `4,94%` |
+| es     | `.`       | `,`     | `77.434,75` | `4,94%` |
+| de     | `.`       | `,`     | `77.434,75` | `4,94%` |
+
+A thousands separator must be followed by exactly three digits. Anything else written the other locale's way (a pt-BR `4.94%`, a German `1.4%`, an English `0,9%`) is reported as "not written in that locale's convention" and the PR stays red until it is fixed. The percent sign sits right after the number in every locale (`PCT-1`).
+
 ---
 
 ## 6. Phase 7 jargon ban (digital-dollar policy)

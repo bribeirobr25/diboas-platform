@@ -183,7 +183,7 @@ function signalUpdatedAt(sig) {
  * Extracted 2026-08-24 so the /market/backdrop depth sentences render through
  * the SAME formatter and the SAME empty-slot guard as the scored view's signal
  * sentences (Principle 4). `prior` supplies the previous run's reading for the
- * "after sitting {priorGapAbs}% above it a week earlier" clause.
+ * "after sitting {priorGapAbsPrecise}% above it a week earlier" clause.
  */
 function signalSlots(sig, locale, prior) {
   const v = sig.values ?? {};
@@ -197,10 +197,9 @@ function signalSlots(sig, locale, prior) {
     close: v.close != null ? num(v.close, locale, scaleDigits(v.close)) : '',
     ema20: v.ema20 != null ? num(v.ema20, locale, scaleDigits(v.ema20)) : '',
     sma50: v.sma50 != null ? num(v.sma50, locale, scaleDigits(v.sma50)) : '',
-    gapAbs: gapAbsOf(v) != null ? num(gapAbsOf(v), locale) : '',
-    // Previous run's distance to trend, for the "after sitting X% above it a
-    // week earlier" clause on the condition that moved (5.141).
-    priorGapAbs: gapAbsOf(prior?.values) != null ? num(gapAbsOf(prior.values), locale) : '',
+    // 5.822: one decimal below 10%, as the memo writes it, so the card and the memo agree
+    // ("about 1.5%", not "about 1%") and a gap under 0.5% never reads "about 0%".
+    gapAbs: gapAbsOf(v) != null ? num(gapAbsOf(v), locale, gapDigits(gapAbsOf(v))) : '',
     // M2's month-over-month change in billions. TWO slots on purpose:
     // `mom` is ABSOLUTE and may only be used where the template itself supplies
     // the direction ("added roughly ${mom}bn", which fires only when the signal
@@ -250,6 +249,18 @@ function signalSlots(sig, locale, prior) {
 /** Gap to trend as a positive percentage. MAC-02 publishes close/ema20 but no
  *  gapPct, so it is derived rather than required — the sentence needs it either
  *  way and a missing slot would (correctly) throw. */
+/**
+ * Decimals for a gap shown as "about X%" (5.822): one below 10%, none from 10%, decided
+ * on the ROUNDED value so 9.96 reads "10", not "10.0"; two below 0.05 so a real gap never
+ * reads "0.0".
+ */
+export function gapDigits(gap) {
+  const size = Math.abs(gap);
+  if (Number(size.toFixed(1)) >= 10) return 0;
+  if (Number(size.toFixed(1)) === 0) return 2;
+  return 1;
+}
+
 function gapAbsOf(v) {
   if (v?.gapPct != null) return Math.abs(v.gapPct);
   if (v?.close != null && v?.ema20) return Math.abs(((v.close - v.ema20) / v.ema20) * 100);
