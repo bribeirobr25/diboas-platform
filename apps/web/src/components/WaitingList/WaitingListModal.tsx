@@ -37,7 +37,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
   // WCAG 2.4.3: Focus trap for modal. D-2: pass the email ref (not a '#email'
   // selector) — the input id is generated via useId() in WaitlistModalForm, so
   // a static selector matched nothing and focus fell back to the Close button.
-  useFocusTrap(modalRef, isOpen, { initialFocus: emailInputRef });
+  useFocusTrap(modalRef, isOpen, { initialFocus: emailInputRef, onEscape: onClose });
 
   // Helper function for translations
   const t = (key: string, values?: Record<string, string>) => {

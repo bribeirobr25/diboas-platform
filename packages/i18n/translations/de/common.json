@@ -259,7 +259,7 @@
       },
       "optional": "(optional)",
       "consent": {
-        "text": "Ich akzeptiere Mitteilungen von diBoaS zu erhalten und stimme der",
+        "text": "Ich bin einverstanden, Mitteilungen von diBoaS zu erhalten, und akzeptiere die",
         "privacyPolicy": "Datenschutzerklärung"
       },
       "submit": "Auf Warteliste setzen"

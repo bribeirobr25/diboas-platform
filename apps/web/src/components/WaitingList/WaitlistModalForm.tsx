@@ -11,7 +11,7 @@
  */
 
 import React, { useId } from 'react';
-import Link from 'next/link';
+import { LocaleLink } from '@/components/UI/LocaleLink';
 import type { WaitingListFormData, WaitingListFormErrors } from '@/lib/waitingList/types';
 import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
 import styles from './WaitingListModal.module.css';
@@ -175,14 +175,14 @@ export function WaitlistModalForm({
           />
           <label htmlFor={fieldId('gdpr')} className={styles.checkboxLabel}>
             {labels.consentText}{' '}
-            <Link
+            <LocaleLink
               href={WAITING_LIST_CONFIG.privacyPolicyUrl}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.privacyLink}
             >
               {labels.privacyPolicy}
-            </Link>
+            </LocaleLink>
             <span className={styles.required}>{labels.required}</span>
           </label>
           {errors.gdprAccepted && (

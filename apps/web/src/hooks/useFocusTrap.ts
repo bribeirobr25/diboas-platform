@@ -39,6 +39,12 @@ interface UseFocusTrapOptions {
    * first open-render when the ref is not yet populated.
    */
   initialFocus?: string | HTMLElement | RefObject<HTMLElement>;
+  /**
+   * Called when Escape is pressed while the trap is active: a dialog or menu closes, and focus
+   * then returns (with `returnFocus`). Without it a menu whose close button sits outside the trap
+   * could not be closed from the keyboard at all (WCAG 2.1.2; visual pass, 2026-11-11).
+   */
+  onEscape?: () => void;
 }
 
 /**
@@ -53,8 +59,13 @@ export function useFocusTrap(
   isActive: boolean,
   options: UseFocusTrapOptions = {}
 ): void {
-  const { autoFocus = true, returnFocus = true, initialFocus } = options;
+  const { autoFocus = true, returnFocus = true, initialFocus, onEscape } = options;
   const previousActiveElement = useRef<HTMLElement | null>(null);
+  // The latest callback, read at key time, so a new callback identity does not re-run the trap.
+  const onEscapeRef = useRef(onEscape);
+  useEffect(() => {
+    onEscapeRef.current = onEscape;
+  }, [onEscape]);
 
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
@@ -98,8 +109,15 @@ export function useFocusTrap(
       });
     }
 
-    // Handle Tab key to trap focus
+    // Escape closes (when the owner says how); Tab is trapped
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        if (onEscapeRef.current) {
+          event.preventDefault();
+          onEscapeRef.current();
+        }
+        return;
+      }
       if (event.key !== 'Tab') return;
 
       const focusableElements = getFocusableElements();
