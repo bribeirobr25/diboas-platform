@@ -28,7 +28,7 @@
       ],
       "numberOfRuns": 1,
       "settings": {
-        "skipAudits": ["uses-http2"]
+        "skipAudits": ["modern-http-insight"]
       }
     },
     "assert": {
