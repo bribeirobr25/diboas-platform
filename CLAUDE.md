@@ -529,7 +529,9 @@ I-2 · I-8 / Real                                      NOT AUTHORIZED
 ```
 
 **Git (founder ruling 2026-10-28):** standing go for every task to branch, commit, push and open a
-PR. **The merge is always the founder's.** After verifying a founder merge, Claude may delete and
+PR. **The merge is always the founder's, with one exception: Dependabot's PRs** (founder 2026-11-11),
+which Claude reviews, impact-analyses and tests, then merges itself when safe, or fixes or closes
+(checklist: `docs/decisions/DR-2026-11-11-dependabot-merge-delegated.md`). After verifying a merge, Claude may delete and
 clean up what that merge made obsolete. Sabotage restores still use a saved file copy verified by
 `sha256`, never `git checkout`.
 
