@@ -5,16 +5,29 @@ updates:
   # package.json together with that lockfile. A per-folder entry
   # ('/apps/web', '/packages/*') cannot update the root lockfile, so every PR it
   # opened failed `pnpm install --frozen-lockfile` before any check ran.
-  # Guard: apps/web/src/lib/__tests__/dependabotConfig.test.ts
+  # Guard: apps/web/src/lib/__tests__/dependabotConfig.test.ts (also: the dev group's
+  # update types and the hand-bumped packages)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 10
     groups:
+      # Patches and minors only: a major is its own increment (register 5.737), so each
+      # major arrives as its own PR instead of riding in a group of 24 (#846, 2026-11-11).
       dev-dependencies:
         dependency-type: 'development'
+        update-types: ['minor', 'patch']
     ignore:
+      # Bumped by hand, never by Dependabot: postcss must equal the exact postcss
+      # inside `next` (docs/tech/implementation-notes.md § postcss), and tailwindcss is
+      # held on 3.4.17 by a root `pnpm.overrides` pin (v4 is incompatible) that
+      # Dependabot cannot edit; its CSS output needs a visual pass.
+      # `next` is NOT ignored although its PRs fail the same way (#852, 5.867): a
+      # failing `next` PR is the signal to bump it by hand in all three places, and
+      # CI's audit gates only on critical advisories.
+      - dependency-name: 'postcss'
+      - dependency-name: 'tailwindcss'
       - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
       - dependency-name: 'react'
@@ -24,8 +37,6 @@ updates:
       - dependency-name: 'next'
         update-types: ['version-update:semver-major']
       - dependency-name: 'react-intl'
-        update-types: ['version-update:semver-major']
-      - dependency-name: 'tailwindcss'
         update-types: ['version-update:semver-major']
       - dependency-name: 'knip'
         update-types: ['version-update:semver-major']
