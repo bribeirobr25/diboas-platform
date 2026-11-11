@@ -13,6 +13,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { pingRedis } from '@/lib/security/rateLimiter';
 import { pingDatabase } from '@/lib/database/client';
 import { applyRateLimit } from '@/lib/api/routeHelpers';
+import { Logger } from '@/lib/monitoring/Logger';
 
 interface HealthStatus {
   status: 'healthy' | 'degraded' | 'unhealthy';
@@ -107,7 +108,12 @@ export async function GET(
         'Content-Type': 'application/json',
       },
     });
-  } catch {
+  } catch (error) {
+    Logger.error(
+      '[health] health check failed',
+      {},
+      error instanceof Error ? error : new Error(String(error))
+    );
     return NextResponse.json({ error: 'Health check failed' }, { status: 503 });
   }
 }
@@ -122,7 +128,12 @@ export async function HEAD(request: NextRequest): Promise<NextResponse> {
       status: 200,
       headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' },
     });
-  } catch {
+  } catch (error) {
+    Logger.error(
+      '[health] HEAD check failed',
+      {},
+      error instanceof Error ? error : new Error(String(error))
+    );
     return new NextResponse(null, { status: 503 });
   }
 }

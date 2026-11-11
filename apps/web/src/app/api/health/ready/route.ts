@@ -17,6 +17,7 @@ import {
   pingRedis,
 } from '@/lib/security/rateLimiter';
 import { pingDatabase } from '@/lib/database';
+import { Logger } from '@/lib/monitoring/Logger';
 
 interface ReadyStatus {
   status: 'ready' | 'not_ready';
@@ -51,7 +52,12 @@ export async function GET(request: NextRequest): Promise<NextResponse<ReadyStatu
     };
 
     return NextResponse.json(status, { status: ready ? 200 : 503 });
-  } catch {
+  } catch (error) {
+    Logger.error(
+      '[health/ready] readiness check failed',
+      {},
+      error instanceof Error ? error : new Error(String(error))
+    );
     return NextResponse.json(
       { status: 'not_ready' as const, checks: { redis: false, database: false } },
       { status: 503 }

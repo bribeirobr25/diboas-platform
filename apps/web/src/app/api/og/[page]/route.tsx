@@ -16,6 +16,7 @@ import { ImageResponse } from 'next/og';
 import { getOGTemplate, isValidPageType } from '@/lib/og';
 import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 import { RATE_LIMIT_CONFIG } from '@/config/env';
+import { Logger } from '@/lib/monitoring/Logger';
 
 export const runtime = 'edge';
 
@@ -50,7 +51,12 @@ export async function GET(request: Request, { params }: { params: Promise<{ page
         'Cache-Control': 'public, max-age=86400',
       },
     });
-  } catch {
+  } catch (error) {
+    Logger.error(
+      '[og/[page]] OG image generation failed',
+      {},
+      error instanceof Error ? error : new Error(String(error))
+    );
     return new Response('Failed to generate OG image', { status: 500 });
   }
 }

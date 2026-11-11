@@ -10,6 +10,7 @@
  * Calculator: /api/og/share?type=calculator&amount=125000&years=10&strategy=balanced
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { supportedOgLocale } from './ogTranslations';
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
@@ -146,7 +147,12 @@ export async function GET(request: NextRequest) {
         'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400',
       },
     });
-  } catch {
+  } catch (error) {
+    Logger.error(
+      '[og/share] OG image generation failed',
+      {},
+      error instanceof Error ? error : new Error(String(error))
+    );
     return new Response('Failed to generate OG image', { status: 500 });
   }
 }

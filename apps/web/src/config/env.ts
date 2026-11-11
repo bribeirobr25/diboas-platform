@@ -69,8 +69,9 @@ function warnMissingBuildTimePublicVars(): void {
  * is a Sentry alert and the site stays up). A key that is present but the wrong length is as
  * good as missing: every route that stores personal data refuses with it. This returns the
  * problems; `src/instrumentation.ts` `register()` sends them to Sentry as a FATAL event once
- * per server start. Nothing is printed: production builds strip every console call
- * (`next.config.js` removeConsole), which is how the first version of this check went unseen.
+ * per server start. A console line alone would not do: the first version of this check printed
+ * one while production builds stripped every console call (`next.config.js` removeConsole, since
+ * fixed to keep errors and warnings, 5.876), so nobody saw it.
  * Decoded exactly as `lib/security/encryption.ts` decodes it (lenient base64). A MISSING key
  * still throws above.
  */

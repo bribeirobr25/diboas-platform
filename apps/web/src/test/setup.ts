@@ -23,7 +23,10 @@ vi.mock('@/lib/monitoring/Logger', () => ({
     info: vi.fn(),
     warn: vi.fn(),
     error: vi.fn(),
+    critical: vi.fn(),
     debug: vi.fn(),
+    // Error-tracking hook (5.888), connected by instrumentation.ts on the server
+    setErrorSink: vi.fn(),
     // Correlation-ID helpers (used by ErrorReportingService + monitoring service)
     getRequestId: vi.fn(() => undefined),
     setRequestId: vi.fn(),

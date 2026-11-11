@@ -20,6 +20,7 @@ vi.mock('@/lib/security/rateLimiter', async (importOriginal) => {
 });
 
 import { POST } from '../route';
+import { Logger } from '@/lib/monitoring/Logger';
 
 const URL_ = 'https://diboas.com/api/monitoring';
 const MAX = 1024 * 1024;
@@ -190,6 +191,17 @@ describe('POST /api/monitoring — forwarding', () => {
     const res = await POST(tunnel(envelope({ dsn: VALID_DSN })));
     expect(res.status).toBe(429);
     expect(res.headers.get('Content-Type')).toBe('application/json');
+    // 5.892: a rejected envelope is recorded, as a warning (an error would go to Sentry itself)
+    expect(Logger.warn).toHaveBeenCalledWith('[monitoring] Sentry rejected a forwarded envelope', {
+      status: 429,
+    });
+    expect(Logger.error).not.toHaveBeenCalled();
+  });
+
+  it('should record nothing when the upstream accepts the envelope', async () => {
+    const res = await POST(tunnel(envelope({ dsn: VALID_DSN })));
+    expect(res.status).toBe(200);
+    expect(Logger.warn).not.toHaveBeenCalled();
   });
 
   it('should return 502 without the network detail when the upstream is unreachable', async () => {
@@ -199,5 +211,17 @@ describe('POST /api/monitoring — forwarding', () => {
     const body = await res.json();
     expect(body).toEqual({ error: 'upstream_unreachable' });
     expect(JSON.stringify(body)).not.toContain('internal-host');
+    expect(Logger.warn).toHaveBeenCalledWith('[monitoring] Sentry is unreachable', {
+      reason: 'getaddrinfo ENOTFOUND internal-host',
+    });
+  });
+
+  it('should record a non-Error rejection as text when the upstream fetch fails oddly', async () => {
+    fetchMock.mockRejectedValue('socket hang up');
+    const res = await POST(tunnel(envelope({ dsn: VALID_DSN })));
+    expect(res.status).toBe(502);
+    expect(Logger.warn).toHaveBeenCalledWith('[monitoring] Sentry is unreachable', {
+      reason: 'socket hang up',
+    });
   });
 });

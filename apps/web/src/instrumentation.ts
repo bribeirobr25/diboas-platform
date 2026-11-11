@@ -11,11 +11,13 @@ import { scrubUrl } from '@/lib/utils/scrubUrl';
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
     await import('../sentry.server.config');
+    (await import('@/lib/monitoring/serverErrorSink')).connectServerErrorSink();
     await alertOnMalformedKeys();
   }
 
   if (process.env.NEXT_RUNTIME === 'edge') {
     await import('../sentry.edge.config');
+    (await import('@/lib/monitoring/serverErrorSink')).connectServerErrorSink();
   }
 }
 
@@ -72,4 +74,6 @@ export async function alertOnMalformedKeys(): Promise<void> {
   if (problems.length === 0) return;
   const Sentry = await import('@sentry/nextjs');
   Sentry.captureMessage(`Malformed production secret: ${problems.join('; ')}`, 'fatal');
+  // Send it now: a function frozen after a cold start may never send a queued event (5.891).
+  await Sentry.flush(2000);
 }

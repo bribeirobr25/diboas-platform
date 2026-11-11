@@ -27,7 +27,9 @@ vi.mock('@/lib/database/client', () => ({
   pingDatabase: (...args: unknown[]) => pingDatabase(...args),
 }));
 
-import { GET } from '../route';
+import { GET, HEAD } from '../route';
+import { Logger } from '@/lib/monitoring/Logger';
+import { applyRateLimit } from '@/lib/api/routeHelpers';
 
 const makeRequest = (headers: Record<string, string> = {}) =>
   new NextRequest('https://diboas.com/api/health', { headers });
@@ -78,5 +80,28 @@ describe('GET /api/health — status semantics', () => {
     expect(body.status).toBe('healthy');
     expect(body.checks.memory.percentage).toBeGreaterThanOrEqual(0);
     delete process.env.INTERNAL_API_KEY;
+  });
+
+  // Fourteenth audit (5.892): an unexpected failure answered 503 from a bare catch and recorded nothing.
+  it('should record the failure when the check itself throws', async () => {
+    pingDatabase.mockRejectedValue(new Error('pool exhausted'));
+    const res = await GET(makeRequest());
+    expect(res.status).toBe(503);
+    expect(Logger.error).toHaveBeenCalledWith(
+      '[health] health check failed',
+      {},
+      expect.objectContaining({ message: 'pool exhausted' })
+    );
+  });
+
+  it('should record the failure when the HEAD check throws', async () => {
+    vi.mocked(applyRateLimit).mockRejectedValueOnce(new Error('redis down'));
+    const res = await HEAD(makeRequest());
+    expect(res.status).toBe(503);
+    expect(Logger.error).toHaveBeenCalledWith(
+      '[health] HEAD check failed',
+      {},
+      expect.objectContaining({ message: 'redis down' })
+    );
   });
 });
