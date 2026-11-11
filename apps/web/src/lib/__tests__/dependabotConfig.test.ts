@@ -1,101 +1,171 @@
 /**
- * Dependabot may open npm PRs from the workspace root only (register 5.736).
+ * What Dependabot will do, read from the PARSED `.github/dependabot.yml`.
  *
- * The repository is one pnpm workspace with one lockfile at the root. A
- * per-folder npm entry ('/apps/web', '/packages/i18n', …) bumps that folder's
- * package.json but cannot touch the root pnpm-lock.yaml, so every PR it opened
- * failed `pnpm install --frozen-lockfile` before a single check ran — nine such
- * PRs on 2026-11-03 (#784–#792), two of them duplicates of root PRs.
+ * - One npm entry, at the workspace root (5.736): a per-folder entry cannot update the root
+ *   lockfile, so every PR it opened failed `pnpm install --frozen-lockfile` (#784–#792).
+ * - Packages that only work at the same version move together, majors included, and come before
+ *   the general group: an update takes the FIRST group that matches (5.895: vitest 5 arrived
+ *   without @vitest/coverage-v8 5, @eslint/js 10 without eslint 10).
+ * - The general dev group takes only patches and minors, so a major is its own PR and its own
+ *   increment (5.737), and leaves out every 0.x dev dependency, whose "minor" can break like a
+ *   major (5.895: @lhci/cli 0.16). The 0.x list is derived from the package files.
+ * - postcss and tailwindcss are bumped by hand (pinned with `next` / by a root override);
+ *   `next` is never ignored beyond majors: a failing `next` PR is the signal to bump it by hand.
+ * - Enough PR slots for that signal to open (5.895: ten majors filled all ten).
  *
- * The same entry groups dev dependencies by patch and minor only (2026-11-11): the
- * group had grown to 24 updates with 12 majors in one PR (#846), against the rule that
- * a major is its own increment (register 5.737). postcss and tailwindcss are left to
- * hand bumps (postcss must equal the postcss inside `next`; tailwindcss is held by a
- * root override Dependabot cannot edit), while `next` keeps its PRs as the signal to
- * bump it by hand (5.867).
+ * Fourteenth audit (5.896): the previous guard read the file as TEXT and passed ten edits that
+ * change Dependabot's behaviour (a first group taking majors, `next` ignored through all three
+ * update types, `applies-to: security-updates`, a limit of 0, …). This one parses the YAML.
  */
 import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 
+const require = createRequire(import.meta.url);
+const yaml = require('js-yaml') as { load: (text: string) => unknown };
+
 const REPO = path.resolve(__dirname, '../../../../..');
 
-/** Every `directory:` of every npm update entry, in file order. */
-function npmUpdateDirectories(yml: string): string[] {
-  const entries = yml.split(/^\s*-\s+package-ecosystem:/m).slice(1);
-  return entries
-    .filter((entry) => /^\s*['"]?npm['"]?\s*$/m.test(entry.split('\n')[0] ?? ''))
-    .map((entry) => {
-      const dir = entry.match(/^\s*director(?:y|ies):\s*(.+)$/m)?.[1]?.trim() ?? '';
-      return dir.replace(/^['"]|['"]$/g, '');
-    });
+interface Group {
+  'dependency-type'?: string;
+  'update-types'?: string[];
+  patterns?: string[];
+  'exclude-patterns'?: string[];
+  'applies-to'?: string;
+}
+interface Ignore {
+  'dependency-name': string;
+  'update-types'?: string[];
+  versions?: string[];
+}
+interface Entry {
+  'package-ecosystem': string;
+  directory?: string;
+  directories?: string[];
+  'open-pull-requests-limit'?: number;
+  groups?: Record<string, Group>;
+  ignore?: Ignore[];
+  allow?: unknown[];
+  cooldown?: unknown;
 }
 
-/** The text of the first npm update entry. */
-function npmEntry(yml: string): string {
-  const entries = yml.split(/^\s*-\s+package-ecosystem:/m).slice(1);
-  return entries.find((e) => /^\s*['"]?npm['"]?\s*$/m.test(e.split('\n')[0] ?? '')) ?? '';
+const PARTNERS: Record<string, string[]> = {
+  vitest: ['vitest', '@vitest/coverage-v8'],
+  eslint: ['eslint', '@eslint/js'],
+  storybook: ['storybook', '@storybook/react', 'eslint-plugin-storybook'],
+};
+const HAND_BUMPED = ['postcss', 'tailwindcss'];
+const MIN_LIMIT = 15;
+
+/** A Dependabot glob (`*` only) as a test. */
+const glob = (pattern: string) =>
+  new RegExp(`^${pattern.replace(/[.+?^${}()|[\]\\/]/g, '\\$&').replace(/\*/g, '.*')}$`);
+const matches = (patterns: string[] | undefined, name: string) =>
+  (patterns ?? []).some((p) => glob(p).test(name));
+
+/** Every 0.x dev dependency in the workspace's package files. */
+function zeroMajorDevDependencies(): string[] {
+  const files = [
+    'package.json',
+    ...['apps', 'packages'].flatMap((top) =>
+      fs
+        .readdirSync(path.join(REPO, top))
+        .map((name) => path.join(top, name, 'package.json'))
+        .filter((rel) => fs.existsSync(path.join(REPO, rel)))
+    ),
+  ];
+  const names = new Set<string>();
+  for (const rel of files) {
+    const pkg = JSON.parse(fs.readFileSync(path.join(REPO, rel), 'utf8')) as {
+      devDependencies?: Record<string, string>;
+    };
+    for (const [name, range] of Object.entries(pkg.devDependencies ?? {}))
+      if (/^[\^~]?0\./.test(range)) names.add(name);
+  }
+  return [...names].sort();
 }
 
-/** The `update-types` of the `dev-dependencies` group, or null when it has none. */
-function devGroupUpdateTypes(entry: string): string[] | null {
-  const group = entry.match(/^(\s+)dev-dependencies:\s*\n((?:\1\s+[^\n]*\n?)*)/m)?.[2] ?? '';
-  const list = group.match(/^\s*update-types:\s*\[([^\]]*)\]/m)?.[1];
-  return list === undefined
-    ? null
-    : list.split(',').map((t) => t.trim().replace(/^['"]|['"]$/g, ''));
+/** Every way the npm side would misbehave. Empty means the config does what the header says. */
+function violations(config: { updates?: Entry[] }, zeroMajor: string[]): string[] {
+  const out: string[] = [];
+  const npm = (config.updates ?? []).filter((u) => u['package-ecosystem'] === 'npm');
+  if (npm.length !== 1) out.push(`npm entries: ${npm.length}, expected 1`);
+  const entry = npm[0];
+  if (!entry) return out;
+  if (entry.directory !== '/' || entry.directories) out.push('npm entry is not the root alone');
+  if (entry.allow) out.push('an `allow` list narrows what is updated');
+  if ((entry['open-pull-requests-limit'] ?? 5) < MIN_LIMIT)
+    out.push(`open-pull-requests-limit below ${MIN_LIMIT}`);
+
+  const groups = Object.entries(entry.groups ?? {});
+  const general = groups.findIndex(
+    ([, g]) => !g.patterns && g['dependency-type'] === 'development'
+  );
+  if (general < 0) out.push('no general dev-dependency group');
+  for (const [name, g] of groups) {
+    if (g['applies-to']) out.push(`group ${name} sets applies-to`);
+    if (!g.patterns && (g['update-types'] ?? ['major', 'minor', 'patch']).includes('major'))
+      out.push(`group ${name} takes majors without naming its packages`);
+    if (g.patterns?.some((p) => p === '*')) out.push(`group ${name} matches every package`);
+  }
+  if (general >= 0) {
+    const g = groups[general][1];
+    if ([...(g['update-types'] ?? [])].sort().join() !== 'minor,patch')
+      out.push('the general group does not take exactly minor and patch');
+    for (const name of zeroMajor)
+      if (!matches(g['exclude-patterns'], name)) out.push(`0.x ${name} rides the general group`);
+    if (g['exclude-patterns']?.some((p) => p === '*'))
+      out.push('the general group excludes everything');
+  }
+  for (const [group, members] of Object.entries(PARTNERS)) {
+    const at = groups.findIndex(([n]) => n === group);
+    if (at < 0) {
+      out.push(`no partner group ${group}`);
+      continue;
+    }
+    if (general >= 0 && at > general)
+      out.push(`partner group ${group} comes after the general group`);
+    const g = groups[at][1];
+    if (g['update-types']) out.push(`partner group ${group} limits its update types`);
+    for (const member of members)
+      if (!matches(g.patterns, member)) out.push(`partner group ${group} misses ${member}`);
+  }
+
+  const ignores = entry.ignore ?? [];
+  const ignored = (name: string) => ignores.filter((i) => glob(i['dependency-name']).test(name));
+  for (const name of HAND_BUMPED) {
+    const full = ignored(name).some((i) => !i['update-types'] && !i.versions);
+    if (!full) out.push(`${name} is not left to hand bumps`);
+  }
+  for (const rule of ignored('next')) {
+    const types = rule['update-types'];
+    if (rule.versions || !types || types.join() !== 'version-update:semver-major')
+      out.push('next is ignored beyond majors (its PRs are the advisory signal)');
+  }
+  return out;
 }
 
-/** Names ignored for EVERY update type (an ignore item with no `update-types`). */
-function fullyIgnored(entry: string): string[] {
-  const block = entry.split(/^\s*ignore:\s*$/m)[1] ?? '';
-  return block
-    .split(/^\s*-\s+dependency-name:\s*/m)
-    .slice(1)
-    .filter((item) => !/^\s*update-types:/m.test(item))
-    .map((item) => (item.split('\n')[0] ?? '').trim().replace(/^['"]|['"]$/g, ''));
-}
+const read = () =>
+  yaml.load(fs.readFileSync(path.join(REPO, '.github/dependabot.yml'), 'utf8')) as {
+    updates?: Entry[];
+  };
 
-const DEPENDABOT_YML = () => fs.readFileSync(path.join(REPO, '.github/dependabot.yml'), 'utf8');
-
-describe('dependabot npm grouping and hand-bumped packages', () => {
-  it('should group only minor and patch dev updates when a major is due, so it opens its own PR', () => {
-    expect(devGroupUpdateTypes(npmEntry(DEPENDABOT_YML()))?.sort()).toEqual(['minor', 'patch']);
+describe('dependabot.yml, parsed', () => {
+  it('should configure the npm side exactly as its header says', () => {
+    expect(violations(read(), zeroMajorDevDependencies())).toEqual([]);
   });
 
-  it('should leave postcss and tailwindcss to hand bumps when they are pinned outside Dependabot', () => {
-    expect(fullyIgnored(npmEntry(DEPENDABOT_YML()))).toEqual(
-      expect.arrayContaining(['postcss', 'tailwindcss'])
+  it('should find the 0.x dev dependencies it has to exclude (the reader is not blind)', () => {
+    expect(zeroMajorDevDependencies()).toEqual(
+      expect.arrayContaining(['@lhci/cli', '@types/three'])
     );
   });
 
-  it('should keep next PRs coming when a minor or patch is released, as the signal to bump by hand', () => {
-    expect(fullyIgnored(npmEntry(DEPENDABOT_YML()))).not.toContain('next');
-  });
-
-  it('should see a group without update types and a full ignore (the reader is not blind)', () => {
-    const planted = [
-      'version: 2',
-      'updates:',
-      "  - package-ecosystem: 'npm'",
-      "    directory: '/'",
-      '    groups:',
-      '      dev-dependencies:',
-      "        dependency-type: 'development'",
-      '    ignore:',
-      "      - dependency-name: 'next'",
-      "      - dependency-name: 'react'",
-      "        update-types: ['version-update:semver-major']",
-    ].join('\n');
-    expect(devGroupUpdateTypes(npmEntry(planted))).toBeNull();
-    expect(fullyIgnored(npmEntry(planted))).toEqual(['next']);
-  });
-});
-
-describe('dependabot npm entries', () => {
-  it('should declare exactly one npm entry, at the workspace root', () => {
-    const yml = fs.readFileSync(path.join(REPO, '.github/dependabot.yml'), 'utf8');
-    expect(npmUpdateDirectories(yml)).toEqual(['/']);
+  it('should keep the GitHub Actions entry with a release-age cooldown', () => {
+    const actions = (read().updates ?? []).find((u) => u['package-ecosystem'] === 'github-actions');
+    expect(actions?.directory).toBe('/');
+    expect(actions?.cooldown).toBeDefined();
   });
 
   it('should keep the lockfile at the root, which is what makes the root entry sufficient', () => {
@@ -109,19 +179,116 @@ describe('dependabot npm entries', () => {
     expect(nested).toEqual([]);
   });
 
-  it('should see a per-folder entry and a plural directories list (the reader is not blind)', () => {
-    const planted = [
-      'version: 2',
-      'updates:',
-      "  - package-ecosystem: 'npm'",
-      "    directory: '/'",
-      '  - package-ecosystem: npm',
-      '    directory: "/apps/web"',
-      "  - package-ecosystem: 'github-actions'",
-      "    directory: '/'",
-      "  - package-ecosystem: 'npm'",
-      "    directories: ['/packages/*']",
-    ].join('\n');
-    expect(npmUpdateDirectories(planted)).toEqual(['/', '/apps/web', "['/packages/*']"]);
+  /* Each planted config is a change the fourteenth audit showed the text reader passed, or a
+   * realistic mistake; each must produce its own violation. */
+  const base = () => read();
+  const npmOf = (c: { updates?: Entry[] }) =>
+    (c.updates ?? []).find((u) => u['package-ecosystem'] === 'npm') as Entry;
+  it.each<[string, (c: { updates?: Entry[] }) => void, RegExp]>([
+    [
+      'a per-folder npm entry',
+      (c) => c.updates?.push({ 'package-ecosystem': 'npm', directory: '/apps/web' }),
+      /npm entries: 2/,
+    ],
+    [
+      'a first group taking majors',
+      (c) => {
+        const e = npmOf(c);
+        e.groups = { everything: { 'dependency-type': 'development' }, ...e.groups };
+      },
+      /group everything takes majors/,
+    ],
+    [
+      'majors in the general group',
+      (c) => {
+        npmOf(c).groups!['dev-dependencies']['update-types'] = ['major', 'minor', 'patch'];
+      },
+      /takes majors without naming|exactly minor and patch/,
+    ],
+    [
+      'applies-to on a group',
+      (c) => {
+        npmOf(c).groups!['dev-dependencies']['applies-to'] = 'security-updates';
+      },
+      /applies-to/,
+    ],
+    [
+      'a 0.x package riding the general group',
+      (c) => {
+        npmOf(c).groups!['dev-dependencies']['exclude-patterns'] = ['@types/three'];
+      },
+      /0\.x @lhci\/cli/,
+    ],
+    [
+      'a partner group after the general group',
+      (c) => {
+        const e = npmOf(c);
+        const { vitest, ...rest } = e.groups!;
+        e.groups = { ...rest, vitest };
+      },
+      /vitest comes after/,
+    ],
+    [
+      'a partner group missing its partner',
+      (c) => {
+        npmOf(c).groups!.vitest.patterns = ['vitest'];
+      },
+      /misses @vitest\/coverage-v8/,
+    ],
+    [
+      'next ignored through every update type',
+      (c) => {
+        npmOf(c).ignore!.push({
+          'dependency-name': 'next',
+          'update-types': [
+            'version-update:semver-major',
+            'version-update:semver-minor',
+            'version-update:semver-patch',
+          ],
+        });
+      },
+      /next is ignored beyond majors/,
+    ],
+    [
+      'a wildcard that ignores next',
+      (c) => {
+        npmOf(c).ignore!.push({ 'dependency-name': 'nex*' });
+      },
+      /next is ignored beyond majors/,
+    ],
+    [
+      'postcss ignored for one range only',
+      (c) => {
+        const e = npmOf(c);
+        e.ignore = e.ignore!.map((i) =>
+          i['dependency-name'] === 'postcss' ? { ...i, versions: ['8.x'] } : i
+        );
+      },
+      /postcss is not left to hand bumps/,
+    ],
+    [
+      'a limit too low for the signal to open',
+      (c) => {
+        npmOf(c)['open-pull-requests-limit'] = 0;
+      },
+      /open-pull-requests-limit/,
+    ],
+    [
+      'an allow list',
+      (c) => {
+        npmOf(c).allow = [{ 'dependency-type': 'production' }];
+      },
+      /allow/,
+    ],
+  ])('should report %s (the guard is not blind)', (_label, plant, expected) => {
+    const config = base();
+    plant(config);
+    expect(violations(config, zeroMajorDevDependencies()).join('\n')).toMatch(expected);
+  });
+
+  it('should accept the same configuration written in a different YAML style', () => {
+    const text = fs.readFileSync(path.join(REPO, '.github/dependabot.yml'), 'utf8');
+    const roundTrip = yaml.load(JSON.stringify(yaml.load(text))) as { updates?: Entry[] };
+    expect(violations(roundTrip, zeroMajorDevDependencies())).toEqual([]);
   });
 });

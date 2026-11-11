@@ -15,8 +15,10 @@ name: Security Scan (quarterly)
 on:
   schedule:
     # First week of each quarter, Monday-ish anchor: Jan/Apr/Jul/Oct day 1-7.
-    # GitHub cron has no "first Monday" — run on day 1 and let the artifact
-    # carry the quarter's baseline.
+    # GitHub cron has no "first Monday" — run on day 1. The output artifact is kept
+    # 90 days (the repository maximum; a longer request is cut to 90), so it does NOT
+    # reach the next quarter: triage it into the findings ledger within those 90 days
+    # (5.898).
     - cron: '0 6 1 1,4,7,10 *'
   workflow_dispatch: {}
 
@@ -62,7 +64,8 @@ jobs:
             echo "::warning title=Snyk skipped::SNYK_TOKEN secret not configured — no-CVE advisory coverage relies on app.snyk.io PR checks only."
             exit 0
           fi
-          npx --yes snyk@latest test --all-projects --severity-threshold=critical | tee -a security-scan-output.txt
+          # Pinned, not @latest: an unpinned package runs with SNYK_TOKEN (5.898).
+          npx --yes snyk@1.1308.3 test --all-projects --severity-threshold=critical | tee -a security-scan-output.txt
 
       - name: Upload scan output
         if: always()
@@ -70,4 +73,4 @@ jobs:
         with:
           name: security-scan-${{ github.run_id }}
           path: security-scan-output.txt
-          retention-days: 400
+          retention-days: 90

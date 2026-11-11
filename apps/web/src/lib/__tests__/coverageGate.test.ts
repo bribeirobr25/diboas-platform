@@ -66,6 +66,9 @@ const SECURITY_AT_100: Record<string, string[]> = {
   ],
 };
 
+/** How many 100% keys each workspace has (5.893): raise it when a file is locked, never lower it. */
+const LOCKED_AT_100: Record<string, number> = { web: 16, sandbox: 12 };
+
 /** The measured scope of each workspace, exactly (agent D findings 1–2). */
 const PINNED_SCOPE: Record<string, { include: string[]; exclude: string[] }> = {
   web: {
@@ -269,6 +272,27 @@ describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 3
     expect(COVERAGE_IGNORE.test('// ignore the v8 engine here')).toBe(false);
   });
 
+  /* Fourteenth audit (5.893): the check below only looked one way, so a 100% key added only to
+   * the config passed, and a file dropped from BOTH this list and the config (a conflict
+   * resolution that loses a line on each side) passed too. The two sets must be equal, AND their
+   * size is pinned: a symmetric drop changes the count, and adding a locked file means raising
+   * the number here, a visible act. */
+  it('should lock at 100% exactly the files this guard names, in every workspace', async () => {
+    for (const w of workspaces) {
+      const thresholds = (await coverageOf(w)).thresholds ?? {};
+      const locked = Object.entries(thresholds)
+        .filter(([, v]) => v && typeof v === 'object' && (v as { 100?: boolean })[100] === true)
+        .map(([key]) => key)
+        .sort();
+      const baseline = Object.entries(FLOOR_BASELINE[w.name] ?? {})
+        .filter(([, v]) => typeof v === 'object' && 100 in v)
+        .map(([key]) => key);
+      const named = [...new Set([...(SECURITY_AT_100[w.name] ?? []), ...baseline])].sort();
+      expect(locked, `${w.dir}: 100% keys`).toEqual(named);
+      expect(locked.length, `${w.dir}: the number of 100% keys`).toBe(LOCKED_AT_100[w.name] ?? 0);
+    }
+  });
+
   it('should hold each app’s security utilities at 100% when its config is read', async () => {
     for (const [app, globs] of Object.entries(SECURITY_AT_100)) {
       const cov = await coverageOf(workspaces.find((w) => w.name === app)!);
@@ -295,14 +319,19 @@ describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 3
     const root = JSON.parse(readFileSync(join(REPO, 'package.json'), 'utf8'));
     /* 5.837: exact — a `--filter` would measure one workspace and pass. */
     expect(root.scripts['test:coverage']).toBe('turbo run test:coverage --concurrency=1');
-    /* A change to the gate's own wiring must re-run it, never replay a cached pass. */
-    expect(turbo.tasks['test:coverage']?.inputs).toEqual(
-      expect.arrayContaining([
-        '$TURBO_ROOT$/.github/workflows/ci.yml',
-        '$TURBO_ROOT$/turbo.json',
-        '$TURBO_ROOT$/package.json',
-      ])
-    );
+    /* A change to the gate's own wiring must re-run it, never replay a cached pass. Both tasks:
+     * the guards that read `.github/`, turbo.json and package.json run under plain `pnpm test`
+     * too (validate:all, local runs), which replayed a cached pass after a workflow-only edit
+     * (fourteenth audit, 5.894). */
+    for (const task of ['test', 'test:coverage'])
+      expect(turbo.tasks[task]?.inputs, task).toEqual(
+        expect.arrayContaining([
+          '$TURBO_ROOT$/.github/**',
+          '$TURBO_ROOT$/turbo.json',
+          '$TURBO_ROOT$/package.json',
+        ])
+      );
+    expect(turbo.tasks['test:coverage']?.inputs).toContain('$TURBO_ROOT$/.github/workflows/ci.yml');
   });
 
   it('should run pnpm test:coverage, not a plain pnpm test, in CI’s quality job', () => {

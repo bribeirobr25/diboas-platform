@@ -5,19 +5,34 @@ updates:
   # package.json together with that lockfile. A per-folder entry
   # ('/apps/web', '/packages/*') cannot update the root lockfile, so every PR it
   # opened failed `pnpm install --frozen-lockfile` before any check ran.
-  # Guard: apps/web/src/lib/__tests__/dependabotConfig.test.ts (also: the dev group's
-  # update types and the hand-bumped packages)
+  # Guard: apps/web/src/lib/__tests__/dependabotConfig.test.ts (parses this file and checks
+  # what Dependabot will do: one root npm entry, the partner groups first, no group taking
+  # majors without patterns, the hand-bumped packages, `next` kept as the signal)
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
       interval: 'weekly'
-    open-pull-requests-limit: 10
+    # 20, not 10: with ten majors open, every slot was taken and the next `next` patch (the
+    # advisory signal below) could not open (5.895, 2026-11-11).
+    open-pull-requests-limit: 20
     groups:
+      # Packages that only work at the same version move together, majors included: an update
+      # takes the FIRST group that matches, so these come first (5.895: vitest 5 arrived
+      # without @vitest/coverage-v8 5, and @eslint/js 10 without eslint 10).
+      vitest:
+        patterns: ['vitest', '@vitest/*']
+      eslint:
+        patterns: ['eslint', '@eslint/*']
+      storybook:
+        patterns: ['storybook', '@storybook/*', 'eslint-plugin-storybook']
       # Patches and minors only: a major is its own increment (register 5.737), so each
       # major arrives as its own PR instead of riding in a group of 24 (#846, 2026-11-11).
+      # 0.x packages are left out: Dependabot calls 0.15 → 0.16 a minor, but it can break
+      # like a major (@lhci/cli 0.16 moved to Lighthouse 13 and Node 22.19, 5.895).
       dev-dependencies:
         dependency-type: 'development'
         update-types: ['minor', 'patch']
+        exclude-patterns: ['@lhci/cli', '@types/three']
     ignore:
       # Bumped by hand, never by Dependabot: postcss must equal the exact postcss
       # inside `next` (docs/tech/implementation-notes.md § postcss), and tailwindcss is
