@@ -69,7 +69,7 @@
     "@playwright/test": "^1.65.0",
     "@types/node": "^25.9.9",
     "ajv": "^8.18.0",
-    "eslint": "^9.39.4",
+    "eslint": "^10.14.0",
     "knip": "^5.86.0",
     "prettier": "^3.9.10",
     "simple-git-hooks": "^2.14.0",
