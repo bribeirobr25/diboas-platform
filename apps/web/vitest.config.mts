@@ -53,7 +53,10 @@ export default defineConfig({
     // element + its events.
     environmentOptions: {
       happyDOM: {
-        settings: { disableIframePageLoading: true },
+        // happy-dom 21 disables iframe page loading by default and deprecates the old
+        // `disableIframePageLoading`; the explicit form keeps tests off the network if a
+        // future default changes.
+        settings: { enableIframePageLoading: false },
       },
     },
     globals: true,

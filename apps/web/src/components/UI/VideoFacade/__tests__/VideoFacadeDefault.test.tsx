@@ -47,7 +47,7 @@ describe('VideoFacadeDefault', () => {
     vi.clearAllMocks();
     vi.useFakeTimers();
     // Hermeticity note (Phase-3 audit, 2026-07-16): happy-dom initiates a
-    // real fetch for the iframe src on insert. `disableIframePageLoading` is
+    // real fetch for the iframe src on insert (before v21). `enableIframePageLoading: false` is
     // set in vitest.config.mts and verifiably reaches window.happyDOM, but
     // happy-dom 20.10.x iframes read settings from a DETACHED browser
     // context that does not inherit it (upstream quirk), so an aborted
