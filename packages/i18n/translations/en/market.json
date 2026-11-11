@@ -46,13 +46,6 @@
       "STALE": "Stale",
       "UNAVAILABLE": "Unavailable"
     },
-    "methodologyTitle": "How this is calculated",
-    "methodologyLead": "A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.",
-    "methodologyLinkLabel": "Read the methodology",
-    "poweredByLabel": "Powered by",
-    "poweredByProduct": "diBoaS Analytics",
-    "methodologyComingSoon": "Full methodology coming soon",
-    "comingSoon": "coming soon",
     "sources": {
       "btc": "Bitcoin price",
       "us10y": "10-year Treasury yield",
@@ -64,7 +57,8 @@
     },
     "memoToggle": "Read the full weekly memo",
     "coverageNote": "Reduced coverage: the ETF flow indicator is suspended because its data cannot be verified week by week. Its {points} points do not count, and the score is still read on the {max}-point scale. A score change caused by this is a change in our data, not a market move.",
-    "chartCoverageNote": "From {date}, scores no longer count the suspended ETF flow indicator. A change at that point can combine the removal of its points with moves in the other signals."
+    "chartCoverageNote": "From {date}, scores no longer count the suspended ETF flow indicator. A change at that point can combine the removal of its points with moves in the other signals.",
+    "dataSource": "All data comes from diBoaS Analytics."
   },
   "cta": {
     "cadence": "Updated weekly",

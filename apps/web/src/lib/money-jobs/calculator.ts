@@ -293,7 +293,7 @@ export interface MoneyJobsPersonalPlan {
    *  (conservative-hedged, inflation-adjusted). Null when unreachable;
    *  0 when already funded. */
   readonly emergencyFundMonthsToTarget: number | null;
-  /** True when the non-USD hedge path applied (digitalDollarSuffix gates on this). */
+  /** True when the non-USD hedge path applied (the rate labels then read " in USD"). */
   readonly hedged: boolean;
 }
 

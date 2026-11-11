@@ -1,1 +1,0 @@
-export { MethodologyLink } from './MethodologyLink';

@@ -21,18 +21,11 @@ import type { SupportedLocale } from '@diboas/i18n/server';
 import { seoService } from '@/lib/seo';
 import { SEO_DEFAULTS } from '@/lib/seo/constants';
 import type { AnalyticsInitialData } from '@/lib/analytics-sdk/types';
-import { ANALYTICS_SITE_URL } from './constants';
 
 const ORGANIZATION = {
   '@type': 'Organization',
   name: 'diBoaS',
   url: 'https://diboas.com',
-} as const;
-
-const ANALYTICS_PUBLISHER = {
-  '@type': 'Organization',
-  name: 'diBoaS Analytics',
-  url: ANALYTICS_SITE_URL,
 } as const;
 
 /**
@@ -97,7 +90,7 @@ export function marketArticleSchema(args: {
     description: args.description,
     datePublished,
     dateModified: datePublished,
-    author: ANALYTICS_PUBLISHER,
+    author: ORGANIZATION,
     publisher: {
       ...ORGANIZATION,
       logo: {

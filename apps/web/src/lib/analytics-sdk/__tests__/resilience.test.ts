@@ -147,7 +147,7 @@ describe('analytics-sdk — composite resilience (regime + signals transforms)',
     expect(result.signals).toBeNull();
     // Methodology + disclaimer are pass-through and survive — proving the
     // composite isolates per-endpoint failures and the page can still render
-    // its closing chrome (methodology link + disclaimers + powered-by).
+    // its closing chrome (the source note + disclaimers; methodology feeds the chart's scale).
     expect(result.methodology).not.toBeNull();
     expect(result.productDisclaimer).not.toBeNull();
   });

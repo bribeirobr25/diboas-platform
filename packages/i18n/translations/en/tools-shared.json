@@ -56,8 +56,8 @@
     "conservative": "Conservative ({scenarioConservative})",
     "historical": "Historical ({scenarioHistorical})",
     "optimistic": "Optimistic ({scenarioOptimistic})",
-    "digitalDollarSuffix": "",
-    "conservativeTooltip": "Long-run conservative range for strategy returns, reflecting top-tier passive rates available in 2026.",
+    "usdSuffix": " in USD",
+    "conservativeTooltip": "An illustrative long-run assumption for a conservative strategy, based on the top-tier passive rates available in 2026. Not a forecast.",
     "historicalTooltip": "Multi-asset diBoaS strategy envelope based on the long-run 1928–2024 S&P 500 total-return CAGR.",
     "optimisticTooltip": "Trailing 10-year multi-asset strategy envelope reflecting post-2014 market conditions.",
     "tooltipLabel": "More info"
@@ -74,7 +74,7 @@
     "tryOtherTools": "Try other money tools",
     "adelaideAttribution": "Money tools by Adelaide"
   },
-  "disclaimer": "Educational projection only. Annual percentage yield (APY) shown for deposit accounts. Not financial advice. Past performance does not guarantee future results. All investments involve risk; you may lose money. diBoaS is not a registered investment adviser. diBoaS returns are shown in digital dollar; for non-US currencies, the local-currency total combines the dollar return with how your local currency typically moves against the US dollar over time.",
+  "disclaimer": "Educational projection only. Annual percentage yield (APY) shown for deposit accounts. Not financial advice. Past performance does not guarantee future results. All investments involve risk; you may lose money. diBoaS is not a registered investment adviser. diBoaS scenarios are calculated in US dollars; for non-US currencies, the local-currency total combines the scenario's dollar result with how your local currency typically moves against the US dollar over time.",
   "warnings": {
     "over30Years": "This target takes more than 30 years to reach at your current contribution. A higher monthly amount, or a longer timeline, changes that."
   },

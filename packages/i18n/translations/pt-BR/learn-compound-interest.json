@@ -114,7 +114,7 @@
     "tableHeaderRate": "Taxa anual",
     "tableHeaderTotal": "Após {years, plural, one {# ano} other {# anos}}",
     "loadingState": "Calculando…",
-    "calibrationNote": "O que as taxas significam. Os {scenarioConservative} conservadores são o cenário mais estável, os {scenarioHistorical} históricos ficam no meio da faixa de longo prazo, e os {scenarioOptimistic} otimistas são o cenário mais ativo. São cenários, não promessas, e toda taxa tem risco. De forma independente: o S&P 500 rendeu, em média, cerca de 10% ao ano no longo prazo (nominal, com dividendos reinvestidos; cerca de 7% após a inflação), e o ouro cerca de 7% ao ano. No longo prazo, poupar em reais rendeu menos do que manter o dólar digital (números completos nas nossas notas de pesquisa)."
+    "calibrationNote": "O que as taxas significam. Os {scenarioConservative} conservadores são o cenário mais estável, os {scenarioHistorical} históricos ficam no meio da faixa de longo prazo, e os {scenarioOptimistic} otimistas são o cenário mais ativo. São cenários, não promessas, e toda taxa tem risco. De forma independente: o S&P 500 rendeu, em média, cerca de 10% ao ano no longo prazo (nominal, com dividendos reinvestidos; cerca de 7% após a inflação), e o ouro cerca de 7% ao ano (números completos nas nossas notas de pesquisa)."
   },
   "quiz": {
     "q1": {

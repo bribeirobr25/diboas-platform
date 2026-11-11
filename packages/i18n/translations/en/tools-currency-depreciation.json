@@ -30,8 +30,8 @@
     "cashEvolution": "USD-equivalent after {rate}% / year change vs the dollar. Negative numbers mean your local currency strengthened against USD.",
     "bankLabel": "Bank yield",
     "bankRateNote": "{rate}% local bank rate",
-    "diboasLabel": "Digital dollar at diBoaS",
-    "diboasNote": "{rate}% historical strategy return, held in digital dollar",
+    "diboasLabel": "A diBoaS strategy",
+    "diboasNote": "{rate}% a year in US dollars: the strategy's historical return. Past results, not a forecast; the value can fall, including below what you put in.",
     "retrospectiveThenLabel": "Then ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Now ({asOfMonth})",
@@ -50,7 +50,7 @@
     "eyebrowUsd": "What your idle dollars earn",
     "chartAria": "How {currency} compares over {years, plural, one {# year} other {# years}} held as cash, in a local bank, and in digital dollar at diBoaS.",
     "chartAriaUsd": "How your dollars compare over {years, plural, one {# year} other {# years}} held in a bank versus in digital dollar at diBoaS.",
-    "shareText": "In {years, plural, one {# year} other {# years}}, my {currency} could be worth {value} in digital dollars at diBoaS. See how yours would fare."
+    "shareText": "In {years, plural, one {# year} other {# years}}, my {currency} could be worth {value} in a diBoaS strategy. See how yours would fare."
   },
   "vignette": {
     "subtitle": "Where you hold your money matters. The currency it earns in matters more."

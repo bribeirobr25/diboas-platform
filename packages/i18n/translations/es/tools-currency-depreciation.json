@@ -30,8 +30,8 @@
     "cashEvolution": "Equivalente en USD tras una variación de {rate}% al año frente al dólar. Los números negativos indican que tu moneda local se fortaleció frente al USD.",
     "bankLabel": "Rendimiento bancario",
     "bankRateNote": "{rate}% tipo local",
-    "diboasLabel": "Dólar digital en diBoaS",
-    "diboasNote": "{rate}% anual, valor histórico de la estrategia, guardado en dólar digital",
+    "diboasLabel": "Una estrategia de diBoaS",
+    "diboasNote": "{rate}% al año en dólares estadounidenses: rentabilidad histórica de la estrategia. Resultado pasado, no una previsión; el valor puede bajar, incluso por debajo de lo que aportaste.",
     "retrospectiveThenLabel": "Entonces ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Ahora ({asOfMonth})",
@@ -50,7 +50,7 @@
     "eyebrowUsd": "Lo que ganan tus dólares parados",
     "chartAria": "Cómo se compara el {currency} en {years, plural, one {# año} other {# años}} mantenido en efectivo, en un banco local y en dólar digital en diBoaS.",
     "chartAriaUsd": "Cómo se comparan tus dólares en {years, plural, one {# año} other {# años}} en un banco frente a dólar digital en diBoaS.",
-    "shareText": "En {years, plural, one {# año} other {# años}}, mis {currency} podrían valer {value} en dólares digitales con diBoaS. Mira cómo les iría a los tuyos."
+    "shareText": "En {years, plural, one {# año} other {# años}}, mis {currency} podrían valer {value} en una estrategia de diBoaS. Mira cómo les iría a los tuyos."
   },
   "vignette": {
     "subtitle": "Dónde guardas tu dinero importa. La moneda en la que rinde, importa más."

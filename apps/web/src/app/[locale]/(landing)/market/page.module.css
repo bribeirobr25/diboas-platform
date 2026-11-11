@@ -183,46 +183,28 @@
   list-style: none;
 }
 
-/* ── METHODOLOGY (dark block) ─────────────────────────── */
+/* ── SOURCE + DISCLAIMERS (dark block) ────────────────── */
 .method {
   background: var(--editorial-ink);
   color: var(--editorial-paper);
-  padding: clamp(64px, 12vh, 150px) 0;
+  /* A small block now (founder 2026-11-11: "a small information"), not an editorial band. */
+  padding: var(--spacing-4xl) 0;
 }
-.methodHead {
-  margin-bottom: 1.75rem;
-}
-.eyebrowDark {
-  font-family: var(--font-ibm-plex-mono), monospace;
-  font-size: var(--font-size-xs);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--editorial-copper-soft);
-  font-weight: 500;
-}
-/* The kicker is the band's heading. `.editorial :is(h1, h2, h3)` (0,1,1) sets
-   every heading in Fraunces; this selector (0,2,1) keeps the kicker's mono. */
-.method h2.methodTitle {
-  margin: 0 0 var(--spacing-sm);
-  font-family: var(--font-ibm-plex-mono), monospace;
-  letter-spacing: 0.22em;
-  font-weight: 500;
-}
-/* The interim methodology note: body text in the dark band, not a headline.
+/* The source note: one small line above the disclaimers, in the band's mono voice. Paper,
+   not copper: copper is this band's link colour, and the note is not a link.
    `.method p` (0,1,1) colours every paragraph in the band; this (0,2,0) wins. */
-.method .methodLead {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-size: var(--font-size-xl);
-  line-height: var(--line-height-description);
-  margin: var(--spacing-md) 0 var(--spacing-sm);
-  max-width: 60ch;
+.method .dataSource {
+  margin: 0 0 var(--spacing-lg);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: var(--font-size-sm);
+  letter-spacing: var(--letter-spacing-wide);
   color: var(--editorial-paper);
 }
 /* Same measure as the product disclaimer beside it (70ch). */
 .methodNote {
   max-width: 70ch;
 }
-/* Re-colour the methodology link / disclaimers / attribution for the dark bg. */
+/* Re-colour the disclaimers (and any link inside them) for the dark bg. */
 .method a {
   color: var(--editorial-copper-soft);
 }

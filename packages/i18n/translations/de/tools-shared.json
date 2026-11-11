@@ -56,8 +56,8 @@
     "conservative": "Konservativ ({scenarioConservative})",
     "historical": "Historisch ({scenarioHistorical})",
     "optimistic": "Optimistisch ({scenarioOptimistic})",
-    "digitalDollarSuffix": " im Digital-Dollar",
-    "conservativeTooltip": "Konservative Bandbreite für Strategie-Renditen über lange Zeiträume, basierend auf den besten verfügbaren passiven Zinssätzen im Jahr 2026.",
+    "usdSuffix": " in USD",
+    "conservativeTooltip": "Eine illustrative Langfrist-Annahme für eine konservative Strategie, gestützt auf die besten passiven Zinssätze, die 2026 verfügbar sind. Keine Prognose.",
     "historicalTooltip": "diBoaS Multi-Asset-Strategiebandbreite basierend auf der langfristigen S&P-500-Gesamtrendite-CAGR von 1928–2024.",
     "optimisticTooltip": "diBoaS Multi-Asset-Strategiebandbreite der letzten 10 Jahre unter Berücksichtigung der Marktbedingungen nach 2014.",
     "tooltipLabel": "Mehr Infos"
@@ -74,7 +74,7 @@
     "tryOtherTools": "Weitere Geld-Tools ausprobieren",
     "adelaideAttribution": "Geld-Tools von Adelaide"
   },
-  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für zukünftige Ergebnisse. Jede Anlage birgt Risiken; du kannst Geld verlieren. diBoaS bietet keine Anlageberatung. diBoaS-Ergebnisse werden in Digital-Dollar ausgewiesen; für Nicht-US-Währungen kombiniert der lokale Endwert das Dollar-Ergebnis mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
+  "disclaimer": "Nur als Bildungsprojektion. Keine Anlageberatung. Wertentwicklung der Vergangenheit ist kein verlässlicher Indikator für zukünftige Ergebnisse. Jede Anlage birgt Risiken; du kannst Geld verlieren. diBoaS bietet keine Anlageberatung. diBoaS-Szenarien werden in US-Dollar berechnet; für Nicht-US-Währungen kombiniert der lokale Endwert das Dollar-Ergebnis des Szenarios mit der typischen Wechselkursentwicklung deiner Währung gegenüber dem US-Dollar.",
   "warnings": {
     "over30Years": "Bei deiner aktuellen Sparrate dauert es mehr als 30 Jahre, dieses Ziel zu erreichen. Ein höherer monatlicher Betrag oder ein längerer Zeitraum ändert das."
   },

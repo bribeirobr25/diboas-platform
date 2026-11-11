@@ -64,7 +64,7 @@ Main pages:
 - `/[locale]/protocols` - Protocol transparency
 - `/[locale]/help` - Help center (6 FAQ topics)
 - `/[locale]/security` - Security information
-- `/[locale]/market` - Adelaide Market — Market Macro umbrella (multi-view since M3 2026-08-13; weekly refresh pipeline; host surface for the diboas-analytics product)
+- `/[locale]/market` - Adelaide Market — Market Macro umbrella (multi-view since M3 2026-08-13; weekly refresh pipeline; data from the private diBoaS Analytics store)
 - `/[locale]/market/[view]` - Per-view pages: `/market/bitcoin` (scored) + `/market/backdrop` (state view over the same weekly run)
 - `/[locale]/demo` - Interactive financial demo (noindex)
 - `/[locale]/dream-mode` - Goal calculator simulation (noindex)

@@ -123,22 +123,16 @@ describe('middleware', () => {
       expect(csp).toContain("base-uri 'self'");
     });
 
-    // 2026-05-14 (iter-2 CC5): the analytics product API must be in the
-    // connect-src allowlist so the SDK swap in iteration 5 doesn't ship with
-    // a broken CSP. Staging origin only in non-prod; production CSP stays
-    // minimal.
-    it('should include api.diboas-analytics.com in connect-src', () => {
-      const response = middleware(makeRequest('/en'));
-      const csp = response.headers.get('Content-Security-Policy') ?? '';
-      expect(csp).toMatch(/connect-src[^;]*https:\/\/api\.diboas-analytics\.com/);
-    });
-
-    it('should include staging.api.diboas-analytics.com in connect-src when in dev', () => {
-      // NODE_ENV is 'test' in Vitest, which evaluates `isDev = process.env.NODE_ENV !== 'production'`
-      // to TRUE — same path as development. Staging origin should be present.
-      const response = middleware(makeRequest('/en'));
-      const csp = response.headers.get('Content-Security-Policy') ?? '';
-      expect(csp).toMatch(/connect-src[^;]*https:\/\/staging\.api\.diboas-analytics\.com/);
+    // 2026-11-11 (decision G-2): there is no diBoaS Analytics product, so its API host and
+    // the staging twin leave connect-src in every environment (an unresolved allowed host is
+    // a takeover risk, security-playbook F11).
+    it('should not allow any diboas-analytics host in connect-src, in dev or production', () => {
+      for (const env of ['test', 'production']) {
+        vi.stubEnv('NODE_ENV', env);
+        const csp = middleware(makeRequest('/en')).headers.get('Content-Security-Policy') ?? '';
+        expect(csp, env).toMatch(/connect-src 'self' /);
+        expect(csp, env).not.toContain('diboas-analytics');
+      }
     });
 
     // Regression guard for the PostHog CSP fix (2026-06-01, corrected same day).
@@ -300,7 +294,6 @@ describe('middleware', () => {
       const csp = middleware(makeRequest('/en')).headers.get('Content-Security-Policy') ?? '';
 
       expect(csp).not.toContain('localhost');
-      expect(csp).not.toContain('staging.api.diboas-analytics.com');
       expect(csp).not.toContain('https://nextjs.org');
       expect(csp).toContain(
         "img-src 'self' data: blob: https://diboas.com https://cdn.diboas.com; "

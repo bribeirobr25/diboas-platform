@@ -27,13 +27,12 @@ import {
   B2C_FOOTER_DISCLOSURES,
   MARKET_FOOTER_EXTRA_DISCLOSURES,
 } from '@/config/landing-b2c';
-import { MethodologyLink, ProductDisclaimer, PoweredByAttribution } from '@/components/Analytics';
+import { ProductDisclaimer } from '@/components/Analytics';
 import { HostRegulatoryDisclaimer } from '@/components/Legal';
 import { fetchInitialAnalyticsData } from '@/lib/analytics-sdk/mock-client.server';
 import { marketCollectionSchema } from '@/lib/market/structuredData';
 import { umbrellaCardModel, type UmbrellaCardModel } from '@/lib/market/umbrellaModel';
 import { switcherDestinations, viewPath } from '@/lib/market/viewRegistry';
-import { ANALYTICS_SITE_LIVE, ANALYTICS_SITE_URL } from '@/lib/market/constants';
 import { BACKDROP_CONDITIONS, regimeLabelMap } from '@/lib/market/presentationState';
 import styles from './page.module.css';
 
@@ -71,7 +70,6 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
   const sharedRegime = perDestination.find((d) => d.data.regime)?.data.regime ?? null;
   const productDisclaimer =
     perDestination.find((d) => d.data.productDisclaimer)?.data.productDisclaimer ?? null;
-  const methodology = perDestination.find((d) => d.data.methodology)?.data.methodology ?? null;
 
   const siteUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://diboas.com';
   const heroTitle = t('hero.title', 'Adelaide Market');
@@ -242,23 +240,12 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
 
         <section className={styles.method}>
           <Container size="md">
-            {methodology && (
-              <div className={styles.methodHead}>
-                {/* No lead here: it says the page lists each signal and its points,
-                    which only the scored view does (visual pass 2026-11-11). */}
-                <h2 className={`${styles.eyebrowDark} ${styles.methodTitle}`}>
-                  {t('dashboard.methodologyTitle', 'How this is calculated')}
-                </h2>
-                <MethodologyLink
-                  href={methodology.methodology_url}
-                  comingSoon={!ANALYTICS_SITE_LIVE}
-                >
-                  {ANALYTICS_SITE_LIVE
-                    ? t('dashboard.methodologyLinkLabel', 'Read the methodology')
-                    : t('dashboard.methodologyComingSoon', 'Full methodology coming soon')}
-                </MethodologyLink>
-              </div>
-            )}
+            {/* The source note (founder 2026-11-11, DR-2026-11-11-market-cleanup-decisions item 5):
+                one plain sentence replaces the methodology heading, lead, "coming soon" link and
+                "Powered by" line; the two regulatory disclaimers below stay. */}
+            <p className={styles.dataSource}>
+              {t('dashboard.dataSource', 'All data comes from diBoaS Analytics.')}
+            </p>
 
             {productDisclaimer && (
               <ProductDisclaimer
@@ -272,14 +259,6 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                 'disclaimer.host.regulatory',
                 'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'
               )}
-            />
-
-            <PoweredByAttribution
-              href={ANALYTICS_SITE_URL}
-              label={t('dashboard.poweredByLabel', 'Powered by')}
-              productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
-              comingSoon={!ANALYTICS_SITE_LIVE}
-              comingSoonLabel={t('dashboard.comingSoon', 'coming soon')}
             />
           </Container>
         </section>

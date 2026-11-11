@@ -85,7 +85,6 @@ export function TimeToTargetCalculator() {
   );
 
   const results: Record<ScenarioKey, number | null> = timeline.months;
-  const depreciation = timeline.hedged ? 1 : 0; // for the digitalDollarSuffix check below
 
   // A16/O-1: open + compute analytics, uniform with the CalculatorDefault tools.
   useCalculatorAnalytics('time-to-target', localeKey, JSON.stringify(form));
@@ -205,7 +204,7 @@ export function TimeToTargetCalculator() {
             >
               <p className={styles.resultLabel}>
                 {tShared(`scenarios.${key}`)}
-                {key !== 'bank' && depreciation > 0 ? tShared('scenarios.digitalDollarSuffix') : ''}
+                {key !== 'bank' && timeline.hedged ? tShared('scenarios.usdSuffix') : ''}
                 {tooltip && (
                   <span
                     className={styles.tooltip}

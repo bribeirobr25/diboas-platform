@@ -68,7 +68,7 @@
     "items": {
       "skySsr": {
         "name": "Sky SSR",
-        "type": "Stablecoin-Rendite",
+        "type": "Protokollzins",
         "chain": "Arbitrum",
         "asset": "USDS",
         "cryptoExposure": "Keine",

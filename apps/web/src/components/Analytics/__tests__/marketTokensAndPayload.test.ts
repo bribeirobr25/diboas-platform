@@ -74,7 +74,9 @@ describe('(d) a client component on the market views gets only the fields it dec
     expect(clientComponents).toEqual(
       expect.arrayContaining(['RegimeScore', 'SignalCard', 'HistoricalRegimeChart'])
     );
-    expect([...loaded]).toEqual(expect.arrayContaining(['regime', 'historical', 'methodology']));
+    expect([...loaded]).toEqual(
+      expect.arrayContaining(['regime', 'historical', 'productDisclaimer'])
+    );
   });
 
   it('should never pass a whole loaded object to a client component', () => {

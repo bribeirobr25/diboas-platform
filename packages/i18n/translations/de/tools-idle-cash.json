@@ -20,7 +20,7 @@
     "bankNote": "{rate}% Rendite über {years, plural, one {# Jahr} other {# Jahre}}",
     "diboasLabel": "Bei diBoaS",
     "differencePositive": "Deine {cash} könnten bei diBoaS über {years, plural, one {# Jahr} other {# Jahre}} {difference} mehr verdienen.",
-    "differenceZero": "Bei deinem aktuellen Bankzins liegt diBoaS über {years, plural, one {# Jahr} other {# Jahre}} gleichauf, und die Position wird im Digital-Dollar gehalten.",
+    "differenceZero": "Bei deinem aktuellen Bankzins liegt die diBoaS-Strategie über {years, plural, one {# Jahr} other {# Jahre}} gleichauf.",
     "differenceNegative": "Mit {bankRate}% schlägt deine Bank das konservative diBoaS-Szenario über {years, plural, one {# Jahr} other {# Jahre}}. Der Vergleich betrifft nur die Rendite der Strategie."
   },
   "resultMoment": {

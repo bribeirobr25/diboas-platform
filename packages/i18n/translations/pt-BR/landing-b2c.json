@@ -25,7 +25,7 @@
       "apy": "Taxa anual",
       "return": "Rendimento em 1 ano"
     },
-    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. As taxas podem mudar. Os retornos vêm da estratégia, não de manter dólares digitais, e envolvem riscos, incluindo possível perda do capital.",
+    "footnote": "Taxas comparativas baseadas em dados públicos brasileiros com média dos últimos 5 anos. As taxas podem mudar. Os retornos do diBoaS vêm de uma estratégia e envolvem riscos, incluindo possível perda do capital.",
     "disclosureToggle": "Ver custo completo"
   },
   "fees": {
@@ -212,7 +212,6 @@
     "hero": {
       "headline": "Você não guarda dinheiro. Você guarda futuro.",
       "subtitle": "Uma reserva. Uma proteção. Um plano que sai do papel.\n\nVeja o caminho em dólar digital, com você no controle.",
-      "whatIs": "Seu dinheiro guardado em dólar e rendendo. Você no controle, sem banco no meio.",
       "cta": "Ver como funciona"
     },
     "whatIsSection": {

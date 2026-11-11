@@ -27,7 +27,7 @@ export const CurrencyDepreciation: Story = {
     eyebrow: 'Currency depreciation',
     headlineValue: 16105,
     headlineFormatter: fmt,
-    headlineCaption: 'Digital dollar at diBoaS',
+    headlineCaption: 'A diBoaS strategy',
     chart: {
       series: [
         { id: 'cash', label: 'If kept in cash', values: [10000, 7350], variant: 'muted' },
@@ -56,9 +56,9 @@ export const CurrencyDepreciation: Story = {
       },
       {
         id: 'diboas',
-        label: 'Digital dollar at diBoaS',
+        label: 'A diBoaS strategy',
         value: fmt(16105),
-        note: '10% historical return, held in digital dollar',
+        note: "10% a year in US dollars: the strategy's historical return. Past results, not a forecast; the value can fall, including below what you put in.",
         variant: 'primary',
       },
     ],

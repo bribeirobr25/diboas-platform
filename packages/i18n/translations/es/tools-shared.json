@@ -56,8 +56,8 @@
     "conservative": "Conservador ({scenarioConservative})",
     "historical": "Histórico ({scenarioHistorical})",
     "optimistic": "Optimista ({scenarioOptimistic})",
-    "digitalDollarSuffix": " en dólar digital",
-    "conservativeTooltip": "Rango conservador de rendimiento de la estrategia a largo plazo, basado en los mejores tipos de depósito disponibles en 2026.",
+    "usdSuffix": " en USD",
+    "conservativeTooltip": "Una hipótesis ilustrativa a largo plazo para una estrategia conservadora, basada en los mejores tipos pasivos disponibles en 2026. No es una previsión.",
     "historicalTooltip": "Rango de la estrategia diBoaS multi-activos basado en la CAGR de retorno total del S&P 500 a largo plazo (1928–2024).",
     "optimisticTooltip": "Rango de la estrategia diBoaS multi-activos de los últimos 10 años, reflejando las condiciones del mercado posteriores a 2014.",
     "tooltipLabel": "Más información"
@@ -74,7 +74,7 @@
     "tryOtherTools": "Probar otras herramientas",
     "adelaideAttribution": "Herramientas de Adelaide"
   },
-  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. La rentabilidad pasada no es indicativa de rentabilidades futuras. Toda inversión conlleva riesgo; puedes perder dinero. diBoaS no proporciona asesoramiento de inversión. Los rendimientos de diBoaS se muestran en dólar digital; para monedas distintas al dólar estadounidense, el total en moneda local combina el rendimiento del dólar con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo.",
+  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. La rentabilidad pasada no es indicativa de rentabilidades futuras. Toda inversión conlleva riesgo; puedes perder dinero. diBoaS no proporciona asesoramiento de inversión. Los escenarios de diBoaS se calculan en dólares estadounidenses; para monedas distintas al dólar estadounidense, el total en moneda local combina el resultado del escenario en dólares con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo.",
   "warnings": {
     "over30Years": "Esta meta lleva más de 30 años con tu contribución actual. Un monto mensual mayor, o un plazo más largo, lo cambia."
   },

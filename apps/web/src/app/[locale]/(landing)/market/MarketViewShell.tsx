@@ -39,9 +39,7 @@ import {
   CalmSummary,
   SignalCardsGrid,
   DataFreshnessBadge,
-  MethodologyLink,
   ProductDisclaimer,
-  PoweredByAttribution,
 } from '@/components/Analytics';
 // HistoricalRegimeChart is below-fold (renders after CalmSummary + SignalCardsGrid);
 // lazy-load its JS chunk to free main-thread time for above-fold hydration.
@@ -58,7 +56,6 @@ import { MarketViewSwitcher } from './MarketViewSwitcher';
 import { StateViewSections } from './StateViewSections';
 import styles from './page.module.css';
 
-import { ANALYTICS_SITE_LIVE, ANALYTICS_SITE_URL } from '@/lib/market/constants';
 import {
   coverageNotes,
   historicalDateLabels,
@@ -210,7 +207,6 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
       ),
     }
   );
-  const methodology = initialData.methodology;
   // 2026-10-18: reduced coverage while a signal is suspended (regime.coverage,
   // generator-written). Read from the data, never inferred here, so the notes
   // appear exactly on the cycles computed under the suspension.
@@ -523,36 +519,15 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
           shareTitle={t('hero.title', 'Adelaide Market')}
         />
 
-        {/* Methodology — dark editorial block (full-bleed). */}
+        {/* Source and disclaimers — dark editorial block (full-bleed). */}
         <section className={styles.method}>
           <Container size="md">
-            {methodology && (
-              <div className={styles.methodHead}>
-                {/* The short title is the heading; the lead is body text, shown only
-                    on a scored view — the only page that lists signals and their
-                    points (it read as a six-line 64px headline, and was untrue on
-                    the umbrella and the backdrop; visual pass 2026-11-11). */}
-                <h2 className={`${styles.eyebrowDark} ${styles.methodTitle}`}>
-                  {t('dashboard.methodologyTitle', 'How this is calculated')}
-                </h2>
-                {view.grammar === 'scored' ? (
-                  <p className={styles.methodLead}>
-                    {t(
-                      'dashboard.methodologyLead',
-                      'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
-                    )}
-                  </p>
-                ) : null}
-                <MethodologyLink
-                  href={methodology.methodology_url}
-                  comingSoon={!ANALYTICS_SITE_LIVE}
-                >
-                  {ANALYTICS_SITE_LIVE
-                    ? t('dashboard.methodologyLinkLabel', 'Read the methodology')
-                    : t('dashboard.methodologyComingSoon', 'Full methodology coming soon')}
-                </MethodologyLink>
-              </div>
-            )}
+            {/* The source note (founder 2026-11-11, DR-2026-11-11-market-cleanup-decisions item 5):
+                one plain sentence replaces the methodology heading, lead, "coming soon" link and
+                "Powered by" line; the two regulatory disclaimers below stay. */}
+            <p className={styles.dataSource}>
+              {t('dashboard.dataSource', 'All data comes from diBoaS Analytics.')}
+            </p>
 
             {productDisclaimer && (
               <ProductDisclaimer
@@ -566,14 +541,6 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                 'disclaimer.host.regulatory',
                 'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'
               )}
-            />
-
-            <PoweredByAttribution
-              href={ANALYTICS_SITE_URL}
-              label={t('dashboard.poweredByLabel', 'Powered by')}
-              productName={t('dashboard.poweredByProduct', 'diBoaS Analytics')}
-              comingSoon={!ANALYTICS_SITE_LIVE}
-              comingSoonLabel={t('dashboard.comingSoon', 'coming soon')}
             />
           </Container>
         </section>

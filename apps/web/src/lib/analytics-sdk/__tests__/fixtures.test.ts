@@ -236,8 +236,8 @@ describe('analytics-sdk fixtures — methodology schema drift guard', () => {
   it('should expose canonical methodology fields', () => {
     const m = methodology as AnyRecord;
     expect(typeof m.version).toBe('string');
-    expect(typeof m.methodology_url).toBe('string');
-    expect((m.methodology_url as string).startsWith('https://diboas-analytics.com')).toBe(true);
+    // No external methodology link (decision G-3, 2026-11-11): nothing renders one.
+    expect(m).not.toHaveProperty('methodology_url');
     expect(m.max_score).toBe(14);
     expect(Array.isArray(m.score_bands)).toBe(true);
     expect((m.score_bands as unknown[]).length).toBe(5);
@@ -454,8 +454,8 @@ describe('editorial dataset — methodology schema drift guard', () => {
   it('should expose canonical methodology fields', () => {
     const m = editorialMethodology as AnyRecord;
     expect(typeof m.version).toBe('string');
-    expect(typeof m.methodology_url).toBe('string');
-    expect((m.methodology_url as string).startsWith('https://diboas-analytics.com')).toBe(true);
+    // No external methodology link (decision G-3, 2026-11-11): nothing renders one.
+    expect(m).not.toHaveProperty('methodology_url');
     expect(m.max_score).toBe(14);
     expect(Array.isArray(m.score_bands)).toBe(true);
     expect((m.score_bands as unknown[]).length).toBe(5);
