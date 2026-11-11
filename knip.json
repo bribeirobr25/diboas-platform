@@ -33,7 +33,6 @@
       "ignore": ["src/lib/analytics-sdk/theme.ts", "src/lib/waitingList/domain/**"],
       "ignoreDependencies": [
         "@storybook/*",
-        "pa11y",
         "@eslint/js",
         "eslint-config-next",
         "eslint-plugin-storybook"
