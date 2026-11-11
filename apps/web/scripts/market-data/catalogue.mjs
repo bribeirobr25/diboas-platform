@@ -352,8 +352,8 @@ export const SERIES = [
     label: 'Nasdaq Composite (points)',
     since: '2010-01-01',
     primary: SOURCES.fred('NASDAQCOM'),
-    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
-    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    // FRED posts it a business day late, so Saturday's collection ends on Thursday: the Tuesday
+    // refresh's top-up collects Friday's (and Monday's once posted) (MP-3b, TOPUP-1).
     topUp: true,
     checks: [{ source: SOURCES.cnbc('.IXIC'), tolerance: 0.002, relation: 'independent' }],
   },
@@ -364,8 +364,8 @@ export const SERIES = [
     label: 'Nominal broad US dollar index (Fed)',
     since: '2010-01-01',
     primary: SOURCES.fred('DTWEXBGS'),
-    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
-    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    // Published on Monday (the Fed's H.10 exchange rates and broad dollar index, for the week to
+    // Friday): the Tuesday refresh's top-up collects it before the score reads the store (MP-3b).
     topUp: true,
     checks: [],
   },
@@ -375,8 +375,8 @@ export const SERIES = [
     label: 'US 10-year Treasury yield (%)',
     since: '2010-01-01',
     primary: SOURCES.fred('DGS10'),
-    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
-    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    // FRED posts it a business day late, so Saturday's collection ends on Thursday: the Tuesday
+    // refresh's top-up collects Friday's (and Monday's once posted) (MP-3b, TOPUP-1).
     topUp: true,
     checks: [],
   },
@@ -409,8 +409,8 @@ export const SERIES = [
     label: `FX ${unit} (Fed H.10, noon New York)`,
     since: '2010-01-01',
     primary: SOURCES.fred(fred),
-    // Published on Monday (the Fed's H.10 and broad dollar index; FRED a business day late):
-    // the Tuesday refresh's top-up collects it before the score reads the store (MP-3b, TOPUP-1).
+    // Published on Monday (the Fed's H.10 exchange rates and broad dollar index, for the week to
+    // Friday): the Tuesday refresh's top-up collects it before the score reads the store (MP-3b).
     topUp: true,
     // A noon rate against a 17:00 close of the same pair: a day passes when
     // the two agree within the tolerance OR the stored noon rate lies inside

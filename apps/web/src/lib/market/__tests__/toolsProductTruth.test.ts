@@ -24,6 +24,8 @@ import {
   effRate,
 } from '../../../../scripts/tools-stress-test.mjs';
 import { calculateCurrencyDepreciationRetrospective } from '@/lib/currency-depreciation/calculator';
+import { calculateCompoundProjectionHedged } from '@/lib/compound-interest/calculatorHedged';
+import type { SupportedLocale } from '@diboas/i18n/server';
 
 /** The harness is plain JavaScript; its result shape, typed for this test. */
 const assetHistoryDcaReplay = harnessReplay as unknown as (
@@ -52,17 +54,29 @@ const within = (value: number, expected: number, tolerance: number) =>
   Math.abs(value - expected) <= tolerance;
 
 describe('TOOLS-PT-1: the signed product-truth gates (5.853)', () => {
+  // Post-merge audit (2026-11-11): PT1 and PT3 run the PRODUCT's retirement engine (the hedged
+  // compound projection the retirement page uses), not the harness's copy with a typed 10%:
+  // a change to the product's rate, depreciation priority or clamp now moves them.
+  const productHistorical = (g: Gate) => {
+    const { amount, years, locale } = g.input!;
+    const out = calculateCompoundProjectionHedged({
+      amount,
+      cadence: 'monthly',
+      years,
+      locale: locale as SupportedLocale,
+    });
+    return Math.round(out.series.find((s) => s.scenario === 'historical')!.finalValue);
+  };
+
   it('should keep the pt-BR retirement result inside its signed tolerance (PT1)', () => {
-    const { amount, years, locale } = G.PT1.input!;
-    const v = Math.round(annuityFV(amount, effRate(10, locale, years), years * 12));
+    const v = productHistorical(G.PT1);
     expect(within(v, G.PT1.expectedHistorical as number, G.PT1.tolerance.absolute), String(v)).toBe(
       true
     );
   }, 30_000);
 
   it('should keep the de retirement result inside its signed tolerance (PT3)', () => {
-    const { amount, years, locale } = G.PT3.input!;
-    const v = Math.round(annuityFV(amount, effRate(10, locale, years), years * 12));
+    const v = productHistorical(G.PT3);
     expect(within(v, G.PT3.expectedHistorical as number, G.PT3.tolerance.absolute), String(v)).toBe(
       true
     );
@@ -70,10 +84,16 @@ describe('TOOLS-PT-1: the signed product-truth gates (5.853)', () => {
 
   it('should keep the S&P 500 total-return vs price-only delta inside its envelope at its end month (PT2)', () => {
     expect(G.PT2.endYm).toBeTruthy();
-    const tr = assetHistoryDcaReplay('SP500', 2010, 100, 'total_return', 'USD', {
+    // the signed input, read from the vector, never retyped (post-merge audit)
+    const { asset, startYear, amount } = G.PT2.toggleDeltaTest as {
+      asset: string;
+      startYear: number;
+      amount: number;
+    };
+    const tr = assetHistoryDcaReplay(asset, startYear, amount, 'total_return', 'USD', {
       endYm: G.PT2.endYm,
     });
-    const po = assetHistoryDcaReplay('SP500', 2010, 100, 'price_only', 'USD', {
+    const po = assetHistoryDcaReplay(asset, startYear, amount, 'price_only', 'USD', {
       endYm: G.PT2.endYm,
     });
     const delta = Math.round((tr.terminalValue / po.terminalValue - 1) * 10000) / 100;
@@ -85,7 +105,12 @@ describe('TOOLS-PT-1: the signed product-truth gates (5.853)', () => {
 
   it('should keep the Bitcoin 2016 monthly purchase at its re-signed value at its end month (BTC_RECON)', () => {
     expect(G.BTC_RECON.endYm).toBeTruthy();
-    const r = assetHistoryDcaReplay('BTC', 2016, 100, 'total_return', 'USD', {
+    const { asset, startYear, amount } = G.BTC_RECON.input as unknown as {
+      asset: string;
+      startYear: number;
+      amount: number;
+    };
+    const r = assetHistoryDcaReplay(asset, startYear, amount, 'total_return', 'USD', {
       endYm: G.BTC_RECON.endYm,
     });
     expect(r.endYm).toBe(G.BTC_RECON.endYm);
