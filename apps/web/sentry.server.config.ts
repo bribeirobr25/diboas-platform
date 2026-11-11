@@ -38,5 +38,10 @@ if (SENTRY_DSN) {
       return scrubSentryEvent(event);
     },
     beforeSendTransaction: (event) => scrubSentryEvent(event),
+
+    // Request bodies are never captured (fourteenth audit): the SDK attached them to errors and
+    // to sampled transactions by default, and the deletion and unsubscribe bodies carry bearer
+    // tokens. The scrubber drops `request.data` too, in case another path sets it.
+    integrations: [Sentry.httpIntegration({ maxIncomingRequestBodySize: 'none' })],
   });
 }

@@ -28,9 +28,23 @@ const decodePath = (path: string): string => path.replace(/%40/gi, '@');
 /** An absolute URL, or a path that carries a query or fragment, inside free text. */
 const URL_IN_TEXT = /(?:[a-z][a-z0-9+.-]*:\/\/[^\s"'<>]+|\/[^\s"'<>?#]*[?#][^\s"'<>]*)/gi;
 
-/** Free text (a span description, an error message) with every URL in it scrubbed. */
+/** A percent-encoded absolute URL inside text (`https%3A%2F%2F…%3Ftoken%3D…`, e.g. a `next=`). */
+const ENCODED_URL_IN_TEXT = /[a-z][a-z0-9+.-]*%3A%2F%2F[^\s"'<>&]+/gi;
+
+/**
+ * Free text (a span description, an error message) with every URL in it scrubbed, percent-encoded
+ * ones included (fourteenth audit: an encoded `?token=` passed untouched).
+ */
 export function scrubUrlsInText(text: string): string {
-  return text.replace(URL_IN_TEXT, (match) => scrubUrl(match));
+  return text
+    .replace(ENCODED_URL_IN_TEXT, (match) => {
+      try {
+        return encodeURIComponent(scrubUrl(decodeURIComponent(match)));
+      } catch {
+        return '[URL_REDACTED]';
+      }
+    })
+    .replace(URL_IN_TEXT, (match) => scrubUrl(match));
 }
 const ABSOLUTE = /^[a-z][a-z0-9+.-]*:\/\//i;
 

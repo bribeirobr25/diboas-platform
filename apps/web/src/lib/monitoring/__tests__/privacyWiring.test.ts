@@ -34,6 +34,18 @@ describe('5.862 · every Sentry runtime scrubs errors and transactions', () => {
     }
   );
 
+  /* Fourteenth audit: the server SDK attached request bodies (deletion and unsubscribe tokens) to
+   * errors and sampled transactions by default. */
+  it('should capture no incoming request body on the server', () => {
+    expect(read('sentry.server.config.ts')).toMatch(
+      /Sentry\.httpIntegration\(\{\s*maxIncomingRequestBodySize:\s*'none'\s*\}\)/
+    );
+  });
+
+  it('should scrub the URL the CSRF warning logs', () => {
+    expect(read('src/lib/security/csrf.ts')).toMatch(/url:\s*scrubUrl\(request\.url\)/);
+  });
+
   it('should scrub the request path the server error door puts in extra', () => {
     expect(read('src/instrumentation.ts')).toMatch(/path:\s*scrubUrl\(request\.path\)/);
   });
@@ -65,6 +77,19 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
     expect(src).toMatch(/mask_personal_data_properties:\s*true/);
     expect(src).toMatch(/custom_personal_data_properties:\s*\[[^\]]*'t'[^\]]*'token'/);
     expect(src).toMatch(/advanced_disable_feature_flags:\s*true/);
+  });
+
+  /* Fourteenth audit: session recordings keep page TEXT, which before_send never sees, and the
+   * waitlist success view prints the visitor's email. */
+  it('should mask all text and inputs and record no network data or console lines in PostHog sessions', () => {
+    const src = read('src/components/Providers/PostHogProvider.tsx');
+    const recording = /session_recording:\s*\{([^}]*)\}/.exec(src)?.[1] ?? '';
+    expect(recording, 'session_recording options').not.toBe('');
+    expect(recording).toMatch(/maskAllInputs:\s*true/);
+    expect(recording).toMatch(/maskTextSelector:\s*'\*'/);
+    expect(recording).toMatch(/recordHeaders:\s*false/);
+    expect(recording).toMatch(/recordBody:\s*false/);
+    expect(src).toMatch(/enable_recording_console_log:\s*false/);
   });
 
   it('should set a scrubbed page location before each GA4 page view', () => {
