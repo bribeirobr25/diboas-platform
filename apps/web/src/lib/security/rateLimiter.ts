@@ -37,6 +37,32 @@ let ratelimit: Ratelimit | null = null;
 let initialized = false;
 
 /**
+ * One Upstash limiter per policy (limit + window). `@upstash/ratelimit` bakes both into the
+ * instance at construction and ignores per-call arguments, so a single instance applied the
+ * DEFAULT (strict, 5 a minute) policy to every caller: the consent check, OG images and health
+ * checks, which ask for 100 a minute, answered 429 from a visitor's sixth page in a minute
+ * (found by the visual pass, 2026-11-11). Each policy keeps its own key prefix, so counters of
+ * different policies never mix.
+ */
+const policyLimiters = new Map<string, Ratelimit>();
+const policyKey = (limit: number, windowMs: number): string => `${limit}/${windowMs}`;
+
+function limiterFor(limit: number, windowMs: number): Ratelimit {
+  const key = policyKey(limit, windowMs);
+  let limiter = policyLimiters.get(key);
+  if (!limiter) {
+    limiter = new Ratelimit({
+      redis: redis as Redis,
+      limiter: Ratelimit.slidingWindow(limit, `${windowMs}ms`),
+      analytics: true,
+      prefix: `${RATE_LIMIT_CONFIG.prefix}${key}:`,
+    });
+    policyLimiters.set(key, limiter);
+  }
+  return limiter;
+}
+
+/**
  * Initialize Redis and Ratelimit instances
  */
 function initializeRedis(): boolean {
@@ -64,6 +90,8 @@ function initializeRedis(): boolean {
       analytics: true,
       prefix: RATE_LIMIT_CONFIG.prefix,
     });
+    // The default policy keeps its original prefix, so its counters carry over.
+    policyLimiters.set(policyKey(DEFAULT_LIMIT, DEFAULT_WINDOW_MS), ratelimit);
     return true;
   } catch (error) {
     Logger.error('[RateLimiter] Failed to initialize Redis:', {
@@ -127,7 +155,7 @@ export async function checkRateLimit(
 
   if (hasRedis && ratelimit) {
     try {
-      const result = await ratelimit.limit(identifier);
+      const result = await limiterFor(limit, windowMs).limit(identifier);
       return {
         success: result.success,
         limit: result.limit,

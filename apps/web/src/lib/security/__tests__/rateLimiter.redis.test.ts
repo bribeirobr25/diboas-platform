@@ -18,6 +18,7 @@ const state = vi.hoisted(() => ({
   ping: (() => Promise.resolve('PONG')) as () => Promise<unknown>,
   limit: (() => Promise.resolve(undefined)) as (identifier: string) => Promise<unknown>,
   ratelimitConfigs: [] as Array<{ prefix: string; limiter: unknown }>,
+  limitCalls: [] as Array<{ limiter: unknown; prefix: string; identifier: string }>,
   emit: vi.fn(),
   emitThrows: false,
 }));
@@ -36,11 +37,18 @@ vi.mock('@upstash/redis', () => {
 
 vi.mock('@upstash/ratelimit', () => {
   class MockRatelimit {
+    private readonly config: { prefix: string; limiter: unknown };
     constructor(config: { prefix: string; limiter: unknown }) {
       if (state.ratelimitCtorError !== null) throw state.ratelimitCtorError;
       state.ratelimitConfigs.push(config);
+      this.config = config;
     }
     limit(identifier: string) {
+      state.limitCalls.push({
+        limiter: this.config.limiter,
+        prefix: this.config.prefix,
+        identifier,
+      });
       return state.limit(identifier);
     }
     static slidingWindow(limit: number, window: string) {
@@ -99,6 +107,7 @@ describe('rateLimiter — Redis and production paths', () => {
     state.ping = () => Promise.resolve('PONG');
     state.limit = () => Promise.resolve(undefined);
     state.ratelimitConfigs = [];
+    state.limitCalls = [];
     state.emit = vi.fn();
     state.emitThrows = false;
   });
@@ -202,6 +211,55 @@ describe('rateLimiter — Redis and production paths', () => {
 
       await vi.advanceTimersByTimeAsync(1);
       expect(await pending).toBe(false);
+    });
+  });
+
+  /* Visual pass 2026-11-11: one Upstash instance, built with the strict policy, answered every
+   * caller, so "lenient" (100 a minute) routes got 5 a minute in production. */
+  describe('checkRateLimit applies each caller’s own policy', () => {
+    it('should answer a lenient call from a 100-a-minute limiter with its own prefix when Redis answers', async () => {
+      withRedisEnv();
+      state.limit = () => Promise.resolve({ success: true, limit: 100, remaining: 99, reset: 0 });
+      const { checkRateLimit, RateLimitPresets } = await importFresh();
+      const { limit, windowMs } = RateLimitPresets.lenient;
+
+      await checkRateLimit('consent-check:203.0.113.9', limit, windowMs);
+      expect(state.limitCalls).toEqual([
+        {
+          limiter: 'sliding:100:60000ms',
+          prefix: 'diboas:rl:100/60000:',
+          identifier: 'consent-check:203.0.113.9',
+        },
+      ]);
+    });
+
+    it('should reuse one limiter per policy and keep the strict default on its original prefix', async () => {
+      withRedisEnv();
+      state.limit = () => Promise.resolve({ success: true, limit: 0, remaining: 0, reset: 0 });
+      const { checkRateLimit } = await importFresh();
+
+      await checkRateLimit('a', 100, 60000);
+      await checkRateLimit('b', 100, 60000);
+      await checkRateLimit('c', 20, 60000);
+      await checkRateLimit('d');
+      expect(state.limitCalls.map((c) => [c.identifier, c.limiter, c.prefix])).toEqual([
+        ['a', 'sliding:100:60000ms', 'diboas:rl:100/60000:'],
+        ['b', 'sliding:100:60000ms', 'diboas:rl:100/60000:'],
+        ['c', 'sliding:20:60000ms', 'diboas:rl:20/60000:'],
+        ['d', 'sliding:5:60000ms', 'diboas:rl:'],
+      ]);
+      // the default instance plus one per extra policy, never one per call
+      expect(state.ratelimitConfigs).toHaveLength(3);
+    });
+
+    it('should fall back to memory with the caller’s policy when building a policy limiter fails', async () => {
+      withRedisEnv();
+      const { checkRateLimit } = await importFresh();
+      state.ratelimitCtorError = new Error('refused');
+      const first = await checkRateLimit('e', 2, 60000);
+      expect(first).toMatchObject({ success: true, limit: 2, remaining: 1 });
+      await checkRateLimit('e', 2, 60000);
+      expect((await checkRateLimit('e', 2, 60000)).success).toBe(false);
     });
   });
 
