@@ -36,11 +36,15 @@ export function blockedInLatestReport(storeDir) {
   const report = JSON.parse(fs.readFileSync(path.join(dir, latest), 'utf8'));
   const listed = report.series ?? [];
   const blocked = listed.filter((s) => s.blocked?.length).map((s) => s.id);
-  // A run that failed partway lists only the series it reached: every other one counts as
-  // blocked, or a series it never reached would stay a week old (review of MP-3b).
-  if (report.failed) {
+  // A run that failed or never finished (killed by its time limit: `complete` is false, 5.883)
+  // lists only the series it reached: every other one it was asked for counts as blocked, or
+  // a series it never reached would stay a week old (review of MP-3b). Reports written before
+  // 5.883 carry neither `requested` nor `complete`: then every catalogue series counts, and
+  // only `failed` marks an unfinished run.
+  if (report.failed || report.complete === false) {
     const reached = new Set(listed.map((s) => s.id));
-    for (const s of SERIES) if (!reached.has(s.id)) blocked.push(s.id);
+    const asked = Array.isArray(report.requested) ? report.requested : SERIES.map((s) => s.id);
+    for (const id of asked) if (!reached.has(id) && !blocked.includes(id)) blocked.push(id);
   }
   return blocked;
 }

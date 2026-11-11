@@ -75,6 +75,7 @@ import { isCompleteSnapshot, ledgerCoverage } from './lib/etf-coverage.mjs';
 import { ETF01_SUSPENSION, isSuspendedEtf } from './lib/etf-suspension.mjs';
 import { archiveSignals } from './lib/archive.mjs';
 import { appendJsonlLine, readJsonlTolerant } from './lib/jsonl.mjs';
+import { deriveDataStatus } from './lib/data-status.mjs';
 import {
   scoreSignals,
   anchorCoherence,
@@ -278,7 +279,14 @@ function rollMonths(n, factor) {
  *   the ETF leg failed: nothing collected); etfIncomplete = the pull came back
  *   without share counts and goes through the real refusal (scenario E)
  */
-function advance({ days, etfDays, etfIncomplete = false, btcRoll = false, correction = false }) {
+function advance({
+  days,
+  etfDays,
+  etfIncomplete = false,
+  btcRoll = false,
+  correction = false,
+  m2Stale = false,
+}) {
   const p = (f) => path.join(SHARED, f);
   const computed = JSON.parse(fs.readFileSync(p('computed.json'), 'utf8'));
   computed.computed_at = shiftIso(computed.computed_at, days);
@@ -396,6 +404,26 @@ function advance({ days, etfDays, etfIncomplete = false, btcRoll = false, correc
   computed.score = score;
   computed.regime_code = band.code;
   computed.group_totals = groupTotals;
+  // Scenario J (5.875): the M2 print stops arriving. MAC-03's anchor is aged by whole months,
+  // the fewest that put its row past `stale_after` by the panel's own rule (deriveDataStatus),
+  // while the ETF ledger keeps pace, so the LOW week comes from M2 alone, through the blocking
+  // step. (Scenario H reaches LOW only through the ETF row, already UNAVAILABLE.)
+  if (m2Stale) {
+    const m2 = computed.signals.find((s) => s.id === 'MAC-03');
+    if (!m2?.anchor) throw new Error('no MAC-03 anchor to age');
+    const original = m2.anchor;
+    let stale = false;
+    for (let k = 1; k <= 12 && !stale; k += 1) {
+      const a = new Date(`${original.slice(0, 7)}-01T00:00:00Z`);
+      a.setUTCMonth(a.getUTCMonth() - k);
+      m2.anchor = a.toISOString().slice(0, 10);
+      const row = deriveDataStatus(computed, readSnapshots(etfPath)).sources.find((s) =>
+        s.source.includes('M2SL')
+      );
+      stale = row?.status === 'STALE';
+    }
+    if (!stale) throw new Error('MAC-03 could not be aged past its stale date');
+  }
   const coherence = anchorCoherence(computed.signals);
   computed.anchor_spread_days = Number(coherence.spreadDays.toFixed(2));
   computed.anchor_warning = coherence.warning;
@@ -501,6 +529,15 @@ const SCENARIOS = [
     expectEtfSentence: SUSPENDED || undefined,
   },
   {
+    key: 'J',
+    name: 'M2 print overdue past its stale date, ETF ledger keeping pace (5.875)',
+    days: 7,
+    etfDays: 7,
+    m2Stale: true,
+    expectEtf: etfExpectation(undefined),
+    expectEtfSentence: SUSPENDED || undefined,
+  },
+  {
     key: 'G',
     name: "store-backed week: the score reader at next week's clock (plan MP-3)",
     storeBacked: true,
@@ -521,6 +558,27 @@ const SCENARIOS = [
  * checks the other places the suspension must be explained: the panel row, the
  * group summary and the plain read.
  */
+/**
+ * Scenario J: what generate.mjs wrote must carry the STALE M2 row and a LOW week caused by M2
+ * (`low_confidence_causes.past_stale`), with the ETF row not past its own stale date: the
+ * panel the reader sees, not the engine's return value.
+ */
+function assertM2Stale() {
+  const status = JSON.parse(fs.readFileSync(path.join(SHARED, 'data-status.json'), 'utf8'));
+  const m2 = status.sources.find((s) => s.source.includes('M2SL'));
+  const etf = status.sources.find((s) => s.source.startsWith('Polygon:ETF'));
+  const fail = (msg) => {
+    throw Object.assign(new Error(msg), { stdout: '' });
+  };
+  if (m2?.status !== 'STALE') fail(`M2 row is ${m2?.status}, expected STALE`);
+  if (status.overall_confidence !== 'LOW')
+    fail(`confidence ${status.overall_confidence}, expected LOW`);
+  if (!status.low_confidence_causes?.past_stale?.some((s) => s.includes('M2SL')))
+    fail('the LOW week does not name M2 as past its stale date');
+  if (etf?.status === 'STALE') fail('the ETF row went STALE: the ledger did not keep pace');
+  console.log('  ✓ M2 STALE, the week LOW for M2 alone, the ETF row not stale (scenario J)');
+}
+
 function assertEtfSentence() {
   const tplAll = JSON.parse(
     fs.readFileSync(
@@ -981,6 +1039,7 @@ function main() {
         // reason that has nothing to do with next week.
         const generated = sh('node', ['apps/web/scripts/market-refresh/generate.mjs']);
         if (sc.expectEtfSentence) assertEtfSentence(moved);
+        if (sc.m2Stale) assertM2Stale();
         // The workflow's own blocking command, verbatim, with its enforcement env.
         execFileSync('pnpm', [...WEEKLY_BLOCKING_VITEST_ARGS], {
           cwd: REPO_ROOT,

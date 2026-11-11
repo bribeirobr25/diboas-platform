@@ -81,6 +81,39 @@ describe('TOPUP-1: which series the top-up collects', () => {
 });
 
 describe('TOPUP-1: a partial report, and series a week behind (answer 13)', () => {
+  it('should count the requested series an unfinished run never reached as blocked (5.883)', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'topup-'));
+    roots.push(root);
+    fs.mkdirSync(path.join(root, 'checks'), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, 'checks', '20261117T061700Z.json'),
+      JSON.stringify({
+        requested: ['spy', 'qqq', 'us10y'],
+        complete: false,
+        series: [{ id: 'spy', blocked: [] }],
+      })
+    );
+    expect(blockedInLatestReport(root)).toEqual(['qqq', 'us10y']);
+  });
+
+  it('should count only the blocked series when the run finished', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'topup-'));
+    roots.push(root);
+    fs.mkdirSync(path.join(root, 'checks'), { recursive: true });
+    fs.writeFileSync(
+      path.join(root, 'checks', '20261117T061700Z.json'),
+      JSON.stringify({
+        requested: ['spy', 'qqq'],
+        complete: true,
+        series: [
+          { id: 'spy', blocked: [] },
+          { id: 'qqq', blocked: ['check failed'] },
+        ],
+      })
+    );
+    expect(blockedInLatestReport(root)).toEqual(['qqq']);
+  });
+
   it('should count every series a failed run never reached as blocked', () => {
     const root = store({});
     fs.writeFileSync(
