@@ -9,6 +9,7 @@
  */
 
 import { Logger } from './Logger';
+import { redactContext, redactText } from '@/lib/utils/redactContext';
 import { MONITORING_CONFIG } from '@/config/monitoring';
 
 // Import types
@@ -170,19 +171,22 @@ export class MonitoringAlertService {
     severity: AlertSeverity,
     context?: Record<string, unknown>
   ): Promise<string> {
+    // Alerts leave for Slack and email: the message, stack and context go out with URLs scrubbed
+    // and emails, IPs and tokens redacted, like every other monitoring door (fourteenth audit).
+    const message = redactText(error.message);
     return this.sendAlert({
       title: `Error Alert: ${error.name}`,
-      message: error.message,
+      message,
       severity,
       category: AlertCategory.ERROR,
       source: 'error-boundary',
       metadata: {
         errorName: error.name,
-        errorMessage: error.message,
-        stack: error.stack,
-        ...context,
+        errorMessage: message,
+        stack: error.stack === undefined ? undefined : redactText(error.stack),
+        ...redactContext(context),
       },
-      fingerprint: `error-${error.name}-${error.message}`,
+      fingerprint: `error-${error.name}-${message}`,
       actionUrl: generateActionUrl('error', { errorName: error.name }),
     });
   }

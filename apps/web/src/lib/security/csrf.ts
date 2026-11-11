@@ -8,6 +8,7 @@
 import { Logger } from '@/lib/monitoring/Logger';
 import { NextRequest } from 'next/server';
 import { getCsrfAllowedOrigins } from '@/config/env';
+import { scrubUrl } from '@/lib/utils/scrubUrl';
 
 // Allowed origins for CSRF validation (loaded from environment)
 const ALLOWED_ORIGINS = getCsrfAllowedOrigins();
@@ -106,7 +107,8 @@ export function csrfProtection(request: NextRequest): Response | null {
     Logger.warn('[CSRF] Validation failed:', {
       error: validation.error,
       method: request.method,
-      url: request.url,
+      // The page or API URL without its query (a token may ride there, 5.862).
+      url: scrubUrl(request.url),
       ip: request.headers.get('x-forwarded-for') || 'unknown',
     });
 

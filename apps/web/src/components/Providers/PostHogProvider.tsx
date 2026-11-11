@@ -89,6 +89,18 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
           respect_dnt: true,
           // No feature flag is read anywhere in the app (git grep), so none is evaluated.
           advanced_disable_feature_flags: true,
+          // Session recordings (fourteenth audit): the project records sessions, and a recording
+          // keeps page TEXT, which `before_send` never sees (a full snapshot is a compressed
+          // string): the waitlist success view prints the visitor's email. All text and inputs
+          // are masked, no network headers or bodies and no console lines are recorded. These
+          // client settings win over the project's dashboard settings (posthog-js).
+          session_recording: {
+            maskAllInputs: true,
+            maskTextSelector: '*',
+            recordHeaders: false,
+            recordBody: false,
+          },
+          enable_recording_console_log: false,
           loaded: (ph) => {
             if (process.env.NODE_ENV === 'development') {
               ph.debug(false);
