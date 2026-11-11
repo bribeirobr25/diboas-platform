@@ -84,6 +84,13 @@ export const FALLBACK = {
     PLN: { annualDepreciation: 0.0119 },
   },
 };
+/**
+ * The scenario rates every calculation reads (post-merge audit, 2026-11-11): they were typed as
+ * 7/10/14 (and 0.07/0.1) at ~30 call sites, so the check that this table equals the product's
+ * proved nothing. Percent, as the product's SCENARIO_RATES.
+ */
+const RATES = FALLBACK.scenarioRates;
+
 const LOCALE_CURRENCY = { en: 'USD', 'pt-BR': 'BRL', es: 'EUR', de: 'EUR' };
 
 // ────────────────────────────────────────────────────────────────────────
@@ -235,13 +242,16 @@ function buildFxLookup(fromCcy, toCcy) {
 }
 
 // Asset history monthly replay (cross-currency aware as of 2026-05-23).
+/** The end month every asset-history scenario uses when none is passed (see computeScenarios). */
+let DEFAULT_END_YM = null;
+
 export function assetHistoryDcaReplay(
   asset,
   startYear,
   amount,
   basis = 'total_return',
   displayCurrency = 'USD',
-  { endYm = null } = {}
+  { endYm = DEFAULT_END_YM } = {}
 ) {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
@@ -297,14 +307,17 @@ function assetHistoryLumpSum(
   startYear,
   amount,
   basis = 'total_return',
-  displayCurrency = 'USD'
+  displayCurrency = 'USD',
+  { endYm = DEFAULT_END_YM } = {}
 ) {
   const series = monthlyPrices[asset]?.months;
   if (!series) return null;
   const startIdx = series.findIndex((m) => parseInt(m.ym.slice(0, 4), 10) === startYear);
   if (startIdx === -1) return { error: `no data for ${asset} in ${startYear}` };
   const start = series[startIdx];
-  const final = series[series.length - 1];
+  const endIdx = endYm == null ? series.length - 1 : series.findIndex((m) => m.ym === endYm);
+  if (endIdx === -1) return { error: `no data for ${asset} in ${endYm}` };
+  const final = series[endIdx];
   const startPrice =
     basis === 'price_only' && start.closePriceOnly != null ? start.closePriceOnly : start.close;
   const finalPrice =
@@ -366,9 +379,11 @@ function runCompoundInterest() {
       output: {
         monthlyEq: Math.round(monthly * 100) / 100,
         bank: Math.round(annuityFV(monthly, FALLBACK.bankRates[loc].savings / 100, months)),
-        conservative: Math.round(annuityFV(monthly, effRate(7, loc, i.years), months)),
-        historical: Math.round(annuityFV(monthly, effRate(10, loc, i.years), months)),
-        optimistic: Math.round(annuityFV(monthly, effRate(14, loc, i.years), months)),
+        conservative: Math.round(
+          annuityFV(monthly, effRate(RATES.conservative, loc, i.years), months)
+        ),
+        historical: Math.round(annuityFV(monthly, effRate(RATES.historical, loc, i.years), months)),
+        optimistic: Math.round(annuityFV(monthly, effRate(RATES.optimistic, loc, i.years), months)),
       },
     });
   }
@@ -392,8 +407,8 @@ function runCompoundInterest() {
         monthlyEq: Math.round(monthly * 100) / 100,
         historical:
           cad === 'oneTime'
-            ? Math.round(lumpSumFV(amount, 0.1, 10))
-            : Math.round(annuityFV(monthly, 0.1, 120)),
+            ? Math.round(lumpSumFV(amount, RATES.historical / 100, 10))
+            : Math.round(annuityFV(monthly, RATES.historical / 100, 120)),
       },
     });
   }
@@ -404,8 +419,8 @@ function runCompoundInterest() {
       label: `${loc}: amount=0.01 × 1y monthly`,
       input: { amount: 0.01, cadence: 'monthly', years: 1, locale: loc },
       output: {
-        historical: Math.round(annuityFV(0.01, effRate(10, loc, 1), 12) * 100) / 100,
-        effRate: Math.round(effRate(10, loc, 1) * 10000) / 100 + '%',
+        historical: Math.round(annuityFV(0.01, effRate(RATES.historical, loc, 1), 12) * 100) / 100,
+        effRate: Math.round(effRate(RATES.historical, loc, 1) * 10000) / 100 + '%',
       },
     });
   }
@@ -416,8 +431,8 @@ function runCompoundInterest() {
       label: `${loc}: INPUT_BOUNDS.amount.max × 14% × 40y oneTime`,
       input: { amount: 1_000_000_000, cadence: 'oneTime', years: 40, locale: loc },
       output: {
-        lumpSumFV_optimistic: lumpSumFV(1_000_000_000, effRate(14, loc, 40), 40),
-        effRate: Math.round(effRate(14, loc, 40) * 10000) / 100 + '%',
+        lumpSumFV_optimistic: lumpSumFV(1_000_000_000, effRate(RATES.optimistic, loc, 40), 40),
+        effRate: Math.round(effRate(RATES.optimistic, loc, 40) * 10000) / 100 + '%',
       },
     });
   }
@@ -426,14 +441,16 @@ function runCompoundInterest() {
     category: 'PT-acceptance',
     label: 'pt-BR R$2000/mo × 25y (PT1 Bar-signed)',
     input: { amount: 2000, cadence: 'monthly', years: 25, locale: 'pt-BR' },
-    output: { historical: Math.round(annuityFV(2000, effRate(10, 'pt-BR', 25), 300)) },
+    output: {
+      historical: Math.round(annuityFV(2000, effRate(RATES.historical, 'pt-BR', 25), 300)),
+    },
   });
   // PT3: de €400/mo × 25y
   scenarios.push({
     category: 'PT-acceptance',
     label: 'de €400/mo × 25y (PT3 Bar-signed)',
     input: { amount: 400, cadence: 'monthly', years: 25, locale: 'de' },
-    output: { historical: Math.round(annuityFV(400, effRate(10, 'de', 25), 300)) },
+    output: { historical: Math.round(annuityFV(400, effRate(RATES.historical, 'de', 25), 300)) },
   });
   // Negative: amount=0 per locale
   for (const loc of LOCALES) {
@@ -453,37 +470,39 @@ function runRetirement() {
       category: 'default',
       label: 'default en',
       input: { amount: 500, years: 25, locale: 'en' },
-      output: { historical: Math.round(annuityFV(500, 0.1, 300)) },
+      output: { historical: Math.round(annuityFV(500, RATES.historical / 100, 300)) },
     },
     {
       category: 'default',
       label: 'default pt-BR (PT1 Bar-signed)',
       input: { amount: 2000, years: 25, locale: 'pt-BR' },
-      output: { historical: Math.round(annuityFV(2000, effRate(10, 'pt-BR', 25), 300)) },
+      output: {
+        historical: Math.round(annuityFV(2000, effRate(RATES.historical, 'pt-BR', 25), 300)),
+      },
     },
     {
       category: 'default',
       label: 'default de (PT3 Bar-signed)',
       input: { amount: 400, years: 25, locale: 'de' },
-      output: { historical: Math.round(annuityFV(400, effRate(10, 'de', 25), 300)) },
+      output: { historical: Math.round(annuityFV(400, effRate(RATES.historical, 'de', 25), 300)) },
     },
     {
       category: 'default',
       label: 'default es',
       input: { amount: 400, years: 25, locale: 'es' },
-      output: { historical: Math.round(annuityFV(400, effRate(10, 'es', 25), 300)) },
+      output: { historical: Math.round(annuityFV(400, effRate(RATES.historical, 'es', 25), 300)) },
     },
     {
       category: 'edge-young',
       label: '$100/mo × 40y starting young',
       input: { amount: 100, years: 40, locale: 'en' },
-      output: { historical: Math.round(annuityFV(100, 0.1, 480)) },
+      output: { historical: Math.round(annuityFV(100, RATES.historical / 100, 480)) },
     },
     {
       category: 'edge-shorter',
       label: '$1000/mo × 10y',
       input: { amount: 1000, years: 10, locale: 'en' },
-      output: { historical: Math.round(annuityFV(1000, 0.1, 120)) },
+      output: { historical: Math.round(annuityFV(1000, RATES.historical / 100, 120)) },
     },
   ];
 }
@@ -494,19 +513,21 @@ function runGoalSavings() {
       category: 'default',
       label: 'default en',
       input: { amount: 200, years: 10, locale: 'en' },
-      output: { historical: Math.round(annuityFV(200, 0.1, 120)) },
+      output: { historical: Math.round(annuityFV(200, RATES.historical / 100, 120)) },
     },
     {
       category: 'default',
       label: 'default pt-BR',
       input: { amount: 1000, years: 10, locale: 'pt-BR' },
-      output: { historical: Math.round(annuityFV(1000, effRate(10, 'pt-BR', 10), 120)) },
+      output: {
+        historical: Math.round(annuityFV(1000, effRate(RATES.historical, 'pt-BR', 10), 120)),
+      },
     },
     {
       category: 'longer-horizon',
       label: 'en 20y',
       input: { amount: 200, years: 20, locale: 'en' },
-      output: { historical: Math.round(annuityFV(200, 0.1, 240)) },
+      output: { historical: Math.round(annuityFV(200, RATES.historical / 100, 240)) },
     },
   ];
 }
@@ -526,7 +547,7 @@ function runEmergencyFund() {
     const bankApy = FALLBACK.bankRates[loc].savings / 100;
     const infl = FALLBACK.inflationRates[loc].average5y;
     const horizonYrs = Math.max(1, target / (i.sav * 12));
-    const dibApy = effRate(10, loc, horizonYrs);
+    const dibApy = effRate(RATES.historical, loc, horizonYrs);
     scenarios.push({
       category: 'default',
       label: `default ${loc}`,
@@ -551,7 +572,12 @@ function runEmergencyFund() {
       output: {
         bankBeatsInflation: bankApy > infl,
         bankMonths: monthsToTarget(target, sav, bankApy, infl),
-        diboasMonths: monthsToTarget(target, sav, effRate(10, loc, horizon0(target, sav)), infl),
+        diboasMonths: monthsToTarget(
+          target,
+          sav,
+          effRate(RATES.historical, loc, horizon0(target, sav)),
+          infl
+        ),
       },
     });
   }
@@ -567,7 +593,7 @@ function runEmergencyFund() {
         diboasMonths: monthsToTarget(
           target,
           sav,
-          effRate(10, loc, 1),
+          effRate(RATES.historical, loc, 1),
           FALLBACK.inflationRates[loc].average5y
         ),
       },
@@ -600,9 +626,21 @@ function runTimeToTarget() {
       input: { target, contribution: contrib, locale: loc },
       output: {
         bankMonths: monthsToTarget(target, contrib, FALLBACK.bankRates[loc].savings / 100),
-        conservativeMonths: monthsToTarget(target, contrib, effRate(7, loc, horizonYrs)),
-        historicalMonths: monthsToTarget(target, contrib, effRate(10, loc, horizonYrs)),
-        optimisticMonths: monthsToTarget(target, contrib, effRate(14, loc, horizonYrs)),
+        conservativeMonths: monthsToTarget(
+          target,
+          contrib,
+          effRate(RATES.conservative, loc, horizonYrs)
+        ),
+        historicalMonths: monthsToTarget(
+          target,
+          contrib,
+          effRate(RATES.historical, loc, horizonYrs)
+        ),
+        optimisticMonths: monthsToTarget(
+          target,
+          contrib,
+          effRate(RATES.optimistic, loc, horizonYrs)
+        ),
       },
     });
   }
@@ -615,7 +653,9 @@ function runTimeToTarget() {
       category: 'edge-growth-only',
       label: `${loc}: contrib=0 initial=${initial} ${ccy} target=${target}`,
       input: { target, initialAmount: initial, contribution: 0, locale: loc },
-      output: { historicalMonths: monthsToTarget(target, 0, effRate(10, loc, 10), 0, initial) },
+      output: {
+        historicalMonths: monthsToTarget(target, 0, effRate(RATES.historical, loc, 10), 0, initial),
+      },
     });
   }
   // Edge: target unreachable per locale (1200-month cap)
@@ -626,7 +666,7 @@ function runTimeToTarget() {
       label: `${loc}: target=${target} contrib=100/mo`,
       input: { target, contribution: 100, locale: loc },
       output: {
-        historicalMonths: monthsToTarget(target, 100, effRate(10, loc, 100)),
+        historicalMonths: monthsToTarget(target, 100, effRate(RATES.historical, loc, 100)),
         note: '1200-month cap → Infinity',
       },
     });
@@ -740,9 +780,11 @@ function runInflationImpact() {
       output: {
         cashRealValue: Math.round(purchasingPower(amt, yrs, inflRate)),
         loss: Math.round(amt - purchasingPower(amt, yrs, inflRate)),
-        // 0.07 = conservative scenario — founder F-6 ruling 2026-07-11 (was 0.1 historical)
-        investedNominal: Math.round(lumpSumFV(amt, 0.07, yrs)),
-        investedReal: Math.round(lumpSumFV(amt, 0.07, yrs) / Math.pow(1 + inflRate, yrs)),
+        // the conservative scenario rate — founder F-6 ruling 2026-07-11 (was the historical one)
+        investedNominal: Math.round(lumpSumFV(amt, RATES.conservative / 100, yrs)),
+        investedReal: Math.round(
+          lumpSumFV(amt, RATES.conservative / 100, yrs) / Math.pow(1 + inflRate, yrs)
+        ),
       },
     });
   }
@@ -806,7 +848,7 @@ function runCurrencyDepreciation() {
       output: {
         cashIdle: amt,
         bankFV: Math.round(lumpSumFV(amt, bankApy, yrs)),
-        diboasFV: Math.round(lumpSumFV(amt, (1 + 0.1) * (1 + dep) - 1, yrs)),
+        diboasFV: Math.round(lumpSumFV(amt, (1 + RATES.historical / 100) * (1 + dep) - 1, yrs)),
         depreciationRate: Math.round(dep * 10000) / 100 + '%',
       },
     });
@@ -816,14 +858,21 @@ function runCurrencyDepreciation() {
     category: 'PT1-context',
     label: 'pt-BR R$50k × 10y (longer horizon → higher dep)',
     input: { amount: 50000, years: 10, currency: 'BRL', locale: 'pt-BR' },
-    output: { diboasFV: Math.round(lumpSumFV(50000, 1.1 * (1 + resolveDep('BRL', 10)) - 1, 10)) },
+    output: {
+      diboasFV: Math.round(
+        lumpSumFV(50000, (1 + RATES.historical / 100) * (1 + resolveDep('BRL', 10)) - 1, 10)
+      ),
+    },
   });
   // USD = no hedge
   scenarios.push({
     category: 'edge-usd',
     label: 'USD selected (no depreciation)',
     input: { amount: 10000, years: 5, currency: 'USD', locale: 'en' },
-    output: { diboasFV: Math.round(lumpSumFV(10000, 0.1, 5)), depreciationRate: '0%' },
+    output: {
+      diboasFV: Math.round(lumpSumFV(10000, RATES.historical / 100, 5)),
+      depreciationRate: '0%',
+    },
   });
   return scenarios;
 }
@@ -897,7 +946,7 @@ function runIdleCash() {
   };
   for (const loc of LOCALES) {
     const i = defaults[loc];
-    const dibApy = effRate(7, loc, i.yrs); // Idle Cash uses CONSERVATIVE not Historical
+    const dibApy = effRate(RATES.conservative, loc, i.yrs); // Idle Cash uses CONSERVATIVE not Historical
     scenarios.push({
       category: 'default',
       label: `default ${loc}`,
@@ -924,7 +973,7 @@ function runIdleCash() {
   // Edge: very long horizon per locale (10y) to expose hedge compounding
   for (const loc of LOCALES) {
     const i = defaults[loc];
-    const dibApy = effRate(7, loc, 10);
+    const dibApy = effRate(RATES.conservative, loc, 10);
     scenarios.push({
       category: 'edge-long',
       label: `${loc}: idleCash 10y at conservative+hedge`,
@@ -943,7 +992,7 @@ function runIdleCash() {
     input: { idleCash: 100000, years: 5, bankYieldPct: 4.1, locale: 'en' },
     output: {
       bankFV: Math.round(lumpSumFV(100000, 0.041, 5)),
-      diboasFV: Math.round(lumpSumFV(100000, 0.07, 5)),
+      diboasFV: Math.round(lumpSumFV(100000, RATES.conservative / 100, 5)),
     },
   });
   // Negative: negative idle cash per locale
@@ -1196,6 +1245,50 @@ function runBrazilPoupanca() {
 // Main
 // ────────────────────────────────────────────────────────────────────────
 /** Write the baseline. Only when run directly, so the gates test can import the functions (5.853). */
+/**
+ * Every scenario's result, without writing anything (post-merge audit, 2026-11-11: the CI
+ * comparison of every reference result, founder answer 8, imports this). `assetHistoryEndYm`
+ * pins the asset-history scenarios to an end month, as the signed gates are, so a monthly
+ * append never moves a reference result; omitted, they read to the newest month (the baseline).
+ *
+ * @param {{ assetHistoryEndYm?: string | null }} [opts]
+ */
+export function computeScenarios({ assetHistoryEndYm = null } = {}) {
+  const prior = DEFAULT_END_YM;
+  DEFAULT_END_YM = assetHistoryEndYm;
+  try {
+    return {
+      compoundInterest: runCompoundInterest(),
+      retirement: runRetirement(),
+      goalSavings: runGoalSavings(),
+      emergencyFund: runEmergencyFund(),
+      timeToTarget: runTimeToTarget(),
+      assetHistory: runAssetHistory(),
+      inflationImpact: runInflationImpact(),
+      currencyDepreciation: runCurrencyDepreciation(),
+      cardFees: runCardFees(),
+      idleCash: runIdleCash(),
+      moneyJobs: runMoneyJobs(),
+      brazilPoupanca: runBrazilPoupanca(),
+    };
+  } finally {
+    DEFAULT_END_YM = prior;
+  }
+}
+
+/** Infinity as the string "INF" (JSON has no Infinity), as the baseline and the vectors store it. */
+export function sanitize(o) {
+  if (o === null || o === undefined) return o;
+  if (typeof o === 'number') return Number.isFinite(o) ? o : 'INF';
+  if (Array.isArray(o)) return o.map(sanitize);
+  if (typeof o === 'object') {
+    const r = {};
+    for (const k of Object.keys(o)) r[k] = sanitize(o[k]);
+    return r;
+  }
+  return o;
+}
+
 export function main(argv = process.argv) {
   const outArg = argv.indexOf('--out');
   const outPath =
@@ -1217,34 +1310,8 @@ export function main(argv = process.argv) {
         EUR_25y: deriveHorizonMatchedCAGR('EUR', 25),
       },
     },
-    scenarios: {
-      compoundInterest: runCompoundInterest(),
-      retirement: runRetirement(),
-      goalSavings: runGoalSavings(),
-      emergencyFund: runEmergencyFund(),
-      timeToTarget: runTimeToTarget(),
-      assetHistory: runAssetHistory(),
-      inflationImpact: runInflationImpact(),
-      currencyDepreciation: runCurrencyDepreciation(),
-      cardFees: runCardFees(),
-      idleCash: runIdleCash(),
-      moneyJobs: runMoneyJobs(),
-      brazilPoupanca: runBrazilPoupanca(),
-    },
+    scenarios: computeScenarios(),
   };
-
-  // Replace Infinity with string "INF" for JSON serialization
-  function sanitize(o) {
-    if (o === null || o === undefined) return o;
-    if (typeof o === 'number') return Number.isFinite(o) ? o : 'INF';
-    if (Array.isArray(o)) return o.map(sanitize);
-    if (typeof o === 'object') {
-      const r = {};
-      for (const k of Object.keys(o)) r[k] = sanitize(o[k]);
-      return r;
-    }
-    return o;
-  }
 
   fs.writeFileSync(outPath, JSON.stringify(sanitize(baseline), null, 2));
   let totalScenarios = 0;

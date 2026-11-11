@@ -84,7 +84,8 @@ export function storeSeriesFor(source) {
  *   the store commit is required, so a reading can never pass as pinned without one
  */
 export function readStoreInputs(storeDir, { today, from = '2023-01-01', storeCommit }) {
-  if (!storeCommit) throw new Error('STORE INPUT: the store commit is required (provenance)');
+  if (!/^[0-9a-f]{40}$/.test(storeCommit ?? ''))
+    throw new Error('STORE INPUT: the store commit is required, as a full 40-character sha');
   /** @type {Record<string, {series: [Date, number][], provenance: Record<string, string|null>}>} */
   const sources = {};
   for (const s of FETCHED_SOURCES) {
@@ -109,8 +110,25 @@ export function readStoreInputs(storeDir, { today, from = '2023-01-01', storeCom
 export function btcMonthsFromStore(storeDir, today) {
   const daily = readCsv(path.join(storeDir, 'daily', 'btc.csv'));
   if (!daily.length) throw new Error('STORE INPUT: daily/btc.csv is missing or empty');
+  toPairs(daily, '0000-00-00', 'btc'); // every row checked (format, order, a decimal close)
+  // Bitcoin trades every day: a missing day is a gap, never a holiday. Refused, never dropped
+  // (post-merge audit, 2026-11-11: an incomplete month in the middle used to vanish, and the
+  // monthly averages would then have spanned more calendar months than they say).
+  for (let i = 1; i < daily.length; i++) {
+    const want = new Date(Date.parse(`${daily[i - 1].date}T00:00:00Z`) + 86_400_000)
+      .toISOString()
+      .slice(0, 10);
+    if (daily[i].date !== want)
+      throw new Error(`STORE INPUT: daily/btc.csv has no row for ${want} (an every-day series)`);
+  }
   const lastStored = daily.at(-1).date;
-  return monthlyBars(daily, [], today.toISOString().slice(0, 10))
-    .filter((m) => isMonthComplete(m, lastStored, 'daily'))
+  const months = monthlyBars(daily, [], today.toISOString().slice(0, 10));
+  // only the newest month may be incomplete (the current one); any earlier one is a defect
+  months.slice(0, -1).forEach((m) => {
+    if (!isMonthComplete(m, lastStored, 'daily'))
+      throw new Error(`STORE INPUT: Bitcoin month ${m.ym} is incomplete but not the newest`);
+  });
+  return months
+    .filter((m, i) => i < months.length - 1 || isMonthComplete(m, lastStored, 'daily'))
     .map((m) => ({ ym: `${m.ym}-01`, open: m.open, high: m.high, low: m.low, close: m.close }));
 }

@@ -311,12 +311,22 @@ function advance({ days, etfDays, etfIncomplete = false, btcRoll = false, correc
   // Scenario I: a same-day re-run that CORRECTS the first (a different score), so the check that
   // the day's chart point follows the LAST run of the day can fail (SNAP-IMMUT-1, runDayIndex).
   if (correction) {
-    const s = computed.signals.find(
-      (x) => /^(MAC|REL)-/.test(x.id) && (x.state === 'ACTIVE' || x.state === 'INACTIVE')
-    );
-    if (!s) throw new Error('no macro or relative-strength signal to correct');
-    s.state = s.state === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+    // A revised Friday dollar close (the source corrected it), moved across its 20-week EMA, and
+    // the state, values, detail and points rebuilt with the engine's own MAC-01 rule and wording,
+    // so the record stays coherent: a flipped state over unchanged values rendered a sentence
+    // contradicting its own numbers (post-merge audit, 2026-11-11).
+    const s = computed.signals.find((x) => x.id === 'MAC-01');
+    if (!s?.values) throw new Error('no MAC-01 record to correct');
+    const { ema20 } = s.values;
+    const toActive = s.state !== 'ACTIVE';
+    const close = ema20 * (toActive ? 0.99 : 1.01);
+    const rsi = toActive ? Math.min(s.values.rsi, 45) : s.values.rsi;
+    const gapPct = ((close - ema20) / ema20) * 100;
+    s.values = { ...s.values, close, gapPct, rsi };
+    s.state = close < ema20 && rsi < 50 ? 'ACTIVE' : 'INACTIVE';
+    s.detail = `Broad dollar (DTWEXBGS) ${close.toFixed(4)} vs EMA20W ${ema20.toFixed(4)} (Δ ${gapPct.toFixed(3)}%); RSI ${rsi.toFixed(2)}`;
     if ('points' in s) s.points = s.state === 'ACTIVE' ? s.weight : 0;
+    if ((s.state === 'ACTIVE') !== toActive) throw new Error('the MAC-01 correction did not flip');
   }
   // Weekly anchors move because the run re-fetches; monthly ones do not roll here
   // (deliberately — a late monthly print is a legitimate state, 5.462).
@@ -768,33 +778,39 @@ function storeBackedWeek() {
     // synthetic, per series as Saturday's collection and the Tuesday top-up leave it: Bitcoin
     // and gold through Monday; the Fed and FRED series through Friday (the Fed publishes Friday's
     // values on Monday, FRED a business day late, so Monday's are not out at 06:17 UTC Tuesday)
-    const daily = path.join(tmp, 'synthetic', 'daily');
-    fs.mkdirSync(daily, { recursive: true });
     const monday = shiftDay(today.toISOString().slice(0, 10), -1);
     const friday = shiftDay(today.toISOString().slice(0, 10), -4);
-    for (const id of series) {
-      const end = id === 'btc' || id === 'gold_spot' ? monday : friday;
-      const rows = [];
-      if (id === 'us_m2') {
-        for (let m = 30; m >= 2; m--) {
-          const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - m, 1));
-          rows.push(
-            `${d.toISOString().slice(0, 10)},,,,${(21000 + (30 - m) * 40).toFixed(1)},simulator`
-          );
+    const writeStore = (name, endOf) => {
+      const daily = path.join(tmp, name, 'daily');
+      fs.mkdirSync(daily, { recursive: true });
+      for (const id of series) {
+        const end = endOf(id);
+        const rows = [];
+        if (id === 'us_m2') {
+          for (let m = 30; m >= 2; m--) {
+            const d = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth() - m, 1));
+            rows.push(
+              `${d.toISOString().slice(0, 10)},,,,${(21000 + (30 - m) * 40).toFixed(1)},simulator`
+            );
+          }
+        } else {
+          for (let i = 760, v = 100; i >= 0; i--, v += 0.05) {
+            const day = shiftDay(end, -i);
+            const dow = new Date(`${day}T00:00:00Z`).getUTCDay();
+            if (id !== 'btc' && (dow === 0 || dow === 6)) continue;
+            rows.push(`${day},,,,${v.toFixed(4)},simulator`);
+          }
         }
-      } else {
-        for (let i = 760, v = 100; i >= 0; i--, v += 0.05) {
-          const day = shiftDay(end, -i);
-          const dow = new Date(`${day}T00:00:00Z`).getUTCDay();
-          if (id !== 'btc' && (dow === 0 || dow === 6)) continue;
-          rows.push(`${day},,,,${v.toFixed(4)},simulator`);
-        }
+        fs.writeFileSync(
+          path.join(daily, `${id}.csv`),
+          `date,open,high,low,close,source\n${rows.join('\n')}\n`
+        );
       }
-      fs.writeFileSync(
-        path.join(daily, `${id}.csv`),
-        `date,open,high,low,close,source\n${rows.join('\n')}\n`
-      );
-    }
+    };
+    writeStore('synthetic', (id) => (id === 'btc' || id === 'gold_spot' ? monday : friday));
+    // the top-up FAILED (an outage, MARKET_TOPUP=off, or a manual run, which never tops up):
+    // every series ends on Friday
+    writeStore('synthetic-no-topup', () => friday);
     // the Tuesday run at 06:17 UTC, and the Wednesday retry when its own top-up failed (the
     // store as Tuesday's left it): the score's limits must hold at both
     const at = (d, hhmm) =>
@@ -808,6 +824,26 @@ function storeBackedWeek() {
       'the same store at the Wednesday retry, 06:17',
       path.join(tmp, 'synthetic'),
       at(1, '06:17')
+    );
+    // Without the top-up, Friday's Bitcoin is past the score's 3-day limit on Tuesday. Once the
+    // score reads the store (MP-4) that run STOPS, as ruled (decision B-2: a series still blocked
+    // after the top-up stops the run); asserted here so the rule is rehearsed, not assumed.
+    let stopped = null;
+    try {
+      check(
+        'store without the top-up, Tuesday 06:17',
+        path.join(tmp, 'synthetic-no-topup'),
+        at(0, '06:17')
+      );
+    } catch (e) {
+      stopped = String(e.message);
+    }
+    if (!stopped || !/BTC|Bitcoin/.test(stopped))
+      fail(
+        `without the top-up the score should stop on Bitcoin's recency, got: ${stopped ?? 'no stop'}`
+      );
+    console.log(
+      `  ✓ without the top-up the score stops on Bitcoin's recency (decision B-2), as ruled`
     );
     const real =
       process.argv.find((a) => a.startsWith('--store='))?.slice(8) ?? process.env.SIM_STORE;

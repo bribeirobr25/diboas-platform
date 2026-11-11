@@ -46,11 +46,23 @@ describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', ()
   // harness to the PRODUCT (review of MP-1c: the gate ran only the harness's own copy). A rule
   // over the same live series, never a value: both read the committed months to the same end.
   it('should equal the stress harness replay over the same months (TOOLS-PT-1 speaks for the product)', () => {
-    for (const [asset, amount] of [
-      ['BTC', 100],
-      ['SP500', 100],
-    ] as const) {
-      const product = calculateAssetHistoryDcaReplay({ asset, startYear: 2016, amount });
+    // total return and price only, US dollars and a non-dollar display currency (the BRL/EUR
+    // path converts each contribution at that month's rate): post-merge audit, 2026-11-11
+    const cases = [
+      ['BTC', 100, 'total_return', 'USD'],
+      ['SP500', 100, 'total_return', 'USD'],
+      ['SP500', 100, 'price_only', 'USD'],
+      ['BTC', 500, 'total_return', 'BRL'],
+      ['SP500', 100, 'total_return', 'EUR'],
+    ] as const;
+    for (const [asset, amount, basis, currency] of cases) {
+      const product = calculateAssetHistoryDcaReplay({
+        asset,
+        startYear: 2016,
+        amount,
+        returnsBasis: basis,
+        displayCurrency: currency,
+      });
       const harness = (
         harnessReplay as unknown as (
           a: string,
@@ -60,9 +72,10 @@ describe('calculateAssetHistoryDcaReplay — Phase E v2 monthly OHLC replay', ()
           c: string,
           o: { endYm: string }
         ) => { terminalValue: number; endYm: string }
-      )(asset, 2016, amount, 'total_return', 'USD', { endYm: product.endYm });
-      expect(harness.endYm, asset).toBe(product.endYm);
-      expect(Math.abs(harness.terminalValue - product.terminalValue), asset).toBeLessThan(1);
+      )(asset, 2016, amount, basis, currency, { endYm: product.endYm });
+      const label = `${asset} ${basis} ${currency}`;
+      expect(harness.endYm, label).toBe(product.endYm);
+      expect(Math.abs(harness.terminalValue - product.terminalValue), label).toBeLessThan(1);
     }
   });
 

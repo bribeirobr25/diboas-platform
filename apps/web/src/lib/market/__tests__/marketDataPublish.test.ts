@@ -153,6 +153,17 @@ describe('publish.mjs builds the Money Tools series from the store', () => {
     expect(build(store, CURRENT()).through).toBe('2025-12');
   });
 
+  // Post-merge audit (2026-11-11): the publisher's every-day calendar had no test (5.850's guard
+  // named this file wrongly). Bitcoin is not published yet; the rule is pinned before it is.
+  it('should judge an every-day series by its last CALENDAR day, never a weekday or a later day', () => {
+    const rows = [{ ym: '2025-11', last_day: '2025-11-28' }]; // November 2025 ends on a Sunday
+    expect(lastCompleteMonth(rows, '2025-12-02', 'weekdays')).toBe('2025-11');
+    expect(lastCompleteMonth(rows, '2025-12-02', 'daily')).not.toBe('2025-11');
+    expect(
+      lastCompleteMonth([{ ym: '2025-11', last_day: '2025-11-30' }], '2025-11-30', 'daily')
+    ).toBe('2025-11');
+  });
+
   it('should find the last weekday of a month and judge completeness from it', () => {
     expect(lastWeekday('2026-10')).toBe('2026-10-30'); // Oct 31 is a Saturday
     expect(lastWeekday('2026-11')).toBe('2026-11-30'); // a Monday

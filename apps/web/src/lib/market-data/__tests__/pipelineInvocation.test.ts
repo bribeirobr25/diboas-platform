@@ -18,6 +18,7 @@
 import {
   mkdirSync,
   mkdtempSync,
+  readdirSync,
   readFileSync,
   realpathSync,
   rmSync,
@@ -52,6 +53,11 @@ const WRITERS = [
   // plan MP-3b: two entry points that print and set the exit code; tests import both
   'market-data/collect-watch.mjs',
   'market-data/topup-series.mjs',
+  // post-merge audit (2026-11-11): guarded and imported by tests, but missing from this list
+  'market-refresh/retry-decision.mjs',
+  'market-refresh/lib/staleness.mjs',
+  'market-refresh/lib/memo-orphans.mjs',
+  'data-freshness/check.mjs',
 ];
 
 describe('isDirectInvocation — the guard itself', () => {
@@ -112,11 +118,34 @@ describe('isDirectInvocation — the guard itself', () => {
  * the bug. So: assert the guard is present at every write site, and prove the
  * assertion by removing a guard and watching this fail.
  */
+/** Every .mjs under apps/web/scripts, recursively (test fixtures and node_modules excluded). */
+function scriptFiles(dir: string, rel = ''): string[] {
+  return readdirSync(join(dir, rel), { withFileTypes: true }).flatMap((e) => {
+    const r = rel ? `${rel}/${e.name}` : e.name;
+    if (e.isDirectory()) return e.name === 'node_modules' ? [] : scriptFiles(dir, r);
+    return e.name.endsWith('.mjs') ? [r] : [];
+  });
+}
+
+// Post-merge audit (2026-11-11): the list was kept by hand and four guarded entry points were
+// missing, so removing their guard failed nothing. Now every script that calls the guard must be
+// listed, so the list cannot fall behind the code again.
+describe('the list of entry points is the code, not a hand list', () => {
+  it('should name every script under apps/web/scripts that calls isDirectInvocation', () => {
+    const guarded = scriptFiles(SCRIPTS).filter((r) =>
+      /isDirectInvocation\(import\.meta\.url\)/.test(readFileSync(join(SCRIPTS, r), 'utf8'))
+    );
+    expect(guarded.length).toBeGreaterThan(10);
+    expect(guarded.filter((r) => !WRITERS.includes(r))).toEqual([]);
+  });
+});
+
 describe('every writing pipeline script is guarded', () => {
   it.each(WRITERS)('%s should gate its side effects behind isDirectInvocation', (rel) => {
     const src = readFileSync(join(SCRIPTS, rel), 'utf8');
     expect(src, `${rel} does not import the guard`).toMatch(
-      /import \{ isDirectInvocation \} from '.*lib\/invocation\.mjs'/
+      // from another folder (`../market-refresh/lib/invocation.mjs`) or from lib itself (`./invocation.mjs`)
+      /import \{ isDirectInvocation \} from '(?:.*lib\/|\.\/)invocation\.mjs'/
     );
     expect(src, `${rel} imports the guard but never calls it`).toMatch(
       /isDirectInvocation\(import\.meta\.url\)/

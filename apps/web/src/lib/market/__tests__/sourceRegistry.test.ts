@@ -63,6 +63,33 @@ describe('SRC-REG-1: one source list for the /market score', () => {
     expect(registered).toEqual(fetched);
   });
 
+  // Post-merge audit (2026-11-11): the store reader reads the window the live fetch reads (the
+  // relative-strength EMAs start at the window's first point); the windows were typed twice and
+  // nothing compared them.
+  it("should fetch each source over exactly the source list's window, and FRED from the reader's start", () => {
+    const yahoo = Object.fromEntries(
+      [...MARKET_SOURCES_SRC.matchAll(/fetchYahooDaily\('([^']+)', '([^']+)'\)/g)].map((m) => [
+        m[1],
+        m[2],
+      ])
+    );
+    for (const s of (FETCHED_SOURCES as unknown as Source[]).filter((x) => x.provider === 'yahoo'))
+      expect(yahoo[s.series!], s.label).toBe(s.range);
+    // FRED calls pass no start: the provider's default must be the reader's default
+    expect(MARKET_SOURCES_SRC).not.toMatch(/fetchFredSeries\('[^']+',/);
+    const fredDefault = /fetchFredSeries\(seriesId, startDate = '([^']+)'\)/.exec(
+      readFileSync(join(__dirname, '../../../../scripts/market-refresh/providers/fred.mjs'), 'utf8')
+    )?.[1];
+    const readerDefault = /readStoreInputs\(storeDir, \{ today, from = '([^']+)'/.exec(
+      readFileSync(
+        join(__dirname, '../../../../scripts/market-refresh/lib/store-inputs.mjs'),
+        'utf8'
+      )
+    )?.[1];
+    expect(fredDefault).toBeTruthy();
+    expect(readerDefault).toBe(fredDefault);
+  });
+
   it('should name, for every fetched source, a key fetchMarketSources() returns', () => {
     const body = MARKET_SOURCES_SRC.slice(
       MARKET_SOURCES_SRC.indexOf('export async function fetchMarketSources()')

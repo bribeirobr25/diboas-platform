@@ -102,10 +102,13 @@ describe('the store reader (plan MP-3a)', () => {
   }, 30_000);
 
   it("should name the store series in each source's provenance", () => {
-    const { sources } = readStoreInputs(makeStore(), { today: TODAY, storeCommit: 'abc1234' });
+    const { sources } = readStoreInputs(makeStore(), {
+      today: TODAY,
+      storeCommit: 'abc1234'.padEnd(40, '0'),
+    });
     expect(sources.dxy.provenance).toMatchObject({
       source: 'store:dollar_broad',
-      storeCommit: 'abc1234',
+      storeCommit: 'abc1234'.padEnd(40, '0'),
     });
     expect(sources.gold.provenance.source).toBe('store:gold_spot');
     expect(sources.btc.provenance.source).toBe('store:btc');
@@ -184,4 +187,25 @@ describe('the store reader (plan MP-3a)', () => {
       isMonthComplete({ ym: '2025-12', last_day: '2025-12-30' }, '2026-01-02', 'weekdays')
     ).toBe(true);
   });
+
+  it('should refuse a store commit that is not a full sha', () => {
+    for (const bad of ['x', 'abc1234', 'Z'.repeat(40)])
+      expect(() => readStoreInputs(makeStore(), { today: TODAY, storeCommit: bad }), bad).toThrow(
+        /full 40-character sha/
+      );
+  }, 30_000);
+
+  it('should refuse, never drop, a Bitcoin day missing in the middle of the history', () => {
+    const root = makeStore();
+    const file = path.join(root, 'daily', 'btc.csv');
+    fs.writeFileSync(
+      file,
+      fs
+        .readFileSync(file, 'utf8')
+        .split('\n')
+        .filter((l) => !l.startsWith('2025-06-30'))
+        .join('\n')
+    );
+    expect(() => btcMonthsFromStore(root, TODAY)).toThrow(/no row for 2025-06-30/);
+  }, 30_000);
 });
