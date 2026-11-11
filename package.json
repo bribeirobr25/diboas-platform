@@ -80,7 +80,7 @@
     "pre-commit": "pnpm run secrets:scan-staged"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": "^22.22.2 || >=24.15.0",
     "pnpm": ">=10.0.0"
   },
   "pnpm": {
