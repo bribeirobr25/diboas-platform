@@ -21,17 +21,23 @@
 }
 
 /* ---- lines: pathLength=1 so the draw-on is length-independent ---- */
+/* --dc-dash is set by DivergenceChart.tsx (max(1, renderedWidth / 640)); the
+   fallback 4 covers any line up to 4x the viewBox width before it is measured,
+   so an undrawn line never shows a sliver and a drawn one is never cut short. */
 .line {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dasharray: var(--dc-dash, 4);
+  stroke-dashoffset: var(--dc-dash, 4);
   stroke-linecap: round;
   stroke-linejoin: round;
-  transition: stroke-dashoffset var(--animation-duration-slow, 0.6s)
-    var(--animation-easing-easeout, ease-out);
 }
 
+/* The transition lives on the drawn state only: --dc-dash changes after
+   mount (measurement), and a transition on the undrawn line would animate the
+   offset through values that briefly show part of the line. */
 .isDrawn .line {
   stroke-dashoffset: 0;
+  transition: stroke-dashoffset var(--animation-duration-slow, 0.6s)
+    var(--animation-easing-easeout, ease-out);
 }
 
 .primary .line {
@@ -107,8 +113,22 @@
   fill: var(--text-on-paper-muted);
 }
 
+/* Phones: the 640-unit viewBox renders at ~0.45x, which took the 12-13px
+   labels to ~5.5px (visual pass 2026-11-11). 20 units render near 9px at
+   375px; with no tracking the longest end label ("INVESTIERT", 10 characters
+   at ~0.6em) is ~120 units, the space right of the end dot. */
+@media (max-width: 640px) {
+  .endLabel,
+  .caption {
+    font-size: var(--font-size-xl);
+    letter-spacing: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .line {
+  .line,
+  .isDrawn .line {
+    stroke-dasharray: none;
     stroke-dashoffset: 0 !important;
     transition: none;
   }

@@ -22,9 +22,23 @@
   font-feature-settings: 'tnum';
 }
 
+/* Phones: the 720-unit viewBox renders at ~0.48x, which took the 12px labels to
+   ~5.7px (5.470 F-22). 24 units render near 11.5px at 375px. */
+@media (max-width: 640px) {
+  .axisLabel {
+    font-size: var(--font-size-2xl);
+  }
+  .axisLabelCrowded {
+    display: none;
+  }
+}
+
+/* pathLength=1 (no non-scaling-stroke here, so the dash is in path units):
+   the draw-on covers the whole line at any length. A fixed 1600 left the tail
+   hidden once a 52-point path grew past 1600 units (PR #897 review). */
 .pathAnimated {
-  stroke-dasharray: 1600;
-  stroke-dashoffset: 1600;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
   animation: drawPath 900ms ease-out forwards;
 }
 

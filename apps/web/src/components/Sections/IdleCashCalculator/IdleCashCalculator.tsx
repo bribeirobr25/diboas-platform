@@ -236,7 +236,7 @@ export function IdleCashCalculator() {
                 headline: tShared('resultMoment.ctaHeadline'),
                 body: tShared('resultMoment.ctaBody'),
                 label: tShared('resultMoment.ctaLabel'),
-                href: '/business?source=tool_idle-cash',
+                href: '/business?source=tool_idle-cash#waitlist',
               }}
               share={{
                 onShare: resultShare.share,

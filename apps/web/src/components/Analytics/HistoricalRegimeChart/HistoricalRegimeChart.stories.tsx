@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
 import { HistoricalRegimeChart } from './HistoricalRegimeChart';
 import historical from '@/lib/analytics-sdk/fixtures/historical-regimes-1y.json';
-import { historicalDateLabels } from '@/lib/market/presentationState';
+import { historicalDateLabels, historicalMonthLabels } from '@/lib/market/presentationState';
 
 const meta = {
   title: 'Market/HistoricalRegimeChart',
@@ -19,6 +19,7 @@ const meta = {
       HOSTILE: 'Hostile',
     },
     dateLabels: historicalDateLabels(historical.snapshots, 'en'),
+    monthLabels: historicalMonthLabels(historical.snapshots, 'en'),
   },
 } satisfies Meta<typeof HistoricalRegimeChart>;
 export default meta;

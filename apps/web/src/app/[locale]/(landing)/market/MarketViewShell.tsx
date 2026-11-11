@@ -62,6 +62,7 @@ import { ANALYTICS_SITE_LIVE, ANALYTICS_SITE_URL } from '@/lib/market/constants'
 import {
   coverageNotes,
   historicalDateLabels,
+  historicalMonthLabels,
   regimeLabelMap,
   lowConfidenceReason,
 } from '@/lib/market/presentationState';
@@ -448,6 +449,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                     }}
                     regimeLabels={regimeLabels}
                     dateLabels={historicalDateLabels(historical.snapshots, locale)}
+                    monthLabels={historicalMonthLabels(historical.snapshots, locale)}
                   />
                   {chartCoverageNote ? (
                     <p className={styles.coverageNote} data-market-chart-coverage-note>
@@ -526,15 +528,21 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
           <Container size="md">
             {methodology && (
               <div className={styles.methodHead}>
-                <span className={styles.eyebrowDark}>
+                {/* The short title is the heading; the lead is body text, shown only
+                    on a scored view — the only page that lists signals and their
+                    points (it read as a six-line 64px headline, and was untrue on
+                    the umbrella and the backdrop; visual pass 2026-11-11). */}
+                <h2 className={`${styles.eyebrowDark} ${styles.methodTitle}`}>
                   {t('dashboard.methodologyTitle', 'How this is calculated')}
-                </span>
-                <h2 className={styles.h2Dark}>
-                  {t(
-                    'dashboard.methodologyLead',
-                    'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
-                  )}
                 </h2>
+                {view.grammar === 'scored' ? (
+                  <p className={styles.methodLead}>
+                    {t(
+                      'dashboard.methodologyLead',
+                      'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
+                    )}
+                  </p>
+                ) : null}
                 <MethodologyLink
                   href={methodology.methodology_url}
                   comingSoon={!ANALYTICS_SITE_LIVE}
@@ -553,6 +561,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
             )}
 
             <HostRegulatoryDisclaimer
+              className={styles.methodNote}
               text={t(
                 'disclaimer.host.regulatory',
                 'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'
