@@ -57,7 +57,7 @@ const PARTNERS: Record<string, string[]> = {
 };
 const HAND_BUMPED = ['postcss', 'tailwindcss', '@formatjs/icu-messageformat-parser'];
 /** Ignored for majors only: they follow something else's major (the Node runtime). */
-const MAJORS_BY_HAND = ['@types/node'];
+const MAJORS_BY_HAND = ['@types/node', 'js-yaml'];
 const MIN_LIMIT = 15;
 
 /** A Dependabot glob (`*` only) as a test. */
