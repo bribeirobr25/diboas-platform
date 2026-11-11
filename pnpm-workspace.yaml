@@ -18,7 +18,6 @@ packages:
 onlyBuiltDependencies:
   - '@sentry/cli' # downloads the sentry-cli binary (source-map upload)
   - esbuild # platform binary fallback check
-  - puppeteer # Chrome download (pa11y accessibility audits)
   - sharp # libvips binary (Next.js image optimization)
   - simple-git-hooks # installs the pre-commit secrets-scan hook
   - unrs-resolver # napi platform binary fallback
