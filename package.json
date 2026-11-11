@@ -94,13 +94,16 @@
       "minimatch@>=10.0.0 <10.2.3": "10.2.3",
       "serialize-javascript@<=7.0.2": "7.0.3",
       "tailwindcss": "3.4.17",
-      "fast-uri": ">=4.1.1",
+      "fast-uri": "^4.2.3",
       "axe-core": "4.11.1",
       "tmp": ">=0.2.6",
       "dompurify": "3.4.17",
       "@opentelemetry/semantic-conventions": "1.40.0",
       "postcss@<8.5.23": "8.5.23",
-      "brace-expansion@>=5.0.0 <5.0.8": "5.0.8"
+      "brace-expansion@>=5.0.0 <5.0.8": "5.0.8",
+      "brace-expansion@<1.1.21": "1.1.21",
+      "brace-expansion@>=2.0.0 <2.1.7": "2.1.7",
+      "source-map-js@<1.2.2": "1.2.2"
     }
   }
 }

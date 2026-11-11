@@ -57,6 +57,9 @@ function usesValues(text: string): { value: string; line: string; at: number }[]
     );
 }
 
+/** A checkout step. Case-insensitive: GitHub resolves `Actions/checkout` too (5.894). */
+const CHECKOUT = /uses:\s*['"]?actions\/checkout@/i;
+
 /** Does this checkout step put `persist-credentials: false` under its own `with:`? */
 function dropsCredentials(lines: string[], start: number): boolean {
   const stepIndent = lines[start].length - lines[start].trimStart().length;
@@ -110,9 +113,7 @@ describe('5.868 · workflow actions are pinned and checkouts keep no credentials
     const keeping = files.flatMap((f) => {
       const lines = f.text.split('\n');
       return lines.flatMap((line, i) =>
-        /uses:\s*['"]?actions\/checkout@/.test(line) && !dropsCredentials(lines, i)
-          ? [`${f.file}:${i + 1}`]
-          : []
+        CHECKOUT.test(line) && !dropsCredentials(lines, i) ? [`${f.file}:${i + 1}`] : []
       );
     });
     expect(keeping).toEqual([]);
@@ -123,6 +124,23 @@ describe('5.868 · workflow actions are pinned and checkouts keep no credentials
     const entry = yml.slice(yml.search(/package-ecosystem:\s*['"]?github-actions/));
     expect(entry).toMatch(/package-ecosystem:\s*['"]?github-actions/);
     expect(entry).toMatch(/cooldown:\s*\n\s+default-days:\s*3/);
+  });
+
+  /* Fourteenth audit (5.898): `npx --yes snyk@latest` ran an unpinned package with a token, and
+   * `retention-days: 400` was silently cut to the repository maximum of 90. */
+  it('should run no @latest package and ask no artifact retention beyond 90 days', () => {
+    const latest = files.flatMap((f) =>
+      f.text
+        .split('\n')
+        .flatMap((l, i) => (/@latest\b/.test(l.split('#')[0]) ? [`${f.file}:${i + 1}`] : []))
+    );
+    expect(latest).toEqual([]);
+    const tooLong = files.flatMap((f) =>
+      [...f.text.matchAll(/retention-days:\s*(\d+)/g)]
+        .filter((m) => Number(m[1]) > 90)
+        .map((m) => `${f.file}: ${m[0]}`)
+    );
+    expect(tooLong).toEqual([]);
   });
 
   it('should read the value, not the line (detector self-test)', () => {
@@ -150,5 +168,8 @@ describe('5.868 · workflow actions are pinned and checkouts keep no credentials
     ];
     expect(dropsCredentials(underEnv, 0)).toBe(false);
     expect(dropsCredentials(underWith, 0)).toBe(true);
+    expect(CHECKOUT.test('      - uses: Actions/Checkout@x')).toBe(true);
+    expect(CHECKOUT.test("      - uses: 'actions/checkout@x'")).toBe(true);
+    expect(CHECKOUT.test('      - uses: actions/setup-node@x')).toBe(false);
   });
 });
