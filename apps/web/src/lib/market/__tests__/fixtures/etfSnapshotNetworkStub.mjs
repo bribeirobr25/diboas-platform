@@ -46,7 +46,7 @@ globalThis.Date = FixedDate;
 const realSetTimeout = globalThis.setTimeout;
 globalThis.setTimeout = (fn, _ms, ...rest) => realSetTimeout(fn, 0, ...rest);
 
-const POLYGON = /^https:\/\/api\.polygon\.io\/v3\/reference\/tickers\/([A-Z]+)\?apiKey=/;
+const POLYGON = /^https:\/\/api\.polygon\.io\/v3\/reference\/tickers\/([A-Z]+)$/;
 const YAHOO_5D =
   /^https:\/\/query1\.finance\.yahoo\.com\/v8\/finance\/chart\/([A-Z]+)\?range=5d&interval=1d$/;
 
@@ -63,11 +63,14 @@ function json(body, status = 200) {
   });
 }
 
-globalThis.fetch = async (input) => {
+globalThis.fetch = async (input, init = {}) => {
   const url = typeof input === 'string' ? input : input.url;
   const polygon = POLYGON.exec(url);
   if (polygon && FIXTURE.funds[polygon[1]]) {
     record(url, 'polygon');
+    // 5.917: the key travels in the Authorization header only, never in the URL.
+    if (!/^Bearer \S+$/.test(init.headers?.Authorization ?? ''))
+      return json({ status: 'ERROR' }, 401);
     if (MODE === 'polygon-fail') return json({ status: 'ERROR' }, 500);
     if (MODE === 'incomplete' && polygon[1] === Object.keys(FIXTURE.funds)[0]) {
       return json({ results: {} });

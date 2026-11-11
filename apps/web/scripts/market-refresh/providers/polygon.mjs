@@ -40,10 +40,15 @@ export async function fetchEtfSharesOutstanding(tickers = SPOT_BTC_ETFS) {
   for (let i = 0; i < tickers.length; i += 1) {
     const t = tickers[i];
     if (i > 0) await new Promise((r) => setTimeout(r, PACE_MS));
-    const url = `https://api.polygon.io/v3/reference/tickers/${t}?apiKey=${apiKey}`;
+    // The key travels in a header, never in the URL, where request logs and error messages
+    // could carry it (register 5.917; header auth verified live 2026-11-11).
+    const url = `https://api.polygon.io/v3/reference/tickers/${t}`;
     const res = await withRetry(
       async () => {
-        const r = await fetchWithTimeout(url, { label: `Polygon:${t}` });
+        const r = await fetchWithTimeout(url, {
+          label: `Polygon:${t}`,
+          headers: { Authorization: `Bearer ${apiKey}` },
+        });
         if (r.status === 429) throw new Error(`Polygon ${t} rate-limited`);
         if (!r.ok) throw new Error(`Polygon ${t} returned ${r.status}`);
         return r.json();
