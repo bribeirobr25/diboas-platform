@@ -1166,7 +1166,11 @@ pinned by a test that was watched failing.
 
 - **The store lives in the private `diboas-analytics` repository under `market/`.** Collection runs
   here in Actions (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped
-  to that one repository. Data commits go to its `main`, under `market/` only; collector code
+  to that one repository and held as an environment secret of `market-data`, which only `main` may
+  use (since 2026-11-11, register 5.872, gate `STORE-ENV-1`): the collection job declares the
+  environment and no caller passes the token. Each run's check report is written before the first
+  series, after every series and at the end (`requested`, `complete`), so a run killed by its time
+  limit still names what it did not reach (5.883). Data commits go to its `main`, under `market/` only; collector code
   changes go through a PR. Guard: `DATA-STORE-1`.
 - **Append-only, enforced twice.** The collector never rewrites a stored day (a changed value is
   logged once in `revisions.jsonl` and blocks the series), and `commit-guard.mjs` refuses any staged

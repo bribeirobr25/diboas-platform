@@ -159,8 +159,8 @@ jobs:
     uses: ./.github/workflows/market-data-collect.yml
     with:
       topup: true
-    secrets:
-      MARKET_DATA_TOKEN: ${{ secrets.MARKET_DATA_TOKEN }}
+    # No secrets passed: the called job reads MARKET_DATA_TOKEN from the `market-data`
+    # environment (main only; 5.872).
 
   refresh:
     needs: [decide, topup]
@@ -190,7 +190,7 @@ jobs:
           # C1a: the carry needs the merge base of main and the open refresh PR.
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
