@@ -23,6 +23,6 @@
     "typescript": "~5.9.3"
   },
   "devDependencies": {
-    "tsup": "^8.0.0"
+    "tsup": "^9.0.0"
   }
 }
