@@ -55,7 +55,9 @@ const PARTNERS: Record<string, string[]> = {
   eslint: ['eslint', '@eslint/js'],
   storybook: ['storybook', '@storybook/react', 'eslint-plugin-storybook'],
 };
-const HAND_BUMPED = ['postcss', 'tailwindcss'];
+const HAND_BUMPED = ['postcss', 'tailwindcss', '@formatjs/icu-messageformat-parser'];
+/** Ignored for majors only: they follow something else's major (the Node runtime). */
+const MAJORS_BY_HAND = ['@types/node'];
 const MIN_LIMIT = 15;
 
 /** A Dependabot glob (`*` only) as a test. */
@@ -137,6 +139,14 @@ function violations(config: { updates?: Entry[] }, zeroMajor: string[]): string[
   for (const name of HAND_BUMPED) {
     const full = ignored(name).some((i) => !i['update-types'] && !i.versions);
     if (!full) out.push(`${name} is not left to hand bumps`);
+  }
+  for (const name of MAJORS_BY_HAND) {
+    const rules = ignored(name);
+    const majorsOnly = rules.some(
+      (i) => !i.versions && (i['update-types'] ?? []).join() === 'version-update:semver-major'
+    );
+    if (!majorsOnly || rules.some((i) => !i['update-types']))
+      out.push(`${name} is not ignored for majors only`);
   }
   for (const rule of ignored('next')) {
     const types = rule['update-types'];

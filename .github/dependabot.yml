@@ -43,6 +43,14 @@ updates:
       # CI's audit gates only on critical advisories.
       - dependency-name: 'postcss'
       - dependency-name: 'tailwindcss'
+      # The Practice message test parses every string with the exact parser react-intl runs
+      # (`parserMatchesRuntime.test.ts`); it moves only with react-intl (#886 reviewed, 2026-11-11).
+      - dependency-name: '@formatjs/icu-messageformat-parser'
+      # Node's type definitions follow the Node runtime (24 on Vercel and CI): a major moves by
+      # hand with the runtime (#884 reviewed, 2026-11-11). The types are already one ahead (25):
+      # moving them down re-splits Storybook's webpack peers, so that waits for the runtime move.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
       - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
       - dependency-name: 'react'
