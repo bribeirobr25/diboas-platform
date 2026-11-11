@@ -94,7 +94,6 @@ export default function MinimalNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  useFocusTrap(mobileMenuRef, isMobileMenuOpen, { returnFocus: true });
 
   // Only hero pages toggle transparent/solid; others stay solid.
   useEffect(() => {
@@ -137,6 +136,10 @@ export default function MinimalNavigation() {
   const handleLinkClick = useCallback(() => {
     setIsMobileMenuOpen(false);
   }, []);
+
+  // The close button sits outside the trapped menu, so Escape is the keyboard's way out; focus
+  // then returns to the menu button (visual pass 2026-11-11, WCAG 2.1.2).
+  useFocusTrap(mobileMenuRef, isMobileMenuOpen, { returnFocus: true, onEscape: handleLinkClick });
 
   return (
     <nav

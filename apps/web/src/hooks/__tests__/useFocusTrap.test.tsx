@@ -18,6 +18,7 @@ function setupFocusTrap(
     autoFocus?: boolean;
     returnFocus?: boolean;
     initialFocus?: string;
+    onEscape?: () => void;
   } = {}
 ) {
   // Create DOM structure
@@ -276,6 +277,48 @@ describe('useFocusTrap DOM behavior', () => {
       rerender({ isActive: false });
 
       expect(removeSpy).toHaveBeenCalledWith('keydown', expect.any(Function));
+    });
+  });
+
+  /* Visual pass 2026-11-11: Escape had no handler, so a trapped menu whose close button sits
+   * outside the trap could not be left from the keyboard (WCAG 2.1.2). */
+  describe('onEscape', () => {
+    const escape = () =>
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true })
+      );
+
+    it('should call onEscape and prevent the default when Escape is pressed while active', () => {
+      const onEscape = vi.fn();
+      const { rerender } = setupFocusTrap({ onEscape });
+      rerender({ isActive: true });
+      const event = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+      });
+      document.dispatchEvent(event);
+      expect(onEscape).toHaveBeenCalledTimes(1);
+      expect(event.defaultPrevented).toBe(true);
+    });
+
+    it('should not call onEscape when the trap is inactive', () => {
+      const onEscape = vi.fn();
+      setupFocusTrap({ onEscape });
+      escape();
+      expect(onEscape).not.toHaveBeenCalled();
+    });
+
+    it('should leave Escape alone when no onEscape is given', () => {
+      const { rerender } = setupFocusTrap();
+      rerender({ isActive: true });
+      const event = new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true,
+      });
+      document.dispatchEvent(event);
+      expect(event.defaultPrevented).toBe(false);
     });
   });
 });

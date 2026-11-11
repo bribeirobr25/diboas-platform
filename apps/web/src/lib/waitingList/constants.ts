@@ -7,11 +7,13 @@
 
 import { WaitingListConfiguration } from './domain/WaitingListDomain';
 import { APP_URL, WAITLIST_STORAGE_KEYS, REFERRAL_COOKIE_CONFIG } from '@/config/env';
+import { ROUTES } from '@/config/routes';
 
 export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
   consentVersion: '1.0.0',
   privacyPolicyVersion: '2024.1',
-  privacyPolicyUrl: '/privacy',
+  // The real policy page (visual pass 2026-11-11: '/privacy' answered 404 from the consent line).
+  privacyPolicyUrl: ROUTES.LEGAL.PRIVACY,
   maxNameLength: 100,
   maxXAccountLength: 50,
   storageKey: WAITLIST_STORAGE_KEYS.main,

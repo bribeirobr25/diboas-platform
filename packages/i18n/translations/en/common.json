@@ -259,7 +259,7 @@
       },
       "optional": "(optional)",
       "consent": {
-        "text": "I accept to receive communications from diBoaS and agree with the",
+        "text": "I agree to receive communications from diBoaS and agree with the",
         "privacyPolicy": "Privacy Policy"
       },
       "submit": "Join Waiting List"
