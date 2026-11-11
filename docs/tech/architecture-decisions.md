@@ -21,7 +21,7 @@
 
 ## ADR-001 — Backend & runtime stack: polyglot-by-boundary
 
-- **Status:** Accepted — 2026-08-17.
+- **Status:** Accepted — 2026-08-17. **Amended 2026-11-10 by ADR-002:** the market data spine's collection is Node, not Python (the quant/analytics boundary is unchanged).
 - **Review cadence:** annually, or when any Trigger below fires.
 - **Deciders:** founder + CC (this analysis); CTO-board-reviewable.
 - **Supersedes:** nothing (first ADR).
@@ -153,8 +153,8 @@ The website's market figures (the `/market` score and the Money Tools' history) 
 ### Decision
 
 - **The store is a private repository** (`diboas-analytics`, folder `market/`): daily values per series, the raw responses exactly as received (with their sha256), every cross-source check report, reviewed exceptions and records, and derived weekly/monthly files built from the stored days.
-- **The collector is Node**, in the platform repository (`apps/web/scripts/market-data/`), run by the platform's GitHub Actions on Saturday's schedule (`market-data-collect.yml`) and, since plan MP-3b, as the weekly refresh's Tuesday **top-up** (the same workflow through `workflow_call`, in its own job, only on the schedule from `main`). It writes the store with a token scoped to that repository only, sent as a request header (`git-auth.sh`): never in a URL or in the clone's `.git/config`, and the clone is deleted at the end of the job. Before each commit a commit guard refuses deletions, renames, removed lines and any path outside `market/`, and refuses collection changes to the reviewed files (`checks/accepted-exceptions.json`, `checks/reviews/`).
-- **The website's interface is committed files.** `publish.mjs` writes the Money Tools' series from the store into the platform repository, recording the store commit (`store-manifest.json`); the drift check `PUBLISH-1` proves the committed files equal what the store at that commit yields. The website never reads the store at request time. The `/market` score moves to the store through one reader (`apps/web/scripts/market-refresh/lib/store-inputs.mjs`, plan MP-3a) in plan MP-4.
+- **The collector is Node**, in the platform repository (`apps/web/scripts/market-data/`), run by the platform's GitHub Actions on Saturday's schedule (`market-data-collect.yml`) and, since plan MP-3b, as the weekly refresh's Tuesday **top-up** (the same workflow through `workflow_call`, in its own job, only on the schedule from `main`). It writes the store with a token scoped to that repository only, sent as a request header (`git-auth.sh`): never in a URL or in the clone's `.git/config`, and the clone is deleted at the end of the job. Before each commit a commit guard refuses deletions, renames, removed lines (except in `derived/**`, rebuilt each run, and the daily files of revisable series, whose changes are logged) and any path outside `market/`, and refuses collection changes to the reviewed files (`checks/accepted-exceptions.json`, `checks/reviews/`).
+- **The website's interface is committed files.** `publish.mjs` writes the Money Tools' series from the store into the platform repository, recording the store commit (`store-manifest.json`); the drift check `PUBLISH-1` rebuilds the series from the store at that commit and compares them (it runs on every PR; it becomes a guarantee once it is a required check, decision B-8, and the gate stays PARTIAL until then). The website never reads the store at request time. The `/market` score moves to the store through one reader (`apps/web/scripts/market-refresh/lib/store-inputs.mjs`, plan MP-3a) in plan MP-4.
 - **One source list** for the score (`apps/web/scripts/market-refresh/lib/source-registry.mjs`, gate `SRC-REG-1`) links each score source to its store series.
 
 ### Alternatives considered

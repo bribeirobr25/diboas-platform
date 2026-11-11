@@ -203,3 +203,47 @@ describe('R-7: two collections write the same store (real git, local bare reposi
     TIMEOUT
   );
 });
+
+describe('git-auth.sh: scoped to github.com, appended, never printed (post-merge audit)', () => {
+  const source = (env: Record<string, string>) =>
+    spawnSync(
+      'bash',
+      [
+        '-euo',
+        'pipefail',
+        '-c',
+        'source apps/web/scripts/market-data/git-auth.sh; env | grep "^GIT_CONFIG_" | sort',
+      ],
+      {
+        cwd: REPO,
+        encoding: 'utf8',
+        env: { NODE_ENV: 'test', PATH: process.env.PATH, TOKEN, ...env } as NodeJS.ProcessEnv,
+      }
+    );
+
+  it('should send the header to github.com only', () => {
+    const r = source({});
+    expect(r.status).toBe(0);
+    expect(r.stdout).toMatch(/^GIT_CONFIG_COUNT=1$/m);
+    expect(r.stdout).toMatch(/^GIT_CONFIG_KEY_0=http\.https:\/\/github\.com\/\.extraHeader$/m);
+    expect(r.stdout).toMatch(/^GIT_CONFIG_VALUE_0=AUTHORIZATION: basic /m);
+  });
+
+  it('should append to configuration already in the environment, not overwrite it', () => {
+    const r = source({
+      GIT_CONFIG_COUNT: '1',
+      GIT_CONFIG_KEY_0: 'core.quotepath',
+      GIT_CONFIG_VALUE_0: 'off',
+    });
+    expect(r.stdout).toMatch(/^GIT_CONFIG_KEY_0=core\.quotepath$/m);
+    expect(r.stdout).toMatch(/^GIT_CONFIG_KEY_1=http\.https:\/\/github\.com\/\.extraHeader$/m);
+    expect(r.stdout).toMatch(/^GIT_CONFIG_COUNT=2$/m);
+  });
+
+  it('should refuse without a token, and never print the token itself', () => {
+    expect(source({ TOKEN: '' }).status).not.toBe(0);
+    const r = source({ GITHUB_ACTIONS: 'true' });
+    expect(r.stdout).toMatch(/^::add-mask::/m);
+    expect(r.stdout + r.stderr).not.toContain(TOKEN);
+  });
+});

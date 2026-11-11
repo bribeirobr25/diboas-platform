@@ -69,12 +69,13 @@ describe('C1d — the Wednesday attempt (the refresh runs on Tuesday since MP-3b
     expect(retryDecision({ retrySchedule: false, openPrUrl: 'x', runs: [], now }).run).toBe(true);
   });
 
-  it('should skip when this week already has a successful run', () => {
+  it('should skip when this week already has a run whose refresh succeeded', () => {
     const d = retryDecision({
       retrySchedule: true,
       openPrUrl: 'https://github.com/o/r/pull/1',
       runs: [run(9, 'success', '2026-10-27T07:10:00Z')],
       now,
+      refreshedRunIds: ['9'],
     });
     expect(d).toEqual({ run: false, reason: "this week's refresh already succeeded (run 9)" });
   });
@@ -139,6 +140,7 @@ describe('C1d — the Wednesday attempt (the refresh runs on Tuesday since MP-3b
       openPrUrl: 'https://github.com/o/r/pull/1',
       runs: [run(9, 'success', '2026-10-27T07:00:00Z')],
       now,
+      refreshedRunIds: ['9'],
     });
     expect(d.run).toBe(false);
     expect(d.reason).toMatch(/already succeeded/);
@@ -172,6 +174,7 @@ describe('MP-3b: a refresh is never a day or two after the last one', () => {
       openPrUrl: '',
       runs: monday,
       now: new Date('2026-11-17T06:20:00Z'),
+      refreshedRunIds: ['1'],
     });
     expect(tue.run).toBe(false);
     expect(tue.reason).toMatch(/a refresh succeeded 1\.0 days ago \(run 1\)/);
@@ -181,6 +184,7 @@ describe('MP-3b: a refresh is never a day or two after the last one', () => {
       openPrUrl: '',
       runs: monday,
       now: new Date('2026-11-18T06:20:00Z'),
+      refreshedRunIds: ['1'],
     });
     expect(wed.run).toBe(false);
   });
@@ -206,6 +210,49 @@ describe('MP-3b: a refresh is never a day or two after the last one', () => {
     ).toBe(true);
   });
 
+  // Post-merge audit (2026-11-11): a run whose decide chose to skip ends "success"; counting it
+  // as a refresh lost a whole week. The reviewer's sequence, with the real skip run in the list.
+  it("should never count a skipped run as the week's refresh (manual Friday, Tuesday skip, Wednesday)", () => {
+    const runs = [
+      run(1, 'success', '2026-11-20T10:00:00Z'), // manual refresh on Friday
+      run(2, 'success', '2026-11-24T13:00:00Z'), // Tuesday: decide skipped (4.1 days)
+    ];
+    const tue = retryDecision({
+      retrySchedule: false,
+      scheduled: true,
+      openPrUrl: '',
+      runs: runs.slice(0, 1),
+      now: new Date('2026-11-24T13:00:00Z'),
+      refreshedRunIds: ['1'],
+    });
+    expect(tue.run).toBe(false);
+    const wed = retryDecision({
+      retrySchedule: true,
+      scheduled: true,
+      openPrUrl: '',
+      runs,
+      now: new Date('2026-11-25T13:00:00Z'),
+      refreshedRunIds: ['1'], // run 2 skipped: its refresh job did not run
+    });
+    expect(wed).toEqual({
+      run: true,
+      reason: 'no successful refresh since Tuesday 00:00 UTC: second attempt',
+    });
+  });
+
+  it('should treat a run as done only through its refresh job, never its conclusion', () => {
+    const runs = [run(5, 'success', '2026-11-24T07:00:00Z')];
+    const at = {
+      retrySchedule: true,
+      scheduled: true,
+      openPrUrl: '',
+      runs,
+      now: new Date('2026-11-25T06:20:00Z'),
+    };
+    expect(retryDecision(at).run).toBe(true);
+    expect(retryDecision({ ...at, refreshedRunIds: ['5'] }).run).toBe(false);
+  });
+
   it('should count a run whose refresh succeeded though a fail-open top-up left it cancelled', () => {
     const runs = [run(7, 'cancelled', '2026-11-24T07:00:00Z')];
     const at = {
@@ -229,6 +276,10 @@ describe('MP-3b: a refresh is never a day or two after the last one', () => {
     );
     expect(wf).toMatch(/SCHEDULED: \$\{\{ github\.event_name == 'schedule' \}\}/);
     expect(wf).toMatch(/select\(\.name == "refresh" and \.conclusion == "success"\)/);
+    // fail-closed: the lookup is its own command (no `if`, no pipe into grep)
+    expect(wf).toMatch(/jobs="\$\(gh run view "\$id" --repo "\$GITHUB_REPOSITORY" --json jobs\)"/);
+    expect(wf).not.toMatch(/gh run view[^\n]*\n?[^\n]*\|\s*grep -q/);
+    expect(wf).toMatch(/- name: Warn when a scheduled run skips/);
     expect(wf).toMatch(/REFRESHED_RUNS="\$refreshed"/);
   });
 });

@@ -29,8 +29,14 @@ export function saturdayStartUtc(now) {
 export function collectWatch({ runs, now }) {
   const since = saturdayStartUtc(now);
   const counted = new Set(['schedule', 'workflow_dispatch']);
+  // a run replaced in the concurrency queue, skipped, or refused at startup collected nothing
+  // (post-merge audit, 2026-11-11)
+  const nothing = new Set(['cancelled', 'skipped', 'startup_failure']);
   const run = runs.find(
-    (r) => Date.parse(r.createdAt) >= since.getTime() && (r.event == null || counted.has(r.event))
+    (r) =>
+      Date.parse(r.createdAt) >= since.getTime() &&
+      (r.event == null || counted.has(r.event)) &&
+      !nothing.has(r.conclusion ?? '')
   );
   if (run)
     return {

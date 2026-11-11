@@ -259,7 +259,7 @@ describe('the 14-day staleness backstop is scoped to market (5.468)', () => {
   it('should run the scoped backstop in CI with enough history to diff', () => {
     expect(ci).toMatch(/fetch-depth: 2/);
     const step = stepText(ci, '/market staleness backstop (blocks market changes only)');
-    expect(step).toContain('git diff --name-only HEAD^1 HEAD');
+    expect(step).toContain('git diff --no-renames --name-only HEAD^1 HEAD'); // a moved file counts at both paths
     expect(step).toContain('scripts/market-refresh/lib/staleness.mjs');
     expect(step).toMatch(/enforce=1\n {10}fi/); // fail-closed when the diff cannot be computed
   });

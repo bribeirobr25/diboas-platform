@@ -11,7 +11,10 @@
 [ -n "${TOKEN:-}" ] || { echo "git-auth: no token" >&2; return 1 2>/dev/null || exit 1; }
 __auth="$(printf 'x-access-token:%s' "$TOKEN" | base64 | tr -d '\n')"
 [ -n "${GITHUB_ACTIONS:-}" ] && echo "::add-mask::$__auth"
-export GIT_CONFIG_COUNT=1
-export GIT_CONFIG_KEY_0=http.extraHeader
-export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic $__auth"
-unset __auth
+# Scoped to github.com (the header goes to no other host), and APPENDED to any GIT_CONFIG_* the
+# environment already carries instead of overwriting index 0 (post-merge audit, 2026-11-11).
+__i="${GIT_CONFIG_COUNT:-0}"
+export "GIT_CONFIG_KEY_${__i}=http.https://github.com/.extraHeader"
+export "GIT_CONFIG_VALUE_${__i}=AUTHORIZATION: basic $__auth"
+export GIT_CONFIG_COUNT=$((__i + 1))
+unset __auth __i

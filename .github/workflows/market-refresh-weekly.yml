@@ -75,8 +75,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # C1d: Tuesday and manual runs always refresh; the Wednesday run refreshes only
-  # when this week has no successful run (scripts/market-refresh/retry-decision.mjs).
+  # C1d: a manual run always refreshes; the Tuesday schedule refreshes unless a refresh succeeded
+  # under 5 days ago; the Wednesday run refreshes only when this cycle has no run whose refresh
+  # job succeeded (scripts/market-refresh/retry-decision.mjs). A scheduled skip raises a warning.
   # Since C1a an open refresh PR no longer stops it: the run carries that PR.
   # Fail-closed: if the lookup
   # errors, this job fails and nothing refreshes, loudly.
@@ -105,33 +106,39 @@ jobs:
         run: |
           set -euo pipefail
           gh run list --repo "$GITHUB_REPOSITORY" --workflow market-refresh-weekly.yml --limit 20 \
-            --json databaseId,conclusion,createdAt,displayTitle > "$RUNNER_TEMP/runs.json"
+            --json databaseId,conclusion,status,createdAt,displayTitle > "$RUNNER_TEMP/runs.json"
           # Forks are ignored: anyone can open a PR from a branch with this name.
           open=$(gh pr list --repo "$GITHUB_REPOSITORY" --head editorial/market-refresh-auto \
             --state open --json url,isCrossRepository \
             --jq '[.[] | select(.isCrossRepository | not)][0].url // empty')
-          # C1a: failed runs that stopped at the carry refusal. Retrying them
-          # would refuse again (the reasons do not clear by themselves).
+          # One read of every finished run of the last 10 days (post-merge audit, 2026-11-11). A run
+          # counts as a refresh ONLY when its `refresh` job succeeded: a run whose `decide` chose to
+          # skip also ends "success", and counting it hid a whole week once the 5-day rule could
+          # skip a Tuesday. Fail-closed: a lookup error fails this job (no `if` around the call, no
+          # pipe into grep), so nothing refreshes on a guess.
+          #   REFRESHED  runs whose refresh job succeeded (whatever the run's conclusion: a failed
+          #              or cancelled fail-open top-up leaves the run red with a good refresh)
+          #   REFUSED    runs that stopped at the carry refusal (C1a): retrying would refuse again
           refused=''
-          for id in $(jq -r '.[] | select(.conclusion == "failure") | .databaseId' "$RUNNER_TEMP/runs.json" | head -5); do
-            if gh run view "$id" --repo "$GITHUB_REPOSITORY" --json jobs \
-              --jq '.jobs[].steps[] | select(.name == "Stop on a carry refusal (5.632)" and .conclusion == "failure") | .name' \
-              | grep -q .; then
-              refused="$refused,$id"
-            fi
-          done
-          # MP-3b: runs that did not succeed but whose refresh job did (a failed or cancelled
-          # fail-open top-up): they ARE this cycle's refresh and must not be refreshed again.
           refreshed=''
-          for id in $(jq -r '.[] | select(.conclusion == "failure" or .conclusion == "cancelled") | .databaseId' "$RUNNER_TEMP/runs.json" | head -5); do
-            if gh run view "$id" --repo "$GITHUB_REPOSITORY" --json jobs \
-              --jq '.jobs[] | select(.name == "refresh" and .conclusion == "success") | .name' \
-              | grep -q .; then
-              refreshed="$refreshed,$id"
-            fi
+          since="$(date -u -d '-10 days' +%Y-%m-%dT%H:%M:%SZ)"
+          for id in $(jq -r --arg since "$since" '.[] | select(.status == "completed" and .createdAt >= $since) | .databaseId' "$RUNNER_TEMP/runs.json"); do
+            jobs="$(gh run view "$id" --repo "$GITHUB_REPOSITORY" --json jobs)"
+            n="$(jq '[.jobs[] | select(.name == "refresh" and .conclusion == "success")] | length' <<<"$jobs")"
+            if [ "$n" -gt 0 ]; then refreshed="$refreshed,$id"; fi
+            n="$(jq '[.jobs[].steps[]? | select(.name == "Stop on a carry refusal (5.632)" and .conclusion == "failure")] | length' <<<"$jobs")"
+            if [ "$n" -gt 0 ]; then refused="$refused,$id"; fi
           done
           OPEN_PR="$open" REFUSED_RUNS="$refused" REFRESHED_RUNS="$refreshed" RUNS_FILE="$RUNNER_TEMP/runs.json" \
             node apps/web/scripts/market-refresh/retry-decision.mjs >> "$GITHUB_OUTPUT"
+
+      # A scheduled run that skips because a refresh succeeded under 5 days ago makes the next
+      # published gap longer than a week: say so on the run, not only in a log line.
+      - name: Warn when a scheduled run skips
+        if: steps.decide.outputs.run == 'false'
+        env:
+          REASON: ${{ steps.decide.outputs.reason }}
+        run: echo "::warning::This run did not refresh /market. $REASON"
 
   # TOPUP-1 (plan MP-3b; decision B-2, answer 13): before the refresh reads the store, collect
   # the series published on Monday (the Fed's broad dollar index and H.10 exchange rates, the
@@ -509,7 +516,7 @@ jobs:
           if [ -n "${TOPUP_RESULT:-}" ]; then
             AFFECTS='This affects the Money Tools series published from the store; the /market score reads its own sources until plan MP-4.'
             if [ "$TOPUP_RESULT" = 'skipped' ]; then
-              TOPUP_LINE='The store top-up was not run (it runs only on the Tuesday schedule from main, and not when MARKET_TOPUP is off): the store was read as it stood.'
+              TOPUP_LINE='The store top-up was not run (it runs only on the scheduled runs from main, Tuesday and the Wednesday retry, and not when MARKET_TOPUP is off): the store was read as it stood, so series published on Monday may be a week behind.'
             else
               case "${TOPUP_STATUS:-}" in
                 complete) TOPUP_LINE="The store top-up ran for ${TOPUP_SERIES//,/, } before the store was read; no series was blocked." ;;
@@ -524,7 +531,7 @@ jobs:
               esac
             fi
             if [ -n "${TOPUP_BEHIND:-}" ]; then
-              TOPUP_LINE="$TOPUP_LINE Still a week behind after the top-up (the Fed publishes a day late after a US holiday Monday): ${TOPUP_BEHIND//,/, }."
+              TOPUP_LINE="$TOPUP_LINE Still a week behind after the top-up (the source had not published Monday's values when the top-up ran, as after a US holiday Monday): ${TOPUP_BEHIND//,/, }."
             fi
             { echo; echo '## Market data store top-up'; echo; echo "$TOPUP_LINE"; } >> "$BODY"
           fi
