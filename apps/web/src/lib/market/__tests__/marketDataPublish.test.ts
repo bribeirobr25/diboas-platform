@@ -708,9 +708,15 @@ describe('the rehearsal input (plan 5.760 §8.7)', () => {
         displayTitle: 'Market Refresh REHEARSAL (no PR)',
       },
     ];
-    expect(retryDecision({ retrySchedule: true, openPrUrl: '', runs, now }).run).toBe(true);
+    // the rehearsal's own refresh job succeeded; it still never counts
+    expect(
+      retryDecision({ retrySchedule: true, openPrUrl: '', runs, now, refreshedRunIds: ['7'] }).run
+    ).toBe(true);
     runs.push({ ...runs[0], databaseId: 8, displayTitle: 'Market Refresh (weekly)' });
-    expect(retryDecision({ retrySchedule: true, openPrUrl: '', runs, now }).run).toBe(false);
+    expect(
+      retryDecision({ retrySchedule: true, openPrUrl: '', runs, now, refreshedRunIds: ['7', '8'] })
+        .run
+    ).toBe(false);
   });
 
   it(

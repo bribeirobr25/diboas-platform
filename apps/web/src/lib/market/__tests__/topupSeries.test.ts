@@ -156,7 +156,7 @@ describe('TOPUP-1 wiring', () => {
     expect(collect.match(/source apps\/web\/scripts\/market-data\/git-auth\.sh/g)).toHaveLength(2);
     expect(
       fs.readFileSync(path.join(REPO, 'apps/web/scripts/market-data/git-auth.sh'), 'utf8')
-    ).toMatch(/export GIT_CONFIG_KEY_0=http\.extraHeader/);
+    ).toMatch(/GIT_CONFIG_KEY_\$\{__i\}=http\.https:\/\/github\.com\/\.extraHeader/);
     expect(collect).toMatch(
       /- name: Delete the store clone\n\s+if: always\(\)\n\s+run: rm -rf analytics/
     );

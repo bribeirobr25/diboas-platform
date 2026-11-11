@@ -60,7 +60,7 @@ jobs:
           MARKET_PATHS: '^(apps/web/data/market/|apps/web/scripts/market-refresh/|apps/web/scripts/data-fetchers/|apps/web/src/lib/(market-data|analytics-sdk|market)/|apps/web/src/app/\[locale\]/\(landing\)/market/|apps/web/src/components/(Analytics|Market)/|apps/web/scripts/market-data/|\.github/workflows/market-(refresh|data|publish))'
         run: |
           set -uo pipefail
-          if changed=$(git diff --name-only HEAD^1 HEAD); then
+          if changed=$(git diff --no-renames --name-only HEAD^1 HEAD); then
             # a here-string, not a pipe: with pipefail an early grep match on a long list read as "no
             # market change" and turned the backstop off (MP-3b review, the drift check's twin)
             if grep -Eq "$MARKET_PATHS" <<<"$changed"; then enforce=1; else enforce=0; fi

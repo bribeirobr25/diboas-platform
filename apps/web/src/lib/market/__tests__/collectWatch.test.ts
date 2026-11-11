@@ -43,6 +43,24 @@ describe('COLLECT-WATCH-1: the Saturday collection ran', () => {
     expect(collectWatch({ runs: at('push'), now: SUNDAY_NIGHT }).ok).toBe(false);
   });
 
+  it('should not count a run that collected nothing (cancelled, skipped, refused at startup)', () => {
+    for (const conclusion of ['cancelled', 'skipped', 'startup_failure'])
+      expect(
+        collectWatch({
+          runs: [
+            {
+              createdAt: '2026-11-14T10:00:00Z',
+              event: 'schedule',
+              status: 'completed',
+              conclusion,
+            },
+          ],
+          now: SUNDAY_NIGHT,
+        }).ok,
+        conclusion
+      ).toBe(false);
+  });
+
   it('should run on Sunday night against the collections from main', () => {
     const wf = fs.readFileSync(
       path.resolve(

@@ -21,8 +21,11 @@
  * such as a non-data change on the branch, do not clear by themselves).
  *
  *   REFUSED_RUNS=<comma-separated run ids that stopped at the carry refusal>
- *   REFRESHED_RUNS=<comma-separated run ids whose `refresh` job succeeded although the run did
- *                   not (a failed or cancelled top-up, plan MP-3b): they count as done>
+ *   REFRESHED_RUNS=<comma-separated run ids whose `refresh` job succeeded>: the ONLY runs that
+ *                   count as a refresh. A run whose `decide` chose to skip also ends "success",
+ *                   so the run's conclusion is never enough (post-merge audit, 2026-11-11: a skipped
+ *                   Tuesday counted as the week's refresh and the Wednesday retry skipped too); a
+ *                   failed or cancelled fail-open top-up can leave a good refresh's run red.
  *   SCHEDULED=true|false  a scheduled run (either slot) skips when a refresh succeeded less than
  *                   RECENT_REFRESH_DAYS ago: two refreshes a day or two apart would publish a
  *                   "week" outside WEEK-WORDING-1's 6..8 days (the switch week of plan MP-3b, or a
@@ -71,11 +74,10 @@ export function retryDecision({
   refusedRunIds = [],
   refreshedRunIds = [],
 }) {
-  // A rehearsal (plan 5.760 §8.7) opens no PR, so it is never a refresh; a run whose refresh job
-  // succeeded is one even if a fail-open top-up left the run failed or cancelled.
-  const isDone = (r) =>
-    !isRehearsal(r) &&
-    (r.conclusion === 'success' || refreshedRunIds.includes(String(r.databaseId)));
+  // A refresh is a run whose refresh job succeeded (the workflow reads each run's jobs), never
+  // a run's conclusion alone: a skipped run ends "success" too. A rehearsal (plan 5.760 §8.7)
+  // opens no PR, so it is never this cycle's refresh.
+  const isDone = (r) => !isRehearsal(r) && refreshedRunIds.includes(String(r.databaseId));
   if (retrySchedule) {
     const since = cycleStartUtc(now).getTime();
     const done = runs.find((r) => isDone(r) && Date.parse(r.createdAt) >= since);

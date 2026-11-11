@@ -43,9 +43,11 @@
 # The market data store's collector and publisher, and the workflows that write the store or the
 # published series (plan MP-3 §10): a change here changes what the site publishes or who writes
 # the private store.
-/apps/web/scripts/market-data/catalogue.mjs        @bribeirobr25
-/apps/web/scripts/market-data/publish.mjs          @bribeirobr25
-/apps/web/scripts/market-data/git-auth.sh          @bribeirobr25
+# Advisory: branch protection does not require code-owner review today, so this requests a review
+# and enforces nothing (post-merge audit, 2026-11-11).
+/apps/web/scripts/market-data/                     @bribeirobr25
+/apps/web/scripts/market-refresh/retry-decision.mjs @bribeirobr25
+/.github/workflows/market-refresh-watchdog.yml     @bribeirobr25
 /.github/workflows/market-data-collect.yml         @bribeirobr25
 /.github/workflows/market-data-collect-watchdog.yml @bribeirobr25
 /.github/workflows/market-publish-drift.yml        @bribeirobr25
