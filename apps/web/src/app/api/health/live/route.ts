@@ -34,7 +34,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   } catch (error) {
     // Phase 3 L3 (audit/2026-05-08): replaced bare console.error with the
     // shared Logger so liveness-probe failures land in the same monitoring
-    // pipeline as the rest of the app (Sentry + remote endpoint when enabled).
+    // pipeline as the rest of the app (Sentry through the Logger's error sink, 5.888).
     Logger.error(
       '[health/live] Liveness probe error',
       {},

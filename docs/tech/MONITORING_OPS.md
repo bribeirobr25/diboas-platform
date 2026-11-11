@@ -79,8 +79,9 @@ Sentry initialises in three runtime contexts. Each has its own config file becau
 ```
 apps/web/src/instrumentation.ts            ← Next.js root entry
   ├─ register() — switches on NEXT_RUNTIME:
-  │     'nodejs' → import ../sentry.server.config
-  │     'edge'   → import ../sentry.edge.config
+  │     'nodejs' → import ../sentry.server.config, connect the Logger error sink,
+  │                alert once on a malformed production key (FATAL, flushed)
+  │     'edge'   → import ../sentry.edge.config, connect the Logger error sink
   └─ onRequestError() — server-side error hook (RSC, route handlers, middleware)
                         called automatically by Next.js on request-time errors
 
@@ -92,6 +93,8 @@ apps/web/src/instrumentation-client.ts     ← browser; auto-loaded by Next.js 1
 All read `process.env.NEXT_PUBLIC_SENTRY_DSN`. If unset, `Sentry.init()` is skipped entirely — the SDK becomes a no-op. This is the intended dev / stub-env behaviour: builds run, no Sentry traffic generated.
 
 The `onRequestError` hook in `instrumentation.ts` is what catches **server-side** errors (RSC render failures, route handler exceptions, middleware crashes). It dynamically imports `@sentry/nextjs` and calls `Sentry.captureException(error, { tags: { correlationId: request.headers['x-request-id'] }, extra: { path, method, routePath, routeType } })`. This is separate from the browser-side `window.onerror` / `unhandledrejection` hooks that the client SDK registers automatically.
+
+**Errors a route catches (5.888, 2026-11-11).** `onRequestError` only sees errors that ESCAPE a route. A route that catches an error, calls `Logger.error` and answers 500 used to reach only the console (Vercel's short-lived runtime log), so no alert fired. `register()` now connects `src/lib/monitoring/serverErrorSink.ts` on both server runtimes: every `Logger.error` / `Logger.critical` becomes one Sentry event (`critical` → `fatal`; tags `correlationId`, `source: logger`; the log message, the redacted context and the call site in `extra`), through the runtime's `beforeSend`. The Logger stays vendor-neutral (`Logger.setErrorSink`); a sink must never call the Logger (no loop) and never throws into the caller. Warnings stay in the log only. The browser has no sink: its errors reach Sentry through the error boundaries.
 
 **Server↔client error correlation (E-2, 2026-06-07).** Both Sentry doors tag every event with `correlationId` = the middleware-set `x-request-id`: the **server door** here reads `request.headers['x-request-id']`; the **client door** (`ErrorReportingService.captureException`) reads `Logger.getRequestId()` (which the client picks up from the `<meta name="x-request-id">` tag rendered in `layout.tsx`). A client error and the server request that produced it therefore share a `correlationId` tag in Sentry. This rides on **`tags`** specifically because `beforeSend` scrubs `user` / `extra` / `breadcrumbs` but **not** `tags` (see below) — do not move `correlationId` onto `extra`, and do not add `tags` to the scrub list.
 
@@ -208,25 +211,13 @@ These defaults are why post-consent Replay is safe to enable — the recording s
 
 Both `sentry.server.config.ts` and `instrumentation-client.ts` have a `beforeSend` hook. Each filters / mutates events before they leave the SDK.
 
-**Server-side `beforeSend`** (`sentry.server.config.ts`) — minimal:
+**Filters.** Server and edge drop events whose `message` contains `'NEXT_NOT_FOUND'` (intentional 404s). The browser drops `'Hydration'` messages and errors whose stack frames mention `'extension'`.
 
-- Filters events whose `message` contains `'NEXT_NOT_FOUND'` (these are intentional 404s, not real errors)
+**One scrubber, three runtimes (5.862, since 2026-11-10).** Every event and transaction, in the browser, the server and the edge, goes through `scrubSentryEvent` (`apps/web/src/lib/monitoring/sentryScrub.ts`) as both `beforeSend` and `beforeSendTransaction`, in every environment. The file's header is the authority for exactly what is kept and dropped (the user's identity, query strings outside the `scrubUrl` allowlist wherever a URL sits, cookies, emails and IPs in text, sensitive keys in data, and — fourteenth audit, 5.885 — request bodies and every request header outside an allowlist). `privacyWiring.test.ts` fails if any runtime returns an unscrubbed event; `sentryScrub.test.ts` runs the shapes the real SDK produces. The old notes here (server "minimal", scrubbing "client-only, production-only", a `piiFields` array) described the code before 5.862 and were wrong after it.
 
-**Client-side `beforeSend`** (`instrumentation-client.ts`) — substantial:
+**Adding a new kind of personal data:** extend `redactContext.ts` (key words, text patterns) or `sentryScrub.ts` (event fields), add the realistic SDK-shaped case to `sentryScrub.test.ts`, and watch the test fail before the fix.
 
-1. Filters events whose `message` contains `'Hydration'` (hydration mismatch noise — usually not actionable). Note: unlike the server/edge `beforeSend`, the client does NOT filter `NEXT_NOT_FOUND` — that filter is server/edge-only.
-2. Filters errors whose stack frames mention `'extension'` (browser-extension noise)
-3. **In production only:**
-   - Removes `event.user.email`, `event.user.username`, `event.user.ip_address`
-   - Scrubs `event.extra` keys matching `['email', 'name', 'username', 'ip_address', 'phone', 'address']` (case-insensitive) → replaced with `'[REDACTED]'`
-   - Regex-replaces email patterns (`[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}`) in any string values in `event.extra` with `'[EMAIL_REDACTED]'`
-   - Same scrubbing applied to breadcrumb data
-
-**Why client-only PII scrubbing:** server-side errors carry stack traces + route paths + request method — no user PII typically reaches `event.user` or `event.extra`. Client-side errors can include form values, URL search params with email in `?email=...`, breadcrumbs from analytics calls — that's where active scrubbing is needed.
-
-**Adding new PII fields:** if a new field is introduced (e.g., `tax_id`, `phone_number`, `iban`), update the `piiFields` array in the client-side `beforeSend` and re-validate via a deployed test that triggers an error containing the new field.
-
-**`tags` are intentionally NOT scrubbed (do-not-regress).** `beforeSend` only mutates `user` / `extra` / `breadcrumbs`. The `correlationId` request-id rides on `tags` precisely so it survives to Sentry for server↔client correlation (E-2). Never put PII on `tags` (it would bypass scrubbing), and never extend the scrub logic to strip `tags` (it would silently break correlation). Keep request-id-only on `tags`; PII-bearing context goes on `extra`, which is scrubbed.
+**`tags` are intentionally NOT scrubbed (do-not-regress).** The scrubber never touches `tags`. The `correlationId` request-id rides on `tags` precisely so it survives to Sentry for server↔client correlation (E-2). Never put PII on `tags` (it would bypass scrubbing), and never extend the scrub logic to strip `tags` (it would silently break correlation). Keep request-id-only on `tags`; PII-bearing context goes on `extra`, which is scrubbed.
 
 ### Sentry integration whitelist (Workstream B)
 

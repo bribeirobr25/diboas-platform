@@ -60,6 +60,12 @@ describe('GET /api/cron/purge-audit-logs — bearer authentication', () => {
       expect(res.headers.get('Cache-Control')).toBe(NO_STORE);
     }
     expect(purgeExpiredAuditLogs).not.toHaveBeenCalled();
+    // Fourteenth audit (5.892): a cron that cannot run says so, every time.
+    expect(Logger.error).toHaveBeenCalledTimes(4);
+    expect(Logger.error).toHaveBeenCalledWith(
+      '[cron/purge-audit-logs] CRON_SECRET is not set; the purge cannot run',
+      {}
+    );
   });
 
   it('should return 503 and never purge when CRON_SECRET is an empty string', async () => {

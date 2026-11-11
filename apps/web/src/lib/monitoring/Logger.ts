@@ -27,6 +27,7 @@
  */
 
 import { sanitizeContext } from './logRedactor';
+import { redactText } from '@/lib/utils/redactContext';
 import { StorageLogDestination } from './storageLogDestination';
 
 // Log levels following standard practices
@@ -70,6 +71,13 @@ interface LoggerConfig {
 }
 
 /**
+ * Receives every ERROR and CRITICAL entry (5.888). The server and edge runtimes connect it to the
+ * error tracker in `instrumentation.ts`; the Logger itself stays vendor-neutral. A sink must not
+ * call the Logger (no loop) and is never allowed to break the caller.
+ */
+export type LogErrorSink = (entry: LogEntry) => void;
+
+/**
  * Centralized Logger with multiple destinations
  * Monitoring: Structured logging with context
  * Performance: Efficient logging with batching
@@ -85,6 +93,7 @@ export class Logger {
   };
 
   private static storageDestination = new StorageLogDestination(Logger.config.maxStorageEntries);
+  private static errorSink: LogErrorSink | undefined;
   private static sessionId = this.generateSessionId();
   private static requestId: string | undefined;
 
@@ -106,6 +115,15 @@ export class Logger {
   /** Override the current correlation ID (e.g. after a route transition). */
   static setRequestId(id: string | undefined): void {
     this.requestId = id;
+  }
+
+  /**
+   * Connect (or, with `undefined`, disconnect) the destination for ERROR and CRITICAL entries.
+   * Fourteenth audit (5.888): before this, an error a route caught and logged reached only the
+   * console, so no alert ever fired for it.
+   */
+  static setErrorSink(sink: LogErrorSink | undefined): void {
+    this.errorSink = sink;
   }
 
   /** Read the current correlation ID — primarily for outbound fetch headers. */
@@ -168,7 +186,8 @@ export class Logger {
     const logEntry: LogEntry = {
       timestamp: Date.now(),
       level,
-      message,
+      // The message is text too: URLs scrubbed, emails, IPs and token pairs redacted (5.887).
+      message: redactText(message),
       context: sanitizeContext(context),
       error,
       source: this.getCallSource(),
@@ -184,6 +203,15 @@ export class Logger {
     // Storage logging
     if (this.config.enableStorage) {
       this.storageDestination.add(logEntry);
+    }
+
+    // Error tracking (server and edge only; see setErrorSink)
+    if (level >= LogLevel.ERROR && this.errorSink) {
+      try {
+        this.errorSink(logEntry);
+      } catch {
+        // A failing sink never breaks the caller, and must not log (that would loop).
+      }
     }
 
     // Remote logging (batched for performance)

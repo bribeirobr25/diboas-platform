@@ -38,6 +38,8 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   // Inert until configured — never run an unauthenticated purge.
   if (!cronSecret) {
+    // The cron would fail every day without a trace (fourteenth audit, 5.892).
+    Logger.error('[cron/purge-audit-logs] CRON_SECRET is not set; the purge cannot run', {});
     return NextResponse.json({ error: 'not_configured' }, { status: 503, headers: NO_STORE });
   }
 

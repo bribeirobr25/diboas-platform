@@ -19,8 +19,11 @@ interface CompilerConfig {
   removeConsole?: boolean | { exclude?: string[] };
 }
 
-function loadConfig(nodeEnv: string): { compiler?: CompilerConfig } {
+function loadConfig(nodeEnv: string, sentryDsn = ''): { compiler?: CompilerConfig } {
   vi.stubEnv('NODE_ENV', nodeEnv);
+  // With a DSN the config goes through withSentryConfig, the branch production builds take
+  // (fourteenth audit, 5.890: the test only ever read the unwrapped branch).
+  vi.stubEnv('NEXT_PUBLIC_SENTRY_DSN', sentryDsn);
   delete require.cache[require.resolve(CONFIG_PATH)];
   return require(CONFIG_PATH) as { compiler?: CompilerConfig };
 }
@@ -31,13 +34,19 @@ afterEach(() => {
 });
 
 describe('production keeps error and warning logs (5.876)', () => {
-  it('should keep console.error and console.warn when the build is production', () => {
-    const removeConsole = loadConfig('production').compiler?.removeConsole;
-    expect(removeConsole, 'production must not strip every console call').not.toBe(true);
-    expect(typeof removeConsole).toBe('object');
-    const exclude = (removeConsole as { exclude?: string[] }).exclude ?? [];
-    expect(exclude).toEqual(expect.arrayContaining(['error', 'warn']));
-  });
+  it.each([
+    ['without a Sentry DSN', ''],
+    ['through withSentryConfig, as production builds', 'https://public@o0.ingest.sentry.io/0'],
+  ])(
+    'should keep console.error and console.warn when the build is production %s',
+    (_label, dsn) => {
+      const removeConsole = loadConfig('production', dsn).compiler?.removeConsole;
+      expect(removeConsole, 'production must not strip every console call').not.toBe(true);
+      expect(typeof removeConsole).toBe('object');
+      const exclude = (removeConsole as { exclude?: string[] }).exclude ?? [];
+      expect(exclude).toEqual(expect.arrayContaining(['error', 'warn']));
+    }
+  );
 
   it('should strip nothing when the build is not production', () => {
     expect(loadConfig('development').compiler?.removeConsole).toBe(false);

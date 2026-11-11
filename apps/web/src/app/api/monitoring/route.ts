@@ -35,6 +35,7 @@
  * stub-env builds quiet without 404 noise in browser consoles.
  */
 
+import { Logger } from '@/lib/monitoring/Logger';
 import { NextResponse } from 'next/server';
 import {
   checkMonitoringTunnelRateLimit,
@@ -128,11 +129,19 @@ export async function POST(req: Request): Promise<Response> {
       headers: { 'Content-Type': 'application/x-sentry-envelope' },
       body: envelope,
     });
+    // A warning, not an error: an error would go to Sentry, which may be what is failing.
+    if (!upstreamRes.ok)
+      Logger.warn('[monitoring] Sentry rejected a forwarded envelope', {
+        status: upstreamRes.status,
+      });
     return new NextResponse(upstreamRes.body, {
       status: upstreamRes.status,
       headers: { 'Content-Type': upstreamRes.headers.get('Content-Type') || 'application/json' },
     });
-  } catch {
+  } catch (error) {
+    Logger.warn('[monitoring] Sentry is unreachable', {
+      reason: error instanceof Error ? error.message : String(error),
+    });
     return NextResponse.json({ error: 'upstream_unreachable' }, { status: 502 });
   }
 }
