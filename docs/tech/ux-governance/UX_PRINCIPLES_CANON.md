@@ -224,7 +224,7 @@ This _is_ Lens 2 (make the reader feel it) with a screenshot attached.
 **UX-52 · Show the total, not the unit. — ADOPT**
 _Regulatory anchor (CLO-verified, D-2 LIGHT): R-1 — Appendix E._
 "Reserve" became "Reserve · €445 total". The total pre-empts hidden-fee anxiety. Ours: the confirm button should carry the all-in figure — including pass-throughs — not the headline percentage.
-_Production reference (Mobbin shell study 2026-07-30, benchmark doc §4):_ Kraken's buy keypad translates the entered amount live — "$10 · That's ≈ 0.00456 ETH" — with the payment method visible before the review step. The same move at the input instead of the button: the user always sees what the number *becomes*. Directly applicable to the FC-15 fee-inclusive display ("you enter $5 → $Y lands").
+_Production reference (Mobbin shell study 2026-07-30, benchmark doc §4):_ Kraken's buy keypad translates the entered amount live — "$10 · That's ≈ 0.00456 ETH" — with the payment method visible before the review step. The same move at the input instead of the button: the user always sees what the number _becomes_. Directly applicable to the FC-15 fee-inclusive display ("you enter $5 → $Y lands").
 
 **UX-53 · Answer the top objection in one line, before it is voiced. — ADOPT**
 "Free cancellation before Mar 26", with a shield icon, under the button. The number-one booking objection ("what if plans change?") answered pre-emptively. Also: day names ("Fri, Mar 28 → Wed, Apr 2") and a "5 nights" badge make the trip concrete and save mental arithmetic.
