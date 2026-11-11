@@ -51,6 +51,11 @@ updates:
       # moving them down re-splits Storybook's webpack peers, so that waits for the runtime move.
       - dependency-name: '@types/node'
         update-types: ['version-update:semver-major']
+      # The root override holds every js-yaml on 4.x (a security floor, `^4.1.1`), so a major
+      # bump of the web dev dependency installs nothing new; it moves by hand with the override
+      # (Dependabot's #910 said ^5.5.0 and installed 4.3.2, reviewed 2026-11-11).
+      - dependency-name: 'js-yaml'
+        update-types: ['version-update:semver-major']
       - dependency-name: 'typescript'
         update-types: ['version-update:semver-major']
       - dependency-name: 'react'
