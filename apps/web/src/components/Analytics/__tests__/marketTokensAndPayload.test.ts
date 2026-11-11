@@ -94,10 +94,17 @@ describe('(d) a client component on the market views gets only the fields it dec
 
 describe('(e) every date the market views format is formatted in UTC (5.631)', () => {
   it('should pass timeZone UTC to every date format in the market views', () => {
-    const files = ['MarketViewShell.tsx', 'UmbrellaView.tsx', 'StateViewSections.tsx'];
+    // presentationState.ts formats the history chart's day and month labels on
+    // the server for those views (PR #897 added the month labels).
+    const files = [
+      'app/[locale]/(landing)/market/MarketViewShell.tsx',
+      'app/[locale]/(landing)/market/UmbrellaView.tsx',
+      'app/[locale]/(landing)/market/StateViewSections.tsx',
+      'lib/market/presentationState.ts',
+    ];
     const missing: string[] = [];
     for (const f of files) {
-      const src = read(`app/[locale]/(landing)/market/${f}`);
+      const src = read(f);
       for (const m of src.matchAll(
         /toLocaleDateString\([^)]*\{[\s\S]*?\}\)|DateTimeFormat\([^)]*\)/g
       )) {

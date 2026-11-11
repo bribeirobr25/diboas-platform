@@ -6,14 +6,22 @@
  * A bespoke inline SVG (NO chart library — Principle 9 / bundle budget) that
  * draws N series diverging from a shared start to different ends, with
  * tabular-mono end labels. Lines draw on scroll-in via `useInView`; under
- * prefers-reduced-motion they render fully drawn with no animation. The
+ * prefers-reduced-motion they render fully drawn with no animation.
+ *
+ * Draw-on length: the lines keep `vector-effect: non-scaling-stroke` (crisp
+ * stroke at any width), which makes the browser apply the dash pattern in
+ * SCREEN space while `pathLength={1}` measures in viewBox units. A dash of 1
+ * therefore covered only VIEW_W/renderedWidth of the line, and on desktop the
+ * drawn line stopped ~20% short of its end dot (visual pass 2026-11-11). The
+ * dash is now `--dc-dash` = max(1, renderedWidth/VIEW_W) (+2%), kept current by a
+ * ResizeObserver, so one dash always spans the whole line in either reading. The
  * numeric labels are always present in the SSR markup (SEO + a11y tree).
  *
  * All values are caller-supplied (market-data-bound at the call site — never
  * hardcoded here). Teal (`--accent-action`) marks the "primary" series only.
  */
 
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useInView } from '@/hooks/useInView';
 import styles from './DivergenceChart.module.css';
 
@@ -49,6 +57,24 @@ export function DivergenceChart({
   className = '',
 }: DivergenceChartProps) {
   const { ref, inView } = useInView<SVGSVGElement>({ threshold: 0.35 });
+
+  // Keep the dash at least as long as the rendered line (see the file header).
+  // Written straight to the element: no React state, no re-render on resize.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    // The observer's own content box (fires once on observe): unlike
+    // getBoundingClientRect it ignores ancestor CSS transforms, which do not
+    // scale the dash either (a scaled ancestor would otherwise cut it short).
+    const observer = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect.width ?? 0;
+      if (width <= 0) return;
+      // 2% over, so float rounding never leaves the line end uncovered.
+      el.style.setProperty('--dc-dash', String(Math.max(1, width / VIEW_W) * 1.02));
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [ref]);
 
   const geom = useMemo(() => {
     const plotW = VIEW_W - PAD.left - PAD.right;

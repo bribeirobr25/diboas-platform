@@ -10,8 +10,10 @@ interface RegimeScoreProps {
   className?: string;
 }
 
-/** Editorial 180° needle gauge (replicates 02-editorial-motion). Arc is a
- *  semicircle of radius 160 → length = π·160. The score text + arc + needle are
+/** Editorial 180° gauge (replicates 02-editorial-motion). Arc is a
+ *  semicircle of radius 160 → length = π·160. The pointer is a short stroke at
+ *  the arc's inner edge, not a needle from the centre (a needle crossed the
+ *  score readout; visual pass 2026-11-11). The score text + arc + pointer are
  *  SSR'd at the final value; on first scroll-in we re-animate 0 → value (skipped
  *  under reduced motion / no-JS, which simply show the final reading). */
 const ARC_LEN = Math.PI * 160;
@@ -110,17 +112,19 @@ export function RegimeScore({ data, ariaLabel, className }: RegimeScoreProps) {
         <text x="366" y="222" textAnchor="end" className={styles.tick}>
           {max_score}
         </text>
+        {/* A pointer near the arc, not a needle from the centre: a full needle
+            crossed the score readout for every mid-range score (the readout
+            sits in the bowl). Visual pass 2026-11-11. */}
         <g transform={`rotate(${needleDeg} 200 200)`}>
           <line
             className={styles.needle}
             x1="200"
-            y1="200"
+            y1="92"
             x2="200"
-            y2="64"
-            strokeWidth="3"
+            y2="52"
+            strokeWidth="4"
             strokeLinecap="round"
           />
-          <circle className={styles.hub} cx="200" cy="200" r="9" />
         </g>
       </svg>
       <div className={styles.readout}>

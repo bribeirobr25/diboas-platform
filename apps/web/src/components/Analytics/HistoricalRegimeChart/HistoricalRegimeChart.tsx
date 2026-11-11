@@ -2,6 +2,7 @@
 
 import { useId, useMemo } from 'react';
 import type { HistoricalRegimes, RegimeCode } from '@/lib/analytics-sdk/types';
+import { historicalMonthTicks, monthLabelGap, snapshotDayTime } from '@/lib/market/historyAxis';
 import styles from './HistoricalRegimeChart.module.css';
 
 interface HistoricalRegimeChartProps {
@@ -18,6 +19,11 @@ interface HistoricalRegimeChartProps {
    * The ISO day stays in `<time dateTime>`.
    */
   dateLabels: Record<string, string>;
+  /**
+   * Short month names for the time axis, keyed `YYYY-MM`, formatted on the
+   * server (`historicalMonthLabels`). A month with no label gets no tick.
+   */
+  monthLabels: Record<string, string>;
   className?: string;
 }
 
@@ -28,7 +34,6 @@ const CHART_W = VIEWBOX_W - PADDING.left - PADDING.right;
 const CHART_H = VIEWBOX_H - PADDING.top - PADDING.bottom;
 const MAX_SCORE = 14;
 const Y_TICKS = [0, 3, 6, 9, 12, 14];
-
 // Warm editorial ramp (B5 / F-2, 2026-07-13): repointed off the semantic
 // green/amber/red stoplight tokens — that grammar reads as buy/sell (Q3
 // advisory) and clashed with the warm /market palette. The ramp runs
@@ -58,17 +63,47 @@ export function HistoricalRegimeChart({
   tableLabels,
   regimeLabels,
   dateLabels,
+  monthLabels,
   className,
 }: HistoricalRegimeChartProps) {
   const tableId = useId();
 
+  // Chronological first (a date axis needs it; the writer only appends), then
+  // the newest `count`.
   const snapshots = useMemo(() => {
     const count = rangeToCount(range);
-    return data.snapshots.slice(-count);
+    const ordered = [...data.snapshots].sort((a, b) =>
+      a.date.slice(0, 10) < b.date.slice(0, 10)
+        ? -1
+        : a.date.slice(0, 10) > b.date.slice(0, 10)
+          ? 1
+          : 0
+    );
+    return ordered.slice(-count);
   }, [data.snapshots, range]);
 
+  // Date-scaled, not index-scaled (5.176 (c)): two runs a day apart sit a day
+  // apart, and a gap between runs shows as a gap. One point, or all on one day,
+  // sits in the middle; an unreadable date falls back to the index axis.
+  const { startTime, spanMs, dateScaled } = useMemo(() => {
+    const times = snapshots.map((s) => snapshotDayTime(s.date));
+    const start = times[0] ?? 0;
+    const end = times[times.length - 1] ?? 0;
+    return {
+      startTime: start,
+      spanMs: end - start,
+      dateScaled: times.every((time) => Number.isFinite(time)),
+    };
+  }, [snapshots]);
+  const xAtTime = (time: number) =>
+    spanMs > 0
+      ? PADDING.left + ((time - startTime) / spanMs) * CHART_W
+      : PADDING.left + CHART_W / 2;
   const xScale = (i: number) =>
-    PADDING.left + (snapshots.length <= 1 ? CHART_W / 2 : (i / (snapshots.length - 1)) * CHART_W);
+    dateScaled
+      ? xAtTime(snapshotDayTime(snapshots[i]!.date))
+      : PADDING.left +
+        (snapshots.length <= 1 ? CHART_W / 2 : (i / (snapshots.length - 1)) * CHART_W);
   const yScale = (score: number) => PADDING.top + CHART_H - (score / MAX_SCORE) * CHART_H;
 
   const path = useMemo(
@@ -82,6 +117,23 @@ export function HistoricalRegimeChart({
     [snapshots]
   );
 
+  const monthTicks = useMemo(
+    () =>
+      dateScaled
+        ? historicalMonthTicks(
+            snapshots.map((s) => s.date),
+            xAtTime,
+            {
+              left: PADDING.left,
+              right: PADDING.left + CHART_W,
+              minGap: monthLabelGap(monthLabels),
+            }
+          ).filter((tick) => monthLabels[tick.key] !== undefined)
+        : [],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [snapshots, monthLabels]
+  );
+
   return (
     <figure className={`${styles.figure} ${className ?? ''}`}>
       <svg
@@ -93,7 +145,7 @@ export function HistoricalRegimeChart({
         className={styles.svg}
       >
         <title id={`${tableId}-title`}>{ariaLabel}</title>
-        {Y_TICKS.map((t) => (
+        {Y_TICKS.map((t, i) => (
           <g key={`yt-${t}`}>
             <line
               x1={PADDING.left}
@@ -106,14 +158,32 @@ export function HistoricalRegimeChart({
               x={PADDING.left - 8}
               y={yScale(t) + 4}
               textAnchor="end"
-              className={styles.axisLabel}
+              className={
+                // Less than 3 points below the next tick (12 under 14): the
+                // phone-size labels would touch, so phones hide this one.
+                (Y_TICKS[i + 1] ?? Infinity) - t < 3
+                  ? `${styles.axisLabel} ${styles.axisLabelCrowded}`
+                  : styles.axisLabel
+              }
             >
               {t}
             </text>
           </g>
         ))}
+        {monthTicks.map((tick) => (
+          <text
+            key={`mt-${tick.key}`}
+            x={tick.x}
+            y={PADDING.top + CHART_H + 22}
+            textAnchor={tick.anchor}
+            className={styles.axisLabel}
+          >
+            {monthLabels[tick.key]}
+          </text>
+        ))}
         <path
           d={path}
+          pathLength={1}
           fill="none"
           stroke="var(--text-brand-accessible)"
           strokeWidth={2}

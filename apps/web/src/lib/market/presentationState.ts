@@ -65,6 +65,46 @@ export function historicalDateLabels(
 }
 
 /**
+ * Short month names for the history chart's time axis (5.176 fix (a)), keyed
+ * `YYYY-MM`, one per calendar month from the first snapshot's month to the
+ * last's. Formatted on the server with `timeZone: 'UTC'`, like
+ * `historicalDateLabels`, so the browser never re-formats them (server and
+ * browser ICU can disagree: German renders September as "Sept." or "Sep.").
+ * Once the snapshots span 12 months or more the same month would appear twice,
+ * so every label then carries a two-digit year ("Jul 26 … Jul 27").
+ */
+export function historicalMonthLabels(
+  snapshots: ReadonlyArray<{ date: string }>,
+  locale: string
+): Record<string, string> {
+  if (snapshots.length === 0) return {};
+  const days = snapshots.map((s) => s.date.slice(0, 10)).sort();
+  let year = Number(days[0]!.slice(0, 4));
+  let month = Number(days[0]!.slice(5, 7));
+  const lastKey = days[days.length - 1]!.slice(0, 7);
+  if (!Number.isFinite(year) || !Number.isFinite(month) || !/^\d{4}-\d{2}$/.test(lastKey))
+    return {};
+  const spanMonths =
+    (Number(lastKey.slice(0, 4)) - year) * 12 + (Number(lastKey.slice(5, 7)) - month);
+  const format = new Intl.DateTimeFormat(locale, {
+    timeZone: 'UTC',
+    month: 'short',
+    year: spanMonths >= 12 ? '2-digit' : undefined,
+  });
+  const labels: Record<string, string> = {};
+  for (;;) {
+    const key = `${year}-${String(month).padStart(2, '0')}`;
+    labels[key] = format.format(new Date(Date.UTC(year, month - 1, 1)));
+    if (key >= lastKey) return labels;
+    month += 1;
+    if (month > 12) {
+      month = 1;
+      year += 1;
+    }
+  }
+}
+
+/**
  * A group shows as unavailable when nothing in it was evaluated. The generator
  * writes `status: 'UNAVAILABLE'` for that case; the signal check also covers a
  * payload generated before that status existed (the 2026-10-19 refresh was

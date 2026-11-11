@@ -30,6 +30,29 @@
   font-family: var(--font-family-primary);
 }
 
+/* Phones: the 720-unit viewBox renders at ~0.45x, which took the 12px labels to
+   ~5.5px (visual pass 2026-11-11). Larger labels; the y labels move inside the
+   plot, above their grid lines, with a halo in the card colour so a curve
+   passing behind one never strikes it through (a one-time amount starts high);
+   the "0" value label is dropped — the year axis starts at 0. Offsets are
+   viewBox units (CSS px inside an SVG). */
+@media (max-width: 640px) {
+  .axisLabel {
+    font-size: var(--font-size-2xl);
+  }
+  .yLabel {
+    text-anchor: start;
+    transform: translate(calc(var(--spacing-sm) * 1.5), calc(var(--spacing-sm) * -1.25));
+    paint-order: stroke;
+    stroke: var(--color-white);
+    stroke-width: var(--spacing-xs);
+    stroke-linejoin: round;
+  }
+  .yLabelZero {
+    display: none;
+  }
+}
+
 @keyframes drawLine {
   from {
     stroke-dashoffset: 1500;

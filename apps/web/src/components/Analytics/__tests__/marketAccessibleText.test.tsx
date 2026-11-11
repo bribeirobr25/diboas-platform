@@ -64,6 +64,7 @@ function renderTable(
       tableLabels={{ date: 'd', score: 's', regime: 'r' }}
       regimeLabels={bandLabels(locale)}
       dateLabels={dateLabels}
+      monthLabels={{}}
     />
   );
   return container.querySelector('table')!;

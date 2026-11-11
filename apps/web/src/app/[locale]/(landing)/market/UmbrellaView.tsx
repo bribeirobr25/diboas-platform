@@ -244,14 +244,10 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
           <Container size="md">
             {methodology && (
               <div className={styles.methodHead}>
-                <span className={styles.eyebrowDark}>
+                {/* No lead here: it says the page lists each signal and its points,
+                    which only the scored view does (visual pass 2026-11-11). */}
+                <h2 className={`${styles.eyebrowDark} ${styles.methodTitle}`}>
                   {t('dashboard.methodologyTitle', 'How this is calculated')}
-                </span>
-                <h2 className={styles.h2Dark}>
-                  {t(
-                    'dashboard.methodologyLead',
-                    'A full methodology document is not published yet. Until it is, this page describes each signal and how many points it can add.'
-                  )}
                 </h2>
                 <MethodologyLink
                   href={methodology.methodology_url}
@@ -271,6 +267,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
             )}
 
             <HostRegulatoryDisclaimer
+              className={styles.methodNote}
               text={t(
                 'disclaimer.host.regulatory',
                 'diBoaS does not provide investment advice. The framework on this page summarizes the macro and structural environment of the markets it covers for educational purposes only. Crypto-asset values are highly volatile and your capital is at risk. Information is intended for residents of the EU, US, UK, and Brazil where local distribution is permitted; nothing here constitutes a solicitation in any other jurisdiction.'

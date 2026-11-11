@@ -22,9 +22,6 @@
 .needle {
   stroke: var(--editorial-ink);
 }
-.hub {
-  fill: var(--editorial-ink);
-}
 .tick {
   fill: var(--editorial-ink-soft);
   font-family: var(--font-ibm-plex-mono), monospace;
@@ -40,7 +37,7 @@
   stop-color: var(--editorial-teal);
 }
 
-/* Score readout — sits in the centre of the bowl, above the needle hub. */
+/* Score readout — sits in the centre of the bowl, below the arc pointer. */
 .readout {
   position: absolute;
   left: 0;

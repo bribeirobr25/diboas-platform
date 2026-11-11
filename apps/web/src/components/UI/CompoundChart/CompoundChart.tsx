@@ -2,6 +2,7 @@
 
 import { useId, useMemo } from 'react';
 import { formatCurrency, type ScenarioSeries, type SeriesKey } from '@/lib/compound-interest';
+import { compoundXTicks, compoundYTicks } from '@/lib/compound-interest/chartAxis';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import styles from './CompoundChart.module.css';
 
@@ -23,7 +24,9 @@ interface CompoundChartProps {
 
 const VIEWBOX_WIDTH = 720;
 const VIEWBOX_HEIGHT = 320;
-const PADDING = { top: 24, right: 24, bottom: 40, left: 64 };
+// left = 88: room for the widest round-tick label in four locales ("R$ 500 mil",
+// "500.000 €"); a full figure such as "R$ 1.159.589" did not fit the old 64.
+const PADDING = { top: 24, right: 24, bottom: 40, left: 88 };
 const CHART_WIDTH = VIEWBOX_WIDTH - PADDING.left - PADDING.right;
 const CHART_HEIGHT = VIEWBOX_HEIGHT - PADDING.top - PADDING.bottom;
 
@@ -60,19 +63,13 @@ export function CompoundChart({
     return { maxValue: max === 0 ? 1 : max, years: yrs };
   }, [series]);
 
-  const xTicks = useMemo(() => {
-    const candidates = [0, 5, 10, 20, 30, 40].filter((y) => y <= years);
-    if (candidates[candidates.length - 1] !== years) candidates.push(years);
-    return candidates;
-  }, [years]);
+  const xTicks = useMemo(() => compoundXTicks(years), [years]);
 
-  const yTicks = useMemo(() => {
-    const steps = 4;
-    return Array.from({ length: steps + 1 }, (_, i) => (maxValue / steps) * i);
-  }, [maxValue]);
+  // Round 1-2-5 ticks; the axis top is the first tick at or above the maximum.
+  const { ticks: yTicks, top: yTop } = useMemo(() => compoundYTicks(maxValue), [maxValue]);
 
   const xScale = (year: number) => PADDING.left + (year / years) * CHART_WIDTH;
-  const yScale = (value: number) => PADDING.top + CHART_HEIGHT - (value / maxValue) * CHART_HEIGHT;
+  const yScale = (value: number) => PADDING.top + CHART_HEIGHT - (value / yTop) * CHART_HEIGHT;
 
   const buildPath = (s: ScenarioSeries) =>
     s.yearlyValues
@@ -110,9 +107,16 @@ export function CompoundChart({
             x={PADDING.left - 8}
             y={yScale(v) + 4}
             textAnchor="end"
-            className={styles.axisLabel}
+            className={`${styles.axisLabel} ${styles.yLabel} ${v === 0 ? styles.yLabelZero : ''}`}
           >
-            {formatCurrency(v, locale, { maximumFractionDigits: 0 })}
+            {/* Compact ("$1.5K", "$2M", "1,4 Mio. €"). Every tick is a multiple
+                of a 1-2-5 step, so one fraction digit states it exactly; the
+                full figures stay in the legend and the table. */}
+            {formatCurrency(v, locale, {
+              notation: 'compact',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 1,
+            })}
           </text>
         ))}
 

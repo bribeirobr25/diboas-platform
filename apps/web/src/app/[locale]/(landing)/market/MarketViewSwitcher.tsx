@@ -12,6 +12,7 @@
  * rider 4d); until then the fallback label is the slug, which no user sees.
  */
 
+import { Container } from '@/components/UI/Container';
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { switcherDestinations, viewPath, type MarketViewDef } from '@/lib/market/viewRegistry';
 import styles from './page.module.css';
@@ -31,21 +32,26 @@ export function MarketViewSwitcher({ activeSlug, labelFor, navLabel }: MarketVie
   if (destinations.length < 2) return null;
 
   return (
+    // In the page's own column (Container md), like every section below it: the
+    // list used to centre itself in a narrower 48rem box and sat 120px to the
+    // right of the content on desktop (visual pass 2026-11-11).
     <nav aria-label={navLabel} className={styles.viewSwitcher}>
-      <ul className={styles.viewSwitcherList}>
-        {destinations.map((view) => (
-          <li key={view.slug}>
-            <LocaleLink
-              href={viewPath(view)}
-              prefetch={false}
-              aria-current={view.slug === activeSlug ? 'page' : undefined}
-              className={styles.viewSwitcherLink}
-            >
-              {labelFor(view)}
-            </LocaleLink>
-          </li>
-        ))}
-      </ul>
+      <Container size="md">
+        <ul className={styles.viewSwitcherList}>
+          {destinations.map((view) => (
+            <li key={view.slug}>
+              <LocaleLink
+                href={viewPath(view)}
+                prefetch={false}
+                aria-current={view.slug === activeSlug ? 'page' : undefined}
+                className={styles.viewSwitcherLink}
+              >
+                {labelFor(view)}
+              </LocaleLink>
+            </li>
+          ))}
+        </ul>
+      </Container>
     </nav>
   );
 }

@@ -66,7 +66,7 @@ export function MarketCtaBand({
         <h2 className={styles.headline}>{headline}</h2>
         <p className={styles.body}>{body}</p>
         <div className={styles.actions}>
-          <LocaleLink href="/?source=adelaide_daily" className={styles.primary}>
+          <LocaleLink href="/?source=adelaide_daily#waitlist" className={styles.primary}>
             <span>{waitlistLabel}</span>
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </LocaleLink>
