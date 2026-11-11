@@ -29,9 +29,9 @@
   "//devDependencies-notes": [
     "vitest + @vitest/coverage-v8: ^4.1.5 — updated 2026-04-23 to resolve vite 7.3.1 file-read + happy-dom vulnerabilities via updated transitive deps.",
     "@storybook/*: ^10.3.5 — updated 2026-04-23 to resolve flatted, vite, lodash, serialize-javascript vulnerabilities via updated transitive deps.",
-    "eslint: ^9.39.4 — ESLint 10 available but deferred (major version with breaking changes). Revisit when eslint-config-next supports ESLint 10.",
+    "eslint: ^10.14.0 at the root (2026-11-11, #905): the same lint results as 9. @eslint/js stays on 9 until four market-lane lint fixes land (register 5.918).",
     "knip: ^5.86.0 — knip 6 available but deferred (major version with breaking config changes). Revisit when dedicated migration sprint available.",
-    "@lhci/cli: ^0.15.1 — already latest. Contains unfixed transitive vulns (lodash, basic-ftp, path-to-regexp, elliptic). Dev-only tool, no production impact. Monitor for 0.16+ release.",
+    "@lhci/cli: ^0.16.0 (2026-11-11) — Lighthouse 13. Lighthouse gets its own axe-core (root override lighthouse>axe-core; 4.11.1 broke its accessibility gatherer). Lighthouse 13 renamed the HTTP/2 audit uses-http2 to modern-http-insight (skipped in .lighthouserc.json: the local server speaks HTTP/1.1). Dev-only tool.",
     "typescript: ~5.9.3 — pinned to patch-only. TS 6.0 has breaking changes (baseUrl deprecation). See docs/audit/PENDING.md Section 8."
   ],
   "dependencies": {
@@ -58,7 +58,7 @@
   "devDependencies": {
     "@diboas/test-support": "workspace:*",
     "@eslint/js": "^9.17.0",
-    "@lhci/cli": "^0.15.1",
+    "@lhci/cli": "^0.16.0",
     "@storybook/addon-a11y": "^10.6.6",
     "@storybook/addon-docs": "^10.6.6",
     "@storybook/addon-onboarding": "^10.6.6",
