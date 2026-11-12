@@ -78,6 +78,18 @@ interface LoggerConfig {
 export type LogErrorSink = (entry: LogEntry) => void;
 
 /**
+ * Where the sink lives: on `globalThis`, not on the class. A production build (Turbopack)
+ * bundles this module more than once on the server: `instrumentation.ts` and each route get
+ * their own copy, each with its own statics, so a sink stored on the class by
+ * `instrumentation.ts` was never seen by a route's copy and no caught error reached the tracker
+ * (fifteenth audit, proven with a production build and a local Sentry listener). Every copy in
+ * one runtime shares `globalThis`, as Sentry's own state does. `Symbol.for` gives each copy the
+ * same key.
+ */
+const ERROR_SINK_KEY = Symbol.for('diboas.logger.errorSink');
+const sinkHolder = globalThis as typeof globalThis & { [ERROR_SINK_KEY]?: LogErrorSink };
+
+/**
  * Centralized Logger with multiple destinations
  * Monitoring: Structured logging with context
  * Performance: Efficient logging with batching
@@ -93,7 +105,6 @@ export class Logger {
   };
 
   private static storageDestination = new StorageLogDestination(Logger.config.maxStorageEntries);
-  private static errorSink: LogErrorSink | undefined;
   private static sessionId = this.generateSessionId();
   private static requestId: string | undefined;
 
@@ -123,7 +134,7 @@ export class Logger {
    * console, so no alert ever fired for it.
    */
   static setErrorSink(sink: LogErrorSink | undefined): void {
-    this.errorSink = sink;
+    sinkHolder[ERROR_SINK_KEY] = sink;
   }
 
   /** Read the current correlation ID — primarily for outbound fetch headers. */
@@ -206,9 +217,10 @@ export class Logger {
     }
 
     // Error tracking (server and edge only; see setErrorSink)
-    if (level >= LogLevel.ERROR && this.errorSink) {
+    const errorSink = sinkHolder[ERROR_SINK_KEY];
+    if (level >= LogLevel.ERROR && errorSink) {
       try {
-        this.errorSink(logEntry);
+        errorSink(logEntry);
       } catch {
         // A failing sink never breaks the caller, and must not log (that would loop).
       }
@@ -277,10 +289,11 @@ export class Logger {
       const stack = new Error().stack;
       if (stack) {
         const lines = stack.split('\n');
-        // Find first line that's not this Logger class
+        // Find first line that's not this Logger class. A production bundle names the file
+        // `Logger_ts_<hash>.js`, not `Logger.ts`, so both spellings are skipped.
         for (let i = 3; i < lines.length; i++) {
           const line = lines[i];
-          if (line && !line.includes('Logger.ts')) {
+          if (line && !/Logger[._]ts/.test(line)) {
             return line.trim();
           }
         }
