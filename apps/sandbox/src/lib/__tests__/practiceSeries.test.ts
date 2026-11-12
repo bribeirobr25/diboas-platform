@@ -69,7 +69,9 @@ function positionAtWork(totalFromCash: number) {
   return goalId;
 }
 
-describe('the practice value decomposition (5.199)', () => {
+/* 5.904: these replay months of ledger events per case (3.8 s with coverage and every workspace
+   running at once, against the 5 s default). */
+describe('the practice value decomposition (5.199)', { timeout: 20_000 }, () => {
   beforeEach(() => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date(GENESIS));
