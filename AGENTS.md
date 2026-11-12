@@ -20,7 +20,10 @@ For every AI agent working in this repository (Claude Code, Codex, GPT Work and 
 - **Only Claude Code changes code**, including tests, fixtures, scripts and audit tools, even in
   a disposable copy. Other agents analyse, verify and report; they describe the change they need
   and its acceptance criteria, and Claude Code builds it.
-- **The founder merges.** Agents may branch, commit, push and open pull requests; nothing merges
-  without the founder.
+- **The founder merges**, with one exception: Dependabot's pull requests, which Claude Code reviews,
+  tests and merges when safe (`DR-2026-11-11-dependabot-merge-delegated`, private docs). Agents may
+  branch, commit, push and open pull requests; nothing else merges without the founder. A fix that
+  goes beyond Dependabot's own change, or a Dependabot PR that carries another author's commit, is
+  no longer Dependabot's: it needs a PR record and the founder merges it.
 - Agent-to-agent notes go in the private `diboas-docs` repository (`cc-sync/`, `gpt-sync/`), never
   in this one.
