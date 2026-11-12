@@ -51,10 +51,13 @@ function limiterFor(limit: number, windowMs: number): Ratelimit {
   const key = policyKey(limit, windowMs);
   let limiter = policyLimiters.get(key);
   if (!limiter) {
+    /* analytics: false everywhere (5.937): Upstash analytics store every identifier
+       (`<operation>:<IP>`) in hourly keys that never expire, and nothing here reads them; the
+       privacy policy keeps an IP for at most 90 days. */
     limiter = new Ratelimit({
       redis: redis as Redis,
       limiter: Ratelimit.slidingWindow(limit, `${windowMs}ms`),
-      analytics: true,
+      analytics: false,
       prefix: `${RATE_LIMIT_CONFIG.prefix}${key}:`,
     });
     policyLimiters.set(key, limiter);
@@ -87,7 +90,7 @@ function initializeRedis(): boolean {
     ratelimit = new Ratelimit({
       redis,
       limiter: Ratelimit.slidingWindow(DEFAULT_LIMIT, `${DEFAULT_WINDOW_MS}ms`),
-      analytics: true,
+      analytics: false,
       prefix: RATE_LIMIT_CONFIG.prefix,
     });
     // The default policy keeps its original prefix, so its counters carry over.
@@ -313,7 +316,7 @@ function createDedicatedLimiter(limit: number, windowMs: number, prefix: string)
       instance = new Ratelimit({
         redis: new Redis({ url, token }),
         limiter: Ratelimit.slidingWindow(limit, `${windowMs}ms`),
-        analytics: true,
+        analytics: false,
         prefix,
       });
       return true;
