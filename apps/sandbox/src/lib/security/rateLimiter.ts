@@ -199,6 +199,9 @@ function upstash(): RemoteLimiter | null {
       limiter: Ratelimit.slidingWindow(MARKET_RATE_LIMIT, `${MARKET_RATE_WINDOW_MS} ms`),
       prefix: 'sandbox:market',
       timeout: MARKET_REDIS_TIMEOUT_MS,
+      /* Explicit, not the library default: analytics would store every client IP in keys that
+         never expire (5.937). */
+      analytics: false,
     });
   } catch {
     /* A limiter that throws must not take the route down with it. */
