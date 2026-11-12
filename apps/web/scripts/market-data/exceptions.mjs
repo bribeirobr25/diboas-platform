@@ -32,7 +32,7 @@ export function parseExceptions(text) {
   try {
     list = JSON.parse(text);
   } catch (e) {
-    throw new Error(`EXCEPTIONS: not valid JSON (${e.message})`);
+    throw new Error(`EXCEPTIONS: not valid JSON (${e.message})`, { cause: e });
   }
   if (!Array.isArray(list)) throw new Error('EXCEPTIONS: the file must hold an array');
   list.forEach((x, i) => {

@@ -49,7 +49,9 @@ export async function fetchWithTimeout(url, opts = {}) {
     // A bare "This operation was aborted" in the weekly log is unactionable;
     // say which source and how long we waited.
     if (err?.name === 'TimeoutError' || err?.name === 'AbortError') {
-      throw new Error(`${label ?? url}: no response within ${timeoutMs}ms (timed out)`);
+      throw new Error(`${label ?? url}: no response within ${timeoutMs}ms (timed out)`, {
+        cause: err,
+      });
     }
     throw err;
   }

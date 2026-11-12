@@ -302,3 +302,103 @@ describe('dependabot.yml, parsed', () => {
     expect(violations(roundTrip, zeroMajorDevDependencies())).toEqual([]);
   });
 });
+
+/**
+ * The partner groups above are what Dependabot is ASKED to do; on 2026-11-11 it still opened
+ * vitest 5 without @vitest/coverage-v8 5 and eslint 10 without @eslint/js 10 (5.895, 5.918).
+ * So the lockfile itself is checked: across every workspace, the partners resolve together —
+ * vitest and Storybook at one exact version (coverage-v8 and the Storybook packages pin each
+ * other exactly), eslint and @eslint/js at one major. A PR that splits them fails CI.
+ */
+type Importers = Record<string, Record<string, Record<string, { version?: string }> | undefined>>;
+const INSTALLED_TOGETHER: Record<keyof typeof PARTNERS, 'exact' | 'major'> = {
+  vitest: 'exact',
+  eslint: 'major',
+  storybook: 'exact',
+};
+
+function partnerSplits(importers: Importers): string[] {
+  const out: string[] = [];
+  for (const [group, members] of Object.entries(PARTNERS)) {
+    const rule = INSTALLED_TOGETHER[group];
+    const seen = new Map<string, Set<string>>();
+    for (const [dir, importer] of Object.entries(importers)) {
+      for (const field of ['dependencies', 'devDependencies'] as const) {
+        for (const member of members) {
+          const raw = importer[field]?.[member]?.version;
+          if (!raw) continue;
+          const version = raw.split('(')[0];
+          const key = rule === 'exact' ? version : version.split('.')[0];
+          if (!seen.has(key)) seen.set(key, new Set());
+          seen.get(key)!.add(`${member}@${version} (${dir})`);
+        }
+      }
+    }
+    if (seen.size > 1) {
+      const found = [...seen.values()].map((s) => [...s].join(', ')).join(' | ');
+      out.push(`partners ${group} resolve apart (${rule}): ${found}`);
+    }
+    if (seen.size === 0) out.push(`partners ${group}: none installed (the guard would be vacuous)`);
+  }
+  return out;
+}
+
+describe('the lockfile installs partner packages together (5.895, 5.918)', () => {
+  const lockImporters = () =>
+    (
+      yaml.load(fs.readFileSync(path.join(REPO, 'pnpm-lock.yaml'), 'utf8')) as {
+        importers: Importers;
+      }
+    ).importers;
+
+  it('should resolve every partner group together across the workspace', () => {
+    expect(partnerSplits(lockImporters())).toEqual([]);
+  });
+
+  it.each<[string, (i: Importers) => void, RegExp]>([
+    [
+      'eslint 10 with @eslint/js 9 in another workspace',
+      (i) => {
+        i['apps/web'].devDependencies!['@eslint/js'] = { version: '9.39.5' };
+      },
+      /partners eslint resolve apart \(major\)/,
+    ],
+    [
+      'vitest 5 with coverage-v8 4',
+      (i) => {
+        i['apps/web'].devDependencies!['@vitest/coverage-v8'] = {
+          version: '4.1.10(vitest@4.1.10)',
+        };
+      },
+      /partners vitest resolve apart \(exact\)/,
+    ],
+    [
+      'Storybook packages one patch apart',
+      (i) => {
+        i['apps/web'].devDependencies!['@storybook/react'] = { version: '10.6.7(react@18.3.1)' };
+      },
+      /partners storybook resolve apart \(exact\)/,
+    ],
+    [
+      'a partner group that is not installed anywhere',
+      (i) => {
+        for (const importer of Object.values(i)) delete importer.devDependencies?.storybook;
+        for (const importer of Object.values(i))
+          delete importer.devDependencies?.['@storybook/react'];
+        for (const importer of Object.values(i))
+          delete importer.devDependencies?.['eslint-plugin-storybook'];
+      },
+      /storybook: none installed/,
+    ],
+  ])('should report %s (the guard is not blind)', (_label, plant, expected) => {
+    const importers = lockImporters();
+    plant(importers);
+    expect(partnerSplits(importers).join('\n')).toMatch(expected);
+  });
+
+  it('should accept an eslint patch apart from @eslint/js within one major', () => {
+    const importers = lockImporters();
+    importers['apps/web'].devDependencies!['@eslint/js'] = { version: '10.9.9' };
+    expect(partnerSplits(importers)).toEqual([]);
+  });
+});
