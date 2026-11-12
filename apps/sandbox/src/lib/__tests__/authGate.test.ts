@@ -337,7 +337,7 @@ describe('AUTH-1 · the gate runs at all', () => {
     expect(line).toMatch(/^Private docs read from: DIBOAS_DOCS_DIR \(…\/review-gate-private-docs-/);
     expect(line).not.toContain(tmpdir());
     expect(line).not.toMatch(/\/(Users|home|var|tmp|private)\//);
-  });
+  }, 20_000); /* 5.904: one full register run (3.6 s with coverage and every workspace running at once) */
 
   it('should refuse an unknown mode rather than silently pass', () => {
     const r = gate('definitely-not-a-mode');

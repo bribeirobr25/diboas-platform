@@ -116,7 +116,7 @@ describe('RulesBuilderScreen — G9 (§4.9)', () => {
     }>;
     expect(created).toHaveLength(1);
     expect(created[0].split).toEqual([{ goalId, percent: 25 }]);
-  });
+  }, 20_000); /* 5.879: timed out at 5 s under a full coverage run (4.6 s for two files alone) */
 
   it('should not offer the same goal twice across rows', () => {
     seedGoals();

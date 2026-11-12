@@ -580,12 +580,12 @@ describe('GoalDetailScreen — the earnings line takes its colour from its sign 
   it('should mark a FALLEN position as a loss, never in the gain colour', () => {
     // 85% growth exposure across a falling market: accrued < 0 (g8's headline).
     expect(earningsSign('fullThrottle', true)).toBe('neg');
-  });
+  }, 20_000); /* 5.904: 180 days over a 400-day, six-protocol history, then a render (2.4 s under load) */
 
   it('should mark a position that earned as a gain', () => {
     // All-lending at a flat 5%: accrual can only be positive.
     expect(earningsSign('safeHarbor', true)).toBe('pos');
-  });
+  }, 20_000); /* 5.904: the same replay (3.0 s with coverage and every workspace running at once) */
 
   it('should claim neither before anything has accrued', () => {
     expect(earningsSign('safeHarbor', false)).toBe('none');

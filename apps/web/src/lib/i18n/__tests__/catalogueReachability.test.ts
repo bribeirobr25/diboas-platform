@@ -325,7 +325,7 @@ describe('5.800 · every website catalogue key is read by code (ratchet)', () =>
         `${file} reads nothing only it can read`
       ).toBeGreaterThan(before);
     }
-  });
+  }, 30_000); // 5.904: one reachability pass per injected reader, as its sibling (5.9 s under a parallel all-workspace run)
 
   it('should tell a read key from an unread one, file by file (non-vacuity)', () => {
     const ns = new Set(['faq', 'market', 'common', 'strategies', 'about']);
