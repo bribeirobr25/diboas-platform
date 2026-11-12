@@ -44,7 +44,10 @@
         "$TURBO_ROOT$/scripts/**",
         "$TURBO_ROOT$/.github/**",
         "$TURBO_ROOT$/turbo.json",
-        "$TURBO_ROOT$/package.json"
+        "$TURBO_ROOT$/package.json",
+        "$TURBO_ROOT$/pnpm-lock.yaml",
+        "$TURBO_ROOT$/apps/*/package.json",
+        "$TURBO_ROOT$/packages/*/package.json"
       ],
       "passThroughEnv": ["DIBOAS_DOCS_DIR"],
       "outputs": ["coverage/**"]
@@ -57,7 +60,10 @@
         "$TURBO_ROOT$/.github/workflows/ci.yml",
         "$TURBO_ROOT$/.github/**",
         "$TURBO_ROOT$/turbo.json",
-        "$TURBO_ROOT$/package.json"
+        "$TURBO_ROOT$/package.json",
+        "$TURBO_ROOT$/pnpm-lock.yaml",
+        "$TURBO_ROOT$/apps/*/package.json",
+        "$TURBO_ROOT$/packages/*/package.json"
       ],
       "passThroughEnv": ["DIBOAS_DOCS_DIR"],
       "outputs": ["coverage/**"]
