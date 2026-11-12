@@ -45,6 +45,9 @@ const COVERAGE_THRESHOLDS = {
 export default defineConfig({
   plugins: [react()],
   test: {
+    // Vitest 5's default, written out (fifteenth audit D-2): mock call history resets before
+    // each test. A call made at import or in beforeAll is not visible to a test's assertions.
+    clearMocks: true,
     environment: 'node',
     // Hermeticity (Phase-3 audit, 2026-07-16): happy-dom fetches iframe srcs
     // for real by default, so the VideoFacade suite was firing live network

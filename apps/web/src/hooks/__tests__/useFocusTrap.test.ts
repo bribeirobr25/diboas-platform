@@ -3,9 +3,8 @@ import { describe, it, expect } from 'vitest';
 /**
  * useFocusTrap unit tests
  *
- * NOTE: Full DOM-based tests require jsdom. These tests validate the
+ * NOTE: the DOM-based tests live in useFocusTrap.test.tsx (happy-dom). These tests validate the
  * hook's logic and constants without a DOM environment.
- * When jsdom is added as a dependency, expand with renderHook tests.
  */
 
 // Import the module to validate exports
