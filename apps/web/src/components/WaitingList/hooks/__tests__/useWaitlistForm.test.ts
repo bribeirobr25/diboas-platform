@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Test the form validation and submission logic without DOM rendering
-// (jsdom not available — test the underlying logic patterns)
+// (no DOM in this file — the underlying logic patterns are tested directly)
 
 vi.mock('@/components/Providers', () => ({
   useLocale: vi.fn(() => ({ locale: 'en' })),

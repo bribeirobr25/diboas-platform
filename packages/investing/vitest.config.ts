@@ -14,6 +14,9 @@ const COVERAGE_THRESHOLDS = {
 
 export default defineConfig({
   test: {
+    // Vitest 5's default, written out (fifteenth audit D-2): mock call history resets before
+    // each test. A call made at import or in beforeAll is not visible to a test's assertions.
+    clearMocks: true,
     environment: 'node',
     include: ['src/**/__tests__/**/*.test.ts'],
     coverage: {
