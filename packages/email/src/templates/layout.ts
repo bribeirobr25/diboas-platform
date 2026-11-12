@@ -22,6 +22,51 @@ function getDisclaimer(locale: string): string {
   return REGULATORY_DISCLAIMERS[locale] || REGULATORY_DISCLAIMERS['en'];
 }
 
+/**
+ * The footer in the reader's language, linking to the legal pages in that language (fifteenth
+ * audit: every email linked /en/legal/… with English labels). The labels are the site's own:
+ * common.json `copyright`, `privacyPolicy`, `unsubscribeButton` and the Terms page title.
+ */
+const FOOTER: Record<
+  string,
+  { rights: string; privacy: string; terms: string; unsubscribe: string; transactional: string }
+> = {
+  en: {
+    rights: 'All rights reserved.',
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Use',
+    unsubscribe: 'Unsubscribe',
+    transactional: 'This is a transactional email related to your diBoaS waitlist membership.',
+  },
+  'pt-BR': {
+    rights: 'Todos os direitos reservados.',
+    privacy: 'Política de Privacidade',
+    terms: 'Termos de Uso',
+    unsubscribe: 'Cancelar inscrição',
+    transactional:
+      'Este é um e-mail transacional sobre a sua inscrição na lista de espera do diBoaS.',
+  },
+  es: {
+    rights: 'Todos los derechos reservados.',
+    privacy: 'Política de Privacidad',
+    terms: 'Términos de Uso',
+    unsubscribe: 'Cancelar suscripción',
+    transactional:
+      'Este es un correo transaccional sobre tu inscripción en la lista de espera de diBoaS.',
+  },
+  de: {
+    rights: 'Alle Rechte vorbehalten.',
+    privacy: 'Datenschutzerklärung',
+    terms: 'Nutzungsbedingungen',
+    unsubscribe: 'Abmelden',
+    transactional:
+      'Dies ist eine Transaktions-E-Mail zu deiner Anmeldung auf der diBoaS-Warteliste.',
+  },
+};
+
+/** The site's locale for a link: one of the four, else English. */
+const linkLocale = (locale: string): string => (FOOTER[locale] ? locale : 'en');
+
 export function wrapInLayout(
   content: string,
   options?: { unsubscribeUrl?: string; locale?: string }
@@ -29,6 +74,8 @@ export function wrapInLayout(
   const unsubscribeUrl = options?.unsubscribeUrl;
   const locale = options?.locale || 'en';
   const disclaimer = getDisclaimer(locale);
+  const footer = FOOTER[linkLocale(locale)];
+  const legal = (page: 'privacy' | 'terms') => `${BRAND.url}/${linkLocale(locale)}/legal/${page}`;
 
   return `<!DOCTYPE html>
 <html lang="${locale}">
@@ -58,19 +105,19 @@ export function wrapInLayout(
           <tr>
             <td style="padding:24px 40px;background-color:${BRAND.footerBg};border-top:1px solid #e2e8f0;">
               <p style="margin:0 0 8px;font-size:12px;color:#94a3b8;text-align:center;">
-                &copy; ${new Date().getFullYear()} ${BRAND.name}. All rights reserved.
+                &copy; ${new Date().getFullYear()} ${BRAND.name}. ${footer.rights}
               </p>
               <p style="margin:0 0 8px;font-size:12px;color:#94a3b8;text-align:center;">
-                <a href="${BRAND.privacyUrl}" style="color:#94a3b8;text-decoration:underline;">Privacy Policy</a>
+                <a href="${legal('privacy')}" style="color:#94a3b8;text-decoration:underline;">${footer.privacy}</a>
                 &nbsp;&bull;&nbsp;
-                <a href="${BRAND.termsUrl}" style="color:#94a3b8;text-decoration:underline;">Terms of Service</a>
-                ${unsubscribeUrl ? `&nbsp;&bull;&nbsp;<a href="${unsubscribeUrl}" style="color:#94a3b8;text-decoration:underline;">Unsubscribe</a>` : ''}
+                <a href="${legal('terms')}" style="color:#94a3b8;text-decoration:underline;">${footer.terms}</a>
+                ${unsubscribeUrl ? `&nbsp;&bull;&nbsp;<a href="${unsubscribeUrl}" style="color:#94a3b8;text-decoration:underline;">${footer.unsubscribe}</a>` : ''}
               </p>
               <p style="margin:0 0 8px;font-size:11px;color:#64748b;text-align:center;">
                 ${disclaimer}
               </p>
               <p style="margin:0;font-size:11px;color:#64748b;text-align:center;">
-                This is a transactional email related to your diBoaS waitlist membership.
+                ${footer.transactional}
               </p>
             </td>
           </tr>
