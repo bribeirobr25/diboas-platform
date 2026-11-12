@@ -21,14 +21,17 @@ const REPO = resolve(__dirname, '../../../../..');
 interface Step {
   run?: string;
   if?: unknown;
+  shell?: string;
   'continue-on-error'?: unknown;
 }
 interface Job {
   if?: unknown;
   'continue-on-error'?: unknown;
+  defaults?: { run?: { shell?: string } };
   steps?: Step[];
 }
 interface Workflow {
+  defaults?: { run?: { shell?: string } };
   jobs?: Record<string, Job>;
 }
 
@@ -63,6 +66,10 @@ function storybookGaps(ci: Workflow, workspaces: string[]): string[] {
     for (const s of steps) {
       if (s.if !== undefined) out.push(`${name}: its build-storybook step has an if:`);
       if (s['continue-on-error']) out.push(`${name}: its build-storybook step continues on error`);
+      /* A shell like 'true {0}' turns the step into a no-op (fifteenth audit, C-4). */
+      const shell = s.shell ?? quality.defaults?.run?.shell ?? ci.defaults?.run?.shell;
+      if (shell !== undefined && shell !== 'bash')
+        out.push(`${name}: its build-storybook step runs with shell ${shell}`);
     }
   }
   return out;
@@ -104,6 +111,20 @@ describe('CI builds every Storybook (5.919)', () => {
         stepOf(ci, 'web')['continue-on-error'] = true;
       },
       /web: its build-storybook step continues on error/,
+    ],
+    [
+      'a no-op shell on the step',
+      (ci) => {
+        stepOf(ci, 'sandbox').shell = 'true {0}';
+      },
+      /sandbox: its build-storybook step runs with shell true \{0\}/,
+    ],
+    [
+      'a no-op shell for the whole workflow',
+      (ci) => {
+        ci.defaults = { run: { shell: 'true {0}' } };
+      },
+      /web: its build-storybook step runs with shell/,
     ],
     [
       'a skipped quality job',
