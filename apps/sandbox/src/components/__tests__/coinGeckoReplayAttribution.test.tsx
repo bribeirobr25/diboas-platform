@@ -213,5 +213,5 @@ describe('GoalsList — the list is mixed, the card is not', () => {
     );
     // Exactly ONE card carries it, though two goals are listed.
     expect(attributions()).toHaveLength(1);
-  });
+  }, 20_000); /* 5.879: two 400-day replays and a render; timed out at 5 s under a full coverage run */
 });
