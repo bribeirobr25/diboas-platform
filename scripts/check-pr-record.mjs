@@ -35,12 +35,40 @@ export const EXEMPT_HEADS = [/^editorial\/market-refresh-auto$/, /^dependabot\//
  * 5.835 — a branch NAME alone never exempts: anyone can name a branch `dependabot/…`.
  * An exemption needs the exempt head pattern AND a head in this repository (never a fork)
  * AND, for `dependabot/**`, the Dependabot author. A missing value fails closed (not exempt).
+ *
+ * Fifteenth audit (C-6): for `dependabot/**` every COMMIT must be Dependabot's too. A Dependabot
+ * PR that carries someone else's commits (a fix pushed onto its branch) is no longer
+ * Dependabot's change: it needs a record and goes to the founder
+ * (DR-2026-11-11-dependabot-merge-delegated). No author list fails closed.
  */
-export function isExempt({ head = '', author = '', headRepo = '', baseRepo = '' }) {
+export function isExempt({
+  head = '',
+  author = '',
+  headRepo = '',
+  baseRepo = '',
+  commitAuthors = /** @type {string[] | undefined} */ (undefined),
+}) {
   if (!EXEMPT_HEADS.some((re) => re.test(head))) return false;
   if (!headRepo || headRepo !== baseRepo) return false;
-  if (/^dependabot\//.test(head) && author !== 'dependabot[bot]') return false;
+  if (/^dependabot\//.test(head)) {
+    if (author !== 'dependabot[bot]') return false;
+    if (!commitAuthors || commitAuthors.length === 0) return false;
+    if (commitAuthors.some((a) => a !== 'dependabot[bot]')) return false;
+  }
   return true;
+}
+
+/** The commit authors the workflow wrote, one login per line (absent → undefined). */
+function readCommitAuthors(file) {
+  if (!file) return undefined;
+  try {
+    return readFileSync(file, 'utf8')
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean);
+  } catch {
+    return undefined;
+  }
 }
 
 /** The field names and the allowed STATE values, from the gate document itself. */
@@ -85,6 +113,11 @@ function main(argv, env) {
     author: env.PR_AUTHOR,
     headRepo: env.PR_HEAD_REPO,
     baseRepo: env.PR_BASE_REPO,
+    commitAuthors: readCommitAuthors(
+      argv.includes('--commit-authors')
+        ? argv[argv.indexOf('--commit-authors') + 1]
+        : env.PR_COMMIT_AUTHORS_FILE
+    ),
   });
   if (exempt) {
     console.log(`PR-RECORD · exempt head branch ${head}`);
