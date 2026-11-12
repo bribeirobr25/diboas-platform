@@ -11,14 +11,10 @@
  * The canonical wall phrasing (CLO-adopted): "the returns come from the
  * strategy, not from holding the dollars."
  *
- * This guard fails the build on any NEW pairing, EXCEPT the explicit allow-list
- * the CLO scoped from the 2026-07-21 inventory:
- *   - PERMANENT: protocol-mechanism labels in the transparency table (Cat 2 —
- *     they describe how a *protocol* works, not that the user's position earns)
- *     and disclaimers/tooltips (Cat 4 — they state returns are NOT guaranteed).
- *   - TRANSCREATION-PENDING: es/de strings whose fix rides the sandbox/web
- *     transcreation pass (Cat 1 safeHarbor es/de, Cat 3 es tool-notes). REMOVE
- *     these from the allow-list when transcreation lands.
+ * This guard fails the build on any NEW pairing, EXCEPT the explicit allow-list below: named
+ * protocol-mechanism texts (each with the founder decision that admits it) and one sentence that
+ * states no return is guaranteed. The 2026-07-21 transcreation-pending and disclaimer entries are
+ * gone: the strings were rewritten (2026-11-11), not exempted.
  */
 
 import { readdirSync, readFileSync } from 'node:fs';
@@ -41,29 +37,41 @@ const PATTERNS = JSON.parse(
 ) as { earn: string; stable: string };
 const EARN = PATTERNS.earn;
 const STABLE = PATTERNS.stable;
-const PAIRING = new RegExp(`(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`, 'i');
+// `s`: a line break inside a string must not hide a pairing (2026-11-11).
+const PAIRING = new RegExp(`(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`, 'is');
 
 /** `${locale}::${namespace}::${keyPath}` — CLO-scoped (2026-07-21 inventory). */
 const ALLOW: ReadonlySet<string> = new Set([
   // --- PERMANENT · Cat 2 · protocol-mechanism (factual transparency table) ---
+  // Ethena: how a synthetic dollar is made, set against stablecoins (a comparison, not a claim).
   'en::protocols::cards.ethena.description',
-  'en::protocols::cards.sky.description',
-  'en::strategies::protocols.items.skySsr.type',
   'es::protocols::cards.ethena.description',
+  'de::protocols::cards.ethena.description',
+  'pt-BR::protocols::cards.ethena.description',
+  // Sky's card is no longer an exception: rewritten 2026-11-11 to describe the mechanism with no
+  // earn word and no comparison with a savings account in any language (founder, W-B sign-off).
+  // Aave/Compound: a distinct mechanism (lending USDC to borrowers) with its condition
+  // (variable rate) and its risk, the education LC-RR-01 allows (founder 2026-11-11,
+  // DR-2026-11-11-market-cleanup-c2-decisions B; en/pt-BR join with the widened pattern).
+  'en::strategies::protocols.items.aaveV3.summary',
+  'en::strategies::protocols.items.compoundV3.summary',
   'es::strategies::protocols.items.aaveV3.summary',
   'es::strategies::protocols.items.compoundV3.summary',
-  'es::strategies::protocols.items.skySsr.type',
-  'de::protocols::cards.ethena.description',
-  'de::protocols::cards.sky.description',
   'de::strategies::protocols.items.aaveV3.summary',
   'de::strategies::protocols.items.compoundV3.summary',
-  'de::strategies::protocols.items.skySsr.type',
-  'pt-BR::protocols::cards.ethena.description',
-  'pt-BR::strategies::protocols.items.skySsr.type',
-  // --- PERMANENT · Cat 4 · disclaimers / tooltips (state returns NOT guaranteed) ---
-  'es::tools-shared::disclaimer',
-  'pt-BR::learn-compound-interest::calculator.calibrationNote',
-  'pt-BR::tools-shared::disclaimer',
+  'pt-BR::strategies::protocols.items.aaveV3.summary',
+  'pt-BR::strategies::protocols.items.compoundV3.summary',
+  // Sky's lending summary ("Returns generated from lending USDS to borrowers. Variable rate."):
+  // the same class as Aave/Compound under decision B; USDS joined the pattern 2026-11-11.
+  'en::strategies::protocols.items.skySsr.summary',
+  'es::strategies::protocols.items.skySsr.summary',
+  'de::strategies::protocols.items.skySsr.summary',
+  'pt-BR::strategies::protocols.items.skySsr.summary',
+  // --- PERMANENT · a negation: "Não existe retorno garantido." then, after a paragraph break,
+  // "Dólar digital, …" (visible once the wall reads across line breaks, 2026-11-11). ---
+  'pt-BR::landing-b2c::ptbr.trust.body',
+  // Removed 2026-11-11 by rewrite, not by exception: the Sky type label ("Stablecoin yield",
+  // now "Savings rate"), the es/pt-BR tools disclaimer and the pt-BR Learn calibration note.
   // NB: the investor-docs pitch-deck "USDC plus on-chain yield" bullets were
   // RULED out of consumer GENIUS scope (CLO final sign-off 2026-07-21) yet
   // reworded to "on-chain returns" for house-style hygiene — so they no longer
@@ -202,9 +210,11 @@ const GENIUS_POSITIVE_CONTROLS: readonly string[] = [
 
 describe('B2-5 — the wall still catches every known breach (positive controls)', () => {
   it('should keep every control list at or above its floor when the fixture is read', () => {
-    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(20);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(14);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(14);
+    // Floors at the current counts (2026-11-11): narrowing the pattern and deleting its controls
+    // in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(37);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(50);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(27);
     expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
   });
 
@@ -247,5 +257,219 @@ describe('B2-6 — the share-image texts carry no earn/stablecoin pairing', () =
 
   it('should flag a planted share-image pairing (positive control)', () => {
     expect(PAIRING.test('Your money earning in digital dollars over 5 years')).toBe(true);
+  });
+});
+
+/**
+ * GENIUS-COMBO-1 (register 5.812, founder 2026-11-11): the wall above reads one string at a
+ * time, but a reader sees strings TOGETHER. "Conservador (7%)" + " em dólar digital" + a tooltip
+ * about "retorno" passed every per-string check while the screen paired a return with the
+ * digital dollar. Each group below is the set of catalogue strings one component renders side by
+ * side (bound to the component by a source read, so a group cannot drift from the screen). A
+ * group fails when an earn word and a stablecoin word occur ANYWHERE in it: co-occurrence, not a
+ * 40-character window, so the join separator cannot change the answer. Slots are filled as
+ * served. Out of scope, recorded: a chart's screen-reader sentence (decision A kept it) and the
+ * protocol table (the named education exception above).
+ */
+describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin pairing', () => {
+  const EARN_ANY = new RegExp(`(?:${EARN})`, 'i');
+  const STABLE_ANY = new RegExp(`(?:${STABLE})`, 'i');
+  // Plan §3.5: a stablecoin word next to an earn OR a rate word. "Conservador (7%) em dólar
+  // digital" + a tooltip about "taxas" pairs a rate with the stablecoin without any earn word.
+  const RATE_ANY = /\b(?:rates?|taxas?|tasas?|tipos?|zins\w*|zinss[äa]tze?)\b|\d\s?%/i;
+  const pairsInGroup = (texts: readonly string[]): boolean => {
+    const joined = texts.join(' \u2016 ');
+    return STABLE_ANY.test(joined) && (EARN_ANY.test(joined) || RATE_ANY.test(joined));
+  };
+  const SECTIONS = join(__dirname, '../../../components/Sections');
+  const catalogue = (locale: string, ns: string): unknown =>
+    JSON.parse(readFileSync(join(TRANSLATIONS_DIR, locale, `${ns}.json`), 'utf8'));
+  const leaf = (locale: string, id: string): string => {
+    const [ns, path] = id.split(':') as [string, string];
+    const value = path
+      .split('.')
+      .reduce<unknown>(
+        (node, part) => (node as Record<string, unknown> | undefined)?.[part],
+        catalogue(locale, ns)
+      );
+    if (typeof value !== 'string') throw new Error(`${locale} ${id} is not a string`);
+    return served(value, locale);
+  };
+
+  type Group = { name: string; file: string; uses: string[]; ids: string[] };
+  const SCENARIOS = ['conservative', 'historical', 'optimistic'] as const;
+  const cap = (s: string) => s[0]!.toUpperCase() + s.slice(1);
+  const GROUPS: Group[] = [
+    {
+      name: 'currency result: eyebrow + caption + note',
+      file: 'CurrencyDepreciationCalculator/CurrencyDepreciationCalculator.tsx',
+      uses: ["t('resultMoment.eyebrow')", "t('output.diboasLabel')", "t('output.diboasNote'"],
+      ids: [
+        'tools-currency-depreciation:resultMoment.eyebrow',
+        'tools-currency-depreciation:output.diboasLabel',
+        'tools-currency-depreciation:output.diboasNote',
+      ],
+    },
+    {
+      name: 'currency result (US dollar): eyebrow + caption + note',
+      file: 'CurrencyDepreciationCalculator/CurrencyDepreciationCalculator.tsx',
+      uses: ["t('resultMoment.eyebrowUsd')", "t('output.diboasLabel')", "t('output.diboasNote'"],
+      ids: [
+        'tools-currency-depreciation:resultMoment.eyebrowUsd',
+        'tools-currency-depreciation:output.diboasLabel',
+        'tools-currency-depreciation:output.diboasNote',
+      ],
+    },
+    {
+      name: 'idle cash result: eyebrow + caption + equal-rate note',
+      file: 'IdleCashCalculator/IdleCashCalculator.tsx',
+      uses: ["t('resultMoment.eyebrow')", "t('output.diboasLabel')", "t('output.differenceZero'"],
+      ids: [
+        'tools-idle-cash:resultMoment.eyebrow',
+        'tools-idle-cash:output.diboasLabel',
+        'tools-idle-cash:output.differenceZero',
+      ],
+    },
+    {
+      name: 'emergency fund: conservative label + tooltip',
+      file: 'EmergencyFundCalculator/EmergencyFundCalculator.tsx',
+      uses: ["tShared('scenarios.conservative')", "tShared('scenarios.conservativeTooltip')"],
+      ids: ['tools-shared:scenarios.conservative', 'tools-shared:scenarios.conservativeTooltip'],
+    },
+    ...SCENARIOS.flatMap((s): Group[] => [
+      {
+        name: `compound interest, retirement, goal savings: ${s} label + tooltip`,
+        file: 'CompoundInterestCalculator/variants/CalculatorDefault/CalculatorOutputs.tsx',
+        uses: [
+          `learn-compound-interest.calculator.output${cap(s)}`,
+          `tools-shared.scenarios.${s}Tooltip`,
+        ],
+        ids: [
+          `learn-compound-interest:calculator.output${cap(s)}`,
+          `tools-shared:scenarios.${s}Tooltip`,
+        ],
+      },
+      {
+        name: `time to target: ${s} label + tooltip`,
+        file: 'TimeToTargetCalculator/TimeToTargetCalculator.tsx',
+        uses: ['tShared(`scenarios.${key}`)', 'tShared(`scenarios.${key}Tooltip`)'],
+        ids: [`tools-shared:scenarios.${s}`, `tools-shared:scenarios.${s}Tooltip`],
+      },
+      {
+        name: `money jobs: ${s} label`,
+        file: 'MoneyJobsCalculator/MoneyJobsCalculator.tsx',
+        uses: ['tShared(`scenarios.${row.scenario}`)'],
+        ids: [`tools-shared:scenarios.${s}`],
+      },
+    ]),
+  ];
+
+  it.each(GROUPS)('should bind "$name" to the component that renders it', ({ file, uses }) => {
+    const src = readFileSync(join(SECTIONS, file), 'utf8');
+    for (const use of uses) expect(src, use).toContain(use);
+  });
+
+  it('should find no stablecoin word beside an earn or rate word in any rendered group, in all four locales', () => {
+    const failing: string[] = [];
+    let checked = 0;
+    for (const locale of LOCALES) {
+      for (const g of GROUPS) {
+        checked += 1;
+        if (pairsInGroup(g.ids.map((id) => leaf(locale, id)))) failing.push(`${locale}: ${g.name}`);
+      }
+    }
+    // A dropped locale cannot pass quietly (W-B review): every group, every locale.
+    expect(LOCALES).toEqual(['en', 'pt-BR', 'es', 'de']);
+    expect(checked).toBe(4 * GROUPS.length);
+    expect(failing).toEqual([]);
+  });
+
+  /**
+   * The groups above are hand lists, so a NEW string beside them (the old " em dólar digital"
+   * suffix put back as its own key, say) would not be in any group (W-B review). Every tool
+   * catalogue string that names a stablecoin is therefore a closed, named list: a new one fails
+   * here until someone rules on it. Each entry carries its reason.
+   */
+  const STABLE_ON_TOOLS: Readonly<Record<string, string>> = {
+    'tools-currency-depreciation::hero.subtitle':
+      'decision A: says what the tool compares (cash, bank, digital dollar); kept by the founder',
+    'tools-currency-depreciation::resultMoment.chartAria':
+      'decision A: the chart sentence for screen readers; kept by the founder',
+    'tools-currency-depreciation::resultMoment.chartAriaUsd':
+      'decision A: the chart sentence for screen readers (US dollar locale); kept by the founder',
+    'tools-currency-depreciation::seo.description':
+      'decision A: the search description says what the tool compares (en, es, de; pt-BR rewritten)',
+    'tools-money-jobs::plan.brDollarLine':
+      'reserve diversification, no earn or rate word; renders below the plan table (flagged to the founder 2026-11-11)',
+  };
+  it('should allow a stablecoin word in a tool catalogue only where it is named and reasoned', () => {
+    const found: string[] = [];
+    for (const locale of LOCALES) {
+      const dir = join(TRANSLATIONS_DIR, locale);
+      for (const file of translationFiles(dir).filter((f) =>
+        /^(tools-|learn-compound-interest)/.test(f)
+      )) {
+        const ns = file.replace(/\.json$/, '');
+        walkStrings(JSON.parse(readFileSync(join(dir, file), 'utf8')), '', (text, path) => {
+          if (STABLE_ANY.test(text) && !STABLE_ON_TOOLS[`${ns}::${path}`]) {
+            found.push(`${locale}::${ns}::${path} — "${text.slice(0, 80)}"`);
+          }
+        });
+      }
+    }
+    expect(found).toEqual([]);
+  });
+
+  it("should find no pairing across a share image's headline and line (every tool, every locale)", () => {
+    for (const locale of LOCALES) {
+      const r = OG_TRANSLATIONS[locale].toolResult;
+      for (const headline of [r.headline, ...Object.values(r.headlineByTool)]) {
+        for (const years of [1, 5]) {
+          expect(pairsInGroup([headline, r.subline(years)]), `${locale} ${headline}`).toBe(false);
+        }
+      }
+    }
+  });
+
+  // Planted positives: the texts as they rendered before 2026-11-11. Each must fail, so a
+  // weakened group check (a window again, a dropped locale) cannot pass unnoticed.
+  it.each([
+    [
+      'pt-BR label + suffix + tooltip',
+      [
+        'Conservador (7%)',
+        ' em dólar digital',
+        'Faixa conservadora de retorno da estratégia no longo prazo',
+      ],
+    ],
+    [
+      'es label + suffix + tooltip',
+      [
+        'Conservador (7%)',
+        ' en dólar digital',
+        'Rango conservador de rendimiento de la estrategia a largo plazo',
+      ],
+    ],
+    [
+      'de label + suffix + tooltip',
+      ['Konservativ (7%)', ' im Digital-Dollar', 'Konservative Bandbreite für Strategie-Renditen'],
+    ],
+    ['en note', ['7% historical strategy return, held in digital dollar']],
+    ['pt-BR note', ['7% de retorno histórico da estratégia, mantido em dólar digital']],
+    ['en eyebrow + caption', ['What your money really earns', 'Digital dollar at diBoaS']],
+    ['pt-BR eyebrow + caption', ['O que seu dinheiro realmente rende', 'Dólar digital no diBoaS']],
+    ['es eyebrow + caption', ['Lo que tu dinero realmente gana', 'Dólar digital en diBoaS']],
+    ['de eyebrow + caption', ['Was dein Geld wirklich verdient', 'Digital-Dollar bei diBoaS']],
+    ['words far apart in one group', ['What your money really earns', 'x'.repeat(200), 'USDC']],
+    [
+      "pt-BR label + suffix + today's tooltip (a rate word, no earn word)",
+      [
+        'Conservador (7%)',
+        ' em dólar digital',
+        'Uma hipótese ilustrativa de longo prazo para uma estratégia conservadora, baseada nas melhores taxas passivas disponíveis em 2026.',
+      ],
+    ],
+  ])('should flag the planted group "%s"', (_name, texts) => {
+    expect(pairsInGroup(texts)).toBe(true);
   });
 });

@@ -201,13 +201,12 @@ export interface HistoricalRegimes {
 
 /**
  * Mock-iteration methodology shape — pragmatic subset of doc 09 §3. Future SDK
- * adds per-regime descriptions, signal_categories, and inline disclaimer. Mock
- * page reads the published canonical methodology_url for full text.
+ * adds per-regime descriptions, signal_categories, and inline disclaimer. There is no
+ * external methodology link (removed 2026-11-11: no diBoaS Analytics product, decision G-3).
  */
 export interface MethodologyData {
   version: string;
   published_at: string;
-  methodology_url: string;
   framework_name: string;
   max_score: number;
   score_bands: Array<{

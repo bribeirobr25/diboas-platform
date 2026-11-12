@@ -6,6 +6,4 @@ export { SignalCard } from './SignalCard';
 export { SignalCardsGrid } from './SignalCardsGrid';
 export { HistoricalRegimeChart } from './HistoricalRegimeChart';
 export { DataFreshnessBadge } from './DataFreshnessBadge';
-export { MethodologyLink } from './MethodologyLink';
 export { ProductDisclaimer } from './ProductDisclaimer';
-export { PoweredByAttribution } from './PoweredByAttribution';

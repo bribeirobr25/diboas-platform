@@ -176,7 +176,7 @@ export function EmergencyFundCalculator() {
             <p className={styles.resultValue}>{formatMonths(result.diboasMonths)}</p>
             <p className={styles.resultRate}>
               {tShared('scenarios.conservative')}
-              {hedged ? tShared('scenarios.digitalDollarSuffix') : ''}
+              {hedged ? tShared('scenarios.usdSuffix') : ''}
               <span
                 className={styles.tooltip}
                 title={tShared('scenarios.conservativeTooltip')}

@@ -409,13 +409,9 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                                 key={row.scenario}
                                 className={i === 0 ? styles.projRowLead : undefined}
                               >
-                                {/* Hedge disclosure rides the rate label (house
-                                  pattern: TimeToTarget per-scenario suffix) */}
                                 <th scope="row">
                                   {tShared(`scenarios.${row.scenario}`)}
-                                  {personalPlan?.hedged
-                                    ? tShared('scenarios.digitalDollarSuffix')
-                                    : ''}
+                                  {personalPlan?.hedged ? tShared('scenarios.usdSuffix') : ''}
                                 </th>
                                 <td className={styles.mono}>{fmt(row.fiveYear)}</td>
                                 <td className={styles.mono}>{fmt(row.tenYear)}</td>
@@ -605,9 +601,6 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                             amount: fmt(business.excessIdeal),
                             delta: fmt(businessPlan.idleComparison.difference),
                           })}
-                          {businessPlan.idleComparison.hedged
-                            ? ` ${tShared('scenarios.digitalDollarSuffix')}`
-                            : ''}
                         </p>
                       ) : null}
                       <p className={styles.freeDisclaimer}>{tShared('disclaimer')}</p>

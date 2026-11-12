@@ -46,13 +46,6 @@
       "STALE": "Veraltet",
       "UNAVAILABLE": "Nicht verfügbar"
     },
-    "methodologyTitle": "Wie das berechnet wird",
-    "methodologyLead": "Ein vollständiges Methodik-Dokument ist noch nicht veröffentlicht. Bis dahin beschreibt diese Seite jedes Signal und wie viele Punkte es beitragen kann.",
-    "methodologyLinkLabel": "Methodik lesen",
-    "poweredByLabel": "Bereitgestellt von",
-    "poweredByProduct": "diBoaS Analytics",
-    "methodologyComingSoon": "Vollständige Methodik in Kürze",
-    "comingSoon": "in Kürze",
     "sources": {
       "btc": "Bitcoin-Preis",
       "us10y": "Rendite 10-jähriger US-Staatsanleihen",
@@ -64,7 +57,8 @@
     },
     "memoToggle": "Das vollständige Wochen-Memo lesen",
     "coverageNote": "Eingeschränkte Abdeckung: Der ETF-Fluss-Indikator ist ausgesetzt, weil sich seine Daten nicht Woche für Woche prüfen lassen. Seine {points} Punkte zählen nicht, der Wert wird weiter auf der {max}-Punkte-Skala gelesen. Eine dadurch verursachte Änderung des Werts ist eine Änderung in unseren Daten, keine Marktbewegung.",
-    "chartCoverageNote": "Ab dem {date} zählen die Werte den ausgesetzten ETF-Fluss-Indikator nicht mehr. Eine Änderung an dieser Stelle kann den Wegfall seiner Punkte mit Bewegungen der übrigen Signale verbinden."
+    "chartCoverageNote": "Ab dem {date} zählen die Werte den ausgesetzten ETF-Fluss-Indikator nicht mehr. Eine Änderung an dieser Stelle kann den Wegfall seiner Punkte mit Bewegungen der übrigen Signale verbinden.",
+    "dataSource": "Alle Daten stammen von diBoaS Analytics."
   },
   "cta": {
     "cadence": "Wöchentlich aktualisiert",

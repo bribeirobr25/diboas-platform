@@ -88,7 +88,7 @@ apps/web/data/market/shared/
   historical.json             # since-inception weekly series of past regime scores (one point per real run)
   signals.json                # Detailed per-signal data (used by the expandable cards)
   data-status.json            # Per-upstream-source freshness pills (CoinGecko, FRED:M2SL, etc.)
-  methodology.json            # Canonical methodology metadata (version, bands, URL)
+  methodology.json            # Canonical methodology metadata (version, bands; no URL since 2026-11-11)
   product-disclaimer.json     # Educational-framing disclaimer text (legal-driven; rare edits)
 ```
 
@@ -105,8 +105,8 @@ apps/web/data/market/shared/
 | `signals.json`                                          | The per-card sub-signal list that appears when a user clicks "Show signals" on a card (BTC vs. long-term MA, etc.).                                                                                                                                                         |
 | `signals.json` → `groups[macro_environment].state_view` | **`/market/backdrop` only** (added 2026-08-24): the state-grammar `lead` (points-free opening + one beat per condition) and `depth` (the numbers, behind a toggle). GENERATED from `templates/state-beats.json`; `--check` rejects a hand-edit. The scored views ignore it. |
 | `data-status.json`                                      | The "Data sources" pill row (CoinGecko · FRESH, FRED:M2SL · DELAYED, etc.).                                                                                                                                                                                                 |
-| `methodology.json`                                      | "Read the methodology" link target metadata + score-band ranges.                                                                                                                                                                                                            |
-| `product-disclaimer.json`                               | The educational-disclaimer note above the host's regulatory disclaimer.                                                                                                                                                                                                     |
+| `methodology.json`                                      | The scale metadata (max score, score-band ranges); no link since 2026-11-11.                                                                                                                                                                                                |
+| `product-disclaimer.json`                               | The educational disclaimer, after the "All data comes from diBoaS Analytics." note and above the host's regulatory disclaimer.                                                                                                                                              |
 
 ### Intentional divergence from `apps/web/src/lib/analytics-sdk/fixtures/` (L5 round-3)
 
@@ -171,7 +171,7 @@ Same shape as `regime.json#signal_groups` but with the full per-signal array pop
 
 ### `methodology.json`
 
-Versioned schema metadata. Edit only on methodology version bump. The `methodology_url` field must start with `https://diboas-analytics.com`.
+Versioned schema metadata. Edit only on methodology version bump, or to remove a non-scoring metadata field by founder decision (the `methodology_url` link was removed 2026-11-11: there is no diBoaS Analytics product, so nothing links to it; weights, bands and groups were untouched, so the version did not change). METH-3 keeps this file and `analytics-sdk/fixtures/methodology.json` identical: edit both.
 
 ### `product-disclaimer.json`
 
@@ -509,7 +509,6 @@ If you're unsure whether a change is editorial or engineering, default to engine
 
 ## 10. Reference links
 
-- canonical methodology reference: https://diboas-analytics.com/methodology
 - Phase 7 jargon ban policy: `CLAUDE.md` (search for "digital dollar")
 - i18n locale list + naming conventions: `docs/tech/internationalization.md`
 - ETF-01 net-flow sourcing + source fetchability / headless-browser policy: `docs/researches/MoneyTools_LiveData_Consolidated.md` §4.5

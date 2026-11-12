@@ -69,7 +69,8 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'What it would be worth today',
         'card-fees': 'What I could save',
       },
-      subline: (years) => `Held in digital dollars for ${years} ${years === 1 ? 'year' : 'years'}`,
+      subline: (years) =>
+        `In a diBoaS strategy for ${years} ${years === 1 ? 'year' : 'years'}. Illustrative, not a forecast.`,
       cta: 'See yours at diboas.com',
     },
     default: {
@@ -104,7 +105,8 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'asset-history': 'Quanto valeria hoje',
         'card-fees': 'Quanto eu poderia economizar',
       },
-      subline: (years) => `Mantido em dólar digital por ${years} ${years === 1 ? 'ano' : 'anos'}`,
+      subline: (years) =>
+        `Em uma estratégia diBoaS por ${years} ${years === 1 ? 'ano' : 'anos'}. Ilustrativo, não é previsão.`,
       cta: 'Calcule o seu em diboas.com',
     },
     default: {
@@ -140,7 +142,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'card-fees': 'Cuánto podría ahorrar',
       },
       subline: (years) =>
-        `Guardado en dólar digital durante ${years} ${years === 1 ? 'año' : 'años'}`,
+        `En una estrategia de diBoaS durante ${years} ${years === 1 ? 'año' : 'años'}. Ilustrativo, no es una previsión.`,
       cta: 'Calcula el tuyo en diboas.com',
     },
     default: {
@@ -176,7 +178,7 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
         'card-fees': 'Was ich sparen könnte',
       },
       subline: (years) =>
-        `${years} ${years === 1 ? 'Jahr' : 'Jahre'} lang als digitaler Dollar gehalten`,
+        `${years} ${years === 1 ? 'Jahr' : 'Jahre'} lang in einer diBoaS-Strategie. Illustrativ, keine Prognose.`,
       cta: 'Berechne deins auf diboas.com',
     },
     default: {

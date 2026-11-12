@@ -425,9 +425,10 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   ) as { earn: string; stable: string };
   const EARN = PATTERNS.earn;
   const STABLE = PATTERNS.stable;
+  // `s`: a line break inside a string must not hide a pairing (2026-11-11).
   const PAIRING = new RegExp(
     `(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`,
-    'i'
+    'is'
   );
 
   // POSITIVE CONTROLS — the SAME fixture the web wall reads (`config/genius-wall-controls.json`):
@@ -438,9 +439,11 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   ) as { stableForms: string[]; earnForms: string[]; breaches: string[]; windowChars: number };
 
   it('should keep every control list at or above its floor when the fixture is read', () => {
-    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(20);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(14);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(14);
+    // Floors at the current counts (2026-11-11): narrowing the pattern and deleting its controls
+    // in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(37);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(50);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(27);
     expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
   });
 

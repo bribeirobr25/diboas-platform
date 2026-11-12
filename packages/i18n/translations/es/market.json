@@ -46,13 +46,6 @@
       "STALE": "Obsoleto",
       "UNAVAILABLE": "No disponible"
     },
-    "methodologyTitle": "Cómo se calcula esto",
-    "methodologyLead": "Todavía no se ha publicado un documento completo de metodología. Hasta entonces, esta página describe cada señal y cuántos puntos puede sumar.",
-    "methodologyLinkLabel": "Leer la metodología",
-    "poweredByLabel": "Con la tecnología de",
-    "poweredByProduct": "diBoaS Analytics",
-    "methodologyComingSoon": "Metodología completa próximamente",
-    "comingSoon": "próximamente",
     "sources": {
       "btc": "Precio de Bitcoin",
       "us10y": "Rendimiento del Tesoro de EE. UU. a 10 años",
@@ -64,7 +57,8 @@
     },
     "memoToggle": "Leer el memorando completo de la semana",
     "coverageNote": "Cobertura reducida: el indicador de flujos de ETF está suspendido porque sus datos no pueden verificarse semana a semana. Sus {points} puntos no cuentan, y la puntuación se sigue leyendo en la escala de {max} puntos. Un cambio de puntuación causado por esto es un cambio en nuestros datos, no un movimiento del mercado.",
-    "chartCoverageNote": "Desde el {date}, las puntuaciones dejan de contar el indicador de flujos de ETF, que está suspendido. Un cambio en ese punto puede combinar la retirada de sus puntos con movimientos en las demás señales."
+    "chartCoverageNote": "Desde el {date}, las puntuaciones dejan de contar el indicador de flujos de ETF, que está suspendido. Un cambio en ese punto puede combinar la retirada de sus puntos con movimientos en las demás señales.",
+    "dataSource": "Todos los datos provienen de diBoaS Analytics."
   },
   "cta": {
     "cadence": "Actualizado cada semana",

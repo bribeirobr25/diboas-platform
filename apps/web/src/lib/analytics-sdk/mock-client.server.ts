@@ -184,6 +184,8 @@ export async function fetchDataStatus(
   return applyReadTimeFreshness(data.dataStatus as unknown as DataStatus, now);
 }
 
+/** No page renders the methodology text since 2026-11-11 (the band became a source note); it is
+ *  kept because the history chart's scale reads its `max_score` (market clean-up C2-S). */
 export async function fetchMethodology(view: string = DEFAULT_VIEW): Promise<MethodologyData> {
   const data = await loadViewData(view);
   return data.methodology as unknown as MethodologyData;

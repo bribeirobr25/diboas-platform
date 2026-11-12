@@ -68,7 +68,7 @@
     "items": {
       "skySsr": {
         "name": "Sky SSR",
-        "type": "Rendimento em stablecoin",
+        "type": "Taxa do protocolo",
         "chain": "Arbitrum",
         "asset": "USDS",
         "cryptoExposure": "Nenhuma",

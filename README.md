@@ -169,35 +169,35 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 ## Pages
 
-| Route                          | Description                                                                                                                                               |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                                                                |
-| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                                                                    |
-| `/about`                       | About page (founder story, mission, beliefs)                                                                                                              |
-| `/strategies`                  | Investment strategies                                                                                                                                     |
-| `/protocols`                   | Protocol transparency                                                                                                                                     |
-| `/help`                        | Help center (6 FAQ topics)                                                                                                                                |
-| `/security`                    | Security information                                                                                                                                      |
-| `/demo`                        | Interactive financial demo                                                                                                                                |
-| `/dream-mode`                  | Goal calculator simulation                                                                                                                                |
-| `/learn/<talk>`                | Real Talk — the 7-talk Money Basics series (3-beat talks + quiz + tool moment; Talk 1 embeds the calculator)                                              |
-| `/tools`                       | Money tools landing — purpose-grouped calculators (11 tools)                                                                                              |
-| `/tools/money-jobs`            | Money Jobs — give every part of a monthly amount a job (B2C split + B2B runway; the suite's entry point)                                                  |
-| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                                                                                  |
-| `/tools/retirement`            | Retirement planning calculator                                                                                                                            |
-| `/tools/goal-savings`          | Goal savings calculator                                                                                                                                   |
-| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                                                                                  |
-| `/tools/inflation-impact`      | Inflation impact calculator                                                                                                                               |
-| `/tools/time-to-target`        | Time-to-target calculator                                                                                                                                 |
-| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                                                                                        |
-| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                                                                   |
-| `/tools/card-fees`             | B2B card fee savings calculator                                                                                                                           |
-| `/tools/idle-cash`             | B2B idle cash yield calculator                                                                                                                            |
-| `/market`                      | Adelaide Market — multi-view macro family (umbrella + `/market/bitcoin` + `/market/backdrop`; weekly refresh pipeline; host surface for diboas-analytics) |
-| `/email-preferences`           | Email unsubscribe / notification preferences                                                                                                              |
-| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                                                                                               |
-| `/share`                       | Social sharing redirect (OG metadata)                                                                                                                     |
-| `/legal/*`                     | Terms, Privacy, Cookies                                                                                                                                   |
+| Route                          | Description                                                                                                                                                          |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                                                                           |
+| `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                                                                               |
+| `/about`                       | About page (founder story, mission, beliefs)                                                                                                                         |
+| `/strategies`                  | Investment strategies                                                                                                                                                |
+| `/protocols`                   | Protocol transparency                                                                                                                                                |
+| `/help`                        | Help center (6 FAQ topics)                                                                                                                                           |
+| `/security`                    | Security information                                                                                                                                                 |
+| `/demo`                        | Interactive financial demo                                                                                                                                           |
+| `/dream-mode`                  | Goal calculator simulation                                                                                                                                           |
+| `/learn/<talk>`                | Real Talk — the 7-talk Money Basics series (3-beat talks + quiz + tool moment; Talk 1 embeds the calculator)                                                         |
+| `/tools`                       | Money tools landing — purpose-grouped calculators (11 tools)                                                                                                         |
+| `/tools/money-jobs`            | Money Jobs — give every part of a monthly amount a job (B2C split + B2B runway; the suite's entry point)                                                             |
+| `/tools/compound-interest`     | Compound interest calculator (tool variant — currency-hedge for non-USD)                                                                                             |
+| `/tools/retirement`            | Retirement planning calculator                                                                                                                                       |
+| `/tools/goal-savings`          | Goal savings calculator                                                                                                                                              |
+| `/tools/emergency-fund`        | Emergency fund time-to-target calculator                                                                                                                             |
+| `/tools/inflation-impact`      | Inflation impact calculator                                                                                                                                          |
+| `/tools/time-to-target`        | Time-to-target calculator                                                                                                                                            |
+| `/tools/currency-depreciation` | Currency depreciation calculator (with hedge math)                                                                                                                   |
+| `/tools/asset-history`         | Retrospective asset DCA replay (8 assets, monthly-precision FX path for cross-currency)                                                                              |
+| `/tools/card-fees`             | B2B card fee savings calculator                                                                                                                                      |
+| `/tools/idle-cash`             | B2B idle cash yield calculator                                                                                                                                       |
+| `/market`                      | Adelaide Market — multi-view macro family (umbrella + `/market/bitcoin` + `/market/backdrop`; weekly refresh pipeline; data from the private diBoaS Analytics store) |
+| `/email-preferences`           | Email unsubscribe / notification preferences                                                                                                                         |
+| `/delete-confirm`              | GDPR account/waitlist deletion confirmation                                                                                                                          |
+| `/share`                       | Social sharing redirect (OG metadata)                                                                                                                                |
+| `/legal/*`                     | Terms, Privacy, Cookies                                                                                                                                              |
 
 All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
@@ -219,18 +219,18 @@ All pages available in `/en`, `/pt-BR`, `/es`, `/de`.
 
 `CLAUDE.md` is the source of truth for current decisions, conventions, and architecture. Each doc below owns one topic — point to it rather than duplicating its facts.
 
-| Topic                                                                        | Canonical doc                                             |
-| ---------------------------------------------------------------------------- | --------------------------------------------------------- |
-| Current decisions, coding standards, conventions                             | `CLAUDE.md`                                               |
-| Engineering guides (frontend, security, i18n, monitoring ops, design system) | `docs/tech/`                                              |
-| Financial / currency-hedge math                                              | `docs/tech/financial-calculations.md`                     |
-| Money Tools suite + validation + weekly data runbook                         | `docs/tools/` · `docs/tech/TOOLS_VALIDATION.md`           |
-| Monitoring ops + invariants                                                  | `docs/tech/MONITORING_OPS.md`                             |
-| Env vars + deploy values                                                     | `docs/monitoring/INFRASTRUCTURE_GUIDE.md`                 |
-| "Do-not-regress" decision register                                           | `docs/tech/implementation-notes.md`                       |
-| Fees (canonical)                                                             | `docs/full-view/FEES.md`                                  |
-| Business model, brand, wallet/custody architecture                           | `docs/full-view/`                                         |
-| Audit history, security findings, pending work                               | `docs/audit/` · `docs/security/`                          |
-| `diboas-analytics` (separate product hosted at `/market`)                    | `docs/mvp/` _(⚠ NOT REACHABLE here — see `5.519`)_        |
-| Regulatory + market deep-research (reference)                                | `docs/researches/` _(⚠ NOT REACHABLE here — see `5.519`)_ |
-| Phase-2 forward analysis (aspirational — verify vs `CLAUDE.md`)              | `docs/roadmap/` _(⚠ NOT REACHABLE here — see `5.519`)_    |
+| Topic                                                                                       | Canonical doc                                             |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Current decisions, coding standards, conventions                                            | `CLAUDE.md`                                               |
+| Engineering guides (frontend, security, i18n, monitoring ops, design system)                | `docs/tech/`                                              |
+| Financial / currency-hedge math                                                             | `docs/tech/financial-calculations.md`                     |
+| Money Tools suite + validation + weekly data runbook                                        | `docs/tools/` · `docs/tech/TOOLS_VALIDATION.md`           |
+| Monitoring ops + invariants                                                                 | `docs/tech/MONITORING_OPS.md`                             |
+| Env vars + deploy values                                                                    | `docs/monitoring/INFRASTRUCTURE_GUIDE.md`                 |
+| "Do-not-regress" decision register                                                          | `docs/tech/implementation-notes.md`                       |
+| Fees (canonical)                                                                            | `docs/full-view/FEES.md`                                  |
+| Business model, brand, wallet/custody architecture                                          | `docs/full-view/`                                         |
+| Audit history, security findings, pending work                                              | `docs/audit/` · `docs/security/`                          |
+| `diboas-analytics` (the private market data store; no separate product, founder 2026-11-11) | `docs/mvp/` _(⚠ NOT REACHABLE here — see `5.519`)_        |
+| Regulatory + market deep-research (reference)                                               | `docs/researches/` _(⚠ NOT REACHABLE here — see `5.519`)_ |
+| Phase-2 forward analysis (aspirational — verify vs `CLAUDE.md`)                             | `docs/roadmap/` _(⚠ NOT REACHABLE here — see `5.519`)_    |

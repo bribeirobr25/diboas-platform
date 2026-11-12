@@ -142,12 +142,12 @@ describe('marketArticleSchema — schema shape', () => {
     expect(result?.isAccessibleForFree).toBe(true);
   });
 
-  it('should set author to diBoaS Analytics organization', () => {
+  it('should set author to the diBoaS organization (no analytics product, decision G-1)', () => {
     const result = marketArticleSchema(buildArgs());
     const author = result?.author as Record<string, unknown>;
     expect(author?.['@type']).toBe('Organization');
-    expect(author?.name).toBe('diBoaS Analytics');
-    expect(author?.url).toBe('https://diboas-analytics.com');
+    expect(author?.name).toBe('diBoaS');
+    expect(author?.url).toBe('https://diboas.com');
   });
 });
 

@@ -122,6 +122,8 @@ MiCA Regulation (EU) 2023/1114 Article 13 requires marketing communications for 
 - Fair, clear, not misleading
 - Aligned with the white paper (where one exists)
 
+> **Superseded 2026-11-11 (register `5.812`, `5.871`):** the `digitalDollarSuffix` key is deleted (scenario labels now carry a plain " in USD" currency marker), and the tools disclaimer no longer says "returns are shown in digital dollar" (it says the scenarios are calculated in US dollars). The text below is the dated 2026-05 snapshot.
+
 **Tool posture for `es`/`de`:** The phrase "digital dollar" / "Digital-Dollar" / "dólar digital" is used in tool copy (per Phase 7 §5.2 `digitalDollarSuffix`). This is intentional consumer-friendly framing for the underlying USDC-equivalent yield, but:
 
 1. **Not a regulated stablecoin claim**: the tool does NOT claim a specific stablecoin issuance license. Generic "digital dollar" terminology in body copy is permissible.

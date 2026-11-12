@@ -68,13 +68,10 @@ export function middleware(request: NextRequest): NextResponse {
       // from cdn.diboas.com. Without this directive, <video src="..."> falls
       // back to default-src 'self' and CDN URLs are blocked.
       `media-src 'self' https://cdn.diboas.com${isDev ? ' http://localhost:* https://localhost:*' : ''}`,
-      // 2026-05-14 (iter-2 CC5): adds `api.diboas-analytics.com` (analytics
-      // product's API) to support SDK fetches when iteration 5 swaps the mock
-      // for the real `@analytics-platform/client`. Staging origin gated on
-      // `isDev` to keep production CSP minimal. Mock mode (iter-2 / iter-3)
-      // makes no cross-origin fetches, but the allowlist is in place before
-      // the swap so production never ships a broken CSP.
-      `connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com https://api.diboas-analytics.com${isDev ? ' https://staging.api.diboas-analytics.com' : ''} https://app.posthog.com https://*.posthog.com https://*.google-analytics.com https://*.googletagmanager.com https://*.doubleclick.net${isDev ? ' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*' : ''}`,
+      // `api.diboas-analytics.com` and its staging twin were removed 2026-11-11: there is
+      // no diBoaS Analytics product (decision G-2), nothing fetches from it, and a host
+      // that does not resolve is a takeover risk in connect-src (security-playbook F11).
+      `connect-src 'self' https://vitals.vercel-analytics.com https://api.diboas.com https://app.posthog.com https://*.posthog.com https://*.google-analytics.com https://*.googletagmanager.com https://*.doubleclick.net${isDev ? ' http://localhost:* https://localhost:* ws://localhost:* wss://localhost:*' : ''}`,
       `frame-ancestors 'none'`,
       // Phase 3 (learn redesign, D-1): the ONLY frame we ever embed is the
       // learn talk pages' click-to-load YouTube facade. This directive exists

@@ -214,7 +214,7 @@
     },
     "sky": {
       "name": "Sky Protocol / SSR (ehemals MakerDAO)",
-      "description": "Das originale DeFi-System. In Betrieb seit 2014. Hinterlege Krypto als Sicherheit, generiere Stablecoins, verdiene den Sparkurs. Hat jeden größeren Marktabsturz seit 2017 überstanden.",
+      "description": "Das originale DeFi-System. In Betrieb seit 2014. Nutzer hinterlegen Krypto als Sicherheit, um Stablecoins zu erzeugen, nach Regeln und einem variablen Satz, die das Protokoll festlegt. Hat jeden größeren Marktabsturz seit 2017 überstanden.",
       "details": {
         "founded": "2014",
         "tvl": "~5,9 Milliarden USD",

@@ -16,9 +16,9 @@ interface CalculatorOutputsProps {
   output: CalculatorOutput;
   reducedMotion?: boolean;
   /**
-   * When 'tool' AND locale is non-USD, appends the "digital dollar" suffix
-   * from `tools-shared.json` to the diBoaS scenario labels per Q2(A).
-   * Default 'lesson' keeps labels pristine for educational use.
+   * 'tool' + a non-USD locale marks each scenario rate " in USD": the tool engine grows the
+   * figure in local currency (the rate plus the currency's usual move against the dollar), so
+   * the label must say its rate is a dollar rate. The lesson engine is unhedged: no marker.
    */
   engine?: 'lesson' | 'tool';
 }
@@ -50,26 +50,21 @@ export function CalculatorOutputs({
     }
   );
 
-  // Phase-7 Q2(A) + plan §5.2 — append "digital dollar" suffix to non-USD
-  // diBoaS scenarios when this calculator is in tool context. Lesson stays
-  // pristine (no suffix) per Q7(a) + R2 — lesson is educational math demo,
-  // not real-world projection.
-  const digitalDollarSuffix =
+  // The rate is a US-dollar rate; the figure beside it is in local currency (register 5.812:
+  // the old " em dólar digital" suffix became " em USD", a currency marker, not a product).
+  const usdSuffix =
     engine === 'tool' && LOCALE_CURRENCY[inputEcho.locale] !== 'USD'
-      ? intl.formatMessage({ id: 'tools-shared.scenarios.digitalDollarSuffix' })
+      ? intl.formatMessage({ id: 'tools-shared.scenarios.usdSuffix' })
       : '';
-
   const scenarioLabels: Readonly<Record<SeriesKey, string>> = {
     bank: intl.formatMessage({ id: 'learn-compound-interest.calculator.outputBank' }),
     conservative:
       intl.formatMessage({ id: 'learn-compound-interest.calculator.outputConservative' }) +
-      digitalDollarSuffix,
+      usdSuffix,
     historical:
-      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputHistorical' }) +
-      digitalDollarSuffix,
+      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputHistorical' }) + usdSuffix,
     optimistic:
-      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputOptimistic' }) +
-      digitalDollarSuffix,
+      intl.formatMessage({ id: 'learn-compound-interest.calculator.outputOptimistic' }) + usdSuffix,
   };
 
   // Phase I.4 (2026-05-23): scenario rate tooltips. Bank scenario has no

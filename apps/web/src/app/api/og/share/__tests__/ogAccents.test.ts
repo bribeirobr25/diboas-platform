@@ -60,7 +60,10 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
         'asset-history': 'Quanto valeria hoje',
         'card-fees': 'Quanto eu poderia economizar',
       },
-      subline: ['Mantido em dólar digital por 1 ano', 'Mantido em dólar digital por 5 anos'],
+      subline: [
+        'Em uma estratégia diBoaS por 1 ano. Ilustrativo, não é previsão.',
+        'Em uma estratégia diBoaS por 5 anos. Ilustrativo, não é previsão.',
+      ],
       cta: 'Calcule o seu em diboas.com',
     },
     default: { tagline: 'Liberdade financeira simplificada' },
@@ -96,8 +99,8 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
         'card-fees': 'Cuánto podría ahorrar',
       },
       subline: [
-        'Guardado en dólar digital durante 1 año',
-        'Guardado en dólar digital durante 5 años',
+        'En una estrategia de diBoaS durante 1 año. Ilustrativo, no es una previsión.',
+        'En una estrategia de diBoaS durante 5 años. Ilustrativo, no es una previsión.',
       ],
       cta: 'Calcula el tuyo en diboas.com',
     },
@@ -134,8 +137,8 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
         'card-fees': 'Was ich sparen könnte',
       },
       subline: [
-        '1 Jahr lang als digitaler Dollar gehalten',
-        '5 Jahre lang als digitaler Dollar gehalten',
+        '1 Jahr lang in einer diBoaS-Strategie. Illustrativ, keine Prognose.',
+        '5 Jahre lang in einer diBoaS-Strategie. Illustrativ, keine Prognose.',
       ],
       cta: 'Berechne deins auf diboas.com',
     },

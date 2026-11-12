@@ -12,6 +12,8 @@
  *     the market band and on four tool results.
  *   * The methodology note was a six-line 64px headline, and on the umbrella
  *     and the backdrop it claimed the page lists signals and their points.
+ *     Since 2026-11-11 the band holds one source note and the two disclaimers
+ *     (founder decision: no methodology section, no analytics product).
  *
  * @vitest-environment happy-dom
  */
@@ -231,20 +233,61 @@ describe('market page layout and links', () => {
     expect(block).not.toMatch(/max-width|margin:\s*0 auto/);
   });
 
-  it('should show the methodology lead only on a scored view, as body text under a mono heading', () => {
-    const shell = readFileSync(join(MARKET_DIR, 'MarketViewShell.tsx'), 'utf8');
-    const umbrella = readFileSync(join(MARKET_DIR, 'UmbrellaView.tsx'), 'utf8');
-    expect(umbrella).not.toMatch(/dashboard\.methodologyLead/);
-    const at = shell.indexOf("'dashboard.methodologyLead'");
-    expect(at).toBeGreaterThan(0);
-    const before = shell.slice(Math.max(0, at - 300), at);
-    expect(before).toMatch(/view\.grammar === 'scored'/);
-    expect(before).toMatch(/className=\{styles\.methodLead\}/);
-    for (const src of [shell, umbrella]) expect(src).toMatch(/styles\.methodTitle/);
+  it('should hold the source note and both disclaimers, and nothing else, in the band on every view', () => {
     const css = readFileSync(join(MARKET_DIR, 'page.module.css'), 'utf8');
-    expect(css).toMatch(
-      /\.method h2\.methodTitle\s*\{[^}]*font-family:\s*var\(--font-ibm-plex-mono\)/
-    );
-    expect(css).toMatch(/\.method \.methodLead\s*\{[^}]*color:\s*var\(--editorial-paper\)/);
+    for (const file of ['MarketViewShell.tsx', 'UmbrellaView.tsx']) {
+      const src = readFileSync(join(MARKET_DIR, file), 'utf8');
+      const start = src.indexOf('<section className={styles.method}>');
+      expect(start, file).toBeGreaterThan(0);
+      // Comments do not render; strip them so they can explain the band without failing it.
+      const band = src
+        .slice(start, src.indexOf('</section>', start))
+        .replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
+      const note = band.indexOf(
+        "t('dashboard.dataSource', 'All data comes from diBoaS Analytics.')"
+      );
+      const product = band.indexOf('<ProductDisclaimer');
+      const host = band.indexOf('<HostRegulatoryDisclaimer');
+      expect(
+        [note, product, host].every((i) => i > 0),
+        file
+      ).toBe(true);
+      expect(note < product && product < host, file).toBe(true);
+      // No heading, lead, link, "coming soon" or "Powered by" (founder 2026-11-11, item 5).
+      expect(band, file).not.toMatch(/<h2|<a |methodology|Methodology|PoweredBy|comingSoon|href=/);
+    }
+    expect(css).toMatch(/\.method \.dataSource\s*\{[^}]*color:\s*var\(--editorial-paper\)/);
+    // A small block, not the old editorial band: token padding, no clamp().
+    expect(css).toMatch(/\.method \{[^}]*padding:\s*var\(--spacing-4xl\) 0;/);
+    expect(css).not.toMatch(/methodHead|methodTitle|methodLead|eyebrowDark/);
+  });
+
+  it('should carry the source note word for word in every locale', () => {
+    const NOTES: Record<string, string> = {
+      en: 'All data comes from diBoaS Analytics.',
+      'pt-BR': 'Todos os dados vêm do diBoaS Analytics.',
+      es: 'Todos los datos provienen de diBoaS Analytics.',
+      de: 'Alle Daten stammen von diBoaS Analytics.',
+    };
+    for (const [locale, note] of Object.entries(NOTES)) {
+      const json = JSON.parse(
+        readFileSync(
+          join(__dirname, `../../../../../../packages/i18n/translations/${locale}/market.json`),
+          'utf8'
+        )
+      ) as { dashboard: Record<string, string> };
+      expect(json.dashboard.dataSource, locale).toBe(note);
+      for (const gone of [
+        'methodologyTitle',
+        'methodologyLead',
+        'methodologyLinkLabel',
+        'methodologyComingSoon',
+        'poweredByLabel',
+        'poweredByProduct',
+        'comingSoon',
+      ]) {
+        expect(json.dashboard, `${locale} ${gone}`).not.toHaveProperty(gone);
+      }
+    }
   });
 });

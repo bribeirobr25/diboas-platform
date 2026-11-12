@@ -109,14 +109,14 @@ CSP `script-src` (from `apps/web/middleware.ts` `csp` builder — search for `sc
 
 The CSP has additional allowlists for non-script directives that are worth distinguishing because their blast radius differs significantly:
 
-- **`connect-src`** — `api.diboas.com`, `api.diboas-analytics.com` (own APIs — **data-exfiltration risk if taken over**), `vitals.vercel-analytics.com` (Vercel web-vitals), `app.posthog.com` + `*.posthog.com` (PostHog `/decide` and ingest POSTs — broader wildcard than script-src because the SDK posts to non-`.i.` subdomains too), `*.google-analytics.com`, `*.googletagmanager.com`, `*.doubleclick.net` (GA4 collect + tag-manager + DoubleClick beacons)
+- **`connect-src`** — `api.diboas.com` (own API — **data-exfiltration risk if taken over**; `api.diboas-analytics.com` and its staging twin were removed 2026-11-11, decision G-2: no diBoaS Analytics product), `vitals.vercel-analytics.com` (Vercel web-vitals), `app.posthog.com` + `*.posthog.com` (PostHog `/decide` and ingest POSTs — broader wildcard than script-src because the SDK posts to non-`.i.` subdomains too), `*.google-analytics.com`, `*.googletagmanager.com`, `*.doubleclick.net` (GA4 collect + tag-manager + DoubleClick beacons)
 - **`img-src`** — `cdn.diboas.com` (asset CDN; **asset-substitution risk only if taken over** — no data exfil)
 - **`media-src`** — `cdn.diboas.com` (same as above)
 - **`worker-src`** — `'self' blob:` (Sentry session-replay spawns a worker from a `blob:` URL; documented in MONITORING_OPS.md § B)
 
 The distinction matters for subdomain-takeover analysis (see §5.4). A dangling `cdn.diboas.com` would let an attacker swap images/video; a dangling `api.diboas.com` would let an attacker intercept fetch responses to logged-in users. Don't conflate the two.
 
-**2026-06-01 — F11a + F11b RESOLVED via DNS recon.** All three subdomains (`api.diboas.com`, `api.diboas-analytics.com`, `cdn.diboas.com`) have **no DNS resolution** today; zero takeover risk while in that state. The CSP entries remain as intentional forward-declarations for iter-5 SDK swap + future API/CDN work. Re-verify before/after each DNS-add gate. See `docs/audit/SECURITY_FINDINGS_2026-05.md` § F11a + F11b.
+**2026-06-01 — F11a + F11b RESOLVED via DNS recon.** All three subdomains (`api.diboas.com`, `api.diboas-analytics.com`, `cdn.diboas.com`) had **no DNS resolution**; zero takeover risk while in that state. `api.diboas-analytics.com` left the CSP on 2026-11-11 (no analytics product, so no forward-declaration to keep); the other two remain as forward-declarations for future API/CDN work. Re-verify before/after each DNS-add gate. See `docs/audit/SECURITY_FINDINGS_2026-05.md` § F11a + F11b.
 
 **Subresource Integrity (SRI) is not applied** and cannot be applied to tag-manager-style dynamic loaders. This is the standard trade-off. The mitigation is the per-request CSP **nonce** which blocks inline script injection — already in place in `middleware.ts`.
 
@@ -175,13 +175,12 @@ send.adelaide.diboas.com:
 
 ### 3.8 Subdomain surface
 
-The CSP allowlists three diBoaS-owned subdomains across different directives:
+The CSP allowlists two diBoaS-owned subdomains across different directives (a third, `api.diboas-analytics.com`, was removed 2026-11-11):
 
-| Subdomain                  | CSP directive           | Blast radius if taken over                  |
-| -------------------------- | ----------------------- | ------------------------------------------- |
-| `api.diboas.com`           | `connect-src`           | **Data exfiltration** (fetch/XHR intercept) |
-| `api.diboas-analytics.com` | `connect-src`           | **Data exfiltration** (fetch/XHR intercept) |
-| `cdn.diboas.com`           | `img-src` + `media-src` | Asset substitution only (no data exfil)     |
+| Subdomain        | CSP directive           | Blast radius if taken over                  |
+| ---------------- | ----------------------- | ------------------------------------------- |
+| `api.diboas.com` | `connect-src`           | **Data exfiltration** (fetch/XHR intercept) |
+| `cdn.diboas.com` | `img-src` + `media-src` | Asset substitution only (no data exfil)     |
 
 Of these, only `send.adelaide.diboas.com` (Resend, separate from the CSP allowlist) was confirmed active during scan. The others either don't resolve or weren't probed. **If any have DNS records but no live origin, they are subdomain-takeover candidates** — particularly any CNAME pointing at `*.vercel.app` or similar where the upstream project may have been deleted (per [Vercel subdomain takeover documentation, 2024-2025](https://medium.com/@pentestfox/how-i-took-over-a-vercel-subdomain-e7b03dbf222d)).
 
