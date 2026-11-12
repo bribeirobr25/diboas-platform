@@ -24,7 +24,7 @@ describe('market generated-copy reconciliation (P3 §B Stage 4)', () => {
     'should render exactly what the template generator produces (generate.mjs --check)',
     () => {
       let ok = true;
-      let output = '';
+      let output: string;
       try {
         output = execFileSync('node', [GENERATOR, '--check'], {
           encoding: 'utf8',

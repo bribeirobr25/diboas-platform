@@ -183,9 +183,11 @@ export async function fetchProviderJson({
       // A refused redirect is a security event, not an outage: asking again
       // would only be refused again. It ends the request at once.
       if (/redirect/i.test(String(err?.cause?.message ?? ''))) {
-        throw new Error(`${provider}: request failed, redirect refused (${message})`);
+        throw new Error(`${provider}: request failed, redirect refused (${message})`, {
+          cause: err,
+        });
       }
-      await retry(new Error(`${provider}: request failed (${message})`));
+      await retry(new Error(`${provider}: request failed (${message})`, { cause: err }));
       continue;
     }
     // Headers arrived; the response is complete only once its body is read. A
