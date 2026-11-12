@@ -15,14 +15,22 @@ import { scrubUrlsInText } from './scrubUrl';
  */
 const EMAIL_PATTERN = /[\p{L}\p{N}._%+-]+@[\p{L}\p{N}.-]+\.\p{L}{2,}/gu;
 const IPV4_PATTERN = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+/** An IPv4-mapped IPv6 address (`::ffff:203.0.113.9`), redacted as one address. */
+const IPV4_MAPPED_PATTERN = /(?<![\w:])::ffff:(?:\d{1,3}\.){3}\d{1,3}\b/gi;
 /**
  * An IPv6 address: the full eight groups, or a compressed form with `::`. Clock times
  * (`01:35:38`) have neither, so they are left alone; `Foo::bar` is excluded by the guards.
  */
 const IPV6_PATTERN =
   /(?<![\w:])(?:(?:[0-9a-f]{1,4}:){7}[0-9a-f]{1,4}|(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{0,4}::(?:[0-9a-f]{1,4}:){0,6}[0-9a-f]{0,4})(?![\w:])/gi;
-/** A bearer token written as a key/value pair outside a URL (`"token":"…"`, `t=…`). */
-const TOKEN_PAIR = /(["']?)\b(token|t)\1(\s*[:=]\s*)(["']?)[^\s"'&,}]+\4/gi;
+/**
+ * A token written as a key/value pair outside a URL: `"token":"…"`, `t=…`, any key ending in
+ * `token` (`deletionToken`, `unsubscribe_token`), and the URL-encoded `token%3D…` of a relative
+ * link (fifteenth audit: those three forms passed). The value stops at an encoded `&` (`%26`).
+ */
+const TOKEN_PAIR = /(["']?)\b(\w*token|t)\1(\s*(?:[:=]|%3D)\s*)(["']?)(?:(?!%26)[^\s"'&,}])+\4/gi;
+/** A credential in an `Authorization` header value (`Bearer …`, `Basic …`). */
+const AUTH_SCHEME = /\b(Bearer|Basic)\s+[\w.~+/=-]+/gi;
 
 /** Keys that are sensitive wherever they appear inside a key name (`userEmail`, `clientSecret`). */
 const SENSITIVE_SUBSTRINGS = [
@@ -42,6 +50,12 @@ const SENSITIVE_SUBSTRINGS = [
  * matching redacted `cpu_description` and every `*name` diagnostic).
  */
 const SENSITIVE_WORDS = ['ip', 'key', 'name', 'address'];
+/**
+ * Keys that name the software, not a person, although a word of them is sensitive: the
+ * tracer's span name is a route template (`GET /api/waitlist`). Their values are still scrubbed
+ * as text (fifteenth audit: `next.span_name` arrived as `[REDACTED]`).
+ */
+const DIAGNOSTIC_KEYS = ['next.span_name'];
 
 /** The words of a key: split at separators, camelCase and acronym boundaries (`IPAddress`). */
 function keyWords(key: string): string[] {
@@ -56,6 +70,7 @@ function keyWords(key: string): string[] {
 /** Whether a key names a field whose whole value must be redacted. */
 export function isSensitiveKey(key: string): boolean {
   const lower = key.toLowerCase();
+  if (DIAGNOSTIC_KEYS.includes(lower)) return false;
   if (SENSITIVE_SUBSTRINGS.some((s) => lower.includes(s))) return true;
   return keyWords(key).some((word) => SENSITIVE_WORDS.includes(word));
 }
@@ -67,15 +82,21 @@ const MAX_DEPTH = 5;
  * its allowlisted query, every email and IP address redacted, and every bare token pair masked.
  */
 export function redactText(value: string): string {
-  return scrubUrlsInText(value)
-    .replace(EMAIL_PATTERN, '[EMAIL_REDACTED]')
-    .replace(IPV6_PATTERN, '[IP_REDACTED]')
-    .replace(IPV4_PATTERN, '[IP_REDACTED]')
-    .replace(
-      TOKEN_PAIR,
-      (_m, keyQuote: string, key: string, separator: string, valueQuote: string) =>
-        `${keyQuote}${key}${keyQuote}${separator}${valueQuote}[REDACTED]${valueQuote}`
-    );
+  return (
+    scrubUrlsInText(value)
+      .replace(EMAIL_PATTERN, '[EMAIL_REDACTED]')
+      // The mapped form, then IPv4, then IPv6: the IPv6 pattern alone took only `::ffff:203`
+      // of `::ffff:203.0.113.9` and left three octets (fifteenth audit).
+      .replace(IPV4_MAPPED_PATTERN, '[IP_REDACTED]')
+      .replace(IPV4_PATTERN, '[IP_REDACTED]')
+      .replace(IPV6_PATTERN, '[IP_REDACTED]')
+      .replace(AUTH_SCHEME, (_m, scheme: string) => `${scheme} [REDACTED]`)
+      .replace(
+        TOKEN_PAIR,
+        (_m, keyQuote: string, key: string, separator: string, valueQuote: string) =>
+          `${keyQuote}${key}${keyQuote}${separator}${valueQuote}[REDACTED]${valueQuote}`
+      )
+  );
 }
 
 function redactValue(value: unknown, depth: number): unknown {
