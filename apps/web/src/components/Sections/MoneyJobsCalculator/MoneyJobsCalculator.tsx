@@ -70,6 +70,10 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
 
   const localeKey = (locale ?? 'en') as SupportedLocale;
   const fmt = (v: number) => formatCurrency(v, localeKey, { maximumFractionDigits: 0 });
+  // The projection table always comes from the hedged engine, which hedges every non-USD
+  // locale; the plan's own `hedged` is false on its early exits (fund already funded), so it
+  // cannot gate the table's marker (W-B audit 2026-11-12).
+  const hedgedLocale = LOCALE_CURRENCY[localeKey] !== 'USD';
 
   const [mode, setMode] = useState<Mode>(initialMode);
 
@@ -411,7 +415,7 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                               >
                                 <th scope="row">
                                   {tShared(`scenarios.${row.scenario}`)}
-                                  {personalPlan?.hedged ? tShared('scenarios.usdSuffix') : ''}
+                                  {hedgedLocale ? tShared('scenarios.usdSuffix') : ''}
                                 </th>
                                 <td className={styles.mono}>{fmt(row.fiveYear)}</td>
                                 <td className={styles.mono}>{fmt(row.tenYear)}</td>
@@ -601,6 +605,9 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
                             amount: fmt(business.excessIdeal),
                             delta: fmt(businessPlan.idleComparison.difference),
                           })}
+                          {businessPlan.idleComparison.hedged
+                            ? ` ${tShared('scenarios.hedgeNote')}`
+                            : ''}
                         </p>
                       ) : null}
                       <p className={styles.freeDisclaimer}>{tShared('disclaimer')}</p>

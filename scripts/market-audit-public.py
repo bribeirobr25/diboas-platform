@@ -77,9 +77,9 @@ for locale in ("en", "pt-BR", "es", "de"):
             "html_bytes": len(html),
             "sha256": hashlib.sha256(html).hexdigest(),
             "language_matches": page.html_lang == locale,
-            "acquisition_link_present": any(
-                "source=adelaide_daily" in link for link in page.links
-            ),
+            # The market band links to the waitlist form; its signup label is set on click
+            # (market clean-up W-C), so the link itself carries no `?source=` any more.
+            "acquisition_link_present": any(link.endswith("#waitlist") for link in page.links),
             "headers_present": {
                 key: bool(headers.get(key))
                 for key in (

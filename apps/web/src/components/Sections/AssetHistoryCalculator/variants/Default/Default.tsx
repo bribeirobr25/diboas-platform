@@ -442,7 +442,8 @@ export function AssetHistoryCalculatorDefault() {
             headline: tShared('resultMoment.ctaHeadline'),
             body: tShared('resultMoment.ctaBody'),
             label: tShared('resultMoment.ctaLabel'),
-            href: '/?source=tool_asset-history#waitlist',
+            href: '/#waitlist',
+            toolSlug: 'asset-history' as const,
           };
           const investedPoint: ResultMomentSupportingPoint = {
             id: 'invested',

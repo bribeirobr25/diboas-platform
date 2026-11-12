@@ -37,7 +37,14 @@
     "USD Coin",
     "USDCoin",
     "stable coin",
-    "stable-coin"
+    "stable-coin",
+    "moeda estável",
+    "moedas estáveis",
+    "moneda estable",
+    "monedas estables",
+    "sDAI",
+    "USDe",
+    "EURC"
   ],
   "earnForms": [
     "earns",
@@ -89,7 +96,30 @@
     "ganhando",
     "ganando",
     "ganaron",
-    "ganancia"
+    "ganancia",
+    "rendimento",
+    "rendimentos",
+    "remunerado",
+    "remuneração",
+    "lucro",
+    "gains",
+    "gain",
+    "Gewinn",
+    "Gewinne",
+    "Ertrag",
+    "Erträge",
+    "rewards",
+    "recompensas",
+    "genera",
+    "pays 4%",
+    "paga 5,5 %",
+    "5% a year",
+    "7 % per year",
+    "6% ao ano",
+    "5 % al año",
+    "5 % anual",
+    "4 % pro Jahr",
+    "3 % p.a."
   ],
   "breaches": [
     "Your digital dollar earns every day",
@@ -118,7 +148,16 @@
     "USDC returns 5% a year",
     "Your digital dollar\nearns every day",
     "Tu dólar digital rinde cada día",
-    "USDS paga juros todo mês"
+    "USDS paga juros todo mês",
+    "USDC pays 4% a year",
+    "Seu dólar digital é remunerado todo mês",
+    "O dólar digital te dá lucro de 5% ao ano",
+    "el dólar digital genera un 5 % anual",
+    "Der Digital-Dollar bringt 4 % Ertrag",
+    "Get stablecoin rewards every week",
+    "Konservativ: 7 % pro Jahr im Digital-Dollar",
+    "Your digital dollar earns daily",
+    "Der Digital‑Dollar verdient"
   ],
   "windowChars": 40
 }

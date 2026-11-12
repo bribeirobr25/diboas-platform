@@ -120,6 +120,29 @@ describe('MoneyJobsCalculator', () => {
     expect(rows[2]?.textContent).toContain('tools-shared.scenarios.optimistic');
   });
 
+  it('marks every projection rate in USD outside en, even when the emergency fund is already funded', () => {
+    // W-B audit 2026-11-12: the plan's own `hedged` is false when the fund is already funded,
+    // but the table still comes from the hedged engine; the marker follows the locale.
+    mockLocale = 'pt-BR';
+    render(<MoneyJobsCalculator />);
+    const savings = screen.getByLabelText(
+      'tools-money-jobs.inputs.savingsLabel'
+    ) as HTMLInputElement;
+    fireEvent.change(savings, { target: { value: '1000000' } });
+    fireEvent.click(screen.getByTestId('gate-unlock'));
+    const rows = screen.getByTestId('personal-plan').querySelectorAll('tbody tr th');
+    expect(rows.length).toBe(3);
+    for (const row of rows) expect(row.textContent).toContain('tools-shared.scenarios.usdSuffix');
+  });
+
+  it('shows no USD marker on the projection rates in en', () => {
+    mockLocale = 'en';
+    render(<MoneyJobsCalculator />);
+    fireEvent.click(screen.getByTestId('gate-unlock'));
+    const rows = screen.getByTestId('personal-plan').querySelectorAll('tbody tr th');
+    for (const row of rows) expect(row.textContent).not.toContain('usdSuffix');
+  });
+
   it('holds the BR dollar line behind the gate and shows the hedge sentence beside it (C1)', () => {
     mockLocale = 'pt-BR';
     render(<MoneyJobsCalculator />);

@@ -19,7 +19,8 @@ import { PageI18nProvider } from '@/components/Providers';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import { MinimalFooter } from '@/components/Layout/Footer/MinimalFooter';
-import { MarketHeroCanvas, MarketCtaBand } from '@/components/Market';
+import { MarketHeroCanvas, MarketCtaBand, MarketInteractionTracker } from '@/components/Market';
+import { MARKET_EVENTS } from '@/lib/market/constants';
 import { Container } from '@/components/UI/Container';
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import {
@@ -175,6 +176,8 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
                       href={model.path}
                       prefetch={false}
                       className={styles.umbrellaCardLink}
+                      data-market-event={MARKET_EVENTS.VIEW_SWITCHED}
+                      data-market-value={model.slug}
                     >
                       <h2 className={styles.umbrellaCardTitle}>{label}</h2>
                       {/* View-voice wave (2026-08-14): the PLAIN line is the
@@ -219,6 +222,7 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
           </SectionErrorBoundary>
         </Container>
 
+        <MarketInteractionTracker view="umbrella" />
         <MarketCtaBand
           locale={locale}
           cadence={t('cta.cadence', 'Updated weekly')}

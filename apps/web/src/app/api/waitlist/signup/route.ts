@@ -19,7 +19,7 @@ import {
   emitErrorEvent,
   readJsonObject,
 } from '@/lib/api/routeHelpers';
-import { isValidLocale, isValidSource, isValidTags, isValidName } from '@/lib/api/validators';
+import { isValidLocale, isValidSource, sanitizeTags, isValidName } from '@/lib/api/validators';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { Logger } from '@/lib/monitoring/Logger';
 import { classifyRequest } from '@/lib/security/verifyHuman';
@@ -110,8 +110,14 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       return validationError('Invalid locale', 'INVALID_LOCALE');
     if (body.source && !isValidSource(body.source))
       return validationError('Invalid source', 'INVALID_SOURCE');
-    if (body.tags && !isValidTags(body.tags))
-      return validationError('Invalid tags', 'INVALID_TAGS');
+    // Malformed tags refuse the request (now including `null`, `""` and `0`, which used to skip
+    // the check); a bad tag inside a well-formed list is dropped and counted, never logged.
+    const sanitized = body.tags === undefined ? undefined : sanitizeTags(body.tags);
+    if (sanitized === null) return validationError('Invalid tags', 'INVALID_TAGS');
+    if (sanitized && sanitized.dropped > 0) {
+      Logger.info('Waitlist signup: tags dropped', { dropped: sanitized.dropped });
+    }
+    const tags = sanitized?.tags;
     if (body.name && !isValidName(body.name))
       return validationError('Invalid name', 'INVALID_NAME');
 
@@ -123,7 +129,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
       gdprAccepted: body.gdprAccepted,
       referredBy: body.referredBy,
       source: body.source,
-      tags: body.tags,
+      tags,
       country: detectCountry(request),
       correlationId: request.headers.get('x-request-id') || undefined,
       actorIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),

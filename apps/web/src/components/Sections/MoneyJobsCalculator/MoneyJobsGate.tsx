@@ -77,6 +77,7 @@ export function MoneyJobsGate({ onUnlocked, unlocked }: MoneyJobsGateProps) {
   }, [unlocked]);
 
   const { formState, error, isLoading, handleInputChange, handleSubmit } = useWaitlistForm({
+    readCtaSource: false,
     source: 'tool_money_jobs',
     t: (key, values) => intl.formatMessage({ id: `common.waitingList.${key}` }, values),
     onSuccess: (data) => {

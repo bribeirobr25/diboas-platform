@@ -12,6 +12,7 @@
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { Share2, Check, ArrowRight } from '@/components/UI/LucideIcon';
 import { analyticsService } from '@/lib/analytics';
+import { setConsentedCtaSource } from '@/lib/analytics/ctaAttribution';
 import { useWebShare, SHARE_EVENTS, type WebShareMethod } from '@/hooks/useWebShare';
 import styles from './MarketCtaBand.module.css';
 
@@ -42,12 +43,12 @@ export function MarketCtaBand({
   shareText,
   shareTitle,
 }: MarketCtaBandProps) {
-  // Analytics are surface-specific (source: 'adelaide_daily'); the share/copy
+  // Analytics are surface-specific (source: 'adelaide_market'); the share/copy
   // mechanics live in the shared useWebShare engine (Principle 4 / DRY).
   const trackShare = (eventName: string, platform: WebShareMethod) => {
     analyticsService.track({
       name: eventName,
-      parameters: { source: 'adelaide_daily', platform, locale },
+      parameters: { source: 'adelaide_market', platform, locale },
     });
   };
 
@@ -66,7 +67,11 @@ export function MarketCtaBand({
         <h2 className={styles.headline}>{headline}</h2>
         <p className={styles.body}>{body}</p>
         <div className={styles.actions}>
-          <LocaleLink href="/?source=adelaide_daily#waitlist" className={styles.primary}>
+          <LocaleLink
+            href="/#waitlist"
+            className={styles.primary}
+            onClick={() => setConsentedCtaSource('market')}
+          >
             <span>{waitlistLabel}</span>
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </LocaleLink>

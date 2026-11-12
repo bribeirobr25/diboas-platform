@@ -176,7 +176,10 @@ export function IdleCashCalculator() {
           // actually out-earns diBoaS' conservative scenario (e.g. Brazilian CDI
           // beats 7%). The math returns the signed value; the copy reflects it.
           const formattedDiff = fmtMoney(Math.abs(result.difference));
-          const differenceText =
+          // A hedged result's difference includes the currency's assumed move against the
+          // dollar, so it says so beside the figure (W-B audit 2026-11-12, Voice Q3).
+          const hedgeNote = result.hedged ? ` ${tShared('scenarios.hedgeNote')}` : '';
+          const differenceSentence =
             result.difference > 0
               ? t('output.differencePositive', {
                   cash: formattedCash,
@@ -189,6 +192,8 @@ export function IdleCashCalculator() {
                     bankRate: form.bankYieldPct.toFixed(2),
                     years: form.years,
                   });
+
+          const differenceText = `${differenceSentence}${hedgeNote}`;
 
           const series: DivergenceSeries[] = [
             {
@@ -236,7 +241,8 @@ export function IdleCashCalculator() {
                 headline: tShared('resultMoment.ctaHeadline'),
                 body: tShared('resultMoment.ctaBody'),
                 label: tShared('resultMoment.ctaLabel'),
-                href: '/business?source=tool_idle-cash#waitlist',
+                href: '/business#waitlist',
+                toolSlug: 'idle-cash',
               }}
               share={{
                 onShare: resultShare.share,

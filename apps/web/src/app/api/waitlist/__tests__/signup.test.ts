@@ -287,6 +287,56 @@ describe('POST /api/waitlist/signup', () => {
     });
   });
 
+  describe('Tags (ATTR-1, server half)', () => {
+    const entry = {
+      id: 'wl_1',
+      email: 'tags@example.com',
+      position: 1,
+      originalPosition: 1,
+      referralCode: 'REFTEST01',
+      referralCount: 0,
+      locale: 'en',
+      source: 'direct',
+      tags: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    it('should store only the sanitized tags: known keys, one known label, nothing over fifty chars', async () => {
+      (store.addEntry as Mock).mockResolvedValue(entry);
+      const response = await POST(
+        createMockRequest({
+          email: 'tags@example.com',
+          gdprAccepted: true,
+          tags: [
+            'utm_source:ig',
+            'cta_source:market',
+            'cta_source:ana@example.com',
+            'x:free text',
+            `utm_campaign:${'x'.repeat(60)}`,
+          ],
+        })
+      );
+      expect(response.status).toBe(200);
+      expect((store.addEntry as Mock).mock.calls[0]?.[0]).toEqual(
+        expect.objectContaining({ tags: ['utm_source:ig', 'cta_source:market'] })
+      );
+    });
+
+    it.each([
+      ['null', null],
+      ['a string', 'utm_source:ig'],
+      ['eleven tags', Array.from({ length: 11 }, () => 'utm_source:a')],
+    ])('should refuse the signup with INVALID_TAGS when tags are %s', async (_label, tags) => {
+      const response = await POST(
+        createMockRequest({ email: 'tags@example.com', gdprAccepted: true, tags })
+      );
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe('INVALID_TAGS');
+      expect(store.addEntry).not.toHaveBeenCalled();
+    });
+  });
+
   describe('Validation Errors', () => {
     it('should reject missing email', async () => {
       const request = createMockRequest({
