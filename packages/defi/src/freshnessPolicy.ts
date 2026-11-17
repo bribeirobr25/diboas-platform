@@ -38,6 +38,18 @@ import type { EvidenceSourceId } from './types';
 export type EvidenceClass = 'practice-periodic-reference';
 
 /**
+ * Every class, once, at runtime — exhaustive as `EVIDENCE_ORIGINS`, so a guard
+ * can walk every policy that `resolveFreshnessPolicy` could ever return (`5.814`:
+ * no class or source may assert CURRENT without a decision).
+ */
+export const EVIDENCE_CLASSES = [
+  'practice-periodic-reference',
+] as const satisfies readonly EvidenceClass[];
+type MissingClass = Exclude<EvidenceClass, (typeof EVIDENCE_CLASSES)[number]>;
+const _classesExhaustive: [MissingClass] extends [never] ? true : never = true;
+void _classesExhaustive;
+
+/**
  * The age contract for one class of evidence, under CURRENT-FACING use.
  *
  * `supportsCurrent` is a capability of the SOURCE CONTRACT, not a shorter age

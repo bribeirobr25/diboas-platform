@@ -50,7 +50,37 @@ import {
   type EvidenceClass,
   type FreshnessPolicy,
 } from './freshnessPolicy';
-import type { DataStamp } from './types';
+import type { DataStamp, TimeState } from './types';
+
+/**
+ * The time states a CURRENT-FACING read can produce. Never `HISTORICAL`:
+ * historical replay is exempt from current-facing enforcement (ruling §5).
+ */
+export type CurrentFacingTimeState = Exclude<TimeState, 'HISTORICAL'>;
+
+/**
+ * The TIME state of one stamp for current-facing use, under the policy its own
+ * source resolves to.
+ *
+ * ⛑ `5.814` · THE SINGLE DERIVATION OF A RATE'S AGE. The rate label needs more
+ * than the refusal's yes/no — a DELAYED or STALE rate must be SHOWN as such,
+ * never as current (DATA_VINTAGE_POLICY P-7) — so the age state is exported
+ * here, and the refusal below is defined through it. A label and a refusal that
+ * each derived the age would be gate X1's two-derivation defect.
+ *
+ * The policy is resolved per source by default. Callers in the view layer pass
+ * none: a single policy for every leg would bypass per-source resolution.
+ */
+export function currentFacingTimeState(
+  stamp: DataStamp,
+  now: Date | string,
+  policy: FreshnessPolicy = resolveFreshnessPolicy({ source: stamp.source })
+): CurrentFacingTimeState {
+  const state = freshnessUnder(stamp, now, policy);
+  /* `freshnessUnder` never returns HISTORICAL; were it ever to, fail closed:
+     an age that cannot be stated for current use is a refused one. */
+  return state === 'HISTORICAL' ? 'MISSING' : state;
+}
 
 /**
  * Is this stamp outside the acceptable CURRENT-FACING vintage?
@@ -64,7 +94,7 @@ export function isRefusedForCurrentFacingUse(
   now: Date | string,
   policy: FreshnessPolicy = resolveFreshnessPolicy({ source: stamp.source })
 ): boolean {
-  return freshnessUnder(stamp, now, policy) === 'MISSING';
+  return currentFacingTimeState(stamp, now, policy) === 'MISSING';
 }
 
 /**

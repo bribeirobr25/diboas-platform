@@ -57,6 +57,7 @@ describe('historical replay is exempt from current-facing freshness enforcement'
     for (const forbidden of [
       'enforceCurrentFacingAvailability',
       'isRefusedForCurrentFacingUse',
+      'currentFacingTimeState',
       'dataFreshness',
       'freshnessUnder',
       'FRESHNESS_STALE_MAX_DAYS',

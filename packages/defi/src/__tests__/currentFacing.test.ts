@@ -1,16 +1,21 @@
 import { describe, expect, it } from 'vitest';
-import { enforceCurrentFacingAvailability, isRefusedForCurrentFacingUse } from '../currentFacing';
+import {
+  currentFacingTimeState,
+  enforceCurrentFacingAvailability,
+  isRefusedForCurrentFacingUse,
+} from '../currentFacing';
 import { executableEvidence, referenceEvidence, unavailableEvidence } from '../evidence';
 import type { CostCoverage } from '../evidence';
 import { freshnessUnder } from '../freshness';
 import {
   DEFAULT_PRACTICE_REFERENCE_POLICY,
+  EVIDENCE_CLASSES,
   isStricterOrEqual,
   resolveFreshnessPolicy,
   type FreshnessPolicy,
 } from '../freshnessPolicy';
 import { FIXTURE_STAMP } from '../fixtures';
-import { evidenceStamp, type DataStamp } from '../types';
+import { EVIDENCE_SOURCES, evidenceStamp, type DataStamp, type EvidenceSourceId } from '../types';
 
 /**
  * Stage H — the `5.309` M&E / Data ruling of 2026-09-22 made executable.
@@ -212,5 +217,87 @@ describe('the shipped fixture under the resolved ruling', () => {
     /* Not an expiry landmine in either direction: a REFRESHED fixture passes
        the same gate, which is what `5.110` landing looks like here. */
     expect(isRefusedForCurrentFacingUse(agedBy(2, 'fixture'), NOW)).toBe(false);
+  });
+});
+
+/**
+ * `5.814` · THE AGE A RATE LINE STATES COMES FROM ONE PLACE.
+ *
+ * DATA_VINTAGE_POLICY P-7: "a DELAYED or STALE rate must be shown as such,
+ * never as current". The label needs the age state itself, not only the
+ * refusal's yes/no, so `currentFacingTimeState` is the single derivation and the
+ * refusal is defined through it (system gate X1: no second age check).
+ */
+describe('5.814 · currentFacingTimeState is the single age derivation', () => {
+  it.each([
+    [0, 'DELAYED'],
+    [3, 'DELAYED'],
+    [7, 'DELAYED'],
+    [10, 'STALE'],
+    [14, 'STALE'],
+    [15, 'MISSING'],
+  ] as const)('should state %s days as %s under the source policy', (days, state) => {
+    expect(currentFacingTimeState(agedBy(days), NOW)).toBe(state);
+  });
+
+  it('should state an unparseable timestamp as MISSING, never as any age', () => {
+    expect(currentFacingTimeState({ ...agedBy(1), asOf: 'not a date' }, NOW)).toBe('MISSING');
+  });
+
+  it('should reach CURRENT only under a policy whose source contract supports it', () => {
+    const realTime: FreshnessPolicy = {
+      ...DEFAULT_PRACTICE_REFERENCE_POLICY,
+      id: 't',
+      supportsCurrent: true,
+    };
+    expect(currentFacingTimeState(agedBy(1), NOW, realTime)).toBe('CURRENT');
+    expect(currentFacingTimeState(agedBy(1), NOW)).toBe('DELAYED');
+  });
+
+  it('should refuse exactly where the age state is MISSING', () => {
+    for (let days = 0; days <= 30; days += 0.5) {
+      const stamp = agedBy(days);
+      expect(isRefusedForCurrentFacingUse(stamp, NOW), `${days} days`).toBe(
+        currentFacingTimeState(stamp, NOW) === 'MISSING'
+      );
+    }
+  });
+});
+
+/**
+ * `5.814` guard 6 · CURRENT NEEDS A DECISION, AND "OVER A WEEK" STAYS TRUE.
+ *
+ * The rate line may say "current" only where the policy says CURRENT (plan P10,
+ * D1), and the STALE copy says "over a week ago" ×4. So every policy that
+ * `resolveFreshnessPolicy` can return must keep `supportsCurrent: false` and a
+ * 7-day normal window — walked over every registered source and every class,
+ * never over a hand list.
+ */
+describe('5.814 · no source or class may assert CURRENT or move the week boundary', () => {
+  const sources = Object.keys(EVIDENCE_SOURCES) as EvidenceSourceId[];
+  const classes = [undefined, ...EVIDENCE_CLASSES];
+
+  it('should walk a non-empty list of sources and classes', () => {
+    expect(sources.length).toBeGreaterThan(0);
+    expect(EVIDENCE_CLASSES.length).toBeGreaterThan(0);
+  });
+
+  it('should resolve every source × class to a policy that cannot assert CURRENT', () => {
+    let checked = 0;
+    for (const source of sources) {
+      for (const evidenceClass of classes) {
+        const policy = resolveFreshnessPolicy({ source, evidenceClass });
+        expect(
+          policy.supportsCurrent,
+          `${source} × ${evidenceClass ?? 'no class'}: CURRENT needs a decision record that authorizes a real-time source contract with its own maximum age (plan P10, D1)`
+        ).toBe(false);
+        expect(
+          policy.delayedMaxDays,
+          `${source} × ${evidenceClass ?? 'no class'}: the STALE rate line says "over a week" in four locales; change that copy with the policy`
+        ).toBe(7);
+        checked += 1;
+      }
+    }
+    expect(checked).toBe(sources.length * classes.length);
   });
 });

@@ -1,6 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { enforceCurrentFacingAvailability, isRefusedForCurrentFacingUse } from '../currentFacing';
+import {
+  currentFacingTimeState,
+  enforceCurrentFacingAvailability,
+  isRefusedForCurrentFacingUse,
+} from '../currentFacing';
 import { referenceEvidence, type CostCoverage } from '../evidence';
 import { evidenceStamp, type DataStamp } from '../types';
 import { stripComments } from '@diboas/test-support';
@@ -49,6 +53,14 @@ describe('freshness ≠ origin — every origin is judged by the same clock', ()
     expect(isRefusedForCurrentFacingUse(stampOf(origin, 3), NOW)).toBe(false);
     expect(isRefusedForCurrentFacingUse(stampOf(origin, 10), NOW)).toBe(false);
     expect(isRefusedForCurrentFacingUse(stampOf(origin, 20), NOW)).toBe(true);
+  });
+
+  it.each(ORIGINS)('should give %s the same age state as every other origin (5.814)', (origin) => {
+    /* The age a rate line states is the same function of the clock for every
+       origin: origin decides the line's origin words, never its age. */
+    expect(currentFacingTimeState(stampOf(origin, 3), NOW)).toBe('DELAYED');
+    expect(currentFacingTimeState(stampOf(origin, 10), NOW)).toBe('STALE');
+    expect(currentFacingTimeState(stampOf(origin, 20), NOW)).toBe('MISSING');
   });
 
   it('should preserve origin untouched on the evidence it lets through', () => {
@@ -114,4 +126,33 @@ describe('the H layer knows nothing about mode, scope or journey state', () => {
     expect(enforceCurrentFacingAvailability.length).toBeLessThanOrEqual(3);
     expect(isRefusedForCurrentFacingUse.length).toBeLessThanOrEqual(3);
   });
+
+  /**
+   * `.length` counts only the parameters before the first default, so it reads
+   * 2 for a function with a defaulted third parameter and could not see a
+   * fourth (a mode) added after it. The declared parameter list is read from
+   * the source instead (plan P10, `5.814`).
+   */
+  it.each(['currentFacingTimeState', 'isRefusedForCurrentFacingUse'])(
+    'should declare exactly stamp, now and policy on %s',
+    (name) => {
+      const code = codeOf('../currentFacing.ts');
+      const start = code.indexOf(`export function ${name}(`);
+      expect(start, `${name} is declared in currentFacing.ts`).toBeGreaterThanOrEqual(0);
+      let depth = 0;
+      let current = '';
+      const params: string[] = [];
+      for (const ch of code.slice(start + `export function ${name}(`.length)) {
+        if (depth === 0 && ch === ')') break;
+        if ('({['.includes(ch)) depth += 1;
+        if (')}]'.includes(ch)) depth -= 1;
+        if (depth === 0 && ch === ',') {
+          params.push(current);
+          current = '';
+        } else current += ch;
+      }
+      if (current.trim()) params.push(current);
+      expect(params.map((p) => p.trim().split(/[:=\s]/)[0])).toEqual(['stamp', 'now', 'policy']);
+    }
+  );
 });
