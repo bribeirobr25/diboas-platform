@@ -101,7 +101,7 @@ describe('§4.8 — a growth position can FALL', () => {
     // implementation that accrued nothing at all, which is exactly the failure
     // this test exists to catch.
     expect(new Decimal(getLedgerState().positions[0].accrued).gt(0)).toBe(true);
-  });
+  }, 20_000); /* 5.904: 5.6 s under a heavy parallel run (fifteenth audit), on the 5 s default */
 
   it('should lose MORE on higher disclosed growth exposure (the label matches the model)', () => {
     // fullThrottle discloses 85%, stableGrowth 30% — the deeper exposure must

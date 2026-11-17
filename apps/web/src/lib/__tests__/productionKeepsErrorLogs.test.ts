@@ -33,7 +33,9 @@ afterEach(() => {
   delete require.cache[require.resolve(CONFIG_PATH)];
 });
 
-describe('production keeps error and warning logs (5.876)', () => {
+/* 5.904: each case loads the real next.config.js as a production build evaluates it (3.0 s under
+   a heavy parallel run, on the 5 s default; fifteenth audit B-5). */
+describe('production keeps error and warning logs (5.876)', { timeout: 20_000 }, () => {
   it.each([
     ['without a Sentry DSN', ''],
     ['through withSentryConfig, as production builds', 'https://public@o0.ingest.sentry.io/0'],
