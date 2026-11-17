@@ -239,6 +239,15 @@ const planted: string[] = [];
 const plantedDirs: string[] = [];
 
 function plant(relPath: string, body: string): string {
+  /* ⚑ 5.878: a public path (`docs/tech/…`, anything outside the private docs) resolves to
+     the REAL checkout. Planting there put untracked files into a tracked folder while the
+     suite ran (a `git add -A` would commit them) and raced `reviewGateGuards.test.ts`,
+     which copies `docs/tech/` (an ENOENT flake on CI). Public fixtures go into a throwaway
+     repository (`repoWith`) instead; this refusal is the guard. */
+  if (!docsRoot.isPrivateDocsPath(relPath))
+    throw new Error(
+      `plant(${relPath}): a public path would be written into the real checkout (5.878); use repoWith()`
+    );
   const abs = at(relPath);
   const parent = join(abs, '..');
 
@@ -999,8 +1008,9 @@ describe('PB-5 · PROSE-1 resolves every citation form and needs the real requir
   });
 
   it('should READ a plan cited under another folder, not report it NOT FOUND', () => {
-    /* The directory used to be dropped and the name looked up in docs/audit. */
-    const elsewhere = 'docs/tech/PB5_PROSE_SPEC_PLAN_ELSEWHERE.md';
+    /* The directory used to be dropped and the name looked up in docs/audit. A private folder
+       other than docs/audit (5.878: a public one would be written into the real checkout). */
+    const elsewhere = 'docs/decisions/PB5_PROSE_SPEC_PLAN_ELSEWHERE.md';
     plant(elsewhere, planBody);
     plant(
       'docs/audit/PB5_PROSE_SPEC_RECORD_ELSEWHERE.md',
@@ -1061,6 +1071,57 @@ describe('PB-5 · PROSE-1 resolves every citation form and needs the real requir
 });
 
 /**
+ * A throwaway repository with the real ignore policy (`docs/*` local except `docs/tech/`),
+ * its own gate, and 100 resolving references (DOC-1 refuses a smaller scan). Every DOC-1
+ * case runs in one, so no fixture is ever written into the real checkout (5.878).
+ */
+function repoWith(lines: string[], privateFiles: string[] = []): string {
+  const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-doc1-'));
+  installGate(dir);
+  mkdirSync(join(dir, 'docs/tech'), { recursive: true });
+  writeFileSync(join(dir, '.gitignore'), 'docs/*\n!docs/tech/\n');
+  writeFileSync(join(dir, 'CLAUDE.md'), '# fixture\n');
+  /* DOC-1 refuses a scan of under 100 references: give it 100 that resolve. */
+  const filler: string[] = [];
+  for (let i = 1; i <= 100; i += 1) {
+    writeFileSync(join(dir, `docs/tech/target-${i}.md`), `# ${i}\n`);
+    filler.push(`- see \`docs/tech/target-${i}.md\``);
+  }
+  writeFileSync(join(dir, 'docs/tech/index.md'), [...filler, ...lines].join('\n') + '\n');
+  for (const p of privateFiles) {
+    mkdirSync(join(dir, p, '..'), { recursive: true });
+    writeFileSync(join(dir, p), '# private\n');
+  }
+  /* A private corpus is present only where a register marks the docs root (5.696). */
+  if (privateFiles.length) {
+    mkdirSync(join(dir, 'docs/audit'), { recursive: true });
+    writeFileSync(join(dir, 'docs/audit/PENDING_ALL.md'), '# fixture register\n');
+  }
+  execFileSync('git', ['init', '-q'], { cwd: dir });
+  execFileSync('git', ['add', '-A'], { cwd: dir });
+  return dir;
+}
+function runIn(dir: string, mode: string): GateRun {
+  try {
+    const out = execFileSync('node', ['scripts/review-gate.mjs', mode], {
+      cwd: dir,
+      encoding: 'utf8',
+      env: FIXTURE_ENV,
+    });
+    return { code: 0, out: plain(out) };
+  } catch (error) {
+    const e = error as { status?: number; stdout?: string; stderr?: string };
+    return { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
+  }
+}
+
+/** A file written into a fixture repository AFTER `repoWith` staged it: untracked, in a tracked area. */
+function putIn(dir: string, rel: string, body: string): void {
+  mkdirSync(join(dir, rel, '..'), { recursive: true });
+  writeFileSync(join(dir, rel), body, 'utf8');
+}
+
+/**
  * ⛑ R4-9 (independent review, 2026-10-16): an ACCEPT case that only asserts
  * `not.toContain(fixture)` also passes when the fixture was never SCANNED, and a
  * summary phrase printed on every run proves nothing. Each accept case now
@@ -1076,58 +1137,90 @@ const LOCAL_ONLY = /(\d+) into gitignored local-only areas/;
 const RECORDS = /(\d+) record\(s\) name a controlling plan/;
 
 describe('PB-5 · DOC-1 resolves only against what a clone contains', () => {
+  /* 5.878: each case runs in its own throwaway repository; the register file exists there
+     (`privateFiles`) as it does beside a maintainer's checkout and in CI's stub copy. */
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length) rmSync(dirs.pop()!, { recursive: true, force: true });
+  });
+  const repo = () => {
+    const dir = repoWith([], ['docs/audit/PENDING_ALL.md']);
+    dirs.push(dir);
+    return dir;
+  };
+
   it('should FLAG an authority reference into a gitignored file that exists only locally', () => {
-    plant(
+    const dir = repo();
+    putIn(
+      dir,
       'docs/tech/PB5_DOC1_SPEC_FIXTURE.md',
       '# fixture\n\nRead `docs/audit/PENDING_ALL.md` first before changing a status.\n'
     );
-    const r = gate('doc1');
+    const r = runIn(dir, 'doc1');
     expect(r.code).toBe(1);
     expect(r.out).toContain('PB5_DOC1_SPEC_FIXTURE.md → docs/audit/PENDING_ALL.md');
   });
 
   it('should ACCEPT a reference to a NEW, not-yet-staged file in a tracked area', () => {
-    const before = counted(gate('doc1').out, REFS);
-    plant('docs/tech/PB5_DOC1_SPEC_NEW_TARGET.md', '# a file added in the same change\n');
-    plant(
+    const dir = repo();
+    const before = counted(runIn(dir, 'doc1').out, REFS);
+    putIn(dir, 'docs/tech/PB5_DOC1_SPEC_NEW_TARGET.md', '# a file added in the same change\n');
+    putIn(
+      dir,
       'docs/tech/PB5_DOC1_SPEC_FIXTURE_NEWFILE.md',
       '# fixture\n\nRead `docs/tech/PB5_DOC1_SPEC_NEW_TARGET.md` first before changing a status.\n'
     );
-    const r = gate('doc1');
+    const r = runIn(dir, 'doc1');
     expect(counted(r.out, REFS), 'the fixture reference must have been scanned').toBe(before + 1);
     expect(r.out).not.toContain('PB5_DOC1_SPEC_FIXTURE_NEWFILE.md');
   }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
 
   it('should NOT let a local-only note excuse a missing file in a TRACKED area on the same line', () => {
-    plant(
+    const dir = repo();
+    putIn(
+      dir,
       'docs/tech/PB5_DOC1_SPEC_FIXTURE_MIXED.md',
       '# fixture\n\nSee `docs/tech/PB5_SPEC_GONE.md` and `docs/audit/PENDING_ALL.md` (local-only).\n'
     );
-    const r = gate('doc1');
+    const r = runIn(dir, 'doc1');
     expect(r.code).toBe(1);
     expect(r.out).toContain('PB5_DOC1_SPEC_FIXTURE_MIXED.md → docs/tech/PB5_SPEC_GONE.md');
   });
 
   it('should ACCEPT the same reference when the line says it is local-only', () => {
-    const before = counted(gate('doc1').out, REFS);
-    plant(
+    const dir = repo();
+    const before = counted(runIn(dir, 'doc1').out, REFS);
+    putIn(
+      dir,
       'docs/tech/PB5_DOC1_SPEC_FIXTURE_ANNOTATED.md',
       '# fixture\n\nRead `docs/audit/PENDING_ALL.md` first (local-only) before changing a status.\n'
     );
-    const r = gate('doc1');
+    const r = runIn(dir, 'doc1');
     expect(counted(r.out, REFS), 'the fixture reference must have been scanned').toBe(before + 1);
     expect(r.out).not.toContain('PB5_DOC1_SPEC_FIXTURE_ANNOTATED.md');
   }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
 });
 
 describe('PB-5 · DOC-1 classifies by git ignore POLICY, never by local disk', () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length) rmSync(dirs.pop()!, { recursive: true, force: true });
+  });
+  const repo = () => {
+    const dir = repoWith([], ['docs/audit/PENDING_ALL.md']);
+    dirs.push(dir);
+    return dir;
+  };
+
   it('should REPORT a non-authority reference into a gitignored area without failing on it', () => {
-    const base = gate('doc1').out;
-    plant(
+    const dir = repo();
+    const base = runIn(dir, 'doc1').out;
+    putIn(
+      dir,
       'docs/tech/PB5_DOC1_SPEC_LOCALONLY.md',
       '# fixture\n\nBackground lives in `docs/audit/PB5_SPEC_NOWHERE.md`.\n'
     );
-    const r = gate('doc1');
+    const r = runIn(dir, 'doc1');
     expect(r.out).not.toContain('PB5_DOC1_SPEC_LOCALONLY.md');
     expect(counted(r.out, LOCAL_ONLY), 'the reference must be REPORTED as local-only').toBe(
       counted(base, LOCAL_ONLY) + 1
@@ -1135,15 +1228,22 @@ describe('PB-5 · DOC-1 classifies by git ignore POLICY, never by local disk', (
   }, 20_000); /* two gate runs (baseline + fixture) — R4-9 */
 
   it('should FAIL a reference to a TRACKED area whose file does not exist', () => {
-    plant(
+    const dir = repo();
+    putIn(
+      dir,
       'docs/tech/PB5_DOC1_SPEC_MISSING_TRACKED.md',
       '# fixture\n\nSee `docs/tech/PB5_SPEC_NO_SUCH_FILE.md`.\n'
     );
-    const r = gate('doc1');
+    const r = runIn(dir, 'doc1');
     expect(r.code).toBe(1);
     expect(r.out).toContain(
       'PB5_DOC1_SPEC_MISSING_TRACKED.md → docs/tech/PB5_SPEC_NO_SUCH_FILE.md'
     );
+  });
+
+  it('should refuse to plant a public path into the real checkout (5.878)', () => {
+    expect(() => plant('docs/tech/PB5_SHOULD_NEVER_BE_WRITTEN.md', '# no\n')).toThrow(/5\.878/);
+    expect(existsSync(join(ROOT, 'docs/tech/PB5_SHOULD_NEVER_BE_WRITTEN.md'))).toBe(false);
   });
 });
 
@@ -1265,45 +1365,6 @@ describe('R4-2 · review:port — operator input is validated, never interpolate
  * present" are two real environments, not two assumptions.
  */
 describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus layer', () => {
-  function repoWith(lines: string[], privateFiles: string[] = []): string {
-    const dir = mkdtempSync(join(FIXTURE_PARENT, 'review-gate-doc1-'));
-    installGate(dir);
-    mkdirSync(join(dir, 'docs/tech'), { recursive: true });
-    writeFileSync(join(dir, '.gitignore'), 'docs/*\n!docs/tech/\n');
-    writeFileSync(join(dir, 'CLAUDE.md'), '# fixture\n');
-    /* DOC-1 refuses a scan of under 100 references: give it 100 that resolve. */
-    const filler: string[] = [];
-    for (let i = 1; i <= 100; i += 1) {
-      writeFileSync(join(dir, `docs/tech/target-${i}.md`), `# ${i}\n`);
-      filler.push(`- see \`docs/tech/target-${i}.md\``);
-    }
-    writeFileSync(join(dir, 'docs/tech/index.md'), [...filler, ...lines].join('\n') + '\n');
-    for (const p of privateFiles) {
-      mkdirSync(join(dir, p, '..'), { recursive: true });
-      writeFileSync(join(dir, p), '# private\n');
-    }
-    /* A private corpus is present only where a register marks the docs root (5.696). */
-    if (privateFiles.length) {
-      mkdirSync(join(dir, 'docs/audit'), { recursive: true });
-      writeFileSync(join(dir, 'docs/audit/PENDING_ALL.md'), '# fixture register\n');
-    }
-    execFileSync('git', ['init', '-q'], { cwd: dir });
-    execFileSync('git', ['add', '-A'], { cwd: dir });
-    return dir;
-  }
-  function run(dir: string, mode: string): GateRun {
-    try {
-      const out = execFileSync('node', ['scripts/review-gate.mjs', mode], {
-        cwd: dir,
-        encoding: 'utf8',
-        env: FIXTURE_ENV,
-      });
-      return { code: 0, out: plain(out) };
-    } catch (error) {
-      const e = error as { status?: number; stdout?: string; stderr?: string };
-      return { code: e.status ?? 1, out: plain(`${e.stdout ?? ''}${e.stderr ?? ''}`) };
-    }
-  }
   const PRIVATE_REF = 'Read `docs/full-view/canon/README.md` (local-only) first.';
   const dirs: string[] = [];
   afterEach(() => {
@@ -1316,9 +1377,9 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
     expect(existsSync(join(dir, 'docs/full-view')), 'fixture must hold no private files').toBe(
       false
     );
-    const l1 = run(dir, 'doc1');
+    const l1 = runIn(dir, 'doc1');
     expect(l1.code, l1.out).toBe(0);
-    const l2 = run(dir, 'doc1-local');
+    const l2 = runIn(dir, 'doc1-local');
     expect(l2.code, 'an unverifiable layer is a SKIP (exit 2), never a pass').toBe(2);
     expect(l2.out).toMatch(/NOT VERIFIED HERE — no private area present on this machine/);
   });
@@ -1329,8 +1390,8 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       ['docs/full-view/canon/README.md']
     );
     dirs.push(dir);
-    expect(run(dir, 'doc1').code, 'Layer 1 must not depend on this machine').toBe(0);
-    const l2 = run(dir, 'doc1-local');
+    expect(runIn(dir, 'doc1').code, 'Layer 1 must not depend on this machine').toBe(0);
+    const l2 = runIn(dir, 'doc1-local');
     expect(l2.code).toBe(1);
     expect(l2.out).toMatch(
       /UNKNOWN PRIVATE AREA[^(]*\(1\): docs\/tech\/index\.md → docs\/full-veiw\/canon\/README\.md/
@@ -1343,7 +1404,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       ['docs/full-view/canon/README.md', 'docs/PRIVATE_NOTE.md']
     );
     dirs.push(ok);
-    const verified = run(ok, 'doc1-local');
+    const verified = runIn(ok, 'doc1-local');
     expect(verified.code, verified.out).toBe(0);
     expect(verified.out).toMatch(/2 verified on this machine/);
     const typo = repoWith(
@@ -1351,7 +1412,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       ['docs/full-view/canon/README.md']
     );
     dirs.push(typo);
-    expect(run(typo, 'doc1-local').out).toMatch(
+    expect(runIn(typo, 'doc1-local').out).toMatch(
       /PRIVATE TARGET MISSING \(1\): docs\/tech\/index\.md → docs\/PRIVATE_NOET\.md/
     );
   });
@@ -1365,7 +1426,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       '# fixture\n\nWork: `docs/audit/PENDING_ALL.md`. History: `docs/audit/AUDIT_HISTORY.md`.\n';
     writeFileSync(join(ok, 'CLAUDE.md'), named);
     execFileSync('git', ['add', '-A'], { cwd: ok });
-    const pass = run(ok, 'doc1');
+    const pass = runIn(ok, 'doc1');
     expect(pass.code, pass.out).toBe(0);
     const bad = repoWith([]);
     dirs.push(bad);
@@ -1374,7 +1435,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       `${named}Plan: \`docs/audit/SOME_PLAN_2026-10-01.md\`.\n`
     );
     execFileSync('git', ['add', '-A'], { cwd: bad });
-    const fail = run(bad, 'doc1');
+    const fail = runIn(bad, 'doc1');
     expect(fail.code).toBe(1);
     expect(fail.out).toMatch(
       /CLAUDE\.md leans on 1 disposable docs\/audit artifact\(s\)[^\n]*docs\/audit\/SOME_PLAN_2026-10-01\.md/
@@ -1387,7 +1448,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       `${named}Plan: \`../diboas-docs/audit/OTHER_PLAN.md\`.\n`
     );
     execFileSync('git', ['add', '-A'], { cwd: sibling });
-    const viaSibling = run(sibling, 'doc1');
+    const viaSibling = runIn(sibling, 'doc1');
     expect(viaSibling.code).toBe(1);
     expect(viaSibling.out).toMatch(/leans on 1 disposable[^\n]*docs\/audit\/OTHER_PLAN\.md/);
   });
@@ -1397,15 +1458,15 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
     dirs.push(dir);
     writeFileSync(join(dir, 'docs/tech/Ü-notes.md'), '# ü\n');
     execFileSync('git', ['add', '--', 'docs/tech/Ü-notes.md'], { cwd: dir });
-    const r = run(dir, 'doc1');
+    const r = runIn(dir, 'doc1');
     expect(r.code, r.out).toBe(0);
   });
 
   it('PRIVATE CORPUS PRESENT: an existing target is verified; a typo FAILS Layer 2 but not Layer 1', () => {
     const ok = repoWith([PRIVATE_REF], ['docs/full-view/canon/README.md']);
     dirs.push(ok);
-    expect(run(ok, 'doc1').code).toBe(0);
-    const verified = run(ok, 'doc1-local');
+    expect(runIn(ok, 'doc1').code).toBe(0);
+    const verified = runIn(ok, 'doc1-local');
     expect(verified.code).toBe(0);
     expect(verified.out).toMatch(/1 verified on this machine/);
 
@@ -1414,8 +1475,8 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       ['docs/full-view/canon/README.md']
     );
     dirs.push(typo);
-    expect(run(typo, 'doc1').code, 'Layer 1 must not depend on this machine').toBe(0);
-    const l2 = run(typo, 'doc1-local');
+    expect(runIn(typo, 'doc1').code, 'Layer 1 must not depend on this machine').toBe(0);
+    const l2 = runIn(typo, 'doc1-local');
     expect(l2.code).toBe(1);
     expect(l2.out).toMatch(
       /PRIVATE TARGET MISSING \(1\): docs\/tech\/index\.md → docs\/full-view\/canon\/READEM\.md/
@@ -1426,7 +1487,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
     for (const privateFiles of [[], ['docs/full-view/canon/README.md']]) {
       const dir = repoWith([PRIVATE_REF, 'Details in `docs/tech/MISSING.md`.'], privateFiles);
       dirs.push(dir);
-      const r = run(dir, 'doc1');
+      const r = runIn(dir, 'doc1');
       expect(r.code).toBe(1);
       expect(r.out).toMatch(
         /dangling references ROSE to 1 .*docs\/tech\/index\.md → docs\/tech\/MISSING\.md/
@@ -1439,7 +1500,7 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       'Read `docs/tech/MISSING2.md` first; `docs/audit/OLD.md` is ⚠ NOT REACHABLE.',
     ]);
     dirs.push(dir);
-    const r = run(dir, 'doc1');
+    const r = runIn(dir, 'doc1');
     expect(r.code).toBe(1);
     expect(r.out).toMatch(
       /UNREACHABLE AUTHORITY REFERENCE \(1\): docs\/tech\/index\.md → docs\/tech\/MISSING2\.md/
@@ -1451,12 +1512,12 @@ describe('R4-5 · DOC-1 — machine-independent verdict, separate private-corpus
       'See `docs/tech/target-1.md#top` and `docs/tech/target-2.md:13` and `docs/tech/`.',
     ]);
     dirs.push(good);
-    expect(run(good, 'doc1').code).toBe(0);
+    expect(runIn(good, 'doc1').code).toBe(0);
     const bad = repoWith([
       'See `docs/tech/GONE.md#top`, `scripts/nope.js` and `docs/tech/nodir/`.',
     ]);
     dirs.push(bad);
-    const r = run(bad, 'doc1');
+    const r = runIn(bad, 'doc1');
     expect(r.code).toBe(1);
     expect(r.out).toMatch(/dangling references ROSE to 3/);
   });
