@@ -66,14 +66,14 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.65.0",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^25.9.9",
     "ajv": "^8.18.0",
     "eslint": "^10.15.0",
     "knip": "^5.86.0",
-    "prettier": "^3.9.10",
+    "prettier": "^3.10.1",
     "simple-git-hooks": "^2.14.0",
-    "turbo": "^2.11.10",
+    "turbo": "^2.11.11",
     "typescript": "~5.9.3"
   },
   "simple-git-hooks": {
