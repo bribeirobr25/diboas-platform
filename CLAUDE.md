@@ -531,7 +531,9 @@ I-2 · I-8 / Real                                      NOT AUTHORIZED
 **Git (founder ruling 2026-10-28):** standing go for every task to branch, commit, push and open a
 PR. **The merge is always the founder's, with one exception: Dependabot's PRs** (founder 2026-11-11),
 which Claude reviews, impact-analyses and tests, then merges itself when safe, or fixes or closes
-(checklist: `docs/decisions/DR-2026-11-11-dependabot-merge-delegated.md`). After verifying a merge, Claude may delete and
+(checklist: `docs/decisions/DR-2026-11-11-dependabot-merge-delegated.md`). A fix that goes beyond
+Dependabot's own change is Claude's PR, and the founder merges it; so is a Dependabot PR carrying
+any non-Dependabot commit (PR-RECORD then requires the record). After verifying a merge, Claude may delete and
 clean up what that merge made obsolete. Sabotage restores still use a saved file copy verified by
 `sha256`, never `git checkout`.
 
@@ -600,4 +602,4 @@ NO DURABLE RULE MAY EXIST ONLY IN A DISPOSABLE AUDIT ARTIFACT
 NO HISTORICAL AUDIT ARTIFACT BECOMES CURRENT AUTHORITY BY EXISTENCE
 ```
 
-**Deleting or cleaning up a document is delegated to Claude and is carried out only after Claude has verified the founder's merge of the change that made it obsolete (founder ruling 2026-10-28).**
+**Deleting or cleaning up a document is delegated to Claude and is carried out only after Claude has verified the merge of the change that made it obsolete — the founder's merge, or a Dependabot merge Claude made under `DR-2026-11-11-dependabot-merge-delegated` (founder rulings 2026-10-28 and 2026-11-11).**
