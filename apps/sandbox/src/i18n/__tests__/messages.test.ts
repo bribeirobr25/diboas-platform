@@ -430,6 +430,13 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
     `(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`,
     'is'
   );
+  // Look-alike spaces and hyphens (a no-break space inside "dólar digital", U+2011 inside
+  // "Digital-Dollar") are normalised before every test, in both walls (2026-11-12 audit).
+  const normalise = (s: string): string =>
+    s
+      .normalize('NFC')
+      .replace(/[\u00A0\u202F\u2007]/g, ' ')
+      .replace(/[\u2010\u2011\u2012\u2013]/g, '-');
 
   // POSITIVE CONTROLS — the SAME fixture the web wall reads (`config/genius-wall-controls.json`):
   // every concrete form the shared patterns name, plus whole breaches, so narrowing any form fails
@@ -441,9 +448,9 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   it('should keep every control list at or above its floor when the fixture is read', () => {
     // Floors at the current counts (2026-11-11): narrowing the pattern and deleting its controls
     // in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
-    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(37);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(50);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(27);
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(44);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(73);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(36);
     expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
   });
 
@@ -463,14 +470,14 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
     `${'Some long introduction. '.repeat(3)}USDC${'.'.repeat(CONTROLS.windowChars)}earns`,
     `${'Some long introduction. '.repeat(3)}earn${'.'.repeat(CONTROLS.windowChars)}USDC`,
   ])('should flag "%s" when the shared pattern is applied', (sample) => {
-    expect(PAIRING.test(sample)).toBe(true);
+    expect(PAIRING.test(normalise(sample))).toBe(true);
   });
 
   it('should have no earn/yield-near-stablecoin pairing in any locale', () => {
     for (const locale of SANDBOX_LOCALES) {
       for (const [id, msg] of Object.entries(getMessages(locale))) {
         expect(
-          PAIRING.test(msg),
+          PAIRING.test(normalise(msg)),
           `${locale}:${id} pairs earn/yield with a stablecoin token: ${msg}`
         ).toBe(false);
       }

@@ -212,15 +212,24 @@ describe('market page layout and links', () => {
   });
 
   it.each([
-    'components/Sections/AssetHistoryCalculator/variants/Default/Default.tsx',
-    'components/Sections/CurrencyDepreciationCalculator/CurrencyDepreciationCalculator.tsx',
-    'components/Sections/IdleCashCalculator/IdleCashCalculator.tsx',
-    'components/Sections/CardFeesCalculator/CardFeesCalculator.tsx',
-  ])('should send the result CTA to the waitlist form when the tool is %s', (file) => {
-    const hrefs = [...read(file).matchAll(/href: '(\/[^']*source=tool_[^']*)'/g)].map((m) => m[1]);
-    expect(hrefs.length).toBeGreaterThan(0);
-    for (const href of hrefs) expect(href).toMatch(/#waitlist$/);
-  });
+    ['components/Sections/AssetHistoryCalculator/variants/Default/Default.tsx', 'asset-history'],
+    [
+      'components/Sections/CurrencyDepreciationCalculator/CurrencyDepreciationCalculator.tsx',
+      'currency-depreciation',
+    ],
+    ['components/Sections/IdleCashCalculator/IdleCashCalculator.tsx', 'idle-cash'],
+    ['components/Sections/CardFeesCalculator/CardFeesCalculator.tsx', 'card-fees'],
+  ])(
+    'should send the result CTA to the waitlist form with its tool label when the tool is %s',
+    (file, slug) => {
+      const src = read(file);
+      const hrefs = [...src.matchAll(/href: '(\/[^']*#waitlist)'/g)].map((m) => m[1]);
+      expect(hrefs.length).toBeGreaterThan(0);
+      // No `?source=` (nothing ever read it; market clean-up W-C): the label rides `toolSlug`.
+      for (const href of hrefs) expect(href).not.toMatch(/\?source=/);
+      expect(src).toMatch(new RegExp(`toolSlug: '${slug}'`));
+    }
+  );
 
   it('should put the view tabs in the page column when rendered', () => {
     const { container } = render(

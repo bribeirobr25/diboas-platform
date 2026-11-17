@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { isValidLocale, isValidSource, isValidTags, isValidName } from '../validators';
+import { isValidLocale, isValidSource, sanitizeTags, isValidName } from '../validators';
 
 /** Untyped JSON reaches these validators at runtime; cast to exercise the guards. */
 const asString = (value: unknown) => value as string;
@@ -61,27 +61,67 @@ describe('isValidSource', () => {
   });
 });
 
-describe('isValidTags', () => {
-  it('should accept tags when there are at most ten non-empty strings of at most fifty chars', () => {
-    expect(isValidTags([])).toBe(true);
-    expect(isValidTags(Array.from({ length: 10 }, () => 'x'.repeat(50)))).toBe(true);
+describe('sanitizeTags', () => {
+  const kept = (value: unknown) => sanitizeTags(value)?.tags;
+
+  it('should keep every UTM and known cta_source tag of at most fifty chars', () => {
+    expect(sanitizeTags([])).toEqual({ tags: [], dropped: 0 });
+    const utm = [
+      'utm_source:ig',
+      'utm_medium:social',
+      'utm_campaign:spring',
+      'utm_term:x',
+      'utm_content:y',
+    ];
+    expect(sanitizeTags([...utm, 'cta_source:market'])).toEqual({
+      tags: [...utm, 'cta_source:market'],
+      dropped: 0,
+    });
   });
 
-  it('should reject tags when the value is not an array', () => {
-    for (const value of ['a,b', null, undefined, { 0: 'a', length: 1 }]) {
-      expect(isValidTags(value)).toBe(false);
+  it('should refuse the request when the value is not an array', () => {
+    for (const value of ['a,b', null, undefined, '', 0, { 0: 'a', length: 1 }]) {
+      expect(sanitizeTags(value)).toBeNull();
     }
   });
 
-  it('should reject tags when there are more than ten', () => {
-    expect(isValidTags(Array.from({ length: 11 }, () => 'a'))).toBe(false);
+  it('should refuse the request when there are more than ten tags', () => {
+    expect(sanitizeTags(Array.from({ length: 11 }, () => 'utm_source:a'))).toBeNull();
   });
 
-  it('should reject tags when any entry is empty, too long or not a string', () => {
-    expect(isValidTags(['ok', ''])).toBe(false);
-    expect(isValidTags(['ok', 'x'.repeat(51)])).toBe(false);
-    expect(isValidTags(['ok', 1])).toBe(false);
-    expect(isValidTags(['ok', { toString: () => 'x' }])).toBe(false);
+  it('should refuse the request when any entry is not a string', () => {
+    expect(sanitizeTags(['utm_source:ok', 1])).toBeNull();
+    expect(sanitizeTags(['utm_source:ok', { toString: () => 'x' }])).toBeNull();
+  });
+
+  it('should drop an empty or over-long tag and keep the rest, counting the drops (5.922)', () => {
+    const longCampaign = `utm_campaign:${'spring-launch-brazil-instagram-'.repeat(2)}`;
+    expect(longCampaign.length).toBeGreaterThan(50);
+    expect(sanitizeTags(['utm_source:ig', '', longCampaign])).toEqual({
+      tags: ['utm_source:ig'],
+      dropped: 2,
+    });
+  });
+
+  it('should drop a tag whose key is not a UTM key or cta_source (no free text by another key)', () => {
+    expect(
+      kept(['x:ana@example.com', 'CTA_SOURCE:market', ' cta_source:market', 'utm_source:ig'])
+    ).toEqual(['utm_source:ig']);
+  });
+
+  it('should keep a known cta_source label once and drop an unknown, free-text or second one', () => {
+    for (const label of [
+      'market',
+      'tool-idle-cash',
+      'learn-putting-it-together',
+      'demo-launcher',
+    ]) {
+      expect(kept([`cta_source:${label}`])).toEqual([`cta_source:${label}`]);
+    }
+    expect(
+      kept(['utm_source:ig', 'cta_source:ana@example.com', 'cta_source:', 'cta_source:tool-x'])
+    ).toEqual(['utm_source:ig']);
+    expect(kept(['cta_source:market', 'cta_source:tool-card-fees'])).toEqual(['cta_source:market']);
   });
 });
 

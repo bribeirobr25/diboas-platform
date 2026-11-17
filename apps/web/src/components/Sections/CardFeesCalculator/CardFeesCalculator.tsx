@@ -199,7 +199,8 @@ export function CardFeesCalculator() {
                 headline: tShared('resultMoment.ctaHeadline'),
                 body: tShared('resultMoment.ctaBody'),
                 label: tShared('resultMoment.ctaLabel'),
-                href: '/business?source=tool_card-fees#waitlist',
+                href: '/business#waitlist',
+                toolSlug: 'card-fees',
               }}
               share={{
                 onShare: resultShare.share,

@@ -15,6 +15,7 @@
  * without re-deriving any figure here — one engine, four expressions.
  */
 
+import type { ToolCtaSlug } from '@/lib/analytics/ctaSources';
 import type { ReactNode } from 'react';
 import type { DivergenceSeries } from '@/components/UI/DivergenceChart';
 import { ResultMomentDefault } from './variants/Default';
@@ -48,6 +49,11 @@ export interface ResultMomentCta {
   label: string;
   /** Locale-relative href (rendered via LocaleLink). */
   href: string;
+  /**
+   * The tool whose result sent the person to the waitlist: stored as the signup label
+   * `tool-<slug>` on click, only after analytics consent (market clean-up W-C, decision C).
+   */
+  toolSlug?: ToolCtaSlug;
 }
 
 /** Share control — wired to `useResultShare` by the caller. */

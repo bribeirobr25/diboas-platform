@@ -1,5 +1,6 @@
 'use client';
 
+import { MARKET_EVENTS } from '@/lib/market/constants';
 import { useEffect, useRef, useState } from 'react';
 import type { SignalGroup } from '@/lib/analytics-sdk/types';
 import { isSignalGroupUnavailable } from '@/lib/market/presentationState';
@@ -78,6 +79,8 @@ export function SignalCard({ data, unavailableLabel, className }: SignalCardProp
     <details
       className={`${styles.row} ${className ?? ''}`}
       data-status={unavailable ? 'UNAVAILABLE' : data.status}
+      data-market-event={MARKET_EVENTS.SIGNAL_GROUP_OPENED}
+      data-market-value={data.id}
     >
       {/* Spec note: <summary> permits phrasing content only — every child is
           a <span> (display set in CSS), never a <div>, so AT sees conforming

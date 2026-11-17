@@ -13,6 +13,7 @@
  */
 
 import { Container } from '@/components/UI/Container';
+import { MARKET_EVENTS } from '@/lib/market/constants';
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { switcherDestinations, viewPath, type MarketViewDef } from '@/lib/market/viewRegistry';
 import styles from './page.module.css';
@@ -45,6 +46,8 @@ export function MarketViewSwitcher({ activeSlug, labelFor, navLabel }: MarketVie
                 prefetch={false}
                 aria-current={view.slug === activeSlug ? 'page' : undefined}
                 className={styles.viewSwitcherLink}
+                data-market-event={MARKET_EVENTS.VIEW_SWITCHED}
+                data-market-value={view.slug}
               >
                 {labelFor(view)}
               </LocaleLink>

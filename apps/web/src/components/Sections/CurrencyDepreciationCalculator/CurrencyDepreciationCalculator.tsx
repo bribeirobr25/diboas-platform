@@ -469,7 +469,8 @@ export function CurrencyDepreciationCalculator() {
                 headline: tShared('resultMoment.ctaHeadline'),
                 body: tShared('resultMoment.ctaBody'),
                 label: tShared('resultMoment.ctaLabel'),
-                href: '/?source=tool_currency-depreciation#waitlist',
+                href: '/#waitlist',
+                toolSlug: 'currency-depreciation',
               }}
               share={{
                 onShare: resultShare.share,

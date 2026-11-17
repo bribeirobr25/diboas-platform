@@ -21,6 +21,7 @@
  * differentiator, not a re-arrangement.
  */
 
+import { MARKET_EVENTS } from '@/lib/market/constants';
 import { SectionErrorBoundary } from '@/lib/errors/SectionErrorBoundary';
 import type { SignalGroup } from '@/lib/analytics-sdk/types';
 import styles from './page.module.css';
@@ -109,7 +110,10 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
         {/* The numbers behind the three beats, one expandable step down. Native
             <details>, no JS, matching the scored view's memo affordance. */}
         {depth ? (
-          <details className={`${styles.scoreDetail} ${styles.stateDepth}`}>
+          <details
+            className={`${styles.scoreDetail} ${styles.stateDepth}`}
+            data-market-event={MARKET_EVENTS.MEMO_OPENED}
+          >
             {/* Same classes as the scored view's memo toggle rather than a
                 parallel set: identical affordance, one place to restyle. */}
             <summary className={styles.memoToggle}>
@@ -144,7 +148,12 @@ export function StateViewSections({ viewSlug, signalGroups, t }: StateViewSectio
                 ? t('conditions.unavailable', 'Not available')
                 : t(`conditions.${key}.${suffix}`, fb[suffix]);
             return (
-              <details key={id} className={styles.conditionRow}>
+              <details
+                key={id}
+                className={styles.conditionRow}
+                data-market-event={MARKET_EVENTS.BACKDROP_EXPLAINER_OPENED}
+                data-market-value={id}
+              >
                 <summary className={styles.conditionSummary}>
                   <span className={styles.conditionTitle}>
                     {t(`conditions.${key}.title`, fb.title)}

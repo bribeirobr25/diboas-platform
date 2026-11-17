@@ -8,7 +8,6 @@
 import { AnalyticsService, AnalyticsEvent, AnalyticsConfig, WebVitalsMetric } from './types';
 import { ANALYTICS_DEFAULTS, ANALYTICS_CONSTANTS } from './constants';
 import { Logger } from '@/lib/monitoring/Logger';
-import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import {
   RetryQueue,
   DEFAULT_RETRY_CONFIG,
@@ -17,9 +16,10 @@ import {
   type AnalyticsError,
 } from './retryQueue';
 import { ConnectionMonitor } from './connectionMonitor';
-import { type IAnalyticsBackend, GA4Backend, PostHogBackend } from './backends';
+import { type IAnalyticsBackend, type SendOptions, GA4Backend, PostHogBackend } from './backends';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { scrubUrl } from '@/lib/utils/scrubUrl';
+import { clearConsentGatedCtaSource } from './ctaAttribution';
 
 const UTM_STORAGE_KEY = 'diboas-utm-params';
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
@@ -56,6 +56,19 @@ class AnalyticsTrackingService implements AnalyticsService {
   private connectionMonitor = new ConnectionMonitor();
   private backends: IAnalyticsBackend[] = [];
 
+  /**
+   * Hand the queue to the SDKs when the page is hidden or closed (founder 2026-11-11,
+   * DR-2026-11-11-market-cleanup-c2-decisions D): a reader who leaves within the 30 s batch
+   * window used to lose their events. Bound once, so `destroy()` removes the same functions
+   * (race-condition rule). A second call finds the queue already empty.
+   */
+  private readonly onPageHide = (): void => {
+    void this.flush({ unloading: true });
+  };
+  private readonly onVisibilityChange = (): void => {
+    if (document.visibilityState === 'hidden') void this.flush({ unloading: true });
+  };
+
   constructor(config: AnalyticsConfig = ANALYTICS_DEFAULTS) {
     this.config = config;
 
@@ -67,6 +80,8 @@ class AnalyticsTrackingService implements AnalyticsService {
 
     this.initializeSession();
     this.startAutoFlush();
+    window.addEventListener('pagehide', this.onPageHide);
+    document.addEventListener('visibilitychange', this.onVisibilityChange);
     this.listenForConsentWithdrawal();
     this.connectionMonitor.initialize(() => {
       if (this.retryQueue.hasPendingEvents()) {
@@ -105,6 +120,8 @@ class AnalyticsTrackingService implements AnalyticsService {
     };
 
     this.eventQueue.push(enrichedEvent);
+    // Consent exists here: let a backend that loads lazily get ready for a synchronous send.
+    for (const backend of this.backends) backend.warm?.();
 
     if (this.config.debug) {
       Logger.debug('Analytics event tracked', { event: enrichedEvent });
@@ -204,7 +221,7 @@ class AnalyticsTrackingService implements AnalyticsService {
    * Flush events to analytics service
    * Performance: Batch events for efficiency
    */
-  async flush(): Promise<void> {
+  async flush(options: SendOptions = {}): Promise<void> {
     if (this.eventQueue.length === 0) return;
     if (typeof window === 'undefined') return;
     if (!hasAnalyticsConsent()) {
@@ -223,7 +240,7 @@ class AnalyticsTrackingService implements AnalyticsService {
       // Dispatch to all registered backends
       const backendResults = this.backends.map(async (backend) => {
         try {
-          await backend.sendEvents(events);
+          await backend.sendEvents(events, options);
         } catch (err) {
           Logger.error(`Analytics backend "${backend.name}" failed:`, {
             error: err instanceof Error ? err.message : String(err),
@@ -231,15 +248,8 @@ class AnalyticsTrackingService implements AnalyticsService {
         }
       });
       await Promise.all(backendResults);
-
-      // Send to custom analytics endpoint (with retry for resilience)
-      if (process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT) {
-        await fetchWithRetry(process.env.NEXT_PUBLIC_ANALYTICS_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ events }),
-        });
-      }
+      // The custom `NEXT_PUBLIC_ANALYTICS_ENDPOINT` sink was deleted 2026-11-11: never set in
+      // production, and its host left the CSP with the analytics product (decision G-2).
     } catch (error) {
       Logger.error('Failed to flush analytics events:', {
         error: error instanceof Error ? error.message : String(error),
@@ -283,6 +293,10 @@ class AnalyticsTrackingService implements AnalyticsService {
     if (this.flushTimer) {
       clearInterval(this.flushTimer);
     }
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('pagehide', this.onPageHide);
+      document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    }
     this.retryQueue.destroy();
     this.connectionMonitor.destroy();
     this.flush(); // Final flush
@@ -298,6 +312,8 @@ class AnalyticsTrackingService implements AnalyticsService {
         applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () => {
           this.eventQueue = [];
           this.retryQueue.clear();
+          // A market/tool signup label was stored only because of consent (decision C).
+          clearConsentGatedCtaSource();
           Logger.info('Analytics: consent withdrawn — queues cleared');
         });
       })

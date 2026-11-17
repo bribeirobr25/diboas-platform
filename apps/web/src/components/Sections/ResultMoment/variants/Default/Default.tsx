@@ -3,6 +3,7 @@
 import { CountUp } from '@/components/UI/CountUp';
 import { DivergenceChart } from '@/components/UI/DivergenceChart';
 import { LocaleLink } from '@/components/UI/LocaleLink';
+import { setConsentedCtaSource } from '@/lib/analytics/ctaAttribution';
 import { Share2, Check, ArrowRight } from '@/components/UI/LucideIcon';
 import type { ResultMomentProps } from '../../ResultMomentFactory';
 import styles from '../../ResultMoment.module.css';
@@ -30,6 +31,8 @@ export function ResultMomentDefault({
   className = '',
 }: ResultMomentDefaultProps) {
   const heroClass = `u-numeric ${styles.heroValue} ${HERO_TONE_CLASS[headlineTone]}`;
+  const toolSlug = cta.toolSlug;
+
   return (
     <section className={`${styles.moment} ${className}`}>
       <p className={`u-eyebrow ${styles.eyebrow}`}>{eyebrow}</p>
@@ -77,7 +80,11 @@ export function ResultMomentDefault({
           {cta.body ? <p className={styles.ctaBody}>{cta.body}</p> : null}
         </div>
         <div className={styles.actions}>
-          <LocaleLink href={cta.href} className={styles.ctaButton}>
+          <LocaleLink
+            href={cta.href}
+            className={styles.ctaButton}
+            onClick={toolSlug ? () => setConsentedCtaSource(`tool-${toolSlug}`) : undefined}
+          >
             <span>{cta.label}</span>
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />
           </LocaleLink>

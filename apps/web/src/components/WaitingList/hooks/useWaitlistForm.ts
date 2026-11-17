@@ -13,7 +13,7 @@ import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers'
 import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { getStoredUtmParams, utmToTags } from '@/hooks/useUtmCapture';
-import { getCtaSource } from '@/lib/analytics/ctaAttribution';
+import { clearCtaSource, peekCtaSource } from '@/lib/analytics/ctaAttribution';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 export interface FormState {
@@ -34,6 +34,12 @@ interface UseWaitlistFormOptions {
   referredBy?: string;
   /** Waitlist source identifier (e.g. 'landing_b2b') */
   source?: string;
+  /**
+   * Send the stored CTA label (`cta_source:<label>`) with the signup. Default true. The Money
+   * Jobs gate passes false: it carries its own `source` and must not consume a label another
+   * button set (market clean-up W-C, decision H).
+   */
+  readCtaSource?: boolean;
   onSuccess: (data: WaitlistSuccessData) => void;
   onError?: (error: string) => void;
   t: (key: string, values?: Record<string, string | number>) => string;
@@ -68,6 +74,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
     compact = false,
     referredBy: referredByOverride,
     source,
+    readCtaSource = true,
     onSuccess,
     onError,
     t,
@@ -164,7 +171,9 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         // Capture UTM params and CTA source for attribution
         const utmParams = getStoredUtmParams();
         const utmTags = utmToTags(utmParams);
-        const ctaSource = getCtaSource();
+        // Read, not consumed: the label survives a failed attempt and is cleared below only on
+        // success or "already registered" (decision H).
+        const ctaSource = readCtaSource ? peekCtaSource() : null;
         if (ctaSource) utmTags.push(`cta_source:${ctaSource}`);
 
         abortControllerRef.current?.abort();
@@ -191,6 +200,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         if (!response.ok) {
           // Handle specific error codes
           if (data.errorCode === 'ALREADY_REGISTERED') {
+            if (readCtaSource) clearCtaSource();
             setError(t('error.alreadyRegistered'));
             // If already registered, still call onSuccess with existing data
             if (data.position && data.referralCode) {
@@ -209,6 +219,10 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
           onError?.(data.error || 'Unknown error');
           return;
         }
+
+        // Cleared whether or not it was sent: an unsent (unknown, or consent-withdrawn) label must
+        // not survive to attach to a later signup in the same tab.
+        if (readCtaSource) clearCtaSource();
 
         // Track success with attribution data
         analyticsService.track({
@@ -271,7 +285,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         isSubmittingRef.current = false;
       }
     },
-    [formState, compact, referredByOverride, source, locale, t, onSuccess, onError]
+    [formState, compact, referredByOverride, source, readCtaSource, locale, t, onSuccess, onError]
   );
 
   return {

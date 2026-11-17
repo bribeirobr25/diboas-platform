@@ -242,7 +242,7 @@ Format-A, fired via `analyticsService.track()` — they are NOT registered in
 
 1. `section_viewed` / `wedge_shown` / `hero_proof_viewed` — value surfaces seen.
 2. `calculator_opened` → `calculator_computation_completed` — tool engagement (the attributable interaction).
-3. `share_initiated` → `share_completed` (`source` incl. `adelaide_daily`) — proof artifact shared.
+3. `share_initiated` → `share_completed` (`source` incl. `adelaide_market`, `adelaide_daily` before 2026-11-12) — proof artifact shared.
 4. `waitlist_signup_completed` (+ `referral_used`) — the north-star conversion.
 
 **Before/after baselining (not an A/B):** the V2 redesign is a straight replacement, so
@@ -539,7 +539,6 @@ The platform integrates with GA4 when configured via environment variables:
 
 ```env
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
-NEXT_PUBLIC_ANALYTICS_ENDPOINT=https://your-custom-endpoint.com/events
 ```
 
 **Reports to Monitor:**
@@ -551,23 +550,26 @@ NEXT_PUBLIC_ANALYTICS_ENDPOINT=https://your-custom-endpoint.com/events
 | Conversions   | Reports > Engagement > Conversions | Conversion funnel        |
 | User Explorer | Explore > User Explorer            | Individual user journeys |
 
-### Custom Event Dashboard (if configured)
+### /market product events (`MARKET_EVENTS`, 2026-11-12)
 
-Events are sent to `NEXT_PUBLIC_ANALYTICS_ENDPOINT` for custom analytics:
+Defined in `apps/web/src/lib/market/constants.ts`; sent by `MarketInteractionTracker` (capture-phase listeners) from `data-market-event` / `data-market-value` attributes. Consent-gated through this service. Use these named events, not PostHog `$autocapture` (which also records link clicks and would double-count view switches).
 
-```json
-{
-  "events": [
-    {
-      "name": "dream_mode_started",
-      "parameters": { ... },
-      "timestamp": 1704067200000,
-      "userId": "user_xxx",
-      "sessionId": "session_xxx"
-    }
-  ]
-}
-```
+| Event                              | Fires when                                                                               | Caller parameters   |
+| ---------------------------------- | ---------------------------------------------------------------------------------------- | ------------------- |
+| `market_memo_opened`               | the scored view's weekly memo, or the Backdrop's "what is behind" depth, is first opened | `view`              |
+| `market_signal_group_opened`       | a scored-view signal row is first opened                                                 | `view`, `group`     |
+| `market_backdrop_explainer_opened` | a Backdrop condition row is first opened                                                 | `view`, `condition` |
+| `market_view_switched`             | a view tab or an umbrella card leads to another view                                     | `from`, `to`        |
+
+Once per element per page view; never on close; never for the current view; a modified or middle click (another tab) is not a switch.
+
+**The German kill-signal (DR-2026-11-11-market-cleanup-decisions item 8), defined by event properties, not by URL:** numerator = consented sessions with `market_backdrop_explainer_opened` where `view = backdrop` and `locale = de`; denominator = consented sessions with a pageview of `/de/market/backdrop`. Events are queued and sent in batches, so a page-URL filter could credit an open to the page the reader moved to; PostHog receives each event's own timestamp, and `view`/`locale` are set when the event is tracked. **It undercounts, never overcounts:** opens before hydration (no listener yet) and before the consent banner is answered are not sent; market/tool signup labels are written only after consent while Learn's are written before (so the two are not comparable). Ops step (founder): register `view`, `group`, `condition`, `from`, `to` as GA4 event-scoped custom dimensions, or GA4 reports will not show them.
+
+**Signup source (`cta_source`)**: the waitlist row's tag `cta_source:<label>` (labels in `lib/analytics/ctaSources.ts`) is readable by SQL only, and SQL is authoritative: the `waiting_list_submission_success` event also carries `cta_source`, but it fires on a re-submission too (an existing address gets a 200 with its stored position, anti-enumeration), while the stored row's tags are not updated then. The server keeps only UTM keys and one known label; UTM values are still free text from the visit URL (`5.924`).
+
+### Sending on page hide (2026-11-11)
+
+The service hands its queue to GA4 and PostHog when the page is hidden or closed (`pagehide`, `visibilitychange: hidden`), instead of waiting for the 30-second batch. PostHog receives the events synchronously from the cached client with `{ transport: 'sendBeacon', send_instantly: true }`; its `before_send` scrubbers still apply. There is no custom endpoint any more (`NEXT_PUBLIC_ANALYTICS_ENDPOINT` was deleted with the analytics product, decision G-2). Gate: `ANALYTICS-FLUSH-1`.
 
 ### ApplicationEventBus History
 

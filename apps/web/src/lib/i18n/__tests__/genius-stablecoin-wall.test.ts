@@ -17,6 +17,7 @@
  * gone: the strings were rewritten (2026-11-11), not exempted.
  */
 
+import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync } from 'node:fs';
 import { fillScenarioCopy } from '@/lib/compound-interest/scenarioCopy';
 import { join } from 'node:path';
@@ -39,44 +40,58 @@ const EARN = PATTERNS.earn;
 const STABLE = PATTERNS.stable;
 // `s`: a line break inside a string must not hide a pairing (2026-11-11).
 const PAIRING = new RegExp(`(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`, 'is');
+// Look-alike spaces and hyphens (a no-break space inside "dólar digital", U+2011 inside
+// "Digital-Dollar") are normalised before every test, in both walls (2026-11-12 audit).
+function normalise(s: string): string {
+  return s
+    .normalize('NFC')
+    .replace(/[\u00A0\u202F\u2007]/g, ' ')
+    .replace(/[\u2010\u2011\u2012\u2013]/g, '-');
+}
+const pairs = (s: string): boolean => PAIRING.test(normalise(s));
 
 /** `${locale}::${namespace}::${keyPath}` — CLO-scoped (2026-07-21 inventory). */
-const ALLOW: ReadonlySet<string> = new Set([
-  // --- PERMANENT · Cat 2 · protocol-mechanism (factual transparency table) ---
+/**
+ * `${locale}::${namespace}::${keyPath}` → the first 16 hex characters of the sha256 of the exact
+ * text that was ruled on. A ruled exception is pinned to its WORDING, not its key: an edit to
+ * an exempted string fails until someone rules on the new text (2026-11-12 audit: a breach
+ * added inside the long `ptbr.trust.body` passed while it was exempt by key).
+ */
+const ALLOW: ReadonlyMap<string, string> = new Map([
   // Ethena: how a synthetic dollar is made, set against stablecoins (a comparison, not a claim).
-  'en::protocols::cards.ethena.description',
-  'es::protocols::cards.ethena.description',
-  'de::protocols::cards.ethena.description',
-  'pt-BR::protocols::cards.ethena.description',
-  // Sky's card is no longer an exception: rewritten 2026-11-11 to describe the mechanism with no
-  // earn word and no comparison with a savings account in any language (founder, W-B sign-off).
-  // Aave/Compound: a distinct mechanism (lending USDC to borrowers) with its condition
-  // (variable rate) and its risk, the education LC-RR-01 allows (founder 2026-11-11,
-  // DR-2026-11-11-market-cleanup-c2-decisions B; en/pt-BR join with the widened pattern).
-  'en::strategies::protocols.items.aaveV3.summary',
-  'en::strategies::protocols.items.compoundV3.summary',
-  'es::strategies::protocols.items.aaveV3.summary',
-  'es::strategies::protocols.items.compoundV3.summary',
-  'de::strategies::protocols.items.aaveV3.summary',
-  'de::strategies::protocols.items.compoundV3.summary',
-  'pt-BR::strategies::protocols.items.aaveV3.summary',
-  'pt-BR::strategies::protocols.items.compoundV3.summary',
+  ['en::protocols::cards.ethena.description', '17a1f1ca91f5f7b3'],
+  ['es::protocols::cards.ethena.description', '0b95f0af613812b0'],
+  ['de::protocols::cards.ethena.description', 'e4fec3878bf12207'],
+  ['pt-BR::protocols::cards.ethena.description', 'b0fd067eb42d3628'],
+  // Aave/Compound: a distinct mechanism (lending USDC to borrowers) with its condition (variable
+  // rate), the education LC-RR-01 allows (founder 2026-11-11, DR-2026-11-11-market-cleanup-c2-
+  // decisions B).
+  ['en::strategies::protocols.items.aaveV3.summary', '718ee624dc6f7627'],
+  ['en::strategies::protocols.items.compoundV3.summary', '9c26c2dfb1448204'],
+  ['es::strategies::protocols.items.aaveV3.summary', 'd5ad4bea38b3c2a0'],
+  ['es::strategies::protocols.items.compoundV3.summary', 'edb818636acc35dd'],
+  ['de::strategies::protocols.items.aaveV3.summary', '26c716cd694d044f'],
+  ['de::strategies::protocols.items.compoundV3.summary', 'b48c0e8745374e1b'],
+  ['pt-BR::strategies::protocols.items.aaveV3.summary', 'a2846f2d34d6fd23'],
+  ['pt-BR::strategies::protocols.items.compoundV3.summary', '86c257aafa4859a2'],
   // Sky's lending summary ("Returns generated from lending USDS to borrowers. Variable rate."):
-  // the same class as Aave/Compound under decision B; USDS joined the pattern 2026-11-11.
-  'en::strategies::protocols.items.skySsr.summary',
-  'es::strategies::protocols.items.skySsr.summary',
-  'de::strategies::protocols.items.skySsr.summary',
-  'pt-BR::strategies::protocols.items.skySsr.summary',
-  // --- PERMANENT · a negation: "Não existe retorno garantido." then, after a paragraph break,
-  // "Dólar digital, …" (visible once the wall reads across line breaks, 2026-11-11). ---
-  'pt-BR::landing-b2c::ptbr.trust.body',
-  // Removed 2026-11-11 by rewrite, not by exception: the Sky type label ("Stablecoin yield",
-  // now "Savings rate"), the es/pt-BR tools disclaimer and the pt-BR Learn calibration note.
-  // NB: the investor-docs pitch-deck "USDC plus on-chain yield" bullets were
-  // RULED out of consumer GENIUS scope (CLO final sign-off 2026-07-21) yet
-  // reworded to "on-chain returns" for house-style hygiene — so they no longer
-  // pair and are intentionally NOT allow-listed here.
+  // CC's extension of decision B to the same mechanism, PUT TO THE FOUNDER 2026-11-12 (not yet
+  // ruled; register). Sky's protocol card and type label carry no exception (the card was
+  // rewritten 2026-11-11; the label reads "Protocol rate").
+  ['en::strategies::protocols.items.skySsr.summary', 'e6c9a1a5af4b3a0a'],
+  ['es::strategies::protocols.items.skySsr.summary', '756bd1db3e5e4144'],
+  ['de::strategies::protocols.items.skySsr.summary', 'f75b1c4880591116'],
+  ['pt-BR::strategies::protocols.items.skySsr.summary', 'ecba6999ee143951'],
+  // A negation: "Não existe retorno garantido." then, after a paragraph break, "Dólar digital, …".
+  ['pt-BR::landing-b2c::ptbr.trust.body', '975b5cd29fb0c489'],
+  // Decision A (founder 2026-11-11, kept again in DR-2026-11-11-market-cleanup-w-b-signoff item
+  // 1): the German search description reads "Digital-Dollar-Strategie (historisch 10 % pro Jahr)";
+  // flagged once a stated yearly rate counted as an earn word (2026-11-12). en and es put
+  // "historical" between the rate and "per year", so they do not pair.
+  ['de::tools-currency-depreciation::seo.description', 'ba59e0965f4e0b2f'],
 ]);
+const fingerprint = (text: string): string =>
+  createHash('sha256').update(text).digest('hex').slice(0, 16);
 
 /**
  * The text as a reader is served it (5.730): the page loader fills `{scenario…}` slots, and a slot
@@ -131,8 +146,9 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', { timeout: 30_000 }, 
         const ns = file.replace(/\.json$/, '');
         const json = JSON.parse(readFileSync(join(dir, file), 'utf8'));
         walkStrings(json, '', (leaf, path) => {
-          const pairs = PAIRING.test(leaf) || PAIRING.test(served(leaf, locale));
-          if (pairs && !ALLOW.has(`${locale}::${ns}::${path}`)) {
+          const pairing = pairs(leaf) || pairs(served(leaf, locale));
+          const id = `${locale}::${ns}::${path}`;
+          if (pairing && ALLOW.get(id) !== fingerprint(leaf)) {
             unlisted.push(`${locale}::${ns}::${path} — "${leaf}"`);
           }
         });
@@ -142,9 +158,9 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', { timeout: 30_000 }, 
   }
 
   it('should read the text as served: a scenario slot never hides a pairing (positive control)', () => {
-    const planted = 'Conservative: earn {scenarioConservative} a year by holding your USDC';
-    expect(PAIRING.test(planted)).toBe(false); // the raw catalogue text alone evades the window
-    expect(PAIRING.test(served(planted, 'en'))).toBe(true); // what the reader would see is caught
+    const planted = 'Conservative: earn {scenarioConservative} for anyone holding USDC';
+    expect(pairs(planted)).toBe(false); // the raw catalogue text alone evades the window
+    expect(pairs(served(planted, 'en'))).toBe(true); // what the reader would see is caught
   });
 
   /**
@@ -165,7 +181,7 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', { timeout: 30_000 }, 
     for (const file of files) {
       for (const m of readFileSync(join(WEB_SRC, file), 'utf8').matchAll(LITERAL)) {
         const text = m[0].slice(1, -1);
-        if (PAIRING.test(text)) found.push(`${file} — "${text.slice(0, 120)}"`);
+        if (pairs(text)) found.push(`${file} — "${text.slice(0, 120)}"`);
       }
     }
     expect(found, 'a code literal pairs earn/yield with a stablecoin token').toEqual([]);
@@ -181,12 +197,15 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', { timeout: 30_000 }, 
         const json = JSON.parse(readFileSync(join(dir, file), 'utf8'));
         walkStrings(json, '', (leaf, path) => {
           const id = `${locale}::${ns}::${path}`;
-          if (ALLOW.has(id) && PAIRING.test(leaf)) seen.add(id);
+          if (ALLOW.has(id) && (pairs(leaf) || pairs(served(leaf, locale)))) seen.add(id);
         });
       }
     }
-    for (const id of ALLOW) if (!seen.has(id)) stale.push(id);
-    expect(stale, 'allow-list entry no longer pairs — remove it').toEqual([]);
+    for (const id of ALLOW.keys()) if (!seen.has(id)) stale.push(id);
+    expect(
+      stale,
+      'a ruled exception no longer pairs: its wording was changed or fixed. Do not just delete the entry; record the new wording or the fix with its decision.'
+    ).toEqual([]);
   });
 });
 
@@ -216,9 +235,9 @@ describe('B2-5 — the wall still catches every known breach (positive controls)
   it('should keep every control list at or above its floor when the fixture is read', () => {
     // Floors at the current counts (2026-11-11): narrowing the pattern and deleting its controls
     // in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
-    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(37);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(50);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(27);
+    expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(44);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(73);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(36);
     expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
   });
 
@@ -232,7 +251,7 @@ describe('B2-5 — the wall still catches every known breach (positive controls)
   it.each(GENIUS_POSITIVE_CONTROLS)(
     'should flag "%s" when the shared pattern is applied',
     (sample) => {
-      expect(PAIRING.test(sample)).toBe(true);
+      expect(pairs(sample)).toBe(true);
     }
   );
 });
@@ -256,11 +275,11 @@ describe('B2-6 — the share-image texts carry no earn/stablecoin pairing', () =
   it('should render every share-image text and find no pairing in any locale', () => {
     const all = texts(OG_TRANSLATIONS);
     expect(all.length).toBeGreaterThan(80);
-    expect(all.filter((t) => PAIRING.test(t))).toEqual([]);
+    expect(all.filter((t) => pairs(t))).toEqual([]);
   });
 
   it('should flag a planted share-image pairing (positive control)', () => {
-    expect(PAIRING.test('Your money earning in digital dollars over 5 years')).toBe(true);
+    expect(pairs('Your money earning in digital dollars over 5 years')).toBe(true);
   });
 });
 
@@ -282,7 +301,7 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
   // digital" + a tooltip about "taxas" pairs a rate with the stablecoin without any earn word.
   const RATE_ANY = /\b(?:rates?|taxas?|tasas?|tipos?|zins\w*|zinss[äa]tze?)\b|\d\s?%/i;
   const pairsInGroup = (texts: readonly string[]): boolean => {
-    const joined = texts.join(' \u2016 ');
+    const joined = normalise(texts.join(' \u2016 '));
     return STABLE_ANY.test(joined) && (EARN_ANY.test(joined) || RATE_ANY.test(joined));
   };
   const SECTIONS = join(__dirname, '../../../components/Sections');
@@ -396,7 +415,7 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
    */
   const STABLE_ON_TOOLS: Readonly<Record<string, string>> = {
     'tools-currency-depreciation::hero.subtitle':
-      'decision A: says what the tool compares (cash, bank, digital dollar); kept by the founder',
+      'decision A, kept again 2026-11-11 (DR w-b-signoff item 1): names the three things the tool compares; the card itself now says "A diBoaS strategy"',
     'tools-currency-depreciation::resultMoment.chartAria':
       'decision A: the chart sentence for screen readers; kept by the founder',
     'tools-currency-depreciation::resultMoment.chartAriaUsd':
@@ -404,7 +423,7 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
     'tools-currency-depreciation::seo.description':
       'decision A: the search description says what the tool compares (en, es, de; pt-BR rewritten)',
     'tools-money-jobs::plan.brDollarLine':
-      'reserve diversification, no earn or rate word; renders below the plan table (flagged to the founder 2026-11-11)',
+      'reserve diversification, no earn or rate word in the string; it renders in the plan section below the rate table; kept by the founder 2026-11-11 (DR w-b-signoff item 2)',
   };
   it('should allow a stablecoin word in a tool catalogue only where it is named and reasoned', () => {
     const found: string[] = [];
@@ -415,7 +434,7 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
       )) {
         const ns = file.replace(/\.json$/, '');
         walkStrings(JSON.parse(readFileSync(join(dir, file), 'utf8')), '', (text, path) => {
-          if (STABLE_ANY.test(text) && !STABLE_ON_TOOLS[`${ns}::${path}`]) {
+          if (STABLE_ANY.test(normalise(text)) && !STABLE_ON_TOOLS[`${ns}::${path}`]) {
             found.push(`${locale}::${ns}::${path} — "${text.slice(0, 80)}"`);
           }
         });
@@ -465,6 +484,23 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
     ['es eyebrow + caption', ['Lo que tu dinero realmente gana', 'Dólar digital en diBoaS']],
     ['de eyebrow + caption', ['Was dein Geld wirklich verdient', 'Digital-Dollar bei diBoaS']],
     ['words far apart in one group', ['What your money really earns', 'x'.repeat(200), 'USDC']],
+    [
+      'en label + suffix (a rate word only)',
+      [
+        'Conservative (7%)',
+        ' in digital dollar',
+        'An illustrative long-run assumption, based on the top-tier passive rates available in 2026.',
+      ],
+    ],
+    [
+      'es label + suffix (tipo only)',
+      ['Conservador (7 %)', ' en dólar digital', 'basada en los mejores tipos pasivos'],
+    ],
+    [
+      'de label + suffix (Zinssätze only)',
+      ['Konservativ (7 %)', ' im Digital-Dollar', 'gestützt auf die besten passiven Zinssätze'],
+    ],
+    ['a percentage alone beside a stablecoin word', ['7 %', 'x'.repeat(80), 'USDC']],
     [
       "pt-BR label + suffix + today's tooltip (a rate word, no earn word)",
       [
