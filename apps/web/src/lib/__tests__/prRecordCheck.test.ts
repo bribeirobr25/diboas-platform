@@ -6,7 +6,8 @@
  * or leaving any of them as the template fails, and the two automated PR sources stay exempt.
  */
 import { execFileSync } from 'node:child_process';
-import { readdirSync, readFileSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import {
@@ -34,6 +35,13 @@ function body({ except = '', blank = '', state = 'IMPLEMENTED ON BRANCH (feat/x)
 }
 
 const SAME_REPO = { PR_HEAD_REPO: 'o/r', PR_BASE_REPO: 'o/r' };
+
+/** A commit-author list as the workflow writes it, one login per line. */
+function authorsFile(...logins: string[]): string {
+  const file = join(mkdtempSync(join(tmpdir(), 'pr-authors-')), 'authors.txt');
+  writeFileSync(file, logins.join('\n') + '\n');
+  return file;
+}
 
 function cli(
   text: string,
@@ -92,6 +100,7 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
       cli('no record', 'dependabot/npm_and_yarn/next-16.5.0', {
         ...SAME_REPO,
         PR_AUTHOR: 'dependabot[bot]',
+        PR_COMMIT_AUTHORS_FILE: authorsFile('dependabot[bot]', 'dependabot[bot]'),
       }).code
     ).toBe(0);
     expect(cli('no record', 'editorial/market-refresh-manual', SAME_REPO).code).toBe(1);
@@ -118,6 +127,23 @@ describe('PR-RECORD · the increment-review record is in every PR body (5.727)',
     it('should fail closed when the repository values are missing', () => {
       expect(isExempt({ head: dep, author: 'dependabot[bot]' })).toBe(false);
       expect(cli('no record', 'editorial/market-refresh-auto').code).toBe(1);
+    });
+    it("should check the record when a Dependabot PR carries someone else's commit (fifteenth audit C-6)", () => {
+      const dependabot = { head: dep, author: 'dependabot[bot]', headRepo: 'o/r', baseRepo: 'o/r' };
+      expect(isExempt({ ...dependabot, commitAuthors: ['dependabot[bot]'] })).toBe(true);
+      expect(isExempt({ ...dependabot, commitAuthors: ['dependabot[bot]', 'bribeirobr25'] })).toBe(
+        false
+      );
+      expect(isExempt({ ...dependabot, commitAuthors: [] })).toBe(false);
+      expect(isExempt(dependabot)).toBe(false);
+      const extra = { ...SAME_REPO, PR_AUTHOR: 'dependabot[bot]' };
+      expect(
+        cli('no record', dep, {
+          ...extra,
+          PR_COMMIT_AUTHORS_FILE: authorsFile('dependabot[bot]', 'bribeirobr25'),
+        }).code
+      ).toBe(1);
+      expect(cli('no record', dep, extra).code, 'no author list fails closed').toBe(1);
     });
     it('should exempt the market branch from this repository whoever opened it', () => {
       expect(

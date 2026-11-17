@@ -35,7 +35,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-      - run: node scripts/check-pr-record.mjs --file "$RUNNER_TEMP/pr-body.md"
+      # Every commit's author: a Dependabot branch is exempt only when all of them are Dependabot
+      # (fifteenth audit C-6). Written to a file, like the body, never into the command line.
+      - name: Read the PR's commit authors
+        run: gh api --paginate "repos/$REPO/pulls/$PR_NUMBER/commits" --jq '.[] | (.author.login // "unknown")' > "$RUNNER_TEMP/pr-commit-authors.txt"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+      - run: node scripts/check-pr-record.mjs --file "$RUNNER_TEMP/pr-body.md" --commit-authors "$RUNNER_TEMP/pr-commit-authors.txt"
         env:
           PR_HEAD: ${{ github.event.pull_request.head.ref }}
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
