@@ -42,6 +42,9 @@ export default defineConfig({
     },
   },
   test: {
+    // Vitest 5's default, written out (fifteenth audit D-2): mock call history resets before
+    // each test. A call made at import or in beforeAll is not visible to a test's assertions.
+    clearMocks: true,
     // Default stays node (lib/ledger suites). Component tests opt into DOM via
     // a per-file `// @vitest-environment happy-dom` annotation — the same split
     // the web app uses. Hermeticity: happy-dom never loads iframe pages here.

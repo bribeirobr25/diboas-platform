@@ -284,9 +284,6 @@ importers:
       js-yaml:
         specifier: ^4.1.1
         version: 4.3.2
-      jsdom:
-        specifier: ^31.0.0
-        version: 31.0.0
       postcss:
         specifier: 8.5.23
         version: 8.5.23
@@ -8498,7 +8495,8 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@exodus/bytes@1.16.0': {}
+  '@exodus/bytes@1.16.0':
+    optional: true
 
   '@formatjs/ecma402-abstract@2.2.4':
     dependencies:
@@ -10664,13 +10662,15 @@ snapshots:
 
   basic-ftp@5.3.1: {}
 
-  bcp-47-match@2.0.3: {}
+  bcp-47-match@2.0.3:
+    optional: true
 
   bcp-47@2.1.2:
     dependencies:
       is-alphabetical: 2.0.1
       is-alphanumerical: 2.0.1
       is-decimal: 2.0.1
+    optional: true
 
   big.js@5.2.2: {}
 
@@ -11164,6 +11164,7 @@ snapshots:
       whatwg-url: 17.3.0
     transitivePeerDependencies:
       - '@noble/hashes'
+    optional: true
 
   data-view-buffer@1.0.2:
     dependencies:
@@ -11397,7 +11398,8 @@ snapshots:
 
   entities@7.0.1: {}
 
-  entities@9.0.0: {}
+  entities@9.0.0:
+    optional: true
 
   env-paths@2.2.1: {}
 
@@ -12186,6 +12188,7 @@ snapshots:
       '@exodus/bytes': 1.16.0
     transitivePeerDependencies:
       - '@noble/hashes'
+    optional: true
 
   html-entities@2.6.0: {}
 
@@ -12347,12 +12350,14 @@ snapshots:
 
   ipaddr.js@1.9.1: {}
 
-  is-alphabetical@2.0.1: {}
+  is-alphabetical@2.0.1:
+    optional: true
 
   is-alphanumerical@2.0.1:
     dependencies:
       is-alphabetical: 2.0.1
       is-decimal: 2.0.1
+    optional: true
 
   is-arguments@1.2.0:
     dependencies:
@@ -12409,7 +12414,8 @@ snapshots:
       call-bound: 1.0.4
       has-tostringtag: 1.0.2
 
-  is-decimal@2.0.1: {}
+  is-decimal@2.0.1:
+    optional: true
 
   is-docker@2.2.1: {}
 
@@ -12463,7 +12469,8 @@ snapshots:
 
   is-number@7.0.0: {}
 
-  is-potential-custom-element-name@1.0.1: {}
+  is-potential-custom-element-name@1.0.1:
+    optional: true
 
   is-reference@1.2.1:
     dependencies:
@@ -12594,6 +12601,7 @@ snapshots:
       xml-name-validator: 5.0.0
     transitivePeerDependencies:
       - '@noble/hashes'
+    optional: true
 
   jsesc@3.1.0: {}
 
@@ -12820,7 +12828,8 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
-  lru-cache@11.5.3: {}
+  lru-cache@11.5.3:
+    optional: true
 
   lru-cache@5.1.1:
     dependencies:
@@ -13354,10 +13363,12 @@ snapshots:
   parse5-parser-stream@8.1.1:
     dependencies:
       parse5: 8.1.1
+    optional: true
 
   parse5@8.1.1:
     dependencies:
       entities: 9.0.0
+    optional: true
 
   parseley@0.12.1:
     dependencies:
@@ -14029,6 +14040,7 @@ snapshots:
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
+    optional: true
 
   scheduler@0.23.2:
     dependencies:
@@ -14531,6 +14543,7 @@ snapshots:
   tldts@7.4.19:
     dependencies:
       tldts-core: 7.4.19
+    optional: true
 
   to-buffer@1.2.2:
     dependencies:
@@ -14547,12 +14560,14 @@ snapshots:
   tough-cookie@6.1.0:
     dependencies:
       tldts: 7.4.19
+    optional: true
 
   tr46@0.0.3: {}
 
   tr46@7.0.0:
     dependencies:
       punycode: 2.3.1
+    optional: true
 
   tree-kill@1.2.2: {}
 
@@ -14708,7 +14723,8 @@ snapshots:
 
   undici-types@7.24.6: {}
 
-  undici@8.12.4: {}
+  undici@8.12.4:
+    optional: true
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
@@ -14841,6 +14857,7 @@ snapshots:
   w3c-xmlserializer@6.0.0:
     dependencies:
       xml-name-validator: 5.0.0
+    optional: true
 
   walk-up-path@4.0.0: {}
 
@@ -14862,7 +14879,8 @@ snapshots:
 
   webidl-conversions@3.0.1: {}
 
-  webidl-conversions@8.0.1: {}
+  webidl-conversions@8.0.1:
+    optional: true
 
   webpack-dev-middleware@6.1.3(webpack@5.108.4(esbuild@0.25.12)(postcss@8.5.23)):
     dependencies:
@@ -14926,7 +14944,8 @@ snapshots:
 
   whatwg-mimetype@3.0.0: {}
 
-  whatwg-mimetype@5.0.0: {}
+  whatwg-mimetype@5.0.0:
+    optional: true
 
   whatwg-url@17.3.0:
     dependencies:
@@ -14935,6 +14954,7 @@ snapshots:
       webidl-conversions: 8.0.1
     transitivePeerDependencies:
       - '@noble/hashes'
+    optional: true
 
   whatwg-url@5.0.0:
     dependencies:
@@ -15033,9 +15053,11 @@ snapshots:
 
   xdg-basedir@5.1.0: {}
 
-  xml-name-validator@5.0.0: {}
+  xml-name-validator@5.0.0:
+    optional: true
 
-  xmlchars@2.2.0: {}
+  xmlchars@2.2.0:
+    optional: true
 
   xtend@4.0.2: {}
 

@@ -1,7 +1,7 @@
 /**
  * useFocusTrap DOM Behavior Tests
  *
- * Tests actual focus trapping behavior in a jsdom environment.
+ * Tests actual focus trapping behavior in a happy-dom environment.
  * Validates WCAG 2.4.3 compliance: Tab cycling, Shift+Tab, autoFocus, returnFocus.
  *
  * @vitest-environment happy-dom
