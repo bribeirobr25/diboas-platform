@@ -17,6 +17,4 @@ export const BRAND = {
   bgColor: '#ffffff',
   footerBg: '#f8fafc',
   url: process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com',
-  privacyUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com'}/en/legal/privacy`,
-  termsUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com'}/en/legal/terms`,
 } as const;
