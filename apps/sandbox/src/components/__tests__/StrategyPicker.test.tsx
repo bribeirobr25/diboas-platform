@@ -243,8 +243,9 @@ describe('5.436 — an unavailable rate hides the number, never the candidate', 
       el.textContent?.includes('This option is not available right now')
     );
     expect(withCopy.length).toBeGreaterThanOrEqual(4);
-    expect(screen.queryByText(/Current pool rate/)).toBeNull();
-    expect(screen.queryByText(/Reference pool rate/)).toBeNull();
+    /* No rate line of any kind (5.814): the id lives inside RateLine. */
+    expect(screen.queryAllByTestId('rate-line')).toHaveLength(0);
+    expect(document.body.textContent).not.toMatch(/%\/yr/);
     /* Growth exposure survives alongside the unavailable state. */
     expect(document.body.textContent).toContain('% growth');
   });

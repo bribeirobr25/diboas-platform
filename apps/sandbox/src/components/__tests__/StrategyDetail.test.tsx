@@ -181,9 +181,10 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     /* GAS-1 (founder 2026-08-21): this surface renders the NETWORK FEE beside
        the rates, so its stamp covers the gas source too. The harness supplies
        a FIXTURE gas quote (dated 2026-07-18, as the app ships today), so even
-       all-live rates stamp `mixed` — it previously claimed "Live from
-       DeFiLlama" directly above a fixture fee, on the pre-commit cost
-       surface. */
+       all-live rates stamp `mixed` — it once claimed "Live from DeFiLlama"
+       directly above a fixture fee, on the pre-commit cost surface. Since
+       `5.814` every live stamp names only the pool rates; the branch is told
+       apart by its test id and the gas sentence. */
     const { unmount } = renderDetail(LIVE);
     /**
      * `5.316`: this branch used to assert only that the mixed sentence was
@@ -228,12 +229,12 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     /**
      * `5.440` · THE BRANCH NOTHING POSITIVELY ASSERTED.
      *
-     * Every other test here asserts `Live from DeFiLlama` is ABSENT (it must
+     * Every other test here asserts the all-live stamp branch is ABSENT (it must
      * be, while the network fee sits on reference values — GAS-1). So when the
      * four hardcoded `'DeFiLlama'` message values became registry lookups, the
      * `state === 'live'` branch had NO positive coverage at all: had
      * `newestLiveSource` been null there, the surface would have rendered
-     * "Live from , ..." — an empty source name — and nothing would have caught
+     * "Pool rates from , ..." — an empty source name — and nothing would have caught
      * it. Reaching the branch needs a LIVE gas stamp, which the shared harness
      * deliberately does not supply.
      */
@@ -307,8 +308,14 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
    */
   it('should state the APY label from the APY legs ONLY, never from the gas quote', () => {
     renderDetail(LIVE);
-    expect(screen.getByText(/\(real, variable\)/)).toBeTruthy();
-    expect(screen.queryByText(/includes documented reference values/)).toBeNull();
+    /* The whole RECENT line, with its date (`5.814`): "(real, variable)" alone
+       now appears in several lines and could not tell them apart. */
+    const fetched = new Intl.DateTimeFormat('en', { dateStyle: 'medium' }).format(
+      new Date(OBSERVED_AT)
+    );
+    const line = screen.getByTestId('rate-line').textContent ?? '';
+    expect(line).toBe(`Pool rate, fetched ${fetched}: 4%/yr (real, variable)`);
+    expect(line).not.toMatch(/reference values|current/i);
     // The fee's provenance is still stated — by the gas sentence, not the label.
     expect(screen.getByTestId('provenance-stamp-partly-live').textContent).toContain(
       'network fee (gas) used in this simulation'
@@ -674,11 +681,12 @@ describe('5.436 — an unavailable rate blocks the commit, not the reading', () 
     renderDetail();
     expect(screen.getAllByText('This option is not available right now').length).toBe(2);
     /* No rate line in any form (5.814): the rate element holds no figure. */
-    /* Scoped to the rate element, never the whole view: the card's "Pool rates
-       describe the past" is not a rate line (plan P10 guard 2). */
-    const line = screen.getByTestId('rate-line').textContent ?? '';
-    expect(line).not.toMatch(/%/);
-    expect(line).not.toMatch(/pool rate/i);
+    /* No rate line of any kind (5.814): the test id lives inside RateLine, so its
+       absence means no line rendered; and only rate lines carry "%/yr", so the
+       whole-view check is precise (the card's "Pool rates describe the past" is
+       not a rate line). */
+    expect(screen.queryAllByTestId('rate-line')).toHaveLength(0);
+    expect(document.body.textContent).not.toMatch(/%\/yr/);
   });
 
   it('should withhold the PROVENANCE QUALIFIER wherever it withholds the number', () => {

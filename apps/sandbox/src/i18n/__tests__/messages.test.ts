@@ -366,8 +366,9 @@ describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or 
   // NB: goalNew.apyNow was reframed to "Current pool rate: {apy}%/yr (real,
   // variable)" per the CLO GENIUS-Act copy wall (CC_B1_B2_EXECUTION_LIST B2-1,
   // 2026-07-21) — it superseded the earlier "no change now" §F-CLO-B2 read. It
-  // is a variable-rate statement, not a "you are earning" claim; the tagline
-  // guard above (taglines only) does not cover it. The broader GENIUS earn/yield-
+  // is a variable-rate statement, not a "you are earning" claim. Since 5.814 the
+  // guard above scans every rate line (goalNew.apy…) as well as the taglines,
+  // and RATE-AGE-1 keeps "Current" to apyNow alone. The broader GENIUS earn/yield-
   // near-stablecoin guard (B2-5) is pending CLO scoping of the full inventory.
 });
 

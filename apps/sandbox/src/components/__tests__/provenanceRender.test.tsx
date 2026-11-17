@@ -165,6 +165,15 @@ describe('StrategyPicker provenance rows + the F6 band disclosure (§3-A)', () =
     renderPicker(LIVE);
     // safeHarbor + goalKeeper are all-Arbitrum stable strategies → live rows exist.
     expect(screen.getAllByText(/\(real, variable\)/).length).toBeGreaterThan(0);
+    /* Each live row is the RECENT line with its date — never "current" (5.814). */
+    const fetched = new Intl.DateTimeFormat('en', { dateStyle: 'medium' }).format(
+      new Date(OBSERVED_AT)
+    );
+    const lines = screen.getAllByTestId('rate-line').map((el) => el.textContent ?? '');
+    expect(lines.length).toBeGreaterThan(0);
+    for (const line of lines) {
+      expect(line).toBe(`Pool rate, fetched ${fetched}: 4%/yr (real, variable)`);
+    }
   });
 
   it('should downgrade rows honestly on fixture data — no "real" anywhere', () => {

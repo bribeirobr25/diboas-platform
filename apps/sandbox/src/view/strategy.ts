@@ -172,8 +172,11 @@ export const RATE_LINE_IDS = {
   REFERENCE: 'goalNew.apyNowFixture',
 } as const satisfies Record<RateLineKind, string>;
 
-/** The kinds whose message carries a `{date}`. */
-const DATED_KINDS: ReadonlySet<RateLineKind> = new Set(['RECENT', 'STALE', 'MIXED_RECENT']);
+/** The kinds whose message carries a `{date}` — pinned against the catalogues by a test. */
+export const DATED_RATE_LINE_KINDS = ['RECENT', 'STALE', 'MIXED_RECENT'] as const;
+type DatedKind = (typeof DATED_RATE_LINE_KINDS)[number];
+const isDated = (kind: RateLineKind): kind is DatedKind =>
+  (DATED_RATE_LINE_KINDS as readonly RateLineKind[]).includes(kind);
 
 /** Worst first: one STALE leg makes the whole rate STALE. */
 function worstOf(states: readonly LiveRateState[]): LiveRateState {
@@ -195,14 +198,21 @@ export function rateLineKind(input: RateLineInput): RateLineKind {
 /**
  * The words that travel WITH the number (CAT-2): a rate without its label, or a
  * label without its rate, is not representable. `asOf` is the raw timestamp the
- * component formats in the reader's locale; null exactly when the kind's
- * message carries no `{date}`.
+ * component formats in the reader's locale — a string exactly for the kinds whose
+ * message carries `{date}`, null for the others, so a dated line without its date
+ * is not representable either.
  */
-export interface RateLineLabel {
-  readonly kind: RateLineKind;
-  readonly id: (typeof RATE_LINE_IDS)[RateLineKind];
-  readonly asOf: string | null;
-}
+export type RateLineLabel =
+  | {
+      readonly kind: DatedKind;
+      readonly id: (typeof RATE_LINE_IDS)[DatedKind];
+      readonly asOf: string;
+    }
+  | {
+      readonly kind: Exclude<RateLineKind, DatedKind>;
+      readonly id: (typeof RATE_LINE_IDS)[Exclude<RateLineKind, DatedKind>];
+      readonly asOf: null;
+    };
 
 /**
  * Whether a strategy has a displayable pool rate, what it is, and what its line says.
@@ -298,9 +308,13 @@ export function strategyRateDisplay(
     };
   }
   const kind = rateLineKind(input);
+  if (!isDated(kind)) {
+    return { displayable: true, apy: total, label: { kind, id: RATE_LINE_IDS[kind], asOf: null } };
+  }
   /* The line's date is the stamp's date (P-7: "the stamp shown is the newest
-     leg's"), so one rate never shows two dates on one screen. */
-  const asOf = DATED_KINDS.has(kind) ? provenance.newestLiveAsOf : null;
-  if (DATED_KINDS.has(kind) && asOf === null) return WITHHELD;
+     leg's"), so one rate never shows two dates on one screen. A dated line with
+     no date to state is withheld, never rendered with a raw placeholder. */
+  const asOf = provenance.newestLiveAsOf;
+  if (asOf === null) return WITHHELD;
   return { displayable: true, apy: total, label: { kind, id: RATE_LINE_IDS[kind], asOf } };
 }

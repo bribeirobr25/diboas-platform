@@ -242,9 +242,7 @@ export function StrategyPicker({
                           market leg's return is a price. Asking `rate.available` here
                           would render a blended number for exactly those strategies. */}
                       {rateDisplay.displayable ? (
-                        <span data-testid="rate-line">
-                          <RateLine display={rateDisplay} />
-                        </span>
+                        <RateLine display={rateDisplay} />
                       ) : rate.available ? null : (
                         /* The Brand/localization-approved GENERIC state (P06
                            §48.1), reused verbatim — never APY-specific copy,

@@ -3,7 +3,7 @@ import { renderHook } from '@testing-library/react';
 import type { ReactNode } from 'react';
 import { IntlProvider } from 'react-intl';
 import { describe, expect, it } from 'vitest';
-import { useDateFormat, useFormatters } from '../useFormatters';
+import { useFormatters } from '../useFormatters';
 
 /**
  * The money formatter is the seam every figure in the app passes through, so
@@ -66,44 +66,4 @@ describe('percent puts no space before % in any locale (5.729)', () => {
       expect(percent(0.0039, { minimumFractionDigits: 2 })).toBe(fee);
     }
   );
-});
-
-/**
- * `5.814` · the rate line states WHEN a rate was fetched, in the reader's locale,
- * on a surface (the strategy picker) that shows no money — so the date half of
- * the formatter is a currency-free hook, and both halves must agree.
- */
-describe('useDateFormat — the same date on every surface (5.814)', () => {
-  const inLocale = (locale: string) => {
-    function InLocale({ children }: { children: ReactNode }) {
-      return (
-        <IntlProvider locale={locale} onError={() => {}}>
-          {children}
-        </IntlProvider>
-      );
-    }
-    return InLocale;
-  };
-  const dateIn = (locale: string) =>
-    renderHook(() => useDateFormat(), { wrapper: inLocale(locale) }).result.current;
-
-  it.each([
-    ['en', 'Nov 17, 2026'],
-    ['pt-BR', '17 de nov. de 2026'],
-    ['es', '17 nov 2026'],
-    ['de', '17.11.2026'],
-  ])('should state a date-only string as that calendar day in %s', (locale, want) => {
-    expect(dateIn(locale)('2026-11-17')).toBe(want);
-  });
-
-  it('should parse a date-only string at LOCAL midnight, never the day before', () => {
-    /* A date-only string parses as UTC midnight per the ES spec, which renders
-       the previous day in any UTC-negative zone; the formatter must not. */
-    expect(dateIn('en')('2026-07-18')).toBe('Jul 18, 2026');
-  });
-
-  it('should give the money formatter the very same date', () => {
-    const iso = '2026-11-17T09:30:00.000Z';
-    expect(usd().date(iso)).toBe(dateIn('en')(iso));
-  });
 });

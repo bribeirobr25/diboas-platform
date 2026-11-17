@@ -136,10 +136,26 @@ export function StrategyDetail({
     .map((id) => intl.formatMessage({ id: `catalog.protocols.${id}` }))
     .join(', ');
 
-  /* Which stamp branch renders, named for the tests (GAS-1, `5.316`): the live
-     and partly-live sentences now differ only by a final period, so the branch
-     is asserted by this id plus the gas sentence, never by text. */
-  const stampKind =
+  /**
+   * Which stamp sentence renders — decided ONCE, and both the sentence and its
+   * test id read it, so they cannot disagree (GAS-1, `5.316`, `5.814`).
+   *
+   * TWO mixed shapes, and they must not share one sentence (`5.316`; Legal
+   * ruling 2026-09-14). When at least one APY leg carries a reference value,
+   * `common.dataMixed` names those protocols. When every APY is live and only the
+   * NETWORK FEE sits on reference values, `fixtureProtocolIds` is empty BY
+   * CONSTRUCTION (it accumulates APY legs only), so joining it rendered
+   * *"Reference values (18.07.2026) for: ."* — a sentence claiming reference
+   * values and naming none. Legal's disposition: identify the reference-backed
+   * INPUT, keep APY provenance accurate and SEPARATE, never render an empty
+   * `for:`, never invent protocol names. So that branch (`partly-live`) names the
+   * pool rates and the approved gas sentence names the reference-backed fee.
+   *
+   * Since `5.814` (D3) every live stamp names only the pool rates, and the
+   * all-live and partly-live sentences differ by a final period: tests tell the
+   * branches apart by this id plus the gas sentence, never by text.
+   */
+  const stampKind: 'live' | 'mixed' | 'partly-live' | 'fixture' =
     provenance.state === 'live'
       ? 'live'
       : provenance.state === 'mixed'
@@ -147,67 +163,39 @@ export function StrategyDetail({
           ? 'mixed'
           : 'partly-live'
         : 'fixture';
+  const liveDate = provenance.newestLiveAsOf ? date(provenance.newestLiveAsOf) : '';
 
   const provenanceStamp =
-    provenance.state === 'live' ? (
+    stampKind === 'live' ? (
+      <FormattedMessage id="common.dataLive" values={{ source: liveSourceLabel, date: liveDate }} />
+    ) : stampKind === 'mixed' ? (
       <FormattedMessage
-        id="common.dataLive"
-        values={{ source: liveSourceLabel, date: date(provenance.newestLiveAsOf!) }}
+        id="common.dataMixed"
+        values={{
+          source: liveSourceLabel,
+          date: liveDate,
+          fixtureDate: date(FIXTURE_AS_OF),
+          protocols: fixtureProtocolNames,
+        }}
       />
-    ) : provenance.state === 'mixed' ? (
-      /**
-       * TWO mixed shapes, and they must not share one sentence (`5.316`; Legal
-       * ruling 2026-09-14).
-       *
-       * When at least one APY leg carries a reference value, `common.dataMixed`
-       * names those protocols — unchanged.
-       *
-       * When every APY is live and only the NETWORK FEE sits on reference
-       * values, `fixtureProtocolIds` is empty BY CONSTRUCTION (it accumulates
-       * APY legs only), so joining it rendered *"Reference values (18.07.2026)
-       * for: ."* — a sentence claiming reference values and naming none, on the
-       * pre-commit money surface, in all four locales, while the test asserted
-       * only that it was PRESENT. Legal's disposition: identify the
-       * reference-backed INPUT, keep APY provenance accurate and SEPARATE,
-       * never render an empty `for:`, and never invent protocol names. So the
-       * live stamp states what IS live and the approved gas sentence states what
-       * is not. The `mixed` CLASSIFICATION is untouched — only the sentence is.
-       */
-      provenance.fixtureProtocolIds.length > 0 ? (
+    ) : stampKind === 'partly-live' ? (
+      <>
         <FormattedMessage
-          id="common.dataMixed"
-          values={{
-            source: liveSourceLabel,
-            date: date(provenance.newestLiveAsOf!),
-            fixtureDate: date(FIXTURE_AS_OF),
-            protocols: fixtureProtocolNames,
-          }}
-        />
-      ) : (
-        <>
-          {/* `dataPartlyLive`, NOT `dataLive`. GAS-1 (founder 2026-08-21) is
-              encoded in this surface's own test: it may not open with "Live
-              from DeFiLlama" above a fixture fee — that claim is exactly what
-              GAS-1 was raised to stop. "Partly live" is what `mixed` means
-              here (rates live, network fee on reference values), and the
-              approved sentence beside it names which input that is. */}
-          <FormattedMessage
-            id="common.dataPartlyLive"
-            values={{ source: liveSourceLabel, date: date(provenance.newestLiveAsOf!) }}
-          />{' '}
-          {/* Stated only when a reference-backed fee is actually ON SCREEN.
-              `fee` is null when the chain has no quote OR when FX failed
-              (`networkFeeLocal` returns null for either), and the cost row is
-              then absent — so this sentence would describe a value the reader
-              was never shown. Finding 1: `unavailable` is not `reference`. */}
-          {fee !== null &&
-          provenance.feeEvidence.rendered &&
-          provenance.feeEvidence.availability === 'AVAILABLE' &&
-          provenance.feeEvidence.origin !== 'OBSERVED' ? (
-            <FormattedMessage id="common.dataGasReference" />
-          ) : null}
-        </>
-      )
+          id="common.dataPartlyLive"
+          values={{ source: liveSourceLabel, date: liveDate }}
+        />{' '}
+        {/* Stated only when a reference-backed fee is actually ON SCREEN.
+            `fee` is null when the chain has no quote OR when FX failed
+            (`networkFeeLocal` returns null for either), and the cost row is
+            then absent — so this sentence would describe a value the reader
+            was never shown. Finding 1: `unavailable` is not `reference`. */}
+        {fee !== null &&
+        provenance.feeEvidence.rendered &&
+        provenance.feeEvidence.availability === 'AVAILABLE' &&
+        provenance.feeEvidence.origin !== 'OBSERVED' ? (
+          <FormattedMessage id="common.dataGasReference" />
+        ) : null}
+      </>
     ) : (
       <FormattedMessage id="common.dataFixture" values={{ date: date(FIXTURE_AS_OF) }} />
     );
@@ -390,7 +378,7 @@ export function StrategyDetail({
             <p className={styles.rowLabel}>
               <FormattedMessage id="strategyDetail.howItsDoing" />
             </p>
-            <p className={styles.behaveLead} data-testid="rate-line">
+            <p className={styles.behaveLead}>
               {/* ⛑ `5.444` · RATE-DISPLAYABLE, not AVAILABILITY. */}
               {rateDisplay.displayable ? (
                 <RateLine display={rateDisplay} />
@@ -463,7 +451,7 @@ export function StrategyDetail({
               where a rate came from; rendering it without the rate would leave prose
               describing something that is not on screen. */}
           {rateDisplay.displayable ? (
-            <p className={styles.apyProvenance} data-testid="rate-line">
+            <p className={styles.apyProvenance}>
               <RateLine display={rateDisplay} />
             </p>
           ) : null}

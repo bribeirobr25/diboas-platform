@@ -106,3 +106,37 @@ describe('S2 · a rate is displayed only when it can be stated truthfully', () =
     expect(strategyRateDisplay(s, allRates(s), NOW).displayable).toBe(false);
   });
 });
+
+/**
+ * `5.814` · CAT-2 · THE NUMBER NEVER TRAVELS WITHOUT THE LINE THAT STATES ITS AGE.
+ *
+ * Before `5.814` the label was chosen by the components from the origin alone,
+ * so a number could reach the screen with a line that called it current. The
+ * result now carries both: every displayable rate in the catalogue has a label,
+ * and a refused one has neither.
+ */
+describe('5.814 · CAT-2 · the label travels with the number for every strategy', () => {
+  it('should give every displayable catalogue rate its age-aware label', () => {
+    let displayable = 0;
+    for (const s of STRATEGY_CATALOG) {
+      const d = strategyRateDisplay(s, allRates(s), NOW);
+      if (!d.displayable) {
+        expect(d, s.id).not.toHaveProperty('label');
+        continue;
+      }
+      displayable += 1;
+      /* Live rates two days old at NOW: DELAYED, so RECENT, dated — never CURRENT. */
+      expect(d.label, s.id).toEqual({ kind: 'RECENT', id: 'goalNew.apyRecent', asOf: FRESH });
+    }
+    expect(displayable).toBe(PURE.length);
+  });
+
+  it('should show neither number nor label for a blend with a documented leg past 14 days', () => {
+    const s = PURE[0]!;
+    const blend = s.allocation.map((l, i) =>
+      rate(l.protocolId, 4, i === 0 ? FIXTURE_STAMP : observedStamp('defillama', FRESH))
+    );
+    const d = strategyRateDisplay(s, blend, NOW);
+    expect(d).toEqual({ displayable: false, reason: 'MISSING_REQUIRED_RATE' });
+  });
+});

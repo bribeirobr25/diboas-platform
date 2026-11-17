@@ -9,7 +9,20 @@ import type {
   ProtocolId,
 } from '@diboas/defi';
 import {
+  isArgumentElement,
+  isDateElement,
+  isNumberElement,
+  isPluralElement,
+  isSelectElement,
+  isTagElement,
+  parse,
+  type MessageFormatElement,
+} from '@formatjs/icu-messageformat-parser';
+import { SANDBOX_LOCALES } from '@/i18n/config';
+import { getMessages } from '@/i18n/loadMessages';
+import {
   CHART_TIMEFRAMES,
+  DATED_RATE_LINE_KINDS,
   RATE_LINE_IDS,
   rateLineKind,
   selectStrategyChartSeries,
@@ -175,7 +188,7 @@ describe('5.814 · the rate line follows the rate age as well as its origin', ()
   };
 
   describe('rateLineKind — the whole table, exhaustively', () => {
-    it.each([
+    const TABLE = [
       [{ origin: 'fixture' } as const, 'REFERENCE'],
       [
         { origin: 'live', liveStates: ['CURRENT', 'CURRENT'], liveDatesAgree: true } as const,
@@ -203,8 +216,16 @@ describe('5.814 · the rate line follows the rate age as well as its origin', ()
         { origin: 'mixed', liveStates: ['DELAYED', 'STALE'], liveDatesAgree: false } as const,
         'MIXED_STALE',
       ],
-    ] satisfies [RateLineInput, RateLineKind][])('should classify %j as %s', (input, kind) => {
+    ] satisfies [RateLineInput, RateLineKind][];
+
+    it.each(TABLE)('should classify %j as %s', (input, kind) => {
       expect(rateLineKind(input)).toBe(kind);
+    });
+
+    it('should cover every kind that has a message', () => {
+      /* The table above reaches each kind in RATE_LINE_IDS at least once. */
+      const reached = new Set<RateLineKind>(TABLE.map(([input]) => rateLineKind(input)));
+      expect([...reached].sort()).toEqual(Object.keys(RATE_LINE_IDS).sort());
     });
 
     it('should say CURRENT only when every live leg is CURRENT', () => {
@@ -239,8 +260,21 @@ describe('5.814 · the rate line follows the rate age as well as its origin', ()
   });
 
   it('should date a recent rate with differing live dates by the newest (the stamp date)', () => {
-    const d = show([live(legs[0]!, 1), live(legs[1]!, 3 * DAY), live(legs[2]!, 2 * DAY)]);
+    /* The newest leg is neither first nor last, so "first leg" or "last leg"
+       cannot pass for "newest". */
+    const d = show([live(legs[0]!, 3 * DAY), live(legs[1]!, 1), live(legs[2]!, 2 * DAY)]);
     expect(d.label).toEqual({ kind: 'RECENT', id: 'goalNew.apyRecent', asOf: ago(1) });
+  });
+
+  it('should date a blend by its LIVE part even when a documented leg is newer', () => {
+    /* The documented leg's date belongs to the stamp's reference clause; the line
+       dates only what was fetched. "Newest of any leg" would say 1 hour here. */
+    const d = show([documented(legs[0]!, 1), live(legs[1]!, 3 * DAY), live(legs[2]!, 3 * DAY)]);
+    expect(d.label).toEqual({
+      kind: 'MIXED_RECENT',
+      id: 'goalNew.apyMixedRecent',
+      asOf: ago(3 * DAY),
+    });
   });
 
   it('should label a blend with a 1-hour live part MIXED_RECENT, dated by its live part', () => {
@@ -316,15 +350,69 @@ describe('5.814 · the rate line follows the rate age as well as its origin', ()
       legs.map((id) => live(id, 20 * DAY)),
       [],
     ];
+    let displayable = 0;
+    let refused = 0;
     for (const apys of cases) {
       const d = strategyRateDisplay(SAFE, apys, NOW);
-      if (d.displayable) expect(d.label.id).toBe(RATE_LINE_IDS[d.label.kind]);
-      else expect(d).not.toHaveProperty('label');
+      if (d.displayable) {
+        displayable += 1;
+        expect(d.label.id).toBe(RATE_LINE_IDS[d.label.kind]);
+      } else {
+        refused += 1;
+        expect(d).not.toHaveProperty('label');
+      }
     }
+    /* Non-vacuity: both arms were exercised. */
+    expect(displayable).toBeGreaterThan(0);
+    expect(refused).toBeGreaterThan(0);
   });
 
   it('should keep the number unchanged to the cent by the label', () => {
     const d = show([live(legs[0]!, 1, 4), live(legs[1]!, 1, 6), live(legs[2]!, 1, 10)]);
     expect(d.apy.toString()).toBe('5.8'); // 4×0.5 + 6×0.3 + 10×0.2
   });
+});
+
+/**
+ * `5.814` guard 1 · EVERY RATE-LINE ID RESOLVES, WITH EXACTLY ITS PLACEHOLDERS.
+ *
+ * The view decides which kinds carry a date; the catalogues decide which
+ * messages have a `{date}`. If the two disagree, the reader sees a raw
+ * "{date}" or a date silently dropped — and the cross-locale parity check
+ * cannot see it, because it compares the locales only with each other.
+ */
+describe('5.814 · each rate line id carries exactly its placeholders, in four locales', () => {
+  const argumentsOf = (message: string): string[] => {
+    const names = new Set<string>();
+    const walk = (elements: MessageFormatElement[]) => {
+      for (const el of elements) {
+        if (isArgumentElement(el) || isNumberElement(el) || isDateElement(el)) names.add(el.value);
+        if (isPluralElement(el) || isSelectElement(el)) {
+          names.add(el.value);
+          for (const option of Object.values(el.options)) walk(option.value);
+        }
+        if (isTagElement(el)) walk(el.children);
+      }
+    };
+    walk(parse(message));
+    return [...names].sort();
+  };
+
+  it.each(SANDBOX_LOCALES)(
+    'should match the dated kinds to the {date} messages in %s',
+    (locale) => {
+      const messages = getMessages(locale);
+      let checked = 0;
+      for (const [kind, id] of Object.entries(RATE_LINE_IDS) as [RateLineKind, string][]) {
+        const message = messages[id];
+        expect(message, `${locale}:${id} exists`).toBeDefined();
+        const dated = (DATED_RATE_LINE_KINDS as readonly string[]).includes(kind);
+        expect(argumentsOf(message!), `${locale}:${id} (${kind})`).toEqual(
+          dated ? ['apy', 'date'] : ['apy']
+        );
+        checked += 1;
+      }
+      expect(checked).toBe(Object.keys(RATE_LINE_IDS).length);
+    }
+  );
 });
