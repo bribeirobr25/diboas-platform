@@ -120,3 +120,8 @@ jobs:
       # `build-storybook`. Run after build:budget so we don't double-pay for
       # an early failure when the production build itself broke.
       - run: pnpm --filter web build-storybook
+      # 5.919 (2026-11-12): the Practice app's Storybook too. A lockfile that resolved two webpack
+      # copies broke BOTH Storybook builds while CI built only the web one, so a split that
+      # breaks only this one would have passed. Every workspace with a build-storybook script
+      # is built here (guard: apps/web/src/lib/__tests__/storybookCi.test.ts).
+      - run: pnpm --filter sandbox build-storybook
