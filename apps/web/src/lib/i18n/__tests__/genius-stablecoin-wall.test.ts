@@ -110,7 +110,11 @@ function translationFiles(dir: string): string[] {
     .sort();
 }
 
-describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', () => {
+/* 5.904: each case reads a whole corpus (every catalogue file of a locale, or every TS/TSX file
+   under apps/web/src). Measured: pt-BR 1.9 s alone, 4.0 s with coverage and every workspace
+   running at once, 7.9 s in the 2026-11-11 all-workspace run, where it failed the 5 s default.
+   A covenant guard must not fail for want of time on a busy runner. */
+describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', { timeout: 30_000 }, () => {
   it('should scan every translation file, the legal pages included, in every locale', () => {
     for (const locale of LOCALES) {
       const files = translationFiles(join(TRANSLATIONS_DIR, locale));
