@@ -44,6 +44,17 @@ jobs:
       # the same in every clone; run nowhere before, it sat red on main for nine days
       # (2026-10-21 → 10-30, register 5.704 audit).
       - run: pnpm review:doc1
+      # GENIUS-WALL-1 (register 5.958, founder D7 2026-11-17): the wall's controls may only grow.
+      # The walls' count floors catch a DELETED control, not a REPLACED one; this compares the
+      # fixture with the pull request's base (a push: the commit before it). Fails closed on a
+      # missing or all-zero base. Guarded by geniusControlsGrow.test.ts, which parses this file.
+      - name: GENIUS wall controls only grow
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          node scripts/check-genius-controls-grow.mjs "$BASE_SHA"
       # COV-1 (register 5.70): the suite runs ONCE, with coverage, and every workspace's
       # `coverage.thresholds` (a per-directory ratchet; security utilities at 100) fail
       # the job when coverage drops. Plain `pnpm test` enforced none of them.

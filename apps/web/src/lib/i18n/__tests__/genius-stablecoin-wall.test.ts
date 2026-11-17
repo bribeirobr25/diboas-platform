@@ -35,11 +35,20 @@ const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
  */
 const PATTERNS = JSON.parse(
   readFileSync(join(__dirname, '../../../../../../config/genius-wall-patterns.json'), 'utf8')
-) as { earn: string; stable: string };
+) as { earn: string; earnNear: string; stable: string };
 const EARN = PATTERNS.earn;
 const STABLE = PATTERNS.stable;
+/**
+ * The growth nouns and "bonus" (`earnNear`) count only inside the 40-character window, never in
+ * GENIUS-COMBO-1, which has no window (founder D2, `DR-2026-11-17-p9-genius-lexicon-decisions`):
+ * they are also everyday labels, such as the Growth strategy category.
+ */
+const EARN_IN_WINDOW = `${EARN}|${PATTERNS.earnNear}`;
 // `s`: a line break inside a string must not hide a pairing (2026-11-11).
-const PAIRING = new RegExp(`(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`, 'is');
+const PAIRING = new RegExp(
+  `(?:${EARN_IN_WINDOW}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN_IN_WINDOW})`,
+  'is'
+);
 // Look-alike spaces and hyphens (a no-break space inside "dólar digital", U+2011 inside
 // "Digital-Dollar") are normalised before every test, in both walls (2026-11-12 audit).
 function normalise(s: string): string {
@@ -217,13 +226,41 @@ describe('B2-5 — GENIUS-Act stablecoin/yield copy wall', { timeout: 30_000 }, 
  * reviews, so narrowing any form fails. The sandbox mirror reads the same file. The lists have
  * floors, so deleting a control fails too. Out of reach: a rewrite that keeps every listed form
  * but drops an unlisted one — CODEOWNERS on both files notifies, it does not require a review.
+ *
+ * 2026-11-17 (register 5.811, 5.958; requirement LC-RR-01-01 and DR-2026-11-17-p9-genius-lexicon-
+ * decisions): each earn and earnNear form is tested in three positions, so a boundary narrowed at
+ * either side fails; a multi-word form without a digit also across a line break; rate notations
+ * after "5%", "5% " and "5 % ". Every earn form and rate notation must ALSO match `earn` alone,
+ * with no window: GENIUS-COMBO-1 reads `earn` only, so a word moved to the window-only list would
+ * leave COMBO silently (P9 code review). Replacing a control (rather than deleting it) is caught
+ * by `scripts/check-genius-controls-grow.mjs` in CI, not here.
  */
 const CONTROLS = JSON.parse(
   readFileSync(join(__dirname, '../../../../../../config/genius-wall-controls.json'), 'utf8')
-) as { stableForms: string[]; earnForms: string[]; breaches: string[]; windowChars: number };
+) as {
+  stableForms: string[];
+  earnForms: string[];
+  rateForms: string[];
+  earnNearForms: string[];
+  nonEarnForms: string[];
+  breaches: string[];
+  windowChars: number;
+};
+const inThreePositions = (form: string): string[] => [
+  `USDC ${form}.`,
+  `${form}: USDC`,
+  `(${form}) USDC`,
+];
+const RATE_PREFIXES = ['5%', '5% ', '5 % '] as const;
+const ratedForms = (form: string): string[] => RATE_PREFIXES.map((p) => `${p}${form}`);
+const acrossALineBreak = (form: string): string[] =>
+  form.includes(' ') && !/\d/.test(form) ? [`USDC ${form.replace(/ /g, '\n')}.`] : [];
 const GENIUS_POSITIVE_CONTROLS: readonly string[] = [
   ...CONTROLS.stableForms.map((form) => `${form} earns`),
-  ...CONTROLS.earnForms.map((form) => `USDC ${form}`),
+  ...CONTROLS.earnForms.flatMap(inThreePositions),
+  ...CONTROLS.earnForms.flatMap(acrossALineBreak),
+  ...CONTROLS.rateForms.flatMap(ratedForms).flatMap(inThreePositions),
+  ...CONTROLS.earnNearForms.flatMap(inThreePositions),
   ...CONTROLS.breaches,
   // The window, past the 40th character, in both orders: exactly `windowChars` between the two
   // matched words (the window counts from the END of the match, so the earn word is "earn").
@@ -233,25 +270,80 @@ const GENIUS_POSITIVE_CONTROLS: readonly string[] = [
 
 describe('B2-5 — the wall still catches every known breach (positive controls)', () => {
   it('should keep every control list at or above its floor when the fixture is read', () => {
-    // Floors at the current counts (2026-11-11): narrowing the pattern and deleting its controls
-    // in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
+    // Floors at the current counts (2026-11-17, P9): narrowing the pattern and deleting its
+    // controls in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
     expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(44);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(73);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(36);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(387);
+    expect(CONTROLS.rateForms.length).toBeGreaterThanOrEqual(37);
+    expect(CONTROLS.earnNearForms.length).toBeGreaterThanOrEqual(14);
+    expect(CONTROLS.nonEarnForms.length).toBeGreaterThanOrEqual(11);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(107);
     expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
   });
 
   it('should hold no duplicate control when the fixture is read', () => {
-    for (const list of [CONTROLS.stableForms, CONTROLS.earnForms, CONTROLS.breaches]) {
+    for (const list of [
+      CONTROLS.stableForms,
+      CONTROLS.earnForms,
+      CONTROLS.rateForms,
+      CONTROLS.earnNearForms,
+      CONTROLS.nonEarnForms,
+      CONTROLS.breaches,
+    ]) {
       const lower = list.map((x) => x.toLowerCase());
       expect(new Set(lower).size).toBe(lower.length);
     }
+  });
+
+  it('should keep every look-alike out of the earn forms when the fixture is read', () => {
+    const earn = new Set(CONTROLS.earnForms.map((x) => x.toLowerCase()));
+    expect(CONTROLS.nonEarnForms.filter((x) => earn.has(x.toLowerCase()))).toEqual([]);
   });
 
   it.each(GENIUS_POSITIVE_CONTROLS)(
     'should flag "%s" when the shared pattern is applied',
     (sample) => {
       expect(pairs(sample)).toBe(true);
+    }
+  );
+
+  const EARN_ALONE = new RegExp(`(?:${EARN})`, 'i');
+  const NEAR_ALONE = new RegExp(`(?:${PATTERNS.earnNear})`, 'i');
+
+  // GENIUS-COMBO-1 reads `earn` with no window: every earn form and rate notation must match it
+  // alone, or moving a word into the window-only list would drop it from COMBO with every
+  // pairing test still green (P9 code review, LC-RR-01-01).
+  it.each([...CONTROLS.earnForms, ...CONTROLS.rateForms.flatMap(ratedForms)])(
+    'should match the windowless earn list with "%s" when GENIUS-COMBO-1 reads it',
+    (form) => {
+      expect(EARN_ALONE.test(normalise(form))).toBe(true);
+    }
+  );
+
+  // D2: the growth nouns and "bonus" pair inside the window (above) but never match `earn` alone,
+  // so GENIUS-COMBO-1, which reads `earn` with no window, does not flag a "Growth" category label.
+  it.each(CONTROLS.earnNearForms)(
+    'should not match the windowless earn list with "%s" when D2 holds',
+    (form) => {
+      expect(EARN_ALONE.test(normalise(form))).toBe(false);
+    }
+  );
+
+  // D4 (founder, DR-2026-11-17-p9-genius-lexicon-decisions): look-alikes the lexicon must never
+  // match. The growth nouns are also window-only words (D2), so they are held to `earn` alone; every
+  // other look-alike to `earn` AND `earnNear`, so a widening put into either list that starts
+  // flagging "Erwachsene" or the Compound protocol fails. Reword the copy or ask the founder to
+  // rule; never narrow.
+  const nearForms = new Set(CONTROLS.earnNearForms.map((x) => x.toLowerCase()));
+  it.each(CONTROLS.nonEarnForms)(
+    'should not match the lexicon with the look-alike "%s" when D4 holds',
+    (form) => {
+      const lists = nearForms.has(form.toLowerCase()) ? [EARN_ALONE] : [EARN_ALONE, NEAR_ALONE];
+      for (const list of lists)
+        expect(
+          list.test(normalise(form)),
+          'reword the copy or ask the founder to rule; never narrow the pattern'
+        ).toBe(false);
     }
   );
 });
@@ -295,6 +387,7 @@ describe('B2-6 — the share-image texts carry no earn/stablecoin pairing', () =
  * protocol table (the named education exception above).
  */
 describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin pairing', () => {
+  // `earn` only: the window-only `earnNear` words never count across strings (D2).
   const EARN_ANY = new RegExp(`(?:${EARN})`, 'i');
   const STABLE_ANY = new RegExp(`(?:${STABLE})`, 'i');
   // Plan §3.5: a stablecoin word next to an earn OR a rate word. "Conservador (7%) em dólar
@@ -415,7 +508,7 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
    */
   const STABLE_ON_TOOLS: Readonly<Record<string, string>> = {
     'tools-currency-depreciation::hero.subtitle':
-      'decision A, kept again 2026-11-11 (DR w-b-signoff item 1): names the three things the tool compares; the card itself now says "A diBoaS strategy"',
+      'decision A, kept again 2026-11-11 (DR w-b-signoff item 1): names the three things the tool compares; the card itself now says "A diBoaS strategy". Near-miss since 2026-11-17 (P9): "grow" / "crescer" / "crecer" / "wachsen" is now an earn word, 54–67 characters from the stablecoin word; a rewording ~15 characters shorter would pair',
     'tools-currency-depreciation::resultMoment.chartAria':
       'decision A: the chart sentence for screen readers; kept by the founder',
     'tools-currency-depreciation::resultMoment.chartAriaUsd':

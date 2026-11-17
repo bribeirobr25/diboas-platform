@@ -422,12 +422,15 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   // ONE pattern source with the web wall (`config/genius-wall-patterns.json`, register 5.749).
   const PATTERNS = JSON.parse(
     readFileSync(join(SRC, '..', '..', '..', 'config', 'genius-wall-patterns.json'), 'utf8')
-  ) as { earn: string; stable: string };
+  ) as { earn: string; earnNear: string; stable: string };
   const EARN = PATTERNS.earn;
   const STABLE = PATTERNS.stable;
+  // The growth nouns and "bonus" (`earnNear`) count only inside the 40-character window
+  // (founder D2, DR-2026-11-17-p9-genius-lexicon-decisions), exactly as on the web wall.
+  const EARN_IN_WINDOW = `${EARN}|${PATTERNS.earnNear}`;
   // `s`: a line break inside a string must not hide a pairing (2026-11-11).
   const PAIRING = new RegExp(
-    `(?:${EARN}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN})`,
+    `(?:${EARN_IN_WINDOW}).{0,40}(?:${STABLE})|(?:${STABLE}).{0,40}(?:${EARN_IN_WINDOW})`,
     'is'
   );
   // Look-alike spaces and hyphens (a no-break space inside "dólar digital", U+2011 inside
@@ -443,27 +446,92 @@ describe('B2-5 — GENIUS-Act stablecoin/yield wall (sandbox side)', () => {
   // both walls (fifth audit 2026-11-05). Floors keep the lists from shrinking.
   const CONTROLS = JSON.parse(
     readFileSync(join(SRC, '..', '..', '..', 'config', 'genius-wall-controls.json'), 'utf8')
-  ) as { stableForms: string[]; earnForms: string[]; breaches: string[]; windowChars: number };
+  ) as {
+    stableForms: string[];
+    earnForms: string[];
+    rateForms: string[];
+    earnNearForms: string[];
+    nonEarnForms: string[];
+    breaches: string[];
+    windowChars: number;
+  };
+  // 2026-11-17 (5.811, 5.958; LC-RR-01-01): three positions, so a boundary narrowed at either
+  // side fails; a multi-word form without a digit also across a line break; rate notations after
+  // "5%", "5% " and "5 % "; every earn form and rate notation must also match `earn` alone (the
+  // web wall's GENIUS-COMBO-1 reads `earn` only). A REPLACED control is caught in CI by
+  // scripts/check-genius-controls-grow.mjs.
+  const inThreePositions = (form: string): string[] => [
+    `USDC ${form}.`,
+    `${form}: USDC`,
+    `(${form}) USDC`,
+  ];
+  const ratedForms = (form: string): string[] => ['5%', '5% ', '5 % '].map((p) => `${p}${form}`);
+  const acrossALineBreak = (form: string): string[] =>
+    form.includes(' ') && !/\d/.test(form) ? [`USDC ${form.replace(/ /g, '\n')}.`] : [];
 
   it('should keep every control list at or above its floor when the fixture is read', () => {
-    // Floors at the current counts (2026-11-11): narrowing the pattern and deleting its controls
-    // in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
+    // Floors at the current counts (2026-11-17, P9): narrowing the pattern and deleting its
+    // controls in one edit must also lower these, in both walls (W-B review proved the gap at 14/14).
     expect(CONTROLS.stableForms.length).toBeGreaterThanOrEqual(44);
-    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(73);
-    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(36);
+    expect(CONTROLS.earnForms.length).toBeGreaterThanOrEqual(387);
+    expect(CONTROLS.rateForms.length).toBeGreaterThanOrEqual(37);
+    expect(CONTROLS.earnNearForms.length).toBeGreaterThanOrEqual(14);
+    expect(CONTROLS.nonEarnForms.length).toBeGreaterThanOrEqual(11);
+    expect(CONTROLS.breaches.length).toBeGreaterThanOrEqual(107);
     expect(CONTROLS.windowChars).toBeGreaterThanOrEqual(40);
   });
 
   it('should hold no duplicate control when the fixture is read', () => {
-    for (const list of [CONTROLS.stableForms, CONTROLS.earnForms, CONTROLS.breaches]) {
+    for (const list of [
+      CONTROLS.stableForms,
+      CONTROLS.earnForms,
+      CONTROLS.rateForms,
+      CONTROLS.earnNearForms,
+      CONTROLS.nonEarnForms,
+      CONTROLS.breaches,
+    ]) {
       const lower = list.map((x) => x.toLowerCase());
       expect(new Set(lower).size).toBe(lower.length);
     }
   });
 
+  it('should keep every look-alike out of the earn forms when the fixture is read', () => {
+    const earn = new Set(CONTROLS.earnForms.map((x) => x.toLowerCase()));
+    expect(CONTROLS.nonEarnForms.filter((x) => earn.has(x.toLowerCase()))).toEqual([]);
+  });
+
+  const EARN_ALONE = new RegExp(`(?:${EARN})`, 'i');
+  const NEAR_ALONE = new RegExp(`(?:${PATTERNS.earnNear})`, 'i');
+  it.each([...CONTROLS.earnForms, ...CONTROLS.rateForms.flatMap(ratedForms)])(
+    'should match the windowless earn list with "%s" when GENIUS-COMBO-1 reads it',
+    (form) => {
+      expect(EARN_ALONE.test(normalise(form))).toBe(true);
+    }
+  );
+
+  // D2 and D4 (DR-2026-11-17-p9-genius-lexicon-decisions): the window-only nouns never match `earn`
+  // alone; a look-alike never matches `earn`, and one that is not a growth noun never matches
+  // `earnNear` either. A failing look-alike means reword the copy or ask the founder to rule;
+  // never narrow the pattern.
+  const nearForms = new Set(CONTROLS.earnNearForms.map((x) => x.toLowerCase()));
+  it.each([...CONTROLS.earnNearForms, ...CONTROLS.nonEarnForms])(
+    'should not match the lexicon with "%s" when D2 and D4 hold',
+    (form) => {
+      const lists = nearForms.has(form.toLowerCase()) ? [EARN_ALONE] : [EARN_ALONE, NEAR_ALONE];
+      for (const list of lists)
+        expect(
+          list.test(normalise(form)),
+          'reword the copy or ask the founder to rule; never narrow the pattern'
+        ).toBe(false);
+    }
+  );
+
   it.each([
     ...CONTROLS.stableForms.map((form) => `${form} earns`),
-    ...CONTROLS.earnForms.map((form) => `USDC ${form}`),
+    ...CONTROLS.earnForms.flatMap(inThreePositions),
+    ...CONTROLS.earnForms.flatMap(acrossALineBreak),
+    ...CONTROLS.rateForms.flatMap(ratedForms).flatMap(inThreePositions),
+    ...CONTROLS.earnNearForms.flatMap(inThreePositions),
     ...CONTROLS.breaches,
     // The window, past the 40th character, in both orders: exactly `windowChars` between the two
     // matched words (the window counts from the END of the match, so the earn word is "earn").

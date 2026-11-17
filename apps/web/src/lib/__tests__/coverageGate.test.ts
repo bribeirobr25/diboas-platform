@@ -374,6 +374,9 @@ describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 3
           '$TURBO_ROOT$/pnpm-lock.yaml',
           '$TURBO_ROOT$/apps/*/package.json',
           '$TURBO_ROOT$/packages/*/package.json',
+          /* P9 code review: the GENIUS walls read config/genius-wall-*.json; without this a
+             config-only narrowing replayed a cached pass under a local `pnpm test`. */
+          '$TURBO_ROOT$/config/**',
         ])
       );
     expect(turbo.tasks['test:coverage']?.inputs).toContain('$TURBO_ROOT$/.github/workflows/ci.yml');
