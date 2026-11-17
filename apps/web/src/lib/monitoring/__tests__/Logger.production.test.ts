@@ -89,6 +89,35 @@ describe('the real Logger in production', () => {
   });
 });
 
+/**
+ * Fifteenth audit: a production build bundles the Logger more than once on the server
+ * (instrumentation and each route get their own copy). A sink kept on the class was set on
+ * instrumentation's copy only, so a route's `Logger.error` never reached Sentry. Two module
+ * instances here stand in for those two copies.
+ */
+describe('the error sink across module copies', () => {
+  afterEach(async () => {
+    vi.resetModules();
+    (await import('../Logger')).Logger.setErrorSink(undefined);
+  });
+
+  it('should reach a sink connected through one copy when another copy logs the error', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    vi.resetModules();
+    const instrumentationCopy = (await import('../Logger')).Logger;
+    vi.resetModules();
+    const routeCopy = (await import('../Logger')).Logger;
+    expect(routeCopy, 'two separate module instances').not.toBe(instrumentationCopy);
+    const sink = vi.fn();
+    instrumentationCopy.setErrorSink(sink);
+    routeCopy.error('[cron/purge-audit-logs] CRON_SECRET is not set', {});
+    expect(sink).toHaveBeenCalledTimes(1);
+    routeCopy.setErrorSink(undefined);
+    instrumentationCopy.error('after disconnect', {});
+    expect(sink).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe('serverErrorSink (5.888)', () => {
   beforeEach(() => captureException.mockReset());
 
@@ -116,6 +145,30 @@ describe('serverErrorSink (5.888)', () => {
     expect(synthetic.message).toBe('database down');
     expect(critical.level).toBe('fatal');
     expect(LogLevel.CRITICAL).toBeGreaterThan(LogLevel.ERROR);
+    Logger.setErrorSink(undefined);
+  });
+
+  it("should carry the caller's surface, endpoint, view and correlation id as tags", async () => {
+    /* The market fetchers log an error and then capture the same Error with these tags; Sentry
+       drops that second capture, so the sink's event must carry them (fifteenth audit). */
+    vi.resetModules();
+    const { Logger } = await import('../Logger');
+    const { connectServerErrorSink } = await import('../serverErrorSink');
+    vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    connectServerErrorSink();
+    Logger.error(
+      'market analytics fetch failed',
+      { surface: 'market', endpoint: 'regime', view: 'bitcoin', correlationId: 'req-123', n: 4 },
+      new Error('fetch failed')
+    );
+    const [, options] = captureException.mock.calls[0] as [Error, { tags: Record<string, string> }];
+    expect(options.tags).toEqual({
+      source: 'logger',
+      surface: 'market',
+      endpoint: 'regime',
+      view: 'bitcoin',
+      correlationId: 'req-123',
+    });
     Logger.setErrorSink(undefined);
   });
 });
