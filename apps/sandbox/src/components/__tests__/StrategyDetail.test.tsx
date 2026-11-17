@@ -109,6 +109,7 @@ function renderDetail(
         ]}
         usdPriceLocal={1}
         currency="USD"
+        now={new Date().toISOString()}
         onPutToWork={onPutToWork}
       />
     </IntlProvider>
@@ -190,7 +191,10 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
      * provenance stamp naming nothing. A mixed state must NAME what is on
      * reference values, so the assertions below are on CONTENT.
      */
-    expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
+    /* `5.814` (D3): the live and partly-live sentences now differ only by a
+       final period, so GAS-1's distinction is asserted by the BRANCH (its test
+       id) plus the gas sentence, never by text. */
+    expect(screen.queryByTestId('provenance-stamp-live')).toBeNull();
     /**
      * Read the stamp's `textContent`, not `getByText`. The sentence is composed
      * from TWO `FormattedMessage` elements in one <p>, so React emits separate
@@ -199,7 +203,8 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
      * correctly. The MIXED assertion below already used `textContent`; this
      * follows it.
      */
-    const stamp = screen.getByText(/Partly live from DeFiLlama/);
+    const stamp = screen.getByTestId('provenance-stamp-partly-live');
+    expect(stamp.textContent).toContain('Pool rates from DeFiLlama, fetched');
     // the reference-backed input is IDENTIFIED as the network fee (Legal wording)
     expect(stamp.textContent).toContain('network fee (gas) used in this simulation');
     // and never an empty `for:` clause, in any locale
@@ -207,11 +212,15 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     unmount();
 
     const mixed = renderDetail(MIXED);
-    expect(screen.getByText(/Partly live from DeFiLlama/).textContent).toContain('Aave V3');
+    const mixedStamp = screen.getByTestId('provenance-stamp-mixed');
+    expect(mixedStamp.textContent).toContain('Pool rates partly from DeFiLlama');
+    expect(mixedStamp.textContent).toContain('Aave V3');
     mixed.unmount();
 
     renderDetail(FIXTURE);
-    expect(screen.getByText(/Documented reference values/)).toBeTruthy();
+    expect(screen.getByTestId('provenance-stamp-fixture').textContent).toMatch(
+      /Documented reference values/
+    );
     expect(screen.queryByText(/\(real, variable\)/)).toBeNull(); // never "real" on fixtures
   });
 
@@ -244,13 +253,14 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
           ]}
           usdPriceLocal={1}
           currency="USD"
+          now={new Date().toISOString()}
         />
       </IntlProvider>
     );
-    const live = screen.getByText(/^Live from/);
-    expect(live.textContent).toContain('DeFiLlama');
+    const live = screen.getByTestId('provenance-stamp-live');
+    expect(live.textContent).toContain('Pool rates from DeFiLlama');
     // The precise failure the registry lookup could introduce: an empty name.
-    expect(live.textContent).not.toMatch(/Live from\s*,/);
+    expect(live.textContent).not.toMatch(/from\s*,/);
   });
 
   it('should draw the axed chart over real history with switchable timeframes', () => {
@@ -300,7 +310,7 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
     expect(screen.getByText(/\(real, variable\)/)).toBeTruthy();
     expect(screen.queryByText(/includes documented reference values/)).toBeNull();
     // The fee's provenance is still stated — by the gas sentence, not the label.
-    expect(screen.getByText(/Partly live from DeFiLlama/).textContent).toContain(
+    expect(screen.getByTestId('provenance-stamp-partly-live').textContent).toContain(
       'network fee (gas) used in this simulation'
     );
   });
@@ -318,13 +328,15 @@ describe('StrategyDetail — the G6 pre-commit read (§4.6, board §3.2)', () =>
           gas={[]}
           usdPriceLocal={1}
           currency="USD"
+          now={new Date().toISOString()}
         />
       </IntlProvider>
     );
     expect(screen.queryByText(/Reference network cost: about/)).toBeNull();
     expect(screen.queryByText(/network fee \(gas\) used in this simulation/)).toBeNull();
-    // and it still must not claim to be fully live
-    expect(screen.queryByText(/^Live from DeFiLlama/)).toBeNull();
+    // and it still must not take the all-live branch (GAS-1, asserted by branch, 5.814)
+    expect(screen.queryByTestId('provenance-stamp-live')).toBeNull();
+    expect(screen.getByTestId('provenance-stamp-partly-live')).toBeTruthy();
 
     /* `5.348` (Execution Rulings §17): the row is NOT omitted — the approved
        string REPLACES the figure, because `amount unavailable != zero !=
@@ -413,6 +425,7 @@ describe('5.406 — the multi-network Candidate on the pre-commit surface', () =
           gas={GAS_BOTH}
           usdPriceLocal={1}
           currency="USD"
+          now={new Date().toISOString()}
           onPutToWork={onPutToWork}
         />
       </IntlProvider>
@@ -660,8 +673,12 @@ describe('5.436 — an unavailable rate blocks the commit, not the reading', () 
      */
     renderDetail();
     expect(screen.getAllByText('This option is not available right now').length).toBe(2);
-    expect(screen.queryByText(/Current pool rate/)).toBeNull();
-    expect(screen.queryByText(/Reference pool rate/)).toBeNull();
+    /* No rate line in any form (5.814): the rate element holds no figure. */
+    /* Scoped to the rate element, never the whole view: the card's "Pool rates
+       describe the past" is not a rate line (plan P10 guard 2). */
+    const line = screen.getByTestId('rate-line').textContent ?? '';
+    expect(line).not.toMatch(/%/);
+    expect(line).not.toMatch(/pool rate/i);
   });
 
   it('should withhold the PROVENANCE QUALIFIER wherever it withholds the number', () => {
@@ -684,9 +701,11 @@ describe('5.436 — an unavailable rate blocks the commit, not the reading', () 
      * passed, and the guard asserted nothing. Switch views first, then look.
      */
     fireEvent.click(screen.getByText('Detailed'));
-    /* Non-vacuity: the detailed view must actually be showing. */
-    expect(screen.getByText('Current APY')).toBeTruthy();
-    for (const qualifier of [/Current pool rate:/, /Blended pool rate:/, /Reference pool rate:/]) {
+    /* Non-vacuity: the detailed view must actually be showing, with its title. */
+    expect(screen.getByTestId('rate-title').textContent).toBe('Pool rate');
+    /* Every rate-line form (5.814): none may render beside a withheld number. */
+    expect(screen.queryAllByTestId('rate-line')).toHaveLength(0);
+    for (const qualifier of [/pool rate[,:]/i, /Blended pool rate/, /Reference pool rate:/]) {
       expect(screen.queryByText(qualifier), String(qualifier)).toBeNull();
     }
   });
@@ -736,7 +755,12 @@ describe('5.436 — an unavailable rate blocks the commit, not the reading', () 
  */
 describe('5.541 — rate availability vs strategy availability in the Detailed view', () => {
   const messages = getMessages('en');
-  const LABEL = messages['strategyDetail.currentApy'] as string;
+  /* `5.226` (plan P10, D5): one neutral title in every state. Read from the real
+     catalogue and checked non-empty, since `onError` below swallows a missing id. */
+  const LABEL = messages['strategyDetail.poolRate'] as string;
+  it('should read the title from the catalogue (the guard is not vacuous)', () => {
+    expect(LABEL).toBe('Pool rate');
+  });
   const UNAVAILABLE = messages['common.optionUnavailable'] as string;
   const fullThrottle = getStrategy('fullThrottle')!; // has a market (price) leg
   const GAS_BOTH = [
@@ -754,6 +778,7 @@ describe('5.541 — rate availability vs strategy availability in the Detailed v
           gas={GAS_BOTH}
           usdPriceLocal={1}
           currency="USD"
+          now={new Date().toISOString()}
         />
       </IntlProvider>
     );

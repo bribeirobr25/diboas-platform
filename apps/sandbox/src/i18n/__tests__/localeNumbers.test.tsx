@@ -36,7 +36,11 @@ import { getMessages } from '@/i18n/loadMessages';
 /** Every key that interpolates a number the locale must format (`5.405`). */
 const NUMERIC_KEYS: readonly { key: string; arg: 'apy' | 'percent' }[] = [
   { key: 'goalNew.apyNow', arg: 'apy' },
-  { key: 'goalNew.apyNowMixed', arg: 'apy' },
+  { key: 'goalNew.apyRecent', arg: 'apy' },
+  { key: 'goalNew.apyStale', arg: 'apy' },
+  { key: 'goalNew.apyPartlyStale', arg: 'apy' },
+  { key: 'goalNew.apyMixedRecent', arg: 'apy' },
+  { key: 'goalNew.apyMixedStale', arg: 'apy' },
   { key: 'goalNew.apyNowFixture', arg: 'apy' },
   { key: 'goalNew.growthExposure', arg: 'percent' },
   { key: 'pathCard.riskGrowth', arg: 'percent' },
@@ -53,7 +57,9 @@ describe('5.405 — a rate is formatted by its locale, never emitted raw', () =>
     for (const { key, arg } of NUMERIC_KEYS) {
       const { unmount } = render(
         <IntlProvider locale={locale} messages={messages} onError={() => {}}>
-          <FormattedMessage id={key} values={{ [arg]: 3.2 }} />
+          {/* `date` is supplied for the rate lines that state one (`5.814`); a
+              formatted date holds no "3.2", so it cannot satisfy the match. */}
+          <FormattedMessage id={key} values={{ [arg]: 3.2, date: '17.11.2026' }} />
         </IntlProvider>
       );
       // The VALUE as the reader sees it — not the attribute meant to produce it.

@@ -810,6 +810,7 @@ export function GoalDetailScreen({ locale, goalId }: { locale: SandboxLocale; go
                       gas={market.gas}
                       usdPriceLocal={market.usdPriceLocal}
                       currency={state.currency}
+                      now={nowIso}
                       onPutToWork={
                         canInvest && canPriceEntry && rateAvailable
                           ? () => setEntryManifest(true)

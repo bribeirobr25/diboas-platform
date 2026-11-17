@@ -27,17 +27,16 @@ const COPY = 'Data provided by CoinGecko';
 const LINK = 'https://www.coingecko.com/en/api';
 
 /**
- * Stamps are derived from the CLOCK, never hardcoded.
+ * One pinned moment, passed in as `now` (`5.814`: the screen owns the clock).
  *
- * `StrategyDetail` has no `now` prop — it memoises `new Date().toISOString()`
- * internally — so a fee only renders when the gas stamp is inside Stage H's
- * window relative to the REAL current time. A literal date here would render
- * the fee today and silently stop rendering it in a fortnight, taking every
- * assertion below with it: an expiry landmine of exactly the kind the sabotage
- * discipline exists to catch.
+ * `StrategyDetail` used to memoise `new Date()` internally, so this file had to
+ * derive its stamps from the REAL clock to keep the fee inside Stage H's window.
+ * The clock is now a prop, so every stamp is fixed relative to `NOW` and nothing
+ * here moves with the calendar.
  */
 const DAY_MS = 24 * 60 * 60 * 1000;
-const OBSERVED_AT = new Date(Date.now() - DAY_MS).toISOString();
+const NOW = '2026-11-17T12:00:00.000Z';
+const OBSERVED_AT = new Date(Date.parse(NOW) - DAY_MS).toISOString();
 
 const apy = (protocolId: ProtocolId): ProtocolApy => ({
   protocolId,
@@ -82,6 +81,7 @@ function renderDetail(
         gas={gas}
         usdPriceLocal={usdPriceLocal}
         currency="USD"
+        now={NOW}
       />
     </IntlProvider>
   );

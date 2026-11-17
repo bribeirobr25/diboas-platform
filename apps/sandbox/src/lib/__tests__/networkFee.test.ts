@@ -70,7 +70,7 @@ describe('networkFeeLocal — MISSING is not zero (handoff §8.7, AUD-F05)', () 
  * - `GoalDetailScreen:139` computes `feeLocal` and gates the CTA on
  *   `canPriceEntry = feeLocal !== null` (FC-15: no honest price, no operable
  *   control).
- * - `StrategyDetail:80` computes `fee` from the same inputs and, since
+ * - `StrategyDetail` computes `fee` from the same inputs (and the screen's `now`) and, since
  *   Increment 2, SELECTS WHICH REASON the disabled CTA shows: `fee === null`
  *   renders the approved refusal string, anything else renders the amount hint.
  *
@@ -87,7 +87,7 @@ describe('X1 — the two entry-fee derivations agree, so the refusal reason is n
   /** GoalDetailScreen:139 + :142, as written. */
   const canPriceEntry = (gas: GasQuote[], fx: number | null) =>
     networkFeeLocal(gas, SINGLE, fx, NOW) !== null;
-  /** StrategyDetail:80 + the 5.347 branch, as written. */
+  /** StrategyDetail's `fee` + the 5.347 branch, as written. */
   const showsRefusalReason = (gas: GasQuote[], fx: number | null) =>
     networkFeeLocal(gas, SINGLE, fx, NOW) === null;
 

@@ -69,9 +69,8 @@ const M = {
   'pathCard.riskStable': 'Stable strategies',
   'pathCard.riskGrowth': '{percent}% growth exposure',
   'pathCard.noPromise': 'Never a promise.',
-  'common.dataLive': 'Live from {source}, fetched {date}',
-  'common.dataMixed':
-    'Partly live from {source}, fetched {date}. Reference values ({fixtureDate}) for: {protocols}.',
+  'common.dataLive': EN['common.dataLive'],
+  'common.dataMixed': EN['common.dataMixed'],
   'common.dataFixture': 'Documented reference values ({date}), not live market data.',
   'catalog.protocols.skySsr': 'Sky Savings Rate',
   'catalog.protocols.aaveV3': 'Aave v3',
@@ -90,10 +89,15 @@ const M = {
     'Each timeframe shows the same four strategies, plus the option to keep it as cash.',
   'goalNew.riskStable': 'Stable',
   'goalNew.riskGrowth': 'Growth',
-  'goalNew.apyNow': 'Current pool rate: {apy}%/yr (real, variable)',
-  'goalNew.apyNowMixed':
-    'Blended pool rate: {apy}%/yr (variable, includes documented reference values)',
-  'goalNew.apyNowFixture': 'Reference pool rate: {apy}%/yr (documented values, not live)',
+  /* The rate lines come from the real catalogue (5.814): a stub of these texts
+     would let a stale or missing message pass. */
+  'goalNew.apyNow': EN['goalNew.apyNow'],
+  'goalNew.apyRecent': EN['goalNew.apyRecent'],
+  'goalNew.apyStale': EN['goalNew.apyStale'],
+  'goalNew.apyPartlyStale': EN['goalNew.apyPartlyStale'],
+  'goalNew.apyMixedRecent': EN['goalNew.apyMixedRecent'],
+  'goalNew.apyMixedStale': EN['goalNew.apyMixedStale'],
+  'goalNew.apyNowFixture': EN['goalNew.apyNowFixture'],
   'goalNew.growthExposure': '{percent}% growth',
 };
 
@@ -172,7 +176,7 @@ describe('StrategyPicker provenance rows + the F6 band disclosure (§3-A)', () =
   it('should mark a partly-live strategy as mixed, not real', () => {
     renderPicker(MIXED);
     // safeHarbor (sky live, aave fixture, compound live) → mixed row present.
-    expect(screen.getAllByText(/includes documented reference values/).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/includes reference values/).length).toBeGreaterThan(0);
     expect(screen.queryByText(/\(real, variable\)/)).toBeNull();
   });
 });

@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { EXIT_FEE_FLOOR, FEE_RATES } from '@diboas/banking';
 import {
@@ -19,6 +19,7 @@ import { ApyChart } from './ApyChart';
 import { Button } from './Button';
 import { Card } from './Card';
 import { LucideIcon } from './LucideIcon';
+import { RateLine } from './RateLine';
 import { SegmentedToggle } from './SegmentedToggle';
 import { Sparkline } from './Sparkline';
 import { strategyRateDisplay } from '@/view/strategy';
@@ -61,6 +62,7 @@ export function StrategyDetail({
   gas,
   usdPriceLocal,
   currency,
+  now,
   onPutToWork,
 }: {
   strategy: StrategyDef;
@@ -71,6 +73,13 @@ export function StrategyDetail({
   gas: GasQuote[];
   usdPriceLocal: number | null;
   currency: 'USD' | 'BRL' | 'EUR';
+  /**
+   * ⛑ STAGE H · the CURRENT-FACING reference moment for the age contract
+   * (`5.309`), REQUIRED and owned by the screen (`5.814`): the same clock ages
+   * the rate in the picker and here, read once at screen mount, so a re-render
+   * cannot move a rendered cost or rate across a policy boundary mid-session.
+   */
+  now: string;
   onPutToWork?: () => void;
 }) {
   const intl = useIntl();
@@ -83,19 +92,14 @@ export function StrategyDetail({
      must cover the gas source too (GAS-1) — a live-rate strategy with a
      fixture fee is `mixed`, not `live`. */
   const provenance = strategyProvenance(strategy, apys, gasStampFor(gas, strategy.entryChain));
-  /* ⛑ STAGE H · the CURRENT-FACING reference moment for the age contract
-     (`5.309`). Memoised per mount so a re-render cannot move a rendered cost
-     across a policy boundary mid-session; the same pattern the weekly-cycle and
-     month-report screens use for their own clocks. */
-  const nowIso = useMemo(() => new Date().toISOString(), []);
-  const rateDisplay = strategyRateDisplay(strategy, apys, nowIso);
-  const fee = networkFeeLocal(gas, strategy, usdPriceLocal, nowIso);
+  const rateDisplay = strategyRateDisplay(strategy, apys, now);
+  const fee = networkFeeLocal(gas, strategy, usdPriceLocal, now);
   /**
    * ⛑ `5.436` · the RATE half of the same age contract, through the SAME
    * generic gate the fee above uses. The candidate stays readable; what it
    * loses is the number and the ability to be committed.
    */
-  const rate = strategyRateAvailability(strategy, apys, nowIso);
+  const rate = strategyRateAvailability(strategy, apys, now);
   /**
    * `5.440` · THE ATTRIBUTION NAMES THE SOURCE THAT ACTUALLY SERVED.
    *
@@ -123,21 +127,26 @@ export function StrategyDetail({
     requestedTimeframe,
   });
 
-  /* `5.402`: the APY label derives from the APY axis ONLY. Reading
-     `provenance.state` let a reference-backed GAS quote select
-     `apyNowMixed` — "includes documented reference values" — over three
-     live rates, a false statement about the rates in all four locales. The
-     fee's own provenance is stated by the gas sentence below, not here. */
-  const apyMessageId =
-    provenance.apyProvenance === 'live'
-      ? 'goalNew.apyNow'
-      : provenance.apyProvenance === 'mixed'
-        ? 'goalNew.apyNowMixed'
-        : 'goalNew.apyNowFixture';
+  /* The rate line (`5.814`) is chosen in `view/strategy.ts` by the rate's
+     ORIGIN (the APY axis only, `5.402`: a reference-backed GAS quote never
+     makes live rates read as reference values) and its AGE (no Practice rate is
+     current). The fee's own provenance is stated by the gas sentence below. */
 
   const fixtureProtocolNames = provenance.fixtureProtocolIds
     .map((id) => intl.formatMessage({ id: `catalog.protocols.${id}` }))
     .join(', ');
+
+  /* Which stamp branch renders, named for the tests (GAS-1, `5.316`): the live
+     and partly-live sentences now differ only by a final period, so the branch
+     is asserted by this id plus the gas sentence, never by text. */
+  const stampKind =
+    provenance.state === 'live'
+      ? 'live'
+      : provenance.state === 'mixed'
+        ? provenance.fixtureProtocolIds.length > 0
+          ? 'mixed'
+          : 'partly-live'
+        : 'fixture';
 
   const provenanceStamp =
     provenance.state === 'live' ? (
@@ -323,7 +332,9 @@ export function StrategyDetail({
       <p className={styles.noPromise}>
         <FormattedMessage id="pathCard.noPromise" />
       </p>
-      <p className={styles.stamp}>{provenanceStamp}</p>
+      <p className={styles.stamp} data-testid={`provenance-stamp-${stampKind}`}>
+        {provenanceStamp}
+      </p>
     </div>
   );
 
@@ -379,13 +390,10 @@ export function StrategyDetail({
             <p className={styles.rowLabel}>
               <FormattedMessage id="strategyDetail.howItsDoing" />
             </p>
-            <p className={styles.behaveLead}>
+            <p className={styles.behaveLead} data-testid="rate-line">
               {/* ⛑ `5.444` · RATE-DISPLAYABLE, not AVAILABILITY. */}
               {rateDisplay.displayable ? (
-                <FormattedMessage
-                  id={apyMessageId}
-                  values={{ apy: rateDisplay.apy.toDecimalPlaces(2).toNumber() }}
-                />
+                <RateLine display={rateDisplay} />
               ) : rate.available ? null : (
                 /* `5.436`: the approved GENERIC state, never a stale number,
                    never 0%, never a bare dash. Reserved for a genuinely
@@ -424,8 +432,10 @@ export function StrategyDetail({
               available right now" for a strategy the user could select. */}
           {rateDisplay.displayable || !rate.available ? (
             <div className={styles.apyRow}>
-              <span className={styles.apyLabel}>
-                <FormattedMessage id="strategyDetail.currentApy" />
+              {/* `5.226` · one neutral title in every state (plan P10, D5): the
+                  line under it states the rate's origin and age. */}
+              <span className={styles.apyLabel} data-testid="rate-title">
+                <FormattedMessage id="strategyDetail.poolRate" />
               </span>
               {rateDisplay.displayable ? (
                 <>
@@ -440,8 +450,8 @@ export function StrategyDetail({
                   </span>
                 </>
               ) : (
-                /* Reached only for an UNAVAILABLE strategy: the label stays —
-                   "Current rate" is still the right question; only the answer is
+                /* Reached only for an UNAVAILABLE strategy: the title stays —
+                   "Pool rate" is still the right question; only the answer is
                    unavailable. `varies` describes a rate, so it goes with the rate. */
                 <span className={styles.apyValue}>
                   <FormattedMessage id="common.optionUnavailable" />
@@ -453,11 +463,8 @@ export function StrategyDetail({
               where a rate came from; rendering it without the rate would leave prose
               describing something that is not on screen. */}
           {rateDisplay.displayable ? (
-            <p className={styles.apyProvenance}>
-              <FormattedMessage
-                id={apyMessageId}
-                values={{ apy: rateDisplay.apy.toDecimalPlaces(2).toNumber() }}
-              />
+            <p className={styles.apyProvenance} data-testid="rate-line">
+              <RateLine display={rateDisplay} />
             </p>
           ) : null}
 

@@ -6,7 +6,6 @@ import {
   horizonBandForMonths,
   STRATEGY_CATALOG,
   strategiesForHorizon,
-  strategyProvenance,
   strategyRateAvailability,
   type HorizonBand,
   type ProtocolApy,
@@ -15,6 +14,7 @@ import {
 } from '@diboas/defi';
 import { strategyRateDisplay } from '@/view/strategy';
 import { LucideIcon } from './LucideIcon';
+import { RateLine } from './RateLine';
 import styles from './StrategyPicker.module.css';
 
 /** Exported for the composed-id gate (CID-1): `catalogFilters.horizonBand.${band}`. */
@@ -178,15 +178,9 @@ export function StrategyPicker({
              */
             const rate = strategyRateAvailability(strategy, apys, now);
             const rateDisplay = strategyRateDisplay(strategy, apys, now);
-            // The shared three-state predicate (§3-A): the row's rate line says
-            // what the number IS — "real" is reserved for the all-live state.
-            const provenance = strategyProvenance(strategy, apys);
-            const apyMessageId =
-              provenance.state === 'live'
-                ? 'goalNew.apyNow'
-                : provenance.state === 'mixed'
-                  ? 'goalNew.apyNowMixed'
-                  : 'goalNew.apyNowFixture';
+            // The row's rate line says what the number IS — its origin and its
+            // age (`5.814`) — decided once in `view/strategy.ts`, with the same
+            // clock the detail uses.
             /**
              * ⛑ `5.444` · THE SEPARATOR NEEDS SOMETHING ON ITS LEFT.
              *
@@ -248,10 +242,9 @@ export function StrategyPicker({
                           market leg's return is a price. Asking `rate.available` here
                           would render a blended number for exactly those strategies. */}
                       {rateDisplay.displayable ? (
-                        <FormattedMessage
-                          id={apyMessageId}
-                          values={{ apy: rateDisplay.apy.toDecimalPlaces(2).toNumber() }}
-                        />
+                        <span data-testid="rate-line">
+                          <RateLine display={rateDisplay} />
+                        </span>
                       ) : rate.available ? null : (
                         /* The Brand/localization-approved GENERIC state (P06
                            §48.1), reused verbatim — never APY-specific copy,

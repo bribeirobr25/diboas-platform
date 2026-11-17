@@ -303,6 +303,15 @@ describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or 
     [/\brecomend/i, 'suitability-framing'],
   ];
   const isTagline = (id: string) => /^catalog\.strategies\.[^.]+\.tagline$/.test(id);
+  /**
+   * ⛑ `5.814` · THE RATE LINES ARE IN SCOPE, AS THIS GUARD ALWAYS SAID.
+   *
+   * The comment above scoped the guard to "taglines + apyNow", but the check
+   * below read taglines only: the rate line on the same advice-adjacent surface
+   * was never scanned. P10 adds five age-aware rate lines, so every rate line
+   * (`goalNew.apy…`) is scanned now, with a count so an empty scan cannot pass.
+   */
+  const isRateLine = (id: string) => /^goalNew\.apy[A-Z]\w*$/.test(id);
 
   /**
    * The ADVICE patterns are corpus-wide, not tagline-scoped. The narrow scope
@@ -339,14 +348,18 @@ describe('F-CLO-B1/B2: strategy copy carries no return-promise, superlative, or 
     }
   });
 
-  it('should have no banned promotional/advice pattern in any strategy tagline, any locale', () => {
+  it('should have no banned promotional/advice pattern in any strategy tagline or rate line, any locale', () => {
     for (const locale of SANDBOX_LOCALES) {
+      let rateLines = 0;
       for (const [id, msg] of Object.entries(getMessages(locale))) {
-        if (!isTagline(id)) continue;
+        if (isRateLine(id)) rateLines += 1;
+        else if (!isTagline(id)) continue;
         for (const [re, kind] of BANNED) {
           expect(re.test(msg), `${locale}:${id} (${kind}): ${msg}`).toBe(false);
         }
       }
+      /* Non-vacuity: apyNow, the five age-aware lines and apyNowFixture. */
+      expect(rateLines, `${locale}: rate lines scanned`).toBe(7);
     }
   });
 

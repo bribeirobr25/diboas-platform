@@ -12,6 +12,7 @@ import {
   legRequiresCurrentRate,
   strategiesForHorizon,
 } from '@diboas/defi';
+import { getMessages } from '@/i18n/loadMessages';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
@@ -31,10 +32,11 @@ const M = {
     'Each timeframe shows the same four strategies, plus the option to keep it as cash.',
   'goalNew.riskStable': 'Stable',
   'goalNew.riskGrowth': 'Growth',
-  'goalNew.apyNow': 'Current pool rate: {apy}%/yr (real, variable)',
-  'goalNew.apyNowMixed':
-    'Blended pool rate: {apy}%/yr (variable, includes documented reference values)',
-  'goalNew.apyNowFixture': 'Reference pool rate: {apy}%/yr (documented values, not live)',
+  /* The rate lines from the real catalogue (5.814): stubbing them is how a
+     missing or stale message passes unseen. */
+  ...Object.fromEntries(
+    Object.entries(getMessages('en')).filter(([id]) => id.startsWith('goalNew.apy'))
+  ),
   'goalNew.growthExposure': '{percent}% growth',
   'catalogFilters.horizon': 'Time horizon',
   'catalogFilters.risk': 'Risk band',
@@ -400,7 +402,7 @@ describe('`5.444` · the meta line reads as a sentence, not as punctuation', () 
 
     renderAt(WITHIN_FIXTURE_WINDOW);
     const meta = metaOf('stableGrowth');
-    expect(meta, 'the rate is withheld, so no rate clause may appear').not.toContain('pool rate');
+    expect(meta, 'the rate is withheld, so no rate clause may appear').not.toMatch(/pool rate/i);
     expect(meta, 'the growth exposure still states a true property').toContain('30% growth');
     /* The separator may only appear BETWEEN two clauses. */
     expect(meta).not.toMatch(/(^|\s)·\s*\d+% growth/);
