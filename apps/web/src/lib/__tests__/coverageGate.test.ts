@@ -1,4 +1,5 @@
 import { existsSync, globSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
@@ -186,6 +187,45 @@ const sourceFiles = (w: Workspace): string[] =>
     .filter((f) => !/__tests__|\.test\.|\.d\.ts$/.test(f))
     .map((f) => join(REPO, w.dir, f));
 
+interface CiStep {
+  run?: string;
+  if?: unknown;
+  shell?: string;
+  'continue-on-error'?: unknown;
+}
+interface CiJob {
+  if?: unknown;
+  'continue-on-error'?: unknown;
+  defaults?: { run?: { shell?: string } };
+  steps?: CiStep[];
+}
+interface CiWorkflow {
+  defaults?: { run?: { shell?: string } };
+  jobs: Record<string, CiJob>;
+}
+const yamlLoad = (createRequire(import.meta.url)('js-yaml') as { load: (t: string) => unknown })
+  .load;
+const parsedCi = () =>
+  yamlLoad(readFileSync(join(REPO, '.github/workflows/ci.yml'), 'utf8')) as CiWorkflow;
+const coverageStep = (ci: CiWorkflow) =>
+  ci.jobs.quality?.steps?.find((x) => x.run?.trim() === 'pnpm test:coverage');
+
+/** Why the coverage step could be skipped, softened or turned into a no-op (empty: none). */
+function coverageStepProblems(ci: CiWorkflow): string[] {
+  const out: string[] = [];
+  const job = ci.jobs.quality;
+  const step = coverageStep(ci);
+  if (!job || !step) return ['no `pnpm test:coverage` step in the quality job'];
+  if (job.if !== undefined) out.push('the quality job has an if:');
+  if (step.if !== undefined) out.push('the coverage step has an if:');
+  if (job['continue-on-error']) out.push('the quality job has continue-on-error');
+  if (step['continue-on-error']) out.push('the coverage step has continue-on-error');
+  const shell = step.shell ?? job.defaults?.run?.shell ?? ci.defaults?.run?.shell;
+  if (shell !== undefined && shell !== 'bash')
+    out.push(`the coverage step runs with shell ${shell}`);
+  return out;
+}
+
 describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 30_000 }, () => {
   const workspaces = vitestWorkspaces();
 
@@ -329,37 +369,58 @@ describe('COV-1 · 5.70 · coverage thresholds are enforced in CI', { timeout: 3
           '$TURBO_ROOT$/.github/**',
           '$TURBO_ROOT$/turbo.json',
           '$TURBO_ROOT$/package.json',
+          /* Fifteenth audit (C-5): the guards also read the lockfile and every workspace's
+             package file; without these a changed lockfile replayed a cached pass. */
+          '$TURBO_ROOT$/pnpm-lock.yaml',
+          '$TURBO_ROOT$/apps/*/package.json',
+          '$TURBO_ROOT$/packages/*/package.json',
         ])
       );
     expect(turbo.tasks['test:coverage']?.inputs).toContain('$TURBO_ROOT$/.github/workflows/ci.yml');
   });
 
-  it('should run pnpm test:coverage, not a plain pnpm test, in CI’s quality job', () => {
-    const ci = readFileSync(join(REPO, '.github/workflows/ci.yml'), 'utf8');
-    expect(ci).toMatch(/^\s*- run: pnpm test:coverage\s*$/m);
-    expect(ci).not.toMatch(/^\s*- run: pnpm test\s*$/m);
+  /* Fifteenth audit (C-4): these checks matched ci.yml as TEXT, so the coverage step moved into a
+     skipped job, or given `shell: 'true {0}'` (a no-op), passed. The workflow is parsed now. */
+  it('should run pnpm test:coverage in an unconditional, bash step of the quality job', () => {
+    expect(coverageStepProblems(parsedCi())).toEqual([]);
   });
 
-  /* 5.837: `continue-on-error` or an `if:` on the step (or the job) lets a failed run pass. */
-  it('should let nothing soften the coverage step or the quality job', () => {
-    const lines = readFileSync(join(REPO, '.github/workflows/ci.yml'), 'utf8').split('\n');
-    const at = lines.findIndex((l) => /^\s*- run: pnpm test:coverage\s*$/.test(l));
-    const indent = lines[at].indexOf('-');
-    const step: string[] = [lines[at]];
-    for (let i = at + 1; i < lines.length; i += 1) {
-      const l = lines[i];
-      if (l.trim() === '' || l.trim().startsWith('#')) continue;
-      if (l.length - l.trimStart().length <= indent) break;
-      step.push(l);
-    }
-    expect(step.join('\n')).not.toMatch(/continue-on-error|^\s*if:/m);
-    const job = lines.slice(0, at).join('\n');
-    const quality = job.slice(job.lastIndexOf('\n  quality:'));
-    expect(quality).not.toMatch(/continue-on-error:\s*true/);
-    /* Agent D finding 6: a skipped required job counts as passing. The job header — every line
-     * of the job before `steps:` — may hold no `if:`. */
-    const header = quality.slice(0, quality.indexOf('\n    steps:'));
-    expect(header.length, 'the quality job has a steps: block').toBeGreaterThan(0);
-    expect(header).not.toMatch(/^\s{4}if:/m);
+  it.each<[string, (ci: CiWorkflow) => void, RegExp]>([
+    [
+      'the step moved into a skipped job',
+      (ci) => {
+        const steps = ci.jobs.quality.steps!;
+        ci.jobs.quality.steps = steps.filter((x) => x.run?.trim() !== 'pnpm test:coverage');
+        ci.jobs.coverage = { if: 'false', steps: [{ run: 'pnpm test:coverage' }] };
+      },
+      /no `pnpm test:coverage` step in the quality job/,
+    ],
+    [
+      'a plain pnpm test instead',
+      (ci) => void (coverageStep(ci)!.run = 'pnpm test'),
+      /no `pnpm test:coverage`/,
+    ],
+    ['a no-op shell on the step', (ci) => void (coverageStep(ci)!.shell = 'true {0}'), /shell/],
+    [
+      'a no-op shell for the whole job',
+      (ci) => void (ci.jobs.quality.defaults = { run: { shell: 'true {0}' } }),
+      /shell/,
+    ],
+    [
+      'continue-on-error on the step',
+      (ci) => void (coverageStep(ci)!['continue-on-error'] = true),
+      /continue-on-error/,
+    ],
+    ['an if: on the step', (ci) => void (coverageStep(ci)!.if = 'false'), /if:/],
+    ['an if: on the job', (ci) => void (ci.jobs.quality.if = 'false'), /if:/],
+    [
+      'continue-on-error on the job',
+      (ci) => void (ci.jobs.quality['continue-on-error'] = true),
+      /continue-on-error/,
+    ],
+  ])('should report %s (the guard is not blind)', (_label, plant, expected) => {
+    const ci = parsedCi();
+    plant(ci);
+    expect(coverageStepProblems(ci).join('\n')).toMatch(expected);
   });
 });
