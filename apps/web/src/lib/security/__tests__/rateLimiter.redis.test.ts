@@ -412,7 +412,7 @@ describe('rateLimiter — Redis and production paths', () => {
       expect(state.ratelimitConfigs).toContainEqual({
         redis: expect.anything(),
         limiter: 'sliding:2:300000ms',
-        analytics: true,
+        analytics: false,
         prefix: 'signup:email:',
       });
     });
