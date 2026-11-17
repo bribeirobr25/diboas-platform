@@ -18,7 +18,9 @@ updates:
     groups:
       # Packages that only work at the same version move together, majors included: an update
       # takes the FIRST group that matches, so these come first (5.895: vitest 5 arrived
-      # without @vitest/coverage-v8 5, and @eslint/js 10 without eslint 10).
+      # without @vitest/coverage-v8 5, and @eslint/js 10 without eslint 10). Dependabot has still
+      # split them since (#904/#909, #905), so these groups are a request, not the gate: the
+      # lockfile check in dependabotConfig.test.ts fails any PR that installs partners apart.
       vitest:
         patterns: ['vitest', '@vitest/*']
       eslint:

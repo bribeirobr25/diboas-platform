@@ -88,6 +88,27 @@ function zeroMajorDevDependencies(): string[] {
   return [...names].sort();
 }
 
+/**
+ * The group Dependabot puts one update in: the first group whose dependency type, patterns,
+ * exclude-patterns and update types all admit it (GitHub: "included in the first group that it
+ * matches"); `undefined` means its own PR.
+ */
+function landingGroup(
+  groups: [string, Group][],
+  name: string,
+  dependencyType: 'development' | 'production',
+  updateType: 'major' | 'minor' | 'patch'
+): string | undefined {
+  for (const [groupName, g] of groups) {
+    if (g['dependency-type'] && g['dependency-type'] !== dependencyType) continue;
+    if (g.patterns && !matches(g.patterns, name)) continue;
+    if (matches(g['exclude-patterns'], name)) continue;
+    if (g['update-types'] && !g['update-types'].includes(updateType)) continue;
+    return groupName;
+  }
+  return undefined;
+}
+
 /** Every way the npm side would misbehave. Empty means the config does what the header says. */
 function violations(config: { updates?: Entry[] }, zeroMajor: string[]): string[] {
   const out: string[] = [];
@@ -133,6 +154,26 @@ function violations(config: { updates?: Entry[] }, zeroMajor: string[]): string[
     for (const member of members)
       if (!matches(g.patterns, member)) out.push(`partner group ${group} misses ${member}`);
   }
+
+  /* Fifteenth audit (C-2): the checks above read the partner groups alone, so an earlier group
+   * taking `vitest` for minors, an exclude-pattern, a production-only dependency type or an
+   * ignore rule on one partner all passed. Dependabot puts an update in the FIRST group that
+   * matches it (GitHub docs), so where each partner lands is simulated, per update type. */
+  for (const [group, members] of Object.entries(PARTNERS))
+    for (const updateType of ['major', 'minor', 'patch'] as const)
+      for (const member of members) {
+        const landed = landingGroup(groups, member, 'development', updateType);
+        if (landed !== group)
+          out.push(
+            `partner ${member} lands in ${landed ?? 'no group'} for ${updateType} updates, not ${group}`
+          );
+      }
+  const ignoresOf = entry.ignore ?? [];
+  for (const members of Object.values(PARTNERS))
+    for (const member of members)
+      for (const rule of ignoresOf)
+        if (glob(rule['dependency-name']).test(member))
+          out.push(`partner ${member} has an ignore rule (it would move without its partners)`);
 
   const ignores = entry.ignore ?? [];
   const ignored = (name: string) => ignores.filter((i) => glob(i['dependency-name']).test(name));
@@ -290,6 +331,48 @@ describe('dependabot.yml, parsed', () => {
       },
       /allow/,
     ],
+    [
+      'an earlier group taking vitest minors alone (fifteenth audit C-2)',
+      (c) => {
+        const e = npmOf(c);
+        e.groups = {
+          early: { patterns: ['vitest'], 'update-types': ['minor', 'patch'] },
+          ...e.groups,
+        };
+      },
+      /partner vitest lands in early for minor updates/,
+    ],
+    [
+      'coverage-v8 excluded from the vitest group',
+      (c) => {
+        npmOf(c).groups!.vitest['exclude-patterns'] = ['@vitest/coverage-v8'];
+      },
+      /partner @vitest\/coverage-v8 lands in/,
+    ],
+    [
+      'the vitest group limited to production dependencies',
+      (c) => {
+        npmOf(c).groups!.vitest['dependency-type'] = 'production';
+      },
+      /partner vitest lands in/,
+    ],
+    [
+      'an ignore rule on coverage-v8 majors',
+      (c) => {
+        npmOf(c).ignore!.push({
+          'dependency-name': '@vitest/coverage-v8',
+          'update-types': ['version-update:semver-major'],
+        });
+      },
+      /partner @vitest\/coverage-v8 has an ignore rule/,
+    ],
+    [
+      'an ignore rule on @eslint/*',
+      (c) => {
+        npmOf(c).ignore!.push({ 'dependency-name': '@eslint/*' });
+      },
+      /partner @eslint\/js has an ignore rule/,
+    ],
   ])('should report %s (the guard is not blind)', (_label, plant, expected) => {
     const config = base();
     plant(config);
@@ -317,14 +400,25 @@ const INSTALLED_TOGETHER: Record<keyof typeof PARTNERS, 'exact' | 'major'> = {
   storybook: 'exact',
 };
 
+/**
+ * Every installed package of a partner group, found by the group's own patterns (fifteenth
+ * audit C-1: a fixed list of three missed @storybook/nextjs and the three addons).
+ */
+const PARTNER_PATTERNS: Record<keyof typeof PARTNERS, string[]> = {
+  vitest: ['vitest', '@vitest/*'],
+  eslint: ['eslint', '@eslint/*'],
+  storybook: ['storybook', '@storybook/*', 'eslint-plugin-storybook'],
+};
+
 function partnerSplits(importers: Importers): string[] {
   const out: string[] = [];
-  for (const [group, members] of Object.entries(PARTNERS)) {
+  for (const group of Object.keys(PARTNERS)) {
     const rule = INSTALLED_TOGETHER[group];
     const seen = new Map<string, Set<string>>();
     for (const [dir, importer] of Object.entries(importers)) {
       for (const field of ['dependencies', 'devDependencies'] as const) {
-        for (const member of members) {
+        for (const member of Object.keys(importer[field] ?? {})) {
+          if (!matches(PARTNER_PATTERNS[group], member)) continue;
           const raw = importer[field]?.[member]?.version;
           if (!raw) continue;
           const version = raw.split('(')[0];
@@ -380,13 +474,27 @@ describe('the lockfile installs partner packages together (5.895, 5.918)', () =>
       /partners storybook resolve apart \(exact\)/,
     ],
     [
+      '@storybook/nextjs drifting in the Practice app (fifteenth audit C-1)',
+      (i) => {
+        i['apps/sandbox'].devDependencies!['@storybook/nextjs'] = {
+          version: '10.7.0(next@16.4.5)',
+        };
+      },
+      /partners storybook resolve apart \(exact\)[^\n]*@storybook\/nextjs@10\.7\.0/,
+    ],
+    [
+      'a Storybook addon one minor behind',
+      (i) => {
+        i['apps/web'].devDependencies!['@storybook/addon-docs'] = { version: '10.5.0' };
+      },
+      /partners storybook resolve apart \(exact\)[^\n]*@storybook\/addon-docs@10\.5\.0/,
+    ],
+    [
       'a partner group that is not installed anywhere',
       (i) => {
-        for (const importer of Object.values(i)) delete importer.devDependencies?.storybook;
         for (const importer of Object.values(i))
-          delete importer.devDependencies?.['@storybook/react'];
-        for (const importer of Object.values(i))
-          delete importer.devDependencies?.['eslint-plugin-storybook'];
+          for (const name of Object.keys(importer.devDependencies ?? {}))
+            if (matches(PARTNER_PATTERNS.storybook, name)) delete importer.devDependencies![name];
       },
       /storybook: none installed/,
     ],
