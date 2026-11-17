@@ -23,6 +23,9 @@ export function ExportKeyModal({ onClose, t }: ExportKeyModalProps) {
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Escape') {
+        // This dialog sits inside the demo, whose own Escape handler exits the whole demo:
+        // closing this dialog must not also exit (fifteenth audit).
+        e.stopPropagation();
         onClose();
       }
     },
