@@ -40,6 +40,9 @@ vi.mock('@/hooks/useMarket', () => ({
   useMarket: () => ({ market: h.market, marketError: h.market === null, refreshMarket: () => {} }),
   fetchHistories: () => Promise.resolve([]),
 }));
+/* The projection's rate ranges are fetched by their own hook: unmocked, every render sent a real
+   request to localhost:3000 (5.942). No ranges, as when that request failed. */
+vi.mock('@/hooks/useRateRanges', () => ({ useRateRanges: () => null }));
 
 const COPY = 'Data provided by CoinGecko';
 const PROTOCOLS = ['skySsr', 'aaveV3', 'compoundV3', 'sanctumInf', 'jupiterJlp', 'jito'] as const;
