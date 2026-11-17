@@ -47,8 +47,9 @@ export async function GET(request: NextRequest) {
   try {
     // Rate limiting
     const clientIP = getClientIP(request);
+    // Its own key: the two OG routes no longer share one counter per visitor (5.939).
     const rateLimitResult = await checkRateLimit(
-      clientIP,
+      `og-share:${clientIP}`,
       RATE_LIMIT_CONFIG.lenient.limit,
       RATE_LIMIT_CONFIG.lenient.windowMs
     );
