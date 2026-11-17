@@ -40,7 +40,9 @@ export type EvidenceClass = 'practice-periodic-reference';
 /**
  * Every class, once, at runtime — exhaustive as `EVIDENCE_ORIGINS`, so a guard
  * can walk every policy that `resolveFreshnessPolicy` could ever return (`5.814`:
- * no class or source may assert CURRENT without a decision).
+ * no class or source may assert CURRENT without a decision). Its consumer is that
+ * guard (`currentFacing.test.ts`, RATE-AGE-1): the list exists so the walk cannot
+ * be a hand list that misses a class added later.
  */
 export const EVIDENCE_CLASSES = [
   'practice-periodic-reference',

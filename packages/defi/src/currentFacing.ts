@@ -77,9 +77,24 @@ export function currentFacingTimeState(
   policy: FreshnessPolicy = resolveFreshnessPolicy({ source: stamp.source })
 ): CurrentFacingTimeState {
   const state = freshnessUnder(stamp, now, policy);
-  /* `freshnessUnder` never returns HISTORICAL; were it ever to, fail closed:
-     an age that cannot be stated for current use is a refused one. */
-  return state === 'HISTORICAL' ? 'MISSING' : state;
+  switch (state) {
+    case 'CURRENT':
+    case 'DELAYED':
+    case 'STALE':
+    case 'MISSING':
+      return state;
+    /* `freshnessUnder` never returns HISTORICAL; were it ever to, fail closed:
+       an age that cannot be stated for current use is a refused one. */
+    case 'HISTORICAL':
+      return 'MISSING';
+    default: {
+      /* A state added to `TimeState` must be placed here before this compiles;
+         until it is, an unknown state is refused, never passed through. */
+      const unknown: never = state;
+      void unknown;
+      return 'MISSING';
+    }
+  }
 }
 
 /**

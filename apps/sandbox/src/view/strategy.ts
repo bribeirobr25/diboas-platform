@@ -178,20 +178,31 @@ type DatedKind = (typeof DATED_RATE_LINE_KINDS)[number];
 const isDated = (kind: RateLineKind): kind is DatedKind =>
   (DATED_RATE_LINE_KINDS as readonly RateLineKind[]).includes(kind);
 
+/**
+ * How old each live state is, worst highest. A `Record` over the type, so a new
+ * age state cannot compile without a rank — and an unranked state at runtime
+ * counts as the oldest, never as current (fail closed).
+ */
+const AGE_RANK: Record<LiveRateState, number> = { CURRENT: 0, DELAYED: 1, STALE: 2 };
+const rankOf = (state: LiveRateState) => AGE_RANK[state] ?? Number.POSITIVE_INFINITY;
+
 /** Worst first: one STALE leg makes the whole rate STALE. */
-function worstOf(states: readonly LiveRateState[]): LiveRateState {
-  if (states.includes('STALE')) return 'STALE';
-  if (states.includes('DELAYED')) return 'DELAYED';
-  return 'CURRENT';
+function worstOf(states: readonly [LiveRateState, ...LiveRateState[]]): LiveRateState {
+  return states.reduce((worst, state) => (rankOf(state) > rankOf(worst) ? state : worst));
 }
 
-/** Pure and exhaustive: the one place a rate line's kind is decided. */
+/**
+ * Pure and exhaustive: the one place a rate line's kind is decided. "Current"
+ * and the recent forms are each named positively; every other state reads as
+ * stale, so a state this function does not know can never be called current.
+ */
 export function rateLineKind(input: RateLineInput): RateLineKind {
   if (input.origin === 'fixture') return 'REFERENCE';
   const worst = worstOf(input.liveStates);
-  if (input.origin === 'mixed') return worst === 'STALE' ? 'MIXED_STALE' : 'MIXED_RECENT';
-  if (worst === 'CURRENT') return 'CURRENT';
-  if (worst === 'DELAYED') return 'RECENT';
+  const recent = worst === 'CURRENT' || worst === 'DELAYED';
+  if (input.origin === 'mixed') return recent ? 'MIXED_RECENT' : 'MIXED_STALE';
+  if (input.liveStates.every((state) => state === 'CURRENT')) return 'CURRENT';
+  if (recent) return 'RECENT';
   return input.liveDatesAgree ? 'STALE' : 'PARTLY_STALE';
 }
 

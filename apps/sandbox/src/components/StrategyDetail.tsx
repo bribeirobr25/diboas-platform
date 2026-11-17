@@ -155,14 +155,19 @@ export function StrategyDetail({
    * all-live and partly-live sentences differ by a final period: tests tell the
    * branches apart by this id plus the gas sentence, never by text.
    */
-  const stampKind: 'live' | 'mixed' | 'partly-live' | 'fixture' =
-    provenance.state === 'live'
-      ? 'live'
-      : provenance.state === 'mixed'
-        ? provenance.fixtureProtocolIds.length > 0
-          ? 'mixed'
-          : 'partly-live'
-        : 'fixture';
+  /* `none`: a live or mixed stamp needs the live date it states; without one
+     (no rate-owing leg at all — no catalogue strategy today) no stamp renders,
+     never "Pool rates from , fetched ". */
+  const stampKind: 'live' | 'mixed' | 'partly-live' | 'fixture' | 'none' =
+    provenance.state === 'fixture'
+      ? 'fixture'
+      : provenance.newestLiveAsOf === null
+        ? 'none'
+        : provenance.state === 'live'
+          ? 'live'
+          : provenance.fixtureProtocolIds.length > 0
+            ? 'mixed'
+            : 'partly-live';
   const liveDate = provenance.newestLiveAsOf ? date(provenance.newestLiveAsOf) : '';
 
   const provenanceStamp =
@@ -196,9 +201,9 @@ export function StrategyDetail({
           <FormattedMessage id="common.dataGasReference" />
         ) : null}
       </>
-    ) : (
+    ) : stampKind === 'fixture' ? (
       <FormattedMessage id="common.dataFixture" values={{ date: date(FIXTURE_AS_OF) }} />
-    );
+    ) : null;
 
   /**
    * The folded PathCard (board §3.2). `full` (Simple view) carries path · cost ·
@@ -320,9 +325,11 @@ export function StrategyDetail({
       <p className={styles.noPromise}>
         <FormattedMessage id="pathCard.noPromise" />
       </p>
-      <p className={styles.stamp} data-testid={`provenance-stamp-${stampKind}`}>
-        {provenanceStamp}
-      </p>
+      {provenanceStamp !== null ? (
+        <p className={styles.stamp} data-testid={`provenance-stamp-${stampKind}`}>
+          {provenanceStamp}
+        </p>
+      ) : null}
     </div>
   );
 

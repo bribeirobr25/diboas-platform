@@ -138,7 +138,7 @@ describe('StrategyPicker — the G5 catalog (§4.5, mockup 13, board §3.5 embed
      *
      * This asserted `Varies` on EVERY row, which was true only while every
      * listed strategy had a rate to vary. A market / price-return leg's return
-     * is its PRICE, so a heterogeneous strategy states no `Current pool rate` —
+     * is its PRICE, so a heterogeneous strategy states no pool rate —
      * and `Varies` describes a rate, so it goes where the rate goes. The
      * component's own comment already said so: *"It describes a rate, so it is
      * withheld when there is no rate to describe."*

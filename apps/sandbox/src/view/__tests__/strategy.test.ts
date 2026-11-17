@@ -228,6 +228,21 @@ describe('5.814 · the rate line follows the rate age as well as its origin', ()
       expect([...reached].sort()).toEqual(Object.keys(RATE_LINE_IDS).sort());
     });
 
+    it('should never call a state it does not know current (fail closed)', () => {
+      /* A future TimeState member that slipped past the type system reads as
+         stale, never as "Current pool rate" — the claim 5.814 removed. */
+      const unknown = 'EXPIRED' as unknown as 'CURRENT';
+      expect(rateLineKind({ origin: 'live', liveStates: [unknown], liveDatesAgree: true })).toBe(
+        'STALE'
+      );
+      expect(
+        rateLineKind({ origin: 'live', liveStates: ['CURRENT', unknown], liveDatesAgree: false })
+      ).toBe('PARTLY_STALE');
+      expect(rateLineKind({ origin: 'mixed', liveStates: [unknown], liveDatesAgree: true })).toBe(
+        'MIXED_STALE'
+      );
+    });
+
     it('should say CURRENT only when every live leg is CURRENT', () => {
       /* No policy allows CURRENT today; this proves the kind exists and is
          guarded by the table rather than unreachable code. */
@@ -415,4 +430,24 @@ describe('5.814 · each rate line id carries exactly its placeholders, in four l
       expect(checked).toBe(Object.keys(RATE_LINE_IDS).length);
     }
   );
+
+  /**
+   * A stale kind that loses its age wording is the `5.814` defect itself: P-7 says
+   * a STALE rate "must be shown as such". Each stale kind ×4 states that it is
+   * over a week old and may have changed.
+   */
+  const STALE_WORDING: Record<string, { age: RegExp; changed: RegExp }> = {
+    en: { age: /over a week/, changed: /may have changed/ },
+    'pt-BR': { age: /mais de uma semana/, changed: /pode ter mudado/ },
+    es: { age: /más de una semana/, changed: /puede haber cambiado/ },
+    de: { age: /über einer Woche|älter als eine Woche/, changed: /kann sich geändert haben/ },
+  };
+  it.each(SANDBOX_LOCALES)('should state the age in every stale kind in %s', (locale) => {
+    const messages = getMessages(locale);
+    for (const kind of ['STALE', 'PARTLY_STALE', 'MIXED_STALE'] as const) {
+      const message = messages[RATE_LINE_IDS[kind]]!;
+      expect(message, `${locale}:${kind}`).toMatch(STALE_WORDING[locale]!.age);
+      expect(message, `${locale}:${kind}`).toMatch(STALE_WORDING[locale]!.changed);
+    }
+  });
 });

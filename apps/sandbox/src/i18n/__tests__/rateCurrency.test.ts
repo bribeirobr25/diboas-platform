@@ -1,16 +1,13 @@
 import { createHash } from 'node:crypto';
-import {
-  isLiteralElement,
-  isPluralElement,
-  isPoundElement,
-  isSelectElement,
-  isTagElement,
-  parse,
-  type MessageFormatElement,
-} from '@formatjs/icu-messageformat-parser';
 import { describe, expect, it } from 'vitest';
 import { SANDBOX_LOCALES, type SandboxLocale } from '../config';
 import { getMessages } from '../loadMessages';
+import {
+  currencyClaimIn,
+  currencyClaimInMessage,
+  flattenMessage as flatten,
+  STAMP_CURRENCY_WORDS as STAMP_WORDS,
+} from '@/test/rateCurrency';
 
 /**
  * `5.814` · RATE-AGE-1 · NO MESSAGE CALLS A RATE CURRENT (plan P10, guards 4 and 5).
@@ -20,70 +17,17 @@ import { getMessages } from '../loadMessages';
  * so no message may put a currency word on a rate — except `goalNew.apyNow`, the
  * line reserved for a CURRENT rate, pinned here by its key AND its exact text.
  *
- * ⚑ ADJACENCY, NEVER A GAP. A currency word counts only right before or right
- * after a rate noun. A free gap ("rates … right now") flags true sentences —
- * "Pool rates can't be read right now" — and the next fix would be an exception
- * by key. The word lists and the must-not-flag controls below were measured in
- * the plan's fourth review round: 13/13 probes caught, 0 false positives.
+ * ⚑ NEAR, NEVER FAR (`src/test/rateCurrency.ts`). A currency word counts next to
+ * a rate noun or with one word or placeholder between; a free gap flags true
+ * sentences ("Pool rates can't be read right now") and the next fix would be an
+ * exception by key. Measured on the four catalogues: only the allowed line hits.
+ * The same detector reads the rendered pages in `rateLineRender.test.tsx`.
  *
  * Every message is flattened through the runtime's own ICU parser first, so text
  * inside a plural, select or tag branch is read too; a naive `{…}` strip hides it.
  */
 
-/** Literal text of a message, every branch included; arguments become a placeholder. */
-function literalText(elements: MessageFormatElement[]): string {
-  return elements
-    .map((el) => {
-      if (isLiteralElement(el)) return el.value;
-      if (isPoundElement(el)) return '#';
-      if (isTagElement(el)) return literalText(el.children);
-      if (isPluralElement(el) || isSelectElement(el)) {
-        return Object.values(el.options)
-          .map((option) => ` ${literalText(option.value)} `)
-          .join(' | ');
-      }
-      return ' ¤ ';
-    })
-    .join('');
-}
-const flatten = (message: string) => literalText(parse(message, { ignoreTag: false }));
-
-const B = String.raw`(?<![\p{L}\p{N}'’-])`;
-const E = String.raw`(?![\p{L}\p{N}-])`;
-/** The rate nouns, with a blend/reference word allowed inside the noun phrase. */
-const NOUN: Record<SandboxLocale, string> = {
-  en: String.raw`(?:(?:blended|reference)\s+)?(?:pool\s+)?(?:rates?|APYs?|APRs?|yields?)`,
-  'pt-BR': String.raw`(?:taxas?|APY|APR|rendimentos?)(?:\s+(?:combinadas?|de\s+refer[êe]ncia))?(?:\s+(?:do\s+pool|dos\s+pools))?`,
-  es: String.raw`(?:tasas?|APY|APR|rendimientos?)(?:\s+(?:combinadas?|de\s+referencia))?(?:\s+(?:del\s+pool|de\s+los\s+pools))?`,
-  de: String.raw`(?:(?:gemischte[nrs]?|Referenz)[\s-]+)?(?:Pool-)?(?:Rate|Raten|APY|APR|Rendite|Renditen|Zinssatz)`,
-};
-/** Currency words right BEFORE the noun. */
-const BEFORE: Record<SandboxLocale, string> = {
-  en: String.raw`(?:current|live|today['’]s|latest|present|prevailing|up-to-date|real-time)`,
-  'pt-BR': String.raw`(?:última|últimas)`,
-  es: String.raw`(?:actual|actuales|última|últimas)`,
-  de: String.raw`(?:aktuell|derzeitig|gegenwärtig|heutig|neueste)\p{L}*`,
-};
-/** Currency words right AFTER the noun. A bare pt-BR "agora" is deliberately absent. */
-const AFTER: Record<SandboxLocale, string> = {
-  en: String.raw`(?:\((?:live|current)\)|today|right\s+now|now)`,
-  'pt-BR': String.raw`(?:atual|atuais|vigentes?|de\s+hoje|hoje|em\s+tempo\s+real|ao\s+vivo|\(ao\s+vivo\)|mais\s+recentes?)`,
-  es: String.raw`(?:actual|actuales|vigentes?|de\s+hoy|hoy|en\s+tiempo\s+real|en\s+vivo|\(en\s+vivo\)|más\s+recientes?)`,
-  de: String.raw`(?:\((?:aktuell|live)\)|heute|jetzt)`,
-};
-const CURRENCY_ON_RATE = Object.fromEntries(
-  SANDBOX_LOCALES.map((locale) => {
-    const alternatives = [
-      `${B}${BEFORE[locale]}\\s+${NOUN[locale]}${E}`,
-      `${B}${NOUN[locale]}\\s*${AFTER[locale]}${E}`,
-    ];
-    if (locale === 'de') alternatives.push(`${B}(?:Echtzeit|Live)-${NOUN[locale]}${E}`);
-    return [locale, new RegExp(alternatives.join('|'), 'iu')];
-  })
-) as Record<SandboxLocale, RegExp>;
-
-const claimIn = (locale: SandboxLocale, message: string) =>
-  flatten(message).match(CURRENCY_ON_RATE[locale])?.[0] ?? null;
+const claimIn = (locale: SandboxLocale, message: string) => currencyClaimInMessage(locale, message);
 
 /** The CURRENT-only line, allowed by key AND by the sha256 of its exact text. */
 const ALLOWED_KEY = 'goalNew.apyNow';
@@ -133,6 +77,19 @@ const POSITIVE: readonly [SandboxLocale, string][] = [
   ['en', 'Pool rate (live): 4%'],
   ['de', 'Pool-Rate (live)'],
   ['en', 'Current APYs'],
+  /* Review round two: one word between, and the words the first list lacked. */
+  ['en', 'Current {source} pool rate'],
+  ['en', 'Current variable pool rate'],
+  ['en', 'Pool rate currently: {apy, number}%'],
+  ['en', 'Live-rate'],
+  ['pt-BR', 'Taxa variável atual'],
+  ['pt-BR', 'Taxa corrente do pool'],
+  ['es', 'Tasa corriente del pool'],
+  ['es', 'Tasa del pool ahora'],
+  ['de', 'Pool-Rate aktuell: {apy, number}%'],
+  ['de', 'Tagesaktuelle Pool-Rate'],
+  ['de', 'Live Pool-Rate'],
+  ['de', 'Gemischte Pool-Rate aktuell, ein Teil abgerufen am {date}'],
 ];
 
 describe('5.814 · RATE-AGE-1 · no message puts a currency word on a rate', () => {
@@ -185,6 +142,11 @@ describe('5.814 · RATE-AGE-1 · no message puts a currency word on a rate', () 
     expect(claimIn(locale, text)).not.toBeNull();
   });
 
+  it('should not reach across more than one word (the scope is stated, not hidden)', () => {
+    /* Two words between are outside the detector by design (GATE_SCOPE_LIMITS). */
+    expect(currencyClaimIn('en', 'Current blended variable rate')).toBeNull();
+  });
+
   it('should read text inside plural and select branches', () => {
     expect(
       claimIn('en', '{n, plural, one {Current pool rate} other {Current pool rates}}')
@@ -192,9 +154,6 @@ describe('5.814 · RATE-AGE-1 · no message puts a currency word on a rate', () 
   });
 });
 
-/** Words that would make a source stamp claim the data is live or current. */
-const STAMP_WORDS =
-  /(?<![\p{L}])(?:live|ao vivo|en vivo|real-time|tempo real|tiempo real|Echtzeit|current|atual|actual|aktuell)(?![\p{L}])/iu;
 const STAMP_KEYS = ['common.dataLive', 'common.dataPartlyLive', 'common.dataMixed'] as const;
 
 describe('5.814 · the source stamps carry no live, real-time or current word', () => {
@@ -208,6 +167,11 @@ describe('5.814 · the source stamps carry no live, real-time or current word', 
   });
 
   it.each([
+    ['de', 'Aktuelle Daten von {source}, abgerufen am {date}'],
+    ['pt-BR', 'Dados atuais dos pools via {source}, buscados em {date}'],
+    ['es', 'Datos actuales vía {source}, obtenidos hoy'],
+    ['en', 'Pool rates from {source}, fetched today'],
+    ['de', 'Tagesaktuelle Pool-Raten von {source}'],
     ['en', 'Live from {source}, fetched {date}'],
     ['pt-BR', 'Ao vivo de {source}, buscado em {date}'],
     ['es', 'En vivo de {source}, obtenido {date}'],

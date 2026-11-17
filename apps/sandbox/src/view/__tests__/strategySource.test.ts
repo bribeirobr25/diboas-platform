@@ -78,7 +78,16 @@ describe('5.814 · guard 3 · view/strategy.ts derives age and origin once', () 
   });
 
   it('should hold no date arithmetic of its own', () => {
-    for (const banned of [/Date\.parse\b/, /\.getTime\(/, /86_?400_?000/, /\bDAY_MS\b/]) {
+    for (const banned of [
+      /Date\.parse\b/,
+      /\.getTime\(/,
+      /\.valueOf\(/,
+      /\bnew Date\(/,
+      /\bDate\.now\(/,
+      /86_?400_?000/,
+      /\bDAY_MS\b/,
+      /\b(?:60\s*\*\s*){2}1000\b/,
+    ]) {
       expect(code, String(banned)).not.toMatch(banned);
     }
   });
@@ -87,6 +96,7 @@ describe('5.814 · guard 3 · view/strategy.ts derives age and origin once', () 
     /* 5.440: liveness is a property of the stamp. `'fixture'` stays allowed — the
        provenance origin type spells it. */
     expect(code).not.toMatch(/\.source\b/);
+    expect(code, 'a destructured source is still a source read').not.toMatch(/\bsource\b/);
     expect(code).not.toMatch(/['"`](?:defillama|coingecko)['"`]/);
     expect(code).toMatch(/\bstrategyProvenance\(/);
   });
@@ -111,7 +121,8 @@ function sourceFiles(dir: string): string[] {
 }
 
 describe('5.814 · guard 8 · only view/strategy.ts names a rate-line message', () => {
-  const RATE_LINE_ID = /goalNew\.apy[A-Z]\w*/;
+  /* Wide on purpose: an id built as a template (`goalNew.apy${kind}`) is caught too. */
+  const RATE_LINE_ID = /goalNew\.apy/;
   const files = sourceFiles(SRC);
 
   it('should scan the app source (the guard is not vacuous)', () => {
@@ -127,5 +138,27 @@ describe('5.814 · guard 8 · only view/strategy.ts names a rate-line message', 
       elsewhere,
       'a surface that names a rate line can choose it by origin again (5.814); render RateLine'
     ).toEqual([]);
+  });
+
+  it('should let no other source file pick a line from the classifier itself', () => {
+    /* Importing the id table or the classifier is the other way to choose a line
+       outside view/strategy.ts. */
+    const pickers = files
+      .filter((file) => file !== VIEW && /\b(?:RATE_LINE_IDS|rateLineKind)\b/.test(codeOf(file)))
+      .map((file) => relative(SRC, file).split(sep).join('/'));
+    expect(pickers).toEqual([]);
+  });
+});
+
+describe('5.814 · the picker and the detail age the rate at one moment', () => {
+  it('should pass the same screen clock to both in GoalDetailScreen', () => {
+    /* One clock per screen (plan P10, P11): the picker and the detail must judge
+       the same rate at the same moment, or one could say "fetched" while the
+       other says "over a week ago". */
+    const screen = codeOf(join(SRC, 'components', 'GoalDetailScreen.tsx'));
+    const nowProps = [
+      ...screen.matchAll(/<(StrategyPicker|StrategyDetail)\b[^>]*?\bnow=\{(\w+)\}/gs),
+    ].map(([, component, clock]) => `${component}:${clock}`);
+    expect(nowProps.sort()).toEqual(['StrategyDetail:nowIso', 'StrategyPicker:nowIso']);
   });
 });
