@@ -146,3 +146,47 @@ describe('redactContext after the fourteenth audit', () => {
     );
   });
 });
+
+describe('redactContext after the fifteenth audit', () => {
+  it('should redact the whole IPv4-mapped IPv6 address, in text and under a non-sensitive key', () => {
+    expect(redactText('peer ::ffff:203.0.113.9 refused')).toBe('peer [IP_REDACTED] refused');
+    expect(redactContext({ 'x-forwarded-for': '::ffff:198.51.100.7' })).toEqual({
+      'x-forwarded-for': '[IP_REDACTED]',
+    });
+  });
+
+  it('should mask any key ending in token, in text and JSON', () => {
+    expect(redactText('deletionToken=XYZ done')).toBe('deletionToken=[REDACTED] done');
+    expect(redactText('{"deletionToken":"abc","unsubscribe_token": "xyz"}')).toBe(
+      '{"deletionToken":"[REDACTED]","unsubscribe_token": "[REDACTED]"}'
+    );
+  });
+
+  it('should mask the credential of an Authorization value', () => {
+    expect(redactText('Authorization: Bearer eyJhbGciOi.abc-def_ghi')).toBe(
+      'Authorization: Bearer [REDACTED]'
+    );
+    expect(redactText('Basic dXNlcjpwYXNz')).toBe('Basic [REDACTED]');
+  });
+
+  it('should mask the token of an encoded relative link and keep what follows it', () => {
+    expect(redactText('next=%2Fen%2Fdelete-confirm%3Ftoken%3DSECRET123')).toBe(
+      'next=%2Fen%2Fdelete-confirm%3Ftoken%3D[REDACTED]'
+    );
+    expect(redactText('next=%2Fx%3Ftoken%3DSECRET%26lang%3Den')).toBe(
+      'next=%2Fx%3Ftoken%3D[REDACTED]%26lang%3Den'
+    );
+  });
+
+  it('should keep the span name, scrubbed as text, but still redact a person-shaped name', () => {
+    expect(redactContext({ 'next.span_name': 'GET /api/waitlist', displayName: 'Ana' })).toEqual({
+      'next.span_name': 'GET /api/waitlist',
+      displayName: '[REDACTED]',
+    });
+  });
+
+  it('should leave ordinary words that merely contain a t or token-like text alone', () => {
+    const text = 'at 01:35:38, the tokenizer ran; total=3; tokens counted';
+    expect(redactText(text)).toBe(text);
+  });
+});
