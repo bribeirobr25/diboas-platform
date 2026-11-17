@@ -23,7 +23,7 @@
     "@diboas/defi": "workspace:*",
     "@diboas/format": "workspace:*",
     "@diboas/investing": "workspace:*",
-    "@neondatabase/serverless": "^1.0.2",
+    "@neondatabase/serverless": "^1.2.1",
     "@upstash/ratelimit": "^2.2.1",
     "@upstash/redis": "^1.41.0",
     "decimal.js": "^10.4.3",
