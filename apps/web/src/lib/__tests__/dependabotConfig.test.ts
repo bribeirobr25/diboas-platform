@@ -449,6 +449,29 @@ describe('the lockfile installs partner packages together (5.895, 5.918)', () =>
     expect(partnerSplits(lockImporters())).toEqual([]);
   });
 
+  /*
+   * The Storybook plants are one step away from what is INSTALLED, never a literal: a literal
+   * "10.6.7" plant stopped being a split the day Storybook 10.6.7 was installed, and the
+   * "not blind" check failed for the wrong reason (2026-11-17, the 10.6.7 bump).
+   */
+  const sbInstalled = (dir: string, name: string): string =>
+    lockImporters()[dir]!.devDependencies![name]!.version!;
+  const sbAway = (version: string, part: 'patch' | 'minor', step: 1 | -1): string => {
+    const [major, minor, patch] = version.split('(')[0]!.split('.').map(Number) as [
+      number,
+      number,
+      number,
+    ];
+    const peers = version.includes('(') ? version.slice(version.indexOf('(')) : '';
+    const bare =
+      part === 'patch' ? `${major}.${minor}.${patch + step}` : `${major}.${minor + step}.0`;
+    return `${bare}${peers}`;
+  };
+  const escape = (s: string): string => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const SB_PATCH_APART = sbAway(sbInstalled('apps/web', '@storybook/react'), 'patch', 1);
+  const SB_NEXTJS_DRIFT = sbAway(sbInstalled('apps/sandbox', '@storybook/nextjs'), 'minor', 1);
+  const SB_ADDON_BEHIND = sbAway(sbInstalled('apps/web', '@storybook/addon-docs'), 'minor', -1);
+
   it.each<[string, (i: Importers) => void, RegExp]>([
     [
       'eslint 10 with @eslint/js 9 in another workspace',
@@ -469,25 +492,27 @@ describe('the lockfile installs partner packages together (5.895, 5.918)', () =>
     [
       'Storybook packages one patch apart',
       (i) => {
-        i['apps/web'].devDependencies!['@storybook/react'] = { version: '10.6.7(react@18.3.1)' };
+        i['apps/web'].devDependencies!['@storybook/react'] = { version: SB_PATCH_APART };
       },
       /partners storybook resolve apart \(exact\)/,
     ],
     [
       '@storybook/nextjs drifting in the Practice app (fifteenth audit C-1)',
       (i) => {
-        i['apps/sandbox'].devDependencies!['@storybook/nextjs'] = {
-          version: '10.7.0(next@16.4.5)',
-        };
+        i['apps/sandbox'].devDependencies!['@storybook/nextjs'] = { version: SB_NEXTJS_DRIFT };
       },
-      /partners storybook resolve apart \(exact\)[^\n]*@storybook\/nextjs@10\.7\.0/,
+      new RegExp(
+        `partners storybook resolve apart \\(exact\\)[^\\n]*@storybook/nextjs@${escape(SB_NEXTJS_DRIFT.split('(')[0]!)}`
+      ),
     ],
     [
       'a Storybook addon one minor behind',
       (i) => {
-        i['apps/web'].devDependencies!['@storybook/addon-docs'] = { version: '10.5.0' };
+        i['apps/web'].devDependencies!['@storybook/addon-docs'] = { version: SB_ADDON_BEHIND };
       },
-      /partners storybook resolve apart \(exact\)[^\n]*@storybook\/addon-docs@10\.5\.0/,
+      new RegExp(
+        `partners storybook resolve apart \\(exact\\)[^\\n]*@storybook/addon-docs@${escape(SB_ADDON_BEHIND.split('(')[0]!)}`
+      ),
     ],
     [
       'a partner group that is not installed anywhere',
