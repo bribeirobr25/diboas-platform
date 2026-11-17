@@ -10,11 +10,30 @@
 import * as Sentry from '@sentry/nextjs';
 import { Logger, LogLevel, type LogEntry } from './Logger';
 
+/**
+ * Context fields that become Sentry tags: few distinct values each, so they can be searched and
+ * grouped. A caller that logs an error and then captures the same Error itself (the market
+ * fetchers) would lose its own tags, because Sentry drops the second capture of one Error; the
+ * one event that does go through carries them from here.
+ */
+const TAG_KEYS = ['surface', 'endpoint', 'view'] as const;
+
+function tagsOf(entry: LogEntry): Record<string, string> {
+  const tags: Record<string, string> = { source: 'logger' };
+  for (const key of TAG_KEYS) {
+    const value = entry.context?.[key];
+    if (typeof value === 'string' && value !== '') tags[key] = value;
+  }
+  const correlationId = entry.requestId ?? entry.context?.correlationId;
+  if (typeof correlationId === 'string' && correlationId !== '') tags.correlationId = correlationId;
+  return tags;
+}
+
 /** One Logger ERROR or CRITICAL entry as one Sentry event. */
 export function sendLogEntryToSentry(entry: LogEntry): void {
   Sentry.captureException(entry.error ?? new Error(entry.message), {
     level: entry.level === LogLevel.CRITICAL ? 'fatal' : 'error',
-    tags: { correlationId: entry.requestId, source: 'logger' },
+    tags: tagsOf(entry),
     extra: { logMessage: entry.message, context: entry.context, callSite: entry.source },
   });
 }
