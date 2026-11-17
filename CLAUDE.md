@@ -18,7 +18,7 @@ the legacy line.**
 - **UI:** React 18, Tailwind CSS 3
 - **Monorepo:** Turborepo + pnpm 10.33 workspaces (supply-chain hardened: script-blocking allowlist + 3-day `minimumReleaseAge`; re-resolving commands need `--config.minimumReleaseAge=0`)
 - **i18n:** react-intl (4 locales: en, pt-BR, es, de)
-- **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, pa11y
+- **Testing:** Vitest, @vitest/coverage-v8, Lighthouse CI, Playwright + axe-core (the accessibility audit; `scripts/pa11y.mjs` keeps its old name)
 - **Monitoring:** Sentry (error tracking + session replay), PostHog (product analytics), GA4 (traffic analytics), web-vitals
 - **Security:** DOMPurify, Upstash Redis rate limiting, AES-256-GCM encryption, HMAC blind indexing
 - **Email:** Resend (transactional email with retry + backoff)
@@ -231,7 +231,7 @@ pnpm audit:full                # 15-point pre-launch audit
 pnpm audit:ci                  # CI-friendly audit (non-interactive)
 pnpm security:audit            # pnpm audit for vulnerabilities
 pnpm performance:audit         # Lighthouse CI
-pnpm accessibility:audit       # pa11y WCAG2AA
+pnpm accessibility:audit       # Playwright + axe-core, WCAG2AA
 ```
 
 ### Analytics
@@ -415,8 +415,8 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 - All interactive elements: native `<button>` or `<a>` (never `div role="button"`)
 - All modals/dialogs: use `useFocusTrap` hook with `returnFocus: true`
 - Minimum contrast: 4.5:1 for text, 3:1 for UI components — use `text-gray-500` minimum
-- Touch targets ≥24×24 CSS px with spacing (WCAG 2.5.8) — includes range sliders (the input element is the target, not the track) and adjacent form controls. NOT covered by the pa11y WCAG2AA gate — review-time check (PSI 2026-07-17 lesson)
-- Heading levels never skip (h1→h2→h3) — axe rates this best-practice tier, so pa11y won't catch it either; review-time check (PSI 2026-07-17 lesson)
+- Touch targets ≥24×24 CSS px with spacing (WCAG 2.5.8) — includes range sliders (the input element is the target, not the track) and adjacent form controls. NOT covered by the accessibility audit (axe-core WCAG2AA) — review-time check (PSI 2026-07-17 lesson)
+- Heading levels never skip (h1→h2→h3) — axe rates this best-practice tier, so the accessibility audit won't catch it either; review-time check (PSI 2026-07-17 lesson)
 - Form groups: `<fieldset>` + `<legend>` for screen readers
 - Dropdowns: handle Escape key, return focus to trigger
 - Reduced motion: all animations must respect `prefers-reduced-motion`
@@ -442,7 +442,7 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
   automated guard that fails if it comes back, plus a recorded search for the same mistake elsewhere —
   `docs/tech/coding-standards.md` § Every defect leaves a guard; checked by `pnpm review:guards`
 - Tools: Vitest + @testing-library/react
-- Environment: node (default); add jsdom as dev dependency for DOM-based component tests
+- Environment: node (default); DOM-based component tests opt into happy-dom per file (`// @vitest-environment happy-dom`)
 - **`apps/sandbox` DOM test harness: ✅ BUILT (2026-08-08, R1 Phase 0)** — `@vitejs/plugin-react` +
   `happy-dom` + `@testing-library/react`, `globals: true`, `.tsx` in the include glob, sandbox-specific
   `setupFiles` (`apps/sandbox/src/test/setup.ts`). Default env stays `node`; component tests annotate
