@@ -322,3 +322,53 @@ describe('useFocusTrap DOM behavior', () => {
     });
   });
 });
+
+/**
+ * Fifteenth audit: every trap listened on `document`, so with a dialog open inside another the
+ * outer trap moved focus out of the inner dialog on Tab (WCAG 2.4.3) and both answered Escape.
+ * Only the innermost active trap handles keys now.
+ */
+describe('useFocusTrap with nested traps', () => {
+  const key = (k: string, shiftKey = false) => {
+    const event = new KeyboardEvent('keydown', {
+      key: k,
+      shiftKey,
+      bubbles: true,
+      cancelable: true,
+    });
+    document.dispatchEvent(event);
+    return event;
+  };
+
+  it('should keep Tab inside the inner dialog and give Escape to it alone', () => {
+    const outerEscape = vi.fn();
+    const innerEscape = vi.fn();
+    const outer = setupFocusTrap({ onEscape: outerEscape });
+    outer.rerender({ isActive: true });
+    const inner = setupFocusTrap({ onEscape: innerEscape });
+    inner.rerender({ isActive: true });
+
+    inner.button2.focus();
+    key('Tab');
+    expect(document.activeElement).toBe(inner.button1);
+
+    key('Escape');
+    expect(innerEscape).toHaveBeenCalledTimes(1);
+    expect(outerEscape).not.toHaveBeenCalled();
+
+    inner.rerender({ isActive: false });
+    key('Escape');
+    expect(outerEscape).toHaveBeenCalledTimes(1);
+    expect(innerEscape).toHaveBeenCalledTimes(1);
+    outer.rerender({ isActive: false });
+  });
+
+  it('should cancel the pending first focus when the trap ends before it runs', () => {
+    vi.spyOn(window, 'requestAnimationFrame').mockImplementation(() => 42);
+    const cancel = vi.spyOn(window, 'cancelAnimationFrame');
+    const { rerender } = setupFocusTrap();
+    rerender({ isActive: true });
+    rerender({ isActive: false });
+    expect(cancel).toHaveBeenCalledWith(42);
+  });
+});

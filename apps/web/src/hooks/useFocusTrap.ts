@@ -27,6 +27,19 @@ const FOCUSABLE_SELECTOR = [
   '[tabindex]:not([tabindex="-1"])',
 ].join(', ');
 
+/**
+ * The active traps, innermost last. Only the innermost handles Tab and Escape: with a dialog
+ * open inside another (the demo's export-key dialog inside the demo), every trap listened on
+ * `document`, so the outer one moved focus out of the inner dialog on Tab (WCAG 2.4.3) and both
+ * reacted to Escape (fifteenth audit). Kept on `globalThis` so every bundled copy of this module
+ * shares one stack (the Logger's sink was lost that way, 5.936).
+ */
+const TRAP_STACK_KEY = Symbol.for('diboas.focusTrap.stack');
+const trapHolder = globalThis as typeof globalThis & { [TRAP_STACK_KEY]?: symbol[] };
+function trapStack(): symbol[] {
+  return (trapHolder[TRAP_STACK_KEY] ??= []);
+}
+
 interface UseFocusTrapOptions {
   /** Auto-focus first focusable element when trap activates */
   autoFocus?: boolean;
@@ -71,6 +84,12 @@ export function useFocusTrap(
     if (!isActive || !containerRef.current) return;
 
     const container = containerRef.current;
+    const trapId = Symbol('focus-trap');
+    trapStack().push(trapId);
+    const isInnermost = () => {
+      const stack = trapStack();
+      return stack[stack.length - 1] === trapId;
+    };
 
     // Store the previously focused element
     if (returnFocus) {
@@ -84,9 +103,10 @@ export function useFocusTrap(
       );
     };
 
-    // Focus initial element or first focusable
+    // Focus initial element or first focusable (cancelled if the trap ends first)
+    let focusFrame: number | undefined;
     if (autoFocus) {
-      requestAnimationFrame(() => {
+      focusFrame = requestAnimationFrame(() => {
         const focusableElements = getFocusableElements();
 
         if (initialFocus) {
@@ -111,6 +131,7 @@ export function useFocusTrap(
 
     // Escape closes (when the owner says how); Tab is trapped
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (!isInnermost()) return;
       if (event.key === 'Escape') {
         if (onEscapeRef.current) {
           event.preventDefault();
@@ -147,6 +168,10 @@ export function useFocusTrap(
     // Cleanup
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      if (focusFrame !== undefined) cancelAnimationFrame(focusFrame);
+      const stack = trapStack();
+      const at = stack.indexOf(trapId);
+      if (at !== -1) stack.splice(at, 1);
 
       // Return focus to previous element
       if (returnFocus && previousActiveElement.current) {

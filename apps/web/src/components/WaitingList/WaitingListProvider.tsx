@@ -103,20 +103,8 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
     };
   }, [openModal]);
 
-  // Handle ESC key to close modal
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
-        closeModal();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, closeModal]);
-
+  // Escape is handled by the modal's focus trap (its onEscape calls closeModal). A second,
+  // document-level listener here closed it twice and sent two close events (fifteenth audit).
   // Prevent body scroll when modal is open.
   // Only capture/restore when transitioning to open — avoids resetting
   // overflow on initial mount (which conflicts with other components
