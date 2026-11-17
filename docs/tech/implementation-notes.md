@@ -434,6 +434,9 @@ Register: `5.527` (closed), `5.528` (open). Gate: `HARNESS-1`. Code: `apps/sandb
   already has, empty included, so every key the app reads is pinned. The market kill switch takes
   SOURCE IDS — `MARKET_SOURCES_DISABLED=defillama,coingecko`; the value `true` disables nothing (an
   independent review caught exactly that). A self-test asserts every `/api/market` stamp is `fixture`.
+  One case (`RATE-AGE-1`, `5.814`) rewrites each APY stamp in the real answer into a live observation
+  of a chosen age with `page.route`, so the age-aware rate line is read on a production build; it
+  checks the rewritten answer still passes the app's own `marketResponseIssue`.
 - **A build swap is a real deploy in CI.** The job builds twice (`--force`, so turbo does not hand
   back the first build) and the swap test fails in CI without `SANDBOX_E2E_SWAP_DIST`. The swap
   renames, never copies: the source must be on the same filesystem as `apps/sandbox`, must not be the
@@ -906,12 +909,21 @@ pinned by a test that was watched failing.
     is named. `rateAvailability.ts` contains no protocol id at all, deliberately.
   - **AVAILABILITY and DISPLAYABILITY are two questions.** `strategyRateAvailability` decides
     whether a strategy may be offered; `strategyRateDisplay` decides whether a
-    `Current pool rate` may be STATED. Collapsing them is what let a secondary representation
+    pool rate may be STATED. Collapsing them is what let a secondary representation
     gate a whole strategy. A heterogeneous strategy is **available with no rate**.
+  - **The rate line states its age, and only `view/strategy.ts` chooses it (`5.814`).**
+    `strategyRateDisplay` returns `{ apy, label }`: the label's kind comes from the origin
+    (`strategyProvenance(...).apyProvenance`) and the age of every live leg
+    (`currentFacingTimeState`, the one age derivation; every leg, documented ones included,
+    is aged once and any MISSING leg withholds the rate). No Practice policy supports
+    CURRENT, so a live rate reads "Pool rate, fetched {date}" (DELAYED) or "… over a week
+    ago …" (STALE), dated by the stamp's own date. Components render it through `RateLine`
+    and never name a `goalNew.apy…` id. ⚑ Do not add a policy argument in the view, a second
+    age check, or a source-name test; `RATE-AGE-1` fails on each.
   - **Never renormalise a partial blend.** `strategyRateDisplay` returns on the FIRST
     non-accrual leg, before any arithmetic, so it structurally cannot emit a sum over weights
     that do not total 100. Measured: production blended `0.70 × skySsr + 0.30 × sanctumInf`
-    and published it as one _"Current pool rate … (real, variable)"_ — a lending APY averaged
+    and published it as one _"Current pool rate … (real, variable)"_ (the label of the day) — a lending APY averaged
     with an LST leg's reported APY under a single label.
   - **`MISSING ≠ 0` at the blend.** The replaced `blendedApy` read `apyPercent ?? 0`; a guard
     (`rateUnavailableInvariants.test.ts`) now fails if that name returns.
