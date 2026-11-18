@@ -6,6 +6,7 @@
  * Manages waitlist form state and submission logic
  */
 
+import type { WaitlistSignupBody, WaitlistSource } from '@/lib/waitingList/store/types';
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
@@ -32,8 +33,8 @@ interface UseWaitlistFormOptions {
   compact?: boolean;
   /** Override referral code (e.g. from manually entered invite code) */
   referredBy?: string;
-  /** Waitlist source identifier (e.g. 'landing_b2b') */
-  source?: string;
+  /** The signup's source, from the one list (`5.979`, plan P11 D3) */
+  source?: WaitlistSource;
   /**
    * Send the stored CTA label (`cta_source:<label>`) with the signup. Default true. The Money
    * Jobs gate passes false: it carries its own `source` and must not consume a label another
@@ -188,10 +189,11 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
             email: formState.email.toLowerCase().trim(),
             locale,
             gdprAccepted: compact ? true : formState.gdprAccepted,
-            referredBy,
+            // The route treats a missing and a null code alike; the shared shape takes undefined.
+            referredBy: referredBy ?? undefined,
             ...(source ? { source } : {}),
             ...(utmTags.length > 0 ? { tags: utmTags } : {}),
-          }),
+          } satisfies WaitlistSignupBody),
           signal: abortControllerRef.current.signal,
         });
 

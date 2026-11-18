@@ -10,6 +10,7 @@
  * - Success callback with position data
  */
 
+import type { WaitlistSource } from '@/lib/waitingList/store/types';
 import React, { useId, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
@@ -25,8 +26,8 @@ interface WaitlistFormProps {
   compact?: boolean;
   /** Override referral code (e.g. from manually entered invite code) */
   referredBy?: string;
-  /** Waitlist source identifier (e.g. 'landing_b2b') */
-  source?: string;
+  /** The signup's source, from the one list (`5.979`, plan P11 D3) */
+  source?: WaitlistSource;
   /** Text rendered below submit button */
   belowCta?: string;
   /** Text rendered below consent checkbox */

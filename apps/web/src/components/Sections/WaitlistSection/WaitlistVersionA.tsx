@@ -7,6 +7,7 @@
 
 'use client';
 
+import type { StatsAudienceSource } from '@/lib/waitingList/store/types';
 import { useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
@@ -37,8 +38,8 @@ interface WaitlistVersionAProps {
      *  pass 'h2' so the waitlist sits correctly in the document outline. */
     headingLevel?: 'h2' | 'h3';
   };
-  /** Waitlist source for signup tagging (e.g., 'landing_b2b') */
-  source?: string;
+  /** Landing audience that tags the signup (`5.979`, plan P11 D3) */
+  source?: StatsAudienceSource;
   stats: {
     count: number;
     foundingMemberSpotsRemaining?: number;

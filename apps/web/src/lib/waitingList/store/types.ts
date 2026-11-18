@@ -29,15 +29,59 @@ export interface WaitlistEntry {
 
 export type WaitlistTier = 'founding_member' | 'early_member' | 'priority_waitlist' | 'standard';
 
-export type WaitlistSource =
-  | 'landing_b2c'
-  | 'landing_b2b'
-  | 'interactive_demo'
-  | 'dream_mode'
-  | 'calculator'
-  | 'tool_money_jobs'
-  | 'referral'
-  | 'direct';
+/**
+ * ⛑ `5.979` · THE ONE LIST OF SIGNUP SOURCES.
+ *
+ * The validator's set, the type and every client that posts a source derive from this
+ * array (plan P11, D2). Before it, two lists were kept in step by a comment, and the
+ * modal's `'modal'` matched neither: every modal signup was refused from 2026-03-20.
+ *
+ * A source names the OBSERVED PATH that brought the reader (Growth canon CC-B:
+ * "attribution describes observed paths"), never the container that collected the form:
+ * Dream Mode's gate sends `dream_mode`, the app-link interceptor `app_link` (D1).
+ * This module has no imports, so the client, the validator and the e2e test can read it
+ * without pulling the database in (D2). Adding a member is a decision: its audience must
+ * be set in `counterManager.ts` before this compiles (D4).
+ */
+export const WAITLIST_SOURCES = [
+  'landing_b2c',
+  'landing_b2b',
+  'interactive_demo',
+  'dream_mode',
+  'calculator',
+  'tool_money_jobs',
+  'referral',
+  'direct',
+  'app_link',
+] as const;
+
+export type WaitlistSource = (typeof WAITLIST_SOURCES)[number];
+
+/**
+ * The sources whose audience counters a page may ask the stats route for (D3, D7): the two
+ * landing audiences. Shared by the stats route, `useWaitlistStats` and the waitlist section.
+ */
+export const STATS_AUDIENCE_SOURCES = [
+  'landing_b2c',
+  'landing_b2b',
+] as const satisfies readonly WaitlistSource[];
+
+export type StatsAudienceSource = (typeof STATS_AUDIENCE_SOURCES)[number];
+
+/**
+ * The one request shape for `POST /api/waitlist/signup` (D3): the route reads it and every
+ * client builds its body with `satisfies WaitlistSignupBody`, so a source outside the list
+ * fails `type-check` at the line that sends it.
+ */
+export interface WaitlistSignupBody {
+  email: string;
+  name?: string;
+  locale: string;
+  gdprAccepted: boolean;
+  referredBy?: string;
+  source?: WaitlistSource;
+  tags?: string[];
+}
 
 export interface AddEntryInput {
   email: string;

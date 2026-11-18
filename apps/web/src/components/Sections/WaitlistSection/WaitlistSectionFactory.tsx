@@ -11,6 +11,7 @@
 
 'use client';
 
+import type { StatsAudienceSource } from '@/lib/waitingList/store/types';
 import { memo, useEffect, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useWaitlistStats } from '@/hooks/useWaitlistStats';
@@ -37,8 +38,8 @@ interface WaitlistSectionConfig {
   ariaLabel?: string;
   /** Heading level for the headline. Defaults to 'h3'; landing pages pass 'h2'. */
   headingLevel?: 'h2' | 'h3';
-  /** Waitlist source for audience-specific counters and signup tagging */
-  source?: 'landing_b2c' | 'landing_b2b' | 'about' | 'security' | 'help';
+  /** Landing audience: picks the counters and tags the signup (`5.979`, plan P11 D3) */
+  source?: StatsAudienceSource;
 }
 
 interface WaitlistSectionProps {

@@ -6,6 +6,7 @@
  * through untyped JSON bodies and prototype-shaped keys.
  */
 
+import { WAITLIST_SOURCES } from '@/lib/waitingList/store/types';
 import { describe, it, expect } from 'vitest';
 import { isValidLocale, isValidSource, sanitizeTags, isValidName } from '../validators';
 
@@ -52,6 +53,27 @@ describe('isValidSource', () => {
     for (const source of ['admin', 'DIRECT', '', '__proto__', 'direct; DROP TABLE']) {
       expect(isValidSource(source)).toBe(false);
     }
+  });
+
+  /**
+   * ⛑ `5.979` · WAITLIST-SOURCE-1 guard 1: the one list, pinned. Adding or removing a
+   * source is a deliberate edit of this line (plan P11, D2). `dream_mode` and `app_link`
+   * are what the modal's two openers send; `modal` (a container, not a path) is refused.
+   */
+  it('should hold exactly the agreed sources when the one list is read', () => {
+    expect([...WAITLIST_SOURCES]).toEqual([
+      'landing_b2c',
+      'landing_b2b',
+      'interactive_demo',
+      'dream_mode',
+      'calculator',
+      'tool_money_jobs',
+      'referral',
+      'direct',
+      'app_link',
+    ]);
+    for (const source of WAITLIST_SOURCES) expect(isValidSource(source), source).toBe(true);
+    expect(isValidSource('modal')).toBe(false);
   });
 
   it('should reject a source when the value is not a string', () => {

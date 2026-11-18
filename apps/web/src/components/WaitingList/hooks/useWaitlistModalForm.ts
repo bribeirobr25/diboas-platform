@@ -14,12 +14,24 @@ import { useState, useCallback, useRef } from 'react';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import { analyticsService } from '@/lib/analytics';
 import type { WaitingListFormData, WaitingListFormErrors } from '@/lib/waitingList/types';
+import type { WaitlistSource } from '@/lib/waitingList/store/types';
+import { buildModalSignupBody } from '@/lib/waitingList/modalSignupBody';
+
+/** The server's error codes are fixed upper-case names; anything else is not forwarded. */
+const SERVER_ERROR_CODE = /^[A-Z][A-Z_]{0,39}$/;
 
 interface UseWaitlistModalFormOptions {
   /** Current locale */
   locale: string;
   /** Translation function */
   t: (key: string, values?: Record<string, string>) => string;
+  /**
+   * The path that opened the modal (`5.979`, plan P11 D1): `dream_mode` or `app_link`,
+   * never the container: the route accepts only the listed paths.
+   */
+  source: WaitlistSource;
+  /** Called once the server has stored the signup (Dream Mode unlocks on it, D5). */
+  onJoined?: () => void;
 }
 
 interface UseWaitlistModalFormReturn {
@@ -51,6 +63,8 @@ const initialFormData: WaitingListFormData = {
 export function useWaitlistModalForm({
   locale,
   t,
+  source,
+  onJoined,
 }: UseWaitlistModalFormOptions): UseWaitlistModalFormReturn {
   const [formData, setFormData] = useState<WaitingListFormData>(initialFormData);
   const [errors, setErrors] = useState<WaitingListFormErrors>({});
@@ -105,13 +119,7 @@ export function useWaitlistModalForm({
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            email: formData.email.toLowerCase().trim(),
-            name: formData.name || undefined,
-            locale,
-            gdprAccepted: formData.gdprAccepted,
-            source: 'modal',
-          }),
+          body: JSON.stringify(buildModalSignupBody(formData, locale, source)),
         });
 
         const data = await response.json();
@@ -134,13 +142,22 @@ export function useWaitlistModalForm({
 
           analyticsService.track({
             name: 'waiting_list_signup_error',
-            parameters: { errorType, timestamp: Date.now() },
+            // The server's fixed code makes a refusal countable by reason (plan P11 D6).
+            parameters: {
+              errorType,
+              errorCode:
+                typeof data.errorCode === 'string' && SERVER_ERROR_CODE.test(data.errorCode)
+                  ? data.errorCode
+                  : 'none',
+              timestamp: Date.now(),
+            },
           });
           return;
         }
 
         setSubmittedEmail(formData.email);
         setIsSuccess(true);
+        onJoined?.();
 
         analyticsService.track({
           name: 'waiting_list_signup_success',
@@ -153,7 +170,7 @@ export function useWaitlistModalForm({
       } catch {
         analyticsService.track({
           name: 'waiting_list_signup_error',
-          parameters: { errorType: 'network_error', timestamp: Date.now() },
+          parameters: { errorType: 'network_error', errorCode: 'none', timestamp: Date.now() },
         });
 
         setErrors({ general: t('errors.submissionFailed') });
@@ -162,7 +179,7 @@ export function useWaitlistModalForm({
         isSubmittingRef.current = false;
       }
     },
-    [formData, locale, t]
+    [formData, locale, t, source, onJoined]
   );
 
   const resetForm = useCallback(() => {

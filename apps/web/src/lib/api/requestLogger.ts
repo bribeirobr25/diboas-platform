@@ -22,13 +22,20 @@ export function logRequestEnd(
   method: string,
   path: string,
   status: number,
-  startTime: number
+  startTime: number,
+  /**
+   * The refusal's fixed code (e.g. `INVALID_SOURCE`), so a 4xx names its reason
+   * (`5.979`, plan P11 D6). A code only: never the request body or any value from it.
+   */
+  detail?: { readonly code: string }
 ): void {
   const durationMs = Math.round((performance.now() - startTime) * 100) / 100;
   const level = status >= 500 ? 'error' : status >= 400 ? 'warn' : 'info';
 
-  const message = `[API] ${method} ${path} → ${status} (${durationMs}ms)`;
-  const meta = { method, path, status, durationMs };
+  const message = `[API] ${method} ${path} → ${status} (${durationMs}ms)${
+    detail ? ` ${detail.code}` : ''
+  }`;
+  const meta = { method, path, status, durationMs, ...(detail ? { code: detail.code } : {}) };
 
   if (level === 'error') {
     Logger.error(message, meta);

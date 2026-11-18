@@ -11,6 +11,7 @@
  * File Decoupling: Each concern in its own component
  */
 
+import type { WaitlistSource } from '@/lib/waitingList/store/types';
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import Image from 'next/image';
@@ -25,9 +26,13 @@ import styles from './WaitingListModal.module.css';
 interface WaitingListModalProps {
   isOpen: boolean;
   onClose: () => void;
+  /** The path that opened the modal (`5.979`, plan P11 D1). */
+  source: WaitlistSource;
+  /** Called once the signup is stored (plan P11 D5). */
+  onJoined: () => void;
 }
 
-export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
+export function WaitingListModal({ isOpen, onClose, source, onJoined }: WaitingListModalProps) {
   const intl = useTranslation();
   const { locale } = useLocale();
   const modalRef = useRef<HTMLDivElement>(null);
@@ -54,7 +59,7 @@ export function WaitingListModal({ isOpen, onClose }: WaitingListModalProps) {
     handleInputChange,
     handleSubmit,
     resetForm,
-  } = useWaitlistModalForm({ locale, t });
+  } = useWaitlistModalForm({ locale, t, source, onJoined });
 
   // Reset form when modal closes
   useEffect(() => {

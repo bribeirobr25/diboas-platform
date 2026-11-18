@@ -24,17 +24,10 @@ import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { Logger } from '@/lib/monitoring/Logger';
 import { classifyRequest } from '@/lib/security/verifyHuman';
 import { waitlistApplicationService } from '@/lib/waitingList/WaitlistApplicationService';
-import type { WaitlistSource, WaitlistTier } from '@/lib/waitingList/store';
+import type { WaitlistTier } from '@/lib/waitingList/store';
+import type { WaitlistSignupBody } from '@/lib/waitingList/store/types';
 
-interface SignupRequestBody {
-  email: string;
-  name?: string;
-  locale: string;
-  gdprAccepted: boolean;
-  referredBy?: string;
-  source?: WaitlistSource;
-  tags?: string[];
-}
+/** The one request shape the clients build with `satisfies` (`5.979`, plan P11 D3). */
 
 interface SignupResponse {
   success: boolean;
@@ -46,7 +39,17 @@ interface SignupResponse {
   errorCode?: string;
 }
 
-function validationError(error: string, errorCode: string): NextResponse<SignupResponse> {
+/**
+ * A refused request: 400 with its fixed code, and one log line naming that code (`5.979`,
+ * plan P11 D6). Before, a refusal left no application log line, which is how every modal
+ * signup could be refused for eight months unseen. The code only: never the body.
+ */
+function validationError(
+  startTime: number,
+  error: string,
+  errorCode: string
+): NextResponse<SignupResponse> {
+  logRequestEnd('POST', '/api/waitlist/signup', 400, startTime, { code: errorCode });
   return NextResponse.json({ success: false, error, errorCode }, { status: 400 });
 }
 
@@ -94,32 +97,32 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     // Fire-and-forget: classifyRequest never rejects (fail-open, unit-proven).
     void classifyRequest('waitlist-signup');
 
-    const body = await readJsonObject<SignupRequestBody>(request);
+    const body = await readJsonObject<WaitlistSignupBody>(request);
 
     // ---- Validation (HTTP layer) -------------------------------------------
-    if (!body.email) return validationError('Email is required', 'EMAIL_REQUIRED');
+    if (!body.email) return validationError(startTime, 'Email is required', 'EMAIL_REQUIRED');
 
     const email = validateEmail(body.email);
-    if (!email) return validationError('Invalid email address', 'INVALID_EMAIL');
+    if (!email) return validationError(startTime, 'Invalid email address', 'INVALID_EMAIL');
 
     // Consent is the boolean `true`, never a truthy stand-in such as the string "false".
     if (body.gdprAccepted !== true)
-      return validationError('Consent is required', 'CONSENT_REQUIRED');
+      return validationError(startTime, 'Consent is required', 'CONSENT_REQUIRED');
 
     if (body.locale && !isValidLocale(body.locale))
-      return validationError('Invalid locale', 'INVALID_LOCALE');
+      return validationError(startTime, 'Invalid locale', 'INVALID_LOCALE');
     if (body.source && !isValidSource(body.source))
-      return validationError('Invalid source', 'INVALID_SOURCE');
+      return validationError(startTime, 'Invalid source', 'INVALID_SOURCE');
     // Malformed tags refuse the request (now including `null`, `""` and `0`, which used to skip
     // the check); a bad tag inside a well-formed list is dropped and counted, never logged.
     const sanitized = body.tags === undefined ? undefined : sanitizeTags(body.tags);
-    if (sanitized === null) return validationError('Invalid tags', 'INVALID_TAGS');
+    if (sanitized === null) return validationError(startTime, 'Invalid tags', 'INVALID_TAGS');
     if (sanitized && sanitized.dropped > 0) {
       Logger.info('Waitlist signup: tags dropped', { dropped: sanitized.dropped });
     }
     const tags = sanitized?.tags;
     if (body.name && !isValidName(body.name))
-      return validationError('Invalid name', 'INVALID_NAME');
+      return validationError(startTime, 'Invalid name', 'INVALID_NAME');
 
     // ---- Delegate to application service -----------------------------------
     const result = await waitlistApplicationService.submitSignup({
@@ -152,10 +155,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
 
     // Failure mapping — keep the same status/error contract callers expect.
     if (result.code === 'EMAIL_REQUIRED') {
-      return validationError('Email is required', 'EMAIL_REQUIRED');
+      return validationError(startTime, 'Email is required', 'EMAIL_REQUIRED');
     }
     if (result.code === 'CONSENT_REQUIRED') {
-      return validationError('Consent is required', 'CONSENT_REQUIRED');
+      return validationError(startTime, 'Consent is required', 'CONSENT_REQUIRED');
     }
     if (result.code === 'PROCESSING_ERROR') {
       // Duplicate-race condition — generic 500 to prevent enumeration.

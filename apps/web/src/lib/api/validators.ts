@@ -7,21 +7,16 @@
 
 import { SUPPORTED_LOCALES } from '@diboas/i18n/config';
 import { CTA_SOURCE_TAG_PREFIX, isKnownCtaSource } from '@/lib/analytics/ctaSources';
+import { WAITLIST_SOURCES, type WaitlistSource } from '@/lib/waitingList/store/types';
 
 /** Supported locales — single source of truth from @diboas/i18n */
 const SUPPORTED_LOCALES_SET = new Set<string>(SUPPORTED_LOCALES);
 
-/** Known waitlist sources — must stay in sync with WaitlistSource type */
-const KNOWN_SOURCES = new Set([
-  'landing_b2c',
-  'landing_b2b',
-  'interactive_demo',
-  'dream_mode',
-  'calculator',
-  'tool_money_jobs',
-  'referral',
-  'direct',
-]);
+/**
+ * Known waitlist sources: exactly the one list (`5.979`, plan P11 D2), never a copy of it, so
+ * the type, the validator and what a client may send cannot drift apart.
+ */
+const KNOWN_SOURCES: ReadonlySet<string> = new Set<string>(WAITLIST_SOURCES);
 
 const MAX_TAGS = 10;
 /**
@@ -56,7 +51,7 @@ export function isValidLocale(locale: string): boolean {
 /**
  * Validate waitlist source against known values.
  */
-export function isValidSource(source: string): boolean {
+export function isValidSource(source: unknown): source is WaitlistSource {
   return typeof source === 'string' && KNOWN_SOURCES.has(source);
 }
 

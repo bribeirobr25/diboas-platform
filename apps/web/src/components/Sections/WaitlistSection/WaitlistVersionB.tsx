@@ -8,6 +8,7 @@
 
 'use client';
 
+import type { StatsAudienceSource } from '@/lib/waitingList/store/types';
 import { useId, useState, useCallback } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { WaitlistForm } from '@/components/WaitingList/WaitlistForm';
@@ -34,8 +35,8 @@ interface WaitlistVersionBProps {
     /** Heading level for the headline. Defaults to 'h3'; landing pages pass 'h2'. */
     headingLevel?: 'h2' | 'h3';
   };
-  /** Waitlist source for signup tagging (e.g., 'landing_b2b') */
-  source?: string;
+  /** Landing audience that tags the signup (`5.979`, plan P11 D3) */
+  source?: StatsAudienceSource;
   enableAnalytics?: boolean;
 }
 
