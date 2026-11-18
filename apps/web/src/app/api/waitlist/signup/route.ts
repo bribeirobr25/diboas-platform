@@ -28,7 +28,6 @@ import type { WaitlistTier } from '@/lib/waitingList/store';
 import type { WaitlistSignupBody } from '@/lib/waitingList/store/types';
 
 /** The one request shape the clients build with `satisfies` (`5.979`, plan P11 D3). */
-type SignupRequestBody = WaitlistSignupBody;
 
 interface SignupResponse {
   success: boolean;
@@ -98,7 +97,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     // Fire-and-forget: classifyRequest never rejects (fail-open, unit-proven).
     void classifyRequest('waitlist-signup');
 
-    const body = await readJsonObject<SignupRequestBody>(request);
+    const body = await readJsonObject<WaitlistSignupBody>(request);
 
     // ---- Validation (HTTP layer) -------------------------------------------
     if (!body.email) return validationError(startTime, 'Email is required', 'EMAIL_REQUIRED');

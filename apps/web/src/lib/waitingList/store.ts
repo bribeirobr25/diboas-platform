@@ -13,7 +13,10 @@
  *   - `store/stats.ts`       — counters, totals, opt-out, clearStore
  *
  * Call sites continue to import `from '@/lib/waitingList/store'`; this
- * barrel preserves the original public surface unchanged.
+ * barrel preserves the original public surface unchanged. One exception: the source
+ * list and the request shape (`WAITLIST_SOURCES`, `WaitlistSignupBody`) are imported from
+ * `store/types` directly, which has no imports, so client code and tests that mock this
+ * barrel read the real list (plan P11, D2).
  */
 
 export type { WaitlistEntry, WaitlistTier, WaitlistSource, AddEntryInput } from './store/types';

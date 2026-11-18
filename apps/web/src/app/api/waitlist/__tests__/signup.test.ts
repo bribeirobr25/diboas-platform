@@ -15,6 +15,7 @@ import * as security from '@/lib/security';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 import { WAITLIST_SOURCES } from '@/lib/waitingList/store/types';
 import { isValidSource } from '@/lib/api/validators';
+import { buildModalSignupBody } from '@/lib/waitingList/modalSignupBody';
 
 // Mock the store module
 vi.mock('@/lib/waitingList/store', () => ({
@@ -684,6 +685,23 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
     }
   );
 
+  it.each(['dream_mode', 'app_link'] as const)(
+    "should store the modal's own body, as it builds it, when its opener is %s",
+    async (source) => {
+      (store.addEntry as Mock).mockResolvedValue(mockEntry(source));
+      const body = buildModalSignupBody(
+        { email: '  Reader@Example.com ', name: '', gdprAccepted: true },
+        'en',
+        source
+      );
+      const response = await POST(createMockRequest(body as unknown as Record<string, unknown>));
+      expect(response.status).toBe(200);
+      expect(store.addEntry).toHaveBeenCalledWith(
+        expect.objectContaining({ source, email: 'reader@example.com' })
+      );
+    }
+  );
+
   it.each(['popup', 'modal'])(
     'should refuse the source %s with 400 INVALID_SOURCE and never reach the store',
     async (source) => {
@@ -733,14 +751,20 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
 
   it('should never put the email, the name or the refused value in any log call', async () => {
     const { Logger } = await import('@/lib/monitoring/Logger');
+    /* The console too: a value written there reaches production logs as well. */
+    const consoleSpies = (['log', 'info', 'warn', 'error', 'debug'] as const).map((method) =>
+      vi.spyOn(console, method).mockImplementation(() => {})
+    );
     for (const [, body] of REFUSALS) {
       await POST(createMockRequest({ name: 'Ada Lovelace', ...body }));
     }
-    const logged = JSON.stringify(
-      (['info', 'warn', 'error', 'debug', 'critical'] as const).flatMap(
+    const logged = JSON.stringify([
+      ...(['info', 'warn', 'error', 'debug', 'critical'] as const).flatMap(
         (level) => (Logger[level] as Mock).mock.calls
-      )
-    );
+      ),
+      ...consoleSpies.flatMap((spy) => spy.mock.calls),
+    ]);
+    consoleSpies.forEach((spy) => spy.mockRestore());
     expect(logged.length).toBeGreaterThan(0);
     for (const secret of ['ada.private@example.com', 'Ada Lovelace', 'zzrefused']) {
       expect(logged, secret).not.toContain(secret);

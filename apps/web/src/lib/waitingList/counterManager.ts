@@ -22,7 +22,7 @@ export type Audience = keyof typeof COUNTER_KEYS;
  * one list, so a new source cannot compile without a decision on which founding-member
  * counter it counts against. Only the B2B landing is business today.
  */
-const AUDIENCE_BY_SOURCE: Record<WaitlistSource, Audience> = {
+export const AUDIENCE_BY_SOURCE: Readonly<Record<WaitlistSource, Audience>> = {
   landing_b2c: 'b2c',
   landing_b2b: 'b2b',
   interactive_demo: 'b2c',
@@ -34,9 +34,15 @@ const AUDIENCE_BY_SOURCE: Record<WaitlistSource, Audience> = {
   app_link: 'b2c',
 };
 
-/** Map a WaitlistSource to the audience for counter selection; no source is consumer. */
+/**
+ * Map a WaitlistSource to the audience for counter selection. No source, or a value outside
+ * the list (a legacy stored value; an inherited key such as `constructor`), is consumer: the
+ * map is read through its own keys only, never its prototype.
+ */
 export function sourceToAudience(source: WaitlistSource | undefined): Audience {
-  return source === undefined ? 'b2c' : AUDIENCE_BY_SOURCE[source];
+  return source !== undefined && Object.hasOwn(AUDIENCE_BY_SOURCE, source)
+    ? AUDIENCE_BY_SOURCE[source]
+    : 'b2c';
 }
 
 /**

@@ -23,10 +23,18 @@ vi.mock('@/lib/analytics', () => ({
 }));
 
 const posted: Record<string, unknown>[] = [];
+/* What the server answers: stored, refused (with a code), or the request throws. */
+const answer = vi.hoisted(() => ({
+  mode: 'stored' as 'stored' | 'refused' | 'throws',
+  code: 'INVALID_SOURCE' as unknown,
+}));
 vi.mock('@/lib/utils/fetchWithRetry', () => ({
   fetchWithRetry: vi.fn(async (_url: string, init: { body: string }) => {
     posted.push(JSON.parse(init.body) as Record<string, unknown>);
-    return { ok: true, json: async () => ({ success: true, position: 7 }) };
+    if (answer.mode === 'throws') throw new TypeError('Failed to fetch');
+    return answer.mode === 'stored'
+      ? { ok: true, json: async () => ({ success: true, position: 7 }) }
+      : { ok: false, json: async () => ({ success: false, errorCode: answer.code }) };
   }),
 }));
 
@@ -63,6 +71,13 @@ function StandInModal({
 }
 vi.mock('next/dynamic', () => ({ default: () => StandInModal }));
 
+/* The real modal module is never rendered here; its import is what the preload test sees. */
+const preload = vi.hoisted(() => ({ imported: 0 }));
+vi.mock('../WaitingListModal', () => {
+  preload.imported += 1;
+  return { WaitingListModal: () => null };
+});
+
 import { WaitingListProvider, useWaitingListModal } from '../WaitingListProvider';
 
 function DreamModeOpener() {
@@ -92,6 +107,8 @@ describe('5.979 · the opener names the source the modal posts', () => {
   beforeEach(() => {
     posted.length = 0;
     track.mockClear();
+    answer.mode = 'stored';
+    answer.code = 'INVALID_SOURCE';
   });
 
   it('should post dream_mode when Dream Mode opens the modal', async () => {
@@ -144,6 +161,48 @@ describe('5.979 · the opener names the source the modal posts', () => {
     await fillAndSubmit();
     expect(screen.getByText('stored')).toBeTruthy();
     expect(screen.getByText('joined')).toBeTruthy();
+  });
+
+  it.each([
+    ['refused', 'INVALID_SOURCE', 'INVALID_SOURCE'],
+    ['refused', 'not a code <script>', 'none'],
+    ['throws', undefined, 'none'],
+  ] as const)(
+    'should not mark the reader as joined when the signup is %s, and report code %s as %s',
+    async (mode, code, reported) => {
+      answer.mode = mode;
+      answer.code = code;
+      render(
+        <WaitingListProvider>
+          <DreamModeOpener />
+        </WaitingListProvider>
+      );
+      await act(async () => {
+        fireEvent.click(screen.getByRole('button', { name: 'open from dream mode' }));
+      });
+      await fillAndSubmit();
+      expect(posted).toHaveLength(1);
+      expect(screen.queryByText('stored')).toBeNull();
+      expect(screen.getByText('not joined')).toBeTruthy();
+      expect(track).toHaveBeenCalledWith(
+        expect.objectContaining({
+          name: 'waiting_list_signup_error',
+          parameters: expect.objectContaining({ errorCode: reported }),
+        })
+      );
+    }
+  );
+
+  it("should fetch the modal's code after hydration, before any open", async () => {
+    await act(async () => {
+      render(
+        <WaitingListProvider>
+          <DreamModeOpener />
+        </WaitingListProvider>
+      );
+    });
+    await vi.waitFor(() => expect(preload.imported).toBe(1));
+    expect(screen.queryByRole('button', { name: 'Join' })).toBeNull();
   });
 
   it('should keep the control: the server refuses a source outside the list', () => {

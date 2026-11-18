@@ -147,5 +147,7 @@ test.describe('Dream Mode waitlist modal — source and unlock', () => {
     await modal.getByRole('button', { name: 'Close' }).first().click();
     await expect(modal).toBeHidden();
     await expect(gateTitle).toBeHidden();
+    /* Unlocked means Dream Mode's own experience, which opens on its disclaimer. */
+    await expect(page.getByRole('heading', { name: 'Before you dream...' })).toBeVisible();
   });
 });

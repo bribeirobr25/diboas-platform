@@ -50,13 +50,17 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
+    // The modal mounts only once an opener names its source; fetch its code after hydration
+    // so the first open shows at once. A failed fetch is ignored here; the open itself
+    // loads (and reports) it again.
+    import('./WaitingListModal').catch(() => {});
   }, []);
 
   const openModal = useCallback((source: WaitlistSource) => {
     setOpenedFrom(source);
     setIsOpen(true);
-    // The opened event carries the opener's path. Before P11 every open was tagged
-    // `app_link_intercept`, Dream Mode's included (a recorded rename, plan P11 D1).
+    // The opened event carries the opener's path, the same value the signup sends
+    // (plan P11 D1), so the funnel can be read per path.
     analyticsService.track({
       name: 'waiting_list_modal_opened',
       parameters: {
