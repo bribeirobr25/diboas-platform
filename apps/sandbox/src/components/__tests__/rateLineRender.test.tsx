@@ -97,11 +97,11 @@ const EXPECTED: Record<SandboxLocale, Record<Kind, (d: string, n: string) => str
     STALE: (d, n) =>
       `Taxa do pool, buscada em ${d}, há mais de uma semana: ${n}%/ano (real, variável; pode ter mudado)`,
     PARTLY_STALE: (_d, n) =>
-      `Taxa do pool, com dados de mais de uma semana: ${n}%/ano (real, variável; pode ter mudado)`,
+      `Taxa do pool, com dados de mais de uma semana atrás: ${n}%/ano (real, variável; pode ter mudado)`,
     MIXED_RECENT: (d, n) =>
       `Taxa combinada do pool, parte dela buscada em ${d}: ${n}%/ano (variável, inclui valores de referência)`,
     MIXED_STALE: (_d, n) =>
-      `Taxa combinada do pool, com dados de mais de uma semana: ${n}%/ano (variável, inclui valores de referência; pode ter mudado)`,
+      `Taxa combinada do pool, com dados de mais de uma semana atrás: ${n}%/ano (variável, inclui valores de referência; pode ter mudado)`,
     REFERENCE: (_d, n) =>
       `Taxa de referência do pool: ${n}%/ano (valores documentados, não ao vivo)`,
   },
@@ -110,11 +110,11 @@ const EXPECTED: Record<SandboxLocale, Record<Kind, (d: string, n: string) => str
     STALE: (d, n) =>
       `Tasa del pool, obtenida el ${d}, hace más de una semana: ${n}%/año (real, variable; puede haber cambiado)`,
     PARTLY_STALE: (_d, n) =>
-      `Tasa del pool, con datos de más de una semana: ${n}%/año (real, variable; puede haber cambiado)`,
+      `Tasa del pool, con datos de hace más de una semana: ${n}%/año (real, variable; puede haber cambiado)`,
     MIXED_RECENT: (d, n) =>
       `Tasa combinada del pool, una parte obtenida el ${d}: ${n}%/año (variable, incluye valores de referencia)`,
     MIXED_STALE: (_d, n) =>
-      `Tasa combinada del pool, con datos de más de una semana: ${n}%/año (variable, incluye valores de referencia; puede haber cambiado)`,
+      `Tasa combinada del pool, con datos de hace más de una semana: ${n}%/año (variable, incluye valores de referencia; puede haber cambiado)`,
     REFERENCE: (_d, n) =>
       `Tasa de referencia del pool: ${n}%/año (valores documentados, no en vivo)`,
   },
