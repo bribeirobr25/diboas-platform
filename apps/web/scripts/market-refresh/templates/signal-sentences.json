@@ -89,7 +89,7 @@
       "en": "US M2 money supply is growing {roc12m}% year-over-year and rose month-over-month — the liquidity backdrop is expanding.",
       "pt-BR": "A oferta monetária M2 dos EUA cresce {roc12m}% em 12 meses e subiu no mês — o pano de fundo de liquidez está em expansão.",
       "es": "La masa monetaria M2 de EE. UU. crece un {roc12m}% interanual y subió en el mes; el trasfondo de liquidez se expande.",
-      "de": "Die US-Geldmenge M2 wächst {roc12m}% im Jahresvergleich und legte im Monat zu — das Liquiditätsumfeld expandiert."
+      "de": "Die US-Geldmenge M2 wächst im Jahresvergleich um {roc12m}% und legte im Monat zu; das Liquiditätsumfeld expandiert."
     },
     "INACTIVE": {
       "en": "US M2 money supply growth stalled ({roc12m}% year-over-year, softer month-over-month) — the liquidity tailwind is missing.",

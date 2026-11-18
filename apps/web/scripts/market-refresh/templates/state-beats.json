@@ -200,7 +200,7 @@
         "en": "M2 is up {roc12m}% over the year and added roughly ${mom}bn on the month.",
         "pt-BR": "A oferta monetária M2 dos EUA cresce {roc12m}% em 12 meses e somou cerca de {mom} bilhões de dólares no mês.",
         "es": "La masa monetaria M2 de EE. UU. crece un {roc12m}% interanual y sumó cerca de {mom} mil millones de dólares en el mes.",
-        "de": "Die US-Geldmenge M2 wächst {roc12m}% im Jahresvergleich und kam im Monat um rund {mom} Mrd. US-Dollar hinzu."
+        "de": "Die US-Geldmenge M2 wächst im Jahresvergleich um {roc12m}% und legte im Monat um rund {mom} Mrd. US-Dollar zu."
       },
       "restrictive": {
         "en": "M2 is running at {roc12m}% over the year, with a monthly change of {momSigned} billion dollars.",

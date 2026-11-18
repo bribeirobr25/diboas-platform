@@ -452,6 +452,37 @@ describe('reviewed exceptions: validated, bound, fail closed', () => {
       JSON.parse(fs.readFileSync(path.join(dir, 'checks', reports[0]), 'utf8')).failed
     ).toMatch(/EXCEPTIONS/);
   });
+  it('should keep a report naming the requested series while the run is still going (5.883)', async () => {
+    const dir = freshDir();
+    const reportNow = () => {
+      const checks = path.join(dir, 'checks');
+      const name = fs.existsSync(checks)
+        ? fs.readdirSync(checks).find((f) => /^\d{8}T\d{6}Z\.json$/.test(f))
+        : undefined;
+      return name ? JSON.parse(fs.readFileSync(path.join(checks, name), 'utf8')) : null;
+    };
+    const seen: Array<{ complete: boolean; requested: string[]; reached: string[] } | null> = [];
+    const fetchImpl = async () => {
+      const r = reportNow();
+      seen.push(
+        r && {
+          complete: r.complete,
+          requested: r.requested,
+          reached: r.series.map((s: { id: string }) => s.id),
+        }
+      );
+      return new Response('no', { status: 404 });
+    };
+    expect(await main(['--store', dir, '--series', 'spy,qqq'], { fetchImpl })).toBe(1);
+    // Before the first fetch the report already exists, unfinished, naming both series.
+    expect(seen[0]).toEqual({ complete: false, requested: ['spy', 'qqq'], reached: [] });
+    // By the time qqq is fetched, spy's outcome is already on disk.
+    expect(seen.some((s) => s?.reached.join() === 'spy')).toBe(true);
+    const final = reportNow();
+    expect(final.complete).toBe(true);
+    expect(final.requested).toEqual(['spy', 'qqq']);
+    expect(final.series.map((s: { id: string }) => s.id)).toEqual(['spy', 'qqq']);
+  });
   it('should exit 2, fetching nothing, on bad arguments', async () => {
     expect(await main(['--store', freshDir(), '--series', 'spy\nbranch=pre-launch'])).toBe(2);
     expect(await main(['--series', 'spy'])).toBe(2);

@@ -431,17 +431,25 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
     return 2;
   }
   const store = createStore(path.resolve(args.store));
+  const todo = SERIES.filter((s) => !args.series || args.series.includes(s.id));
+  // The report is written before the first series, after every series and at the end (5.883):
+  // a run killed by its time limit still leaves a report naming what it was asked for
+  // (`requested`) and what it reached (`series`), and `complete` stays false until the end,
+  // so the next top-up counts every unreached series as blocked. Same file each time
+  // (named by `run_at`), written atomically.
   const report = {
     run_at: new Date().toISOString(),
     today: args.today,
     backfill: args.backfill,
+    requested: todo.map((s) => s.id),
+    complete: false,
     series: [],
   };
   try {
+    store.writeChecks(report.run_at, report);
     const file = path.join(store.root, 'checks', 'accepted-exceptions.json');
     const exceptions = fs.existsSync(file) ? parseExceptions(fs.readFileSync(file, 'utf8')) : [];
     const fetcher = createFetcher({ store, ...deps });
-    const todo = SERIES.filter((s) => !args.series || args.series.includes(s.id));
     for (const s of todo) {
       let r;
       try {
@@ -456,12 +464,14 @@ export async function main(argv = process.argv.slice(2), deps = {}) {
         r = { id: s.id, blocked: [`primary ${s.primary.provider}: ${e.message}`] };
       }
       report.series.push(r);
+      store.writeChecks(report.run_at, report);
       const state = r.blocked?.length
         ? `BLOCKED — ${r.blocked.join('; ')}`
         : `ok, +${r.added} day(s), ${r.total} stored`;
       console.log(`${s.id.padEnd(17)} ${state}`);
     }
     report.hosts_down = fetcher.hostsDown();
+    report.complete = true;
     const blocked = report.series.filter((r) => r.blocked?.length).length;
     const where = store.writeChecks(report.run_at, report);
     console.log(

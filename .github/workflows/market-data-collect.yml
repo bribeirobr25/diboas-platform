@@ -57,9 +57,8 @@ on:
         description: 'Collect the late and blocked series only (the weekly refresh calls this)'
         type: boolean
         default: false
-    secrets:
-      MARKET_DATA_TOKEN:
-        required: true
+    # No `secrets:` here: MARKET_DATA_TOKEN is an environment secret of `market-data`
+    # (limited to main), read by the job below; a caller cannot pass it (5.872).
     outputs:
       status:
         description: 'complete | blocked | failed (empty: the job did not reach its report)'
@@ -86,6 +85,10 @@ jobs:
     concurrency:
       group: market-data-collect
       cancel-in-progress: false
+    # The store's writer token lives in the `market-data` environment, which only `main` may
+    # use (founder 2026-11-11, DR-2026-11-11-market-cleanup-decisions item 1, register 5.872):
+    # a run from any other branch fails here instead of reaching the token. Gate STORE-ENV-1.
+    environment: market-data
     # The top-up is fail-open (decision B-2): its failure shows on this job but never marks the
     # weekly run failed, so the Wednesday retry still judges the cycle by the refresh itself.
     # A scheduled or manual collection is not affected (`inputs.topup` is unset there).
