@@ -13,6 +13,8 @@ import { POST } from '../signup/route';
 import * as store from '@/lib/waitingList/store';
 import * as security from '@/lib/security';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
+import { WAITLIST_SOURCES } from '@/lib/waitingList/store/types';
+import { isValidSource } from '@/lib/api/validators';
 
 // Mock the store module
 vi.mock('@/lib/waitingList/store', () => ({
@@ -617,5 +619,131 @@ describe('Security Considerations', () => {
     // Returns success (same as new signup) to prevent enumeration
     expect(response.status).toBe(200);
     expect(data.success).toBe(true);
+  });
+});
+
+/**
+ * ⛑ `5.979` · WAITLIST-SOURCE-1 · the route accepts every listed source and refuses the rest
+ * (plan P11, guards 2 and 5).
+ *
+ * Every signup through the website's modal was refused from 2026-03-20: the modal posted
+ * `source: 'modal'`, which the route's hand-kept list did not hold, and the 400 left no log
+ * line. The list is now one (`store/types.ts`), and these cases run the REAL validator and
+ * the REAL request logger (only the store, security and Logger sinks are mocked above).
+ */
+describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
+  const mockEntry = (source: string) => ({
+    id: 'wl_1',
+    email: 'reader@example.com',
+    position: 12,
+    originalPosition: 12,
+    referralCode: 'REFTEST01',
+    referralCount: 0,
+    locale: 'en',
+    source,
+    tags: [],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (security.checkRateLimit as Mock).mockResolvedValue({
+      success: true,
+      limit: 5,
+      remaining: 4,
+      reset: Math.floor(Date.now() / 1000) + 60,
+    });
+    (security.csrfProtection as Mock).mockReturnValue(null);
+    (store.exists as Mock).mockResolvedValue(false);
+    (security.getClientIP as Mock).mockReturnValue('127.0.0.1');
+  });
+
+  it('should read the real list and the real validator (the guard is not vacuous)', () => {
+    /* Imported from `store/types` directly: the `store` barrel is mocked in this file. */
+    expect(WAITLIST_SOURCES.length).toBeGreaterThan(0);
+    expect(WAITLIST_SOURCES).toContain('dream_mode');
+    expect(WAITLIST_SOURCES).toContain('app_link');
+    expect(vi.isMockFunction(isValidSource)).toBe(false);
+  });
+
+  it.each([...WAITLIST_SOURCES])(
+    'should store the signup with its source when the source is %s',
+    async (source) => {
+      (store.addEntry as Mock).mockResolvedValue(mockEntry(source));
+      const response = await POST(
+        createMockRequest({
+          email: 'reader@example.com',
+          locale: 'en',
+          gdprAccepted: true,
+          source,
+        })
+      );
+      expect(response.status).toBe(200);
+      expect(store.addEntry).toHaveBeenCalledWith(expect.objectContaining({ source }));
+    }
+  );
+
+  it.each(['popup', 'modal'])(
+    'should refuse the source %s with 400 INVALID_SOURCE and never reach the store',
+    async (source) => {
+      const response = await POST(
+        createMockRequest({ email: 'reader@example.com', locale: 'en', gdprAccepted: true, source })
+      );
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe('INVALID_SOURCE');
+      expect(store.addEntry).not.toHaveBeenCalled();
+    }
+  );
+
+  /* Guard 5: every refusal names its code in one log line, and no log carries personal data. */
+  const REFUSALS: [string, Record<string, unknown>][] = [
+    ['EMAIL_REQUIRED', { locale: 'en', gdprAccepted: true }],
+    ['INVALID_EMAIL', { email: 'not-an-email', locale: 'en', gdprAccepted: true }],
+    ['CONSENT_REQUIRED', { email: 'ada.private@example.com', locale: 'en', gdprAccepted: false }],
+    ['INVALID_LOCALE', { email: 'ada.private@example.com', locale: 'xx', gdprAccepted: true }],
+    [
+      'INVALID_SOURCE',
+      { email: 'ada.private@example.com', locale: 'en', gdprAccepted: true, source: 'zzrefused' },
+    ],
+    [
+      'INVALID_TAGS',
+      { email: 'ada.private@example.com', locale: 'en', gdprAccepted: true, tags: 7 },
+    ],
+    [
+      'INVALID_NAME',
+      { email: 'ada.private@example.com', locale: 'en', gdprAccepted: true, name: 'n'.repeat(500) },
+    ],
+  ];
+
+  it.each(REFUSALS)(
+    'should log exactly one 400 naming %s when the route refuses the request',
+    async (code, body) => {
+      const { Logger } = await import('@/lib/monitoring/Logger');
+      const response = await POST(createMockRequest({ name: 'Ada Lovelace', ...body }));
+      expect(response.status).toBe(400);
+      expect((await response.json()).errorCode).toBe(code);
+      const refusals = (Logger.warn as Mock).mock.calls.filter(([message]) =>
+        String(message).includes('→ 400')
+      );
+      expect(refusals).toHaveLength(1);
+      expect(refusals[0]![1]).toMatchObject({ status: 400, code });
+    }
+  );
+
+  it('should never put the email, the name or the refused value in any log call', async () => {
+    const { Logger } = await import('@/lib/monitoring/Logger');
+    for (const [, body] of REFUSALS) {
+      await POST(createMockRequest({ name: 'Ada Lovelace', ...body }));
+    }
+    const logged = JSON.stringify(
+      (['info', 'warn', 'error', 'debug', 'critical'] as const).flatMap(
+        (level) => (Logger[level] as Mock).mock.calls
+      )
+    );
+    expect(logged.length).toBeGreaterThan(0);
+    for (const secret of ['ada.private@example.com', 'Ada Lovelace', 'zzrefused']) {
+      expect(logged, secret).not.toContain(secret);
+    }
   });
 });

@@ -7,21 +7,16 @@
 
 import { SUPPORTED_LOCALES } from '@diboas/i18n/config';
 import { CTA_SOURCE_TAG_PREFIX, isKnownCtaSource } from '@/lib/analytics/ctaSources';
+import { WAITLIST_SOURCES } from '@/lib/waitingList/store/types';
 
 /** Supported locales — single source of truth from @diboas/i18n */
 const SUPPORTED_LOCALES_SET = new Set<string>(SUPPORTED_LOCALES);
 
-/** Known waitlist sources — must stay in sync with WaitlistSource type */
-const KNOWN_SOURCES = new Set([
-  'landing_b2c',
-  'landing_b2b',
-  'interactive_demo',
-  'dream_mode',
-  'calculator',
-  'tool_money_jobs',
-  'referral',
-  'direct',
-]);
+/**
+ * Known waitlist sources: built from the one list (`5.979`, plan P11 D2). It used to be a
+ * hand-kept copy "in sync with WaitlistSource" that missed the modal's source.
+ */
+const KNOWN_SOURCES: ReadonlySet<string> = new Set<string>(WAITLIST_SOURCES);
 
 const MAX_TAGS = 10;
 /**

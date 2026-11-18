@@ -15,6 +15,7 @@
  * Response caching: 5 minutes (revalidate for fresh data)
  */
 
+import { STATS_AUDIENCE_SOURCES, type StatsAudienceSource } from '@/lib/waitingList/store/types';
 import { NextRequest, NextResponse } from 'next/server';
 import { Logger } from '@/lib/monitoring/Logger';
 import {
@@ -47,12 +48,11 @@ export async function GET(request: NextRequest): Promise<NextResponse<WaitlistSt
   const responseHeaders = noCache ? { 'Cache-Control': 'no-store' } : CACHE_HEADERS;
 
   // Optional source filter for audience-specific stats (e.g., ?source=landing_b2b)
-  const VALID_SOURCES = ['landing_b2c', 'landing_b2b'] as const;
-  type ValidSource = (typeof VALID_SOURCES)[number];
+  // The audience filter only: which counters, not which sources may sign up (plan P11 D7).
   const rawSource = request.nextUrl.searchParams.get('source');
-  const sourceParam: ValidSource | null =
-    rawSource && (VALID_SOURCES as readonly string[]).includes(rawSource)
-      ? (rawSource as ValidSource)
+  const sourceParam: StatsAudienceSource | null =
+    rawSource && (STATS_AUDIENCE_SOURCES as readonly string[]).includes(rawSource)
+      ? (rawSource as StatsAudienceSource)
       : null;
 
   // Rate limiting (lenient preset for read-only endpoint)

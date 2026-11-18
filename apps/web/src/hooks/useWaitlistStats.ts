@@ -7,6 +7,7 @@
 
 'use client';
 
+import type { StatsAudienceSource } from '@/lib/waitingList/store/types';
 import { useState, useEffect } from 'react';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
 import {
@@ -29,8 +30,8 @@ interface WaitlistStats {
 }
 
 interface UseWaitlistStatsOptions {
-  /** Filter stats by waitlist source (e.g., 'landing_b2b' for B2B-specific counters) */
-  source?: 'landing_b2c' | 'landing_b2b' | 'about' | 'security' | 'help';
+  /** Filter stats by the landing audience (B2B or B2C counters; `5.979`, plan P11 D3) */
+  source?: StatsAudienceSource;
 }
 
 interface UseWaitlistStatsReturn {

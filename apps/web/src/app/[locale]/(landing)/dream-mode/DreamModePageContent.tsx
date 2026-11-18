@@ -79,7 +79,7 @@ function useWaitlistMembership() {
 export function DreamModePageContent({ locale }: DreamModePageContentProps) {
   const intl = useTranslation();
   const router = useRouter();
-  const { openModal } = useWaitingListModal();
+  const { openModal, isOpen: isModalOpen, joined } = useWaitingListModal();
   const { isOnWaitlist, isLoading } = useWaitlistMembership();
 
   // Handle join waitlist from gate
@@ -88,7 +88,7 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
       name: 'dream_mode_gate_join_click',
       parameters: { locale },
     });
-    openModal();
+    openModal('dream_mode');
   }, [openModal, locale]);
 
   // Handle close - go back to landing
@@ -105,8 +105,16 @@ export function DreamModePageContent({ locale }: DreamModePageContentProps) {
     );
   }
 
+  /*
+   * ⛑ `5.979` · A modal signup unlocks Dream Mode — but only once the modal has closed
+   * (plan P11 D5). Unlocking under the open modal would mount Dream Mode's own full-screen
+   * dialog beneath it: its focus trap would take the keyboard, and the modal's body-scroll
+   * restore would leave the landing page unable to scroll. In memory only (no storage).
+   */
+  const unlockedBySignup = joined && !isModalOpen;
+
   // Gate: User is not on waitlist
-  if (!isOnWaitlist) {
+  if (!isOnWaitlist && !unlockedBySignup) {
     return (
       <div className={styles.gateContainer}>
         <div className={styles.gateCard}>

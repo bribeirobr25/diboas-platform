@@ -20,6 +20,7 @@ import React, {
 import { createPortal } from 'react-dom';
 import { APP_URL } from '@/config/env';
 import { WaitingListContextValue } from '@/lib/waitingList/types';
+import type { WaitlistSource } from '@/lib/waitingList/store/types';
 import dynamic from 'next/dynamic';
 
 // Lazy-load WaitingListModal — only shown after user clicks a waitlist CTA
@@ -38,6 +39,10 @@ interface WaitingListProviderProps {
 export function WaitingListProvider({ children }: WaitingListProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  /* The path that opened the modal (`5.979`, plan P11 D1); null until the first open. */
+  const [openedFrom, setOpenedFrom] = useState<WaitlistSource | null>(null);
+  /* A modal signup was stored on this page (D5): in memory, never written to storage. */
+  const [joined, setJoined] = useState(false);
 
   // One-time hydration gate for portal rendering. setState-in-effect is
   // the canonical React pattern for "render only after hydration"; the
@@ -47,17 +52,21 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
     setMounted(true);
   }, []);
 
-  const openModal = useCallback(() => {
+  const openModal = useCallback((source: WaitlistSource) => {
+    setOpenedFrom(source);
     setIsOpen(true);
-    // P10: Track modal open event
+    // The opened event carries the opener's path. Before P11 every open was tagged
+    // `app_link_intercept`, Dream Mode's included (a recorded rename, plan P11 D1).
     analyticsService.track({
       name: 'waiting_list_modal_opened',
       parameters: {
-        source: 'app_link_intercept',
+        source,
         timestamp: Date.now(),
       },
     });
   }, []);
+
+  const markJoined = useCallback(() => setJoined(true), []);
 
   const closeModal = useCallback(() => {
     setIsOpen(false);
@@ -91,7 +100,7 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
       if (isAppLink) {
         event.preventDefault();
         event.stopPropagation();
-        openModal();
+        openModal('app_link');
       }
     };
 
@@ -120,15 +129,25 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
   }, [isOpen]);
 
   const contextValue = useMemo<WaitingListContextValue>(
-    () => ({ isOpen, openModal, closeModal }),
-    [isOpen, openModal, closeModal]
+    () => ({ isOpen, openModal, closeModal, joined }),
+    [isOpen, openModal, closeModal, joined]
   );
 
   return (
     <WaitingListContext.Provider value={contextValue}>
       {children}
-      {mounted &&
-        createPortal(<WaitingListModal isOpen={isOpen} onClose={closeModal} />, document.body)}
+      {/* Mounted once an opener has named its source: the modal never posts without one. */}
+      {mounted && openedFrom !== null
+        ? createPortal(
+            <WaitingListModal
+              isOpen={isOpen}
+              onClose={closeModal}
+              source={openedFrom}
+              onJoined={markJoined}
+            />,
+            document.body
+          )
+        : null}
     </WaitingListContext.Provider>
   );
 }

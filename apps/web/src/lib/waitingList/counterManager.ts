@@ -17,9 +17,26 @@ const COUNTER_KEYS = {
 
 export type Audience = keyof typeof COUNTER_KEYS;
 
-/** Map a WaitlistSource to the audience for counter selection */
+/**
+ * Each source's audience, decided per source (`5.979`, plan P11 D4): a `Record` over the
+ * one list, so a new source cannot compile without a decision on which founding-member
+ * counter it counts against. Only the B2B landing is business today.
+ */
+const AUDIENCE_BY_SOURCE: Record<WaitlistSource, Audience> = {
+  landing_b2c: 'b2c',
+  landing_b2b: 'b2b',
+  interactive_demo: 'b2c',
+  dream_mode: 'b2c',
+  calculator: 'b2c',
+  tool_money_jobs: 'b2c',
+  referral: 'b2c',
+  direct: 'b2c',
+  app_link: 'b2c',
+};
+
+/** Map a WaitlistSource to the audience for counter selection; no source is consumer. */
 export function sourceToAudience(source: WaitlistSource | undefined): Audience {
-  return source === 'landing_b2b' ? 'b2b' : 'b2c';
+  return source === undefined ? 'b2c' : AUDIENCE_BY_SOURCE[source];
 }
 
 /**

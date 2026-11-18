@@ -14,7 +14,19 @@
  * `apps/web/src/lib/waitingList/__tests__/WaitlistApplicationService.test.ts`.
  */
 
-import { test, expect } from '@playwright/test';
+import { test, expect, type Page } from '@playwright/test';
+import { WAITLIST_SOURCES } from '../../apps/web/src/lib/waitingList/store/types';
+
+/**
+ * ⛑ `5.979` · WAITLIST-SOURCE-1 guard 8. This stub answered 200 to ANY body, so every modal
+ * signup could be refused in production (an unaccepted `source`) while this test stayed
+ * green. Every stub now checks the posted source against the one list the server uses.
+ */
+function expectListedSource(body: Record<string, unknown>) {
+  if (body.source !== undefined) {
+    expect(WAITLIST_SOURCES as readonly unknown[]).toContain(body.source);
+  }
+}
 
 test.describe('Waitlist signup — happy path', () => {
   test.beforeEach(async ({ page }) => {
@@ -27,6 +39,7 @@ test.describe('Waitlist signup — happy path', () => {
       const body = request.postDataJSON() as Record<string, unknown>;
       expect(body.email).toBeTruthy();
       expect(body.gdprAccepted).toBe(true);
+      expectListedSource(body);
 
       await route.fulfill({
         status: 200,
@@ -89,5 +102,50 @@ test.describe('Waitlist signup — happy path', () => {
     // change) — instead we look for the position number we returned in
     // the stub, which the confirmation component is required to render.
     await expect(waitlistSection.getByText('421')).toBeVisible({ timeout: 10_000 });
+  });
+});
+
+/**
+ * ⛑ `5.979` · Dream Mode's modal: the opener's source reaches the request, and a stored signup
+ * unlocks Dream Mode once the modal closes (plan P11, D1 and D5).
+ */
+test.describe('Dream Mode waitlist modal — source and unlock', () => {
+  async function stubSignup(page: Page, posted: Record<string, unknown>[]) {
+    await page.route('**/api/waitlist/signup', async (route) => {
+      const body = route.request().postDataJSON() as Record<string, unknown>;
+      expectListedSource(body);
+      posted.push(body);
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ success: true, position: 422, referralCode: 'DIBOAS-E2E2' }),
+      });
+    });
+  }
+
+  test('posts dream_mode and unlocks Dream Mode after the modal closes', async ({ page }) => {
+    const posted: Record<string, unknown>[] = [];
+    await stubSignup(page, posted);
+    await page.goto('/en/dream-mode');
+
+    const gateTitle = page.getByRole('heading', { name: 'Dream Mode is for Waitlist Members' });
+    await expect(gateTitle).toBeVisible({ timeout: 15_000 });
+    await page.getByRole('button', { name: 'Join the Waitlist' }).click();
+
+    const modal = page.getByRole('dialog', { name: 'Join the Waiting List' });
+    await expect(modal).toBeVisible();
+    await modal.locator('input[name="email"]').fill('e2e+dream@example.com');
+    await modal.locator('input[name="gdprAccepted"]').check();
+    await modal.locator('button[type="submit"]').click();
+
+    await expect.poll(() => posted.length).toBe(1);
+    expect(posted[0]!.source).toBe('dream_mode');
+
+    /* Stored, modal still open: Dream Mode must not unlock beneath it. */
+    await expect(gateTitle).toBeVisible();
+    /* The success view has two "Close" buttons (the corner × and its own); either closes. */
+    await modal.getByRole('button', { name: 'Close' }).first().click();
+    await expect(modal).toBeHidden();
+    await expect(gateTitle).toBeHidden();
   });
 });
