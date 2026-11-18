@@ -1,4 +1,6 @@
 import type { Page } from '@playwright/test';
+import type { DisplayCurrency } from '@diboas/defi';
+import { marketResponseIssue } from '../src/lib/market/responseShape';
 import { expect, setLifecycle, test } from './harness';
 
 /**
@@ -222,4 +224,128 @@ test('PROJECTION: under fixture data the goal block says the pool rates cannot b
   await expect(block).toContainText("Pool rates can't be read right now");
   await expect(block).not.toContainText('Illustrative projection');
   expect(await block.textContent()).not.toMatch(/\d/);
+});
+
+/**
+ * `5.814` · RATE-AGE-1 on a production build (plan P10, guard 7).
+ *
+ * The harness serves only documented (fixture) stamps, so no live rate reaches
+ * the page by itself. This case rewrites each APY stamp in the real `/api/market`
+ * answer into a live observation of a chosen age, and reads the rate line on the
+ * picker and on the strategy detail as the reader sees them. Gas is left as the
+ * fixture, so the detail's stamp takes the GAS-1 partly-live branch.
+ *
+ * Controls: the answer carried at least one rewritten stamp and still passes the
+ * app's own response-shape check, and a 1-hour age shows the RECENT line — so a
+ * STALE line is the clock's doing, not the rewrite's.
+ */
+const DAY_MS = 86_400_000;
+
+async function serveLiveRatesAged(page: Page, ageMs: number) {
+  const seen = { rewritten: 0, issue: 'not checked' as string | null, asOf: '' };
+  await page.route(
+    (url) => url.pathname === '/api/market',
+    async (route) => {
+      const response = await route.fetch();
+      const body = (await response.json()) as {
+        currency?: string;
+        apys: Array<{ stamp: Record<string, unknown> }>;
+      };
+      seen.asOf = new Date(Date.now() - ageMs).toISOString();
+      for (const apy of body.apys) {
+        apy.stamp = {
+          source: 'defillama',
+          origin: 'OBSERVED',
+          fallbackUsed: false,
+          fixtureVersion: null,
+          observedAt: null,
+          asOf: seen.asOf,
+        };
+        seen.rewritten += 1;
+      }
+      seen.issue = marketResponseIssue(body, (body.currency ?? 'USD') as DisplayCurrency);
+      await route.fulfill({ response, json: body });
+    }
+  );
+  return seen;
+}
+
+/** A goal funded at creation, three years out (the medium band holds pure-lending strategies). */
+async function fundedGoalPage(page: Page): Promise<void> {
+  await onboard(page);
+  await page.goto('/en/goals/new');
+  await page.getByLabel('Goal name').fill('Trip');
+  await page.getByLabel('Target amount').fill('10000');
+  const [month, year] = await page.evaluate(() => [
+    new Date().getMonth(),
+    new Date().getFullYear() + 3,
+  ]);
+  await page.getByLabel('Month').selectOption(String(month));
+  await page.getByLabel('Year').selectOption(String(year));
+  await page.locator('#goal-fund').fill('1000');
+  await page.getByRole('button', { name: 'Create goal' }).click();
+  await page.waitForURL(/\/en$/);
+  const goalId = await page.evaluate((key) => {
+    const events = JSON.parse(localStorage.getItem(key) ?? '[]') as Array<{
+      type: string;
+      goalId?: string;
+    }>;
+    return events.find((e) => e.type === 'GoalCreated')?.goalId ?? '';
+  }, LEDGER_KEY);
+  expect(goalId).not.toBe('');
+  await page.goto(`/en/goals/${goalId}`);
+}
+
+/** The date as this page formats it: the browser's locale data and time zone. */
+const pageDate = (page: Page, iso: string) =>
+  page.evaluate(
+    (at) => new Intl.DateTimeFormat('en', { dateStyle: 'medium' }).format(new Date(at)),
+    iso
+  );
+
+async function openSafeHarbor(page: Page) {
+  /* The goal page opens in its Simple view; the invest block is in the Detailed one. */
+  await page.getByRole('button', { name: 'Detailed', exact: true }).click();
+  await page.getByRole('button', { name: 'Put it to work' }).click();
+  const row = page.locator('li', { hasText: 'Safe Harbor' }).first();
+  await row.getByRole('radio').check();
+  return {
+    pickerLine: row.getByTestId('rate-line'),
+    detail: page.locator('section[aria-labelledby="strategy-title"]'),
+  };
+}
+
+test('RATE-AGE-1: a 9-day-old live rate reads as over a week old, never current', async ({
+  page,
+}) => {
+  const seen = await serveLiveRatesAged(page, 9 * DAY_MS);
+  await fundedGoalPage(page);
+  const { pickerLine, detail } = await openSafeHarbor(page);
+  expect(seen.rewritten, 'the answer carried live stamps to rewrite').toBeGreaterThan(0);
+  expect(seen.issue, 'the rewritten answer passes the app’s own shape check').toBeNull();
+
+  const date = await pageDate(page, seen.asOf);
+  for (const line of [pickerLine, detail.getByTestId('rate-line')]) {
+    await expect(line).toContainText(`Pool rate, fetched ${date}, over a week ago:`);
+    await expect(line).toContainText('may have changed');
+    await expect(line).not.toContainText(/current/i);
+  }
+  const stamp = detail.getByTestId('provenance-stamp-partly-live');
+  await expect(stamp).toContainText(`Pool rates from DeFiLlama, fetched ${date}.`);
+  await expect(stamp).not.toContainText(/live from/i);
+});
+
+test('RATE-AGE-1 control: a 1-hour-old live rate reads as fetched, not as stale', async ({
+  page,
+}) => {
+  const seen = await serveLiveRatesAged(page, 3_600_000);
+  await fundedGoalPage(page);
+  const { pickerLine, detail } = await openSafeHarbor(page);
+  expect(seen.rewritten).toBeGreaterThan(0);
+  const date = await pageDate(page, seen.asOf);
+  for (const line of [pickerLine, detail.getByTestId('rate-line')]) {
+    await expect(line).toContainText(`Pool rate, fetched ${date}:`);
+    await expect(line).not.toContainText('over a week');
+    await expect(line).not.toContainText(/current/i);
+  }
 });

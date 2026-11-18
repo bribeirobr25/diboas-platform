@@ -12,6 +12,7 @@ import {
   legRequiresCurrentRate,
   strategiesForHorizon,
 } from '@diboas/defi';
+import { getMessages } from '@/i18n/loadMessages';
 import { StrategyPicker } from '../StrategyPicker';
 
 /**
@@ -31,10 +32,11 @@ const M = {
     'Each timeframe shows the same four strategies, plus the option to keep it as cash.',
   'goalNew.riskStable': 'Stable',
   'goalNew.riskGrowth': 'Growth',
-  'goalNew.apyNow': 'Current pool rate: {apy}%/yr (real, variable)',
-  'goalNew.apyNowMixed':
-    'Blended pool rate: {apy}%/yr (variable, includes documented reference values)',
-  'goalNew.apyNowFixture': 'Reference pool rate: {apy}%/yr (documented values, not live)',
+  /* The rate lines from the real catalogue (5.814): stubbing them is how a
+     missing or stale message passes unseen. */
+  ...Object.fromEntries(
+    Object.entries(getMessages('en')).filter(([id]) => id.startsWith('goalNew.apy'))
+  ),
   'goalNew.growthExposure': '{percent}% growth',
   'catalogFilters.horizon': 'Time horizon',
   'catalogFilters.risk': 'Risk band',
@@ -136,7 +138,7 @@ describe('StrategyPicker — the G5 catalog (§4.5, mockup 13, board §3.5 embed
      *
      * This asserted `Varies` on EVERY row, which was true only while every
      * listed strategy had a rate to vary. A market / price-return leg's return
-     * is its PRICE, so a heterogeneous strategy states no `Current pool rate` —
+     * is its PRICE, so a heterogeneous strategy states no pool rate —
      * and `Varies` describes a rate, so it goes where the rate goes. The
      * component's own comment already said so: *"It describes a rate, so it is
      * withheld when there is no rate to describe."*
@@ -241,8 +243,9 @@ describe('5.436 — an unavailable rate hides the number, never the candidate', 
       el.textContent?.includes('This option is not available right now')
     );
     expect(withCopy.length).toBeGreaterThanOrEqual(4);
-    expect(screen.queryByText(/Current pool rate/)).toBeNull();
-    expect(screen.queryByText(/Reference pool rate/)).toBeNull();
+    /* No rate line of any kind (5.814): the id lives inside RateLine. */
+    expect(screen.queryAllByTestId('rate-line')).toHaveLength(0);
+    expect(document.body.textContent).not.toMatch(/%\/yr/);
     /* Growth exposure survives alongside the unavailable state. */
     expect(document.body.textContent).toContain('% growth');
   });
@@ -400,7 +403,7 @@ describe('`5.444` · the meta line reads as a sentence, not as punctuation', () 
 
     renderAt(WITHIN_FIXTURE_WINDOW);
     const meta = metaOf('stableGrowth');
-    expect(meta, 'the rate is withheld, so no rate clause may appear').not.toContain('pool rate');
+    expect(meta, 'the rate is withheld, so no rate clause may appear').not.toMatch(/pool rate/i);
     expect(meta, 'the growth exposure still states a true property').toContain('30% growth');
     /* The separator may only appear BETWEEN two clauses. */
     expect(meta).not.toMatch(/(^|\s)·\s*\d+% growth/);

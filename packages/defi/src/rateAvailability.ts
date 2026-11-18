@@ -111,7 +111,7 @@ export function strategyRateAvailability(
      * `jupiterJlp`, `sanctumInf` and `jito` are treated identically because
      * they are typed identically, not because any of them is named.
      *
-     * ⚑ THIS DECIDES AVAILABILITY ONLY. Whether a `Current pool rate` may be
+     * ⚑ THIS DECIDES AVAILABILITY ONLY. Whether a pool rate may be
      * STATED is a different question with a different answer — see
      * `strategyRateDisplay`. Collapsing the two is what let a secondary
      * representation gate a whole strategy.

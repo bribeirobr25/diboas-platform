@@ -23,6 +23,30 @@ export function unsignedZero(value: number, fractionDigits: number): number {
   return Math.abs(value) < 0.5 * 10 ** -fractionDigits ? 0 : value;
 }
 
+/**
+ * A calendar date in the reader's locale (`dateStyle: 'medium'`): en "Nov 17,
+ * 2026", pt-BR "17 de nov. de 2026", es "17 nov 2026", de "17.11.2026".
+ *
+ * Currency-free, so a surface that states a date but no money (the strategy
+ * picker's rate line, `5.814`) formats it the same way as every money surface.
+ */
+export function useDateFormat() {
+  const intl = useIntl();
+  return useCallback(
+    // Date-ONLY strings (e.g. FIXTURE_AS_OF '2026-07-18') parse as UTC
+    // midnight per the ES spec, which renders the PREVIOUS day in any
+    // UTC-negative timezone (the whole Americas — an off-by-one on a
+    // compliance stamp). Appending T00:00:00 makes the parse LOCAL, so the
+    // named day renders everywhere. Full timestamps pass through unchanged
+    // (they are moments, not dates).
+    (iso: string) =>
+      intl.formatDate(new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00` : iso), {
+        dateStyle: 'medium',
+      }),
+    [intl]
+  );
+}
+
 export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
   const intl = useIntl();
 
@@ -47,19 +71,7 @@ export function useFormatters(currency: 'USD' | 'BRL' | 'EUR') {
     [intl, currency]
   );
 
-  const date = useCallback(
-    // Date-ONLY strings (e.g. FIXTURE_AS_OF '2026-07-18') parse as UTC
-    // midnight per the ES spec, which renders the PREVIOUS day in any
-    // UTC-negative timezone (the whole Americas — an off-by-one on a
-    // compliance stamp). Appending T00:00:00 makes the parse LOCAL, so the
-    // named day renders everywhere. Full timestamps pass through unchanged
-    // (they are moments, not dates).
-    (iso: string) =>
-      intl.formatDate(new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T00:00:00` : iso), {
-        dateStyle: 'medium',
-      }),
-    [intl]
-  );
+  const date = useDateFormat();
 
   /**
    * A percentage, from a FRACTION (0.07 → "7%"), with the % sign right after the

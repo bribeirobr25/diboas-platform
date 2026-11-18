@@ -35,7 +35,11 @@ const SETTLED_STATE = [
 describe('5.436 · losing the current rate does not reach backwards', () => {
   it.each(SETTLED_STATE)('should keep the rate gate out of %s', (file) => {
     const code = codeOf(file);
-    for (const forbidden of ['strategyRateAvailability', 'isRefusedForCurrentFacingUse']) {
+    for (const forbidden of [
+      'strategyRateAvailability',
+      'isRefusedForCurrentFacingUse',
+      'currentFacingTimeState',
+    ]) {
       expect(
         code,
         `${forbidden} in ${file} would let today's evidence invalidate settled state`
@@ -56,7 +60,10 @@ describe('5.436 · losing the current rate does not reach backwards', () => {
        picker/detail inside the invest block, never a rendered rate. */
     expect(code).not.toContain('blendedApy');
     expect(code).not.toContain('strategyDetail.currentApy');
-    expect(code).not.toContain('goalNew.apyNow');
+    expect(code).not.toContain('strategyDetail.poolRate');
+    /* By prefix (5.814): every rate-line id, the age-aware ones included. */
+    expect(code).not.toContain('goalNew.apy');
+    expect(code).not.toContain('<RateLine');
   });
 
   it('should keep the DecisionRecord and replay events untouched by this row', () => {

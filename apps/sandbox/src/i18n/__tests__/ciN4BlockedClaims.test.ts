@@ -499,7 +499,7 @@ describe('CI-N4 · the detector itself, before any zero it reports is believed',
   it('should not fire on the compliant NEGATIVE statements the catalogue carries', () => {
     for (const kept of [
       "That's normal, and returns aren't guaranteed.",
-      'No promises live here. The numbers are history and current rates, not the future.',
+      'No promises live here. Pool rates describe the past, not the future.',
       'An assumption you can check, not a promise.',
       'Renditen sind nicht garantiert.',
     ]) {
