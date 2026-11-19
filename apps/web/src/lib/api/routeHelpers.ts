@@ -110,7 +110,6 @@ export function emitErrorEvent(
     | 'waitlist'
     | 'consent'
     | 'share'
-    | 'preDemo'
     | 'preDream'
     | 'analytics'
     | 'monitoring'

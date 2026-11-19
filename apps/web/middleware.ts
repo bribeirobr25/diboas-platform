@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { detectLocaleFromPath, detectPreferredLocale } from '@diboas/i18n/config';
+import { PRACTICE_APP_URL } from '@/config/practiceApp';
 
 /**
  * Middleware: CSP nonce generation + i18n locale detection
@@ -17,6 +18,15 @@ import { detectLocaleFromPath, detectPreferredLocale } from '@diboas/i18n/config
 
 const LOCALE_COOKIE = 'NEXT_LOCALE';
 
+/**
+ * Retired surfaces whose old addresses open Practice (plan P13, D3; register `5.112`): the
+ * interactive demo. Matched with or without a locale segment, with any trailing path, in any
+ * letter case. The answer is a 308 to exactly `PRACTICE_APP_URL`: no path and no query, so the
+ * `utm_*` of every welcome email already sent, and any referral code, never reach Practice.
+ * Not in `next.config.js`: Next's `redirects()` copies the request's query to the destination.
+ */
+const RETIRED_SURFACE_PATH = /^\/(?:(?:en|pt-br|es|de)\/)?demo(?:\/.*)?$/i;
+
 export function middleware(request: NextRequest): NextResponse {
   try {
     // F4 (2026-05-29): CSP nonce as base64 of 16 random bytes per RFC 7762 §1
@@ -30,6 +40,10 @@ export function middleware(request: NextRequest): NextResponse {
     const requestId = crypto.randomUUID();
     const isDev = process.env.NODE_ENV !== 'production';
     const { pathname, search } = request.nextUrl;
+
+    if (RETIRED_SURFACE_PATH.test(pathname)) {
+      return NextResponse.redirect(PRACTICE_APP_URL, 308);
+    }
 
     // Build CSP with nonce — 'unsafe-inline' removed for scripts in production.
     //

@@ -2,7 +2,7 @@
 
 Complete internationalization solution for the diBoaS platform with support for 4 locales.
 
-> **Scope:** This README is the canonical **namespace registry** (the 40-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
+> **Scope:** This README is the canonical **namespace registry** (the 39-namespace inventory below) plus the package API reference. For app-level integration patterns — the config-translation layer (`useConfigTranslation`, `valuesByKey`), locale detection in middleware, SEO-per-locale, and the architecture principles — see `docs/tech/internationalization.md`.
 
 ## Supported Locales
 
@@ -14,7 +14,7 @@ Complete internationalization solution for the diBoaS platform with support for 
 ## Features
 
 ✅ **Automatic Locale Detection** - Browser language detection with fallback to English
-✅ **Complete Translation Coverage** - 40 namespaces per locale across all 4 locales (see Translation Files below)
+✅ **Complete Translation Coverage** - 39 namespaces per locale across all 4 locales (see Translation Files below)
 ✅ **Server & Client Support** - Separate entry points for optimal bundle size
 ✅ **Type-Safe** - Full TypeScript support
 ✅ **Zero Hardcoded Values** - All text externalized to JSON files
@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (40 namespaces per locale — most recently `market-bitcoin.json` + `market-backdrop.json`, the Market Macro per-view namespaces, M3 2026-08-13):
+Translation files are organized by locale × namespace (39 namespaces per locale — the demo's `preDemo` removed in plan P13, 2026-11-19; most recently `market-bitcoin.json` + `market-backdrop.json`, the Market Macro per-view namespaces, M3 2026-08-13):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/
@@ -90,7 +90,6 @@ packages/i18n/translations/{en, pt-BR, es, de}/
 ├── learn-clearing-debt.json            # Talk 6 (live 2026-07-16)
 ├── learn-putting-it-together.json      # Talk 7 (live 2026-07-16)
 ├── market.json                         # Adelaide Market — BTC macro-regime dashboard (/market)
-├── preDemo.json                        # Demo onboarding
 ├── preDream.json                       # Dream-mode onboarding
 ├── protocols.json                      # Protocol transparency
 ├── security.json                       # Security page
@@ -126,7 +125,7 @@ Namespace parity across the 4 locales is enforced by `scripts/validate-translati
 ### Server-Safe Functions
 
 ```typescript
-// Load messages for a specific namespace (one of the 40 — see Translation Files)
+// Load messages for a specific namespace (one of the 39 — see Translation Files)
 loadMessages(locale: SupportedLocale, namespace: string): Promise<Messages>
 
 // Load all namespaces

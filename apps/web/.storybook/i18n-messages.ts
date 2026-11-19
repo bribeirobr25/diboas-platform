@@ -15,7 +15,7 @@
  * calculator components via `intl.formatMessage({ id: 'tools-X.key' })`.
  *
  * Scope: 11 calculator namespaces only (tools-shared + 10 tools-*). The 18
- * non-calculator namespaces (landing-b2c, dreamMode, preDemo, protocols,
+ * non-calculator namespaces (landing-b2c, dreamMode, protocols,
  * etc.) are intentionally excluded — they're not used by any calculator
  * story. If a future non-calculator story needs i18n, expand this map and
  * the namespace below.

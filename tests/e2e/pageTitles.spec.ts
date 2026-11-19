@@ -2,8 +2,8 @@
  * Register 5.787 · a page's <title> names the brand exactly once. The root layout's template
  * appends "| diBoaS" to every page title; a title that already names the brand is passed as
  * absolute by `lib/seo/pageTitle.ts`. Before the fix, catalogue titles ending in "| diBoaS",
- * titles leading with the brand (home, business), "About diBoaS | …", "Interactive Demo -
- * diBoaS" and the share titles all rendered the brand twice (found 2026-11-05; the sixth
+ * titles leading with the brand (home, business), "About diBoaS | …", the retired demo's
+ * title and the share titles all rendered the brand twice (found 2026-11-05; the sixth
  * audit showed the first version of this guard, two fixed shapes, missed most of them).
  * Reads the SERVED title — where the defect shows — on every landing route × locale.
  */
@@ -29,7 +29,6 @@ const ROUTES = [
   '/legal/privacy',
   '/legal/cookies',
   '/email-preferences',
-  '/demo',
   '/dream-mode',
   '/delete-confirm',
   '/market',
@@ -53,8 +52,8 @@ for (const locale of LOCALES) {
 }
 
 /**
- * Register 5.793 · the utility pages' titles are in the visitor's language: demo, email
- * preferences and delete-confirm were English in every locale until 2026-11-06, and Dream Mode
+ * Register 5.793 · the utility pages' titles are in the visitor's language: email
+ * preferences and delete-confirm (and the demo, retired in plan P13) were English in every locale until 2026-11-06, and Dream Mode
  * until the 7th audit ("Modo Sonho", "Modo Sueño"). Their descriptions follow the catalogue too.
  */
 const TRANSLATIONS = path.resolve(__dirname, '../../packages/i18n/translations');
@@ -66,7 +65,6 @@ for (const locale of LOCALES) {
     request,
   }) => {
     const expected: Record<string, string> = {
-      '/demo': read(locale, 'preDemo').meta.title,
       '/email-preferences': `${read(locale, 'common').emailPreferences.heading} | diBoaS`,
       '/delete-confirm': `${read(locale, 'waitlist').deletion.confirmTitle} | diBoaS`,
       '/dream-mode': `${read(locale, 'preDream').welcome.title} | diBoaS`,
@@ -79,7 +77,6 @@ for (const locale of LOCALES) {
     const description = (html: string) =>
       (html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '').replace(/&amp;/g, '&');
     for (const [route, text] of Object.entries({
-      '/demo': read(locale, 'preDemo').meta.description,
       '/dream-mode': read(locale, 'preDream').welcome.subtitle,
     })) {
       const html = await (await request.get(`/${locale}${route}`)).text();

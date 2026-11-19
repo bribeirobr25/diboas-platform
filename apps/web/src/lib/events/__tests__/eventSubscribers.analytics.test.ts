@@ -5,9 +5,10 @@
  *   - WAITLIST_SIGNUP_COMPLETED → waitlist_signup_completed (has_referral + position)
  *   - a referred signup ALSO derives referral_used (the canonical
  *     WAITLIST_REFERRAL_USED fires server-side and can't reach this client bus)
- *   - PRE_DEMO_SEND_COMPLETED drops the `recipient` field (potential PII)
- *   - PRE_DEMO_BUY_COMPLETED carries amount + asset
+ *   - WAITLIST_SIGNUP_COMPLETED forwards only its two named fields, never anything else in the
+ *     metadata (the PII-exclusion proof; it lived on the demo's send bridge until P13 retired it)
  *   - PRE_DREAM_SHARE_INITIATED carries platform only
+ *   - no retired surface keeps an event type or a schema entry (P13 · D9)
  *
  * @vitest-environment happy-dom
  */
@@ -21,6 +22,7 @@ vi.mock('@/lib/analytics/service', () => ({
 }));
 
 import { applicationEventBus, ApplicationEventType } from '../ApplicationEventBus';
+import { EVENT_VALIDATION_SCHEMA } from '../applicationEventTypes';
 import { registerEventSubscribers } from '../eventSubscribers';
 
 type TrackArg = { name: string; parameters?: Record<string, unknown> };
@@ -64,28 +66,25 @@ describe('eventSubscribers — A16/O-3 analytics bridges', () => {
     expect(paramsFor('waitlist_signup_completed')).toEqual({ has_referral: true, position: 7 });
   });
 
-  it('excludes the recipient (PII) field from pre_demo_send_completed', async () => {
-    applicationEventBus.emit(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, {
-      domain: 'preDemo',
-      source: 'preDemo',
+  it('should forward no personal field from a signup when its metadata carries one', async () => {
+    applicationEventBus.emit(ApplicationEventType.WAITLIST_SIGNUP_COMPLETED, {
+      domain: 'waitlist',
+      source: 'waitlist',
       timestamp: 1,
-      metadata: { amount: 100, recipient: 'alice-handle' },
+      metadata: { position: 3, hasReferral: false, email: 'alice@example.com', name: 'Alice' },
     });
     await flush();
-    const params = paramsFor('pre_demo_send_completed');
-    expect(params).toEqual({ amount: 100 });
-    expect(JSON.stringify(params)).not.toContain('alice');
+    const params = paramsFor('waitlist_signup_completed');
+    expect(params).toEqual({ has_referral: false, position: 3 });
+    expect(JSON.stringify(trackMock.mock.calls)).not.toMatch(/alice/i);
   });
 
-  it('bridges pre_demo_buy_completed with amount + asset', async () => {
-    applicationEventBus.emit(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, {
-      domain: 'preDemo',
-      source: 'preDemo',
-      timestamp: 1,
-      metadata: { amount: 50, asset: 'BTC' },
-    });
-    await flush();
-    expect(paramsFor('pre_demo_buy_completed')).toEqual({ amount: 50, asset: 'BTC' });
+  it('should keep no event type or schema entry for the retired demo (P13 · D9)', () => {
+    const retired = (v: string) => /^preDemo:/.test(v);
+    expect(Object.values(ApplicationEventType).filter(retired)).toEqual([]);
+    expect(Object.keys(EVENT_VALIDATION_SCHEMA).filter(retired)).toEqual([]);
+    // non-vacuity: the reader sees the live types
+    expect(Object.keys(EVENT_VALIDATION_SCHEMA)).toContain(ApplicationEventType.SHARE_COMPLETED);
   });
 
   it('bridges pre_dream_share_initiated with platform only', async () => {

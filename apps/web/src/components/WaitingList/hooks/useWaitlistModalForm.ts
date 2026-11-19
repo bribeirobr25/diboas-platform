@@ -26,7 +26,7 @@ interface UseWaitlistModalFormOptions {
   /** Translation function */
   t: (key: string, values?: Record<string, string>) => string;
   /**
-   * The path that opened the modal (`5.979`, plan P11 D1): `dream_mode` or `app_link`,
+   * The path that opened the modal (`5.979`, plan P11 D1): `dream_mode` (Dream Mode's gate),
    * never the container: the route accepts only the listed paths.
    */
   source: WaitlistSource;

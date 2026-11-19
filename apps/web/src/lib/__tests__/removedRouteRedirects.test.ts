@@ -46,3 +46,22 @@ describe('removed investor routes redirect permanently (5.708)', () => {
     expect(existsSync(join(appDir, '(investor-room)'))).toBe(false);
   });
 });
+
+/**
+ * The interactive demo was retired on 2026-11-19 (plan P13, `5.112`). Its redirect lives in
+ * `middleware.ts`, not here (Next's `redirects()` would copy the query into Practice), and is
+ * tested in `src/__tests__/middleware.test.ts`. What this file pins: no page is left behind to
+ * answer the address instead, and `next.config.js` holds no rule for it.
+ */
+describe('the retired demo keeps no page and no config redirect (P13)', () => {
+  it('should keep no demo page under any route group', () => {
+    const appDir = join(__dirname, '../../app/[locale]');
+    expect(existsSync(join(appDir, '(landing)/demo'))).toBe(false);
+    expect(existsSync(join(appDir, 'demo'))).toBe(false);
+  });
+
+  it('should hold no next.config.js redirect for the demo', async () => {
+    const rules = await nextConfig.redirects();
+    expect(rules.filter((r) => /(^|\/)demo(\/|$|\()/i.test(r.source))).toEqual([]);
+  });
+});

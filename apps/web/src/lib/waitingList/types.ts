@@ -36,7 +36,7 @@ export interface WaitingListContextValue {
   isOpen: boolean;
   /**
    * Opens the modal. The source is the path that opened it and is REQUIRED (`5.979`, plan
-   * P11 D1): Dream Mode passes `dream_mode`, the app-link interceptor `app_link`.
+   * P11 D1): Dream Mode passes `dream_mode` (the app-link interceptor went with the demo, P13).
    */
   openModal: (source: WaitlistSource) => void;
   closeModal: () => void;

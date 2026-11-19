@@ -73,10 +73,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(/* webpackChunkName: "i18n-en-protocols" */ '../translations/en/protocols.json').then(
         resolveDefault
       ),
-    preDemo: () =>
-      import(/* webpackChunkName: "i18n-en-preDemo" */ '../translations/en/preDemo.json').then(
-        resolveDefault
-      ),
     preDream: () =>
       import(/* webpackChunkName: "i18n-en-preDream" */ '../translations/en/preDream.json').then(
         resolveDefault
@@ -201,10 +197,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       ),
     protocols: () =>
       import(/* webpackChunkName: "i18n-de-protocols" */ '../translations/de/protocols.json').then(
-        resolveDefault
-      ),
-    preDemo: () =>
-      import(/* webpackChunkName: "i18n-de-preDemo" */ '../translations/de/preDemo.json').then(
         resolveDefault
       ),
     preDream: () =>
@@ -333,10 +325,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(/* webpackChunkName: "i18n-es-protocols" */ '../translations/es/protocols.json').then(
         resolveDefault
       ),
-    preDemo: () =>
-      import(/* webpackChunkName: "i18n-es-preDemo" */ '../translations/es/preDemo.json').then(
-        resolveDefault
-      ),
     preDream: () =>
       import(/* webpackChunkName: "i18n-es-preDream" */ '../translations/es/preDream.json').then(
         resolveDefault
@@ -462,10 +450,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     protocols: () =>
       import(
         /* webpackChunkName: "i18n-pt-BR-protocols" */ '../translations/pt-BR/protocols.json'
-      ).then(resolveDefault),
-    preDemo: () =>
-      import(
-        /* webpackChunkName: "i18n-pt-BR-preDemo" */ '../translations/pt-BR/preDemo.json'
       ).then(resolveDefault),
     preDream: () =>
       import(

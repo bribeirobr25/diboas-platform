@@ -4,9 +4,6 @@ import { HowItWorks } from '@/components/Sections/HowItWorks';
 import { B2C_PTBR_HOW_IT_WORKS_VISUAL_CONFIG } from '@/config/howItWorks';
 
 // Below-fold sections: code-split to keep the initial bundle lean.
-const DemoLauncher = nextDynamic(() =>
-  import('@/components/Sections/DemoLauncher').then((m) => ({ default: m.DemoLauncher }))
-);
 const FeeTable = nextDynamic(() =>
   import('@/components/Sections/FeeTable').then((m) => ({ default: m.FeeTable }))
 );
@@ -30,7 +27,6 @@ import {
   B2C_PTBR_IMAGINE_CONFIG,
   B2C_PTBR_TRUST_CONFIG,
   B2C_PTBR_ADELAIDE_CONFIG,
-  B2C_PTBR_DEMO_CONFIG,
   B2C_PTBR_WAITLIST_CONFIG,
 } from '@/config/landing-b2c-ptbr';
 
@@ -41,7 +37,7 @@ import {
  * journey, and the lean section order from LANDING_CONTENT_RESTRUCTURE.md COPY
  * FINAL. Reuses the existing section components with pt-BR copy + on-brand
  * documentary images (DRY). Modified-but-same-meaning sections keep their base
- * `data-section-id` (Hero/Wedge/Demo/Fees/Waitlist) for analytics continuity;
+ * `data-section-id` (Hero/Wedge/Fees/Waitlist) for analytics continuity;
  * net-new beats use `-ptbr` ids (per-locale disambiguation rides the event
  * `locale` dimension). The shared shell (providers, JSON-LD, footer, sticky CTA)
  * lives in page.tsx and wraps this composition.
@@ -135,24 +131,6 @@ export function LandingPtBR() {
         >
           <div id="confianca" data-section-id="trust-section-ptbr">
             <ProseSection config={B2C_PTBR_TRUST_CONFIG} enableAnalytics={true} headingLevel="h2" />
-          </div>
-        </SectionErrorBoundary>
-      </ScrollReveal>
-
-      {/* §7 Veja com seus olhos (Demo) — brand bg */}
-      <ScrollReveal>
-        <SectionErrorBoundary
-          sectionId="demo-section-b2c"
-          sectionType="DemoLauncher"
-          enableReporting={true}
-          context={{ page: 'landing-b2c', locale: 'pt-BR' }}
-        >
-          <div
-            id="demo"
-            data-section-id="demo-section-b2c"
-            style={{ backgroundColor: 'var(--section-bg-brand)' }}
-          >
-            <DemoLauncher config={B2C_PTBR_DEMO_CONFIG} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>

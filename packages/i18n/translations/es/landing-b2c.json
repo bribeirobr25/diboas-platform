@@ -103,13 +103,6 @@
     "header": "¿Cuál es la trampa?",
     "feeParagraph": "Empezar una estrategia es gratis.\n\nCuando cierras una estrategia, diBoaS cobra el {sellRate} del importe vendido. Si vendes 100 €, diBoaS cobra {exampleFee}.\n\nSin recargo oculto en el tipo de cambio. Sin cuota mensual. El coste aparece antes de decidir."
   },
-  "demo": {
-    "transitionHook": "",
-    "header": "No te fíes solo de nuestra palabra.",
-    "subtext": "¿Qué haría tu dinero aquí?",
-    "ctaPrimary": "Probar la Demo",
-    "ctaSecondary": "Probar con dinero de prueba"
-  },
   "waitlist": {
     "header": "Únete.",
     "description": "Acceso abierto y oportunidades justas para todos.",
@@ -245,11 +238,6 @@
       "body": "Está en el riesgo.\n\ndiBoaS no es una cuenta bancaria, no es un depósito y no es una garantía.\n\nLos dólares digitales, junto con la tecnología y las empresas externas que mueven y guardan tu dinero, pueden fallar o perder valor. Puedes perder dinero.\n\nLas promesas fáciles esconden el riesgo.\n\nNosotros lo ponemos sobre la mesa.",
       "imageAlt": "Calma y control"
     },
-    "demo": {
-      "header": "Antes de confiar, pruébalo.",
-      "body": "No hace falta creer en una frase bonita.\n\nPrueba diBoaS con dinero de prueba. Elige un objetivo, ve el camino y entiende el riesgo antes de que haya dinero real de por medio.",
-      "cta": "Abrir la demo"
-    },
     "cost": {
       "header": "Lo que cuesta",
       "body": "Sin cuota mensual. Sin trampa. Añade 100 € y ves cada céntimo de coste antes de confirmar. Nuestra comisión, más el coste de red. Nada oculto."
@@ -279,6 +267,6 @@
     "idleCash": "Mira lo que cuesta el dinero parado",
     "inflationImpact": "Mira lo que se lleva la inflación de verdad",
     "currencyDepreciation": "Mira la brecha del dólar con el tiempo",
-    "demo": "Pruébalo con dinero de juguete"
+    "practice": "Pruébalo con dinero de juguete"
   }
 }

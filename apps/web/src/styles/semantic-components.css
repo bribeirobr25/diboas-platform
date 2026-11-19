@@ -1264,6 +1264,27 @@ a:focus-visible {
 .minimal-nav-mobile-center {
   @apply flex md:hidden items-center justify-center;
   flex: 1;
+  min-width: 0;
+  margin-inline: var(--spacing-xs);
+}
+
+/* P13 (2026-11-19): the "Try Practice" labels are longer than the demo's were ("Practice
+   ausprobieren", "Experimente o Practice"). The logo keeps its full width (it used to shrink
+   under the CTA); the phone-width CTA is a size smaller and, on the narrowest screens (320px),
+   wraps onto two balanced lines inside its 44px pill instead of covering the logo. */
+.minimal-navigation-content > .brand-logo {
+  flex-shrink: 0;
+}
+.minimal-nav-mobile-center .minimal-nav-cta.minimal-nav-cta {
+  padding-inline: var(--spacing-md-minus);
+  line-height: var(--line-height-tight);
+  white-space: normal;
+  text-wrap: balance;
+  text-align: center;
+}
+.minimal-nav-mobile-center .minimal-nav-cta,
+.minimal-nav-mobile-center .minimal-nav-cta .btn-content {
+  font-size: var(--font-size-xs-plus);
 }
 
 /* Language Switcher — visible in nav bar on desktop only, after CTA */

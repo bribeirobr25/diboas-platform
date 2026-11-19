@@ -120,12 +120,6 @@ export const PAGE_SEO_CONFIG = {
       'Dollar, rates and liquidity: the conditions behind the markets, read calmly every week.',
     keywords: ['macro backdrop', 'market macro', 'dollar index', 'adelaide market'],
   },
-  demo: {
-    title: 'Interactive Demo - Experience diBoaS',
-    description:
-      'Try the diBoaS platform with our interactive demo and see your financial potential.',
-    keywords: ['demo', 'interactive demo', 'try diBoaS'],
-  },
   'dream-mode': {
     title: 'Dream Mode - Visualize Your Financial Future',
     description: 'See how your savings can grow with diBoaS Dream Mode calculator.',

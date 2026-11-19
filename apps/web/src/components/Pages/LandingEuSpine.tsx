@@ -3,9 +3,6 @@ import { HeroSection, ProseSection } from '@/components/Sections';
 import { HowItWorks } from '@/components/Sections/HowItWorks';
 import { B2C_HOW_IT_WORKS_VISUAL_CONFIG } from '@/config/howItWorks';
 
-const DemoLauncher = nextDynamic(() =>
-  import('@/components/Sections/DemoLauncher').then((m) => ({ default: m.DemoLauncher }))
-);
 const FeeTable = nextDynamic(() =>
   import('@/components/Sections/FeeTable').then((m) => ({ default: m.FeeTable }))
 );
@@ -34,7 +31,7 @@ import { makeEuLandingConfig, EU_SHARED_ANCHORS, type EuLocale } from '@/config/
  * light journey. Per-locale copy resolves from the shared `draper.*` i18n keys;
  * the only divergences (hero CTA target, the 6 locale-suffixed section-ids, the
  * 5 translated scroll anchors, the rotating-CTA set) come from
- * `makeEuLandingConfig(locale)`. Reused-component ids (hero/wedge/demo/fees/
+ * `makeEuLandingConfig(locale)`. Reused-component ids (hero/wedge/fees/
  * comparison/waitlist/faq) stay shared for analytics continuity. pt-BR has its
  * own composition (LandingPtBR). Shared shell in page.tsx.
  */
@@ -154,24 +151,6 @@ export function LandingEuSpine({ locale }: { locale: EuLocale }) {
         >
           <div id={cfg.anchors.catch} data-section-id={cfg.ids.catch}>
             <ProseSection config={cfg.catch} enableAnalytics={true} headingLevel="h2" />
-          </div>
-        </SectionErrorBoundary>
-      </ScrollReveal>
-
-      {/* §8 See it yourself (Demo) — brand bg */}
-      <ScrollReveal>
-        <SectionErrorBoundary
-          sectionId="demo-section-b2c"
-          sectionType="DemoLauncher"
-          enableReporting={true}
-          context={{ page: 'landing-b2c', locale }}
-        >
-          <div
-            id={EU_SHARED_ANCHORS.demo}
-            data-section-id="demo-section-b2c"
-            style={{ backgroundColor: 'var(--section-bg-brand)' }}
-          >
-            <DemoLauncher config={cfg.demo} enableAnalytics={true} />
           </div>
         </SectionErrorBoundary>
       </ScrollReveal>

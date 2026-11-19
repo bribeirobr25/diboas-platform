@@ -8,7 +8,7 @@
     "eyebrow": "The honest math",
     "claim": "Your bank pays {value} on your savings.",
     "honest": "Banks put your money to work and keep most of the upside. We think more of it belongs to you. You stay in control, and yes, you can still lose money.",
-    "cta": "See it in the demo"
+    "cta": "Try it in Practice"
   },
   "waitlistFounding": {
     "spotsLeft": "Only {remaining} of {cap} founding spots left."
@@ -102,13 +102,6 @@
   "catch": {
     "header": "What's the catch?",
     "feeParagraph": "Starting a strategy is free.\n\nWhen you close a strategy, diBoaS charges {sellRate} of the amount sold. Sell $100, and diBoaS earns {exampleFee}.\n\nNo hidden markup on the exchange rate. No monthly account fee. The cost appears before you decide."
-  },
-  "demo": {
-    "transitionHook": "",
-    "header": "Don't take our word for it.",
-    "subtext": "What would your money do here?",
-    "ctaPrimary": "Try the Demo",
-    "ctaSecondary": "Try with play money"
   },
   "waitlist": {
     "header": "Join us.",
@@ -245,11 +238,6 @@
       "body": "The catch is risk.\n\ndiBoaS is not a bank account, not a savings account, and not a guarantee.\n\nDigital dollars, along with the technology and outside companies that move and hold your money, can fail or lose value. You can lose money.\n\nEasy promises hide risk.\n\nWe put it on the table.",
       "imageAlt": "Calm and control"
     },
-    "demo": {
-      "header": "Before you trust it, see it.",
-      "body": "Do not take a landing page's word for it.\n\nTry diBoaS with play money. Pick a job for your money, see the path, and understand the risk before anything real is involved.",
-      "cta": "Open the demo"
-    },
     "cost": {
       "header": "What it costs",
       "body": "No monthly fee. No catch. Add $100 and you see every cent of cost before you confirm. Our fee, plus any network cost. Nothing hidden. Nothing on the side."
@@ -279,6 +267,6 @@
     "idleCash": "See what idle cash costs you",
     "inflationImpact": "See what inflation really takes",
     "currencyDepreciation": "See the dollar gap over time",
-    "demo": "Try it with play money"
+    "practice": "Try it with play money"
   }
 }

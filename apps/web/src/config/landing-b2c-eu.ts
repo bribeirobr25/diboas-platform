@@ -14,6 +14,7 @@
 
 import type { HeroVariantConfig } from './hero';
 import type { ProseSectionConfig } from './proseSection';
+import { PRACTICE_APP_URL } from './practiceApp';
 
 export type EuLocale = 'en' | 'de' | 'es';
 
@@ -38,7 +39,7 @@ const CTA_EN = [
     href: '/tools/compound-interest',
   },
   { id: 'idle-cash', text: 'landing-b2c.toolCtas.idleCash', href: '/tools/idle-cash' },
-  { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
+  { id: 'practice', text: 'landing-b2c.toolCtas.practice', href: PRACTICE_APP_URL },
 ] as const;
 const CTA_DE_ES = [
   {
@@ -51,7 +52,7 @@ const CTA_DE_ES = [
     text: 'landing-b2c.toolCtas.compoundInterest',
     href: '/tools/compound-interest',
   },
-  { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
+  { id: 'practice', text: 'landing-b2c.toolCtas.practice', href: PRACTICE_APP_URL },
 ] as const;
 
 /**
@@ -162,7 +163,6 @@ const EU_VARIANTS: Record<EuLocale, EuVariant> = {
 
 /** Shared DOM anchors (identical across all EU locales). */
 export const EU_SHARED_ANCHORS = {
-  demo: 'demo',
   fees: 'fees',
   comparison: 'comparison',
   founder: 'founder',
@@ -179,11 +179,6 @@ export interface EuLandingConfig {
   pictureFuture: ProseSectionConfig;
   catch: ProseSectionConfig;
   founder: ProseSectionConfig;
-  demo: {
-    content: { header: string; subtext: string; ctaPrimary: string; ctaSecondary: string };
-    seo: { headingLevel: 'h2'; ariaLabel: string };
-    analytics: { sectionId: string; category: string };
-  };
   waitlist: {
     sectionId: string;
     backgroundColor: string;
@@ -322,17 +317,6 @@ export function makeEuLandingConfig(locale: EuLocale): EuLandingConfig {
       style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'standard' },
       seo: { ariaLabel: 'landing-b2c.draper.founder.header' },
       analytics: { sectionId: v.sectionIds.founder, category: 'landing-b2c' },
-    },
-
-    demo: {
-      content: {
-        header: 'landing-b2c.draper.demo.header',
-        subtext: 'landing-b2c.draper.demo.body',
-        ctaPrimary: 'landing-b2c.draper.demo.cta',
-        ctaSecondary: 'landing-b2c.demo.ctaSecondary',
-      },
-      seo: { headingLevel: 'h2', ariaLabel: 'landing-b2c.draper.demo.header' },
-      analytics: { sectionId: 'demo-section-b2c', category: 'landing-b2c' },
     },
 
     waitlist: {

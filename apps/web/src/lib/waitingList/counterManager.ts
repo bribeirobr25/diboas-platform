@@ -25,13 +25,11 @@ export type Audience = keyof typeof COUNTER_KEYS;
 export const AUDIENCE_BY_SOURCE: Readonly<Record<WaitlistSource, Audience>> = {
   landing_b2c: 'b2c',
   landing_b2b: 'b2b',
-  interactive_demo: 'b2c',
   dream_mode: 'b2c',
   calculator: 'b2c',
   tool_money_jobs: 'b2c',
   referral: 'b2c',
   direct: 'b2c',
-  app_link: 'b2c',
 };
 
 /**

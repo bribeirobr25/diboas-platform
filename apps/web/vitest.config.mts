@@ -11,13 +11,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * never lower one to make a run pass. Below the 80/60 policy: see register 5.832 (web is ratcheted, not yet compliant). CLAUDE.md requires 100% for security utilities.
  */
 const COVERAGE_THRESHOLDS = {
-  lines: 34,
-  branches: 29,
-  functions: 28,
-  statements: 34,
-  'src/app/**': { lines: 26, branches: 21, functions: 23, statements: 27 },
-  'src/components/**': { lines: 12, branches: 12, functions: 11, statements: 12 },
-  'src/config/**': { lines: 31, branches: 49, functions: 27, statements: 31 },
+  // P13 PR-1 (2026-11-19): each floor raised by the whole points this PR's own deletion gained,
+  // measured before and after on the same machine (not to today's full value, which other lanes'
+  // unraised gains also hold): global, app functions, components and config.
+  lines: 36,
+  branches: 30,
+  functions: 30,
+  statements: 36,
+  'src/app/**': { lines: 26, branches: 21, functions: 24, statements: 27 },
+  'src/components/**': { lines: 14, branches: 14, functions: 13, statements: 14 },
+  'src/config/**': { lines: 39, branches: 49, functions: 32, statements: 38 },
   'src/hooks/**': { lines: 54, branches: 51, functions: 58, statements: 54 },
   'src/lib/**': { lines: 58, branches: 50, functions: 50, statements: 58 },
   // Security utilities: 100% on every metric.

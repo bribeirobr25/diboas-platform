@@ -103,13 +103,6 @@
     "header": "Wo ist der Haken?",
     "feeParagraph": "Eine Strategie zu starten ist kostenlos.\n\nWenn du eine Strategie schließt, berechnet diBoaS {sellRate} des verkauften Betrags. Verkaufst du 100 €, verdient diBoaS {exampleFee}.\n\nKein versteckter Aufschlag auf den Wechselkurs. Keine monatliche Kontogebühr. Die Kosten erscheinen, bevor du entscheidest."
   },
-  "demo": {
-    "transitionHook": "",
-    "header": "Glaub uns nicht einfach.",
-    "subtext": "Was würde dein Geld hier machen?",
-    "ctaPrimary": "Demo testen",
-    "ctaSecondary": "Mit Testgeld ausprobieren"
-  },
   "waitlist": {
     "header": "Werde Teil davon.",
     "description": "Offener Zugang und faire Chancen für alle.",
@@ -245,11 +238,6 @@
       "body": "Im Risiko.\n\ndiBoaS ist kein Bankkonto, kein Tagesgeld und keine Garantie.\n\nDigitale Dollar sowie die Technologie und die externen Unternehmen, die dein Geld bewegen und verwahren, können ausfallen oder an Wert verlieren. Du kannst Geld verlieren.\n\nLeichte Versprechen verstecken Risiko.\n\nWir legen es offen.",
       "imageAlt": "Ruhe und Kontrolle"
     },
-    "demo": {
-      "header": "Vertrau nicht dem Text. Prüf den Ablauf.",
-      "body": "Teste diBoaS mit Testgeld.\n\nWähle einen Zweck, sieh den Weg und verstehe das Risiko, bevor echtes Geld im Spiel ist.",
-      "cta": "Demo öffnen"
-    },
     "cost": {
       "header": "Was es kostet",
       "body": "Keine Monatsgebühr. Kein Haken. Zahl 100 € ein und du siehst jeden Cent Kosten, bevor du bestätigst. Unsere Gebühr, plus Netzwerkkosten. Nichts versteckt."
@@ -279,6 +267,6 @@
     "idleCash": "Sieh, was ungenutztes Geld kostet",
     "inflationImpact": "Sieh, was die Inflation wirklich frisst",
     "currencyDepreciation": "Sieh den Dollar-Abstand über die Zeit",
-    "demo": "Probier's mit Spielgeld"
+    "practice": "Probier's mit Spielgeld"
   }
 }

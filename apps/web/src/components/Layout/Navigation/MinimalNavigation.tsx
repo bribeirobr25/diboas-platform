@@ -26,6 +26,7 @@ import { BRAND_CONFIG } from '@/config/brand';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { DEFAULT_CTA_PROPS } from '@/config/cta';
 import { ROUTES } from '@/config/routes';
+import { PRACTICE_APP_URL } from '@/config/practiceApp';
 
 /**
  * Landing page navigation links configuration
@@ -186,14 +187,14 @@ export default function MinimalNavigation() {
 
           {/* Mobile CTA — centered between logo and hamburger */}
           <div className="minimal-nav-mobile-center">
-            <LocaleLink href={ROUTES.DEMO} onClick={handleCtaClick}>
+            <LocaleLink href={PRACTICE_APP_URL} onClick={handleCtaClick}>
               <Button
                 variant={DEFAULT_CTA_PROPS.variant}
                 size="sm"
                 trackable={DEFAULT_CTA_PROPS.trackable}
                 className="minimal-nav-cta"
               >
-                {intl.formatMessage({ id: 'common.navigation.landing.tryDemo' })}
+                {intl.formatMessage({ id: 'common.navigation.tryPractice' })}
               </Button>
             </LocaleLink>
           </div>
@@ -201,14 +202,14 @@ export default function MinimalNavigation() {
           {/* Right Actions */}
           <div className="minimal-nav-actions">
             {/* Desktop CTA */}
-            <LocaleLink href={ROUTES.DEMO} className="minimal-nav-cta-desktop">
+            <LocaleLink href={PRACTICE_APP_URL} className="minimal-nav-cta-desktop">
               <Button
                 variant={DEFAULT_CTA_PROPS.variant}
                 size="sm"
                 trackable={DEFAULT_CTA_PROPS.trackable}
                 className="minimal-nav-cta"
               >
-                {intl.formatMessage({ id: 'common.navigation.landing.tryDemo' })}
+                {intl.formatMessage({ id: 'common.navigation.tryPractice' })}
               </Button>
             </LocaleLink>
 

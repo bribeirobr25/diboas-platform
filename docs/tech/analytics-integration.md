@@ -105,7 +105,7 @@ Internal server-side event bus names that feed audit logging + cross-component s
 **Rules:**
 
 1. **Format is `{domain}:{entityAction}`** — colon separator, camelCase verb-phrase after the colon
-2. **`domain` must be one of `ApplicationDomain`** — `waitlist`, `share`, `consent`, `preDemo`, `preDream`, `analytics`, `monitoring`, `application`, `tools`
+2. **`domain` must be one of `ApplicationDomain`** — `waitlist`, `share`, `consent`, `preDream`, `analytics`, `monitoring`, `application`, `tools`
 3. **`entityAction` is past-tense camelCase** — e.g. `signupCompleted`, `shareInitiated`, `calculatorUnexpectedError`
 4. **Add to `EVENT_VALIDATION_SCHEMA`** when defining a new entry — required-fields list per event type
 

@@ -6,7 +6,7 @@
  * once the signup succeeds or the address is already registered, so a failed attempt keeps it
  * for the retry. A middle-click or a new tab carries no label (accepted).
  *
- * Two writers: `setCtaSource` (Learn, demo launcher: written regardless of consent, as before)
+ * Two writers: `setCtaSource` (Learn: written regardless of consent, as before)
  * and `setConsentedCtaSource` (the market band and the tool results: written only after
  * analytics consent, and dropped at submit if consent was withdrawn since).
  */

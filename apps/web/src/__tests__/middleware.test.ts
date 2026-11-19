@@ -360,6 +360,32 @@ describe('middleware', () => {
     });
   });
 
+  // ── Retired surfaces open Practice (plan P13, D3; gate RETIRED-SURFACES-1 guard 3) ──
+
+  describe('retired surfaces', () => {
+    it.each([
+      '/en/demo',
+      '/PT-br/Demo',
+      '/de/demo/step/2',
+      '/demo',
+      '/en/demo?utm_source=x&ref=DIBOAS-1',
+      '/es/DEMO',
+    ])('should answer %s with a 308 to exactly the Practice address', (path) => {
+      const response = middleware(makeRequest(path, { acceptLanguage: 'de-DE' }));
+      expect(response.status).toBe(308);
+      // no path, no query: neither the welcome email's utm_* nor a referral code reach Practice
+      expect(response.headers.get('location')).toBe('https://app.diboas.com/');
+    });
+
+    it.each(['/en/demos', '/en/tools/money-jobs', '/en/learn/demo-talk', '/en/demo-day'])(
+      'should not redirect %s to Practice',
+      (path) => {
+        const response = middleware(makeRequest(path));
+        expect(response.headers.get('location') ?? '').not.toContain('app.diboas.com');
+      }
+    );
+  });
+
   // ── config.matcher ────────────────────────────────────────────────
 
   describe('config.matcher', () => {

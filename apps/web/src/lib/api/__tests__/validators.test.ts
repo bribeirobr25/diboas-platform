@@ -38,7 +38,6 @@ describe('isValidSource', () => {
     for (const source of [
       'landing_b2c',
       'landing_b2b',
-      'interactive_demo',
       'dream_mode',
       'calculator',
       'tool_money_jobs',
@@ -57,20 +56,19 @@ describe('isValidSource', () => {
 
   /**
    * ⛑ `5.979` · WAITLIST-SOURCE-1 guard 1: the one list, pinned. Adding or removing a
-   * source is a deliberate edit of this line (plan P11, D2). `dream_mode` and `app_link`
-   * are what the modal's two openers send; `modal` (a container, not a path) is refused.
+   * source is a deliberate edit of this line (plan P11, D2). `dream_mode` is what the modal's
+   * opener sends; `modal` (a container, not a path) is refused. `interactive_demo` and
+   * `app_link` left with the demo and the app-link interceptor (plan P13, D6).
    */
   it('should hold exactly the agreed sources when the one list is read', () => {
     expect([...WAITLIST_SOURCES]).toEqual([
       'landing_b2c',
       'landing_b2b',
-      'interactive_demo',
       'dream_mode',
       'calculator',
       'tool_money_jobs',
       'referral',
       'direct',
-      'app_link',
     ]);
     for (const source of WAITLIST_SOURCES) expect(isValidSource(source), source).toBe(true);
     expect(isValidSource('modal')).toBe(false);
@@ -132,17 +130,14 @@ describe('sanitizeTags', () => {
   });
 
   it('should keep a known cta_source label once and drop an unknown, free-text or second one', () => {
-    for (const label of [
-      'market',
-      'tool-idle-cash',
-      'learn-putting-it-together',
-      'demo-launcher',
-    ]) {
+    for (const label of ['market', 'tool-idle-cash', 'learn-putting-it-together']) {
       expect(kept([`cta_source:${label}`])).toEqual([`cta_source:${label}`]);
     }
     expect(
       kept(['utm_source:ig', 'cta_source:ana@example.com', 'cta_source:', 'cta_source:tool-x'])
     ).toEqual(['utm_source:ig']);
+    // P13 (D6): the demo launcher is gone, so its label is no longer accepted
+    expect(kept(['cta_source:demo-launcher'])).toEqual([]);
     expect(kept(['cta_source:market', 'cta_source:tool-card-fees'])).toEqual(['cta_source:market']);
   });
 });

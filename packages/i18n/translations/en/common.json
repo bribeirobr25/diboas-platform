@@ -12,8 +12,7 @@
       "protocols": "Protocols",
       "adelaideDaily": "Adelaide Market",
       "learn": "Real Talk",
-      "joinWaitlist": "Join Waitlist",
-      "tryDemo": "Try Demo"
+      "joinWaitlist": "Join Waitlist"
     },
     "learn": {
       "label": "Learn Center",
@@ -39,11 +38,7 @@
       }
     },
     "aboutMenu": {
-      "label": "About",
-      "description": "Learn more about diBoaS and our mission",
       "subItems": {
-        "about": "More About diBoaS",
-        "protocols": "Trusted Protocols",
         "careers": "Join our Team",
         "documentation": "Documentation",
         "compliance": "Compliance"
@@ -61,9 +56,7 @@
       }
     },
     "actions": {
-      "primary": "Get Started",
-      "secondary": "Business Login",
-      "demo": "Try Demo"
+      "primary": "Get Started"
     },
     "joinWaitlist": "Join Waitlist",
     "tools": {
@@ -71,7 +64,8 @@
       "calculatorDescription": "See your money grow",
       "dreamMode": "Dream Mode",
       "dreamModeDescription": "Visualize your future"
-    }
+    },
+    "tryPractice": "Try Practice"
   },
   "buttons": {
     "getStarted": "Get Started",

@@ -32,7 +32,7 @@ import { WaitingListProvider, useWaitingListModal } from '../WaitingListProvider
 function Opener() {
   const { openModal, isOpen } = useWaitingListModal();
   return (
-    <button type="button" onClick={() => openModal('app_link')}>
+    <button type="button" onClick={() => openModal('dream_mode')}>
       {isOpen ? 'open' : 'closed'}
     </button>
   );

@@ -103,13 +103,6 @@
     "header": "Qual é a pegadinha?",
     "feeParagraph": "Começar uma estratégia é grátis.\n\nAo fechar uma estratégia, o diBoaS cobra {sellRate} do valor vendido. Vendeu R$100, a taxa diBoaS é {exampleFee}.\n\nSem remarcação escondida na cotação. Sem mensalidade. O custo aparece antes de você decidir."
   },
-  "demo": {
-    "transitionHook": "",
-    "header": "Não acredite só na nossa palavra.",
-    "subtext": "O que seu dinheiro faria aqui?",
-    "ctaPrimary": "Testar a Demo",
-    "ctaSecondary": "Testar com dinheiro de teste"
-  },
   "waitlist": {
     "header": "Faz parte.",
     "description": "Acesso aberto e oportunidades justas pra todo mundo.",
@@ -239,11 +232,6 @@
       "body": "Vamos falar como adulto.\n\nO diBoaS não é banco. Não é poupança. Não tem FGC. Não existe retorno garantido.\n\nDólar digital, junto com a tecnologia e as empresas externas que movem e guardam seu dinheiro, pode falhar ou perder valor. Você pode perder dinheiro.\n\nA diferença é simples: promessa fácil esconde o risco.\n\nA gente coloca ele na mesa.\n\nGolpe esconde. diBoaS mostra.",
       "imageAlt": "Mãos em um gesto de cuidado e confiança"
     },
-    "demo": {
-      "header": "Antes de confiar, veja.",
-      "body": "Não precisa acreditar em frase bonita.\n\nEntre no modo demo com dinheiro de teste. Escolha um objetivo, veja o caminho e entenda o risco antes de colocar dinheiro real.",
-      "cta": "Abrir o Demo"
-    },
     "cost": {
       "header": "Quanto custa",
       "body": "Sem mensalidade. Sem pegadinha. Você guarda R$100 e vê pra onde vai cada centavo, antes de confirmar. Preferimos te mostrar uma taxa honesta a esconder num \"a partir de\"."
@@ -265,6 +253,6 @@
     "idleCash": "Veja quanto o dinheiro parado custa",
     "inflationImpact": "Veja o que a inflação leva de verdade",
     "currencyDepreciation": "Veja o quanto o real perdeu pro dólar",
-    "demo": "Experimente com dinheiro de teste"
+    "practice": "Experimente com dinheiro de teste"
   }
 }

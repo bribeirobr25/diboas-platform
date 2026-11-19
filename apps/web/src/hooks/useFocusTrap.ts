@@ -29,7 +29,7 @@ const FOCUSABLE_SELECTOR = [
 
 /**
  * The active traps, innermost last. Only the innermost handles Tab and Escape: with a dialog
- * open inside another (the demo's export-key dialog inside the demo), every trap listened on
+ * open inside another (the retired demo's export-key dialog inside the demo), every trap listened on
  * `document`, so the outer one moved focus out of the inner dialog on Tab (WCAG 2.4.3) and both
  * reacted to Escape (fifteenth audit). Kept on `globalThis` so every bundled copy of this module
  * shares one stack (the Logger's sink was lost that way, 5.936).
