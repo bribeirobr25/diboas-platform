@@ -193,7 +193,7 @@ export function formatCurrency(
 
 /**
  * Format currency value derived from locale (auto-selects currency)
- * Used by pre-demo, pre-dream, and other locale-driven features
+ * Used by pre-dream and other locale-driven features
  */
 export function formatLocaleCurrency(
   amount: number,

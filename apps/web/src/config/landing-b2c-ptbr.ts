@@ -2,7 +2,7 @@
  * B2C Landing Page — pt-BR composition config (Draper restructure).
  *
  * Per-locale composition (LandingPtBR). DRY: reuses the existing section
- * components (Hero/Wedge/ProseSection/Demo/FeeTable/Waitlist) with pt-BR copy
+ * components (Hero/Wedge/ProseSection/FeeTable/Waitlist) with pt-BR copy
  * (the `ptbr.*` keys in landing-b2c.json), on-brand in-repo documentary images,
  * and the dusk -> dawn surface-token ordering. No hardcoded colors/strings: all
  * via design tokens + i18n keys. See LANDING_REBUILD_PLAN.md.
@@ -10,6 +10,7 @@
 
 import type { HeroVariantConfig } from './hero';
 import type { ProseSectionConfig } from './proseSection';
+import { PRACTICE_APP_URL } from './practiceApp';
 
 /** On-brand documentary images (already in-repo, licensed). */
 const PTBR_IMAGES = {
@@ -74,7 +75,7 @@ export const B2C_PTBR_IMAGINE_CONFIG: ProseSectionConfig = {
   style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'standard' },
   seo: { ariaLabel: 'landing-b2c.ptbr.imagineFuture.header' },
   analytics: { sectionId: 'imagine-section-ptbr', category: 'landing-b2c' },
-  // Rotating CTA (per visit): pt-BR best-converter candidates + demo (the dollar
+  // Rotating CTA (per visit): pt-BR best-converter candidates + Practice (the dollar
   // hedge leads, since it's the killer wedge for the BR audience).
   cta: [
     {
@@ -87,7 +88,7 @@ export const B2C_PTBR_IMAGINE_CONFIG: ProseSectionConfig = {
       text: 'landing-b2c.toolCtas.compoundInterest',
       href: '/tools/compound-interest',
     },
-    { id: 'demo', text: 'landing-b2c.toolCtas.demo', href: '/demo' },
+    { id: 'practice', text: 'landing-b2c.toolCtas.practice', href: PRACTICE_APP_URL },
   ],
 } as const;
 
@@ -130,18 +131,6 @@ export const B2C_PTBR_ADELAIDE_CONFIG: ProseSectionConfig = {
   style: { backgroundColor: 'var(--section-bg-warm)', verticalPadding: 'standard' },
   seo: { ariaLabel: 'landing-b2c.ptbr.adelaide.header' },
   analytics: { sectionId: 'adelaide-section-ptbr', category: 'landing-b2c' },
-} as const;
-
-/** §7 Demo — pt-BR copy override for the reused DemoLauncher. */
-export const B2C_PTBR_DEMO_CONFIG = {
-  content: {
-    header: 'landing-b2c.ptbr.demo.header',
-    subtext: 'landing-b2c.ptbr.demo.body',
-    ctaPrimary: 'landing-b2c.ptbr.demo.cta',
-    ctaSecondary: 'landing-b2c.demo.ctaSecondary',
-  },
-  seo: { headingLevel: 'h2' as const, ariaLabel: 'landing-b2c.ptbr.demo.header' },
-  analytics: { sectionId: 'demo-section-b2c', category: 'landing-b2c' },
 } as const;
 
 /** §10 pt-BR copy override for the reused WaitlistSection. */

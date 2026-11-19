@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { makeEuLandingConfig, EU_SHARED_ANCHORS, type EuLocale } from '../landing-b2c-eu';
+import { PRACTICE_APP_URL } from '../practiceApp';
 
 /**
  * Phase B regression oracle (audit B-5).
@@ -35,7 +36,7 @@ const EXPECTED = {
       catch: 'the-catch',
     },
     heroCtaHref: '#how-it-works',
-    pictureCta: ['compound-interest', 'idle-cash', 'demo'],
+    pictureCta: ['compound-interest', 'idle-cash', 'practice'],
   },
   de: {
     ids: {
@@ -58,7 +59,7 @@ const EXPECTED = {
       catch: 'haken',
     },
     heroCtaHref: '#so-funktioniert',
-    pictureCta: ['inflation-impact', 'compound-interest', 'demo'],
+    pictureCta: ['inflation-impact', 'compound-interest', 'practice'],
   },
   es: {
     ids: {
@@ -81,7 +82,7 @@ const EXPECTED = {
       catch: 'la-trampa',
     },
     heroCtaHref: '#como-funciona',
-    pictureCta: ['inflation-impact', 'compound-interest', 'demo'],
+    pictureCta: ['inflation-impact', 'compound-interest', 'practice'],
   },
 } as const;
 
@@ -106,7 +107,6 @@ describe('EU landing config — id/anchor preservation (Phase B)', () => {
     expect(cfg.founder.analytics?.sectionId).toBe(exp.ids.founder);
     // Shared, non-locale ids.
     expect(cfg.hero.cinematic?.sectionId).toBe('hero-b2c');
-    expect(cfg.demo.analytics.sectionId).toBe('demo-section-b2c');
     expect(cfg.waitlist.sectionId).toBe('waitlist-section-b2c');
     // B-1: how-it-works carries no `-section-` infix.
     expect(exp.ids.howItWorks).toBe(`how-it-works-${locale}`);
@@ -133,7 +133,21 @@ describe('EU landing config — id/anchor preservation (Phase B)', () => {
     expect(cfg.pictureFuture.cta?.map((c) => c.id)).toEqual(EXPECTED[locale].pictureCta);
   });
 
-  it.each(LOCALES)('%s: full ordered 13-id inventory is unique and complete', (locale) => {
+  /* P13 (D7, guard 8): the demo section is removed, not replaced; its tool CTA opens Practice. */
+  it.each(LOCALES)(
+    '%s: should keep no demo section and send the play-money CTA to Practice',
+    (locale) => {
+      const cfg = makeEuLandingConfig(locale);
+      expect('demo' in cfg).toBe(false);
+      expect('demo' in EU_SHARED_ANCHORS).toBe(false);
+      const practice = cfg.pictureFuture.cta?.find((c) => c.id === 'practice');
+      expect(practice?.href).toBe(PRACTICE_APP_URL);
+      expect(practice?.text).toBe('landing-b2c.toolCtas.practice');
+      expect(cfg.pictureFuture.cta?.some((c) => c.href.includes('/demo'))).toBe(false);
+    }
+  );
+
+  it.each(LOCALES)('%s: full ordered 12-id inventory is unique and complete', (locale) => {
     const cfg = makeEuLandingConfig(locale);
     const ordered = [
       'hero-section-b2c',
@@ -143,14 +157,13 @@ describe('EU landing config — id/anchor preservation (Phase B)', () => {
       cfg.ids.pictureFuture,
       cfg.ids.howItWorks,
       cfg.ids.catch,
-      'demo-section-b2c',
       'fees-section-b2c',
       'comparison-section-b2c',
       cfg.ids.founder,
       'waitlist-section-b2c',
       'faq-section-b2c',
     ];
-    expect(ordered).toHaveLength(13);
-    expect(new Set(ordered).size).toBe(13);
+    expect(ordered).toHaveLength(12);
+    expect(new Set(ordered).size).toBe(12);
   });
 });

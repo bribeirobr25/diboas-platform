@@ -4,7 +4,7 @@ Goal-driven wealth building platform. Open access and fair opportunities for eve
 
 ## Overview
 
-diBoaS is a pre-launch marketing site with waitlist functionality, interactive demo, and goal calculator. Live at [diboas.com](https://diboas.com) in 4 languages.
+diBoaS is a pre-launch marketing site with waitlist functionality and a goal calculator; its "Try Practice" links open the Practice app. Live at [diboas.com](https://diboas.com) in 4 languages.
 
 **Current phase:** Pre-launch waitlist. Live since March 11, 2026.
 
@@ -39,7 +39,7 @@ flowchart TD
   end
 
   subgraph Packages["Monorepo packages (Turborepo + pnpm)"]
-    I18N["@diboas/i18n<br/>40 namespaces × 4 locales (lazy)"]
+    I18N["@diboas/i18n<br/>39 namespaces × 4 locales (lazy)"]
     UI["@diboas/ui — design system"]
     EMAIL["@diboas/email — Resend + retry/backoff"]
   end
@@ -65,7 +65,7 @@ flowchart TD
 
 - **Testing & CI:** strict TypeScript, **6,375 tests / 449 files (Vitest), measured 2026-11-12 on `main` `135f7de3`** across the workspace (web 3,519/241 · sandbox 1,998/154 · banking 181/7 · investing 102/6 · defi 509/40 · format 66/1 — tests/files per package, six per-package runs, none carried; both columns sum to the totals, checked by `review:counts`), Lighthouse CI + a Playwright/axe-core accessibility audit (WCAG 2.1 AA), and 13 GitHub Actions workflows: seven on every pull request (CI, security audit, accessibility, E2E, Lighthouse, the PR record, the market publish-drift check) and six on a schedule (the quarterly security scan, data freshness, and the /market lane's data collection, weekly refresh and their two watchdogs).
 - **Security:** per-request **nonce-based CSP** (`'unsafe-inline'` prohibited for scripts), **AES-256-GCM** encryption for PII at rest, **HMAC blind indexing**, Upstash rate limiting, DOMPurify sanitization, and CSRF protection on mutation endpoints.
-- **i18n:** 40 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
+- **i18n:** 39 namespaces × 4 locales, lazy-loaded per locale × namespace, drift-guarded by a parity test.
 - **Monitoring:** Sentry, PostHog, and GA4 — all consent-gated and lazy-loaded behind a cookie-consent check.
 
 > **Product architecture is Phase 2+, not in this build.** The money product's design — non-custodial by design (users hold their own funds; diBoaS holds no key shares, and recovery runs through an integrated third-party provider), embedded wallets (Turnkey — secure enclaves with policy-controlled signing), multi-chain DeFi (stable strategies on Arbitrum, growth on Solana) — is roadmap. Those decisions live in [`CLAUDE.md`](./CLAUDE.md).
@@ -171,14 +171,13 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 | Route                          | Description                                                                                                                                                          |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                                                                           |
+| `/`                            | B2C landing page (waitlist, comparison table, goals)                                                                                                                 |
 | `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                                                                               |
 | `/about`                       | About page (founder story, mission, beliefs)                                                                                                                         |
 | `/strategies`                  | Investment strategies                                                                                                                                                |
 | `/protocols`                   | Protocol transparency                                                                                                                                                |
 | `/help`                        | Help center (6 FAQ topics)                                                                                                                                           |
 | `/security`                    | Security information                                                                                                                                                 |
-| `/demo`                        | Interactive financial demo                                                                                                                                           |
 | `/dream-mode`                  | Goal calculator simulation                                                                                                                                           |
 | `/learn/<talk>`                | Real Talk — the 7-talk Money Basics series (3-beat talks + quiz + tool moment; Talk 1 embeds the calculator)                                                         |
 | `/tools`                       | Money tools landing — purpose-grouped calculators (11 tools)                                                                                                         |

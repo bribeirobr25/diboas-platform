@@ -120,7 +120,7 @@ export function LessonThreeBeat({
 
   const handleWaitlistCta = () => {
     // Phase 3 (RV-2): per-talk waitlist attribution through the existing
-    // sessionStorage machinery (mirrors DemoLauncher). Runs regardless of
+    // sessionStorage machinery (`setCtaSource`). Runs regardless of
     // analytics consent: cta_source is first-party funnel context on the
     // signup itself, same as every other CTA source.
     setCtaSource(`learn-${lessonId}`);

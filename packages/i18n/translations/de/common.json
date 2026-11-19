@@ -12,8 +12,7 @@
       "protocols": "Protokolle",
       "adelaideDaily": "Adelaide Market",
       "learn": "Klartext",
-      "joinWaitlist": "Auf die Warteliste",
-      "tryDemo": "Demo testen"
+      "joinWaitlist": "Auf die Warteliste"
     },
     "learn": {
       "label": "Lern-Center",
@@ -39,11 +38,7 @@
       }
     },
     "aboutMenu": {
-      "label": "Über",
-      "description": "Erfahre mehr über diBoaS und unsere Mission",
       "subItems": {
-        "about": "Mehr Über diBoaS",
-        "protocols": "Vertrauenswürdige Protokolle",
         "careers": "Unserem Team Beitreten",
         "documentation": "Dokumentation",
         "compliance": "Compliance"
@@ -61,9 +56,7 @@
       }
     },
     "actions": {
-      "primary": "Loslegen",
-      "secondary": "Business-Login",
-      "demo": "Demo testen"
+      "primary": "Loslegen"
     },
     "joinWaitlist": "Zur Warteliste",
     "tools": {
@@ -71,7 +64,8 @@
       "calculatorDescription": "Sieh dein Geld wachsen",
       "dreamMode": "Dream Mode",
       "dreamModeDescription": "Visualisiere deine Zukunft"
-    }
+    },
+    "tryPractice": "Practice ausprobieren"
   },
   "buttons": {
     "getStarted": "Jetzt starten",

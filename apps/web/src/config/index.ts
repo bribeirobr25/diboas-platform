@@ -6,7 +6,6 @@
 
 export * from './env';
 export * from './routes';
-export * from './navigation';
 export * from './assets';
 export * from './monitoring';
 export * from './formats';

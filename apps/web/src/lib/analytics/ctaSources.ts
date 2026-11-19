@@ -20,17 +20,16 @@ export const TOOL_CTA_SLUGS = [
 ] as const;
 export type ToolCtaSlug = (typeof TOOL_CTA_SLUGS)[number];
 
-export type CtaSource = 'demo-launcher' | 'market' | `tool-${ToolCtaSlug}` | `learn-${LessonId}`;
+export type CtaSource = 'market' | `tool-${ToolCtaSlug}` | `learn-${LessonId}`;
 
 /**
  * Labels written only after analytics consent (founder 2026-11-11, DR-2026-11-11-market-cleanup-c2-
- * decisions C). The older Learn and demo-launcher labels are written regardless; that question
+ * decisions C). The older Learn labels are written regardless; that question
  * is with the founder as owner of Legal (register `5.923`).
  */
 export type ConsentGatedCtaSource = 'market' | `tool-${ToolCtaSlug}`;
 
 export const CTA_SOURCES: ReadonlySet<CtaSource> = new Set<CtaSource>([
-  'demo-launcher',
   'market',
   ...TOOL_CTA_SLUGS.map((slug) => `tool-${slug}` as const),
   ...(Object.keys(LESSONS) as LessonId[]).map((id) => `learn-${id}` as const),

@@ -16,6 +16,7 @@ import { renderHook } from '@testing-library/react';
 import { FALLBACK_MARKET_DATA } from '@/lib/market-data';
 import { calculateCurrencyDepreciationRetrospective } from '@/lib/currency-depreciation';
 import { useMarketWedge } from '../useMarketWedge';
+import { PRACTICE_APP_URL } from '@/config/practiceApp';
 
 vi.mock('@/hooks/useMarketData', () => ({
   useMarketData: () => ({ data: FALLBACK_MARKET_DATA }),
@@ -25,7 +26,7 @@ describe('useMarketWedge', () => {
   it('en → bank savings (percent-shape) formatted in en-US', () => {
     const { result } = renderHook(() => useMarketWedge('en'));
     expect(result.current.expression.metric).toBe('bankSavings');
-    expect(result.current.expression.ctaHref).toBe('/demo');
+    expect(result.current.expression.ctaHref).toBe(PRACTICE_APP_URL);
     expect(result.current.figure).toBe('0.38%');
   });
 

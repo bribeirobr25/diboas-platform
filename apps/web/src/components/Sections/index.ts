@@ -19,7 +19,6 @@ export { SectionContainer } from './SectionContainer';
 // B2C Landing Page Sections
 export { ProseSection } from './ProseSection';
 export { FeeTable } from './FeeTable';
-export { DemoLauncher } from './DemoLauncher';
 export { ExpandableSection } from './ExpandableSection';
 export { FounderSection } from './FounderSection';
 // ComparisonTable is intentionally NOT re-exported here: its only barrel consumer

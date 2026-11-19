@@ -10,8 +10,8 @@
  *   `git log -- packages/i18n/translations/en/strategies.json`).
  * - Prices: order-of-magnitude placeholders for offline dev ONLY — the price
  *   provider is expected to reach CoinGecko in any networked environment.
- * - Gas: typical values researched for the PreDemo fee-display work
- *   (`apps/web/src/lib/pre-demo/feeRateDisplay.ts` lineage): sub-cent Solana,
+ * - Gas: typical values researched for the website's former demo fee display
+ *   (retired in plan P13, 2026-11-19): sub-cent Solana,
  *   cents-level Arbitrum, dollars-level Ethereum L1 / Bitcoin.
  */
 

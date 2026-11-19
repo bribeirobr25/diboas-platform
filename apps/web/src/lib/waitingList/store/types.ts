@@ -38,7 +38,9 @@ export type WaitlistTier = 'founding_member' | 'early_member' | 'priority_waitli
  *
  * A source names the OBSERVED PATH that brought the reader (Growth canon CC-B:
  * "attribution describes observed paths"), never the container that collected the form:
- * Dream Mode's gate sends `dream_mode`, the app-link interceptor `app_link` (D1).
+ * Dream Mode's gate sends `dream_mode` (D1). A source leaves the list in the change that removes
+ * its sender (plan P13, D6): `interactive_demo` and the interceptor's `app_link` left with the
+ * demo. Stored rows keep their value; nothing validates a stored source.
  * This module has no imports, so the client, the validator and the e2e test can read it
  * without pulling the database in (D2). Adding a member is a decision: its audience must
  * be set in `counterManager.ts` before this compiles (D4).
@@ -46,13 +48,11 @@ export type WaitlistTier = 'founding_member' | 'early_member' | 'priority_waitli
 export const WAITLIST_SOURCES = [
   'landing_b2c',
   'landing_b2b',
-  'interactive_demo',
   'dream_mode',
   'calculator',
   'tool_money_jobs',
   'referral',
   'direct',
-  'app_link',
 ] as const;
 
 export type WaitlistSource = (typeof WAITLIST_SOURCES)[number];

@@ -7,7 +7,8 @@
  * DRY Principles: Uses centralized ROUTES configuration for all links
  */
 
-import { APP_URL, BUSINESS_URL } from './env';
+import { BUSINESS_URL } from './env';
+import { PRACTICE_APP_URL } from './practiceApp';
 import { ROUTES } from './routes';
 
 export interface FooterSection {
@@ -50,7 +51,7 @@ export const FOOTER_CONFIG: FooterConfig = {
         {
           id: 'diboasApp',
           label: 'common.footer.sections.platforms.links.diboasApp',
-          href: APP_URL,
+          href: PRACTICE_APP_URL,
           external: true,
           dynamic: true,
         },

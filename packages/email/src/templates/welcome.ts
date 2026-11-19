@@ -14,7 +14,7 @@ interface TierTranslations {
   foundingMemberBenefits: string[];
   referralCta: string;
   shareText: string;
-  demoCta: string;
+  practiceCta: string;
   whatNext: string;
   whatNextBody: string;
   spotsRemaining: string;
@@ -51,7 +51,7 @@ const translations: Record<string, TierTranslations> = {
     referralCta: 'Copy your referral link',
     shareText:
       'I just found an easy and fair access to grow and move money. It is so good, that I have to share it',
-    demoCta: 'Try the Interactive Demo',
+    practiceCta: 'Try Practice',
     whatNext: "What's next?",
     whatNextBody: "We'll keep you posted on our progress and let you know when it's your turn.",
     spotsRemaining: '{spots} founding member spots remaining',
@@ -87,7 +87,7 @@ const translations: Record<string, TierTranslations> = {
     referralCta: 'Copie seu link de indicação',
     shareText:
       'Acabei de encontrar um jeito fácil e justo de fazer o dinheiro crescer e se mover. É tão bom que preciso compartilhar',
-    demoCta: 'Experimente a Demo Interativa',
+    practiceCta: 'Experimente o Practice',
     whatNext: 'Próximos passos',
     whatNextBody:
       'Manteremos você informado sobre nosso progresso e avisaremos quando for sua vez.',
@@ -124,7 +124,7 @@ const translations: Record<string, TierTranslations> = {
     referralCta: 'Copia tu enlace de referencia',
     shareText:
       'Acabo de encontrar una forma fácil y justa de hacer crecer y mover mi dinero. Es tan bueno que tengo que compartirlo',
-    demoCta: 'Prueba la Demo Interactiva',
+    practiceCta: 'Prueba Practice',
     whatNext: '¿Qué sigue?',
     whatNextBody: 'Te mantendremos informado y te avisaremos cuando sea tu turno.',
     spotsRemaining: '{spots} lugares de miembro fundador restantes',
@@ -160,7 +160,7 @@ const translations: Record<string, TierTranslations> = {
     referralCta: 'Empfehlungslink kopieren',
     shareText:
       'Ich habe einen einfachen und fairen Weg gefunden, Geld wachsen zu lassen und zu bewegen. Es ist so gut, dass ich es teilen muss',
-    demoCta: 'Interaktive Demo ausprobieren',
+    practiceCta: 'Practice ausprobieren',
     whatNext: 'Wie geht es weiter?',
     whatNextBody:
       'Wir halten dich auf dem Laufenden und informieren dich, wenn du an der Reihe bist.',
@@ -210,10 +210,10 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
           .join('')}</ul>`
       : '';
 
-  const demoUrl = `${BRAND.url}/${data.locale}/demo?utm_source=email&utm_medium=transactional&utm_campaign=welcome_email&utm_content=predemo_cta`;
-  const demoSection = `
+  // Practice (plan P13, D4): its fixed address, with no campaign or locale parameters.
+  const practiceSection = `
     <div style="text-align:center;margin:24px 0;">
-      <a href="${demoUrl}" style="display:inline-block;padding:14px 32px;background-color:${BRAND.headerColor};color:#ffffff;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">${t.demoCta}</a>
+      <a href="${BRAND.practiceUrl}" style="display:inline-block;padding:14px 32px;background-color:${BRAND.headerColor};color:#ffffff;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;">${t.practiceCta}</a>
     </div>
   `;
 
@@ -237,7 +237,7 @@ export function renderWelcome(data: WelcomeEmailData): { subject: string; html: 
 
     ${renderSocialShareButtons(t.shareText, data.referralUrl)}
 
-    ${demoSection}
+    ${practiceSection}
 
     <h2 style="margin:0 0 8px;font-size:18px;color:${BRAND.textColor};">${t.whatNext}</h2>
     <p style="margin:0;font-size:14px;color:#475569;">${t.whatNextBody}</p>

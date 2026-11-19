@@ -5,7 +5,7 @@
  *
  * The modal posted `source: 'modal'`, which the route refused for every signup from
  * 2026-03-20. Now each opener names its path and the provider hands it to the form. This
- * renders the real provider (its interceptor included) and the real form hook behind a
+ * renders the real provider and the real form hook behind a
  * stand-in modal that calls the hook exactly as `WaitingListModal` does, captures the
  * request body, and checks it against the server's own validator. With guard 2 (every
  * listed source is stored by the route) that ties what the client sends to what the server
@@ -132,19 +132,24 @@ describe('5.979 · the opener names the source the modal posts', () => {
     );
   });
 
-  it('should post app_link when the interceptor opens the modal from an app link', async () => {
+  /* ⛑ P13 (D1): links to Practice open Practice. The interceptor that turned them into this
+     modal is gone, so a click on one opens no form and sends no modal event. */
+  it('should not open the modal when a link to Practice is clicked', async () => {
     render(
       <WaitingListProvider>
         <DreamModeOpener />
       </WaitingListProvider>
     );
+    const link = screen.getByRole('link', { name: 'open the app' });
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
     await act(async () => {
-      fireEvent.click(screen.getByRole('link', { name: 'open the app' }));
+      link.dispatchEvent(click);
     });
-    await fillAndSubmit();
-    expect(posted).toHaveLength(1);
-    expect(posted[0]!.source).toBe('app_link');
-    expect(isValidSource(posted[0]!.source as string)).toBe(true);
+    expect(click.defaultPrevented).toBe(false);
+    expect(screen.queryByRole('button', { name: 'Join' })).toBeNull();
+    expect(track).not.toHaveBeenCalledWith(
+      expect.objectContaining({ name: 'waiting_list_modal_opened' })
+    );
   });
 
   it('should mark the reader as joined once the signup is stored, and not before', async () => {

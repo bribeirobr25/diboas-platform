@@ -17,4 +17,10 @@ export const BRAND = {
   bgColor: '#ffffff',
   footerBg: '#f8fafc',
   url: process.env.NEXT_PUBLIC_APP_URL || 'https://diboas.com',
+  /**
+   * The Practice app's address (plan P13, D2). Fixed, never from an environment variable: the
+   * same literal as the web app's `PRACTICE_APP_URL` (this package cannot import the app's
+   * config); `apps/web/src/config/__tests__/practiceAppUrl.test.ts` keeps the two equal.
+   */
+  practiceUrl: 'https://app.diboas.com',
 } as const;

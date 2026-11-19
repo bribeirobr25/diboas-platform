@@ -45,7 +45,6 @@ export const SUPPORTED_NAMESPACES = [
   // per the parallel-session protocol).
   'market-bitcoin',
   'market-backdrop',
-  'preDemo',
   'preDream',
   'protocols',
   'security',

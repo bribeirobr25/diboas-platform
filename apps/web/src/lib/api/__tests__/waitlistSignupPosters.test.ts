@@ -82,38 +82,44 @@ function posters() {
   });
 }
 
-describe('5.979 · every client signup request is built with the one shape', () => {
-  it('should find the two client posters (the scan is not vacuous)', () => {
-    expect(
-      posters()
-        .map((p) => p.file)
-        .sort()
-    ).toEqual([
-      'components/WaitingList/hooks/useWaitlistForm.ts',
-      'components/WaitingList/hooks/useWaitlistModalForm.ts',
-    ]);
-  });
+/* A whole-tree source scan: its own timeout under coverage (COV-1). It timed out at the 5 s
+   default in the P13 full coverage run under load, and passed alone in 3.2 s. */
+describe(
+  '5.979 · every client signup request is built with the one shape',
+  { timeout: 30_000 },
+  () => {
+    it('should find the two client posters (the scan is not vacuous)', () => {
+      expect(
+        posters()
+          .map((p) => p.file)
+          .sort()
+      ).toEqual([
+        'components/WaitingList/hooks/useWaitlistForm.ts',
+        'components/WaitingList/hooks/useWaitlistModalForm.ts',
+      ]);
+    });
 
-  it('should keep the shared builder typed to the one shape', () => {
-    const code = stripComments(readFileSync(BUILDER, 'utf8'), BUILDER);
-    expect(code).toMatch(
-      /export function buildModalSignupBody\([^)]*\)\s*:\s*WaitlistSignupBody\s*\{/
-    );
-  });
+    it('should keep the shared builder typed to the one shape', () => {
+      const code = stripComments(readFileSync(BUILDER, 'utf8'), BUILDER);
+      expect(code).toMatch(
+        /export function buildModalSignupBody\([^)]*\)\s*:\s*WaitlistSignupBody\s*\{/
+      );
+    });
 
-  it('should build each signup body with the one shape, inside the call that sends it', () => {
-    const wrong = posters().filter((p) => p.mentions.some((m) => m !== 'shaped'));
-    expect(
-      wrong,
-      'name the path only in a fetch call built with `satisfies WaitlistSignupBody` (5.979)'
-    ).toEqual([]);
-  });
+    it('should build each signup body with the one shape, inside the call that sends it', () => {
+      const wrong = posters().filter((p) => p.mentions.some((m) => m !== 'shaped'));
+      expect(
+        wrong,
+        'name the path only in a fetch call built with `satisfies WaitlistSignupBody` (5.979)'
+      ).toEqual([]);
+    });
 
-  it('should not cast to WaitlistSource in a poster (a cast silences the shape check)', () => {
-    expect(
-      posters()
-        .filter((p) => p.casts)
-        .map((p) => p.file)
-    ).toEqual([]);
-  });
-});
+    it('should not cast to WaitlistSource in a poster (a cast silences the shape check)', () => {
+      expect(
+        posters()
+          .filter((p) => p.casts)
+          .map((p) => p.file)
+      ).toEqual([]);
+    });
+  }
+);

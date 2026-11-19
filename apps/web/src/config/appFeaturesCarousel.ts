@@ -9,6 +9,7 @@
  */
 
 import { ROUTES } from './routes';
+import { PRACTICE_APP_URL } from './practiceApp';
 import { getSocialRealAsset } from './assets';
 
 export type AppFeaturesCarouselVariant = 'default';
@@ -95,7 +96,7 @@ export const DEFAULT_APP_FEATURES_CARDS: readonly AppFeatureCard[] = [
       title: 'marketing.pages.home.appFeatures.instantPayments.title',
       description: 'marketing.pages.home.appFeatures.instantPayments.description',
       ctaText: 'marketing.pages.home.appFeatures.instantPayments.ctaText',
-      ctaHref: ROUTES.DEMO,
+      ctaHref: PRACTICE_APP_URL,
       ctaTarget: '_self',
       chipLabel: 'marketing.pages.home.appFeatures.instantPayments.chipLabel',
     },

@@ -3,7 +3,7 @@
  * founder decisions DR-2026-11-11-market-cleanup-decisions item 6 and -c2-decisions C, H).
  *
  *   * The market band and the four tool results store their label only after analytics
- *     consent; the Learn and demo-launcher writer stays ungated (decision C: nothing changes
+ *     consent; the Learn writer stays ungated (decision C: nothing changes
  *     for existing callers; the pre-consent question is register `5.923`).
  *   * A consent-gated label is not sent once consent is withdrawn; an unknown label is never
  *     sent (the server drops it too, `sanitizeTags`).
@@ -50,7 +50,7 @@ describe('ATTR-1: the signup-source label', () => {
     expect(sessionStorage.getItem(KEY)).toBe('tool-idle-cash');
   });
 
-  it('should keep the Learn and demo-launcher writer ungated when there is no consent', () => {
+  it('should keep the Learn writer ungated when there is no consent', () => {
     setCtaSource('learn-compound-interest');
     expect(sessionStorage.getItem(KEY)).toBe('learn-compound-interest');
     expect(peekCtaSource()).toBe('learn-compound-interest');
@@ -68,9 +68,9 @@ describe('ATTR-1: the signup-source label', () => {
     sessionStorage.setItem(KEY, 'ana@example.com');
     expect(peekCtaSource()).toBeNull();
     expect(sessionStorage.getItem(KEY)).toBeNull();
-    setCtaSource('demo-launcher');
-    expect(peekCtaSource()).toBe('demo-launcher');
-    expect(peekCtaSource()).toBe('demo-launcher');
+    setCtaSource('learn-compound-interest');
+    expect(peekCtaSource()).toBe('learn-compound-interest');
+    expect(peekCtaSource()).toBe('learn-compound-interest');
     clearCtaSource();
     expect(peekCtaSource()).toBeNull();
   });

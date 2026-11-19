@@ -9,7 +9,7 @@
  *   - and the transcreated copy (shared i18n keys, per-locale translations).
  *
  * Wedges (per `REDESIGN_BUILD_PLAN.md` §3 Phase 4):
- *   🇺🇸 en    — idle-money + honesty: "Your bank pays {rate}." → demo-forward.
+ *   🇺🇸 en    — idle-money + honesty: "Your bank pays {rate}." → Practice-forward.
  *   🇧🇷 pt-BR — dollar hedge (killer wedge): "O real perdeu {x}% pro dólar desde
  *               2010." → Currency-Depreciation tool. Warmest tone.
  *   🇪🇸 es    — bank gap / ahorro: "Tu banco te paga {rate}." → Inflation-impact tool.
@@ -21,6 +21,7 @@
  */
 
 import type { SupportedLocale } from '@diboas/i18n/config';
+import { PRACTICE_APP_URL } from './practiceApp';
 
 /** Which live metric drives the wedge's headline figure. */
 export type WedgeMetric = 'bankSavings' | 'brlDollarLoss' | 'inflationCumulative';
@@ -28,14 +29,14 @@ export type WedgeMetric = 'bankSavings' | 'brlDollarLoss' | 'inflationCumulative
 export interface WedgeExpression {
   /** The live metric resolved into the headline figure (see `useMarketWedge`). */
   readonly metric: WedgeMetric;
-  /** Lead tool / experience the wedge drives into (locale-relative href). */
+  /** Lead tool / experience the wedge drives into (a locale-relative path, or Practice's address). */
   readonly ctaHref: string;
   /** Visual accent — BR warmest, DE most disciplined. */
   readonly tone: 'action' | 'warm' | 'neutral';
 }
 
 export const WEDGE_CONFIG: Record<SupportedLocale, WedgeExpression> = {
-  en: { metric: 'bankSavings', ctaHref: '/demo', tone: 'action' },
+  en: { metric: 'bankSavings', ctaHref: PRACTICE_APP_URL, tone: 'action' },
   'pt-BR': { metric: 'brlDollarLoss', ctaHref: '/tools/currency-depreciation', tone: 'warm' },
   es: { metric: 'bankSavings', ctaHref: '/tools/inflation-impact', tone: 'action' },
   de: { metric: 'bankSavings', ctaHref: '/tools/inflation-impact', tone: 'neutral' },

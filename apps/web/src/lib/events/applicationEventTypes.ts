@@ -25,12 +25,6 @@ export enum ApplicationEventType {
   CONSENT_GIVEN = 'consent:given',
   CONSENT_WITHDRAWN = 'consent:withdrawn',
 
-  // PreDemo Events
-  PRE_DEMO_STARTED = 'preDemo:started',
-  PRE_DEMO_DEPOSIT_COMPLETED = 'preDemo:depositCompleted',
-  PRE_DEMO_SEND_COMPLETED = 'preDemo:sendCompleted',
-  PRE_DEMO_BUY_COMPLETED = 'preDemo:buyCompleted',
-
   // PreDream Events
   PRE_DREAM_STARTED = 'preDream:started',
   PRE_DREAM_SHARE_INITIATED = 'preDream:shareInitiated',
@@ -55,7 +49,6 @@ export type ApplicationDomain =
   | 'waitlist'
   | 'share'
   | 'consent'
-  | 'preDemo'
   | 'preDream'
   | 'analytics'
   | 'monitoring'
@@ -166,10 +159,6 @@ export const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
   [ApplicationEventType.SHARE_CANCELLED]: ['domain', 'source', 'platform', 'locale'],
   [ApplicationEventType.CONSENT_GIVEN]: ['domain', 'source', 'consentType', 'newState'],
   [ApplicationEventType.CONSENT_WITHDRAWN]: ['domain', 'source', 'consentType', 'newState'],
-  [ApplicationEventType.PRE_DEMO_STARTED]: ['domain', 'source'],
-  [ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED]: ['domain', 'source'],
-  [ApplicationEventType.PRE_DEMO_SEND_COMPLETED]: ['domain', 'source'],
-  [ApplicationEventType.PRE_DEMO_BUY_COMPLETED]: ['domain', 'source'],
   [ApplicationEventType.PRE_DREAM_STARTED]: ['domain', 'source'],
   [ApplicationEventType.PRE_DREAM_SHARE_INITIATED]: ['domain', 'source'],
   [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: ['domain', 'source'],

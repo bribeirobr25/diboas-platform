@@ -118,7 +118,7 @@ export default async function B2CLandingPage({ params }: LocalePageProps) {
   // sections render with live data on first paint instead of flipping from
   // static fallback after hydration. See TOOLS_IMPROVEMENT.md A8.
   const [pageMessages, snapshot, lbMessages, structured] = await Promise.all([
-    loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share', 'dreamMode', 'preDemo', 'preDream']),
+    loadPageNamespaces(locale, ['landing-b2c', 'faq', 'share']),
     marketDataService.get(),
     loadMessages(locale, 'landing-b2c'),
     buildServiceStructuredData('landing', locale),

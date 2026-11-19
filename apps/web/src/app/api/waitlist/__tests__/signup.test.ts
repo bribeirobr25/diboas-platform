@@ -664,7 +664,6 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
     /* Imported from `store/types` directly: the `store` barrel is mocked in this file. */
     expect(WAITLIST_SOURCES.length).toBeGreaterThan(0);
     expect(WAITLIST_SOURCES).toContain('dream_mode');
-    expect(WAITLIST_SOURCES).toContain('app_link');
     expect(vi.isMockFunction(isValidSource)).toBe(false);
   });
 
@@ -685,7 +684,7 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
     }
   );
 
-  it.each(['dream_mode', 'app_link'] as const)(
+  it.each(['dream_mode'] as const)(
     "should store the modal's own body, as it builds it, when its opener is %s",
     async (source) => {
       (store.addEntry as Mock).mockResolvedValue(mockEntry(source));
@@ -702,7 +701,9 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
     }
   );
 
-  it.each(['popup', 'modal'])(
+  /* P13 (D6): `interactive_demo` and `app_link` left the list with the demo and the app-link
+     interceptor; an open tab still posting one is refused like any unknown source. */
+  it.each(['popup', 'modal', 'interactive_demo', 'app_link'])(
     'should refuse the source %s with 400 INVALID_SOURCE and never reach the store',
     async (source) => {
       const response = await POST(

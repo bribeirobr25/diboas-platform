@@ -55,7 +55,7 @@ describe("5.979 · the real modal posts its opener's source and reports a stored
     answer.ok = true;
   });
 
-  it.each(['dream_mode', 'app_link'] as const)(
+  it.each(['dream_mode'] as const)(
     'should post %s and call onJoined once the signup is stored',
     async (source) => {
       const onJoined = vi.fn();

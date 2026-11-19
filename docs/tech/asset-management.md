@@ -72,7 +72,7 @@ import { getNavigationAsset, getSocialRealAsset } from '@/config/assets';
 const banner = getNavigationAsset('LEARN_BANNER');
 ```
 
-Used by: navigation components, SEO constants, PreDemo screens, WaitingListModal.
+Used by: navigation components, SEO constants, WaitingListModal.
 
 ### Direct paths in page configs
 

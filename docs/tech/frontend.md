@@ -38,7 +38,6 @@ Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySec
 | `Analytics/`        | Adelaide Market `/market` surface — `RegimeScore`, `SignalCard`, `SignalCardsGrid`, and related macro-regime components                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `Market/`           | `MarketCtaBand` (Adelaide closing band), `MarketHeroCanvas`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `WaitingList/`      | Waitlist form, modal, confirmation, referral link, position display                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `PreDemo/`          | Interactive banking demo (client-only, dynamically imported)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `PreDream/`         | Future-you visualization experience (client-only, dynamically imported)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `ErrorBoundary/`    | `RouteGroupError`, `RouteGroupLoading`, `PageErrorBoundary`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `SEO/`              | `StructuredData` (JSON-LD injection)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -50,7 +49,7 @@ Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySec
 
 ### Server vs Client Components
 
-`SectionContainer` is a server component (no `'use client'` directive). Most interactive components are client components. Heavy client-only experiences (`PreDemo`, `PreDream`) use `next/dynamic` with `ssr: false`. The `CompoundInterestCalculator` factory accepts an `engine='lesson' | 'tool'` prop (Phase 7 Q7a) — `'lesson'` is the default and uses non-hedged math for `/learn/compound-interest`; tool pages pass `'tool'` to opt into `calculateCompoundProjectionHedged()` for non-USD locale currency hedging.
+`SectionContainer` is a server component (no `'use client'` directive). Most interactive components are client components. Heavy client-only experiences (`PreDream`) use `next/dynamic` with `ssr: false`. The `CompoundInterestCalculator` factory accepts an `engine='lesson' | 'tool'` prop (Phase 7 Q7a) — `'lesson'` is the default and uses non-hedged math for `/learn/compound-interest`; tool pages pass `'tool'` to opt into `calculateCompoundProjectionHedged()` for non-USD locale currency hedging.
 
 ## 3. Styling
 
@@ -69,7 +68,7 @@ All components reference design tokens via CSS custom properties rather than har
 ### Implemented
 
 - **Skip navigation:** The `(landing)` layout includes a skip-to-main-content link, localized via `common.json` translations.
-- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MinimalNavigation`, `WaitingListModal`, `ExportKeyModal`, `PreDemo`, `PreDream`).
+- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MinimalNavigation`, `WaitingListModal`, `PreDream`).
 - **Keyboard navigation:** `LanguageSwitcher` handles Escape key with focus return. `useCarousel` handles Arrow keys, Home, End, and Space for play/pause.
 - **ARIA attributes:** 124+ usages of `aria-label`, `aria-describedby`, and `aria-live` across 65 files.
 - **Reduced motion:** All animations respect `prefers-reduced-motion` (49 files reference it via CSS and JS).
@@ -100,7 +99,7 @@ All components reference design tokens via CSS custom properties rather than har
 
 ### Dynamic Imports
 
-`next/dynamic` with `ssr: false` used for `PreDemo`, `PreDream`, and feature showcase variant registry.
+`next/dynamic` with `ssr: false` used for `PreDream` and the feature showcase variant registry.
 
 ### Performance Targets
 
@@ -163,7 +162,7 @@ All hooks live in `apps/web/src/hooks/`:
 | `useWaitlistStats`       | Fetches waitlist stats with `fetchWithRetry`, caches in `sessionStorage` (5-min TTL), listens for real-time updates via `ApplicationEventBus`.                                                                         |
 | `useWebShare`            | Shared Web Share + copy-fallback engine (native sheet → clipboard, `copied` timer, AbortError no-op). Consumed by `useResultShare` + `MarketCtaBand`; analytics via `onInitiated`/`onCompleted` callbacks.             |
 
-Additional component-scoped hooks exist in `WaitingList/hooks/` (`useWaitlistForm`, `useWaitlistModalForm`) and `PreDemo/hooks/` (`useScreenTransitionSequence`, `useTimerCleanup`).
+Additional component-scoped hooks exist in `WaitingList/hooks/` (`useWaitlistForm`, `useWaitlistModalForm`).
 
 ## 9. Error Handling
 

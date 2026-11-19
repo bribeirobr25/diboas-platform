@@ -11,15 +11,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * never lower one to make a run pass. Below the 80/60 policy: see register 5.832 (web is ratcheted, not yet compliant). CLAUDE.md requires 100% for security utilities.
  */
 const COVERAGE_THRESHOLDS = {
-  lines: 34,
-  branches: 29,
-  functions: 28,
-  statements: 34,
-  'src/app/**': { lines: 26, branches: 21, functions: 23, statements: 27 },
-  'src/components/**': { lines: 12, branches: 12, functions: 11, statements: 12 },
-  'src/config/**': { lines: 31, branches: 49, functions: 27, statements: 31 },
-  'src/hooks/**': { lines: 54, branches: 51, functions: 58, statements: 54 },
-  'src/lib/**': { lines: 58, branches: 50, functions: 50, statements: 58 },
+  // Re-measured 2026-11-19 (P13 PR-1, full `vitest run --coverage`) and rounded down, as COV-1
+  // prescribes: global 45.32/39.57/39.26/45.05, app 37.75/29.60/32.56/37.69, components
+  // 22.77/21.05/21.99/22.48, config 43.26/53.03/36.21/43.81, hooks 57.47/53.87/60.78/57.23,
+  // lib 66.06/59.64/58.86/65.71 (lines/branches/functions/statements).
+  lines: 45,
+  branches: 39,
+  functions: 39,
+  statements: 45,
+  'src/app/**': { lines: 37, branches: 29, functions: 32, statements: 37 },
+  'src/components/**': { lines: 22, branches: 21, functions: 21, statements: 22 },
+  'src/config/**': { lines: 43, branches: 53, functions: 36, statements: 43 },
+  'src/hooks/**': { lines: 57, branches: 53, functions: 60, statements: 57 },
+  'src/lib/**': { lines: 66, branches: 59, functions: 58, statements: 65 },
   // Security utilities: 100% on every metric.
   'src/lib/security/**': { 100: true },
   'middleware.ts': { 100: true },

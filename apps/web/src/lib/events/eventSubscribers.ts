@@ -70,15 +70,6 @@ export function registerEventSubscribers(): void {
       .catch(() => Logger.warn('Failed to load analytics for share_completed subscriber'));
   });
 
-  // 5. PRE_DEMO_STARTED → track pre_demo_started
-  applicationEventBus.on(ApplicationEventType.PRE_DEMO_STARTED, (data) => {
-    import('@/lib/analytics/service')
-      .then((mod) =>
-        mod.analyticsService.track({ name: 'pre_demo_started', parameters: data.metadata })
-      )
-      .catch(() => Logger.warn('Failed to load analytics for pre_demo_started subscriber'));
-  });
-
   // 6. PRE_DREAM_STARTED → track pre_dream_started
   applicationEventBus.on(ApplicationEventType.PRE_DREAM_STARTED, (data) => {
     import('@/lib/analytics/service')
@@ -117,48 +108,6 @@ export function registerEventSubscribers(): void {
       .catch(() =>
         Logger.warn('Failed to load analytics for waitlist_signup_completed subscriber')
       );
-  });
-
-  // 8. PRE_DEMO_DEPOSIT_COMPLETED → pre_demo_deposit_completed
-  applicationEventBus.on(ApplicationEventType.PRE_DEMO_DEPOSIT_COMPLETED, (data) => {
-    const meta = (data.metadata ?? {}) as { amount?: number };
-    import('@/lib/analytics/service')
-      .then((mod) =>
-        mod.analyticsService.track({
-          name: 'pre_demo_deposit_completed',
-          parameters: { amount: meta.amount },
-        })
-      )
-      .catch(() =>
-        Logger.warn('Failed to load analytics for pre_demo_deposit_completed subscriber')
-      );
-  });
-
-  // 9. PRE_DEMO_SEND_COMPLETED → pre_demo_send_completed
-  //    (deliberately drops the `recipient` field — user-entered, potential PII).
-  applicationEventBus.on(ApplicationEventType.PRE_DEMO_SEND_COMPLETED, (data) => {
-    const meta = (data.metadata ?? {}) as { amount?: number };
-    import('@/lib/analytics/service')
-      .then((mod) =>
-        mod.analyticsService.track({
-          name: 'pre_demo_send_completed',
-          parameters: { amount: meta.amount },
-        })
-      )
-      .catch(() => Logger.warn('Failed to load analytics for pre_demo_send_completed subscriber'));
-  });
-
-  // 10. PRE_DEMO_BUY_COMPLETED → pre_demo_buy_completed
-  applicationEventBus.on(ApplicationEventType.PRE_DEMO_BUY_COMPLETED, (data) => {
-    const meta = (data.metadata ?? {}) as { amount?: number; asset?: string };
-    import('@/lib/analytics/service')
-      .then((mod) =>
-        mod.analyticsService.track({
-          name: 'pre_demo_buy_completed',
-          parameters: { amount: meta.amount, asset: meta.asset },
-        })
-      )
-      .catch(() => Logger.warn('Failed to load analytics for pre_demo_buy_completed subscriber'));
   });
 
   // 11. PRE_DREAM_SHARE_INITIATED → pre_dream_share_initiated

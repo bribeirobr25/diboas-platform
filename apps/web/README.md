@@ -66,7 +66,6 @@ Main pages:
 - `/[locale]/security` - Security information
 - `/[locale]/market` - Adelaide Market — Market Macro umbrella (multi-view since M3 2026-08-13; weekly refresh pipeline; data from the private diBoaS Analytics store)
 - `/[locale]/market/[view]` - Per-view pages: `/market/bitcoin` (scored) + `/market/backdrop` (state view over the same weekly run)
-- `/[locale]/demo` - Interactive financial demo (noindex)
 - `/[locale]/dream-mode` - Goal calculator simulation (noindex)
 - `/[locale]/share` - Social sharing redirect (OG metadata)
 

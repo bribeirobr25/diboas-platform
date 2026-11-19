@@ -509,7 +509,11 @@ describe('CI-N4 · the detector itself, before any zero it reports is believed',
 
   it('should have actually read both catalogues — an empty scan proves nothing', () => {
     expect(webapp.strings, 'the sandbox catalogue scan was empty').toBeGreaterThan(1_000);
-    expect(website.strings, 'the website catalogue scan was empty').toBeGreaterThan(10_000);
+    // Non-vacuity only: the floor proves the scan read the website's catalogues, not their size.
+    // 2026-11-19 (P13 PR-1): deleting the retired demo's catalogue took the real count from over
+    // 10,000 to 9,687, and PR-2 (Dream Mode) lowers it again; half of today's count still proves
+    // a non-empty scan without tracking content deletions.
+    expect(website.strings, 'the website catalogue scan was empty').toBeGreaterThan(5_000);
   });
 
   it('should read every website file, the legal pages in their subfolder included', () => {

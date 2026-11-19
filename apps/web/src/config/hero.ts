@@ -9,6 +9,7 @@
  */
 
 import { getSocialRealAsset, getMascotAsset, getPhoneActivitiesAsset } from './assets';
+import { PRACTICE_APP_URL } from './practiceApp';
 import type { SceneKind, HeroTheme } from '@/components/Sections/CinematicHero';
 
 export type HeroVariant = 'default' | 'fullBackground' | 'cinematic';
@@ -103,7 +104,7 @@ export const DEFAULT_BACKGROUND_ASSETS: HeroBackgroundAssets = {
 export const DEFAULT_HERO_CONTENT: HeroContent = {
   title: 'marketing.pages.home.hero.title',
   ctaText: 'common.buttons.getStarted',
-  ctaHref: process.env.NEXT_PUBLIC_APP_URL || 'https://app.diboas.com',
+  ctaHref: PRACTICE_APP_URL,
   ctaTarget: '_blank',
 } as const;
 

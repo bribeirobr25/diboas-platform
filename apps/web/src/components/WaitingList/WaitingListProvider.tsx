@@ -4,8 +4,10 @@
  * Waiting List Provider
  *
  * Global context for waiting list modal state
- * Includes click interceptor for app.diboas.com links
  * Following React Context pattern
+ *
+ * The click interceptor that turned every app.diboas.com link into this modal was removed with
+ * the demo (plan P13, D1): links to Practice now open Practice.
  */
 
 import React, {
@@ -18,7 +20,6 @@ import React, {
   ReactNode,
 } from 'react';
 import { createPortal } from 'react-dom';
-import { APP_URL } from '@/config/env';
 import { WaitingListContextValue } from '@/lib/waitingList/types';
 import type { WaitlistSource } from '@/lib/waitingList/store/types';
 import dynamic from 'next/dynamic';
@@ -83,45 +84,12 @@ export function WaitingListProvider({ children }: WaitingListProviderProps) {
     });
   }, []);
 
-  // Global click interceptor for app.diboas.com / localhost:3001 links
-  useEffect(() => {
-    const handleClick = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const anchor = target.closest('a');
-
-      if (!anchor) return;
-
-      const href = anchor.getAttribute('href');
-      if (!href) return;
-
-      // Check if link points to app URL
-      const appUrl = APP_URL;
-      const isAppLink =
-        href.startsWith(appUrl) ||
-        href.includes('app.diboas.com') ||
-        href.includes('localhost:3001');
-
-      if (isAppLink) {
-        event.preventDefault();
-        event.stopPropagation();
-        openModal('app_link');
-      }
-    };
-
-    // Add listener on capture phase to intercept before other handlers
-    document.addEventListener('click', handleClick, true);
-
-    return () => {
-      document.removeEventListener('click', handleClick, true);
-    };
-  }, [openModal]);
-
   // Escape is handled by the modal's focus trap (its onEscape calls closeModal). A second,
   // document-level listener here closed it twice and sent two close events (fifteenth audit).
   // Prevent body scroll when modal is open.
   // Only capture/restore when transitioning to open — avoids resetting
   // overflow on initial mount (which conflicts with other components
-  // that may lock body scroll, e.g. DemoPageContent).
+  // that may lock body scroll).
   useEffect(() => {
     if (!isOpen) return;
 

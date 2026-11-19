@@ -40,7 +40,7 @@ const REFERENCE_LOCALE = 'en';
 const LOCALE_SPECIFIC_KEYS = {
   'pt-BR': {
     'landing-b2b.json': ['calculator.fields.currencyLoss', 'footer.bcbDisclaimer'],
-    'landing-b2c.json': ['demo.pain.pixHeader', 'footer.brDisclaimer', 'ptbr'],
+    'landing-b2c.json': ['footer.brDisclaimer', 'ptbr'],
     'legal/cookies.json': ['sections.brazilNote'],
     // `sections.yourRights.table.rows.7` — Brazil's LGPD adds an eighth right (Revisão de
     // Decisões Automatizadas), the last row of the rights table. Owned by Legal: the
