@@ -62,15 +62,21 @@ test.describe('the retired demo (P13)', () => {
         errors.push(m.text());
       });
       await page.goto(`/${locale}`);
+      // The play-money CTA sits in the "picture the future" section (pt-BR: "imagine"), which
+      // renders as it scrolls into view: go there and wait for it, rather than racing a scroll.
+      const future = page
+        .locator(
+          '[data-section-id^="picture-future-section"], [data-section-id="imagine-section-ptbr"]'
+        )
+        .first();
+      await future.scrollIntoViewIfNeeded();
+      await expect(future.locator(`a[href="${PRACTICE}"]`)).toHaveCount(1);
       await page.mouse.wheel(0, 20000);
       const hrefs = await page
         .locator('a[href*="app.diboas.com"]')
         .evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-      // the two navigation CTAs (desktop and mobile) and the forced play-money CTA
+      // the two navigation CTAs (desktop and mobile) and the play-money CTA
       expect(hrefs.length).toBeGreaterThanOrEqual(3);
-      await expect(
-        page.locator('a[href="https://app.diboas.com"]').filter({ hasText: /\S/ })
-      ).not.toHaveCount(0);
       for (const href of hrefs) expect(href).toBe(PRACTICE);
       expect(await page.locator('a[href*="/demo"]').count()).toBe(0);
       expect(errors).toEqual([]);
