@@ -375,15 +375,27 @@ describe('middleware', () => {
       expect(response.status).toBe(308);
       // no path, no query: neither the welcome email's utm_* nor a referral code reach Practice
       expect(response.headers.get('location')).toBe('https://app.diboas.com/');
+      // cacheable for a day, never indefinitely (a bare permanent redirect is kept forever)
+      expect(response.headers.get('cache-control')).toBe('public, max-age=86400');
     });
 
-    it.each(['/en/demos', '/en/tools/money-jobs', '/en/learn/demo-talk', '/en/demo-day'])(
-      'should not redirect %s to Practice',
-      (path) => {
-        const response = middleware(makeRequest(path));
-        expect(response.headers.get('location') ?? '').not.toContain('app.diboas.com');
-      }
-    );
+    /* Negative controls (P13 review): a pattern widened to any segment before `demo`, or to
+       `demo` anywhere in the path, must fail here. */
+    it.each([
+      '/en/demos',
+      '/en/tools/money-jobs',
+      '/en/learn/demo-talk',
+      '/en/demo-day',
+      '/en/learn/demo',
+      '/learn/demo',
+      '/fr/demo',
+      '/en/market/demo',
+      '/en/tools/demo',
+      '/xdemo',
+    ])('should not redirect %s to Practice', (path) => {
+      const response = middleware(makeRequest(path));
+      expect(response.headers.get('location') ?? '').not.toContain('app.diboas.com');
+    });
   });
 
   // ── config.matcher ────────────────────────────────────────────────

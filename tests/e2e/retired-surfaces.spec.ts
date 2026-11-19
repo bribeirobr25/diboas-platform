@@ -44,23 +44,37 @@ test.describe('the retired demo (P13)', () => {
         Math.random = () => 0.999;
       });
       const errors: string[] = [];
+      let tunnelRefused = 0;
       page.on('pageerror', (e) => errors.push(e.message));
       page.on('console', (m) => {
-        // One named exception: the site's rate limiter answering this run's own burst of
-        // requests (status 429), which is the limiter working, not a page fault.
-        if (m.type() === 'error' && !/status of 429 \(Too Many Requests\)/.test(m.text()))
-          errors.push(m.text());
+        if (m.type() !== 'error') return;
+        // One named exception: the Sentry tunnel (`/api/monitoring`) answers 429 when the run has
+        // no reachable Upstash Redis, because its limiter fails closed in production mode (F9,
+        // `rateLimiter.ts` createDedicatedLimiter); this run and CI have none. Any other
+        // resource or status is a fault, and more than ten refusals on one page would be a loop.
+        if (
+          /status of 429 \(Too Many Requests\)/.test(m.text()) &&
+          new URL(m.location().url).pathname === '/api/monitoring'
+        ) {
+          tunnelRefused += 1;
+          return;
+        }
+        errors.push(m.text());
       });
       await page.goto(`/${locale}`);
       await page.mouse.wheel(0, 20000);
       const hrefs = await page
         .locator('a[href*="app.diboas.com"]')
         .evaluateAll((as) => as.map((a) => a.getAttribute('href')));
-      // the navigation CTAs (desktop and mobile) at least
-      expect(hrefs.length).toBeGreaterThanOrEqual(2);
+      // the two navigation CTAs (desktop and mobile) and the forced play-money CTA
+      expect(hrefs.length).toBeGreaterThanOrEqual(3);
+      await expect(
+        page.locator('a[href="https://app.diboas.com"]').filter({ hasText: /\S/ })
+      ).not.toHaveCount(0);
       for (const href of hrefs) expect(href).toBe(PRACTICE);
       expect(await page.locator('a[href*="/demo"]').count()).toBe(0);
       expect(errors).toEqual([]);
+      expect(tunnelRefused).toBeLessThanOrEqual(10);
     });
   }
 

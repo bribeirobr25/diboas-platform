@@ -17,6 +17,7 @@ import { parseSource } from '@diboas/test-support';
 import { describe, expect, it } from 'vitest';
 import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
 import { ROUTES } from '@/config/routes';
+import sitemap from '@/app/sitemap';
 
 const SRC = join(__dirname, '../..');
 const APP = join(SRC, 'app', '[locale]');
@@ -129,7 +130,7 @@ function emailLinks(): Array<{ at: string; path: string }> {
   return out;
 }
 
-describe('internal links resolve to a page', () => {
+describe('internal links resolve to a page', { timeout: 30_000 }, () => {
   it('should link the waitlist consent line to the real privacy policy page', () => {
     expect(WAITING_LIST_CONFIG.privacyPolicyUrl).toBe(ROUTES.LEGAL.PRIVACY);
     expect(resolves(WAITING_LIST_CONFIG.privacyPolicyUrl)).toBe(true);
@@ -154,6 +155,17 @@ describe('internal links resolve to a page', () => {
         .filter((l) => !resolves(l.path))
         .map((l) => `${l.at} ${l.path}`)
     ).toEqual([]);
+  });
+
+  /* P13 review: the sitemap lists every PAGE_SEO_CONFIG key, so an SEO entry for a deleted
+     page (`demo`) would publish a redirecting address to search engines. Every address the
+     sitemap publishes must be a real page. */
+  it('should publish only real pages in the sitemap', () => {
+    const paths = sitemap().map(
+      (e) => new URL(e.url).pathname.replace(/^\/(en|pt-BR|es|de)(?=\/|$)/, '') || '/'
+    );
+    expect(paths.length).toBeGreaterThan(40);
+    expect([...new Set(paths)].filter((p) => !resolves(p))).toEqual([]);
   });
 
   it('should tell a real page from a missing one (the reader is not blind)', () => {

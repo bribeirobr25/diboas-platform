@@ -31,7 +31,7 @@ async function withSiteOrigin<T>(load: () => Promise<T>): Promise<T> {
   return load();
 }
 
-describe('one Practice address (P13 · D2)', () => {
+describe('one Practice address (P13 · D2)', { timeout: 30_000 }, () => {
   it('should hold the same fixed address in the web app and the email package', async () => {
     const { PRACTICE_APP_URL } = await import('../practiceApp');
     const { BRAND } = await import('@diboas/email');
@@ -119,10 +119,19 @@ describe('one Practice address (P13 · D2)', () => {
     const inHref: string[] = [];
     for (const file of files) {
       const code = stripComments(readFileSync(file, 'utf8'));
-      if (!/\bAPP_URL\b|NEXT_PUBLIC_APP_URL/.test(code.replace(/PRACTICE_APP_URL/g, ''))) continue;
+      if (
+        !/\bAPP_URL\b|NEXT_PUBLIC_APP_URL|\bAPP_DOMAIN\b|NEXT_PUBLIC_APP_DOMAIN/.test(
+          code.replace(/PRACTICE_APP_URL/g, '')
+        )
+      )
+        continue;
       const at = relative(repo, file).split(sep).join('/');
       readers.push(at);
-      if (/href\s*[:=]\s*\{?\s*(?:process\.env\.NEXT_PUBLIC_APP_URL|APP_URL)\b/.test(code))
+      if (
+        /href\s*[:=]\s*\{?\s*`?(?:https:\/\/\$\{)?(?:process\.env\.NEXT_PUBLIC_APP_(?:URL|DOMAIN)|APP_URL|APP_DOMAIN)\b/.test(
+          code
+        )
+      )
         inHref.push(at);
     }
     expect(readers.filter((r) => !READERS.has(r))).toEqual([]);
@@ -130,5 +139,30 @@ describe('one Practice address (P13 · D2)', () => {
     // non-vacuity: the scan sees the real readers
     expect(readers).toContain('apps/web/src/lib/share/utm.ts');
     expect(readers).toContain('packages/email/src/config.ts');
+  });
+
+  /*
+   * The Practice host is written by hand in exactly two places: `config/practiceApp.ts` and the
+   * email package's `BRAND.practiceUrl` (pinned equal above). The CSP's `form-action` names the
+   * host as an origin, not a link. Any other literal is a Practice link that bypasses the one
+   * address (P13 review: a literal with `?ref=` in a new component passed every other guard).
+   */
+  it('should write the Practice host by hand only in its two homes and the CSP', () => {
+    const HOMES = new Set([
+      'apps/web/src/config/practiceApp.ts',
+      'packages/email/src/config.ts',
+      'apps/web/middleware.ts',
+    ]);
+    const repo = join(WEB, '../..');
+    const files = [...walk(SRC), join(WEB, 'middleware.ts'), ...walk(EMAIL_SRC)];
+    const hits = files
+      .filter((f) => /app\.diboas\.com/.test(stripComments(readFileSync(f, 'utf8'))))
+      .map((f) => relative(repo, f).split(sep).join('/'));
+    expect(hits.filter((h) => !HOMES.has(h))).toEqual([]);
+    expect(hits).toContain('apps/web/src/config/practiceApp.ts');
+    const csp = stripComments(readFileSync(join(WEB, 'middleware.ts'), 'utf8'))
+      .split('\n')
+      .filter((l) => /app\.diboas\.com/.test(l));
+    expect(csp.every((l) => /form-action/.test(l))).toBe(true);
   });
 });

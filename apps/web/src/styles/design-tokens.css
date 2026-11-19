@@ -229,7 +229,7 @@
   --accent-gold-strong: #ad7f36; /* decorative gold, stronger */
   --text-gold-accessible: #8a6526; /* Gold-on-white text: ~5.0:1 — WCAG AA pass */
 
-  /* Nav CTA gold pill (coastal-atmospheric "Try Demo" aesthetic). --accent-ink
+  /* Nav CTA gold pill (coastal-atmospheric "Try Practice" aesthetic). --accent-ink
      (#0b1f24) on --cta-gold is ~8:1 — WCAG AA pass for the filled pill label. */
   --cta-gold: #e8a14b;
   --cta-gold-hover: #d68f37;

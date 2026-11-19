@@ -49,7 +49,7 @@ export const ProseSection = memo(function ProseSection({
   const isPortrait = translated.image?.aspectRatio === 'portrait';
   const isCenteredHeader = translated.style.headerStyle === 'centered';
 
-  // Optional rotating CTA (tool/demo promos): pick one per visit. Client-only so
+  // Optional rotating CTA (tool/Practice promos): pick one per visit. Client-only so
   // SSR renders index 0 and the effect re-picks post-hydration — the section is
   // below the fold, so the swap is never visible. Click analytics reveal the
   // best-converting option per locale (rotation is uniform → clicks are comparable).

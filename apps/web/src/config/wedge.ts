@@ -9,7 +9,7 @@
  *   - and the transcreated copy (shared i18n keys, per-locale translations).
  *
  * Wedges (per `REDESIGN_BUILD_PLAN.md` §3 Phase 4):
- *   🇺🇸 en    — idle-money + honesty: "Your bank pays {rate}." → demo-forward.
+ *   🇺🇸 en    — idle-money + honesty: "Your bank pays {rate}." → Practice-forward.
  *   🇧🇷 pt-BR — dollar hedge (killer wedge): "O real perdeu {x}% pro dólar desde
  *               2010." → Currency-Depreciation tool. Warmest tone.
  *   🇪🇸 es    — bank gap / ahorro: "Tu banco te paga {rate}." → Inflation-impact tool.

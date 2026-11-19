@@ -1254,6 +1254,9 @@ a:focus-visible {
    * 3.57:1 on slate-50 nav bg — fails AA when forced via :hover or
    * :focus-visible. teal-700 is 4.85:1. */
   @apply px-4 py-2 text-sm font-medium text-slate-600 hover:text-teal-700 rounded-lg transition-colors;
+  /* A link label never breaks onto two lines (P13 review: with the longer "Try Practice"
+     labels, de/es/pt-BR links wrapped between 1024px and 1150px). */
+  white-space: nowrap;
 }
 
 .minimal-nav-link:hover {
@@ -1270,8 +1273,9 @@ a:focus-visible {
 
 /* P13 (2026-11-19): the "Try Practice" labels are longer than the demo's were ("Practice
    ausprobieren", "Experimente o Practice"). The logo keeps its full width (it used to shrink
-   under the CTA); the phone-width CTA is a size smaller and, on the narrowest screens (320px),
-   wraps onto two balanced lines inside its 44px pill instead of covering the logo. */
+   under the CTA); below the md breakpoint (phones and small tablets) the CTA is a size smaller
+   and, on the narrowest screens (320px), wraps onto two balanced lines inside its 44px pill
+   instead of covering the logo. */
 .minimal-navigation-content > .brand-logo {
   flex-shrink: 0;
 }
@@ -1282,7 +1286,6 @@ a:focus-visible {
   text-wrap: balance;
   text-align: center;
 }
-.minimal-nav-mobile-center .minimal-nav-cta,
 .minimal-nav-mobile-center .minimal-nav-cta .btn-content {
   font-size: var(--font-size-xs-plus);
 }
@@ -1312,6 +1315,27 @@ a:focus-visible {
 .minimal-nav-cta.btn-base,
 .minimal-nav-cta .btn-content {
   font-size: var(--font-size-sm);
+}
+
+/* P13 review (2026-11-19), placed after the base nav rules so it wins on order: from the md
+   breakpoint up to 1279px the desktop bar is tight in
+   de, es and pt-BR. Below 1280px the links and the CTA take less room, so everything fits on
+   one line (measured 1024–1280px in all four locales: at least 12px between the groups). */
+@media (max-width: 1279px) {
+  .minimal-nav-link {
+    padding-left: var(--spacing-xs-plus);
+    padding-right: var(--spacing-xs-plus);
+  }
+  .minimal-nav-cta-desktop,
+  .minimal-nav-lang-desktop {
+    margin-left: var(--spacing-sm);
+  }
+  .minimal-nav-cta-desktop .minimal-nav-cta.minimal-nav-cta {
+    padding-inline: var(--spacing-md-minus);
+  }
+  .minimal-nav-cta-desktop .minimal-nav-cta .btn-content {
+    font-size: var(--font-size-xs-plus);
+  }
 }
 
 /* Mobile Hamburger Button */
@@ -1611,7 +1635,7 @@ a:focus-visible {
   display: none;
 }
 
-/* Try Demo — coastal-style filled gold pill. Double class beats the
+/* Try Practice — coastal-style filled gold pill. Double class beats the
    @diboas/ui .btn-primary variant without !important. Ink-on-gold ≈ 8:1. */
 .minimal-nav-cta.minimal-nav-cta {
   background: var(--cta-gold);

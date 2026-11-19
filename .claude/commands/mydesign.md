@@ -374,7 +374,7 @@ verification into a single unified report.
 
 - Run the FULL platform audit: code-level system checks + visual inspection of ALL main pages
 - Main pages to audit: B2C landing (`/en`), B2B landing (`/en/business`), and any other
-  key pages (About, Strategies, Protocols, Demo) if time permits
+  key pages (About, Strategies, Protocols) if time permits
 - Also test DE locale for each page
 
 **If ambiguous**, use ask_user_input:

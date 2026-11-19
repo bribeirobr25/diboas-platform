@@ -67,11 +67,11 @@ describe('CinematicHeroFactory', () => {
         scene="fluid"
         theme="dark"
         headline="Hi"
-        primaryCta={{ label: 'Try the live demo', href: '/en/demo', onClick }}
+        primaryCta={{ label: 'Open the tools', href: '/en/tools', onClick }}
       />
     );
-    const link = screen.getByRole('link', { name: /try the live demo/i });
-    expect(link.getAttribute('href')).toBe('/en/demo');
+    const link = screen.getByRole('link', { name: /open the tools/i });
+    expect(link.getAttribute('href')).toBe('/en/tools');
     fireEvent.click(link);
     expect(onClick).toHaveBeenCalledTimes(1);
   });

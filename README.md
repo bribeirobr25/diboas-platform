@@ -171,7 +171,7 @@ Full reference: `docs/monitoring/INFRASTRUCTURE_GUIDE.md`.
 
 | Route                          | Description                                                                                                                                                          |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                            | B2C landing page (waitlist, comparison table, goals, demo)                                                                                                           |
+| `/`                            | B2C landing page (waitlist, comparison table, goals)                                                                                                                 |
 | `/business`                    | B2B landing page (Payment Fees + Idle Cash goal cards)                                                                                                               |
 | `/about`                       | About page (founder story, mission, beliefs)                                                                                                                         |
 | `/strategies`                  | Investment strategies                                                                                                                                                |

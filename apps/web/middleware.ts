@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { detectLocaleFromPath, detectPreferredLocale } from '@diboas/i18n/config';
+import {
+  SUPPORTED_LOCALES,
+  detectLocaleFromPath,
+  detectPreferredLocale,
+} from '@diboas/i18n/config';
 import { PRACTICE_APP_URL } from '@/config/practiceApp';
 
 /**
@@ -24,8 +28,15 @@ const LOCALE_COOKIE = 'NEXT_LOCALE';
  * letter case. The answer is a 308 to exactly `PRACTICE_APP_URL`: no path and no query, so the
  * `utm_*` of every welcome email already sent, and any referral code, never reach Practice.
  * Not in `next.config.js`: Next's `redirects()` copies the request's query to the destination.
+ * The locales come from the i18n config, so a new locale is covered without an edit here. The
+ * redirect may be cached for a day only (a permanent 308 with no `Cache-Control` is kept by
+ * browsers indefinitely), so its target can still change.
  */
-const RETIRED_SURFACE_PATH = /^\/(?:(?:en|pt-br|es|de)\/)?demo(?:\/.*)?$/i;
+const RETIRED_SURFACE_PATH = new RegExp(
+  `^/(?:(?:${SUPPORTED_LOCALES.join('|')})/)?demo(?:/.*)?$`,
+  'i'
+);
+const RETIRED_SURFACE_CACHE = 'public, max-age=86400';
 
 export function middleware(request: NextRequest): NextResponse {
   try {
@@ -42,7 +53,9 @@ export function middleware(request: NextRequest): NextResponse {
     const { pathname, search } = request.nextUrl;
 
     if (RETIRED_SURFACE_PATH.test(pathname)) {
-      return NextResponse.redirect(PRACTICE_APP_URL, 308);
+      const redirect = NextResponse.redirect(PRACTICE_APP_URL, 308);
+      redirect.headers.set('Cache-Control', RETIRED_SURFACE_CACHE);
+      return redirect;
     }
 
     // Build CSP with nonce — 'unsafe-inline' removed for scripts in production.

@@ -8,8 +8,12 @@
  * namespace, or the demo's name in a user-facing catalogue. Dream Mode joins the lists in PR-2.
  *
  * Read with the TypeScript parser, so comments never count and a string is a string.
- * Scope limit, stated: a path assembled from fragments (`'/de' + 'mo'`) escapes this scan;
- * guard 2 (every internal link resolves) and the browser test (guard 10) back it up.
+ * A retired segment written as its own string next to a path (`'/' + 'demo'`,
+ * `` `/${locale}/${'demo'}` ``) is caught too; an entry for a retired page in the SEO page list
+ * (which feeds the sitemap) is refused here and by the sitemap check in guard 2.
+ * Scope limit, stated: a segment held in a variable (`const s = 'demo'; `/${s}``) or split
+ * inside a word (`'/de' + 'mo'`) escapes this scan and the unit link test; only the browser test
+ * (guard 10) would see it, and only on the four landings.
  * Named exemption: `middleware.ts`'s redirect pattern (a regular expression, not a string, so it
  * is not scanned; guard 3 proves what it answers).
  */
@@ -18,6 +22,7 @@ import { join, relative, sep } from 'node:path';
 import ts from 'typescript';
 import { parseSource } from '@diboas/test-support';
 import { describe, expect, it } from 'vitest';
+import { PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 
 const WEB = join(__dirname, '../..');
 const SRC = join(WEB, 'src');
@@ -32,6 +37,8 @@ const RETIRED_MODULES = /(^|\/)(PreDemo|DemoLauncher|pre-demo)(\/|$)/;
 const RETIRED_ROUTES = /\bROUTES\.DEMO\b/;
 /** A retired path segment inside a string: `/demo`, not `/demos`, `/demo-day`, `/demo_x`. */
 const RETIRED_PATH = /\/demo(?![\w-])/i;
+/** A retired route's segment on its own: flagged when it is concatenated or templated into a path. */
+const RETIRED_SEGMENTS = new Set(['demo']);
 /** Deleted i18n namespaces: never registered, never named in a string (a stale load only logs). */
 const RETIRED_NAMESPACES = ['preDemo'];
 /** The demo's user-facing name in each locale. */
@@ -84,6 +91,14 @@ function scan(file: string, text = readFileSync(file, 'utf8')): Finding[] {
       pieces.push([node.head.text, ...node.templateSpans.map((s) => s.literal.text)].join('x'));
     }
     if (ts.isJsxText(node)) pieces.push(node.text);
+    if (
+      ts.isStringLiteralLike(node) &&
+      RETIRED_SEGMENTS.has(node.text.toLowerCase()) &&
+      (ts.isTemplateSpan(node.parent) ||
+        (ts.isBinaryExpression(node.parent) &&
+          node.parent.operatorToken.kind === ts.SyntaxKind.PlusToken))
+    )
+      found.push({ at: where(node), what: `segment "${node.text}" joined into a path` });
     for (const piece of pieces) {
       if (RETIRED_PATH.test(piece)) found.push({ at: where(node), what: `path "${piece}"` });
       for (const ns of RETIRED_NAMESPACES)
@@ -99,7 +114,7 @@ function scan(file: string, text = readFileSync(file, 'utf8')): Finding[] {
 
 const FILES = [...walk(SRC), join(WEB, 'middleware.ts'), ...walk(EMAIL_SRC), ...walk(I18N_SRC)];
 
-describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', () => {
+describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 30_000 }, () => {
   it('should walk the code that could name one (the scan is not vacuous)', () => {
     const seen = FILES.map(rel);
     expect(seen.length).toBeGreaterThan(400);
@@ -119,6 +134,11 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', () => {
 
   it('should find no import, route, path, namespace or name of the demo in the code', () => {
     expect(FILES.flatMap((f) => scan(f)).map((x) => `${x.at} ${x.what}`)).toEqual([]);
+  });
+
+  it('should keep no retired page in the SEO page list (it feeds the sitemap)', () => {
+    expect(Object.keys(PAGE_SEO_CONFIG).filter((k) => RETIRED_SEGMENTS.has(k))).toEqual([]);
+    expect(Object.keys(PAGE_SEO_CONFIG).length).toBeGreaterThan(10);
   });
 
   it('should register no retired namespace and ship no file for one', () => {
@@ -156,6 +176,8 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', () => {
       "const a = '/learn/demo-talk';",
       '// a comment naming /demo',
       "const id = 'demo';",
+      'const k = { demo: 1 };',
+      "if (kind === 'demo') run();",
     ])
       expect(probe(ok), ok).toEqual([]);
     for (const bad of [
@@ -167,6 +189,8 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', () => {
       'const h = ROUTES.DEMO;',
       "load(['preDemo']);",
       "const t = 'Try the Interactive Demo';",
+      "const h = '/' + 'demo';",
+      'const h = `/${locale}/${"demo"}`;',
     ])
       expect(probe(bad).length, bad).toBeGreaterThan(0);
   });

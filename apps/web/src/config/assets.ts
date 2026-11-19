@@ -21,11 +21,6 @@ export const ASSET_PATHS = {
     LEARN_BANNER: `${ASSETS_BASE}/navigation/learn-banner.avif`,
   },
 
-  // Logo Assets
-  LOGOS: {
-    ICON: `${ASSETS_BASE}/logos/logo-icon-monogram.avif`,
-  },
-
   // General Images
   IMAGES: {
     HERO: `${ASSETS_BASE}/images/defiant-bloom.avif`,
@@ -431,7 +426,6 @@ export function getAssetOptimizationConfig(): AssetOptimizationConfig {
 export type SocialRealAssetKey = keyof typeof ASSET_PATHS.SOCIALS.REAL;
 export type SocialDrawingAssetKey = keyof typeof ASSET_PATHS.SOCIALS.DRAWING;
 export type NavigationAssetKey = keyof typeof ASSET_PATHS.NAVIGATION;
-export type LogoAssetKey = keyof typeof ASSET_PATHS.LOGOS;
 export type MascotAssetKey = keyof typeof ASSET_PATHS.MASCOTS;
 
 /**
@@ -462,16 +456,6 @@ export function getSocialDrawingAsset(key: SocialDrawingAssetKey): string {
  */
 export function getNavigationAsset(key: NavigationAssetKey): string {
   return ASSET_PATHS.NAVIGATION[key];
-}
-
-/**
- * Get Logo Asset Path
- * Type-safe helper to access logo assets
- * @param key - The asset key from ASSET_PATHS.LOGOS
- * @returns The full asset path
- */
-export function getLogoAsset(key: LogoAssetKey): string {
-  return ASSET_PATHS.LOGOS[key];
 }
 
 /**
