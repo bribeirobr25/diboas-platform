@@ -107,13 +107,7 @@ export function emitErrorEvent(
   error: unknown,
   severity: 'low' | 'medium' | 'high' | 'critical' = 'high',
   domain:
-    | 'waitlist'
-    | 'consent'
-    | 'share'
-    | 'preDream'
-    | 'analytics'
-    | 'monitoring'
-    | 'application' = 'application'
+    'waitlist' | 'consent' | 'share' | 'analytics' | 'monitoring' | 'application' = 'application'
 ): void {
   applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
     domain,

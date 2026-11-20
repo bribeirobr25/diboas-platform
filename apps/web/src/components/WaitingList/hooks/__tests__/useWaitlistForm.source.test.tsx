@@ -1,7 +1,7 @@
 /**
  * ⛑ `5.979` · WAITLIST-SOURCE-1: the landing form sends exactly the source it was given,
- * and only a source the route accepts (plan P11, D3). The modal's source has its own guards;
- * this covers the other client poster.
+ * and only a source the route accepts (plan P11, D3). It is the one client poster left: the
+ * modal, which had its own guards, was deleted with Dream Mode in plan P13 PR-2.
  *
  * @vitest-environment happy-dom
  */

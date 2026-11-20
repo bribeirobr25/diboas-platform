@@ -76,7 +76,7 @@ describe('MoneyJobsGate', () => {
     fillAndSubmit('Gate-Test@Example.com');
     await waitFor(() => expect(onUnlocked).toHaveBeenCalled());
     expect(onUnlocked.mock.calls[0]?.[0]).toMatchObject({ position: 1234 });
-    // Decision 5: normalized email persisted (also repairs the dream-mode gate)
+    // Decision 5: normalized email persisted (Dream Mode, which read it, was deleted in P13)
     expect(window.localStorage.getItem(POSITION_STORAGE_KEYS.email)).toBe('gate-test@example.com');
     const body = JSON.parse((mockFetch.mock.calls[0]?.[1]?.body as string) ?? '{}');
     expect(body.source).toBe('tool_money_jobs');

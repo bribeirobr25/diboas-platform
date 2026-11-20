@@ -205,19 +205,13 @@ export const COOKIE_CONFIG = {
 } as const;
 
 /**
- * Waitlist storage keys
+ * Waitlist storage keys. Only the member's email is kept on the device (the Money Jobs gate
+ * reads it). The modal's config key and the position display's three keys left with them in
+ * plan P13 PR-2 (2026-11-20); nothing else read them.
  */
 export const WAITLIST_STORAGE_KEYS = {
-  /** Main waitlist data key */
-  main: process.env.WAITLIST_STORAGE_KEY || `${STORAGE_PREFIX}_waiting_list`,
   /** Email storage key */
   email: `${STORAGE_PREFIX}_waitlist_email`,
-  /** Position storage key */
-  position: `${STORAGE_PREFIX}_waitlist_position`,
-  /** Referral code storage key */
-  referralCode: `${STORAGE_PREFIX}_waitlist_referral_code`,
-  /** Referral count storage key */
-  referralCount: `${STORAGE_PREFIX}_waitlist_referral_count`,
 } as const;
 
 /**

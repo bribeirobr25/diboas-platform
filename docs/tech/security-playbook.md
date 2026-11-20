@@ -53,7 +53,7 @@ OWASP Top 10:2025 was finalized in January 2026 ([owasp.org/Top10/2025/](https:/
 For the API surface specifically:
 
 - **API1: Broken Object Level Authorization (BOLA)** — `/api/waitlist/delete?token=...`, `/api/email/unsubscribe?t=...`. The token-to-record binding must be cryptographic, not just "the token exists in the table."
-- **API4: Unrestricted Resource Consumption** — `/api/og` carries billing-amplification risk (Vercel Function-second pricing; a sustained flood adds up). **The og routes now apply a per-IP `checkRateLimit`** (`[page]`/`share`/`dream`), so the residual exposure is the Edge in-memory-fallback weakness (per-isolate, ineffective without Upstash) rather than an unguarded endpoint — keep Upstash reachable for og.
+- **API4: Unrestricted Resource Consumption** — `/api/og` carries billing-amplification risk (Vercel Function-second pricing; a sustained flood adds up). **The og routes now apply a per-IP `checkRateLimit`** (`[page]`/`share`; the `dream` route is gone), so the residual exposure is the Edge in-memory-fallback weakness (per-isolate, ineffective without Upstash) rather than an unguarded endpoint — keep Upstash reachable for og.
 - **API6: Unrestricted Access to Sensitive Business Flows** — `/api/waitlist/signup` is the textbook example. 10K rotating IPs at 1 RPS each defeats classic per-IP rate limits. Behavioral signals are required.
 
 ---

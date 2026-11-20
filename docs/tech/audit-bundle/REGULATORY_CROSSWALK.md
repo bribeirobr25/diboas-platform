@@ -215,7 +215,7 @@ Added `tools-card-fees.disclaimers.euIfrCap` to es and de (localized from the ap
 >
 > - **Currency Depreciation calculator** (`tools-currency-depreciation.output.bankRateNote` = "{rate}% local bank rate") also displays a bank rate without the "APY" term. It surfaces for non-US/locale-currency contexts; whether Reg DD's en "APY" obligation applies is borderline (the rate shown is a _local_ bank rate, not a US deposit APY). Deferred pending a scope decision.
 > - **B2C Comparison table** (`ComparisonTable.tsx`, `landing-b2c.sections.comparison.*`) renders `bankRates.savings` as a percentage. This is a marketing landing section, not a `/tools` calculator, so it sits outside the tools-suite crosswalk; track separately if the en savings-rate cell needs Reg DD "APY" labeling.
-> - (Already compliant: PreDream `ResultsScreen` renders "{rate}% APY" explicitly.)
+> - (PreDream `ResultsScreen` rendered "{rate}% APY" explicitly; Dream Mode was retired in plan P13, 2026-11-20.)
 
 ## 6. Auditor evaluation criteria
 

@@ -370,6 +370,10 @@ describe('middleware', () => {
       '/demo',
       '/en/demo?utm_source=x&ref=DIBOAS-1',
       '/es/DEMO',
+      '/en/dream-mode',
+      '/pt-BR/Dream-Mode',
+      '/dream-mode/x',
+      '/en/dream-mode?utm_source=x&ref=DIBOAS-1',
     ])('should answer %s with a 308 to exactly the Practice address', (path) => {
       const response = middleware(makeRequest(path, { acceptLanguage: 'de-DE' }));
       expect(response.status).toBe(308);
@@ -392,6 +396,12 @@ describe('middleware', () => {
       '/en/market/demo',
       '/en/tools/demo',
       '/xdemo',
+      '/en/dream-modes',
+      '/en/dream-mode-x',
+      '/en/dream',
+      '/en/learn/dream-mode',
+      '/en/tools/dream-mode',
+      '/en/share?type=calculator',
     ])('should not redirect %s to Practice', (path) => {
       const response = middleware(makeRequest(path));
       expect(response.headers.get('location') ?? '').not.toContain('app.diboas.com');

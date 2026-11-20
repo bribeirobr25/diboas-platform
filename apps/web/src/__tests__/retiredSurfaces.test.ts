@@ -1,11 +1,17 @@
 /**
  * ⛑ RETIRED-SURFACES-1 guard 1 · no retired surface is named (plan P13; register `5.112`).
  *
- * The interactive demo was deleted on 2026-11-19 (PR-1); its old addresses answer a 308 to
- * Practice from `middleware.ts`. This guard fails when anything brings it back by name: an import
- * of a deleted module, the deleted route constant, a `/demo` path in any string or template (so
- * `` `${BRAND.url}/${locale}/demo` `` is caught, not only `href="/demo"`), the deleted i18n
- * namespace, or the demo's name in a user-facing catalogue. Dream Mode joins the lists in PR-2.
+ * The interactive demo (PR-1, 2026-11-19), Dream Mode, the waitlist modal and its provider
+ * (PR-2, 2026-11-20) were deleted; their old addresses answer a 308 to Practice from
+ * `middleware.ts`. This guard fails when anything brings them back by name: an import of a
+ * deleted module (by path, or by the name it binds: the layout imported the provider through a
+ * barrel), a deleted route constant, a `/demo` path or a bare `dream-mode` in any string or
+ * template (so `` `${BRAND.url}/${locale}/demo` `` is caught, not only `href="/demo"`), a retired
+ * source or analytics event name, a deleted i18n namespace, or a retired surface's name in a
+ * user-facing catalogue (German writes "Dream-Mode", pt-BR "Modo Sonho", es "Modo Sueño").
+ * Named exemption by key, with a pinned count: the Terms (`legal/terms.json`
+ * `sections.aboutDiboas.items` and `sections.preLaunchLimitations.simulationTools`) still name
+ * Dream Mode twice per locale; they are Legal's text until the request `5.1004` is answered.
  *
  * Read with the TypeScript parser, so comments never count and a string is a string.
  * A retired segment written as its own string next to a path (`'/' + 'demo'`,
@@ -32,17 +38,47 @@ const I18N_SRC = join(REPO, 'packages/i18n/src');
 const TRANSLATIONS = join(REPO, 'packages/i18n/translations');
 
 /** Deleted modules: no import, static or dynamic, may name them. */
-const RETIRED_MODULES = /(^|\/)(PreDemo|DemoLauncher|pre-demo)(\/|$)/;
+const RETIRED_MODULES =
+  /(^|\/)(PreDemo|DemoLauncher|pre-demo|PreDream|pre-dream|dream-mode|WaitingListModal|WaitingListProvider|WaitlistModalForm|WaitlistModalSuccess|useWaitlistModalForm|modalSignupBody|WaitlistPosition)(\/|$)/;
+/** Names the deleted modules exported: no import or export may bind them, whatever the path. */
+const RETIRED_BINDINGS = new Set([
+  'WaitingListProvider',
+  'useWaitingListModal',
+  'WaitingListModal',
+  'WaitlistModalForm',
+  'WaitlistModalSuccess',
+  'useWaitlistModalForm',
+  'buildModalSignupBody',
+  'DemoLauncher',
+  'PreDemo',
+  'PreDream',
+]);
 /** Deleted route constants. */
-const RETIRED_ROUTES = /\bROUTES\.DEMO\b/;
-/** A retired path segment inside a string: `/demo`, not `/demos`, `/demo-day`, `/demo_x`. */
-const RETIRED_PATH = /\/demo(?![\w-])/i;
+const RETIRED_ROUTES = /\bROUTES\.(DEMO|DREAM_MODE)\b/;
+/**
+ * A retired path inside a string: `/demo` (not `/demos`, `/demo-day`, `/demo_x`), and
+ * `dream-mode` anywhere, bare included (the sitemap's noindex set held it bare).
+ */
+const RETIRED_PATH = /\/demo(?![\w-])|(^|[^\w-])dream-mode(?![\w-])/i;
 /** A retired route's segment on its own: flagged when it is concatenated or templated into a path. */
-const RETIRED_SEGMENTS = new Set(['demo']);
+const RETIRED_SEGMENTS = new Set(['demo', 'dream-mode']);
+/** Retired waitlist sources and PostHog event names (plan P13, D6 and D9). */
+const RETIRED_LITERALS =
+  /^(dream_mode|interactive_demo|app_link)$|pre_dream_|pre_demo_|waiting_list_modal_/;
 /** Deleted i18n namespaces: never registered, never named in a string (a stale load only logs). */
-const RETIRED_NAMESPACES = ['preDemo'];
-/** The demo's user-facing name in each locale. */
-const RETIRED_NAMES = /Interactive Demo|Demo Interativa|Demo Interactiva|Interaktive Demo/i;
+const RETIRED_NAMESPACES = ['preDemo', 'dreamMode', 'preDream'];
+/**
+ * The retired surfaces' user-facing names in each locale. Case-sensitive: a name is written
+ * capitalized, and a lowercase path (`/en/dream-modes`) is the path rule's business.
+ */
+const RETIRED_NAMES =
+  /Interactive Demo|Demo Interativa|Demo Interactiva|Interaktive Demo|Dream[ -]?Mode|Modo Sonho|Modo Sueño/;
+/** The Terms' two mentions per locale, Legal's text until `5.1004` (exempt by key and count). */
+const TERMS_EXEMPT_KEYS = [
+  'sections.aboutDiboas.items',
+  'sections.preLaunchLimitations.simulationTools',
+];
+const TERMS_EXEMPT_COUNT = 2;
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
@@ -69,11 +105,24 @@ function scan(file: string, text = readFileSync(file, 'utf8')): Finding[] {
   const where = (node: ts.Node) =>
     `${rel(file)}:${sf.getLineAndCharacterOfPosition(node.getStart(sf)).line + 1}`;
   const visit = (node: ts.Node): void => {
+    // The one named exemption in code: middleware.ts's redirect pattern, the declaration that
+    // answers the retired addresses (guard 3 proves what it matches). Nothing else is exempt.
+    if (
+      ts.isVariableDeclaration(node) &&
+      node.name.getText(sf) === 'RETIRED_SURFACE_PATH' &&
+      rel(file) === 'apps/web/middleware.ts'
+    )
+      return;
     if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
       const spec = node.moduleSpecifier;
       if (spec && ts.isStringLiteral(spec) && RETIRED_MODULES.test(spec.text))
         found.push({ at: where(spec), what: `imports ${spec.text}` });
     }
+    if (
+      (ts.isImportSpecifier(node) || ts.isExportSpecifier(node)) &&
+      RETIRED_BINDINGS.has((node.propertyName ?? node.name).text)
+    )
+      found.push({ at: where(node), what: `binds ${(node.propertyName ?? node.name).text}` });
     if (
       ts.isCallExpression(node) &&
       node.expression.kind === ts.SyntaxKind.ImportKeyword &&
@@ -105,6 +154,8 @@ function scan(file: string, text = readFileSync(file, 'utf8')): Finding[] {
         if (piece === ns || piece.startsWith(`${ns}.`))
           found.push({ at: where(node), what: `namespace "${piece}"` });
       if (RETIRED_NAMES.test(piece)) found.push({ at: where(node), what: `name "${piece}"` });
+      if (RETIRED_LITERALS.test(piece))
+        found.push({ at: where(node), what: `retired source or event "${piece}"` });
     }
     ts.forEachChild(node, visit);
   };
@@ -132,12 +183,13 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
       ).toBe(true);
   });
 
-  it('should find no import, route, path, namespace or name of the demo in the code', () => {
+  it('should find no import, binding, route, path, source, event, namespace or name of a retired surface in the code', () => {
     expect(FILES.flatMap((f) => scan(f)).map((x) => `${x.at} ${x.what}`)).toEqual([]);
   });
 
   it('should keep no retired page in the SEO page list (it feeds the sitemap)', () => {
     expect(Object.keys(PAGE_SEO_CONFIG).filter((k) => RETIRED_SEGMENTS.has(k))).toEqual([]);
+    expect(Object.keys(PAGE_SEO_CONFIG)).not.toContain('dream-mode');
     expect(Object.keys(PAGE_SEO_CONFIG).length).toBeGreaterThan(10);
   });
 
@@ -153,18 +205,44 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
     }
   });
 
-  it("should keep the demo's name out of every user-facing catalogue", () => {
+  it("should keep a retired surface's name out of every catalogue but the Terms' two keys", () => {
+    const strings = (value: unknown, path: string, out: Array<[string, string]>) => {
+      if (typeof value === 'string') out.push([path, value]);
+      else if (Array.isArray(value)) value.forEach((v, i) => strings(v, path, out));
+      else if (value && typeof value === 'object')
+        for (const [k, v] of Object.entries(value)) strings(v, path ? `${path}.${k}` : k, out);
+      return out;
+    };
     const hits: string[] = [];
+    const termsCount: Record<string, number> = {};
     const visit = (dir: string) => {
       for (const name of readdirSync(dir)) {
         const full = join(dir, name);
         if (statSync(full).isDirectory()) visit(full);
-        else if (name.endsWith('.json') && RETIRED_NAMES.test(readFileSync(full, 'utf8')))
-          hits.push(rel(full));
+        else if (name.endsWith('.json')) {
+          const isTerms = rel(full).endsWith('/legal/terms.json');
+          for (const [path, text] of strings(JSON.parse(readFileSync(full, 'utf8')), '', [])) {
+            const n = (text.match(new RegExp(RETIRED_NAMES.source, 'g')) ?? []).length;
+            if (n === 0) continue;
+            if (isTerms && TERMS_EXEMPT_KEYS.some((k) => path === k || path.startsWith(`${k}.`)))
+              termsCount[rel(full)] = (termsCount[rel(full)] ?? 0) + n;
+            else hits.push(`${rel(full)} ${path}`);
+          }
+        }
       }
     };
     visit(TRANSLATIONS);
     expect(hits).toEqual([]);
+    // the exemption is pinned: a third mention in the Terms fails, and so does losing one silently
+    const locales = readdirSync(TRANSLATIONS).filter((d) =>
+      statSync(join(TRANSLATIONS, d)).isDirectory()
+    );
+    expect(locales.sort()).toEqual(['de', 'en', 'es', 'pt-BR']);
+    for (const locale of locales)
+      expect(
+        termsCount[`packages/i18n/translations/${locale}/legal/terms.json`] ?? 0,
+        `${locale} Terms`
+      ).toBe(TERMS_EXEMPT_COUNT);
   });
 
   /* Negative controls: what must NOT trip the scan, and what must. */
@@ -178,6 +256,13 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
       "const id = 'demo';",
       'const k = { demo: 1 };',
       "if (kind === 'demo') run();",
+      "const a = '/en/dream-modes';",
+      "const a = 'dream-mode-x';",
+      "const t = 'Dream Trip';",
+      "const t = 'Traumreise';",
+      "const target = 'calculator';",
+      "const s = 'landing_b2c';",
+      "import { WaitlistForm } from './WaitlistForm';",
     ])
       expect(probe(ok), ok).toEqual([]);
     for (const bad of [
@@ -191,6 +276,18 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
       "const t = 'Try the Interactive Demo';",
       "const h = '/' + 'demo';",
       'const h = `/${locale}/${"demo"}`;',
+      "const r = '/en/dream-mode';",
+      "const n = new Set(['dream-mode', 'share']);",
+      "import { WaitingListProvider } from '@/components/WaitingList';",
+      "export { useWaitingListModal } from './x';",
+      "import X from './WaitingListModal';",
+      'const h = ROUTES.DREAM_MODE;',
+      "load(['dreamMode', 'preDream']);",
+      "const s = 'dream_mode';",
+      "track({ name: 'pre_dream_started' });",
+      "track({ name: 'waiting_list_modal_opened' });",
+      "const t = 'Modo Sonho';",
+      "const t = 'Dream-Mode-Rechner';",
     ])
       expect(probe(bad).length, bad).toBeGreaterThan(0);
   });

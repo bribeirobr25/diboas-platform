@@ -29,7 +29,6 @@ const ROUTES = [
   '/legal/privacy',
   '/legal/cookies',
   '/email-preferences',
-  '/dream-mode',
   '/delete-confirm',
   '/market',
   '/share',
@@ -52,9 +51,9 @@ for (const locale of LOCALES) {
 }
 
 /**
- * Register 5.793 · the utility pages' titles are in the visitor's language: email
- * preferences and delete-confirm (and the demo, retired in plan P13) were English in every locale until 2026-11-06, and Dream Mode
- * until the 7th audit ("Modo Sonho", "Modo Sueño"). Their descriptions follow the catalogue too.
+ * Register 5.793 · the utility pages' titles are in the visitor's language: email preferences and
+ * delete-confirm were English in every locale until 2026-11-06. (The demo's and Dream Mode's
+ * title and description checks left with those pages, plan P13.)
  */
 const TRANSLATIONS = path.resolve(__dirname, '../../packages/i18n/translations');
 const read = (locale: string, ns: string) =>
@@ -67,23 +66,11 @@ for (const locale of LOCALES) {
     const expected: Record<string, string> = {
       '/email-preferences': `${read(locale, 'common').emailPreferences.heading} | diBoaS`,
       '/delete-confirm': `${read(locale, 'waitlist').deletion.confirmTitle} | diBoaS`,
-      '/dream-mode': `${read(locale, 'preDream').welcome.title} | diBoaS`,
     };
     for (const [route, title] of Object.entries(expected)) {
       const html = await (await request.get(`/${locale}${route}`)).text();
       const served = html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '';
       expect(served.replace(/&amp;/g, '&'), `/${locale}${route}`).toBe(title);
-    }
-    const description = (html: string) =>
-      (html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '').replace(/&amp;/g, '&');
-    for (const [route, text] of Object.entries({
-      '/dream-mode': read(locale, 'preDream').welcome.subtitle,
-    })) {
-      const html = await (await request.get(`/${locale}${route}`)).text();
-      expect(
-        description(html).replace(/&#x27;|&#39;/g, "'"),
-        `/${locale}${route} description`
-      ).toBe(text);
     }
   });
 }

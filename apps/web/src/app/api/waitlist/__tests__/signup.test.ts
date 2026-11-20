@@ -15,7 +15,6 @@ import * as security from '@/lib/security';
 import { DuplicateEntryError } from '@/lib/errors/domainErrors';
 import { WAITLIST_SOURCES } from '@/lib/waitingList/store/types';
 import { isValidSource } from '@/lib/api/validators';
-import { buildModalSignupBody } from '@/lib/waitingList/modalSignupBody';
 
 // Mock the store module
 vi.mock('@/lib/waitingList/store', () => ({
@@ -663,7 +662,7 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
   it('should read the real list and the real validator (the guard is not vacuous)', () => {
     /* Imported from `store/types` directly: the `store` barrel is mocked in this file. */
     expect(WAITLIST_SOURCES.length).toBeGreaterThan(0);
-    expect(WAITLIST_SOURCES).toContain('dream_mode');
+    expect(WAITLIST_SOURCES).toContain('tool_money_jobs');
     expect(vi.isMockFunction(isValidSource)).toBe(false);
   });
 
@@ -684,26 +683,10 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
     }
   );
 
-  it.each(['dream_mode'] as const)(
-    "should store the modal's own body, as it builds it, when its opener is %s",
-    async (source) => {
-      (store.addEntry as Mock).mockResolvedValue(mockEntry(source));
-      const body = buildModalSignupBody(
-        { email: '  Reader@Example.com ', name: '', gdprAccepted: true },
-        'en',
-        source
-      );
-      const response = await POST(createMockRequest(body as unknown as Record<string, unknown>));
-      expect(response.status).toBe(200);
-      expect(store.addEntry).toHaveBeenCalledWith(
-        expect.objectContaining({ source, email: 'reader@example.com' })
-      );
-    }
-  );
-
   /* P13 (D6): `interactive_demo` and `app_link` left the list with the demo and the app-link
-     interceptor; an open tab still posting one is refused like any unknown source. */
-  it.each(['popup', 'modal', 'interactive_demo', 'app_link'])(
+     interceptor (PR-1), `dream_mode` and the never-sent `calculator` with Dream Mode and the
+     modal (PR-2); an open tab still posting one is refused like any unknown source. */
+  it.each(['popup', 'modal', 'interactive_demo', 'app_link', 'dream_mode', 'calculator'])(
     'should refuse the source %s with 400 INVALID_SOURCE and never reach the store',
     async (source) => {
       const response = await POST(
@@ -725,6 +708,14 @@ describe('5.979 · WAITLIST-SOURCE-1 · signup sources at the route', () => {
       'INVALID_SOURCE',
       { email: 'ada.private@example.com', locale: 'en', gdprAccepted: true, source: 'zzrefused' },
     ],
+    /* The retired sources (P13 D6) are refused AND the refusal is logged with its code (PR-1's
+       record overstated this; the log proof now covers them by name). */
+    ...(['interactive_demo', 'app_link', 'dream_mode', 'calculator'] as const).map(
+      (source): [string, Record<string, unknown>] => [
+        'INVALID_SOURCE',
+        { email: 'ada.private@example.com', locale: 'en', gdprAccepted: true, source },
+      ]
+    ),
     [
       'INVALID_TAGS',
       { email: 'ada.private@example.com', locale: 'en', gdprAccepted: true, tags: 7 },

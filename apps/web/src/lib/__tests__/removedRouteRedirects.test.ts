@@ -8,7 +8,7 @@
  * so a rule deleted or pointed elsewhere fails here.
  */
 
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -53,15 +53,19 @@ describe('removed investor routes redirect permanently (5.708)', () => {
  * tested in `src/__tests__/middleware.test.ts`. What this file pins: no page is left behind to
  * answer the address instead, and `next.config.js` holds no rule for it.
  */
-describe('the retired demo keeps no page and no config redirect (P13)', () => {
-  it('should keep no demo page under any route group', () => {
-    const appDir = join(__dirname, '../../app/[locale]');
-    expect(existsSync(join(appDir, '(landing)/demo'))).toBe(false);
-    expect(existsSync(join(appDir, 'demo'))).toBe(false);
+describe('the retired demo and Dream Mode keep no page and no config redirect (P13)', () => {
+  /** Every route group under `app/[locale]`, so a page moved into another group is still found. */
+  const appDir = join(__dirname, '../../app/[locale]');
+  const groups = ['', ...readdirSync(appDir).filter((d) => /^\(.*\)$/.test(d))];
+
+  it.each(['demo', 'dream-mode'])('should keep no %s page under any route group', (route) => {
+    expect(groups.length).toBeGreaterThan(1);
+    for (const group of groups)
+      expect(existsSync(join(appDir, group, route)), `${group}/${route}`).toBe(false);
   });
 
-  it('should hold no next.config.js redirect for the demo', async () => {
+  it('should hold no next.config.js redirect for either', async () => {
     const rules = await nextConfig.redirects();
-    expect(rules.filter((r) => /(^|\/)demo(\/|$|\()/i.test(r.source))).toEqual([]);
+    expect(rules.filter((r) => /(^|\/)(demo|dream-mode)(\/|$|\()/i.test(r.source))).toEqual([]);
   });
 });

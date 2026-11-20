@@ -8,7 +8,6 @@
  * - Tier badge for founding members
  * - Referral link with copy functionality
  * - Share buttons
- * - Dream Mode CTA
  */
 
 import React, { useState, useEffect } from 'react';

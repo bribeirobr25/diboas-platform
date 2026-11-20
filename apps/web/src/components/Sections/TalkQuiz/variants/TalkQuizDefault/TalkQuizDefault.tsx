@@ -35,7 +35,7 @@ type ShareState = 'idle' | 'copied' | 'failed';
 /**
  * The talk quiz: N graded multiple-choice questions (N = the registry's
  * correctIndexes length) + an ungraded reflection + the platform share-icon
- * row (P-4: same lib/share + ReferralIcons stack as the preDream results and
+ * row (P-4: same lib/share + ReferralIcons stack as Dream Mode's results had (deleted, P13) and
  * the waitlist success; the approved share line is the payload, never
  * share-to-unlock).
  *

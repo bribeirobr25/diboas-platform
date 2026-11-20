@@ -99,7 +99,7 @@ Directly applicable to `/tools` (11 calculators) and `/learn`.
 **UX-16 · Match the input method to the task, not to the data type. — ADOPT**
 Evidence: a one-time setup asking height and weight via a horizontal scroll-wheel ruler showing "170 cm" and "70 kg" with a unit toggle — low effort, values within a known range, no keyboard. Versus daily food logging, where a scroll wheel is slow and imprecise and a numeric text field ("120 g") wins. And a counter-example: three bare numeric fields for height, weight and goal weight — technically fine, unnecessarily effortful.
 **Rule:** sliders and wheels for casual, one-time, bounded inputs; text fields, steppers or numeric keypads for frequent, precise, or repeated entry.
-Applies today to the 11 calculators and the Dream Mode amount inputs.
+Applies today to the 11 calculators.
 
 ---
 
@@ -214,7 +214,7 @@ Ride-hailing A lists "$13–17", "$17–22", "$16–21". The brain anchors on th
 Powerful and comparative. On money, comparative claims are regulated. Permitted only where objectively verifiable and CLO-approved.
 
 **UX-50 · Commitment consistency: settle the small decision first. — ADAPT (Truth gate)**
-Showing the chosen destination card before the ride options means the remaining question is only "which car?", not "should I go?". Our funnel already does this in Dream Mode (goal → path → amount → horizon). Preserve that ordering.
+Showing the chosen destination card before the ride options means the remaining question is only "which car?", not "should I go?". Dream Mode did this (goal → path → amount → horizon) until it was retired in plan P13 (2026-11-20); any future goal flow keeps that ordering.
 **Truth-gate boundary (2026-07-10):** the ordering settles the user's _own_ prior decision (their goal) — that is respect. It must never be used to smuggle a money commitment past the "should I at all?" moment: the exit stays free and visible at every step, and no step implies a commitment the user hasn't made. Same boundary family as UX-41/UX-43.
 
 **UX-51 · Transport, don't inform. — ADOPT (Draper craft)**
@@ -275,7 +275,7 @@ _Added 2026-07-19 from the deep-research report (`docs/researches/UX Governance 
 
 **UX-60 · Visualize uncertainty; never draw a single deterministic line for an uncertain future. — ADAPT (CLO gate on projections).**
 _Regulatory anchor (CLO-verified, D-2 LIGHT): R-3 — Appendix E._
-A lone projection line implies a promise. Show the future as a range, a set of labelled scenarios, or a distribution — never one hard number or one line. _Evidence (peer-reviewed, not marketing):_ Hullman, Resnick & Adar 2015 (_PLoS ONE_); Kale, Nguyen, Kay & Hullman 2018 (_IEEE TVCG_, on Hypothetical Outcome Plots); Weiskopf 2022 (_Frontiers in Bioinformatics_). Extends UX-47; aligns with Gate 4 on hypothetical performance. _Regulatory anchor pending CLO: R-1/R-3._ _diBoaS surfaces:_ the `/tools` calculators are the reference implementation (a 4-scenario band); Dream Mode is the one surface that regressed to a single line (implementation-review record deleted; the regression fact stands).
+A lone projection line implies a promise. Show the future as a range, a set of labelled scenarios, or a distribution — never one hard number or one line. _Evidence (peer-reviewed, not marketing):_ Hullman, Resnick & Adar 2015 (_PLoS ONE_); Kale, Nguyen, Kay & Hullman 2018 (_IEEE TVCG_, on Hypothetical Outcome Plots); Weiskopf 2022 (_Frontiers in Bioinformatics_). Extends UX-47; aligns with Gate 4 on hypothetical performance. _Regulatory anchor pending CLO: R-1/R-3._ _diBoaS surfaces:_ the `/tools` calculators are the reference implementation (a 4-scenario band); Dream Mode, the one surface that regressed to a single line, was retired in plan P13 (2026-11-20).
 
 **UX-61 · No fake precision on volatile values. — ADOPT.**
 Excess decimal places imply a certainty that does not exist. Round yield, return, and projection figures to an honest resolution — the tools suite's currency default of 0 decimals is the baseline; cents on a multi-year projection are false precision. _Evidence:_ NN/g chart-clarity guidance and the HCI false-precision critique.

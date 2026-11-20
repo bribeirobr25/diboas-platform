@@ -366,7 +366,17 @@ describe('B2-6 — the share-image texts carry no earn/stablecoin pairing', () =
 
   it('should render every share-image text and find no pairing in any locale', () => {
     const all = texts(OG_TRANSLATIONS);
-    expect(all.length).toBeGreaterThan(80);
+    // Non-vacuity, pinned exactly (P13 PR-2, 2026-11-20): every locale renders the same texts,
+    // and the total is the measured count. It was "more than 80" until the calculator card's
+    // texts were deleted with Dream Mode (84 → 76); an exact pin is stricter than the old floor:
+    // a lost text, a skipped locale or an emptied walk fails. Adding a text updates this number.
+    const locales = Object.keys(OG_TRANSLATIONS);
+    expect(locales.sort()).toEqual(['de', 'en', 'es', 'pt-BR']);
+    const perLocale = locales.map(
+      (l) => texts(OG_TRANSLATIONS[l as keyof typeof OG_TRANSLATIONS]).length
+    );
+    expect(new Set(perLocale).size).toBe(1);
+    expect(all.length).toBe(76);
     expect(all.filter((t) => pairs(t))).toEqual([]);
   });
 

@@ -23,7 +23,6 @@ export const ASSET_PATHS = {
 
   // General Images
   IMAGES: {
-    HERO: `${ASSETS_BASE}/images/defiant-bloom.avif`,
     // Cinematic redesign — duotone band photos for the dawn-water heroes (self-hosted AVIF).
     HERO_BAND_B2C: `${ASSETS_BASE}/images/still-tide.avif`,
     HERO_BAND_ABOUT: `${ASSETS_BASE}/images/dawn-shore.avif`,

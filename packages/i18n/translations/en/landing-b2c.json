@@ -129,8 +129,7 @@
       "headline": "Welcome.",
       "position": "Your position: #{position}",
       "shareHeading": "Invite your Friends",
-      "shareSubtext": "Share to help friends get early access",
-      "dreamModeCta": "Try the Dream Mode"
+      "shareSubtext": "Share to help friends get early access"
     },
     "tiers": {
       "founding": "You're among the first 1,200. Share your link. You have 5 invites to give friends Founding Member status.",

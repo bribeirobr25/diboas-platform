@@ -7,7 +7,6 @@
  *     WAITLIST_REFERRAL_USED fires server-side and can't reach this client bus)
  *   - WAITLIST_SIGNUP_COMPLETED forwards only its two named fields, never anything else in the
  *     metadata (the PII-exclusion proof; it lived on the demo's send bridge until P13 retired it)
- *   - PRE_DREAM_SHARE_INITIATED carries platform only
  *   - no retired surface keeps an event type or a schema entry (P13 · D9)
  *
  * @vitest-environment happy-dom
@@ -79,22 +78,11 @@ describe('eventSubscribers — A16/O-3 analytics bridges', () => {
     expect(JSON.stringify(trackMock.mock.calls)).not.toMatch(/alice/i);
   });
 
-  it('should keep no event type or schema entry for the retired demo (P13 · D9)', () => {
-    const retired = (v: string) => /^preDemo:/.test(v);
+  it('should keep no event type or schema entry for the retired demo or Dream Mode (P13 · D9)', () => {
+    const retired = (v: string) => /^(preDemo|preDream):/.test(v);
     expect(Object.values(ApplicationEventType).filter(retired)).toEqual([]);
     expect(Object.keys(EVENT_VALIDATION_SCHEMA).filter(retired)).toEqual([]);
     // non-vacuity: the reader sees the live types
     expect(Object.keys(EVENT_VALIDATION_SCHEMA)).toContain(ApplicationEventType.SHARE_COMPLETED);
-  });
-
-  it('bridges pre_dream_share_initiated with platform only', async () => {
-    applicationEventBus.emit(ApplicationEventType.PRE_DREAM_SHARE_INITIATED, {
-      domain: 'preDream',
-      source: 'preDream',
-      timestamp: 1,
-      metadata: { platform: 'whatsapp' },
-    });
-    await flush();
-    expect(paramsFor('pre_dream_share_initiated')).toEqual({ platform: 'whatsapp' });
   });
 });

@@ -6,7 +6,7 @@
  * DRY Principle: Consolidates the repeated pattern of number input
  * with linked range slider and currency symbol prefix.
  *
- * Used by: FutureYouCalculator, DreamMode InputScreen
+ * Used by: FutureYouCalculator
  */
 
 import React, { useCallback, useId } from 'react';

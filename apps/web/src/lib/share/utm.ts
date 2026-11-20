@@ -11,7 +11,7 @@ import { APP_URL } from '@/config/env';
 /**
  * UTM source types
  */
-export type UtmSource = 'dream_mode' | 'waitlist' | 'referral' | 'calculator' | 'learn';
+export type UtmSource = 'waitlist' | 'referral' | 'learn';
 
 /**
  * UTM medium types
@@ -33,11 +33,6 @@ export interface UtmParams {
  * UTM configuration by card type
  */
 export const UTM_CONFIGS: Record<CardType, Omit<UtmParams, 'utm_content'>> = {
-  dream: {
-    utm_source: 'dream_mode',
-    utm_medium: 'share',
-    utm_campaign: 'while_i_slept',
-  },
   waitlist: {
     utm_source: 'waitlist',
     utm_medium: 'share',
@@ -115,7 +110,7 @@ export function buildUtmUrl(
  * Get share URL with UTM tracking
  */
 export function getShareUrl(
-  cardType: CardType = 'dream',
+  cardType: CardType,
   platform?: SharePlatform,
   referralCode?: string,
   locale?: string,

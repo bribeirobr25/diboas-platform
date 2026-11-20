@@ -2,12 +2,12 @@
  * Dynamic Personalized OG Image Generation API
  *
  * Generates personalized Open Graph images for social sharing
- * Supports waitlist positions and Dream Mode calculator results
+ * Supports waitlist positions and Money Tools results. The Dream Mode calculator card was
+ * retired with Dream Mode (plan P13 PR-2): a `type=calculator` link renders the default card.
  *
  * Usage: /api/og/share?type=[type]&[params]
  *
  * Waitlist: /api/og/share?type=waitlist&position=247&name=John
- * Calculator: /api/og/share?type=calculator&amount=125000&years=10&strategy=balanced
  */
 
 import { Logger } from '@/lib/monitoring/Logger';
@@ -19,19 +19,8 @@ import { NextRequest } from 'next/server';
 import { OG_DIMENSIONS, SHAREABLE_TOOL_KEYS, type ShareType } from './ogTypes';
 import { checkRateLimit, getClientIP, createRateLimitHeaders } from '@/lib/security/rateLimiter';
 import { RATE_LIMIT_CONFIG } from '@/config/env';
-import {
-  sanitizeInput,
-  isValidPosition,
-  isValidCalculatorInput,
-  isValidToolResultValue,
-  parseIntSafe,
-} from './ogUtils';
-import {
-  WaitlistTemplate,
-  CalculatorTemplate,
-  ToolResultTemplate,
-  DefaultTemplate,
-} from './ogTemplates';
+import { sanitizeInput, isValidPosition, isValidToolResultValue, parseIntSafe } from './ogUtils';
+import { WaitlistTemplate, ToolResultTemplate, DefaultTemplate } from './ogTemplates';
 
 export const runtime = 'edge';
 
@@ -77,30 +66,6 @@ export async function GET(request: NextRequest) {
           template = <DefaultTemplate locale={locale} />;
         } else {
           template = <WaitlistTemplate position={position} name={name} locale={locale} />;
-        }
-        break;
-      }
-
-      case 'calculator': {
-        const futureAmount = parseIntSafe(searchParams.get('amount'), 0);
-        const years = parseIntSafe(searchParams.get('years'), 10);
-        const strategy = sanitizeInput(searchParams.get('strategy'));
-        const initialInvestment = searchParams.get('initial')
-          ? parseIntSafe(searchParams.get('initial'), 0)
-          : undefined;
-
-        if (!isValidCalculatorInput(futureAmount, years)) {
-          template = <DefaultTemplate locale={locale} />;
-        } else {
-          template = (
-            <CalculatorTemplate
-              futureAmount={futureAmount}
-              years={years}
-              strategy={strategy}
-              initialInvestment={initialInvestment}
-              locale={locale}
-            />
-          );
         }
         break;
       }

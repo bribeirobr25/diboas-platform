@@ -70,15 +70,6 @@ export function registerEventSubscribers(): void {
       .catch(() => Logger.warn('Failed to load analytics for share_completed subscriber'));
   });
 
-  // 6. PRE_DREAM_STARTED → track pre_dream_started
-  applicationEventBus.on(ApplicationEventType.PRE_DREAM_STARTED, (data) => {
-    import('@/lib/analytics/service')
-      .then((mod) =>
-        mod.analyticsService.track({ name: 'pre_dream_started', parameters: data.metadata })
-      )
-      .catch(() => Logger.warn('Failed to load analytics for pre_dream_started subscriber'));
-  });
-
   // ── A16 / O-3: bridge the remaining client-emitted funnel events to analytics ──
   // Scope note: these subscribers run CLIENT-side (registered from the 'use client'
   // MonitoringInit). `analyticsService` is itself client-only (gtag/posthog), and
@@ -87,7 +78,7 @@ export function registerEventSubscribers(): void {
   // WaitlistApplicationService) and the server-side WAITLIST_REFERRAL_USED (referral
   // store) fire on the server bus and never reach this listener — `referral_used` is
   // therefore derived below from the client signup completion. SHARE_INITIATED has no
-  // emitter (only PRE_DREAM_SHARE_INITIATED fires), so it is intentionally not bridged.
+  // emitter (Dream Mode's share event was its only cousin, retired in P13), so it is not bridged.
   // All events flow through `track()`, which is consent-gated and locale-enriched.
 
   // 7. WAITLIST_SIGNUP_COMPLETED → waitlist_signup_completed (+ derived referral_used)
@@ -107,21 +98,6 @@ export function registerEventSubscribers(): void {
       })
       .catch(() =>
         Logger.warn('Failed to load analytics for waitlist_signup_completed subscriber')
-      );
-  });
-
-  // 11. PRE_DREAM_SHARE_INITIATED → pre_dream_share_initiated
-  applicationEventBus.on(ApplicationEventType.PRE_DREAM_SHARE_INITIATED, (data) => {
-    const meta = (data.metadata ?? {}) as { platform?: string };
-    import('@/lib/analytics/service')
-      .then((mod) =>
-        mod.analyticsService.track({
-          name: 'pre_dream_share_initiated',
-          parameters: { platform: meta.platform },
-        })
-      )
-      .catch(() =>
-        Logger.warn('Failed to load analytics for pre_dream_share_initiated subscriber')
       );
   });
 }

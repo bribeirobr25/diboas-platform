@@ -37,10 +37,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(/* webpackChunkName: "i18n-en-common" */ '../translations/en/common.json').then(
         resolveDefault
       ),
-    dreamMode: () =>
-      import(/* webpackChunkName: "i18n-en-dreamMode" */ '../translations/en/dreamMode.json').then(
-        resolveDefault
-      ),
     waitlist: () =>
       import(/* webpackChunkName: "i18n-en-waitlist" */ '../translations/en/waitlist.json').then(
         resolveDefault
@@ -71,10 +67,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       ),
     protocols: () =>
       import(/* webpackChunkName: "i18n-en-protocols" */ '../translations/en/protocols.json').then(
-        resolveDefault
-      ),
-    preDream: () =>
-      import(/* webpackChunkName: "i18n-en-preDream" */ '../translations/en/preDream.json').then(
         resolveDefault
       ),
     security: () =>
@@ -163,10 +155,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(/* webpackChunkName: "i18n-de-common" */ '../translations/de/common.json').then(
         resolveDefault
       ),
-    dreamMode: () =>
-      import(/* webpackChunkName: "i18n-de-dreamMode" */ '../translations/de/dreamMode.json').then(
-        resolveDefault
-      ),
     waitlist: () =>
       import(/* webpackChunkName: "i18n-de-waitlist" */ '../translations/de/waitlist.json').then(
         resolveDefault
@@ -197,10 +185,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       ),
     protocols: () =>
       import(/* webpackChunkName: "i18n-de-protocols" */ '../translations/de/protocols.json').then(
-        resolveDefault
-      ),
-    preDream: () =>
-      import(/* webpackChunkName: "i18n-de-preDream" */ '../translations/de/preDream.json').then(
         resolveDefault
       ),
     security: () =>
@@ -289,10 +273,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(/* webpackChunkName: "i18n-es-common" */ '../translations/es/common.json').then(
         resolveDefault
       ),
-    dreamMode: () =>
-      import(/* webpackChunkName: "i18n-es-dreamMode" */ '../translations/es/dreamMode.json').then(
-        resolveDefault
-      ),
     waitlist: () =>
       import(/* webpackChunkName: "i18n-es-waitlist" */ '../translations/es/waitlist.json').then(
         resolveDefault
@@ -323,10 +303,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       ),
     protocols: () =>
       import(/* webpackChunkName: "i18n-es-protocols" */ '../translations/es/protocols.json').then(
-        resolveDefault
-      ),
-    preDream: () =>
-      import(/* webpackChunkName: "i18n-es-preDream" */ '../translations/es/preDream.json').then(
         resolveDefault
       ),
     security: () =>
@@ -415,10 +391,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
       import(/* webpackChunkName: "i18n-pt-BR-common" */ '../translations/pt-BR/common.json').then(
         resolveDefault
       ),
-    dreamMode: () =>
-      import(
-        /* webpackChunkName: "i18n-pt-BR-dreamMode" */ '../translations/pt-BR/dreamMode.json'
-      ).then(resolveDefault),
     waitlist: () =>
       import(
         /* webpackChunkName: "i18n-pt-BR-waitlist" */ '../translations/pt-BR/waitlist.json'
@@ -450,10 +422,6 @@ const NAMESPACE_LOADERS: Record<SupportedLocale, NamespaceLoaders> = {
     protocols: () =>
       import(
         /* webpackChunkName: "i18n-pt-BR-protocols" */ '../translations/pt-BR/protocols.json'
-      ).then(resolveDefault),
-    preDream: () =>
-      import(
-        /* webpackChunkName: "i18n-pt-BR-preDream" */ '../translations/pt-BR/preDream.json'
       ).then(resolveDefault),
     security: () =>
       import(

@@ -46,22 +46,8 @@ export function isValidPosition(position: number): boolean {
 }
 
 /**
- * Validate calculator inputs
- */
-export function isValidCalculatorInput(futureAmount: number, years: number): boolean {
-  // Upper bound as for tool results: a hostile or fat-fingered `amount` never reads as trillions.
-  return (
-    futureAmount > 0 &&
-    Number.isFinite(futureAmount) &&
-    futureAmount <= 1_000_000_000 &&
-    years > 0 &&
-    years <= 100
-  );
-}
-
-/**
  * Validate a tool-result hero value (Phase 3 Money Tools share card).
- * Guards the same range as the calculator (positive, finite, ≤ $1B) so a
+ * Guards a sane range (positive, finite, at most one billion) so a
  * fat-fingered or hostile `value` param can't blow up the renderer.
  */
 export function isValidToolResultValue(value: number): boolean {
@@ -75,20 +61,14 @@ export function isValidToolResultValue(value: number): boolean {
  * `Intl` rejection) falls back to the plain `$`-prefixed K/M formatter so the
  * card never crashes on an unexpected param.
  */
-export function formatResultCurrency(
-  value: number,
-  currency: string,
-  locale = 'en',
-  /** Decimals in the compact figure: 0 for tool results, 1 for the calculator ("1,5 Mio."). */
-  maximumFractionDigits = 0
-): string {
+export function formatResultCurrency(value: number, currency: string, locale = 'en'): string {
   if (!/^[A-Z]{3}$/.test(currency)) return formatCurrency(value);
   try {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency,
       minimumFractionDigits: 0,
-      maximumFractionDigits,
+      maximumFractionDigits: 0,
       notation: 'compact',
     }).format(value);
   } catch {

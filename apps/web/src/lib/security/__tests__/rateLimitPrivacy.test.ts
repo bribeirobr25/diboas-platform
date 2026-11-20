@@ -86,7 +86,7 @@ describe('each OG route has its own rate-limit counter (5.939)', () => {
     });
     const share = await import('@/app/api/og/share/route');
     const { NextRequest } = await import('next/server');
-    await share.GET(new NextRequest('https://diboas.com/api/og/share?type=calculator'));
+    await share.GET(new NextRequest('https://diboas.com/api/og/share?type=waitlist&position=5'));
     const keys = checkRateLimit.mock.calls.map((c) => c[0]);
     expect(keys).toEqual(['og-page:198.51.100.1', 'og-share:198.51.100.1']);
   });

@@ -127,7 +127,7 @@
   margin: 0;
 }
 
-/* P-4: the platform icon row (same stack as preDream results / waitlist
+/* P-4: the platform icon row (the stack Dream Mode's results used, deleted in P13 / waitlist
    success; quiet tokenized buttons to match the quiz card). */
 .shareButtons {
   display: flex;

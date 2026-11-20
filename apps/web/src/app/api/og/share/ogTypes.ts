@@ -9,7 +9,7 @@ import { diBoasColors } from '@/lib/colors';
 /**
  * Share type for OG images
  */
-export type ShareType = 'waitlist' | 'calculator' | 'tool-result';
+export type ShareType = 'waitlist' | 'tool-result';
 
 /**
  * Supported locales for OG image translations — single source of truth from @diboas/i18n
@@ -55,17 +55,6 @@ export const OG_DIMENSIONS = {
 export interface WaitlistTemplateProps {
   position: number;
   name?: string;
-  locale?: string;
-}
-
-/**
- * Calculator template props
- */
-export interface CalculatorTemplateProps {
-  futureAmount: number;
-  years: number;
-  strategy?: string;
-  initialInvestment?: number;
   locale?: string;
 }
 

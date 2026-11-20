@@ -25,11 +25,6 @@ export enum ApplicationEventType {
   CONSENT_GIVEN = 'consent:given',
   CONSENT_WITHDRAWN = 'consent:withdrawn',
 
-  // PreDream Events
-  PRE_DREAM_STARTED = 'preDream:started',
-  PRE_DREAM_SHARE_INITIATED = 'preDream:shareInitiated',
-  PRE_DREAM_SHARE_COMPLETED = 'preDream:shareCompleted',
-
   // General Application Events
   APPLICATION_ERROR = 'application:error',
   FEATURE_USED = 'feature:used',
@@ -46,14 +41,7 @@ export enum ApplicationEventType {
  * coding-standards §1 / §2). Required on every event payload as of Phase 2 M1.
  */
 export type ApplicationDomain =
-  | 'waitlist'
-  | 'share'
-  | 'consent'
-  | 'preDream'
-  | 'analytics'
-  | 'monitoring'
-  | 'application'
-  | 'tools';
+  'waitlist' | 'share' | 'consent' | 'analytics' | 'monitoring' | 'application' | 'tools';
 
 /**
  * Base event payload interface.
@@ -159,9 +147,6 @@ export const EVENT_VALIDATION_SCHEMA: Record<ApplicationEventType, string[]> = {
   [ApplicationEventType.SHARE_CANCELLED]: ['domain', 'source', 'platform', 'locale'],
   [ApplicationEventType.CONSENT_GIVEN]: ['domain', 'source', 'consentType', 'newState'],
   [ApplicationEventType.CONSENT_WITHDRAWN]: ['domain', 'source', 'consentType', 'newState'],
-  [ApplicationEventType.PRE_DREAM_STARTED]: ['domain', 'source'],
-  [ApplicationEventType.PRE_DREAM_SHARE_INITIATED]: ['domain', 'source'],
-  [ApplicationEventType.PRE_DREAM_SHARE_COMPLETED]: ['domain', 'source'],
   [ApplicationEventType.APPLICATION_ERROR]: ['domain', 'source', 'error', 'severity'],
   [ApplicationEventType.FEATURE_USED]: ['domain', 'source'],
   [ApplicationEventType.CALCULATOR_UNEXPECTED_ERROR]: ['domain', 'source', 'error', 'severity'],

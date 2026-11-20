@@ -15,7 +15,6 @@ import { join, relative, sep } from 'node:path';
 import ts from 'typescript';
 import { parseSource } from '@diboas/test-support';
 import { describe, expect, it } from 'vitest';
-import { WAITING_LIST_CONFIG } from '@/lib/waitingList/constants';
 import { ROUTES } from '@/config/routes';
 import sitemap from '@/app/sitemap';
 
@@ -131,11 +130,6 @@ function emailLinks(): Array<{ at: string; path: string }> {
 }
 
 describe('internal links resolve to a page', { timeout: 30_000 }, () => {
-  it('should link the waitlist consent line to the real privacy policy page', () => {
-    expect(WAITING_LIST_CONFIG.privacyPolicyUrl).toBe(ROUTES.LEGAL.PRIVACY);
-    expect(resolves(WAITING_LIST_CONFIG.privacyPolicyUrl)).toBe(true);
-  });
-
   it('should find a page for every literal internal href in the components', () => {
     const links = literalHrefs();
     expect(links.length).toBeGreaterThan(5);

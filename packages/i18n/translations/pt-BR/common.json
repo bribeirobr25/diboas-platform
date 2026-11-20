@@ -61,9 +61,7 @@
     "joinWaitlist": "Entrar na Lista",
     "tools": {
       "calculator": "Calculadora",
-      "calculatorDescription": "Veja seu dinheiro crescer",
-      "dreamMode": "Modo Sonho",
-      "dreamModeDescription": "Visualize seu futuro"
+      "calculatorDescription": "Veja seu dinheiro crescer"
     },
     "tryPractice": "Experimente o Practice"
   },
@@ -105,8 +103,6 @@
     "productNavigation": "Navegação de produto",
     "legalPages": "Páginas legais",
     "mainNavigation": "Navegação principal",
-    "dreamMode": "Dream Mode",
-    "closeDreamMode": "Fechar Dream Mode",
     "copyToClipboard": "Copiar texto para a área de transferência",
     "shareOnX": "Compartilhar no X",
     "homeLink": "Página inicial {brand}",
@@ -234,52 +230,11 @@
     "contactDirectly": "Entre em contato diretamente para agendar uma ligação"
   },
   "waitingList": {
-    "title": "Entre na Lista de Espera",
-    "subtitle": "Seja o primeiro a experimentar o futuro das finanças. Cadastre-se agora para ter acesso antecipado ao diBoaS.",
-    "imageAlt": "Prévia da Plataforma diBoaS",
-    "close": "Fechar",
-    "form": {
-      "name": {
-        "label": "Nome",
-        "placeholder": "Digite seu nome"
-      },
-      "email": {
-        "label": "E-mail",
-        "placeholder": "Digite seu endereço de e-mail"
-      },
-      "xAccount": {
-        "label": "Conta X (Twitter)",
-        "placeholder": "@usuario"
-      },
-      "optional": "(opcional)",
-      "consent": {
-        "text": "Aceito receber comunicações do diBoaS e concordo com a",
-        "privacyPolicy": "Política de Privacidade"
-      },
-      "submit": "Entrar na Lista de Espera"
-    },
-    "success": {
-      "title": "Você está na lista!",
-      "message": "Obrigado por entrar em nossa lista de espera. Manteremos você atualizado sobre nosso lançamento e enviaremos informações de acesso antecipado.",
-      "emailSent": "Confirmação enviada para {email}",
-      "close": "Fechar"
-    },
     "errors": {
-      "invalidEmail": "Por favor, insira um endereço de e-mail válido",
       "invalidName": "Por favor, insira um nome válido",
       "invalidXAccount": "Por favor, insira uma conta X válida (ex: @usuario)",
-      "consentRequired": "Você deve aceitar receber comunicações",
       "emailRequired": "E-mail é obrigatório",
-      "duplicateEmail": "Este e-mail já está em nossa lista de espera",
-      "submissionFailed": "Algo deu errado. Por favor, tente novamente.",
       "storageError": "Não foi possível salvar suas informações. Por favor, tente novamente."
-    },
-    "position": {
-      "label": "Sua Posição",
-      "spotsGained": "{spots} posições ganhas!",
-      "referrals": "Indicações",
-      "spotsPerReferral": "Posições/Indicação",
-      "yourCode": "Seu Código:"
     }
   },
   "share": {

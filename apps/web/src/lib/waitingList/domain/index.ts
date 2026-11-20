@@ -19,7 +19,6 @@ export {
   type WaitingListDomainService,
   type WaitingListEvent,
   type WaitingListEventType,
-  type WaitingListConfiguration,
   type WaitingListRepository,
   WaitingListDomainError,
   WaitingListValidationError,

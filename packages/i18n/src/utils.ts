@@ -14,7 +14,7 @@ import { getTranslations, hasRegisteredNamespace } from './translations-map';
  * Uses lazy dynamic imports for optimal bundle splitting
  *
  * @param locale - The locale to load messages for
- * @param namespace - The namespace path (e.g., 'common', 'home', 'dreamMode')
+ * @param namespace - The namespace path (e.g., 'common', 'home', 'learn')
  * @returns Promise resolving to the translation messages object
  */
 export async function loadMessages(

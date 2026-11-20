@@ -37,8 +37,7 @@ Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySec
 | `Providers/`        | `I18nProvider`, `LocaleProvider`, `PageI18nProvider`, `PostHogProvider`, `GoogleAnalyticsLoader`, `MarketDataContextProvider`, `SetHtmlLang`                                                                                                                                                                                                                                                                                                                                                                                                                         |
 | `Analytics/`        | Adelaide Market `/market` surface — `RegimeScore`, `SignalCard`, `SignalCardsGrid`, and related macro-regime components                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | `Market/`           | `MarketCtaBand` (Adelaide closing band), `MarketHeroCanvas`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `WaitingList/`      | Waitlist form, modal, confirmation, referral link, position display                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| `PreDream/`         | Future-you visualization experience (client-only, dynamically imported)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `WaitingList/`      | Waitlist form, confirmation, referral link (the modal and position display were deleted in P13)                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `ErrorBoundary/`    | `RouteGroupError`, `RouteGroupLoading`, `PageErrorBoundary`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `SEO/`              | `StructuredData` (JSON-LD injection)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `CookieConsent/`    | GDPR-compliant cookie consent banner                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -49,7 +48,7 @@ Examples: `HeroSection`, `CinematicHero`, `ComparisonTable`, `StartupTreasurySec
 
 ### Server vs Client Components
 
-`SectionContainer` is a server component (no `'use client'` directive). Most interactive components are client components. Heavy client-only experiences (`PreDream`) use `next/dynamic` with `ssr: false`. The `CompoundInterestCalculator` factory accepts an `engine='lesson' | 'tool'` prop (Phase 7 Q7a) — `'lesson'` is the default and uses non-hedged math for `/learn/compound-interest`; tool pages pass `'tool'` to opt into `calculateCompoundProjectionHedged()` for non-USD locale currency hedging.
+`SectionContainer` is a server component (no `'use client'` directive). Most interactive components are client components. The `CompoundInterestCalculator` factory accepts an `engine='lesson' | 'tool'` prop (Phase 7 Q7a) — `'lesson'` is the default and uses non-hedged math for `/learn/compound-interest`; tool pages pass `'tool'` to opt into `calculateCompoundProjectionHedged()` for non-USD locale currency hedging.
 
 ## 3. Styling
 
@@ -68,7 +67,7 @@ All components reference design tokens via CSS custom properties rather than har
 ### Implemented
 
 - **Skip navigation:** The `(landing)` layout includes a skip-to-main-content link, localized via `common.json` translations.
-- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MinimalNavigation`, `WaitingListModal`, `PreDream`).
+- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MinimalNavigation`).
 - **Keyboard navigation:** `LanguageSwitcher` handles Escape key with focus return. `useCarousel` handles Arrow keys, Home, End, and Space for play/pause.
 - **ARIA attributes:** 124+ usages of `aria-label`, `aria-describedby`, and `aria-live` across 65 files.
 - **Reduced motion:** All animations respect `prefers-reduced-motion` (49 files reference it via CSS and JS).
@@ -99,7 +98,7 @@ All components reference design tokens via CSS custom properties rather than har
 
 ### Dynamic Imports
 
-`next/dynamic` with `ssr: false` used for `PreDream` and the feature showcase variant registry.
+`next/dynamic` with `ssr: false` used for the feature showcase variant registry.
 
 ### Performance Targets
 
@@ -134,7 +133,7 @@ Tracked via `WebVitalsTracker` and `MonitoringInit` components.
 The pre-launch site uses lightweight client-side state only:
 
 - **`useState` / `useRef`:** Component-local state for forms, carousels, modals, and UI toggles.
-- **Context providers:** `LocaleProvider` (current locale), `I18nProvider` / `PageI18nProvider` (translations), `PostHogProvider` (analytics, consent-gated), `WaitingListProvider` (waitlist modal state).
+- **Context providers:** `LocaleProvider` (current locale), `I18nProvider` / `PageI18nProvider` (translations), `PostHogProvider` (analytics, consent-gated).
 - **`sessionStorage`:** UTM parameters (`useUtmCapture`), waitlist stats cache (`useWaitlistStats`).
 - **Race condition prevention:** `useCarousel` uses `StateMachine`, `MutexLock`, `SafeInterval`, and `CleanupManager` from `@/lib/utils/RaceConditionPrevention`.
 - **Event bus:** `ApplicationEventBus` for cross-component communication (waitlist signup events propagate stats updates).

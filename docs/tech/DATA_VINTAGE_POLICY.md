@@ -5,7 +5,7 @@
 
 ## 1. The Policy
 
-**P-1 — Return/rate figures are multi-year averages.** Any figure presented as a return, yield, growth rate, depreciation rate, or scenario rate (on `/strategies`, `/tools`, `/learn`, PreDream, comparison tables; the Practice app under P-7) is derived from a multi-year historical window — never the current month, never an isolated last month. Trailing windows saturate at the full available series.
+**P-1 — Return/rate figures are multi-year averages.** Any figure presented as a return, yield, growth rate, depreciation rate, or scenario rate (on `/strategies`, `/tools`, `/learn`, comparison tables; the Practice app under P-7) is derived from a multi-year historical window — never the current month, never an isolated last month. Trailing windows saturate at the full available series.
 
 **P-2 — The window ends at the last COMPLETE month.** The current (in-progress) month never enters any average.
 

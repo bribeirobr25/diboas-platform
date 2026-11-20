@@ -36,16 +36,6 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
       position: 'Posição',
       cta: 'Entre você também no diBoaS: liberdade financeira simplificada',
     },
-    calculator: {
-      badge: 'Calculadora Modo Sonho',
-      growthMessage: [
-        'Em 1 ano, meu investimento poderia chegar a',
-        'Em 5 anos, meu investimento poderia chegar a',
-      ],
-      startingWith: 'Começando com',
-      strategy: 'Estratégia',
-      cta: 'Calcule seu futuro em diboas.com',
-    },
     toolResult: {
       toolName: {
         'money-jobs': 'Dinheiro com Função',
@@ -74,16 +64,6 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
       position: 'Posición',
       cta: 'Únete tú también a diBoaS: libertad financiera simplificada',
     },
-    calculator: {
-      badge: 'Calculadora Modo Sueño',
-      growthMessage: [
-        'En 1 año, mi inversión podría llegar a',
-        'En 5 años, mi inversión podría llegar a',
-      ],
-      startingWith: 'Empezando con',
-      strategy: 'Estrategia',
-      cta: 'Calcula tu futuro en diboas.com',
-    },
     toolResult: {
       toolName: {
         'money-jobs': 'Dinero con Función',
@@ -111,16 +91,6 @@ const EXPECTED: Record<'pt-BR' | 'es' | 'de', Rendered> = {
       joinedMessage: ['1 steht jetzt auf der Warteliste!', '5 steht jetzt auf der Warteliste!'],
       position: 'Platz',
       cta: 'Mach mit bei diBoaS: finanzielle Freiheit einfach gemacht',
-    },
-    calculator: {
-      badge: 'Dream-Mode-Rechner',
-      growthMessage: [
-        'In 1 Jahr könnte meine Geldanlage anwachsen auf',
-        'In 5 Jahren könnte meine Geldanlage anwachsen auf',
-      ],
-      startingWith: 'Startbetrag',
-      strategy: 'Strategie',
-      cta: 'Berechne deine Zukunft auf diboas.com',
     },
     toolResult: {
       toolName: {
