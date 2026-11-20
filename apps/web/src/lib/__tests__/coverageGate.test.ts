@@ -97,18 +97,20 @@ type Floor = Partial<Record<(typeof METRICS)[number], number>> | { 100: true };
 /**
  * The ratchet's floor (agent D finding 3): measured 2026-11-10. A config may RAISE any value and
  * add keys; it may not lower, drop or negate one. Raise these when a config's floors rise.
+ * web: raised 2026-11-20 to the config's floors (P13 PR-2). PR-1 and PR-2 had raised the config
+ * without raising this baseline, so the floors could fall 11 to 13 points with this guard green.
  */
 const FLOOR_BASELINE: Record<string, Record<string, Floor | number>> = {
   web: {
-    lines: 34,
-    branches: 29,
-    functions: 28,
-    statements: 34,
-    'src/app/**': { lines: 26, branches: 21, functions: 23, statements: 27 },
-    'src/components/**': { lines: 12, branches: 12, functions: 11, statements: 12 },
-    'src/config/**': { lines: 31, branches: 49, functions: 27, statements: 31 },
-    'src/hooks/**': { lines: 54, branches: 51, functions: 58, statements: 54 },
-    'src/lib/**': { lines: 58, branches: 50, functions: 50, statements: 58 },
+    lines: 47,
+    branches: 41,
+    functions: 40,
+    statements: 46,
+    'src/app/**': { lines: 40, branches: 32, functions: 32, statements: 39 },
+    'src/components/**': { lines: 24, branches: 22, functions: 23, statements: 23 },
+    'src/config/**': { lines: 43, branches: 53, functions: 37, statements: 44 },
+    'src/hooks/**': { lines: 57, branches: 53, functions: 60, statements: 57 },
+    'src/lib/**': { lines: 66, branches: 59, functions: 58, statements: 65 },
   },
   sandbox: {
     lines: 89,

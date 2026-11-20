@@ -79,10 +79,7 @@ export function MoneyJobsGate({ onUnlocked, unlocked }: MoneyJobsGateProps) {
   const { formState, error, isLoading, handleInputChange, handleSubmit } = useWaitlistForm({
     readCtaSource: false,
     source: 'tool_money_jobs',
-    // The hook's messages live in `waitlist.error.*`, as the landing form reads them. This read
-    // `common.waitingList.error.*`, which never existed, so a failed signup showed a raw key
-    // (register `5.1025`). Guard: `waitlistFormMessages.test.ts`.
-    t: (key, values) => intl.formatMessage({ id: `waitlist.${key}` }, values),
+    t: (key, values) => intl.formatMessage({ id: `common.waitingList.${key}` }, values),
     onSuccess: (data) => {
       persistEmail(formState.email.trim().toLowerCase());
       setSuccess(data);

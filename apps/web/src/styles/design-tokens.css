@@ -328,7 +328,6 @@
   --social-facebook: #1877f2;
   --social-telegram: #0088cc;
   --social-copy: #64748b;
-  --social-download: #0d9488;
 
   /* ================================
      FOCUS & ACCESSIBILITY TOKENS
@@ -343,7 +342,6 @@
      ================================ */
   --overlay-dark: rgba(15, 23, 42, 0.9);
   --overlay-light: rgba(255, 255, 255, 0.9);
-  --overlay-backdrop: rgba(0, 0, 0, 0.8);
   --overlay-modal: rgba(15, 23, 42, 0.7);
   --overlay-subtle: rgba(0, 0, 0, 0.5);
   /* A13 (2026-06-11): image-overlay scrim scale — tokenized at the exact alphas
@@ -399,8 +397,6 @@
 
   /* Error Color with Opacity (Red) */
   --error-overlay-subtle: rgba(239, 68, 68, 0.1);
-  --error-border-subtle: rgba(239, 68, 68, 0.3);
-  --error-focus-ring: rgba(239, 68, 68, 0.1);
 
   /* Success Color with Opacity (Green) */
   --success-overlay-subtle: rgba(16, 185, 129, 0.1);

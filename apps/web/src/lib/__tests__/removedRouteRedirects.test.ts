@@ -58,13 +58,16 @@ describe('the retired demo and Dream Mode keep no page and no config redirect (P
   const appDir = join(__dirname, '../../app/[locale]');
   const groups = ['', ...readdirSync(appDir).filter((d) => /^\(.*\)$/.test(d))];
 
-  it.each(['demo', 'dream-mode'])('should keep no %s page under any route group', (route) => {
-    expect(groups.length).toBeGreaterThan(1);
-    for (const group of groups)
-      expect(existsSync(join(appDir, group, route)), `${group}/${route}`).toBe(false);
-  });
+  it.each(['demo', 'dream-mode'])(
+    'should find no %s page when every route group is read',
+    (route) => {
+      expect(groups.length).toBeGreaterThan(1);
+      for (const group of groups)
+        expect(existsSync(join(appDir, group, route)), `${group}/${route}`).toBe(false);
+    }
+  );
 
-  it('should hold no next.config.js redirect for either', async () => {
+  it('should find no redirect for either when next.config.js is read (middleware answers them)', async () => {
     const rules = await nextConfig.redirects();
     expect(rules.filter((r) => /(^|\/)(demo|dream-mode)(\/|$|\()/i.test(r.source))).toEqual([]);
   });

@@ -19,18 +19,27 @@ import type { Metadata } from 'next';
 import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
 import { pageTitle } from '@/lib/seo/pageTitle';
 
+type ShareParam = 'type' | 'position' | 'name' | 'years' | 'tool' | 'value' | 'currency' | 'tone';
+
 interface SharePageProps {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{
-    type?: string;
-    position?: string;
-    name?: string;
-    years?: string;
-    tool?: string;
-    value?: string;
-    currency?: string;
-    tone?: string;
-  }>;
+  /** A parameter given twice arrives as an array (`?currency=usd&currency=eur`). */
+  searchParams: Promise<Partial<Record<ShareParam, string | string[]>>>;
+}
+
+/**
+ * Each parameter's first value, as the image route reads them (`searchParams.get`). Reading an
+ * array as a string threw in the metadata step and the link lost its preview (register `5.1025`).
+ */
+function firstValues(
+  raw: Partial<Record<ShareParam, string | string[]>>
+): Partial<Record<ShareParam, string>> {
+  const out: Partial<Record<ShareParam, string>> = {};
+  for (const [k, v] of Object.entries(raw) as Array<[ShareParam, string | string[] | undefined]>) {
+    const first = Array.isArray(v) ? v[0] : v;
+    if (typeof first === 'string') out[k] = first;
+  }
+  return out;
 }
 
 interface OgStrings {
@@ -66,7 +75,7 @@ export async function generateMetadata({
   searchParams,
 }: SharePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const search = await searchParams;
+  const search = firstValues(await searchParams);
   const type = search.type || 'default';
 
   // SEO-2: the OG image (`/api/og/*`) and `og:url` resolve on the MARKETING
@@ -129,7 +138,8 @@ export async function generateMetadata({
   const rawValue = parseInt(search.value || '0', 10);
   // The image route's own guards (allowlisted tool, value in range): a link that fails them gets
   // the default metadata, as the route draws the default card. Before P13 PR-2 an invalid value
-  // was clamped to 0 here and the preview title stated a zero amount above a default card.
+  // was clamped to 0 here and the preview title stated a zero amount above a default card
+  // (register `5.1024`).
   if (
     type === 'tool-result' &&
     (SHAREABLE_TOOL_KEYS as readonly string[]).includes(tool) &&

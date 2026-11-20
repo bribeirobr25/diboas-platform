@@ -70,7 +70,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from '@diboas/i18n/config';
 
 ## Translation Files
 
-Translation files are organized by locale × namespace (37 namespaces per locale — the demo's `preDemo` and Dream Mode's `dreamMode` and `preDream` removed in plan P13, 2026-11-19; most recently `market-bitcoin.json` + `market-backdrop.json`, the Market Macro per-view namespaces, M3 2026-08-13):
+Translation files are organized by locale × namespace (37 namespaces per locale — the demo's `preDemo` removed in plan P13 PR-1, 2026-11-19, and Dream Mode's `dreamMode` and `preDream` in PR-2, 2026-11-20; most recently `market-bitcoin.json` + `market-backdrop.json`, the Market Macro per-view namespaces, M3 2026-08-13):
 
 ```
 packages/i18n/translations/{en, pt-BR, es, de}/

@@ -9,6 +9,10 @@
  *     half-rendered calculator.
  *   * 5.802 · a share title and card state the amount in the visitor's locale (German "Mio.",
  *     Portuguese "mi"), never one English compact form for every language.
+ *   * 5.1024 · a link the image route refuses (invalid amount, unknown tool) gets the default
+ *     title, as it gets the default card; the title once stated a zero amount.
+ *   * 5.1025 · a parameter given twice reads its first value, as the image route does; the
+ *     metadata step used to throw and the link lost its preview.
  */
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { ReactElement } from 'react';
@@ -58,7 +62,7 @@ const TOOL = { type: 'tool-result', tool: 'money-jobs', value: '2400000', curren
 
 describe('the share page after the calculator card (P13 · D10)', () => {
   it.each(LOCALES)(
-    'should give an old calculator link the default title and image in %s',
+    'should give the default title and image when an old calculator link is opened in %s',
     async (locale) => {
       const fallback = await meta(locale, {});
       const old = await meta(locale, { type: 'calculator', amount: '1500000', years: '10' });
@@ -68,24 +72,27 @@ describe('the share page after the calculator card (P13 · D10)', () => {
     }
   );
 
-  it('should draw the default card for an old calculator link', async () => {
+  it('should draw the default card when an old calculator link is opened', async () => {
     const fallback = await card('locale=en');
     expect(fallback).not.toBe('');
     expect(await card('type=calculator&amount=1500000&years=10&locale=en')).toBe(fallback);
   });
 
-  it.each(LOCALES)('should title a waitlist share with its position in %s', async (locale) => {
-    const fallback = await meta(locale, {});
-    const shared = await meta(locale, { type: 'waitlist', position: '247' });
-    expect(shared.title).toContain('247');
-    expect(shared.title).not.toBe(fallback.title);
-    expect(shared.image).toContain('type=waitlist');
-  });
+  it.each(LOCALES)(
+    'should put the position in the title when a waitlist share is opened in %s',
+    async (locale) => {
+      const fallback = await meta(locale, {});
+      const shared = await meta(locale, { type: 'waitlist', position: '247' });
+      expect(shared.title).toContain('247');
+      expect(shared.title).not.toBe(fallback.title);
+      expect(shared.image).toContain('type=waitlist');
+    }
+  );
 });
 
 describe('5.802 · a share in the visitor locale (the Money Tools result)', () => {
   it.each(Object.entries(AMOUNT_IN))(
-    'should title the share page with the amount as %s writes it (%s)',
+    'should write the amount as %s writes it (%s) when the share title is built',
     async (locale, expected) => {
       const shared = await meta(locale, TOOL);
       expect(shared.title).toContain(expected);
@@ -94,7 +101,7 @@ describe('5.802 · a share in the visitor locale (the Money Tools result)', () =
   );
 
   it.each(Object.entries(AMOUNT_IN))(
-    'should draw the card with the amount as %s writes it (%s)',
+    'should write the amount as %s writes it (%s) when the card is drawn',
     async (locale, expected) => {
       expect(
         await card(`type=tool-result&tool=money-jobs&value=2400000&currency=USD&locale=${locale}`)
@@ -102,7 +109,7 @@ describe('5.802 · a share in the visitor locale (the Money Tools result)', () =
     }
   );
 
-  it('should give an invalid amount the default title, never NaN or a negative amount', async () => {
+  it('should give the default title, never NaN or a negative amount, when the amount is invalid', async () => {
     const fallback = await meta('en', {});
     for (const bad of ['junk', '-5000', '1000000000000', '0']) {
       const shared = await meta('en', { ...TOOL, value: bad });
@@ -111,12 +118,32 @@ describe('5.802 · a share in the visitor locale (the Money Tools result)', () =
     }
   });
 
-  it('should give a tool outside the allowlist the default title, as the card is the default', async () => {
+  it('should give the default title, as the card is the default, when the tool is not allowlisted', async () => {
     const fallback = await meta('en', {});
-    const shared = await meta('en', { ...TOOL, tool: 'not-a-tool' });
-    expect(shared.title).toBe(fallback.title);
+    for (const tool of ['not-a-tool', 'constructor', '__proto__', 'toString']) {
+      const shared = await meta('en', { ...TOOL, tool });
+      expect(shared.title, tool).toBe(fallback.title);
+    }
     expect(
       await card('type=tool-result&tool=not-a-tool&value=2400000&currency=USD&locale=en')
     ).toBe(await card('locale=en'));
+  });
+});
+
+describe('5.1025 · a parameter given twice', () => {
+  it('should read the first value, as the image route does, when a parameter is repeated', async () => {
+    const once = await meta('en', TOOL);
+    const twice = await meta('en', {
+      ...TOOL,
+      currency: ['USD', 'EUR'],
+      value: ['2400000', '5'],
+    } as never);
+    expect(twice.title).toBe(once.title);
+    expect(twice.image).toContain('type=tool-result');
+    const waitlist = await meta('en', {
+      type: ['waitlist', 'tool-result'],
+      position: ['247', '9'],
+    } as never);
+    expect(waitlist.title).toContain('247');
   });
 });

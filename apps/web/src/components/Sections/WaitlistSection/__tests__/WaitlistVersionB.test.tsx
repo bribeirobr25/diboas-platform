@@ -96,7 +96,7 @@ describe('WaitlistVersionB (the business waitlist, no provider around it)', () =
     ['a code with no invites left', () => json({ valid: true, referrer: { remainingInvites: 0 } })],
     ['an unknown code', () => json({ valid: false })],
     ['a refused request', () => json({}, false)],
-  ])('should say the code is invalid for %s', async (_case, response) => {
+  ])('should say the code is invalid when the answer is %s', async (_case, response) => {
     mockFetch.mockResolvedValueOnce(response());
     const { container } = render(<WaitlistVersionB source="landing_b2b" />);
     enterCode(container, 'DIBOAS-ZZ99');
@@ -115,7 +115,7 @@ describe('WaitlistVersionB (the business waitlist, no provider around it)', () =
     expect(screen.queryByText('waitlist.referral.invalid')).toBeNull();
   });
 
-  it('should post landing_b2b from the priority list and show the confirmation, with no referral', async () => {
+  it('should post landing_b2b with no referral and show the confirmation when the priority form is used', async () => {
     const emitted = vi.spyOn(applicationEventBus, 'emit');
     mockFetch.mockResolvedValueOnce(
       json({ success: true, position: 42, referralCode: 'DIBOAS-NEW1', referralUrl: 'u' })

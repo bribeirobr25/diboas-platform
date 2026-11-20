@@ -103,7 +103,7 @@ describe('sanitizeInput', () => {
 });
 
 describe('isValidPosition', () => {
-  it('should accept a position from 1 to a million and refuse anything else', () => {
+  it('should accept a position only when it is from 1 to a million', () => {
     expect(isValidPosition(1)).toBe(true);
     expect(isValidPosition(1_000_000)).toBe(true);
     for (const bad of [0, -1, 1_000_001, Number.NaN, Number.POSITIVE_INFINITY])
@@ -120,7 +120,7 @@ describe('parseIntSafe', () => {
 });
 
 describe('the plain fallback formatter (an unusable currency code)', () => {
-  it('should write millions, thousands and small amounts with a dollar sign', () => {
+  it('should write millions, thousands and small amounts with a dollar sign when the code is unusable', () => {
     expect(formatResultCurrency(2_400_000, 'usd')).toBe('$2.4M');
     expect(formatResultCurrency(16_105, 'XX')).toBe('$16K');
     expect(formatResultCurrency(950, '')).toBe('$950');

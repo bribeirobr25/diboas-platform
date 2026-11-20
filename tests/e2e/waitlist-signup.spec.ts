@@ -117,10 +117,28 @@ test.describe('Waitlist signup — happy path', () => {
     const waitlistSection = page.locator('#waitlist');
     await waitlistSection.waitFor({ state: 'visible', timeout: 15_000 });
     await waitlistSection.locator('input[name="email"]').first().fill('e2e+b2b@example.com');
-    const consent = waitlistSection.locator('input[name="gdprAccepted"]').first();
-    if (await consent.count()) await consent.check();
+    await waitlistSection.locator('input[name="gdprAccepted"]').first().check();
     await waitlistSection.locator('form button[type="submit"]').first().click();
     await expect.poll(() => posted.length, { timeout: 10_000 }).toBe(1);
     expect(posted[0]!.source).toBe('landing_b2b');
+  });
+
+  test('posts tool_money_jobs from the Money Jobs gate', async ({ page }) => {
+    await page.goto('/en/tools/money-jobs');
+    // the gate appears under a computed split; enter an amount if the page opens without one
+    const gate = page.locator('form[class*="gateForm"]').first();
+    if (!(await gate.isVisible())) {
+      const amount = page
+        .locator('input[inputmode="decimal"], input[inputmode="numeric"], input[type="number"]')
+        .first();
+      await amount.fill('3000');
+      await amount.press('Tab');
+    }
+    await gate.waitFor({ state: 'visible', timeout: 15_000 });
+    await gate.locator('input[name="email"]').fill('e2e+gate@example.com');
+    await gate.locator('input[type="checkbox"]').check();
+    await gate.locator('button[type="submit"]').click();
+    await expect.poll(() => posted.length, { timeout: 10_000 }).toBe(1);
+    expect(posted[0]!.source).toBe('tool_money_jobs');
   });
 });

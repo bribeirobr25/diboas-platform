@@ -62,9 +62,12 @@ const RETIRED_ROUTES = /\bROUTES\.(DEMO|DREAM_MODE)\b/;
 const RETIRED_PATH = /\/demo(?![\w-])|(^|[^\w-])dream-mode(?![\w-])/i;
 /** A retired route's segment on its own: flagged when it is concatenated or templated into a path. */
 const RETIRED_SEGMENTS = new Set(['demo', 'dream-mode']);
-/** Retired waitlist sources and PostHog event names (plan P13, D6 and D9). */
+/**
+ * Retired waitlist sources and PostHog event names (plan P13, D6 and D9). A source name also
+ * starts the events that carried it (`dream_mode_gate_join_click`), so each is a prefix.
+ */
 const RETIRED_LITERALS =
-  /^(dream_mode|interactive_demo|app_link)$|pre_dream_|pre_demo_|waiting_list_modal_/;
+  /^(dream_mode|interactive_demo|app_link)(_|$)|pre_dream_|pre_demo_|waiting_list_modal_/;
 /** Deleted i18n namespaces: never registered, never named in a string (a stale load only logs). */
 const RETIRED_NAMESPACES = ['preDemo', 'dreamMode', 'preDream'];
 /**
@@ -73,12 +76,14 @@ const RETIRED_NAMESPACES = ['preDemo', 'dreamMode', 'preDream'];
  */
 const RETIRED_NAMES =
   /Interactive Demo|Demo Interativa|Demo Interactiva|Interaktive Demo|Dream[ -]?Mode|Modo Sonho|Modo Sueño/;
-/** The Terms' two mentions per locale, Legal's text until `5.1004` (exempt by key and count). */
+/**
+ * The Terms' mentions, Legal's text until `5.1004`: exempt by key, one mention per key per
+ * locale (a mention moved between keys, added or lost fails).
+ */
 const TERMS_EXEMPT_KEYS = [
   'sections.aboutDiboas.items',
   'sections.preLaunchLimitations.simulationTools',
 ];
-const TERMS_EXEMPT_COUNT = 2;
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
@@ -145,7 +150,11 @@ function scan(file: string, text = readFileSync(file, 'utf8')): Finding[] {
       RETIRED_SEGMENTS.has(node.text.toLowerCase()) &&
       (ts.isTemplateSpan(node.parent) ||
         (ts.isBinaryExpression(node.parent) &&
-          node.parent.operatorToken.kind === ts.SyntaxKind.PlusToken))
+          node.parent.operatorToken.kind === ts.SyntaxKind.PlusToken) ||
+        // `['', locale, 'demo'].join('/')`
+        (ts.isArrayLiteralExpression(node.parent) &&
+          ts.isPropertyAccessExpression(node.parent.parent) &&
+          node.parent.parent.name.text === 'join'))
     )
       found.push({ at: where(node), what: `segment "${node.text}" joined into a path` });
     for (const piece of pieces) {
@@ -222,10 +231,15 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
         else if (name.endsWith('.json')) {
           const isTerms = rel(full).endsWith('/legal/terms.json');
           for (const [path, text] of strings(JSON.parse(readFileSync(full, 'utf8')), '', [])) {
+            // a retired path in a catalogue string (a lesson link, an href) is never exempt
+            if (RETIRED_PATH.test(text)) hits.push(`${rel(full)} ${path} (path)`);
             const n = (text.match(new RegExp(RETIRED_NAMES.source, 'g')) ?? []).length;
             if (n === 0) continue;
-            if (isTerms && TERMS_EXEMPT_KEYS.some((k) => path === k || path.startsWith(`${k}.`)))
-              termsCount[rel(full)] = (termsCount[rel(full)] ?? 0) + n;
+            const key = isTerms
+              ? TERMS_EXEMPT_KEYS.find((k) => path === k || path.startsWith(`${k}.`))
+              : undefined;
+            if (key)
+              termsCount[`${rel(full)} ${key}`] = (termsCount[`${rel(full)} ${key}`] ?? 0) + n;
             else hits.push(`${rel(full)} ${path}`);
           }
         }
@@ -239,10 +253,11 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
     );
     expect(locales.sort()).toEqual(['de', 'en', 'es', 'pt-BR']);
     for (const locale of locales)
-      expect(
-        termsCount[`packages/i18n/translations/${locale}/legal/terms.json`] ?? 0,
-        `${locale} Terms`
-      ).toBe(TERMS_EXEMPT_COUNT);
+      for (const key of TERMS_EXEMPT_KEYS)
+        expect(
+          termsCount[`packages/i18n/translations/${locale}/legal/terms.json ${key}`] ?? 0,
+          `${locale} Terms ${key}`
+        ).toBe(1);
   });
 
   /* Negative controls: what must NOT trip the scan, and what must. */
@@ -262,6 +277,8 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
       "const t = 'Traumreise';",
       "const target = 'calculator';",
       "const s = 'landing_b2c';",
+      "const s = 'app_linker';",
+      "const p = ['a', 'demo'].length;",
       "import { WaitlistForm } from './WaitlistForm';",
     ])
       expect(probe(ok), ok).toEqual([]);
@@ -286,6 +303,8 @@ describe('RETIRED-SURFACES-1 · no retired surface is named (P13)', { timeout: 3
       "const s = 'dream_mode';",
       "track({ name: 'pre_dream_started' });",
       "track({ name: 'waiting_list_modal_opened' });",
+      "track({ name: 'dream_mode_gate_join_click' });",
+      "const h = ['', locale, 'demo'].join('/');",
       "const t = 'Modo Sonho';",
       "const t = 'Dream-Mode-Rechner';",
     ])

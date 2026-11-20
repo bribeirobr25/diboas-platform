@@ -67,7 +67,7 @@ All components reference design tokens via CSS custom properties rather than har
 ### Implemented
 
 - **Skip navigation:** The `(landing)` layout includes a skip-to-main-content link, localized via `common.json` translations.
-- **Focus trapping:** `useFocusTrap` hook used in modals and mobile navigation (`MinimalNavigation`).
+- **Focus trapping:** `useFocusTrap` hook used in mobile navigation (`MinimalNavigation`); every dialog that opens must use it too.
 - **Keyboard navigation:** `LanguageSwitcher` handles Escape key with focus return. `useCarousel` handles Arrow keys, Home, End, and Space for play/pause.
 - **ARIA attributes:** 124+ usages of `aria-label`, `aria-describedby`, and `aria-live` across 65 files.
 - **Reduced motion:** All animations respect `prefers-reduced-motion` (49 files reference it via CSS and JS).
@@ -98,7 +98,7 @@ All components reference design tokens via CSS custom properties rather than har
 
 ### Dynamic Imports
 
-`next/dynamic` with `ssr: false` used for the feature showcase variant registry.
+No component uses `next/dynamic` with `ssr: false` today: its last two users, Dream Mode's page and the waitlist modal's provider, were deleted in plan P13 PR-2 (2026-11-20). The CinematicHero and Learn components explain in their own comments why they avoid it.
 
 ### Performance Targets
 
@@ -161,7 +161,7 @@ All hooks live in `apps/web/src/hooks/`:
 | `useWaitlistStats`       | Fetches waitlist stats with `fetchWithRetry`, caches in `sessionStorage` (5-min TTL), listens for real-time updates via `ApplicationEventBus`.                                                                         |
 | `useWebShare`            | Shared Web Share + copy-fallback engine (native sheet → clipboard, `copied` timer, AbortError no-op). Consumed by `useResultShare` + `MarketCtaBand`; analytics via `onInitiated`/`onCompleted` callbacks.             |
 
-Additional component-scoped hooks exist in `WaitingList/hooks/` (`useWaitlistForm`, `useWaitlistModalForm`).
+Additional component-scoped hook in `WaitingList/hooks/`: `useWaitlistForm` (the modal's `useWaitlistModalForm` was deleted with it in P13 PR-2).
 
 ## 9. Error Handling
 
