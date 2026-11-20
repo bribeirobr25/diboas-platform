@@ -71,7 +71,7 @@
     "confirmButton": "Confirm deletion",
     "confirming": "Deleting your data...",
     "success": "Data deleted",
-    "successBody": "All your personal data has been permanently removed from our system.",
+    "successBody": "We deleted your waitlist entry, your email records and your deletion links. Security logs with your IP address are kept for up to 90 days, database backups clear within a day, and our email provider keeps its own copies under its retention rules. Details are in our Privacy Policy.",
     "expired": "Link expired",
     "expiredBody": "This deletion link has expired. Please submit a new deletion request.",
     "error": "Something went wrong",

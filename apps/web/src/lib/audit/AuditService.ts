@@ -85,30 +85,8 @@ export async function logAuditEvent(event: AuditEvent): Promise<void> {
  * Retention window for the audit trail. `audit_logs` stores raw `actor_ip`
  * under legitimate interest (security/forensics); GDPR storage-limitation
  * requires a bounded retention. Keep in lockstep with the COMMENT in
- * migrations/013_audit_logs_retention.sql. §5.39.
+ * migrations/013_audit_logs_retention.sql (which still names the old route; a comment migration
+ * is not worth a docs merge, plan P14 §16.3). §5.39. The purge runs in the daily retention job
+ * (`lib/retention/auditLogs.ts`, `/api/cron/retention`).
  */
 export const AUDIT_LOG_RETENTION_DAYS = 90;
-
-/**
- * Delete audit_logs rows older than the retention window; returns the number deleted.
- * Invoked by the `/api/cron/purge-audit-logs` Vercel cron, its only caller.
- *
- * A failure THROWS (it is never reported as "0 deleted"): the route turns it into a 500,
- * so a failed run shows as failed in the cron log instead of passing for "nothing to
- * purge" — the privacy policy's 90-day promise depends on telling those apart.
- */
-export async function purgeExpiredAuditLogs(): Promise<number> {
-  const rows = await sql`
-    DELETE FROM audit_logs
-    WHERE created_at < NOW() - make_interval(days => ${AUDIT_LOG_RETENTION_DAYS})
-    RETURNING id
-  `;
-  const deleted = rows.length;
-  if (deleted > 0) {
-    Logger.info('[AuditService] Purged expired audit logs', {
-      deleted,
-      retentionDays: AUDIT_LOG_RETENTION_DAYS,
-    });
-  }
-  return deleted;
-}

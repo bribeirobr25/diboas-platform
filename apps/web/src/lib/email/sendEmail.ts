@@ -11,7 +11,7 @@
  */
 
 import { Logger } from '@/lib/monitoring/Logger';
-import { logEmailDelivery } from '@/lib/email/deliveryLogger';
+import { logEmailDelivery, type DeliveryTemplate } from '@/lib/email/deliveryLogger';
 import { CircuitBreaker } from '@/lib/utils/CircuitBreaker';
 type EmailServiceMethod =
   'sendWelcome' | 'sendReferralSuccess' | 'sendDeletionConfirmation' | 'sendDeletionComplete';
@@ -66,12 +66,15 @@ interface SendEmailOptions {
   method: EmailServiceMethod;
   /** Recipient email address */
   recipient: string;
-  /** Template name for delivery logging */
-  template: string;
-  /** Email subject for delivery logging */
-  subject: string;
+  /** Template name for delivery logging (its subject is pinned in `DELIVERY_SUBJECTS`) */
+  template: DeliveryTemplate;
   /** Locale for delivery logging */
   locale: string;
+  /**
+   * Whether the send writes a delivery row. Required, so every call site states it (P14, E4):
+   * the deletion-complete email goes to a person already erased and is never recorded.
+   */
+  recordDelivery: boolean;
   /** Data payload passed to the email service method */
   data: Record<string, unknown>;
   /** Optional: additional setup before calling the method (e.g., fetching founding member count) */
@@ -86,7 +89,7 @@ interface SendEmailOptions {
  * but never thrown to the caller.
  */
 export function sendEmailAsync(options: SendEmailOptions): void {
-  const { method, recipient, template, subject, locale, data, enrichData } = options;
+  const { method, recipient, template, locale, data, enrichData, recordDelivery } = options;
 
   const execute = async (): Promise<void> => {
     const { createEmailService, sendViaResend } = await import('@diboas/email');
@@ -115,15 +118,15 @@ export function sendEmailAsync(options: SendEmailOptions): void {
       Logger.error(`[Email] ${template} email failed`, { email: recipient, error: result.error });
     }
 
-    logEmailDelivery({
-      recipientEmail: recipient,
-      template,
-      subject,
-      locale,
-      providerId: result.messageId,
-      status: result.success ? 'sent' : 'failed',
-      errorMessage: result.error,
-    });
+    if (recordDelivery) {
+      logEmailDelivery({
+        recipientEmail: recipient,
+        template,
+        locale,
+        providerId: result.messageId,
+        status: result.success ? 'sent' : 'failed',
+      });
+    }
   };
 
   execute().catch((err) => {

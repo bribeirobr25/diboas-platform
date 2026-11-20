@@ -232,22 +232,3 @@ export async function addTags(
   if (rows.length === 0) return undefined;
   return rowToEntry(validateRow(rows[0]));
 }
-
-export async function deleteByEmail(email: string): Promise<boolean> {
-  const hash = emailHash(email);
-  if (!hash) return false;
-
-  const rows = await sql`
-    DELETE FROM waitlist_entries WHERE email_hash = ${hash} RETURNING id
-  `;
-
-  if (rows.length > 0) {
-    Logger.info('[Waitlist] Entry deleted for GDPR request');
-    emitStoreEvent(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
-      reason: 'gdpr',
-      metadata: { method: 'store_deleteByEmail' },
-    });
-    return true;
-  }
-  return false;
-}

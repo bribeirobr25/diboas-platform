@@ -71,7 +71,7 @@
     "confirmButton": "Confirmar eliminación",
     "confirming": "Eliminando tus datos...",
     "success": "Datos eliminados",
-    "successBody": "Todos tus datos personales han sido eliminados permanentemente de nuestro sistema.",
+    "successBody": "Eliminamos tu inscripción en la lista de espera, tus registros de correo y tus enlaces de eliminación. Los registros de seguridad con tu dirección IP se conservan hasta 90 días, las copias de seguridad de la base de datos se borran en un día, y nuestro proveedor de correo conserva sus propias copias según sus normas de retención. Los detalles están en nuestra Política de Privacidad.",
     "expired": "Enlace expirado",
     "expiredBody": "Este enlace de eliminación ha expirado. Por favor, envía una nueva solicitud de eliminación.",
     "error": "Algo salió mal",

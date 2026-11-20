@@ -49,11 +49,7 @@ export { validateOrigin, csrfProtection } from './csrf';
 export { getIdempotentResponse, cacheIdempotentResponse } from './idempotency';
 
 // Database-backed idempotency store
-export {
-  dbGetIdempotentResponse,
-  dbCacheIdempotentResponse,
-  dbCleanupIdempotencyCache,
-} from './DatabaseIdempotencyStore';
+export { dbGetIdempotentResponse, dbCacheIdempotentResponse } from './DatabaseIdempotencyStore';
 
 // HTML Sanitization
 export { sanitizeHtml, type SanitizeHtmlOptions } from './htmlSanitizer';

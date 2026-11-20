@@ -197,7 +197,7 @@ describe('/api/waitlist/delete — every answer (5.866)', () => {
   });
 
   it.each([
-    [true, 'Your data has been permanently deleted from our system.'],
+    [true, 'Your waitlist entry and email records have been deleted.'],
     [false, 'No data found to delete.'],
   ])('should answer 200 when the token is valid (deleted: %s)', async (deleted, message) => {
     confirmDeletion.mockResolvedValue({ ok: true, deleted });

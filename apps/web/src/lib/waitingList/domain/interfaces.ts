@@ -26,9 +26,6 @@ export interface IWaitlistRepository {
   /** Look up an entry by its ID. */
   getById(id: string): Promise<WaitlistEntry | undefined>;
 
-  /** GDPR/LGPD deletion — permanently removes the entry. */
-  deleteByEmail(email: string): Promise<boolean>;
-
   /**
    * Update mutable fields on an existing entry.
    * Supports optimistic locking via `currentVersion`.

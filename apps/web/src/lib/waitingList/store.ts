@@ -8,7 +8,7 @@
  *   - `store/internals.ts`   — shared row helpers, hashing, optimistic-update,
  *                               lazy event emitter (NOT re-exported)
  *   - `store/repository.ts`  — entry CRUD: get*, exists, addEntry,
- *                               updateEntry, addTags, deleteByEmail
+ *                               updateEntry, addTags
  *   - `store/referral.ts`    — processReferral
  *   - `store/stats.ts`       — counters, totals, opt-out, clearStore
  *
@@ -30,7 +30,6 @@ export {
   addEntry,
   updateEntry,
   addTags,
-  deleteByEmail,
 } from './store/repository';
 
 export { processReferral } from './store/referral';

@@ -9,7 +9,8 @@
  */
 
 import { sql } from '@/lib/database/client';
-import { decrypt, hmacHash } from '@/lib/security/encryption';
+import { decrypt } from '@/lib/security/encryption';
+import { hashEmailAddress } from '@/lib/security/hashEmailAddress';
 import { ConcurrencyConflictError } from '@/lib/errors/domainErrors';
 import { ApplicationEventType } from '@/lib/events/applicationEventTypes';
 import type { WaitlistEntryRow } from '@/lib/database/schema';
@@ -37,12 +38,9 @@ export function rowToEntry(row: WaitlistEntryRow): WaitlistEntry {
 }
 
 /**
- * Compute the deterministic blind-index hash for email lookups.
- * Normalizes to lowercase + trim before hashing.
+ * The store's name for the address's blind index: the one hash (`hashEmailAddress`, P14 E8).
  */
-export function emailHash(email: string): string | null {
-  return hmacHash(email.toLowerCase().trim());
-}
+export const emailHash = hashEmailAddress;
 
 /**
  * Validate that a raw DB row has the required fields and correct types

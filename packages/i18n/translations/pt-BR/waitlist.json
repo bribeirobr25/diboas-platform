@@ -71,7 +71,7 @@
     "confirmButton": "Confirmar exclusão",
     "confirming": "Excluindo seus dados...",
     "success": "Dados excluídos",
-    "successBody": "Todos os seus dados pessoais foram removidos permanentemente do nosso sistema.",
+    "successBody": "Excluímos sua inscrição na lista de espera, seus registros de e-mail e seus links de exclusão. Registros de segurança com seu endereço IP são mantidos por até 90 dias, os backups do banco de dados são apagados em até um dia, e nosso provedor de e-mail mantém as próprias cópias conforme as regras de retenção dele. Os detalhes estão na nossa Política de Privacidade.",
     "expired": "Link expirado",
     "expiredBody": "Este link de exclusão expirou. Por favor, envie uma nova solicitação de exclusão.",
     "error": "Algo deu errado",

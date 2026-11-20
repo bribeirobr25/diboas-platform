@@ -71,7 +71,7 @@
     "confirmButton": "Löschung bestätigen",
     "confirming": "Deine Daten werden gelöscht...",
     "success": "Daten gelöscht",
-    "successBody": "Alle deine persönlichen Daten wurden dauerhaft aus unserem System entfernt.",
+    "successBody": "Wir haben deinen Wartelisteneintrag, deine E-Mail-Protokolle und deine Löschlinks gelöscht. Sicherheitsprotokolle mit deiner IP-Adresse bleiben bis zu 90 Tage erhalten, Datenbank-Backups werden innerhalb eines Tages gelöscht, und unser E-Mail-Anbieter bewahrt eigene Kopien nach seinen Aufbewahrungsregeln auf. Details findest du in unserer Datenschutzerklärung.",
     "expired": "Link abgelaufen",
     "expiredBody": "Dieser Löschungslink ist abgelaufen. Bitte sende eine neue Löschungsanfrage.",
     "error": "Etwas ist schiefgelaufen",

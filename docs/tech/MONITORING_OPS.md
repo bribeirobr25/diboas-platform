@@ -172,6 +172,8 @@ module.exports = process.env.NEXT_PUBLIC_SENTRY_DSN
   : nextConfig;
 ```
 
+> ⚑ 2026-11-20 (P14): `automaticVercelMonitors` sits in the webpack-only options. It does nothing under Turbopack (Next 16's build) or for an App Router route, so **no Sentry cron monitor exists** for `/api/cron/retention`. A failed purge or a tripped brake still reaches Sentry as an error event (`Logger.error`); a run that never happens raises nothing until `5.1027` adds a check-in.
+
 The plugin needs **three** env vars at build time. **None of them are `NEXT_PUBLIC_*`** — they're server-side build secrets:
 
 | Var                 | Purpose                                           | Where set                                 |

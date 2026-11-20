@@ -1,20 +1,17 @@
 /**
- * Audit-log retention cron — bearer authentication (§5.39).
+ * ⛑ RETENTION-1 guard 2 · the daily retention cron route (plan P14; registers `5.863`, `5.39`).
  *
- * Pins the SECURE outcomes: the purge is inert (503) while CRON_SECRET is
- * unset — even for a caller who guesses `Bearer undefined` — every bad or
- * missing bearer gets a 401, the comparison is constant-time, nothing is
- * deleted unless the bearer matches exactly, and no response is cacheable or
- * echoes the underlying failure.
+ * Carries the old audit-log route's SECURE outcomes (inert 503 while CRON_SECRET is unset, even
+ * for `Bearer undefined`; 401 for every bad bearer; a constant-time comparison; nothing runs
+ * unless the bearer matches exactly; no cacheable response, no failure detail) and adds the
+ * job's: 200 with every purge's count, 500 naming only the purge when one failed or braked.
  */
-
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { NextRequest } from 'next/server';
 
-const purgeExpiredAuditLogs = vi.fn();
-vi.mock('@/lib/audit/AuditService', () => ({
-  purgeExpiredAuditLogs: (...args: unknown[]) => purgeExpiredAuditLogs(...args),
-  AUDIT_LOG_RETENTION_DAYS: 90,
+const runRetention = vi.fn();
+vi.mock('@/lib/retention', () => ({
+  runRetention: (...args: unknown[]) => runRetention(...args),
 }));
 
 const timingSafeEqualSpy = vi.fn();
@@ -34,15 +31,22 @@ import { Logger } from '@/lib/monitoring/Logger';
 
 const CRON_FIXTURE = 'test-cron-secret';
 const NO_STORE = 'no-store, no-cache, must-revalidate';
+const OK_RUN = {
+  ok: true,
+  purges: [
+    { name: 'auditLogs', status: 'ok', count: 17 },
+    { name: 'emailDeliveryLogs', status: 'ok', count: 0 },
+  ],
+};
 
 const makeRequest = (authorization?: string) =>
-  new NextRequest('https://diboas.com/api/cron/purge-audit-logs', {
+  new NextRequest('https://diboas.com/api/cron/retention', {
     headers: authorization === undefined ? {} : { authorization },
   });
 
-describe('GET /api/cron/purge-audit-logs — bearer authentication', () => {
+describe('GET /api/cron/retention — bearer authentication', () => {
   beforeEach(() => {
-    purgeExpiredAuditLogs.mockReset();
+    runRetention.mockReset().mockResolvedValue(OK_RUN);
     timingSafeEqualSpy.mockReset();
     vi.stubEnv('CRON_SECRET', CRON_FIXTURE);
   });
@@ -51,7 +55,8 @@ describe('GET /api/cron/purge-audit-logs — bearer authentication', () => {
     vi.unstubAllEnvs();
   });
 
-  it('should return 503 and never purge when CRON_SECRET is unset, whatever the bearer', async () => {
+  it('should return 503 and never run when CRON_SECRET is unset, whatever the bearer', async () => {
+    const error = vi.spyOn(Logger, 'error');
     vi.stubEnv('CRON_SECRET', undefined);
     for (const auth of [undefined, 'Bearer ', 'Bearer undefined', `Bearer ${CRON_FIXTURE}`]) {
       const res = await GET(makeRequest(auth));
@@ -59,31 +64,32 @@ describe('GET /api/cron/purge-audit-logs — bearer authentication', () => {
       expect(await res.json()).toEqual({ error: 'not_configured' });
       expect(res.headers.get('Cache-Control')).toBe(NO_STORE);
     }
-    expect(purgeExpiredAuditLogs).not.toHaveBeenCalled();
+    expect(runRetention).not.toHaveBeenCalled();
     // Fourteenth audit (5.892): a cron that cannot run says so, every time.
-    expect(Logger.error).toHaveBeenCalledTimes(4);
-    expect(Logger.error).toHaveBeenCalledWith(
-      '[cron/purge-audit-logs] CRON_SECRET is not set; the purge cannot run',
+    expect(error).toHaveBeenCalledTimes(4);
+    expect(error).toHaveBeenCalledWith(
+      '[cron/retention] CRON_SECRET is not set; the job cannot run',
       {}
     );
+    error.mockRestore();
   });
 
-  it('should return 503 and never purge when CRON_SECRET is an empty string', async () => {
+  it('should return 503 and never run when CRON_SECRET is an empty string', async () => {
     vi.stubEnv('CRON_SECRET', '');
     const res = await GET(makeRequest('Bearer '));
     expect(res.status).toBe(503);
-    expect(purgeExpiredAuditLogs).not.toHaveBeenCalled();
+    expect(runRetention).not.toHaveBeenCalled();
   });
 
-  it('should return 401 and never purge when the authorization header is missing', async () => {
+  it('should return 401 and never run when the authorization header is missing', async () => {
     const res = await GET(makeRequest());
     expect(res.status).toBe(401);
     expect(await res.json()).toEqual({ error: 'unauthorized' });
     expect(res.headers.get('Cache-Control')).toBe(NO_STORE);
-    expect(purgeExpiredAuditLogs).not.toHaveBeenCalled();
+    expect(runRetention).not.toHaveBeenCalled();
   });
 
-  it('should return 401 and never purge when the bearer is wrong or mis-shaped', async () => {
+  it('should return 401 and never run when the bearer is wrong or mis-shaped', async () => {
     for (const auth of [
       `Bearer ${'x'.repeat(CRON_FIXTURE.length)}`, // same length, wrong value
       'Bearer test-cron-secreT', // one char off
@@ -95,48 +101,45 @@ describe('GET /api/cron/purge-audit-logs — bearer authentication', () => {
       const res = await GET(makeRequest(auth));
       expect(res.status).toBe(401);
     }
-    expect(purgeExpiredAuditLogs).not.toHaveBeenCalled();
+    expect(runRetention).not.toHaveBeenCalled();
   });
 
   it('should compare the bearer in constant time when the lengths match', async () => {
     await GET(makeRequest(`Bearer ${'x'.repeat(CRON_FIXTURE.length)}`));
     expect(timingSafeEqualSpy).toHaveBeenCalledTimes(1);
-    const [a, b] = timingSafeEqualSpy.mock.calls[0];
+    const [a, b] = timingSafeEqualSpy.mock.calls[0]!;
     expect(Buffer.from(a as Uint8Array).toString()).toBe(
       `Bearer ${'x'.repeat(CRON_FIXTURE.length)}`
     );
     expect(Buffer.from(b as Uint8Array).toString()).toBe(`Bearer ${CRON_FIXTURE}`);
   });
 
-  it('should purge once and report the count when the bearer matches', async () => {
-    purgeExpiredAuditLogs.mockResolvedValue(17);
+  it('should run the job once and answer 200 with every count when the bearer matches', async () => {
     const res = await GET(makeRequest(`Bearer ${CRON_FIXTURE}`));
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ ok: true, deleted: 17, retentionDays: 90 });
+    expect(await res.json()).toEqual(OK_RUN);
     expect(res.headers.get('Cache-Control')).toBe(NO_STORE);
-    expect(purgeExpiredAuditLogs).toHaveBeenCalledTimes(1);
+    expect(runRetention).toHaveBeenCalledTimes(1);
   });
 
-  it('should return a generic 500 without the error detail when the purge throws an Error', async () => {
-    const err = new Error('connection to db-host-1 refused');
-    purgeExpiredAuditLogs.mockRejectedValue(err);
+  it('should answer 500 naming only the purge, with no failure detail, when a purge failed or braked', async () => {
+    runRetention.mockResolvedValue({
+      ok: false,
+      purges: [
+        { name: 'auditLogs', status: 'failed', count: 0 },
+        { name: 'emailDeliveryOrphans', status: 'brake', count: 0 },
+        { name: 'deletionTokens', status: 'ok', count: 3 },
+      ],
+    });
     const res = await GET(makeRequest(`Bearer ${CRON_FIXTURE}`));
     expect(res.status).toBe(500);
     const body = await res.json();
-    expect(body).toEqual({ error: 'purge_failed' });
-    expect(JSON.stringify(body)).not.toContain('db-host-1');
+    expect(body.purges.map((p: { name: string }) => p.name)).toEqual([
+      'auditLogs',
+      'emailDeliveryOrphans',
+      'deletionTokens',
+    ]);
+    expect(JSON.stringify(body)).not.toMatch(/error|@|stack/i);
     expect(res.headers.get('Cache-Control')).toBe(NO_STORE);
-    expect(Logger.error).toHaveBeenCalledWith('[cron/purge-audit-logs] purge failed', {}, err);
-  });
-
-  it('should log without an Error object when the purge rejects with a non-Error', async () => {
-    purgeExpiredAuditLogs.mockRejectedValue('plain failure');
-    const res = await GET(makeRequest(`Bearer ${CRON_FIXTURE}`));
-    expect(res.status).toBe(500);
-    expect(Logger.error).toHaveBeenCalledWith(
-      '[cron/purge-audit-logs] purge failed',
-      {},
-      undefined
-    );
   });
 });

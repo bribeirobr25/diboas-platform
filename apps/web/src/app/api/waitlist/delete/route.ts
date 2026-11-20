@@ -153,7 +153,7 @@ export async function DELETE(request: Request): Promise<NextResponse> {
       {
         success: true,
         message: result.deleted
-          ? 'Your data has been permanently deleted from our system.'
+          ? 'Your waitlist entry and email records have been deleted.'
           : 'No data found to delete.',
       },
       { status: 200 }

@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { useUrlSecrets } from '@/hooks/useUrlSecrets';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
+import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
 import styles from './DeleteConfirm.module.css';
 
 type DeletionState = 'idle' | 'confirming' | 'success' | 'expired' | 'error';
@@ -43,6 +44,13 @@ export default function DeleteConfirmPage() {
       const data = await response.json();
 
       if (response.ok && data.success) {
+        // P14 (E11′): the server cannot reach the address the Money Jobs gate kept in this
+        // browser; when the deletion lands here, remove it too (blocked storage is not an error).
+        try {
+          window.localStorage.removeItem(POSITION_STORAGE_KEYS.email);
+        } catch {
+          /* storage unavailable */
+        }
         setState('success');
       } else if (response.status === 400) {
         setState('expired');

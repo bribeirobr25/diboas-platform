@@ -14,6 +14,7 @@
  */
 
 import { hmacHash } from '@/lib/security/encryption';
+import { hashEmailAddress } from '@/lib/security/hashEmailAddress';
 import { APP_URL } from '@/config/env';
 
 // Re-export client-safe decoder for server-side consumers
@@ -42,7 +43,7 @@ export function buildUnsubscribeUrls(
   email: string,
   locale: string = 'en'
 ): UnsubscribeUrls | undefined {
-  const emailHash = hmacHash(email);
+  const emailHash = hashEmailAddress(email);
   if (!emailHash) return undefined;
 
   const token = hmacHash(emailHash);

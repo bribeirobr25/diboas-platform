@@ -16,11 +16,7 @@ vi.mock('@/lib/database/client', () => ({
   sql: (...args: unknown[]) => mockSql(...args),
 }));
 
-import {
-  dbGetIdempotentResponse,
-  dbCacheIdempotentResponse,
-  dbCleanupIdempotencyCache,
-} from '../DatabaseIdempotencyStore';
+import { dbGetIdempotentResponse, dbCacheIdempotentResponse } from '../DatabaseIdempotencyStore';
 import { Logger } from '@/lib/monitoring/Logger';
 
 /** The SQL text of the n-th call (template strings joined by `$`). */
@@ -129,36 +125,6 @@ describe('DatabaseIdempotencyStore', () => {
       await expect(dbCacheIdempotentResponse('k-5', 200, {})).resolves.toBeUndefined();
       expect(Logger.error).toHaveBeenCalledWith('[DatabaseIdempotencyStore] Failed to write', {
         error: '42',
-      });
-    });
-  });
-
-  describe('dbCleanupIdempotencyCache', () => {
-    it('should delete only expired rows when cleanup runs', async () => {
-      mockSql.mockResolvedValue([]);
-
-      await dbCleanupIdempotencyCache();
-
-      expect(mockSql).toHaveBeenCalledTimes(1);
-      expect(sqlText()).toBe('DELETE FROM idempotency_cache WHERE expires_at <= NOW()');
-      expect(sqlValues()).toEqual([]);
-    });
-
-    it('should not throw and should log the message when cleanup rejects with an Error', async () => {
-      mockSql.mockRejectedValue(new Error('timeout'));
-
-      await expect(dbCleanupIdempotencyCache()).resolves.toBeUndefined();
-      expect(Logger.error).toHaveBeenCalledWith('[DatabaseIdempotencyStore] Cleanup failed', {
-        error: 'timeout',
-      });
-    });
-
-    it('should not throw and should log the stringified value when cleanup rejects with a non-Error', async () => {
-      mockSql.mockRejectedValue(undefined);
-
-      await expect(dbCleanupIdempotencyCache()).resolves.toBeUndefined();
-      expect(Logger.error).toHaveBeenCalledWith('[DatabaseIdempotencyStore] Cleanup failed', {
-        error: 'undefined',
       });
     });
   });

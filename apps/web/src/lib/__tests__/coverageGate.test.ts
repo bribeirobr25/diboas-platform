@@ -38,7 +38,9 @@ const SECURITY_AT_100: Record<string, string[]> = {
     'src/lib/security/**',
     'middleware.ts',
     'src/app/api/email/unsubscribe/route.ts',
-    'src/app/api/cron/purge-audit-logs/route.ts',
+    'src/app/api/cron/retention/route.ts',
+    'src/lib/retention/**',
+    'src/lib/privacy/**',
     'src/app/api/consent/route.ts',
     'src/app/api/monitoring/route.ts',
     'src/lib/api/routeHelpers.ts',
@@ -68,7 +70,7 @@ const SECURITY_AT_100: Record<string, string[]> = {
 };
 
 /** How many 100% keys each workspace has (5.893): raise it when a file is locked, never lower it. */
-const LOCKED_AT_100: Record<string, number> = { web: 16, sandbox: 12 };
+const LOCKED_AT_100: Record<string, number> = { web: 18, sandbox: 12 };
 
 /** The measured scope of each workspace, exactly (agent D findings 1–2). */
 const PINNED_SCOPE: Record<string, { include: string[]; exclude: string[] }> = {
@@ -104,13 +106,13 @@ const FLOOR_BASELINE: Record<string, Record<string, Floor | number>> = {
   web: {
     lines: 47,
     branches: 41,
-    functions: 40,
-    statements: 46,
-    'src/app/**': { lines: 40, branches: 32, functions: 32, statements: 39 },
+    functions: 41,
+    statements: 47,
+    'src/app/**': { lines: 41, branches: 34, functions: 34, statements: 41 },
     'src/components/**': { lines: 24, branches: 22, functions: 23, statements: 23 },
     'src/config/**': { lines: 43, branches: 53, functions: 37, statements: 44 },
     'src/hooks/**': { lines: 57, branches: 53, functions: 60, statements: 57 },
-    'src/lib/**': { lines: 66, branches: 59, functions: 58, statements: 65 },
+    'src/lib/**': { lines: 66, branches: 60, functions: 59, statements: 66 },
   },
   sandbox: {
     lines: 89,

@@ -9,7 +9,7 @@
   },
   "crons": [
     {
-      "path": "/api/cron/purge-audit-logs",
+      "path": "/api/cron/retention",
       "schedule": "0 3 * * *"
     }
   ]

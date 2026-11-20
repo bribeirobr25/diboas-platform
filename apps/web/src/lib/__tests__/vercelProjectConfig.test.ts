@@ -80,7 +80,7 @@ const cronRoutes = (app: string): string[] => {
 
 describe('5.816 · Vercel project config lives where Vercel reads it', () => {
   it('should find the web cron route and both apps when scanning (non-vacuity)', () => {
-    expect(cronRoutes('web')).toContain('/api/cron/purge-audit-logs');
+    expect(cronRoutes('web')).toContain('/api/cron/retention');
     expect(APPS).toEqual(expect.arrayContaining(['web', 'sandbox']));
   });
 

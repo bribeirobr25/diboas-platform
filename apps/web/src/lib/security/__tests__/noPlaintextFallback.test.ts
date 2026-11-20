@@ -9,7 +9,7 @@
  * Twelfth audit: the first version matched one line-level shape and missed most realistic
  * variants (a ternary, `if (!enc) enc = email`, a later `enc || x`, nested arguments, a cast,
  * a call split over lines, an alias). This version reads the syntax tree. A value is SEALED when
- * it is a call to `encrypt`/`hmacHash` (or an alias of either), a variable initialised from one,
+ * it is a call to `encrypt`/`hmacHash`/`hashEmailAddress`/`emailHash` (or an alias of one), a variable initialised from one,
  * or a `?:` with a sealed branch. It fails on:
  *   1. `sealed || x` / `sealed ?? x` where `x` is not `null`/`undefined`;
  *   2. a `?:` with one sealed branch and one branch that is neither sealed nor `null`/`undefined`;
@@ -29,7 +29,11 @@ import { parseSource } from '@diboas/test-support';
 
 const REPO = path.resolve(__dirname, '../../../../../..');
 const ROOTS = ['apps', 'packages'];
-const SEALERS = ['encrypt', 'hmacHash'];
+/**
+ * The sealing calls. `hashEmailAddress` (P14, E8) and the store's `emailHash` wrap `hmacHash`:
+ * without them here, `hashEmailAddress(x) || ''` would pass while every writer calls the wrapper.
+ */
+const SEALERS = ['encrypt', 'hmacHash', 'hashEmailAddress', 'emailHash'];
 
 const unwrap = (e: ts.Expression): ts.Expression => {
   let x = e;
@@ -160,6 +164,8 @@ describe('5.824 · no plaintext fallback for encrypted PII', { timeout: 30_000 }
     ['a member call', 'const v = security.hmacHash(x) || x;'],
     ['a helper', 'const seal = (v: string) => encrypt(v) || v;'],
     ['a ||= fallback', 'let enc = encrypt(x); enc ||= x;'],
+    ['the address hash wrapper', 'const h = hashEmailAddress(input.recipientEmail) || "";'],
+    ['the store wrapper', 'const h = emailHash(email) ?? email;'],
   ])('should catch %s (detector self-test)', (_l, src) => {
     expect(findFallbacks(src).length, src).toBeGreaterThan(0);
   });
@@ -179,7 +185,9 @@ describe('5.824 · no plaintext fallback for encrypted PII', { timeout: 30_000 }
   it('should find no plaintext fallback in any app or package source', () => {
     const files = sources();
     expect(files.length).toBeGreaterThan(200);
-    const parsed = files.filter((f) => /\b(?:encrypt|hmacHash)\b/.test(fs.readFileSync(f, 'utf8')));
+    const parsed = files.filter((f) =>
+      /\b(?:encrypt|hmacHash|hashEmailAddress|emailHash)\b/.test(fs.readFileSync(f, 'utf8'))
+    );
     /* Non-vacuity: the writers this guard exists for are among the files it reads. */
     expect(parsed.map((f) => path.basename(f))).toEqual(
       expect.arrayContaining([

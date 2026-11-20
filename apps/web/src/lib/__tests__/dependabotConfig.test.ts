@@ -209,7 +209,7 @@ describe('dependabot.yml, parsed', () => {
 
   it('should find the 0.x dev dependencies it has to exclude (the reader is not blind)', () => {
     expect(zeroMajorDevDependencies()).toEqual(
-      expect.arrayContaining(['@lhci/cli', '@types/three'])
+      expect.arrayContaining(['@lhci/cli', '@types/three', '@electric-sql/pglite'])
     );
   });
 
