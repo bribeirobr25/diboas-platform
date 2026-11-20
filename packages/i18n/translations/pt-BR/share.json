@@ -29,10 +29,6 @@
       "title": "Sou #{position} na lista de espera do diBoaS!",
       "description": "Entre você também no diBoaS: liberdade financeira simplificada"
     },
-    "calculator": {
-      "title": "Meu dinheiro poderia chegar a {formattedAmount}",
-      "description": "Calculado com a calculadora Modo Sonho do diBoaS"
-    },
     "toolResult": {
       "title": "No que isso poderia se transformar: {value}",
       "titleByTool": {

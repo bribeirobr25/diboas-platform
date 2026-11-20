@@ -1,5 +1,5 @@
 /**
- * ⛑ RETIRED-SURFACES-1 guard 10 · the retired demo in the browser (plan P13; register `5.112`).
+ * ⛑ RETIRED-SURFACES-1 guard 10 · the retired demo and Dream Mode in the browser (plan P13; `5.112`).
  *
  * On the production build: the demo's old addresses answer 308 to exactly Practice's address (no
  * path, no query: the welcome emails' `utm_*` never reach Practice); every link to Practice on the
@@ -12,8 +12,15 @@ import { test, expect } from '@playwright/test';
 
 const PRACTICE = 'https://app.diboas.com';
 
-test.describe('the retired demo (P13)', () => {
-  for (const path of ['/de/demo', '/en/demo?utm_source=x&ref=DIBOAS-1', '/demo']) {
+test.describe('the retired demo and Dream Mode (P13)', () => {
+  for (const path of [
+    '/de/demo',
+    '/en/demo?utm_source=x&ref=DIBOAS-1',
+    '/demo',
+    '/en/dream-mode?utm_source=x',
+    '/pt-BR/dream-mode',
+    '/dream-mode',
+  ]) {
     test(`should answer ${path} with a 308 to exactly the Practice address`, async ({
       request,
     }) => {

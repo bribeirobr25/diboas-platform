@@ -17,7 +17,7 @@ import { SEO_DEFAULTS, PAGE_SEO_CONFIG } from '@/lib/seo/constants';
 // production flip happens in §3.8 of the iter-4 plan after calm-audit
 // sign-off. Until that env-var flip, Google sees /market in sitemap but
 // fetches it with `noindex` meta → no indexing.
-const NOINDEX_PAGES = new Set(['dream-mode', 'share']);
+const NOINDEX_PAGES = new Set(['share']);
 
 const PAGE_PRIORITIES: Record<string, number> = {
   '/': 1.0,

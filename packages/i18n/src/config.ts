@@ -23,7 +23,6 @@ export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number];
 export const SUPPORTED_NAMESPACES = [
   'about',
   'common',
-  'dreamMode',
   'faq',
   'landing-b2b',
   'landing-b2c',
@@ -45,7 +44,6 @@ export const SUPPORTED_NAMESPACES = [
   // per the parallel-session protocol).
   'market-bitcoin',
   'market-backdrop',
-  'preDream',
   'protocols',
   'security',
   'share',

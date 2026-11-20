@@ -35,15 +35,7 @@ describe('isValidLocale', () => {
 
 describe('isValidSource', () => {
   it('should accept a source when it is a known waitlist source', () => {
-    for (const source of [
-      'landing_b2c',
-      'landing_b2b',
-      'dream_mode',
-      'calculator',
-      'tool_money_jobs',
-      'referral',
-      'direct',
-    ]) {
+    for (const source of ['landing_b2c', 'landing_b2b', 'tool_money_jobs', 'referral', 'direct']) {
       expect(isValidSource(source)).toBe(true);
     }
   });
@@ -56,16 +48,15 @@ describe('isValidSource', () => {
 
   /**
    * ⛑ `5.979` · WAITLIST-SOURCE-1 guard 1: the one list, pinned. Adding or removing a
-   * source is a deliberate edit of this line (plan P11, D2). `dream_mode` is what the modal's
-   * opener sends; `modal` (a container, not a path) is refused. `interactive_demo` and
+   * source is a deliberate edit of this line (plan P11, D2). `modal` (a container, not a path)
+   * is refused. `dream_mode` and `calculator` left with Dream Mode and the modal (plan P13
+   * PR-2); `interactive_demo` and
    * `app_link` left with the demo and the app-link interceptor (plan P13, D6).
    */
   it('should hold exactly the agreed sources when the one list is read', () => {
     expect([...WAITLIST_SOURCES]).toEqual([
       'landing_b2c',
       'landing_b2b',
-      'dream_mode',
-      'calculator',
       'tool_money_jobs',
       'referral',
       'direct',

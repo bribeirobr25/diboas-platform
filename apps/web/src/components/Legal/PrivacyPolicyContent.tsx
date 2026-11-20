@@ -146,11 +146,6 @@ export function PrivacyPolicyContent() {
     t('sections.whatDataWeCollect.automatic.items.4'),
   ];
 
-  const dreamModeItems = [
-    t('sections.whatDataWeCollect.dreamMode.items.0'),
-    t('sections.whatDataWeCollect.dreamMode.items.1'),
-  ];
-
   const securityMeasures = [
     t('sections.security.measures.0'),
     t('sections.security.measures.1'),
@@ -212,10 +207,6 @@ export function PrivacyPolicyContent() {
 
           <LegalSubsection title={t('sections.whatDataWeCollect.automatic.title')}>
             <LegalList items={automaticItems} />
-          </LegalSubsection>
-
-          <LegalSubsection title={t('sections.whatDataWeCollect.dreamMode.title')}>
-            <LegalList items={dreamModeItems} />
           </LegalSubsection>
         </LegalContentSection>
 

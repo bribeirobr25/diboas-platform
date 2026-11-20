@@ -3,7 +3,7 @@
 ## Overview
 
 diBoaS is a goal-driven wealth-building platform. The web app is a marketing and onboarding
-site (waitlist, goal calculator; its "Try Practice" links open the Practice app); the Practice app is a live play-money product. **No
+site (waitlist, Money Tools, Learn and /market; its "Try Practice" links open the Practice app); the Practice app is a live play-money product. **No
 production financial features are live.**
 
 ⚑ **Positioning is Brand's, not this file's.** The runtime still renders the legacy
@@ -87,7 +87,6 @@ apps/web/src/app/
                      #   diboas-analytics product spec'd in docs/mvp/ — the swap seam is the six
                      #   fetchers in lib/analytics-sdk/mock-client.server.ts (per-view loaders)
       delete-confirm/      # GDPR account deletion confirmation
-      dream-mode/          # Goal calculator simulation (noindex)
       email-preferences/   # Email unsubscribe preferences
       help/                # Help center — FAQ by topic (6 topics)
       learn/               # "Real Talk" — the 7-talk Money Basics series (all live
@@ -312,7 +311,7 @@ The full register of locked-in implementation decisions (bundler / Turbopack, pr
 
 - Reference locale: `en` (source of truth)
 - Translations: `packages/i18n/translations/{locale}/`
-- **39 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the Dream Mode flow, the `tools-*` calculator suite, and the market view namespaces (`market` shared + `market-bitcoin` + `market-backdrop`, M3 2026-08-13).
+- **37 namespaced JSON files** per locale — canonical registry is `SUPPORTED_NAMESPACES` in `packages/i18n/src/config.ts` (drift-guarded by `apps/web/src/lib/i18n/__tests__/namespaces.test.ts`); full annotated list in `packages/i18n/README.md`. Covers the landing/about/help/legal pages, the `tools-*` calculator suite, and the market view namespaces (`market` shared + `market-bitcoin` + `market-backdrop`, M3 2026-08-13).
 - Client/server split exports to avoid bundling React on server
 - All new user-facing strings must be added to all 4 locales
 
@@ -456,7 +455,7 @@ R-rows from `docs/tech/robustness-checklist.md` (PASS / N-A per row) in its self
 
 **Live since 2026-03-11.** Two products, one repository:
 
-- **`apps/web` → `diboas.com`** — pre-launch marketing site: waitlist, goal calculator,
+- **`apps/web` → `diboas.com`** — pre-launch marketing site: waitlist,
   the 11-tool Money Tools suite, the 7-talk Learn program, and `/market` (Adelaide Market, weekly auto-refresh).
 - **`apps/sandbox` → `app.diboas.com`** — the **Practice** app. 🚀 LIVE + PUBLIC since
   2026-08-22, **play money only**, `noindex`, geofence armed. Real Money mode is a parity

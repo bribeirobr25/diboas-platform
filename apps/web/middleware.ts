@@ -24,7 +24,7 @@ const LOCALE_COOKIE = 'NEXT_LOCALE';
 
 /**
  * Retired surfaces whose old addresses open Practice (plan P13, D3; register `5.112`): the
- * interactive demo. Matched with or without a locale segment, with any trailing path, in any
+ * interactive demo (PR-1) and Dream Mode (PR-2). Matched with or without a locale segment, with any trailing path, in any
  * letter case. The answer is a 308 to exactly `PRACTICE_APP_URL`: no path and no query, so the
  * `utm_*` of every welcome email already sent, and any referral code, never reach Practice.
  * Not in `next.config.js`: Next's `redirects()` copies the request's query to the destination.
@@ -33,7 +33,7 @@ const LOCALE_COOKIE = 'NEXT_LOCALE';
  * browsers indefinitely), so its target can still change.
  */
 const RETIRED_SURFACE_PATH = new RegExp(
-  `^/(?:(?:${SUPPORTED_LOCALES.join('|')})/)?demo(?:/.*)?$`,
+  `^/(?:(?:${SUPPORTED_LOCALES.join('|')})/)?(?:demo|dream-mode)(?:/.*)?$`,
   'i'
 );
 const RETIRED_SURFACE_CACHE = 'public, max-age=86400';

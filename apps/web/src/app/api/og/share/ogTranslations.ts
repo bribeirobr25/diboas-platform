@@ -16,13 +16,6 @@ export interface OGTranslation {
     position: string;
     cta: string;
   };
-  calculator: {
-    badge: string;
-    growthMessage: (years: number) => string;
-    startingWith: string;
-    strategy: string;
-    cta: string;
-  };
   toolResult: {
     /** Localized tool name by toolKey (allowlisted in SHAREABLE_TOOL_KEYS). */
     toolName: Record<string, string>;
@@ -46,14 +39,6 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       joinedMessage: (name) => `${name} just joined the waitlist!`,
       position: 'Position',
       cta: 'Join me on diBoaS: Financial Freedom Made Simple',
-    },
-    calculator: {
-      badge: 'Dream Mode Calculator',
-      growthMessage: (years) =>
-        `In ${years} ${years === 1 ? 'year' : 'years'}, my investment could grow to`,
-      startingWith: 'Starting with',
-      strategy: 'Strategy',
-      cta: 'Calculate your future at diboas.com',
     },
     toolResult: {
       toolName: {
@@ -83,14 +68,6 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       position: 'Posição',
       cta: 'Entre você também no diBoaS: liberdade financeira simplificada',
     },
-    calculator: {
-      badge: 'Calculadora Modo Sonho',
-      growthMessage: (years) =>
-        `Em ${years} ${years === 1 ? 'ano' : 'anos'}, meu investimento poderia chegar a`,
-      startingWith: 'Começando com',
-      strategy: 'Estratégia',
-      cta: 'Calcule seu futuro em diboas.com',
-    },
     toolResult: {
       toolName: {
         'money-jobs': 'Dinheiro com Função',
@@ -119,14 +96,6 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       position: 'Posición',
       cta: 'Únete tú también a diBoaS: libertad financiera simplificada',
     },
-    calculator: {
-      badge: 'Calculadora Modo Sueño',
-      growthMessage: (years) =>
-        `En ${years} ${years === 1 ? 'año' : 'años'}, mi inversión podría llegar a`,
-      startingWith: 'Empezando con',
-      strategy: 'Estrategia',
-      cta: 'Calcula tu futuro en diboas.com',
-    },
     toolResult: {
       toolName: {
         'money-jobs': 'Dinero con Función',
@@ -154,14 +123,6 @@ export const OG_TRANSLATIONS: Record<SupportedLocale, OGTranslation> = {
       joinedMessage: (name) => `${name} steht jetzt auf der Warteliste!`,
       position: 'Platz',
       cta: 'Mach mit bei diBoaS: finanzielle Freiheit einfach gemacht',
-    },
-    calculator: {
-      badge: 'Dream-Mode-Rechner',
-      growthMessage: (years) =>
-        `In ${years} ${years === 1 ? 'Jahr' : 'Jahren'} könnte meine Geldanlage anwachsen auf`,
-      startingWith: 'Startbetrag',
-      strategy: 'Strategie',
-      cta: 'Berechne deine Zukunft auf diboas.com',
     },
     toolResult: {
       toolName: {

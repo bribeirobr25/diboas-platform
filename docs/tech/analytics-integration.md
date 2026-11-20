@@ -3,7 +3,7 @@
 > ⚠️ **Drift notice (2026-05-25, updated 2026-05-26):** the event-table sections below were authored pre-Phase-6 and pre-PreDream refactor. The current event constants live at:
 >
 > - `apps/web/src/lib/compound-interest/constants.ts` → `CALCULATOR_EVENTS` (6 fields: `OPENED`, `AMOUNT_CHANGED`, `CADENCE_CHANGED`, `YEARS_CHANGED`, `SCENARIO_FOCUSED`, `COMPUTATION_COMPLETED`)
-> - `apps/web/src/lib/events/applicationEventTypes.ts` → `ApplicationEventType` enum (includes `PRE_DREAM_STARTED`, `PRE_DREAM_SHARE_INITIATED`, `PRE_DREAM_SHARE_COMPLETED` — the former `DREAM_MODE_EVENTS` were superseded by PreDream; `src/lib/dream-mode/constants.ts` no longer exists)
+> - `apps/web/src/lib/events/applicationEventTypes.ts` → `ApplicationEventType` enum (Dream Mode and its `PRE_DREAM_*` types were deleted in plan P13 PR-2, 2026-11-20, as the demo's `PRE_DEMO_*` were in PR-1; `src/lib/dream-mode/constants.ts` no longer exists)
 > - `apps/web/src/lib/waitingList/constants.ts` → `WAITING_LIST_EVENTS` (includes the `SHARE_MODAL_OPENED`/`SHARE_INITIATED`/`SHARE_COMPLETED` nested keys — there is no separate `SHARE_EVENTS` constant; `src/lib/share/constants.ts` still exists but now exports only `OG_DIMENSIONS` — the share-event constants were dead-code-removed 2026-04-04)
 >
 > **`ApplicationDomain` + `ApplicationEventType` additions (2026-05-26 — the tools-defects fix plan v1.3 execution):**
@@ -77,7 +77,7 @@ Client-side analytics names that flow into Google Analytics 4 (which has tooling
 
 **Examples** (real emitted names):
 
-- `pre_dream_started` (emitted in `lib/events/eventSubscribers.ts`)
+- `waitlist_signup_completed` (emitted in `lib/events/eventSubscribers.ts`)
 - `waitlist_form_submitted`
 - `calculator_input_changed`
 - `waitlist_card_generated` (`WAITING_LIST_EVENTS.CARD_GENERATED` in `lib/waitingList/constants.ts` — the share-card event is `waitlist_`-prefixed, not `share_`)
@@ -85,7 +85,7 @@ Client-side analytics names that flow into Google Analytics 4 (which has tooling
 **Rules:**
 
 1. **Lowercase with underscores** — All event names use `snake_case`
-2. **Feature prefix** — Start with the feature area (`pre_dream_`, `waitlist_`, `calculator_`, `share_`)
+2. **Feature prefix** — Start with the feature area (`waitlist_`, `calculator_`, `share_`)
 3. **Action suffix** — End with the action performed (`_started`, `_completed`, `_clicked`, `_changed`)
 4. **Past tense for completed actions** — Use `submitted`, `completed`, `clicked` (not `submit`, `complete`, `click`)
 
@@ -97,7 +97,6 @@ Internal server-side event bus names that feed audit logging + cross-component s
 
 - `waitlist:signupCompleted`
 - `share:initiated`
-- `preDream:shareCompleted`
 - `application:error`
 - `tools:calculatorUnexpectedError`
 - `tools:calculatorDepreciationClamped`
@@ -105,7 +104,7 @@ Internal server-side event bus names that feed audit logging + cross-component s
 **Rules:**
 
 1. **Format is `{domain}:{entityAction}`** — colon separator, camelCase verb-phrase after the colon
-2. **`domain` must be one of `ApplicationDomain`** — `waitlist`, `share`, `consent`, `preDream`, `analytics`, `monitoring`, `application`, `tools`
+2. **`domain` must be one of `ApplicationDomain`** — `waitlist`, `share`, `consent`, `analytics`, `monitoring`, `application`, `tools`
 3. **`entityAction` is past-tense camelCase** — e.g. `signupCompleted`, `shareInitiated`, `calculatorUnexpectedError`
 4. **Add to `EVENT_VALIDATION_SCHEMA`** when defining a new entry — required-fields list per event type
 
@@ -137,31 +136,12 @@ The two layers are NOT mirrors of each other — a single user action may emit o
 
 ## All Tracked Events
 
-> ⛔ **STALE — do not trust the event tables in this section.** The tables below (event names, constants, and per-category details through "Event Details by Category") were authored pre-Phase-6 and reference constants that have since been renamed, moved, or deleted (e.g. `DREAM_MODE_EVENTS` → PreDream `ApplicationEventType`; no `SHARE_EVENTS` — `src/lib/share/constants.ts` now exports only `OG_DIMENSIONS`). **The source constants files are the single authoritative event reference** — see the drift notice at the top of this file for the exact file paths (`apps/web/src/lib/*/constants.ts` and `apps/web/src/lib/events/applicationEventTypes.ts`). The ARCHITECTURE description (Overview, Event Naming Conventions, How-to-Add, Privacy & Consent) above and below remains accurate; only these enumerated tables are stale. Full table rewrite tracked in `docs/audit/PENDING_ALL.md` Track 3.
-
-### Dream Mode Events
-
-| Event Name                      | Constant                                 | Description                          |
-| ------------------------------- | ---------------------------------------- | ------------------------------------ |
-| `dream_mode_started`            | `DREAM_MODE_EVENTS.STARTED`              | User enters Dream Mode               |
-| `dream_mode_screen_view`        | -                                        | User views a Dream Mode screen       |
-| `dream_disclaimer_accepted`     | `DREAM_MODE_EVENTS.DISCLAIMER_ACCEPTED`  | User accepts CLO disclaimer          |
-| `dream_path_selected`           | `DREAM_MODE_EVENTS.PATH_SELECTED`        | User selects investment path         |
-| `dream_amount_set`              | `DREAM_MODE_EVENTS.AMOUNT_SET`           | User sets investment amount          |
-| `dream_timeframe_changed`       | `DREAM_MODE_EVENTS.TIMEFRAME_CHANGED`    | User changes timeframe               |
-| `dream_simulation_started`      | `DREAM_MODE_EVENTS.SIMULATION_STARTED`   | Simulation begins                    |
-| `dream_mode_simulation_started` | -                                        | Alternative simulation start event   |
-| `dream_simulation_completed`    | `DREAM_MODE_EVENTS.SIMULATION_COMPLETED` | Simulation completes                 |
-| `dream_mode_share`              | -                                        | User initiates share from Dream Mode |
-| `dream_mode_try_again`          | -                                        | User clicks "Try Again"              |
-| `dream_mode_completed`          | `DREAM_MODE_EVENTS.COMPLETED`            | User completes entire flow           |
+> ⛔ **STALE — do not trust the event tables in this section.** The tables below (event names, constants, and per-category details through "Event Details by Category") were authored pre-Phase-6 and reference constants that have since been renamed, moved, or deleted (e.g. `DREAM_MODE_EVENTS` and its PreDream successors were deleted with Dream Mode, P13; no `SHARE_EVENTS` — `src/lib/share/constants.ts` now exports only `OG_DIMENSIONS`). **The source constants files are the single authoritative event reference** — see the drift notice at the top of this file for the exact file paths (`apps/web/src/lib/*/constants.ts` and `apps/web/src/lib/events/applicationEventTypes.ts`). The ARCHITECTURE description (Overview, Event Naming Conventions, How-to-Add, Privacy & Consent) above and below remains accurate; only these enumerated tables are stale. Full table rewrite tracked in `docs/audit/PENDING_ALL.md` Track 3.
 
 ### Waitlist Events
 
 | Event Name                        | Constant                                   | Description               |
 | --------------------------------- | ------------------------------------------ | ------------------------- |
-| `waiting_list_modal_opened`       | `WAITING_LIST_EVENTS.MODAL_OPENED`         | Waitlist modal opens      |
-| `waiting_list_modal_closed`       | `WAITING_LIST_EVENTS.MODAL_CLOSED`         | Waitlist modal closes     |
 | `waiting_list_form_submitted`     | `WAITING_LIST_EVENTS.FORM_SUBMITTED`       | Form submission started   |
 | `waiting_list_submission_success` | `WAITING_LIST_EVENTS.SUBMISSION_SUCCESS`   | Signup successful         |
 | `waiting_list_submission_failure` | `WAITING_LIST_EVENTS.SUBMISSION_FAILURE`   | Signup failed             |
@@ -255,83 +235,6 @@ paid spend, PR) must be annotated when interpreting the delta.
 
 ## Event Details by Category
 
-### Dream Mode Events
-
-#### `dream_mode_started`
-
-```typescript
-analyticsService.track({
-  name: 'dream_mode_started',
-  parameters: { source: 'component' },
-});
-```
-
-#### `dream_mode_screen_view`
-
-```typescript
-analyticsService.track({
-  name: 'dream_mode_screen_view',
-  parameters: {
-    screen:
-      'disclaimer' |
-      'welcome' |
-      'pathSelect' |
-      'input' |
-      'timeframe' |
-      'simulation' |
-      'results' |
-      'share',
-  },
-});
-```
-
-#### `dream_disclaimer_accepted`
-
-```typescript
-analyticsService.track({
-  name: DREAM_MODE_EVENTS.DISCLAIMER_ACCEPTED,
-  parameters: { timestamp: new Date().toISOString() },
-});
-```
-
-#### `dream_path_selected`
-
-```typescript
-analyticsService.track({
-  name: DREAM_MODE_EVENTS.PATH_SELECTED,
-  parameters: { path: 'safety' | 'balance' | 'growth' },
-});
-```
-
-#### `dream_mode_simulation_started`
-
-```typescript
-analyticsService.track({
-  name: 'dream_mode_simulation_started',
-  parameters: {
-    initialAmount: number,
-    monthlyContribution: number,
-    timeframe: '1week' | '1month' | '1year' | '5years',
-    selectedPath: 'safety' | 'balance' | 'growth',
-    pathApy: number,
-  },
-});
-```
-
-#### `dream_mode_share`
-
-```typescript
-analyticsService.track({
-  name: 'dream_mode_share',
-  parameters: {
-    platform: string,
-    initialAmount: number,
-    defiResult: number,
-    timeframe: string,
-  },
-});
-```
-
 ### Waitlist Events
 
 #### `waiting_list_form_submitted`
@@ -395,7 +298,7 @@ analyticsService.track({
 analyticsService.track({
   name: SHARE_EVENTS.CARD_GENERATED,
   parameters: {
-    cardType: 'dream' | 'waitlist',
+    cardType: 'waitlist' | 'referral' | 'milestone' | 'learn',
     locale: string,
   },
 });
@@ -618,7 +521,6 @@ track(event: AnalyticsEvent): void {
 
 | Feature    | Constants File                           | Import                |
 | ---------- | ---------------------------------------- | --------------------- |
-| Dream Mode | `src/lib/dream-mode/constants.ts`        | `DREAM_MODE_EVENTS`   |
 | Waitlist   | `src/lib/waitingList/constants.ts`       | `WAITING_LIST_EVENTS` |
 | Share      | `src/lib/share/constants.ts`             | `SHARE_EVENTS`        |
 | Calculator | `src/lib/compound-interest/constants.ts` | `CALCULATOR_EVENTS`   |

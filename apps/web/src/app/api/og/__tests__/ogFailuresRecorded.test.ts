@@ -33,7 +33,9 @@ describe('OG routes record their failures (5.892)', () => {
   it('should log and answer 500 when /api/og/share fails', async () => {
     const { GET } = await import('../share/route');
     const { NextRequest } = await import('next/server');
-    const res = await GET(new NextRequest('https://diboas.com/api/og/share?type=calculator'));
+    const res = await GET(
+      new NextRequest('https://diboas.com/api/og/share?type=waitlist&position=5')
+    );
     expect(res.status).toBe(500);
     expect(Logger.error).toHaveBeenCalledWith(
       '[og/share] OG image generation failed',

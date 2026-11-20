@@ -2,11 +2,12 @@
  * Share Platform URL Builders
  *
  * Shared utilities for building social share URLs and clipboard operations.
- * Used by both WaitingList/ReferralLink and PreDream/ShareDreamSection.
+ * Used by WaitingList/ReferralLink (Dream Mode's share section, its other user, was deleted with
+ * Dream Mode in plan P13 PR-2).
  *
  * Consolidates duplicate URL-building logic that previously existed in:
  * - components/WaitingList/shareUtils.ts (inline functions)
- * - components/PreDream/components/ShareDreamSection.tsx (inline template strings)
+ * - Dream Mode's share section (inline template strings; deleted with Dream Mode)
  * - lib/share/platformHandlers.ts (deleted — was dead code)
  */
 

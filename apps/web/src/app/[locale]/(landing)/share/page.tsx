@@ -7,30 +7,39 @@
  *
  * Usage:
  * - Waitlist: /share?type=waitlist&position=247&name=John
- * - Calculator: /share?type=calculator&amount=125000&years=10&strategy=balanced
+ * - Money Tools result: /share?type=tool-result&tool=…&value=…&currency=…
+ * The Dream Mode calculator card was retired with Dream Mode (plan P13 PR-2): a
+ * `type=calculator` link gets the default metadata, as the OG route gives it the default card.
  */
 
 import { redirect } from 'next/navigation';
-import { formatResultCurrency, isValidCalculatorInput } from '@/app/api/og/share/ogUtils';
+import { formatResultCurrency, isValidToolResultValue } from '@/app/api/og/share/ogUtils';
+import { SHAREABLE_TOOL_KEYS } from '@/app/api/og/share/ogTypes';
 import type { Metadata } from 'next';
 import { getSafeLocale, loadMessages } from '@diboas/i18n/server';
 import { pageTitle } from '@/lib/seo/pageTitle';
 
+type ShareParam = 'type' | 'position' | 'name' | 'years' | 'tool' | 'value' | 'currency' | 'tone';
+
 interface SharePageProps {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{
-    type?: string;
-    position?: string;
-    name?: string;
-    amount?: string;
-    years?: string;
-    strategy?: string;
-    initial?: string;
-    tool?: string;
-    value?: string;
-    currency?: string;
-    tone?: string;
-  }>;
+  /** A parameter given twice arrives as an array (`?currency=usd&currency=eur`). */
+  searchParams: Promise<Partial<Record<ShareParam, string | string[]>>>;
+}
+
+/**
+ * Each parameter's first value, as the image route reads them (`searchParams.get`). Reading an
+ * array as a string threw in the metadata step and the link lost its preview (register `5.1025`).
+ */
+function firstValues(
+  raw: Partial<Record<ShareParam, string | string[]>>
+): Partial<Record<ShareParam, string>> {
+  const out: Partial<Record<ShareParam, string>> = {};
+  for (const [k, v] of Object.entries(raw) as Array<[ShareParam, string | string[] | undefined]>) {
+    const first = Array.isArray(v) ? v[0] : v;
+    if (typeof first === 'string') out[k] = first;
+  }
+  return out;
 }
 
 interface OgStrings {
@@ -45,7 +54,6 @@ interface ToolResultOg extends OgStrings {
 
 interface ShareOg {
   waitlist: OgStrings;
-  calculator: OgStrings;
   toolResult: ToolResultOg;
   default: OgStrings;
 }
@@ -67,7 +75,7 @@ export async function generateMetadata({
   searchParams,
 }: SharePageProps): Promise<Metadata> {
   const { locale } = await params;
-  const search = await searchParams;
+  const search = firstValues(await searchParams);
   const type = search.type || 'default';
 
   // SEO-2: the OG image (`/api/og/*`) and `og:url` resolve on the MARKETING
@@ -126,68 +134,18 @@ export async function generateMetadata({
     };
   }
 
-  const calcAmount = parseInt(search.amount || '0', 10);
-  const calcYears = search.years || '10';
-  // The card's own validator (8th audit): no NaN or negative amount in a title; an invalid amount gets
-  // the default metadata, as the card gets its default image.
-  if (type === 'calculator' && isValidCalculatorInput(calcAmount, parseInt(calcYears, 10))) {
-    const amount = calcAmount;
-    const years = calcYears;
-    const strategy = search.strategy;
-    const initial = search.initial;
-
-    ogParams.set('amount', amount.toString());
-    ogParams.set('years', years);
-    ogParams.set('locale', locale);
-    if (strategy) {
-      ogParams.set('strategy', strategy);
-    }
-    if (initial) {
-      ogParams.set('initial', initial);
-    }
-
-    // In the visitor's locale (German "Mio.", Portuguese "mi"), as on the share card (5.802).
-    const formattedAmount = formatResultCurrency(amount, 'USD', locale, 1);
-
-    const ogImageUrl = `${baseUrl}/api/og/share?${ogParams.toString()}`;
-    const title = fillSlot(og.calculator.title, '{formattedAmount}', formattedAmount);
-    // The description names no year count (5.793): no slot to fill.
-    const description = og.calculator.description;
-
-    return {
-      title: pageTitle(title),
-      description,
-      openGraph: {
-        title,
-        description,
-        type: 'website',
-        url: `${baseUrl}/${locale}/share?${ogParams.toString()}`,
-        siteName: 'diBoaS',
-        images: [
-          {
-            url: ogImageUrl,
-            width: 1200,
-            height: 630,
-            alt: title,
-          },
-        ],
-      },
-      twitter: {
-        card: 'summary_large_image',
-        title,
-        description,
-        images: [ogImageUrl],
-      },
-    };
-  }
-
-  if (type === 'tool-result') {
-    const tool = search.tool || '';
-    const rawValue = parseInt(search.value || '0', 10);
-    // Mirror the OG image route's range guard so the link-preview title can't be
-    // abused with an unbounded/garbage value (the image route re-validates too).
-    const value =
-      Number.isFinite(rawValue) && rawValue > 0 && rawValue <= 1_000_000_000 ? rawValue : 0;
+  const tool = search.tool || '';
+  const rawValue = parseInt(search.value || '0', 10);
+  // The image route's own guards (allowlisted tool, value in range): a link that fails them gets
+  // the default metadata, as the route draws the default card. Before P13 PR-2 an invalid value
+  // was clamped to 0 here and the preview title stated a zero amount above a default card
+  // (register `5.1024`).
+  if (
+    type === 'tool-result' &&
+    (SHAREABLE_TOOL_KEYS as readonly string[]).includes(tool) &&
+    isValidToolResultValue(rawValue)
+  ) {
+    const value = rawValue;
     const currency = (search.currency || 'USD').toUpperCase();
     const years = search.years;
     const tone = search.tone === 'negative' || search.tone === 'neutral' ? search.tone : undefined;

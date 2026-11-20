@@ -9,7 +9,7 @@
   "backToTop": "Back to top",
   "header": {
     "title": "Privacy Policy",
-    "lastUpdated": "Last Updated: July 5, 2026",
+    "lastUpdated": "Last Updated: November 20, 2026",
     "intro": "diBoaS (\"we,\" \"us,\" \"our\") is committed to protecting your privacy. This policy explains how we collect, use, and protect your personal data."
   },
   "sections": {
@@ -43,13 +43,6 @@
           "Device information",
           "Pages visited and time spent",
           "Referral source"
-        ]
-      },
-      "dreamMode": {
-        "title": "Dream Mode Data:",
-        "items": [
-          "Simulation inputs (deposit amount, strategy selection)",
-          "These inputs are used only in your browser while you use Dream Mode; they are not saved, on your device or on our servers"
         ]
       }
     },

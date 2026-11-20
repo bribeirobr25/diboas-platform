@@ -8,7 +8,7 @@ import {
 import { LocaleProvider, I18nProvider, SetHtmlLang } from '@/components/Providers';
 import { MinimalNavigation } from '@/components/Layout/Navigation';
 import { PageErrorBoundary } from '@/components/ErrorBoundary';
-import { WaitingListProvider, ReferralCapture } from '@/components/WaitingList';
+import { ReferralCapture } from '@/components/WaitingList';
 import { CookieConsent } from '@/components/CookieConsent';
 import { ScrollDepthTracker } from '@/components/Layout/ScrollDepthTracker';
 import { UtmCapture } from '@/components/Layout/UtmCapture';
@@ -60,23 +60,21 @@ export default async function LandingLayout({ children, params }: LandingLayoutP
       <I18nProvider locale={locale} messages={allMessages}>
         <SetHtmlLang locale={locale} />
         <PageErrorBoundary>
-          <WaitingListProvider>
-            <ReferralCapture />
-            <div className="min-h-screen flex flex-col">
-              {/* Skip Navigation Link for Accessibility */}
-              <a href="#main-content" className="skip-link">
-                {skipText}
-              </a>
-              <MinimalNavigation />
-              <main id="main-content" className="main-content main-content-landing flex-1">
-                {children}
-              </main>
-              <CookieConsent />
-              <ScrollDepthTracker />
-              <UtmCapture />
-              <PageViewTracker />
-            </div>
-          </WaitingListProvider>
+          <ReferralCapture />
+          <div className="min-h-screen flex flex-col">
+            {/* Skip Navigation Link for Accessibility */}
+            <a href="#main-content" className="skip-link">
+              {skipText}
+            </a>
+            <MinimalNavigation />
+            <main id="main-content" className="main-content main-content-landing flex-1">
+              {children}
+            </main>
+            <CookieConsent />
+            <ScrollDepthTracker />
+            <UtmCapture />
+            <PageViewTracker />
+          </div>
         </PageErrorBoundary>
       </I18nProvider>
     </LocaleProvider>

@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-05-25 (refreshed Data Source + rate tables to match `constants.ts` post-Phase-C; previously stale by ~5y-avg baseline)
 
-This document is the **canonical source for the financial calculation model** used across the diBoaS platform (comparison table, goal cards, PreDream, the calculator suite — 10 of the 11 tools; tool #11 money-jobs has its own engine in `lib/money-jobs/calculator.ts`, documented in `docs/tools/MONEY_JOBS_CONSTANTS_ATTESTATION.md` — and lesson) — other docs point here, never restate the formulas. All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The external-audit artifacts live in `docs/tech/audit-bundle/` (`TEST_VECTORS.json` = validated test vectors; `REGULATORY_CROSSWALK.md` = disclosure crosswalk); validation methodology and product-truth gates are canonical in `docs/tech/TOOLS_VALIDATION.md`.
+This document is the **canonical source for the financial calculation model** used across the diBoaS platform (comparison table, goal cards, the calculator suite — 10 of the 11 tools; tool #11 money-jobs has its own engine in `lib/money-jobs/calculator.ts`, documented in `docs/tools/MONEY_JOBS_CONSTANTS_ATTESTATION.md` — and lesson) — other docs point here, never restate the formulas. All formulas are implemented in `lib/market-data/formulas/` (split across `core.ts`, `currencyHedge.ts`, `horizonMatchedCagr.ts`, `brazilPoupanca.ts`). The external-audit artifacts live in `docs/tech/audit-bundle/` (`TEST_VECTORS.json` = validated test vectors; `REGULATORY_CROSSWALK.md` = disclosure crosswalk); validation methodology and product-truth gates are canonical in `docs/tech/TOOLS_VALIDATION.md`.
 
 ---
 
@@ -21,7 +21,7 @@ Where:
 - **r** = monthly interest rate (converted from APY via geometric conversion, never `r/12`)
 - **n** = total months
 
-**Implementation:** `calculateMonthlyContributions()` (`lib/market-data/formulas/core.ts`, exported through the `lib/market-data/formulas.ts` barrel) for the `/tools` calculators. `futureValue()` in `lib/utils/financialMath.ts` is used by PreDream (`lib/pre-dream/calculations.ts`), not by any `/tools` calculator.
+**Implementation:** `calculateMonthlyContributions()` (`lib/market-data/formulas/core.ts`, exported through the `lib/market-data/formulas.ts` barrel) for the `/tools` calculators. `futureValue()` (`lib/utils/financialMath.ts`) served only Dream Mode and was deleted with it in plan P13 PR-2 (2026-11-20).
 
 **Rate conversion:** `annualToMonthlyRate(r) = (1 + r)^(1/12) - 1` — takes decimal (0.07 for 7%).
 
@@ -44,7 +44,7 @@ Earlier baselines used pure 5y-avg figures. Phase A historical calibration (2026
 
 Brazil rates are **NET** (after 22.5% IR tax). diBoaS rates are **gross** (before platform fees and user-specific tax).
 
-### diBoaS Strategy Rates (product surfaces — Strategies / Dream-mode)
+### diBoaS Strategy Rates (product surfaces — Strategies)
 
 | Path    | APY |
 | ------- | :-: |
@@ -245,7 +245,6 @@ All financial display surfaces read from the same `MarketDataService`:
 | Component                               | What it computes                                                                                                                                                                                                                                                                                            | Bank rate used                                                                                       |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
 | **ComparisonTable**                     | 1-year lump-sum returns for 4 products                                                                                                                                                                                                                                                                      | `bankRates[locale].savings`                                                                          |
-| **PreDream**                            | Interactive simulation with user-configurable inputs                                                                                                                                                                                                                                                        | `bankRates[locale].savings`                                                                          |
 | **CompoundInterestCalculator (lesson)** | `/learn/compound-interest` Beat 3 — non-hedged scenario rates per Q7(a)                                                                                                                                                                                                                                     | `bankRates[locale].savings`                                                                          |
 | **CompoundInterestCalculator (tools)**  | `/tools/{compound-interest,retirement,goal-savings}` — currency-hedged for non-USD locales per Phase 7 Q7(a)                                                                                                                                                                                                | same + `calculateCompoundProjectionHedged()`                                                         |
 | **EmergencyFundCalculator**             | `/tools/emergency-fund` — months-to-target with inflation + currency-hedge (engine: `lib/emergency-fund/calculator.ts` post-2026-05-26 extraction)                                                                                                                                                          | same + `calculateEmergencyFundTimeline()` → `monthsToInflationAdjustedTarget()` + effective-rate APY |

@@ -35,7 +35,7 @@ type ShareState = 'idle' | 'copied' | 'failed';
 /**
  * The talk quiz: N graded multiple-choice questions (N = the registry's
  * correctIndexes length) + an ungraded reflection + the platform share-icon
- * row (P-4: same lib/share + ReferralIcons stack as the preDream results and
+ * row (P-4: same lib/share + ReferralIcons stack as Dream Mode's results had (deleted, P13) and
  * the waitlist success; the approved share line is the payload, never
  * share-to-unlock).
  *
@@ -97,7 +97,7 @@ export function TalkQuizDefault({ lesson, enableAnalytics = true }: TalkQuizDefa
     });
   };
 
-  // P-4: one handler for all platforms, mirroring ShareDreamSection. The
+  // P-4: one handler for all platforms (Dream Mode's share section, deleted in P13, had the same). The
   // share URL is the talk's own page + the learn UTM config (registry slug,
   // never window parsing). Copy-type platforms (instagram/substack/copy)
   // copy text+link; the rest open the platform's share window.

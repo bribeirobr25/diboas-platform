@@ -153,16 +153,6 @@ export class WaitingListStorageError extends WaitingListDomainError {
   }
 }
 
-// Configuration
-export interface WaitingListConfiguration {
-  readonly consentVersion: string;
-  readonly privacyPolicyVersion: string;
-  readonly privacyPolicyUrl: string;
-  readonly maxNameLength: number;
-  readonly maxXAccountLength: number;
-  readonly storageKey: string;
-}
-
 // Repository Interface (for future backend swap)
 export interface WaitingListRepository {
   save(submission: WaitingListSubmission): Promise<SubmissionResult>;

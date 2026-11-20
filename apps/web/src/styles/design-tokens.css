@@ -328,7 +328,6 @@
   --social-facebook: #1877f2;
   --social-telegram: #0088cc;
   --social-copy: #64748b;
-  --social-download: #0d9488;
 
   /* ================================
      FOCUS & ACCESSIBILITY TOKENS
@@ -343,7 +342,6 @@
      ================================ */
   --overlay-dark: rgba(15, 23, 42, 0.9);
   --overlay-light: rgba(255, 255, 255, 0.9);
-  --overlay-backdrop: rgba(0, 0, 0, 0.8);
   --overlay-modal: rgba(15, 23, 42, 0.7);
   --overlay-subtle: rgba(0, 0, 0, 0.5);
   /* A13 (2026-06-11): image-overlay scrim scale — tokenized at the exact alphas
@@ -399,8 +397,6 @@
 
   /* Error Color with Opacity (Red) */
   --error-overlay-subtle: rgba(239, 68, 68, 0.1);
-  --error-border-subtle: rgba(239, 68, 68, 0.3);
-  --error-focus-ring: rgba(239, 68, 68, 0.1);
 
   /* Success Color with Opacity (Green) */
   --success-overlay-subtle: rgba(16, 185, 129, 0.1);
@@ -427,26 +423,6 @@
   --error-button-primary-hover: #2563eb;
   --error-button-secondary: #6b7280;
   --error-button-secondary-hover: #4b5563;
-
-  /* PreDream Path Colors */
-  --path-safety-bg: #eff6ff;
-  --path-safety-border: #bfdbfe;
-  --path-safety-text: #2563eb;
-  --path-safety-icon-bg: #dbeafe;
-  --path-safety-badge-text: #1d4ed8;
-  --path-balance-bg: #f5f3ff;
-  --path-balance-border: #c4b5fd;
-  --path-balance-text: #7c3aed;
-  --path-balance-icon-bg: #ede9fe;
-  --path-balance-badge-text: #6d28d9;
-  --path-growth-bg: #fef2f2;
-  --path-growth-border: #fca5a5;
-  --path-growth-text: #dc2626;
-  --path-growth-icon-bg: #fee2e2;
-  /* Difference Highlight */
-  --difference-success-bg: #ecfdf5;
-  --difference-success-border: #a7f3d0;
-  --difference-success-icon-bg: #d1fae5;
 
   /* Card Rendering Colors */
   --card-bank-comparison: #ef4444;

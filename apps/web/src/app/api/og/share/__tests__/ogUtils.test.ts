@@ -8,7 +8,14 @@
  */
 
 import { describe, it, expect } from 'vitest';
-import { formatResultCurrency, isValidToolResultValue } from '../ogUtils';
+import {
+  formatNumber,
+  formatResultCurrency,
+  isValidPosition,
+  isValidToolResultValue,
+  parseIntSafe,
+  sanitizeInput,
+} from '../ogUtils';
 
 describe('isValidToolResultValue', () => {
   it('should accept a positive finite value within range', () => {
@@ -45,23 +52,19 @@ describe('formatResultCurrency', () => {
 });
 
 /**
- * 5.802 · the calculator share title and card state the amount in the visitor's locale
- * (German "Mio.", Portuguese "mi", a decimal comma), never one English compact form for every language.
+ * 5.802 · a share card states the amount in the visitor's locale (German "Mio.", Portuguese "mi"),
+ * never one English compact form for every language. Found on the Dream Mode calculator card,
+ * which was retired with Dream Mode (plan P13 PR-2); the rule stands for the surviving
+ * Money Tools result card, which formats through the same helper.
  */
-describe('5.802 · the calculator amount in the visitor locale', () => {
+describe('5.802 · a share amount in the visitor locale', () => {
   it.each([
-    ['en', '$1.5M'],
-    ['pt-BR', 'US$ 1,5 mi'],
-    ['es', '1,5 M US$'],
-    ['de', '1,5 Mio. $'],
-  ])('should format 1,500,000 in %s as %s', (locale, expected) => {
-    expect(formatResultCurrency(1_500_000, 'USD', locale, 1).replace(/\u00a0/g, ' ')).toBe(
-      expected
-    );
-  });
-
-  it('should never print a trailing ".0" on a whole compact figure', () => {
-    expect(formatResultCurrency(150_000, 'USD', 'en', 1)).toBe('$150K');
+    ['en', '$2M'],
+    ['pt-BR', 'US$ 2 mi'],
+    ['es', '2 M US$'],
+    ['de', '2 Mio. $'],
+  ])('should format 2,400,000 in %s as %s', (locale, expected) => {
+    expect(formatResultCurrency(2_400_000, 'USD', locale).replace(/\u00a0/g, ' ')).toBe(expected);
   });
 
   it('should leave no hard-coded "$…M" / "$…K" formatter in the share title or card', async () => {
@@ -81,5 +84,50 @@ describe('5.802 · the calculator amount in the visitor locale', () => {
     const card = join(__dirname, '..', 'ogTemplates.tsx');
     for (const file of [share, card])
       expect(readFileSync(file, 'utf8'), file).not.toMatch(/toFixed\(\d\)\}[MK]`/);
+  });
+});
+
+/* The card's remaining helpers. Their branches were reached only through the Dream Mode
+   calculator card until P13 PR-2 retired it; each is pinned directly here. */
+describe('sanitizeInput', () => {
+  it('should strip tags and markup characters and cap the length when a name carries them', () => {
+    expect(sanitizeInput('<script>alert(1)</script>Ana')).toBe('alert(1)Ana');
+    expect(sanitizeInput('Tom & "Jerry" <b>')).toBe('Tom  Jerry ');
+    expect(sanitizeInput('x'.repeat(80))).toHaveLength(50);
+  });
+
+  it('should return nothing when there is no input', () => {
+    expect(sanitizeInput(null)).toBeUndefined();
+    expect(sanitizeInput('')).toBeUndefined();
+  });
+});
+
+describe('isValidPosition', () => {
+  it('should accept a position only when it is from 1 to a million', () => {
+    expect(isValidPosition(1)).toBe(true);
+    expect(isValidPosition(1_000_000)).toBe(true);
+    for (const bad of [0, -1, 1_000_001, Number.NaN, Number.POSITIVE_INFINITY])
+      expect(isValidPosition(bad), String(bad)).toBe(false);
+  });
+});
+
+describe('parseIntSafe', () => {
+  it('should parse an integer and fall back when the value is missing or not a number', () => {
+    expect(parseIntSafe('247', 0)).toBe(247);
+    expect(parseIntSafe(null, 5)).toBe(5);
+    expect(parseIntSafe('junk', 5)).toBe(5);
+  });
+});
+
+describe('the plain fallback formatter (an unusable currency code)', () => {
+  it('should write millions, thousands and small amounts with a dollar sign when the code is unusable', () => {
+    expect(formatResultCurrency(2_400_000, 'usd')).toBe('$2.4M');
+    expect(formatResultCurrency(16_105, 'XX')).toBe('$16K');
+    expect(formatResultCurrency(950, '')).toBe('$950');
+    expect(formatNumber(1234567)).toBe('1,234,567');
+  });
+
+  it('should fall back when Intl refuses a well-formed but unknown currency', () => {
+    expect(formatResultCurrency(2_400_000, 'ZZZ', 'not-a-locale-!!')).toBe('$2.4M');
   });
 });

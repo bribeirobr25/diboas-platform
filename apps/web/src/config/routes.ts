@@ -11,7 +11,6 @@ export const ROUTES = {
   HOME: '/',
 
   // Interactive Features
-  DREAM_MODE: '/dream-mode',
   CALCULATOR: '/#calculator',
   STRATEGIES: '/strategies',
   MARKET: '/market',

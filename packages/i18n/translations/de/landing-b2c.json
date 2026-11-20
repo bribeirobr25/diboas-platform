@@ -129,8 +129,7 @@
       "headline": "Willkommen.",
       "position": "Deine Position: #{position}",
       "shareHeading": "Lade deine Freunde ein",
-      "shareSubtext": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen",
-      "dreamModeCta": "Dream Mode ausprobieren"
+      "shareSubtext": "Teilen, um Freunden frühzeitigen Zugang zu ermöglichen"
     },
     "tiers": {
       "founding": "Du gehörst zu den ersten 1.200. Teile deinen Link. Du hast 5 Einladungen, um Freunden den Gründungsmitglied-Status zu geben.",

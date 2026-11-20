@@ -29,10 +29,6 @@
       "title": "Ich bin #{position} auf der diBoaS-Warteliste!",
       "description": "Mach mit bei diBoaS: finanzielle Freiheit einfach gemacht"
     },
-    "calculator": {
-      "title": "Mein Geld könnte auf {formattedAmount} anwachsen",
-      "description": "Berechnet mit dem Dream-Mode-Rechner von diBoaS"
-    },
     "toolResult": {
       "title": "Was daraus werden könnte: {value}",
       "titleByTool": {

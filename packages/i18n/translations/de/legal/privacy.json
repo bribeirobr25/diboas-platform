@@ -9,7 +9,7 @@
   "backToTop": "Nach oben",
   "header": {
     "title": "Datenschutzerklärung",
-    "lastUpdated": "Zuletzt aktualisiert: 5. Juli 2026",
+    "lastUpdated": "Zuletzt aktualisiert: 20. November 2026",
     "intro": "diBoaS (\"wir\", \"uns\", \"unser\") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Richtlinie erklärt, wie wir Ihre personenbezogenen Daten erheben, verwenden und schützen."
   },
   "sections": {
@@ -43,13 +43,6 @@
           "Geräteinformationen",
           "Besuchte Seiten und Verweildauer",
           "Verweisquelle"
-        ]
-      },
-      "dreamMode": {
-        "title": "Dream Mode Daten:",
-        "items": [
-          "Simulationseingaben (Einzahlungsbetrag, Strategieauswahl)",
-          "Diese Eingaben werden nur in Ihrem Browser verwendet, solange Sie den Dream Mode nutzen; sie werden weder auf Ihrem Gerät noch auf unseren Servern gespeichert"
         ]
       }
     },

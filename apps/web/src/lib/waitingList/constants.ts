@@ -5,19 +5,7 @@
  * Following DRY principles and centralized configuration
  */
 
-import { WaitingListConfiguration } from './domain/WaitingListDomain';
 import { APP_URL, WAITLIST_STORAGE_KEYS, REFERRAL_COOKIE_CONFIG } from '@/config/env';
-import { ROUTES } from '@/config/routes';
-
-export const WAITING_LIST_CONFIG: WaitingListConfiguration = {
-  consentVersion: '1.0.0',
-  privacyPolicyVersion: '2024.1',
-  // The real policy page (visual pass 2026-11-11: '/privacy' answered 404 from the consent line).
-  privacyPolicyUrl: ROUTES.LEGAL.PRIVACY,
-  maxNameLength: 100,
-  maxXAccountLength: 50,
-  storageKey: WAITLIST_STORAGE_KEYS.main,
-};
 
 // Referral mechanics configuration
 export const REFERRAL_CONFIG = {
@@ -33,12 +21,9 @@ export const REFERRAL_CONFIG = {
   referralCookieExpiry: REFERRAL_COOKIE_CONFIG.expiryDays,
 } as const;
 
-// Position storage keys for local fallback
+// The member's email, kept on the device so the Money Jobs gate opens without asking again
 export const POSITION_STORAGE_KEYS = {
   email: WAITLIST_STORAGE_KEYS.email,
-  position: WAITLIST_STORAGE_KEYS.position,
-  referralCode: WAITLIST_STORAGE_KEYS.referralCode,
-  referralCount: WAITLIST_STORAGE_KEYS.referralCount,
 } as const;
 
 // Validation patterns
@@ -62,8 +47,6 @@ export const ERROR_CODES = {
 
 // Event types for analytics
 export const WAITING_LIST_EVENTS = {
-  MODAL_OPENED: 'waiting_list_modal_opened',
-  MODAL_CLOSED: 'waiting_list_modal_closed',
   FORM_SUBMITTED: 'waiting_list_form_submitted',
   FORM_VALIDATION_ERROR: 'waiting_list_form_validation_error',
   SUBMISSION_SUCCESS: 'waiting_list_submission_success',

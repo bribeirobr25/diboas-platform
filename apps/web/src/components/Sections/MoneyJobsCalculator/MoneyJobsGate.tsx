@@ -11,7 +11,7 @@
  * - GDPR checkbox EXPLICIT (never the form's `compact` auto-consent mode).
  * - ALREADY_REGISTERED unlocks too (useWaitlistForm calls onSuccess for it).
  * - Decision 5: on success the email persists via POSITION_STORAGE_KEYS.email
- *   — which also repairs the dream-mode gate (nothing wrote that key before).
+ *   (Dream Mode, which read that key, was deleted in plan P13 PR-2).
  * - Analytics: consent-gated tool_gate_viewed / tool_gate_unlocked, no PII.
  * - A3 (UX-01/02): the submit button is the single primary action pre-unlock.
  */

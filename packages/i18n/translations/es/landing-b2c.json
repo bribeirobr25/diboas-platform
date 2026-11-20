@@ -129,8 +129,7 @@
       "headline": "Bienvenido.",
       "position": "Tu posición: #{position}",
       "shareHeading": "Invita a tus amigos",
-      "shareSubtext": "Comparte para ayudarles a tener acceso anticipado",
-      "dreamModeCta": "Prueba el Dream Mode"
+      "shareSubtext": "Comparte para ayudarles a tener acceso anticipado"
     },
     "tiers": {
       "founding": "Estás entre los primeros 1.200. Comparte tu enlace. Tienes 5 invitaciones para dar estatus de Miembro Fundador.",

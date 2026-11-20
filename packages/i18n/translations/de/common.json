@@ -61,9 +61,7 @@
     "joinWaitlist": "Zur Warteliste",
     "tools": {
       "calculator": "Rechner",
-      "calculatorDescription": "Sieh dein Geld wachsen",
-      "dreamMode": "Dream Mode",
-      "dreamModeDescription": "Visualisiere deine Zukunft"
+      "calculatorDescription": "Sieh dein Geld wachsen"
     },
     "tryPractice": "Practice ausprobieren"
   },
@@ -105,8 +103,6 @@
     "productNavigation": "Produktnavigation",
     "legalPages": "Rechtliche Seiten",
     "mainNavigation": "Hauptnavigation",
-    "dreamMode": "Dream Mode",
-    "closeDreamMode": "Dream Mode schließen",
     "copyToClipboard": "Text in die Zwischenablage kopieren",
     "shareOnX": "Auf X teilen",
     "homeLink": "{brand} Startseite",
@@ -234,52 +230,11 @@
     "contactDirectly": "Kontaktiere uns direkt, um einen Anruf zu vereinbaren"
   },
   "waitingList": {
-    "title": "Auf die Warteliste setzen",
-    "subtitle": "Sei der Erste, der die Zukunft der Finanzen erlebt. Melde dich jetzt an, um frühzeitigen Zugang zu diBoaS zu erhalten.",
-    "imageAlt": "diBoaS Plattform Vorschau",
-    "close": "Schließen",
-    "form": {
-      "name": {
-        "label": "Name",
-        "placeholder": "Gib deinen Namen ein"
-      },
-      "email": {
-        "label": "E-Mail",
-        "placeholder": "Gib deine E-Mail-Adresse ein"
-      },
-      "xAccount": {
-        "label": "X (Twitter) Konto",
-        "placeholder": "@benutzername"
-      },
-      "optional": "(optional)",
-      "consent": {
-        "text": "Ich bin einverstanden, Mitteilungen von diBoaS zu erhalten, und akzeptiere die",
-        "privacyPolicy": "Datenschutzerklärung"
-      },
-      "submit": "Auf Warteliste setzen"
-    },
-    "success": {
-      "title": "Du bist auf der Liste!",
-      "message": "Vielen Dank, dass du dich auf unsere Warteliste gesetzt hast. Wir halten dich über unseren Start auf dem Laufenden und senden dir Informationen zum frühzeitigen Zugang.",
-      "emailSent": "Bestätigung gesendet an {email}",
-      "close": "Schließen"
-    },
     "errors": {
-      "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein",
       "invalidName": "Bitte gib einen gültigen Namen ein",
       "invalidXAccount": "Bitte gib ein gültiges X-Konto ein (z.B. @benutzername)",
-      "consentRequired": "Du musst dem Empfang von Mitteilungen zustimmen",
       "emailRequired": "E-Mail ist erforderlich",
-      "duplicateEmail": "Diese E-Mail-Adresse ist bereits auf unserer Warteliste",
-      "submissionFailed": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
       "storageError": "Deine Informationen konnten nicht gespeichert werden. Bitte versuche es erneut."
-    },
-    "position": {
-      "label": "Deine Position",
-      "spotsGained": "{spots} Plätze gewonnen!",
-      "referrals": "Empfehlungen",
-      "spotsPerReferral": "Plätze/Empfehlung",
-      "yourCode": "Dein Code:"
     }
   },
   "share": {

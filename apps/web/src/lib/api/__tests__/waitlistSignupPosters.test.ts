@@ -11,8 +11,9 @@ import { stripComments } from '@diboas/test-support';
  * `source: 'modal'` compiled while the server refused it. Wherever client code names
  * `/api/waitlist/signup` (in any string or template, with any prefix or query), that mention
  * must sit inside a `fetch`/`fetchWithRetry` call whose own arguments build the body with
- * `satisfies WaitlistSignupBody` or `buildModalSignupBody` (typed to return that shape), and a
- * poster may not cast to `WaitlistSource`. A source outside the list is then a compile error
+ * `satisfies WaitlistSignupBody`, and a poster may not cast to `WaitlistSource`. (The modal and
+ * its shared body builder were deleted with Dream Mode, plan P13 PR-2; the landing form's hook
+ * is the one client poster left.) A source outside the list is then a compile error
  * at the call that sends it.
  *
  * Scope: client files under `src/` (not `app/api/**`, the route itself). The BotID config in
@@ -22,11 +23,9 @@ import { stripComments } from '@diboas/test-support';
  */
 const SRC = join(__dirname, '..', '..', '..');
 const SIGNUP_PATH = /\/api\/waitlist\/signup\b/g;
-const SHAPED_BODY = /satisfies\s+WaitlistSignupBody\b|\bbuildModalSignupBody\(/;
+const SHAPED_BODY = /satisfies\s+WaitlistSignupBody\b/;
 const CAST_TO_SOURCE = /\bas\s+WaitlistSource\b/;
 const REQUEST_CALL = /\b(?:fetchWithRetry|fetch)\s*\(/g;
-/** The shared builder a poster may use instead of `satisfies`: it must return the shape. */
-const BUILDER = join(SRC, 'lib', 'waitingList', 'modalSignupBody.ts');
 const EXCEPTED = new Set(['instrumentation-client.ts']);
 
 function clientFiles(dir: string): string[] {
@@ -88,22 +87,12 @@ describe(
   '5.979 · every client signup request is built with the one shape',
   { timeout: 30_000 },
   () => {
-    it('should find the two client posters (the scan is not vacuous)', () => {
+    it('should find the client poster (the scan is not vacuous)', () => {
       expect(
         posters()
           .map((p) => p.file)
           .sort()
-      ).toEqual([
-        'components/WaitingList/hooks/useWaitlistForm.ts',
-        'components/WaitingList/hooks/useWaitlistModalForm.ts',
-      ]);
-    });
-
-    it('should keep the shared builder typed to the one shape', () => {
-      const code = stripComments(readFileSync(BUILDER, 'utf8'), BUILDER);
-      expect(code).toMatch(
-        /export function buildModalSignupBody\([^)]*\)\s*:\s*WaitlistSignupBody\s*\{/
-      );
+      ).toEqual(['components/WaitingList/hooks/useWaitlistForm.ts']);
     });
 
     it('should build each signup body with the one shape, inside the call that sends it', () => {

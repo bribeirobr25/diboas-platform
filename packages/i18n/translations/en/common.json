@@ -61,9 +61,7 @@
     "joinWaitlist": "Join Waitlist",
     "tools": {
       "calculator": "Calculator",
-      "calculatorDescription": "See your money grow",
-      "dreamMode": "Dream Mode",
-      "dreamModeDescription": "Visualize your future"
+      "calculatorDescription": "See your money grow"
     },
     "tryPractice": "Try Practice"
   },
@@ -105,8 +103,6 @@
     "productNavigation": "Product navigation",
     "legalPages": "Legal pages",
     "mainNavigation": "Main navigation",
-    "dreamMode": "Dream Mode",
-    "closeDreamMode": "Close Dream Mode",
     "copyToClipboard": "Copy share text to clipboard",
     "shareOnX": "Share on X",
     "homeLink": "{brand} Home",
@@ -234,52 +230,11 @@
     "contactDirectly": "Contact us directly to schedule a call"
   },
   "waitingList": {
-    "title": "Join the Waiting List",
-    "subtitle": "Be the first to experience the future of finance. Sign up now to get early access to diBoaS.",
-    "imageAlt": "diBoaS Platform Preview",
-    "close": "Close",
-    "form": {
-      "name": {
-        "label": "Name",
-        "placeholder": "Enter your name"
-      },
-      "email": {
-        "label": "Email",
-        "placeholder": "Enter your email address"
-      },
-      "xAccount": {
-        "label": "X (Twitter) Account",
-        "placeholder": "@username"
-      },
-      "optional": "(optional)",
-      "consent": {
-        "text": "I agree to receive communications from diBoaS and agree with the",
-        "privacyPolicy": "Privacy Policy"
-      },
-      "submit": "Join Waiting List"
-    },
-    "success": {
-      "title": "You're on the list!",
-      "message": "Thank you for joining our waiting list. We'll keep you updated on our launch and send you early access information.",
-      "emailSent": "Confirmation sent to {email}",
-      "close": "Close"
-    },
     "errors": {
-      "invalidEmail": "Please enter a valid email address",
       "invalidName": "Please enter a valid name",
       "invalidXAccount": "Please enter a valid X account (e.g., @username)",
-      "consentRequired": "You must accept to receive communications",
       "emailRequired": "Email is required",
-      "duplicateEmail": "This email is already on our waiting list",
-      "submissionFailed": "Something went wrong. Please try again.",
       "storageError": "Unable to save your information. Please try again."
-    },
-    "position": {
-      "label": "Your Position",
-      "spotsGained": "{spots} spots gained!",
-      "referrals": "Referrals",
-      "spotsPerReferral": "Spots/Referral",
-      "yourCode": "Your Code:"
     }
   },
   "share": {

@@ -205,7 +205,7 @@ describe('useFocusTrap DOM behavior', () => {
     });
 
     it('should focus element matching initialFocus ref (A11Y-4 D-2)', () => {
-      // The WaitingListModal email input has a useId()-generated id, so a static
+      // The waitlist modal's email input (deleted in P13) had a useId()-generated id, so a static
       // selector matched nothing; a ref is resolved at focus time instead.
       const container = document.createElement('div');
       const button = document.createElement('button');

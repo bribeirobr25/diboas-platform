@@ -11,17 +11,19 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * never lower one to make a run pass. Below the 80/60 policy: see register 5.832 (web is ratcheted, not yet compliant). CLAUDE.md requires 100% for security utilities.
  */
 const COVERAGE_THRESHOLDS = {
-  // Re-measured 2026-11-19 (P13 PR-1, full `vitest run --coverage`) and rounded down, as COV-1
-  // prescribes: global 45.32/39.57/39.26/45.05, app 37.75/29.60/32.56/37.69, components
-  // 22.77/21.05/21.99/22.48, config 43.26/53.03/36.21/43.81, hooks 57.47/53.87/60.78/57.23,
-  // lib 66.06/59.64/58.86/65.71 (lines/branches/functions/statements).
-  lines: 45,
-  branches: 39,
-  functions: 39,
-  statements: 45,
-  'src/app/**': { lines: 37, branches: 29, functions: 32, statements: 37 },
-  'src/components/**': { lines: 22, branches: 21, functions: 21, statements: 22 },
-  'src/config/**': { lines: 43, branches: 53, functions: 36, statements: 43 },
+  // Re-measured 2026-11-20 (P13 PR-2, `pnpm --filter web test:coverage`) and rounded down, as
+  // COV-1 prescribes: global 47.07/41.00/40.83/46.71, app 40.05/32.61/32.32/39.98, components
+  // 24.03/22.45/23.58/23.66, config 43.68/53.49/37.50/44.22, hooks 57.47/53.52/60.78/57.23,
+  // lib 66.18/59.47/58.94/65.78 (lines/branches/functions/statements). Dream Mode's deletion
+  // took tested code with it (app functions fell to 30.8); the business waitlist's and the
+  // share card's own tests carried every floor back above it before any was raised.
+  lines: 47,
+  branches: 41,
+  functions: 40,
+  statements: 46,
+  'src/app/**': { lines: 40, branches: 32, functions: 32, statements: 39 },
+  'src/components/**': { lines: 24, branches: 22, functions: 23, statements: 23 },
+  'src/config/**': { lines: 43, branches: 53, functions: 37, statements: 44 },
   'src/hooks/**': { lines: 57, branches: 53, functions: 60, statements: 57 },
   'src/lib/**': { lines: 66, branches: 59, functions: 58, statements: 65 },
   // Security utilities: 100% on every metric.

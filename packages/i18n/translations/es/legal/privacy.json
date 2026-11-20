@@ -9,7 +9,7 @@
   "backToTop": "Volver arriba",
   "header": {
     "title": "Política de Privacidad",
-    "lastUpdated": "Última actualización: 5 de julio de 2026",
+    "lastUpdated": "Última actualización: 20 de noviembre de 2026",
     "intro": "diBoaS (\"nosotros\", \"nos\", \"nuestro\") está comprometido con la protección de tu privacidad. Esta política explica cómo recopilamos, usamos y protegemos tus datos personales."
   },
   "sections": {
@@ -43,13 +43,6 @@
           "Información del dispositivo",
           "Páginas visitadas y tiempo de permanencia",
           "Fuente de referencia"
-        ]
-      },
-      "dreamMode": {
-        "title": "Datos de Dream Mode:",
-        "items": [
-          "Entradas de simulación (cantidad de depósito, selección de estrategia)",
-          "Estas entradas solo se usan en tu navegador mientras usas el Modo Sueño; no se guardan, ni en tu dispositivo ni en nuestros servidores"
         ]
       }
     },
