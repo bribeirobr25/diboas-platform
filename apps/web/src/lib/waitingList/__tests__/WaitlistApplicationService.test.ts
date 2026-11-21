@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 /**
  * WaitlistApplicationService — contract tests
  *
@@ -287,13 +289,14 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
     const result = await service.confirmDeletion({ token: 'valid-token', correlationId: 'req-3' });
 
     expect(result).toEqual({ ok: true, deleted: true });
-    expect(erasure.consumeAndErase).toHaveBeenCalledWith('hashed:valid-token', 'stored-hash');
+    expect(erasure.consumeAndErase).toHaveBeenCalledWith('hashed:valid-token', 'stored-hash', {
+      correlationId: 'req-3',
+    });
     expect(audit.logAuditEvent).toHaveBeenCalledWith(
       expect.objectContaining({ eventType: 'gdpr.deletion.completed', correlationId: 'req-3' })
     );
-    expect(gdpr.logGdprDeletion).toHaveBeenCalledWith(
-      expect.objectContaining({ deletedBy: 'user_request', reason: 'gdpr_article_17' })
-    );
+    // the GDPR record is written inside the erasure statement, never separately
+    expect(gdpr.logGdprDeletion).not.toHaveBeenCalled();
     expect(eventBus.applicationEventBus.emit).toHaveBeenCalledWith(
       'WAITLIST_DELETION_COMPLETED',
       expect.objectContaining({ domain: 'waitlist', correlationId: 'req-3' })
@@ -321,7 +324,11 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
     (encryption.decrypt as Mock).mockReturnValueOnce(null);
     const result = await service.confirmDeletion({ token: 'tok' });
     expect(result).toEqual({ ok: true, deleted: true });
-    expect(erasure.consumeAndErase).toHaveBeenCalledWith('hashed:tok', 'stored-hash');
+    expect(erasure.consumeAndErase).toHaveBeenCalledWith(
+      'hashed:tok',
+      'stored-hash',
+      expect.anything()
+    );
     expect(store.getByEmail).not.toHaveBeenCalled();
     expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
     // the ciphertext is never used as an address
@@ -331,7 +338,11 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
   it('should key a link written before its stored hash on the hash of its address', async () => {
     erasure.findLink.mockResolvedValue({ ...LINK, emailHash: null });
     await service.confirmDeletion({ token: 'tok' });
-    expect(erasure.consumeAndErase).toHaveBeenCalledWith('hashed:tok', 'test-hmac-hash');
+    expect(erasure.consumeAndErase).toHaveBeenCalledWith(
+      'hashed:tok',
+      'test-hmac-hash',
+      expect.anything()
+    );
   });
 
   it('should keep the link and answer SERVER_ERROR when no hash can key the erasure', async () => {
@@ -361,7 +372,7 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
     expect(audit.logAuditEvent).toHaveBeenCalledWith(
       expect.objectContaining({ eventType: 'gdpr.deletion.completed', correlationId: 'req-9' })
     );
-    expect(gdpr.logGdprDeletion).toHaveBeenCalledTimes(1);
+    expect(gdpr.logGdprDeletion).not.toHaveBeenCalled();
     expect(emailModule.sendEmailAsync).toHaveBeenCalledWith(
       expect.objectContaining({ template: 'deletion-complete', recordDelivery: false })
     );
@@ -388,5 +399,29 @@ describe('WaitlistApplicationService.confirmDeletion', () => {
     erasure.findLink.mockRejectedValue(new Error('db down'));
     const result = await service.confirmDeletion({ token: 'tok' });
     expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+  });
+});
+
+/**
+ * ⛑ RETENTION-1 guard 5 (P14 review): every send states whether its delivery is recorded, and
+ * only the completion email (sent after erasure) is not; the other three still record theirs.
+ */
+describe('RETENTION-1 guard 5 · which sends are recorded', () => {
+  const source = readFileSync(join(__dirname, '../WaitlistApplicationService.ts'), 'utf8');
+  const sends = [...source.matchAll(/sendEmailAsync\(\{([\s\S]*?)\}\)/g)].map((m) => ({
+    template: /template:\s*'([^']+)'/.exec(m[1]!)?.[1],
+    record: /recordDelivery:\s*(true|false)/.exec(m[1]!)?.[1],
+  }));
+
+  it('should record every waitlist email except the completion email when the service sends', () => {
+    expect(sends).toEqual(
+      expect.arrayContaining([
+        { template: 'welcome', record: 'true' },
+        { template: 'deletion-confirmation', record: 'true' },
+        { template: 'referral-success', record: 'true' },
+        { template: 'deletion-complete', record: 'false' },
+      ])
+    );
+    expect(sends).toHaveLength(4);
   });
 });

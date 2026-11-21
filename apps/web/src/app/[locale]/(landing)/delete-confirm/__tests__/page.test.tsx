@@ -55,6 +55,23 @@ describe('the deletion confirmation page', () => {
     );
   });
 
+  it('should say nothing was found, never that the entry was deleted, when the server deleted no entry', async () => {
+    vi.stubGlobal('fetch', answer(200, { success: true, deleted: false }));
+    render(<DeleteConfirmPage />);
+    fireEvent.click(screen.getByText(`${K}confirmButton`));
+    await waitFor(() => expect(screen.getByText(`${K}nothingFound`)).toBeTruthy());
+    expect(screen.queryByText(`${K}successBody`)).toBeNull();
+    expect(screen.getByText(`${K}backHome`)).toBeTruthy();
+  });
+
+  it('should offer a way home after a confirmed deletion', async () => {
+    vi.stubGlobal('fetch', answer(200, { success: true, deleted: true }));
+    render(<DeleteConfirmPage />);
+    fireEvent.click(screen.getByText(`${K}confirmButton`));
+    await waitFor(() => expect(screen.getByText(`${K}successBody`)).toBeTruthy());
+    expect(screen.getByText(`${K}backHome`)).toBeTruthy();
+  });
+
   it('should still show success when this browser blocks storage', async () => {
     vi.stubGlobal('fetch', answer(200, { success: true }));
     vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {

@@ -197,13 +197,16 @@ describe('/api/waitlist/delete — every answer (5.866)', () => {
   });
 
   it.each([
-    [true, 'Your waitlist entry and email records have been deleted.'],
+    [
+      true,
+      'Your waitlist entry and email records have been deleted. Security logs (up to 90 days), database backups (within a day) and the email provider’s own copies stay for a time.',
+    ],
     [false, 'No data found to delete.'],
   ])('should answer 200 when the token is valid (deleted: %s)', async (deleted, message) => {
     confirmDeletion.mockResolvedValue({ ok: true, deleted });
     const res = await DELETE(json('DELETE', { token: 'tok' }));
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ success: true, message });
+    expect(await res.json()).toEqual({ success: true, deleted, message });
     expect(confirmDeletion).toHaveBeenCalledWith(expect.objectContaining({ token: 'tok' }));
   });
 

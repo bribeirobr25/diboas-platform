@@ -26,7 +26,7 @@ async function seed() {
   await t.exec(
     `INSERT INTO email_delivery_logs (id, recipient_hash, template, status) VALUES
       ('d1', $1, 'welcome', 'sent'), ('d2', $1, 'deletion-confirmation', 'sent'),
-      ('d3', $2, 'welcome', 'sent')`,
+      ('d4', $1, 'referral-success', 'sent'), ('d3', $2, 'welcome', 'sent')`,
     [ANA, BOB]
   );
   await t.exec(
@@ -68,8 +68,22 @@ describe('RETENTION-1 guard 4 · erasure on Postgres', { timeout: 30_000 }, () =
   });
 
   it("should erase the person's entry, delivery rows and every link, and nobody else's, when the link is consumed", async () => {
-    const result = await erasure.consumeAndErase('t-click', 'unused-fallback');
-    expect(result).toEqual({ consumed: true, entryId: 'wl_ana', deliveryRows: 2, otherLinks: 2 });
+    const result = await erasure.consumeAndErase('t-click', 'unused-fallback', {
+      correlationId: 'req-1',
+    });
+    // three delivery rows and two other links: a swapped count column cannot pass
+    expect(result).toEqual({ consumed: true, entryId: 'wl_ana', deliveryRows: 3, otherLinks: 2 });
+    // the GDPR record is written by the same statement, once
+    expect(
+      await t.exec('SELECT entity_type, deleted_by, reason, correlation_id FROM gdpr_deletion_logs')
+    ).toEqual([
+      {
+        entity_type: 'waitlist_entry',
+        deleted_by: 'user_request',
+        reason: 'gdpr_article_17',
+        correlation_id: 'req-1',
+      },
+    ]);
     expect(await ids('waitlist_entries', 'id')).toEqual(['wl_bob']);
     expect(await ids('email_delivery_logs', 'id')).toEqual(['d3']);
     // the person's other links (live and expired) are gone; the NULL-hash link is untouched
@@ -81,13 +95,42 @@ describe('RETENTION-1 guard 4 · erasure on Postgres', { timeout: 30_000 }, () =
     const result = await erasure.consumeAndErase('t-expired', ANA);
     expect(result).toEqual({ consumed: false, entryId: null, deliveryRows: 0, otherLinks: 0 });
     expect(await ids('waitlist_entries', 'id')).toEqual(['wl_ana', 'wl_bob']);
-    expect(await ids('email_delivery_logs', 'id')).toEqual(['d1', 'd2', 'd3']);
+    expect(await ids('email_delivery_logs', 'id')).toEqual(['d1', 'd2', 'd3', 'd4']);
+    expect(await ids('gdpr_deletion_logs', 'id')).toEqual([]);
+  });
+
+  it('should write no GDPR record when the person had no entry', async () => {
+    await t.exec(`DELETE FROM waitlist_entries WHERE id = 'wl_ana'`);
+    const result = await erasure.consumeAndErase('t-click', ANA);
+    expect(result).toMatchObject({ consumed: true, entryId: null });
+    expect(await ids('gdpr_deletion_logs', 'id')).toEqual([]);
+  });
+
+  it("should never erase another person's rows when the link's stored hash is empty", async () => {
+    // rows written before 5.824 under an empty blind index belong to nobody in particular
+    await t.exec(`INSERT INTO waitlist_entries (id, email_hash) VALUES ('wl_legacy', '')`);
+    await t.exec(
+      `INSERT INTO email_delivery_logs (id, recipient_hash, template, status) VALUES ('d-legacy', '', 'welcome', 'sent')`
+    );
+    await t.exec(`UPDATE deletion_tokens SET email_hash = '' WHERE token_hash = 't-click'`);
+    const result = await erasure.consumeAndErase('t-click', ANA);
+    // keyed on the fallback (Ana's real hash), never on ''
+    expect(result).toMatchObject({ consumed: true, entryId: 'wl_ana' });
+    expect(await ids('waitlist_entries', 'id')).toEqual(['wl_bob', 'wl_legacy']);
+    expect(await ids('email_delivery_logs', 'id')).toContain('d-legacy');
+  });
+
+  it('should consume nothing when neither the link nor the caller gives a hash', async () => {
+    await t.exec(`UPDATE deletion_tokens SET email_hash = '' WHERE token_hash = 't-click'`);
+    const result = await erasure.consumeAndErase('t-click', '');
+    expect(result).toEqual({ consumed: false, entryId: null, deliveryRows: 0, otherLinks: 0 });
+    expect(await ids('deletion_tokens', 'token_hash')).toContain('t-click');
   });
 
   it('should erase by the fallback hash when the link was written before its stored hash', async () => {
     await t.exec(`UPDATE deletion_tokens SET email_hash = NULL WHERE token_hash = 't-click'`);
     const result = await erasure.consumeAndErase('t-click', ANA);
-    expect(result).toMatchObject({ consumed: true, entryId: 'wl_ana', deliveryRows: 2 });
+    expect(result).toMatchObject({ consumed: true, entryId: 'wl_ana', deliveryRows: 3 });
   });
 
   it('should change nothing, the link still usable, when any part of the statement fails', async () => {
@@ -99,7 +142,8 @@ describe('RETENTION-1 guard 4 · erasure on Postgres', { timeout: 30_000 }, () =
     `);
     await expect(erasure.consumeAndErase('t-click', ANA)).rejects.toThrow(/injected failure/);
     expect(await ids('waitlist_entries', 'id')).toEqual(['wl_ana', 'wl_bob']);
-    expect(await ids('email_delivery_logs', 'id')).toEqual(['d1', 'd2', 'd3']);
+    expect(await ids('email_delivery_logs', 'id')).toEqual(['d1', 'd2', 'd3', 'd4']);
+    expect(await ids('gdpr_deletion_logs', 'id')).toEqual([]);
     expect(await ids('deletion_tokens', 'token_hash')).toContain('t-click');
     expect(await ids('deletion_tokens', 'token_hash')).toContain('t-other');
     expect(await erasure.isErased('t-click', ANA)).toBe(false);
@@ -111,11 +155,27 @@ describe('RETENTION-1 guard 4 · erasure on Postgres', { timeout: 30_000 }, () =
     expect(await erasure.isErased('t-click', ANA)).toBe(false); // entry still there
   });
 
-  it('should consume the link once when two requests race', async () => {
-    const [a, b] = await Promise.all([
-      erasure.consumeAndErase('t-click', ANA),
-      erasure.consumeAndErase('t-click', ANA),
-    ]);
-    expect([a.consumed, b.consumed].filter(Boolean)).toHaveLength(1);
+  /*
+   * PGlite runs one query at a time, so two calls here never overlap: this proves that a link
+   * already consumed reports not consumed. Real concurrency (two clicks at once on Neon) rests on
+   * the consume step being one `DELETE … RETURNING` inside the statement (a row lock, re-checked
+   * by the second request), pinned on the statement's text below. Scope limit stated in the gate.
+   */
+  it('should report not consumed when the link was already consumed', async () => {
+    const first = await erasure.consumeAndErase('t-click', ANA);
+    const second = await erasure.consumeAndErase('t-click', ANA);
+    expect([first.consumed, second.consumed]).toEqual([true, false]);
+  });
+
+  it('should consume the link with one DELETE … RETURNING inside the statement', async () => {
+    const seen: string[] = [];
+    const spy = new PrivacyPersonErasureService(async (strings, ...values) => {
+      seen.push(strings.join('?'));
+      return t.query(strings, ...values);
+    });
+    await spy.consumeAndErase('t-click', ANA);
+    expect(seen).toHaveLength(1);
+    expect(seen[0]).toMatch(/WITH consumed AS \(\s*DELETE FROM deletion_tokens[\s\S]*?RETURNING/);
+    expect(seen[0]).not.toMatch(/SELECT[^)]*FROM deletion_tokens[\s\S]*consumed AS/);
   });
 });

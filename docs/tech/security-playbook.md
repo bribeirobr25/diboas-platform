@@ -135,7 +135,7 @@ Five `dangerouslySetInnerHTML` usages (verified via `git grep`):
 
 ### 3.5 Database surface
 
-- Migrations 001-015 (kept privately in `diboas-docs`, `ops/db-migrations/web/`, since 2026-10-30, register `5.709`; 015 drops 014's table) — schema-only; no seed PII; AES-256-GCM + HMAC blind index pattern correctly applied to `waitlist_entries` and `email_delivery_logs`. Migration 013 + the daily `purgeExpiredAuditLogs` cron enforce 90-day retention on the `audit_logs` forensic trail (raw `actor_ip` under legitimate interest — §5.39)
+- Migrations 001-015 (kept privately in `diboas-docs`, `ops/db-migrations/web/`, since 2026-10-30, register `5.709`; 015 drops 014's table) — schema-only; no seed PII; AES-256-GCM + HMAC blind index pattern correctly applied to `waitlist_entries` and `email_delivery_logs`. Migration 013 + the daily retention job (`/api/cron/retention`, `lib/retention/auditLogs.ts`, P14) enforce 90-day retention on the `audit_logs` forensic trail (raw `actor_ip` under legitimate interest — §5.39)
 - Migration runner tracks applied files by name in `schema_migrations`, verifies checksums, names the target database, and refuses (before any write) a name mismatch, a re-run of an older file, a multi-statement file, or any apply without `--yes`. Website `001`–`014` were applied by hand and are never re-run.
 - Query layer (`apps/web/src/lib/database/client.ts`) parameterizes via Neon's `sql` tag — string-interpolated SQL is not present in API routes
 - Raw SQL exists only in the migration runner (`scripts/lib/migrate-runner.mjs`), which runs trusted, checksum-verified files from the private docs and is never reachable from a request

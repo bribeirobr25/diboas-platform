@@ -25,6 +25,10 @@ const SCHEMA = `
   );
   CREATE TABLE idempotency_cache (key text PRIMARY KEY, response jsonb, expires_at timestamp NOT NULL);
   CREATE TABLE audit_logs (id serial PRIMARY KEY, created_at timestamptz NOT NULL DEFAULT NOW());
+  CREATE TABLE gdpr_deletion_logs (
+    id serial PRIMARY KEY, entity_type text, entity_id text, deleted_by text, reason text,
+    correlation_id text, metadata jsonb
+  );
 `;
 
 export interface TestDatabase {
@@ -57,7 +61,7 @@ export async function createTestDatabase(): Promise<TestDatabase> {
 
   const reset = async () => {
     await db.exec(
-      'TRUNCATE waitlist_entries, deletion_tokens, email_delivery_logs, idempotency_cache, audit_logs RESTART IDENTITY;'
+      'TRUNCATE waitlist_entries, deletion_tokens, email_delivery_logs, idempotency_cache, audit_logs, gdpr_deletion_logs RESTART IDENTITY;'
     );
   };
 

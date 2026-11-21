@@ -152,8 +152,9 @@ export async function DELETE(request: Request): Promise<NextResponse> {
     return NextResponse.json(
       {
         success: true,
+        deleted: result.deleted,
         message: result.deleted
-          ? 'Your waitlist entry and email records have been deleted.'
+          ? 'Your waitlist entry and email records have been deleted. Security logs (up to 90 days), database backups (within a day) and the email provider’s own copies stay for a time.'
           : 'No data found to delete.',
       },
       { status: 200 }

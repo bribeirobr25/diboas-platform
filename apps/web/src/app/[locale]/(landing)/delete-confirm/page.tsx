@@ -14,7 +14,7 @@ import { useLocale } from '@/components/Providers';
 import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
 import styles from './DeleteConfirm.module.css';
 
-type DeletionState = 'idle' | 'confirming' | 'success' | 'expired' | 'error';
+type DeletionState = 'idle' | 'confirming' | 'success' | 'nothing' | 'expired' | 'error';
 
 export default function DeleteConfirmPage() {
   // 5.864: read once, then the token leaves the address bar.
@@ -51,7 +51,8 @@ export default function DeleteConfirmPage() {
         } catch {
           /* storage unavailable */
         }
-        setState('success');
+        // P14 review: a consumed link with no waitlist entry deleted only its records; say so.
+        setState(data.deleted === false ? 'nothing' : 'success');
       } else if (response.status === 400) {
         setState('expired');
       } else {
@@ -80,6 +81,19 @@ export default function DeleteConfirmPage() {
         <>
           <h1 className={styles.titleSuccess}>{t('success')}</h1>
           <p className={styles.statusText}>{t('successBody')}</p>
+          <a href={`/${locale}/`} className={styles.backHomeLink}>
+            {t('backHome')}
+          </a>
+        </>
+      ) : null}
+
+      {state === 'nothing' ? (
+        <>
+          <h1 className={styles.titleSuccess}>{t('nothingFound')}</h1>
+          <p className={styles.statusText}>{t('nothingFoundBody')}</p>
+          <a href={`/${locale}/`} className={styles.backHomeLink}>
+            {t('backHome')}
+          </a>
         </>
       ) : null}
 

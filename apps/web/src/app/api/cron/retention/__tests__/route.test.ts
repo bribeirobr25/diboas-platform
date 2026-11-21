@@ -122,6 +122,18 @@ describe('GET /api/cron/retention — bearer authentication', () => {
     expect(runRetention).toHaveBeenCalledTimes(1);
   });
 
+  it.each([
+    ['failed', { name: 'auditLogs', status: 'failed', count: 0 }],
+    ['brake', { name: 'emailDeliveryOrphans', status: 'brake', count: 0 }],
+  ])('should answer 500 when only one purge reports %s', async (_status, outcome) => {
+    runRetention.mockResolvedValue({
+      ok: false,
+      purges: [outcome, { name: 'deletionTokens', status: 'ok', count: 3 }],
+    });
+    const res = await GET(makeRequest(`Bearer ${CRON_FIXTURE}`));
+    expect(res.status).toBe(500);
+  });
+
   it('should answer 500 naming only the purge, with no failure detail, when a purge failed or braked', async () => {
     runRetention.mockResolvedValue({
       ok: false,

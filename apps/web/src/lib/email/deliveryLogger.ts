@@ -23,6 +23,7 @@ import { Logger } from '@/lib/monitoring/Logger';
 export const DELIVERY_SUBJECTS = {
   welcome: 'Welcome to diBoaS',
   'deletion-confirmation': 'Confirm deletion request',
+  // Typed so the template is a valid send; never recorded (`recordDelivery: false`, P14 E4).
   'deletion-complete': 'Data deleted',
   'referral-success': 'Someone used your invite!',
 } as const;

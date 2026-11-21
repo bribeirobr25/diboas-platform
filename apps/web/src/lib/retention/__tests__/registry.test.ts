@@ -4,6 +4,7 @@
  * 8 · Every table the website writes has a retention entry: a source scan reads every
  *     `INSERT INTO <table>` and `UPDATE <table>` in non-test code (apps/web/src and the repo's
  *     scripts/), comments stripped, and fails on a table missing from `RETENTION_REGISTRY`.
+ *     Any case, quoted or schema-qualified (P14 review); an UPDATE counts only with its SET.
  *     Scope limit: only literal table names are seen.
  * 9 · The 3-year number equals the privacy policy's "Communication records" item, in every locale.
  * 11 · The orphan sweep assumes every delivery row's recipient is a waitlist member: only the
@@ -30,12 +31,16 @@ const files = (dir: string): string[] =>
     return /\.(tsx?|mjs|js)$/.test(e.name) && !/\.(test|spec|stories)\./.test(e.name) ? [full] : [];
   });
 
+/** An optional `schema.` and a table name, either one optionally quoted. */
+const TABLE = String.raw`(?:"?[a-z_][a-z0-9_]*"?\.)?"?([a-z_][a-z0-9_]*)"?`;
+const INSERT = new RegExp(String.raw`\binsert\s+into\s+${TABLE}`, 'gi');
+const UPDATE = new RegExp(String.raw`(?<!\bdo\s)\bupdate\s+${TABLE}\s+set\b`, 'gi');
+
 /** Tables written by literal SQL; `ON CONFLICT … DO UPDATE SET` is not a table. */
 function writtenTables(code: string): string[] {
   const found = new Set<string>();
-  for (const m of code.matchAll(/\bINSERT INTO\s+([a-z_][a-z0-9_]*)/g)) found.add(m[1]!);
-  for (const m of code.matchAll(/(?<!\bDO\s)\bUPDATE\s+([a-z_][a-z0-9_]*)/g))
-    if (m[1] !== 'SET') found.add(m[1]!);
+  for (const m of code.matchAll(INSERT)) found.add(m[1]!.toLowerCase());
+  for (const m of code.matchAll(UPDATE)) found.add(m[1]!.toLowerCase());
   return [...found];
 }
 
@@ -89,6 +94,11 @@ describe(
         writtenTables('INSERT INTO t (k) VALUES (1) ON CONFLICT (k) DO UPDATE SET k = 2')
       ).toEqual(['t']);
       expect(writtenTables("Logger.error('Failed to update entry')")).toEqual([]);
+      expect(writtenTables('sql`update newsletter_prefs set a = 1`')).toEqual(['newsletter_prefs']);
+      expect(writtenTables('sql`INSERT INTO "newsletter_prefs" (a) VALUES (1)`')).toEqual([
+        'newsletter_prefs',
+      ]);
+      expect(writtenTables('sql`insert into public.prefs (a) values (1)`')).toEqual(['prefs']);
       expect(writtenTables(stripComments('// INSERT INTO ghost\nconst a = 1;', 'x.ts'))).toEqual(
         []
       );
@@ -128,11 +138,48 @@ describe('RETENTION-1 guard 11 · only waitlist emails are recorded', { timeout:
     ]);
   });
 
+  const rel = (f: string) => relative(SRC, f).split(sep).join('/');
+  /** Imports the logger by name (aliased or not) or loads its module dynamically. */
+  const IMPORTS_LOGGER =
+    /import\s*(?:type\s*)?\{[^}]*\blogEmailDelivery\b[^}]*\}\s*from|import\(\s*['"][^'"]*deliveryLogger['"]\s*\)/;
+
   it('should write delivery rows from sendEmail.ts alone', () => {
-    const writers = files(SRC)
-      .filter((f) => !f.endsWith(`${sep}deliveryLogger.ts`))
-      .filter((f) => /\blogEmailDelivery\s*\(/.test(stripComments(readFileSync(f, 'utf8'), f)))
-      .map((f) => relative(SRC, f).split(sep).join('/'));
-    expect(writers).toEqual(['lib/email/sendEmail.ts']);
+    const code = files(SRC).map(
+      (f) => [rel(f), stripComments(readFileSync(f, 'utf8'), f)] as const
+    );
+    const importers = code
+      .filter(([f]) => f !== 'lib/email/deliveryLogger.ts')
+      .filter(([, c]) => IMPORTS_LOGGER.test(c) || /\blogEmailDelivery\s*\(/.test(c))
+      .map(([f]) => f);
+    expect(importers).toEqual(['lib/email/sendEmail.ts']);
+    // and no one writes the table directly (P14 review: a raw INSERT bypassed the name check)
+    const direct = code
+      .filter(([, c]) => /\binsert\s+into\s+"?email_delivery_logs\b/i.test(c))
+      .map(([f]) => f);
+    expect(direct).toEqual(['lib/email/deliveryLogger.ts']);
+  });
+
+  it('should see an aliased or dynamic import of the logger (detector self-test)', () => {
+    expect(
+      IMPORTS_LOGGER.test(
+        "import { logEmailDelivery as record } from '@/lib/email/deliveryLogger';"
+      )
+    ).toBe(true);
+    expect(IMPORTS_LOGGER.test("const m = await import('@/lib/email/deliveryLogger');")).toBe(true);
+    expect(IMPORTS_LOGGER.test("import { DELIVERY_SUBJECTS } from './deliveryLogger';")).toBe(
+      false
+    );
+  });
+});
+
+/* A source scan: its own timeout under coverage (COV-1, 5.1023). */
+describe('RETENTION-1 · the windows are code, never configuration', { timeout: 30_000 }, () => {
+  it('should read no environment variable in the retention and erasure code', () => {
+    const readers = [...files(join(SRC, 'lib/retention')), ...files(join(SRC, 'lib/privacy'))]
+      .filter((f) =>
+        /\bprocess\.env\b|\bimport\.meta\.env\b/.test(stripComments(readFileSync(f, 'utf8'), f))
+      )
+      .map((f) => relative(SRC, f));
+    expect(readers).toEqual([]);
   });
 });

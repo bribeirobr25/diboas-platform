@@ -53,5 +53,31 @@ describe(
         );
       expect(calls.sort()).toEqual(HASH_OF_HASH);
     });
+
+    /** Every file that imports hmacHash: the one function and the two hash-of-hash sites. */
+    const IMPORTERS = [
+      'app/api/email/unsubscribe/route.ts',
+      'lib/email/unsubscribeUrl.ts',
+      'lib/security/hashEmailAddress.ts',
+    ];
+    /** Imports hmacHash by name, aliased or not (P14 review: an alias hid a raw address hash). */
+    const IMPORTS_HMAC =
+      /import\s*\{[^}]*\bhmacHash\b[^}]*\}\s*from|import\(\s*['"][^'"]*encryption['"]/;
+
+    it('should find hmacHash imported only where its calls are listed', () => {
+      const importers = files(SRC)
+        .filter((f) => IMPORTS_HMAC.test(stripComments(readFileSync(f, 'utf8'), f)))
+        .map((f) => relative(SRC, f).split(sep).join('/'))
+        .sort();
+      expect(importers).toEqual(IMPORTERS);
+    });
+
+    it('should see an aliased or dynamic import of hmacHash (detector self-test)', () => {
+      expect(IMPORTS_HMAC.test("import { hmacHash as blindIndex } from '../encryption';")).toBe(
+        true
+      );
+      expect(IMPORTS_HMAC.test("const e = await import('@/lib/security/encryption');")).toBe(true);
+      expect(IMPORTS_HMAC.test("import { encrypt } from '../encryption';")).toBe(false);
+    });
   }
 );

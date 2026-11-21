@@ -7,7 +7,7 @@
  * response; logs carry failures (`Logger.error`, which reaches Sentry) and a count-only
  * `Logger.warn` when the orphan sweep deletes a row.
  *
- * Only the cron route imports this runner (`retention.test.ts` source scan).
+ * Only the cron route imports this runner (`index.test.ts` source scan).
  */
 import { sql } from '@/lib/database/client';
 import { Logger } from '@/lib/monitoring/Logger';

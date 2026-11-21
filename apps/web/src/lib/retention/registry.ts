@@ -2,7 +2,7 @@
  * Every table the website writes, and how its rows end (plan P14, E9; register `5.863`).
  *
  * A table holding personal data must have a purge (time-bound), an erasure (removed with the
- * person), or an exemption with its reason. `retentionRegistry.test.ts` scans the source for
+ * person), or an exemption with its reason. `registry.test.ts` scans the source for
  * every `INSERT INTO` / `UPDATE` and fails on a table missing here, so a new table cannot be
  * added without answering the question.
  */

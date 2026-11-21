@@ -94,7 +94,11 @@ describe('RETENTION-1 guard 1 · the retention job', () => {
       purge('sweep', async () => ({ count: 0, brakeTripped: true })),
       purge('after', after),
     ]);
-    expect(run.purges[0]).toEqual({ name: 'sweep', status: 'brake', count: 0 });
+    // the whole list: a braked purge is reported once, as brake (P14 review)
+    expect(run.purges).toEqual([
+      { name: 'sweep', status: 'brake', count: 0 },
+      { name: 'after', status: 'ok', count: 0 },
+    ]);
     expect(after).toHaveBeenCalled();
     expect(run.ok).toBe(false);
     expect(Logger.error).toHaveBeenCalledWith('[retention] brake tripped; nothing deleted', {
@@ -135,7 +139,7 @@ describe('RETENTION-1 guard 1 · only the cron route runs the job', { timeout: 3
       return /\.tsx?$/.test(e.name) ? [full] : [];
     });
   const IMPORTS_RUNNER =
-    /from\s+['"](?:@\/lib\/retention|\.\.?\/(?:\.\.\/)*retention)(?:\/index)?['"]/;
+    /(?:from\s+|import\(\s*)['"](?:@\/lib\/retention|\.\.?\/(?:\.\.\/)*retention)(?:\/index)?['"]/;
 
   it('should find the runner imported by the cron route alone when the source is read', () => {
     const importers = files(SRC)
@@ -150,5 +154,8 @@ describe('RETENTION-1 guard 1 · only the cron route runs the job', { timeout: 3
     expect(IMPORTS_RUNNER.test("import { x } from '@/lib/retention/index';")).toBe(true);
     expect(IMPORTS_RUNNER.test("import { x } from '@/lib/retention/registry';")).toBe(false);
     expect(IMPORTS_RUNNER.test("import { x } from '@/lib/retentionPolicy';")).toBe(false);
+    expect(IMPORTS_RUNNER.test("const { runRetention } = await import('@/lib/retention');")).toBe(
+      true
+    );
   });
 });

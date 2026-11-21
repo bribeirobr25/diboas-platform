@@ -1,6 +1,6 @@
 /**
  * `email_delivery_logs`: rows sent more than 3 years ago (the founder's ruling on `5.863`; the
- * privacy policy's "Communication records: 3 years", pinned by `policyRetention.test.ts`).
+ * privacy policy's "Communication records: 3 years", pinned by `registry.test.ts`).
  * No row ceiling: the legitimate volume grows with time (P14, E2).
  */
 import type { Purge } from './types';

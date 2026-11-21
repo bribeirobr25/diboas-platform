@@ -10,9 +10,9 @@ const translations: Record<string, Record<string, string>> = {
     deletedTitle: 'What was deleted:',
     deletedItems:
       'Your email address, name, waitlist position, invite code, email delivery records and deletion links.',
-    keptTitle: 'Kept for a limited time:',
+    keptTitle: 'What we keep:',
     keptItems:
-      'Security logs with your IP address (up to 90 days), database backups (cleared within a day) and copies held by our email provider under its own retention rules. If you invited friends, your invite code stays on their entries.',
+      'Security logs with your IP address (up to 90 days), database backups (cleared within a day) and copies held by our email provider under its own retention rules. If friends joined with your invite code, the code recorded on their entries stays.',
     contact: 'If you have questions or believe this was done in error, please contact us at',
     farewell: 'We wish you all the best.',
   },
@@ -23,9 +23,9 @@ const translations: Record<string, Record<string, string>> = {
     deletedTitle: 'O que foi excluído:',
     deletedItems:
       'Seu endereço de e-mail, nome, posição na lista, código de convite, registros de envio de e-mail e links de exclusão.',
-    keptTitle: 'Mantido por um tempo limitado:',
+    keptTitle: 'O que mantemos:',
     keptItems:
-      'Registros de segurança com seu endereço IP (até 90 dias), backups do banco de dados (apagados em até um dia) e cópias mantidas pelo nosso provedor de e-mail conforme as regras de retenção dele. Se você convidou amigos, seu código de convite permanece nas inscrições deles.',
+      'Registros de segurança com seu endereço IP (até 90 dias), backups do banco de dados (apagados em até um dia) e cópias mantidas pelo nosso provedor de e-mail conforme as regras de retenção dele. Se amigos entraram com seu código de convite, o código registrado nas inscrições deles permanece.',
     contact:
       'Se tiver dúvidas ou acreditar que isso foi feito por engano, entre em contato conosco em',
     farewell: 'Desejamos tudo de bom.',
@@ -37,9 +37,9 @@ const translations: Record<string, Record<string, string>> = {
     deletedTitle: 'Lo que se eliminó:',
     deletedItems:
       'Tu dirección de correo, nombre, posición en la lista, código de invitación, registros de envío de correo y enlaces de eliminación.',
-    keptTitle: 'Se conserva por un tiempo limitado:',
+    keptTitle: 'Lo que conservamos:',
     keptItems:
-      'Registros de seguridad con tu dirección IP (hasta 90 días), copias de seguridad de la base de datos (se borran en un día) y copias que guarda nuestro proveedor de correo según sus normas de retención. Si invitaste a amigos, tu código de invitación sigue en sus inscripciones.',
+      'Registros de seguridad con tu dirección IP (hasta 90 días), copias de seguridad de la base de datos (se borran en menos de un día) y copias que guarda nuestro proveedor de correo según sus normas de retención. Si tus amigos se unieron con tu código de invitación, el código registrado en sus inscripciones se mantiene.',
     contact: 'Si tienes preguntas o crees que fue un error, contáctanos en',
     farewell: 'Te deseamos lo mejor.',
   },
@@ -50,9 +50,9 @@ const translations: Record<string, Record<string, string>> = {
     deletedTitle: 'Was gelöscht wurde:',
     deletedItems:
       'Deine E-Mail-Adresse, dein Name, deine Wartelistenposition, dein Einladungscode, deine E-Mail-Versandprotokolle und deine Löschlinks.',
-    keptTitle: 'Für begrenzte Zeit aufbewahrt:',
+    keptTitle: 'Was wir aufbewahren:',
     keptItems:
-      'Sicherheitsprotokolle mit deiner IP-Adresse (bis zu 90 Tage), Datenbank-Backups (innerhalb eines Tages gelöscht) und Kopien, die unser E-Mail-Anbieter nach seinen eigenen Aufbewahrungsregeln speichert. Wenn du Freunde eingeladen hast, bleibt dein Einladungscode in deren Einträgen.',
+      'Sicherheitsprotokolle mit deiner IP-Adresse (bis zu 90 Tage), Datenbank-Backups (innerhalb eines Tages gelöscht) und Kopien, die unser E-Mail-Anbieter nach seinen eigenen Aufbewahrungsregeln speichert. Wenn Freunde mit deinem Einladungscode beigetreten sind, bleibt der in ihren Einträgen gespeicherte Code erhalten.',
     contact: 'Bei Fragen oder wenn dies irrtümlich geschah, kontaktiere uns unter',
     farewell: 'Wir wünschen dir alles Gute.',
   },

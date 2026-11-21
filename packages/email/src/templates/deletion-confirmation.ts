@@ -9,7 +9,7 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Confirm data deletion',
     greeting: 'Hi{name},',
     greetingNoName: 'Hi,',
-    body: 'We received a request to permanently delete your data from the diBoaS waitlist. Click the button below to confirm.',
+    body: 'We received a request to delete your diBoaS waitlist entry and the records tied to your email address. Click the button below to confirm.',
     ctaButton: 'Confirm deletion',
     expiry: 'This link expires in {minutes} minutes.',
     safety:
@@ -20,7 +20,7 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Confirmar exclusão de dados',
     greeting: 'Olá{name},',
     greetingNoName: 'Olá,',
-    body: 'Recebemos uma solicitação para excluir permanentemente seus dados da lista de espera do diBoaS. Clique no botão abaixo para confirmar.',
+    body: 'Recebemos uma solicitação para excluir sua inscrição na lista de espera do diBoaS e os registros ligados ao seu endereço de e-mail. Clique no botão abaixo para confirmar.',
     ctaButton: 'Confirmar exclusão',
     expiry: 'Este link expira em {minutes} minutos.',
     safety:
@@ -31,7 +31,7 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Confirmar eliminación de datos',
     greeting: 'Hola{name},',
     greetingNoName: 'Hola,',
-    body: 'Recibimos una solicitud para eliminar permanentemente tus datos de la lista de espera de diBoaS. Haz clic en el botón de abajo para confirmar.',
+    body: 'Recibimos una solicitud para eliminar tu inscripción en la lista de espera de diBoaS y los registros vinculados a tu dirección de correo. Haz clic en el botón de abajo para confirmar.',
     ctaButton: 'Confirmar eliminación',
     expiry: 'Este enlace expira en {minutes} minutos.',
     safety: 'Si no solicitaste esto, puedes ignorar este correo. No se eliminará ningún dato.',
@@ -41,7 +41,7 @@ const translations: Record<string, Record<string, string>> = {
     title: 'Datenlöschung bestätigen',
     greeting: 'Hallo{name},',
     greetingNoName: 'Hallo,',
-    body: 'Wir haben eine Anfrage erhalten, deine Daten dauerhaft von der diBoaS-Warteliste zu löschen. Klicke auf den Button unten, um zu bestätigen.',
+    body: 'Wir haben eine Anfrage erhalten, deinen diBoaS-Wartelisteneintrag und die mit deiner E-Mail-Adresse verknüpften Einträge zu löschen. Klicke auf den Button unten, um zu bestätigen.',
     ctaButton: 'Löschung bestätigen',
     expiry: 'Dieser Link läuft in {minutes} Minuten ab.',
     safety:

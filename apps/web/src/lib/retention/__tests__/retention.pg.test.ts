@@ -66,26 +66,26 @@ describe('RETENTION-1 guard 3 · the purges on Postgres', { timeout: 30_000 }, (
   });
 
   it('should delete exactly the expired and orphaned rows, and keep the rest, when the job runs', async () => {
-    await member('wl_ana', 'ana@x.com');
-    await member('wl_bob', 'bob@x.com');
+    await member('wl_ana', 'ana@example.com');
+    await member('wl_bob', 'bob@example.com');
     // a member's rows: one past 3 years, one inside; the mixed-case write must still match
-    await delivered('ana@x.com', 'm-old');
-    await delivered('ana@x.com', 'm-young');
-    await delivered('  Ana@X.com ', 'm-mixed');
+    await delivered('ana@example.com', 'm-old');
+    await delivered('ana@example.com', 'm-young');
+    await delivered('  Ana@Example.com ', 'm-mixed');
     await age('m-old', '3 years 1 day');
     await age('m-young', '3 years -1 day');
     // an orphan (erased person) and a legacy row with an empty hash
-    await delivered('gone@x.com', 'orphan');
+    await delivered('gone@example.com', 'orphan');
     await t.exec(
       `INSERT INTO email_delivery_logs (id, recipient_hash, template, locale, status)
        VALUES ('edl_legacy', '', 'welcome', 'legacy-empty', 'sent')`
     );
     // stored error texts: raw (legacy) and the code (kept)
-    await delivered('bob@x.com', 'b-failed', 'failed');
+    await delivered('bob@example.com', 'b-failed', 'failed');
     await t.exec(
       `INSERT INTO email_delivery_logs (id, recipient_hash, template, locale, status, error_message)
-       VALUES ('edl_raw', $1, 'welcome', 'b-raw', 'failed', 'Mailbox bob@x.com rejected')`,
-      [hashEmailAddress('bob@x.com')]
+       VALUES ('edl_raw', $1, 'welcome', 'b-raw', 'failed', 'Mailbox bob@example.com rejected')`,
+      [hashEmailAddress('bob@example.com')]
     );
     // deletion links: expired and live, with and without a hash
     await t.exec(
@@ -140,17 +140,26 @@ describe('RETENTION-1 guard 3 · the purges on Postgres', { timeout: 30_000 }, (
   });
 
   it('should be idempotent when the job runs twice', async () => {
-    await member('wl_ana', 'ana@x.com');
-    await delivered('ana@x.com', 'm-old');
+    await member('wl_ana', 'ana@example.com');
+    await delivered('ana@example.com', 'm-old');
     await age('m-old', '3 years 1 day');
-    await runRetention(t.query);
+    // a raw error text and a stored code: a second run must rewrite neither (P14 review)
+    await delivered('ana@example.com', 'm-failed', 'failed');
+    await t.exec(
+      `INSERT INTO email_delivery_logs (id, recipient_hash, template, locale, status, error_message)
+       VALUES ('edl_raw2', $1, 'welcome', 'm-raw', 'failed', 'Mailbox rejected')`,
+      [hashEmailAddress('ana@example.com')]
+    );
+    const first = await runRetention(t.query);
+    expect(first.purges.find((p) => p.name === 'emailDeliveryLegacyText')?.count).toBe(1);
     const second = await runRetention(t.query);
     expect(second.purges.every((p) => p.count === 0 && p.status === 'ok')).toBe(true);
   });
 
   it('should delete nothing and report the brake when more orphans than the cap exist', async () => {
-    await member('wl_ana', 'ana@x.com');
-    for (let i = 0; i <= ORPHAN_SWEEP_MAX_ROWS; i++) await delivered(`gone${i}@x.com`, `o${i}`);
+    await member('wl_ana', 'ana@example.com');
+    for (let i = 0; i <= ORPHAN_SWEEP_MAX_ROWS; i++)
+      await delivered(`gone${i}@example.com`, `o${i}`);
     const run = await runRetention(t.query);
     const sweep = run.purges.find((p) => p.name === 'emailDeliveryOrphans');
     expect(sweep).toEqual({ name: 'emailDeliveryOrphans', status: 'brake', count: 0 });
@@ -166,8 +175,9 @@ describe('RETENTION-1 guard 3 · the purges on Postgres', { timeout: 30_000 }, (
   });
 
   it('should delete exactly the cap when that many orphans exist', async () => {
-    await member('wl_ana', 'ana@x.com');
-    for (let i = 0; i < ORPHAN_SWEEP_MAX_ROWS; i++) await delivered(`gone${i}@x.com`, `o${i}`);
+    await member('wl_ana', 'ana@example.com');
+    for (let i = 0; i < ORPHAN_SWEEP_MAX_ROWS; i++)
+      await delivered(`gone${i}@example.com`, `o${i}`);
     const run = await runRetention(t.query);
     expect(run.purges.find((p) => p.name === 'emailDeliveryOrphans')).toEqual({
       name: 'emailDeliveryOrphans',
@@ -177,7 +187,7 @@ describe('RETENTION-1 guard 3 · the purges on Postgres', { timeout: 30_000 }, (
   });
 
   it('should delete nothing and report the brake when the waitlist is empty', async () => {
-    await delivered('gone@x.com', 'o1');
+    await delivered('gone@example.com', 'o1');
     const run = await runRetention(t.query);
     expect(run.purges.find((p) => p.name === 'emailDeliveryOrphans')?.status).toBe('brake');
     expect(await labels()).toEqual(['o1']);

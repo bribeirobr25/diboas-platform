@@ -38,7 +38,6 @@ import {
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
 import { logAuditEvent } from '@/lib/audit/AuditService';
-import { logGdprDeletion } from '@/lib/audit/GdprDeletionLogger';
 import { sendEmailAsync } from '@/lib/email/sendEmail';
 import { buildUnsubscribeUrls } from '@/lib/email/unsubscribeUrl';
 import { encrypt, decrypt } from '@/lib/security/encryption';
@@ -398,7 +397,9 @@ export class WaitlistApplicationService {
 
       let erasedEntry: boolean;
       try {
-        const result = await this.erasure.consumeAndErase(tokenHash, personHash);
+        const result = await this.erasure.consumeAndErase(tokenHash, personHash, {
+          correlationId: input.correlationId,
+        });
         // Expired or consumed by a concurrent request since `findLink`: nothing was erased.
         if (!result.consumed) return { ok: false, code: 'INVALID_TOKEN' };
         erasedEntry = result.entryId !== null;
@@ -422,13 +423,7 @@ export class WaitlistApplicationService {
           details: { method: 'token_confirmation' },
         });
 
-        logGdprDeletion({
-          entityType: 'waitlist_entry',
-          deletedBy: 'user_request',
-          reason: 'gdpr_article_17',
-          correlationId: input.correlationId,
-          metadata: { method: 'token_confirmation' },
-        });
+        // The GDPR deletion record is written by the erasure statement itself (P14).
 
         applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
           domain: 'waitlist',

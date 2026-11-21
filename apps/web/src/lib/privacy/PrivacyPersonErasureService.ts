@@ -6,7 +6,10 @@
  * delivery rows and their waitlist entry. Every part is keyed on the consumed link's own stored
  * hash (`deletion_tokens.email_hash`, which does not depend on the encryption key), and runs only
  * when the link was consumed. One statement is atomic on its own, through the existing `sql` and
- * on the test database alike, so a failure erases nothing and leaves the link usable.
+ * on the test database alike, so a failure erases nothing and leaves the link usable. The GDPR
+ * deletion record is written by the same statement, so it exists exactly when the erasure does
+ * (a late commit after a timeout cannot lose it). An empty stored hash counts as no hash: it would
+ * otherwise match every row written before 5.824 under an empty blind index.
  *
  * What erasure keeps is listed in the plan (E11′) and in the Legal request (`5.1004`).
  *
@@ -55,12 +58,17 @@ export class PrivacyPersonErasureService {
    * when the link predates its stored hash. When the link is no longer live (expired, or consumed
    * by a concurrent request) nothing is erased and `consumed` is false.
    */
-  async consumeAndErase(tokenHash: string, fallbackHash: string): Promise<ErasureResult> {
+  async consumeAndErase(
+    tokenHash: string,
+    fallbackHash: string,
+    record: { correlationId?: string } = {}
+  ): Promise<ErasureResult> {
     const rows = await this.query`
       WITH consumed AS (
         DELETE FROM deletion_tokens
         WHERE token_hash = ${tokenHash} AND expires_at > NOW()
-        RETURNING COALESCE(email_hash, ${fallbackHash}) AS person
+          AND COALESCE(NULLIF(email_hash, ''), NULLIF(${fallbackHash}, '')) IS NOT NULL
+        RETURNING COALESCE(NULLIF(email_hash, ''), NULLIF(${fallbackHash}, '')) AS person
       ),
       other_links AS (
         DELETE FROM deletion_tokens
@@ -76,12 +84,20 @@ export class PrivacyPersonErasureService {
         DELETE FROM waitlist_entries
         WHERE email_hash = (SELECT person FROM consumed)
         RETURNING id
+      ),
+      gdpr_record AS (
+        INSERT INTO gdpr_deletion_logs (entity_type, deleted_by, reason, correlation_id, metadata)
+        SELECT 'waitlist_entry', 'user_request', 'gdpr_article_17', ${record.correlationId ?? null},
+               ${JSON.stringify({ method: 'token_confirmation' })}::jsonb
+        WHERE EXISTS (SELECT 1 FROM entry)
+        RETURNING 1
       )
       SELECT
         (SELECT count(*) FROM consumed)::int AS consumed,
         (SELECT id FROM entry LIMIT 1) AS entry_id,
         (SELECT count(*) FROM deliveries)::int AS deliveries,
-        (SELECT count(*) FROM other_links)::int AS other_links
+        (SELECT count(*) FROM other_links)::int AS other_links,
+        (SELECT count(*) FROM gdpr_record)::int AS recorded
     `;
     const row = rows[0] ?? {};
     return {
