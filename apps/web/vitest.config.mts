@@ -11,26 +11,28 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  * never lower one to make a run pass. Below the 80/60 policy: see register 5.832 (web is ratcheted, not yet compliant). CLAUDE.md requires 100% for security utilities.
  */
 const COVERAGE_THRESHOLDS = {
-  // Re-measured 2026-11-20 (P13 PR-2, `pnpm --filter web test:coverage`) and rounded down, as
-  // COV-1 prescribes: global 47.07/41.00/40.83/46.71, app 40.05/32.61/32.32/39.98, components
+  // Re-measured 2026-11-20 (P14, full `vitest run --coverage`) and rounded down, as COV-1
+  // prescribes: global 47.66/41.81/41.32/47.31, app 41.99/34.55/34.17/41.85, components
   // 24.03/22.45/23.58/23.66, config 43.68/53.49/37.50/44.22, hooks 57.47/53.52/60.78/57.23,
-  // lib 66.18/59.47/58.94/65.78 (lines/branches/functions/statements). Dream Mode's deletion
-  // took tested code with it (app functions fell to 30.8); the business waitlist's and the
-  // share card's own tests carried every floor back above it before any was raised.
+  // lib 66.70/60.44/59.50/66.35 (lines/branches/functions/statements). The guard's
+  // FLOOR_BASELINE (coverageGate.test.ts) is raised with them.
   lines: 47,
   branches: 41,
-  functions: 40,
-  statements: 46,
-  'src/app/**': { lines: 40, branches: 32, functions: 32, statements: 39 },
+  functions: 41,
+  statements: 47,
+  'src/app/**': { lines: 41, branches: 34, functions: 34, statements: 41 },
   'src/components/**': { lines: 24, branches: 22, functions: 23, statements: 23 },
   'src/config/**': { lines: 43, branches: 53, functions: 37, statements: 44 },
   'src/hooks/**': { lines: 57, branches: 53, functions: 60, statements: 57 },
-  'src/lib/**': { lines: 66, branches: 59, functions: 58, statements: 65 },
+  'src/lib/**': { lines: 66, branches: 60, functions: 59, statements: 66 },
   // Security utilities: 100% on every metric.
   'src/lib/security/**': { 100: true },
   'middleware.ts': { 100: true },
   'src/app/api/email/unsubscribe/route.ts': { 100: true },
-  'src/app/api/cron/purge-audit-logs/route.ts': { 100: true },
+  'src/app/api/cron/retention/route.ts': { 100: true },
+  // P14 (5.863): the retention job and a person's erasure.
+  'src/lib/retention/**': { 100: true },
+  'src/lib/privacy/**': { 100: true },
   'src/app/api/consent/route.ts': { 100: true },
   'src/app/api/monitoring/route.ts': { 100: true },
   'src/lib/api/routeHelpers.ts': { 100: true },

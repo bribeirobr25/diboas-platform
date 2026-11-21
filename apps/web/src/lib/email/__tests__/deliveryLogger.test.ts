@@ -4,6 +4,9 @@
  * The recipient's address is stored only encrypted, with its blind index. With no usable key
  * (production misconfiguration) the row is skipped and the failure logged; the address is
  * never written in clear, and the logger never throws (fire-and-forget).
+ *
+ * ⛑ RETENTION-1 guard 6 (P14, E5; register `5.863`): a row holds no free text. A failed send
+ * stores `provider_rejected`, the subject comes from the pinned set, and no metadata is written.
  */
 import { beforeEach, describe, expect, it, vi, type Mock } from 'vitest';
 
@@ -15,14 +18,18 @@ vi.mock('@/lib/security/encryption', () => ({
 }));
 vi.mock('@/lib/monitoring/Logger', () => ({ Logger: { error: vi.fn() } }));
 
-import { logEmailDelivery } from '../deliveryLogger';
+import {
+  DELIVERY_ERROR_CODES,
+  DELIVERY_SUBJECTS,
+  logEmailDelivery,
+  type DeliveryTemplate,
+} from '../deliveryLogger';
 import * as encryption from '@/lib/security/encryption';
 import { Logger } from '@/lib/monitoring/Logger';
 
 const INPUT = {
   recipientEmail: 'User@Example.com',
-  template: 'welcome',
-  subject: 'Hi',
+  template: 'welcome' as const,
   locale: 'en',
   status: 'sent' as const,
 };
@@ -51,5 +58,54 @@ describe('logEmailDelivery', () => {
     await expect(logEmailDelivery(INPUT)).resolves.toBeUndefined();
     expect(mockSql).not.toHaveBeenCalled();
     expect(Logger.error).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('RETENTION-1 guard 6 · no free text in a delivery row (P14, E5)', () => {
+  it('should store the code, never the provider text, when a send failed', async () => {
+    await logEmailDelivery({ ...INPUT, status: 'failed', providerId: 'msg_1' });
+    expect(written()).toContain('provider_rejected');
+    // the only value carrying the address is its ciphertext (the mock prefixes `enc:`)
+    expect(
+      written().filter((v) => typeof v === 'string' && v.includes('@') && !v.startsWith('enc:'))
+    ).toEqual([]);
+  });
+
+  it('should store no error code when a send succeeded', async () => {
+    await logEmailDelivery(INPUT);
+    expect(written()).not.toContain('provider_rejected');
+    expect(written()).toContain(null);
+  });
+
+  it.each(Object.entries(DELIVERY_SUBJECTS))(
+    'should record the pinned subject when the template is %s',
+    async (template, subject) => {
+      await logEmailDelivery({ ...INPUT, template: template as DeliveryTemplate });
+      expect(written()).toContain(subject);
+    }
+  );
+
+  it('should write no metadata column when it logs a row', async () => {
+    await logEmailDelivery(INPUT);
+    const statement = (mockSql.mock.calls[0]![0] as TemplateStringsArray).join('?');
+    expect(statement).not.toMatch(/metadata/);
+    expect(statement).toMatch(/error_message/);
+  });
+
+  it('should write no row when the template is outside the pinned set', async () => {
+    // @ts-expect-error a template outside the set is refused at the type level too
+    await logEmailDelivery({ ...INPUT, template: 'free-text-subject' });
+    expect(mockSql).not.toHaveBeenCalled();
+    expect(Logger.error).toHaveBeenCalledTimes(1);
+  });
+
+  it('should pin the four templates the website sends', () => {
+    expect(Object.keys(DELIVERY_SUBJECTS).sort()).toEqual([
+      'deletion-complete',
+      'deletion-confirmation',
+      'referral-success',
+      'welcome',
+    ]);
+    expect([...DELIVERY_ERROR_CODES]).toEqual(['provider_rejected', 'legacy_redacted']);
   });
 });

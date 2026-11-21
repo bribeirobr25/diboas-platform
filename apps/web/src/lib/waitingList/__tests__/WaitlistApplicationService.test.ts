@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 /**
  * WaitlistApplicationService — contract tests
  *
@@ -22,7 +24,6 @@ vi.mock('@/lib/waitingList/store', () => ({
   getByEmail: vi.fn(),
   getByReferralCode: vi.fn(),
   processReferral: vi.fn(),
-  deleteByEmail: vi.fn(),
   checkEmailOptOut: vi.fn().mockResolvedValue(false),
   resetEmailOptOut: vi.fn().mockResolvedValue(false),
   getFoundingMemberCount: vi.fn().mockResolvedValue({ count: 100, cap: 1200 }),
@@ -233,126 +234,194 @@ describe('WaitlistApplicationService.requestDeletion', () => {
 });
 
 describe('WaitlistApplicationService.confirmDeletion', () => {
+  /*
+   * ⛑ RETENTION-1 guards 4 and 5 at the service level (P14, E3′/E4): the link is consumed and the
+   * person erased in one statement (PrivacyPersonErasureService, proven on Postgres in
+   * lib/privacy/__tests__/erasure.pg.test.ts); this pins what the service does around it.
+   */
   let service: WaitlistApplicationService;
-  let randomSpy: ReturnType<typeof vi.spyOn>;
+  const erasure = {
+    findLink: vi.fn(),
+    consumeAndErase: vi.fn(),
+    isErased: vi.fn(),
+  };
+  const LINK = { encryptedEmail: 'enc:user@example.com', emailHash: 'stored-hash' };
+  const ENTRY = { id: 'wl_1', email: 'user@example.com', locale: 'de', name: 'Hans' };
+  const ERASED = { consumed: true, entryId: 'wl_1', deliveryRows: 2, otherLinks: 1 };
 
   beforeEach(() => {
-    // Reset SQL mock between tests so leftover `mockResolvedValueOnce`
-    // queues from prior tests don't pollute the next one.
     mockedSql.mockReset();
     vi.clearAllMocks();
-    // Pin Math.random above the 0.1 cleanup threshold for determinism.
-    randomSpy = vi.spyOn(Math, 'random').mockReturnValue(0.5);
-    service = new WaitlistApplicationService();
-  });
-
-  afterEach(() => {
-    randomSpy.mockRestore();
-  });
-
-  it('returns INVALID_TOKEN when no row is consumed', async () => {
-    // Math.random is pinned > 0.1 in beforeEach, so cleanup is skipped and
-    // the only sql() call is the DELETE…RETURNING (returning empty).
-    mockedSql.mockResolvedValue([]);
-
-    const result = await service.confirmDeletion({ token: 'bogus' });
-
-    expect(result).toEqual({ ok: false, code: 'INVALID_TOKEN' });
-    expect(store.deleteByEmail).not.toHaveBeenCalled();
-  });
-
-  /* Thirteenth audit: the per-address limiter used to ALLOW a send when the blind index was null,
-   * so a refactor away from the earlier refusals would have switched off anti-bombing. */
-  it('should send no email, never asking the limiter, when the blind index is unavailable', async () => {
-    mockedSql.mockResolvedValue([{ email: 'enc:user@example.com' }]);
-    (store.getByEmail as Mock).mockResolvedValue({
-      id: 'wl_1',
-      email: 'user@example.com',
-      locale: 'en',
-    });
-    (store.deleteByEmail as Mock).mockResolvedValue(true);
-    (encryption.hmacHash as Mock).mockReturnValue(null);
-
-    const result = await service.confirmDeletion({ token: 'tok' });
-
-    expect(result).toMatchObject({ ok: true, deleted: true });
-    expect(rateLimiter.checkOutboundEmailRateLimit).not.toHaveBeenCalled();
-    expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
+    erasure.findLink.mockReset().mockResolvedValue(LINK);
+    erasure.consumeAndErase.mockReset().mockResolvedValue(ERASED);
+    erasure.isErased.mockReset().mockResolvedValue(false);
+    (store.getByEmail as Mock).mockResolvedValue(ENTRY);
     (encryption.hmacHash as Mock).mockReturnValue('test-hmac-hash');
+    service = new WaitlistApplicationService(erasure as never);
   });
 
-  it('deletes, audits, GDPR-logs, emits event, and emails on a valid token', async () => {
-    // Cleanup is skipped (Math.random pinned), so the first sql call is
-    // the DELETE…RETURNING that returns the encrypted email row.
-    mockedSql.mockResolvedValue([{ email: 'enc:user@example.com' }]);
-    (store.getByEmail as Mock).mockResolvedValue({
-      id: 'wl_1',
-      email: 'user@example.com',
-      locale: 'de',
-      name: 'Hans',
-    });
-    (store.deleteByEmail as Mock).mockResolvedValue(true);
+  const noCompletionEffects = () => {
+    expect(audit.logAuditEvent).not.toHaveBeenCalled();
+    expect(gdpr.logGdprDeletion).not.toHaveBeenCalled();
+    expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
+  };
 
-    const result = await service.confirmDeletion({
-      token: 'valid-token',
-      correlationId: 'req-3',
+  it('should answer INVALID_TOKEN and erase nothing when the link is not live', async () => {
+    erasure.findLink.mockResolvedValue(null);
+    expect(await service.confirmDeletion({ token: 'bogus' })).toEqual({
+      ok: false,
+      code: 'INVALID_TOKEN',
     });
+    expect(erasure.consumeAndErase).not.toHaveBeenCalled();
+    noCompletionEffects();
+  });
+
+  it('should answer INVALID_TOKEN when a concurrent request consumed the link first', async () => {
+    erasure.consumeAndErase.mockResolvedValue({ ...ERASED, consumed: false, entryId: null });
+    expect(await service.confirmDeletion({ token: 'tok' })).toEqual({
+      ok: false,
+      code: 'INVALID_TOKEN',
+    });
+    noCompletionEffects();
+  });
+
+  it('should erase by the link stored hash, audit, log, emit and email unrecorded when the link is valid', async () => {
+    const result = await service.confirmDeletion({ token: 'valid-token', correlationId: 'req-3' });
 
     expect(result).toEqual({ ok: true, deleted: true });
-
-    expect(store.deleteByEmail).toHaveBeenCalledWith('user@example.com');
-
+    expect(erasure.consumeAndErase).toHaveBeenCalledWith('hashed:valid-token', 'stored-hash', {
+      correlationId: 'req-3',
+    });
     expect(audit.logAuditEvent).toHaveBeenCalledWith(
-      expect.objectContaining({
-        eventType: 'gdpr.deletion.completed',
-        correlationId: 'req-3',
-      })
+      expect.objectContaining({ eventType: 'gdpr.deletion.completed', correlationId: 'req-3' })
     );
-    expect(gdpr.logGdprDeletion).toHaveBeenCalledWith(
-      expect.objectContaining({
-        deletedBy: 'user_request',
-        reason: 'gdpr_article_17',
-        correlationId: 'req-3',
-      })
-    );
+    // the GDPR record is written inside the erasure statement, never separately
+    expect(gdpr.logGdprDeletion).not.toHaveBeenCalled();
     expect(eventBus.applicationEventBus.emit).toHaveBeenCalledWith(
       'WAITLIST_DELETION_COMPLETED',
       expect.objectContaining({ domain: 'waitlist', correlationId: 'req-3' })
     );
-
     expect(emailModule.sendEmailAsync).toHaveBeenCalledWith(
       expect.objectContaining({
         method: 'sendDeletionComplete',
         recipient: 'user@example.com',
+        template: 'deletion-complete',
+        recordDelivery: false,
         locale: 'de',
         data: expect.objectContaining({ name: 'Hans' }),
       })
     );
   });
 
-  it('returns deleted=false when the row was already gone (race) but still ok', async () => {
-    mockedSql.mockResolvedValue([{ email: 'enc:user@example.com' }]);
+  it('should answer deleted=false with no completion effects when the person had no entry', async () => {
+    erasure.consumeAndErase.mockResolvedValue({ ...ERASED, entryId: null });
     (store.getByEmail as Mock).mockResolvedValue(undefined);
-    (store.deleteByEmail as Mock).mockResolvedValue(false);
+    expect(await service.confirmDeletion({ token: 'valid' })).toEqual({ ok: true, deleted: false });
+    noCompletionEffects();
+  });
 
-    const result = await service.confirmDeletion({ token: 'valid' });
+  it('should erase by the stored hash and send no email when the address cannot be decrypted', async () => {
+    (encryption.decrypt as Mock).mockReturnValueOnce(null);
+    const result = await service.confirmDeletion({ token: 'tok' });
+    expect(result).toEqual({ ok: true, deleted: true });
+    expect(erasure.consumeAndErase).toHaveBeenCalledWith(
+      'hashed:tok',
+      'stored-hash',
+      expect.anything()
+    );
+    expect(store.getByEmail).not.toHaveBeenCalled();
+    expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
+    // the ciphertext is never used as an address
+    expect(JSON.stringify(vi.mocked(store.getByEmail).mock.calls)).not.toMatch(/enc:/);
+  });
 
-    expect(result).toEqual({ ok: true, deleted: false });
-    // No completion side effects fired when nothing was actually deleted.
-    expect(audit.logAuditEvent).not.toHaveBeenCalled();
-    expect(gdpr.logGdprDeletion).not.toHaveBeenCalled();
+  it('should key a link written before its stored hash on the hash of its address', async () => {
+    erasure.findLink.mockResolvedValue({ ...LINK, emailHash: null });
+    await service.confirmDeletion({ token: 'tok' });
+    expect(erasure.consumeAndErase).toHaveBeenCalledWith(
+      'hashed:tok',
+      'test-hmac-hash',
+      expect.anything()
+    );
+  });
+
+  it('should keep the link and answer SERVER_ERROR when no hash can key the erasure', async () => {
+    erasure.findLink.mockResolvedValue({ ...LINK, emailHash: null });
+    (encryption.hmacHash as Mock).mockReturnValue(null);
+    const result = await service.confirmDeletion({ token: 'tok' });
+    expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+    expect(erasure.consumeAndErase).not.toHaveBeenCalled();
+  });
+
+  /* Thirteenth audit: the per-address limiter used to ALLOW a send when the blind index was null,
+   * so a refactor away from the earlier refusals would have switched off anti-bombing. */
+  it('should send no email, never asking the limiter, when the blind index is unavailable', async () => {
+    (encryption.hmacHash as Mock).mockReturnValue(null);
+    const result = await service.confirmDeletion({ token: 'tok' });
+    expect(result).toMatchObject({ ok: true, deleted: true });
+    expect(rateLimiter.checkOutboundEmailRateLimit).not.toHaveBeenCalled();
     expect(emailModule.sendEmailAsync).not.toHaveBeenCalled();
   });
 
-  it('returns SERVER_ERROR when the database throws', async () => {
-    const err = new Error('db down');
-    mockedSql.mockRejectedValue(err);
+  it('should answer as completed, with every record and the email, when the statement committed after a reported failure', async () => {
+    erasure.consumeAndErase.mockRejectedValue(new Error('Database query timed out after 8000ms'));
+    erasure.isErased.mockResolvedValue(true);
+    const result = await service.confirmDeletion({ token: 'tok', correlationId: 'req-9' });
+    expect(result).toEqual({ ok: true, deleted: true });
+    expect(erasure.isErased).toHaveBeenCalledWith('hashed:tok', 'stored-hash');
+    expect(audit.logAuditEvent).toHaveBeenCalledWith(
+      expect.objectContaining({ eventType: 'gdpr.deletion.completed', correlationId: 'req-9' })
+    );
+    expect(gdpr.logGdprDeletion).not.toHaveBeenCalled();
+    expect(emailModule.sendEmailAsync).toHaveBeenCalledWith(
+      expect.objectContaining({ template: 'deletion-complete', recordDelivery: false })
+    );
+  });
 
-    const result = await service.confirmDeletion({ token: 'valid' });
+  it('should answer SERVER_ERROR, the link still live, when the statement did not commit', async () => {
+    erasure.consumeAndErase.mockRejectedValue(new Error('Database query timed out after 8000ms'));
+    erasure.isErased.mockResolvedValue(false);
+    const result = await service.confirmDeletion({ token: 'tok' });
+    expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+    noCompletionEffects();
+  });
 
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.code).toBe('SERVER_ERROR');
-    }
+  it('should not re-check, and answer SERVER_ERROR, when the person had no entry before', async () => {
+    erasure.consumeAndErase.mockRejectedValue(new Error('db down'));
+    (store.getByEmail as Mock).mockResolvedValue(undefined);
+    const result = await service.confirmDeletion({ token: 'tok' });
+    expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+    expect(erasure.isErased).not.toHaveBeenCalled();
+    noCompletionEffects();
+  });
+
+  it('should answer SERVER_ERROR when reading the link fails', async () => {
+    erasure.findLink.mockRejectedValue(new Error('db down'));
+    const result = await service.confirmDeletion({ token: 'tok' });
+    expect(result).toMatchObject({ ok: false, code: 'SERVER_ERROR' });
+  });
+});
+
+/**
+ * ⛑ RETENTION-1 guard 5 (P14 review): every send states whether its delivery is recorded, and
+ * only the completion email (sent after erasure) is not; the other three still record theirs.
+ */
+describe('RETENTION-1 guard 5 · which sends are recorded', () => {
+  const source = readFileSync(join(__dirname, '../WaitlistApplicationService.ts'), 'utf8');
+  const sends = [...source.matchAll(/sendEmailAsync\(\{([\s\S]*?)\}\)/g)].map((m) => ({
+    template: /template:\s*'([^']+)'/.exec(m[1]!)?.[1],
+    record: /recordDelivery:\s*(true|false)/.exec(m[1]!)?.[1],
+  }));
+
+  it('should record every waitlist email except the completion email when the service sends', () => {
+    expect(sends).toEqual(
+      expect.arrayContaining([
+        { template: 'welcome', record: 'true' },
+        { template: 'deletion-confirmation', record: 'true' },
+        { template: 'referral-success', record: 'true' },
+        { template: 'deletion-complete', record: 'false' },
+      ])
+    );
+    expect(sends).toHaveLength(4);
   });
 });

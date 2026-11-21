@@ -30,11 +30,12 @@ updates:
       # Patches and minors only: a major is its own increment (register 5.737), so each
       # major arrives as its own PR instead of riding in a group of 24 (#846, 2026-11-11).
       # 0.x packages are left out: Dependabot calls 0.15 → 0.16 a minor, but it can break
-      # like a major (@lhci/cli 0.16 moved to Lighthouse 13 and Node 22.19, 5.895).
+      # like a major (@lhci/cli 0.16 moved to Lighthouse 13 and Node 22.19, 5.895). PGlite
+      # (0.x, the test Postgres of gate RETENTION-1, P14) is left out for the same reason.
       dev-dependencies:
         dependency-type: 'development'
         update-types: ['minor', 'patch']
-        exclude-patterns: ['@lhci/cli', '@types/three']
+        exclude-patterns: ['@lhci/cli', '@types/three', '@electric-sql/pglite']
     ignore:
       # Bumped by hand, never by Dependabot: postcss must equal the exact postcss
       # inside `next` (docs/tech/implementation-notes.md § postcss), and tailwindcss is

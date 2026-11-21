@@ -110,7 +110,7 @@ describe('the error sink across module copies', () => {
     expect(routeCopy, 'two separate module instances').not.toBe(instrumentationCopy);
     const sink = vi.fn();
     instrumentationCopy.setErrorSink(sink);
-    routeCopy.error('[cron/purge-audit-logs] CRON_SECRET is not set', {});
+    routeCopy.error('[cron/retention] CRON_SECRET is not set', {});
     expect(sink).toHaveBeenCalledTimes(1);
     routeCopy.setErrorSink(undefined);
     instrumentationCopy.error('after disconnect', {});
@@ -128,7 +128,7 @@ describe('serverErrorSink (5.888)', () => {
     vi.spyOn(console, 'error').mockImplementation(() => undefined);
     connectServerErrorSink();
     const cause = new Error('connect ETIMEDOUT');
-    Logger.error('[cron/purge-audit-logs] purge failed', { email: 'ana@example.com' }, cause);
+    Logger.error('[retention] purge failed', { email: 'ana@example.com' }, cause);
     Logger.critical('database down', {});
     expect(captureException).toHaveBeenCalledTimes(2);
     const [sent, options] = captureException.mock.calls[0] as [Error, Record<string, unknown>];
@@ -137,7 +137,7 @@ describe('serverErrorSink (5.888)', () => {
       level: 'error',
       tags: { source: 'logger' },
       extra: {
-        logMessage: '[cron/purge-audit-logs] purge failed',
+        logMessage: '[retention] purge failed',
         context: { email: '[REDACTED]' },
       },
     });

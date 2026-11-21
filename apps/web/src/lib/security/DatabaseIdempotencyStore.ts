@@ -72,16 +72,3 @@ export async function dbCacheIdempotentResponse(
     });
   }
 }
-
-/**
- * Delete expired entries (housekeeping). Safe to call periodically.
- */
-export async function dbCleanupIdempotencyCache(): Promise<void> {
-  try {
-    await sql`DELETE FROM idempotency_cache WHERE expires_at <= NOW()`;
-  } catch (error) {
-    Logger.error('[DatabaseIdempotencyStore] Cleanup failed', {
-      error: error instanceof Error ? error.message : String(error),
-    });
-  }
-}

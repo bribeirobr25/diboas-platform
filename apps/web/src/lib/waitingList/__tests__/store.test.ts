@@ -37,7 +37,6 @@ import {
   getByReferralCode,
   exists,
   updateEntry,
-  deleteByEmail,
   processReferral,
   clearStore,
   getAllEntries,
@@ -472,24 +471,6 @@ describe('Waitlist Store', () => {
       const result = await processReferral('nonexistent@example.com');
 
       expect(result).toBeUndefined();
-    });
-  });
-
-  describe('deleteByEmail', () => {
-    it('should return true when entry deleted', async () => {
-      mockSql.mockResolvedValueOnce([{ id: 'wl_123_1' }]);
-
-      const result = await deleteByEmail('delete@example.com');
-
-      expect(result).toBe(true);
-    });
-
-    it('should return false for non-existent email', async () => {
-      mockSql.mockResolvedValueOnce([]);
-
-      const result = await deleteByEmail('nonexistent@example.com');
-
-      expect(result).toBe(false);
     });
   });
 

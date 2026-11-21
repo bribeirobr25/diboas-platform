@@ -215,7 +215,11 @@ function getHmacKey(): Buffer | null {
  * for cryptographic separation. Falls back to `ENCRYPTION_KEY` in dev.
  *
  * Key rotation implications:
- * - Rotating HMAC_KEY breaks ALL email_hash lookups (must re-hash all rows)
+ * - Rotating HMAC_KEY breaks ALL address-hash lookups (must re-hash all rows): the hashes are
+ *   `waitlist_entries.email_hash`, `deletion_tokens.email_hash` and
+ *   `email_delivery_logs.recipient_hash` (P14). Re-hash all three together: between them, the
+ *   daily orphan sweep sees every delivery row as an orphan and its brake deletes nothing
+ *   (`lib/retention/emailDeliveryOrphans.ts`), and erasure misses the old rows.
  * - Rotating ENCRYPTION_KEY breaks stored PII decryption (must re-encrypt all rows)
  * - These are independent operations — rotate one without affecting the other
  *

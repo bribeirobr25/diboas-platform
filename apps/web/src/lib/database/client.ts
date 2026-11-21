@@ -20,6 +20,9 @@ export interface IDatabaseClient {
   pingDatabase(): Promise<boolean>;
 }
 
+/** The query function alone, for code that takes it by injection (P14: retention, erasure). */
+export type QueryFn = IDatabaseClient['sql'];
+
 let _sql: NeonQueryFunction<false, false> | null = null;
 
 function getSql(): NeonQueryFunction<false, false> {

@@ -30,7 +30,6 @@ import {
   getByEmail,
   getByReferralCode,
   processReferral,
-  deleteByEmail,
   checkEmailOptOut,
   resetEmailOptOut,
   getFoundingMemberCount,
@@ -39,13 +38,17 @@ import {
 } from '@/lib/waitingList/store';
 import { Logger } from '@/lib/monitoring/Logger';
 import { logAuditEvent } from '@/lib/audit/AuditService';
-import { logGdprDeletion } from '@/lib/audit/GdprDeletionLogger';
 import { sendEmailAsync } from '@/lib/email/sendEmail';
 import { buildUnsubscribeUrls } from '@/lib/email/unsubscribeUrl';
-import { hmacHash, encrypt, decrypt } from '@/lib/security/encryption';
+import { encrypt, decrypt } from '@/lib/security/encryption';
+import { hashEmailAddress } from '@/lib/security/hashEmailAddress';
 import { generateDeletionToken, hashToken } from '@/lib/security';
 import { checkOutboundEmailRateLimit } from '@/lib/security/rateLimiter';
 import { sql } from '@/lib/database/client';
+import {
+  PrivacyPersonErasureService,
+  privacyPersonErasureService,
+} from '@/lib/privacy/PrivacyPersonErasureService';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { DuplicateEntryError, EncryptionUnavailableError } from '@/lib/errors/domainErrors';
 
@@ -126,6 +129,11 @@ export type ConfirmDeletionResult =
 // ---------------------------------------------------------------------------
 
 export class WaitlistApplicationService {
+  /** P14 E3′: the one statement that consumes a deletion link and erases the person. */
+  constructor(
+    private readonly erasure: PrivacyPersonErasureService = privacyPersonErasureService
+  ) {}
+
   // -------------------------------------------------------------------------
   // Signup
   // -------------------------------------------------------------------------
@@ -211,7 +219,7 @@ export class WaitlistApplicationService {
       // Same pattern as the original route: opt-out check is awaited
       // inline; the email send itself is internally fire-and-forget.
       const welcomeName = input.name ? sanitizeUserName(input.name) : undefined;
-      const emailHash = hmacHash(input.email);
+      const emailHash = hashEmailAddress(input.email);
       const isOptedOut = emailHash ? await checkEmailOptOut(emailHash) : false;
       if (!isOptedOut && (await this.allowOutboundEmail(input.email, 'welcome'))) {
         const unsubUrls = buildUnsubscribeUrls(input.email, locale);
@@ -219,7 +227,7 @@ export class WaitlistApplicationService {
           method: 'sendWelcome',
           recipient: input.email,
           template: 'welcome',
-          subject: 'Welcome to diBoaS',
+          recordDelivery: true,
           locale,
           data: {
             position: entry.position,
@@ -340,7 +348,7 @@ export class WaitlistApplicationService {
           method: 'sendDeletionConfirmation',
           recipient: input.email,
           template: 'deletion-confirmation',
-          subject: 'Confirm deletion request',
+          recordDelivery: true,
           locale,
           data: {
             locale,
@@ -366,17 +374,44 @@ export class WaitlistApplicationService {
 
   async confirmDeletion(input: ConfirmDeletionInput): Promise<ConfirmDeletionResult> {
     try {
-      const found = await this.consumeDeletionToken(input.token);
-      if (!found) return { ok: false, code: 'INVALID_TOKEN' };
+      const tokenHash = hashToken(input.token);
+      const link = await this.erasure.findLink(tokenHash);
+      if (!link) return { ok: false, code: 'INVALID_TOKEN' };
 
-      // Capture entry before deletion for the completion email.
-      const entryBefore = await getByEmail(found.email);
+      // P14 E3′: a link whose address cannot be decrypted is erased by its stored hash; the
+      // ciphertext is never treated as an address (5.824).
+      const address = link.encryptedEmail ? decrypt(link.encryptedEmail) : null;
+      if (!address) {
+        Logger.error('[GDPR] Deletion link address unreadable; erasing by the stored hash', {});
+      }
+      const personHash = link.emailHash ?? (address ? hashEmailAddress(address) : null);
+      if (!personHash) {
+        Logger.error('[GDPR] Deletion link has no usable hash; nothing erased', {});
+        return { ok: false, code: 'SERVER_ERROR', cause: new Error('no person hash') };
+      }
+
+      // Capture the entry before erasure for the completion email.
+      const entryBefore = address ? await getByEmail(address) : undefined;
       const locale = entryBefore?.locale || 'en';
       const name = entryBefore?.name;
 
-      const deleted = await deleteByEmail(found.email);
+      let erasedEntry: boolean;
+      try {
+        const result = await this.erasure.consumeAndErase(tokenHash, personHash, {
+          correlationId: input.correlationId,
+        });
+        // Expired or consumed by a concurrent request since `findLink`: nothing was erased.
+        if (!result.consumed) return { ok: false, code: 'INVALID_TOKEN' };
+        erasedEntry = result.entryId !== null;
+      } catch (error) {
+        // A timeout does not cancel the query: the statement may have committed late. It did
+        // only if the entry existed before and the link and the entry are both gone now.
+        if (!entryBefore || !(await this.erasure.isErased(tokenHash, personHash))) throw error;
+        Logger.warn('[GDPR] Erasure committed after a reported failure', {});
+        erasedEntry = true;
+      }
 
-      if (deleted) {
+      if (erasedEntry) {
         Logger.info('[GDPR] Data deleted successfully');
 
         logAuditEvent({
@@ -388,13 +423,7 @@ export class WaitlistApplicationService {
           details: { method: 'token_confirmation' },
         });
 
-        logGdprDeletion({
-          entityType: 'waitlist_entry',
-          deletedBy: 'user_request',
-          reason: 'gdpr_article_17',
-          correlationId: input.correlationId,
-          metadata: { method: 'token_confirmation' },
-        });
+        // The GDPR deletion record is written by the erasure statement itself (P14).
 
         applicationEventBus.emit(ApplicationEventType.WAITLIST_DELETION_COMPLETED, {
           domain: 'waitlist',
@@ -405,19 +434,19 @@ export class WaitlistApplicationService {
           metadata: { method: 'token_confirmation' },
         });
 
-        if (await this.allowOutboundEmail(found.email, 'deletion-complete')) {
+        if (address && (await this.allowOutboundEmail(address, 'deletion-complete'))) {
           sendEmailAsync({
             method: 'sendDeletionComplete',
-            recipient: found.email,
+            recipient: address,
             template: 'deletion-complete',
-            subject: 'Data deleted',
+            recordDelivery: false, // P14 E4: sent to a person already erased; never recorded
             locale,
             data: { locale, name },
           });
         }
       }
 
-      return { ok: true, deleted };
+      return { ok: true, deleted: erasedEntry };
     } catch (error) {
       Logger.error('[GDPR] Deletion confirmation error', {
         error: error instanceof Error ? error.message : String(error),
@@ -437,8 +466,8 @@ export class WaitlistApplicationService {
    * reaches the limiter — the raw email never leaves this process.
    */
   private async allowOutboundEmail(email: string, template: string): Promise<boolean> {
-    const emailHash = hmacHash(email);
-    // No usable key: hmacHash is null only where personal-data writes refuse (production, or a
+    const emailHash = hashEmailAddress(email);
+    // No usable key: the hash is null only where personal-data writes refuse (production, or a
     // configured database; 5.865), so refuse the send too: the anti-bombing limit fails closed.
     // (Development without a database gets an unkeyed hash, never null.)
     if (!emailHash) return false;
@@ -454,7 +483,7 @@ export class WaitlistApplicationService {
   }
 
   private async handleResubscribe(entryId: string, email: string, locale: string): Promise<void> {
-    const hash = hmacHash(email);
+    const hash = hashEmailAddress(email);
     if (!hash) return;
     const wasOptedOut = await checkEmailOptOut(hash);
     if (!wasOptedOut) return;
@@ -481,7 +510,7 @@ export class WaitlistApplicationService {
     const updatedReferrer = await processReferral(referrer.email);
     if (!updatedReferrer) return;
 
-    const referrerHash = hmacHash(referrer.email);
+    const referrerHash = hashEmailAddress(referrer.email);
     const referrerOptedOut = referrerHash ? await checkEmailOptOut(referrerHash) : false;
     if (referrerOptedOut) return;
 
@@ -493,7 +522,7 @@ export class WaitlistApplicationService {
         method: 'sendReferralSuccess',
         recipient: referrer.email,
         template: 'referral-success',
-        subject: 'Someone used your invite!',
+        recordDelivery: true,
         locale: referrerLocale,
         data: {
           locale: referrerLocale,
@@ -517,7 +546,7 @@ export class WaitlistApplicationService {
    */
   private sealEmail(email: string): { emailEnc: string; emailHmac: string } {
     const emailEnc = encrypt(email);
-    const emailHmac = hmacHash(email.toLowerCase().trim());
+    const emailHmac = hashEmailAddress(email);
     if (!emailEnc || !emailHmac) throw new EncryptionUnavailableError();
     return { emailEnc, emailHmac };
   }
@@ -536,33 +565,6 @@ export class WaitlistApplicationService {
         email_hash = ${emailHmac},
         expires_at = ${expiresAt}
     `;
-  }
-
-  /**
-   * Atomic find-and-delete: two concurrent requests with the same token
-   * see only one RETURNING row. Probabilistically reaps expired tokens.
-   */
-  private async consumeDeletionToken(token: string): Promise<{ email: string } | null> {
-    if (Math.random() < 0.1) {
-      await sql`DELETE FROM deletion_tokens WHERE expires_at < NOW()`;
-    }
-
-    const tokenHash = hashToken(token);
-    const rows = await sql`
-      DELETE FROM deletion_tokens
-      WHERE token_hash = ${tokenHash}
-        AND expires_at > NOW()
-      RETURNING email
-    `;
-
-    if (rows.length === 0) return null;
-    const row = rows[0] as Record<string, unknown> | undefined;
-    const emailValue = typeof row?.email === 'string' ? row.email : null;
-    if (!emailValue) return null;
-
-    // Decrypt email; fall back to plaintext for pre-migration rows.
-    const decrypted = decrypt(emailValue) || emailValue;
-    return { email: decrypted };
   }
 }
 
