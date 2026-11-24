@@ -173,7 +173,14 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     r.timeline = [];
     r.faultOnce = def.faultOnAppend ?? false;
     (globalThis as Record<string, unknown>).__charAppended = appended;
-    (globalThis as Record<string, unknown>).__charSeenLength = core.getLedgerState().events.length;
+    // Events already in the log, so the projection mock records only what the command appends.
+    // A stored history the projection cannot read is counted from storage, never by projecting.
+    (globalThis as Record<string, unknown>).__charSeenLength = def.rawStorage
+      ? Object.values(def.rawStorage).reduce((n, raw) => {
+          const parsed: unknown = JSON.parse(raw);
+          return n + (Array.isArray(parsed) ? parsed.length : 0);
+        }, 0)
+      : core.getLedgerState().events.length;
     r.armed = true;
 
     let result: unknown;
