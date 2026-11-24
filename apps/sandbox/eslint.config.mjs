@@ -145,6 +145,207 @@ export default [
   },
 
   /**
+   * Gate `LEDGER-DECIDE-1` — the ledger's decisions are pure (plan P12 D10, S1a; ADR-003).
+   *
+   * `src/lib/ledger/decide/**` holds each command's preconditions and composition. A decision
+   * reads state, draws ids and reads the clock ONLY through the `ctx` it is given, so the browser
+   * today and a server later (S2b) apply the same rules. Imports are an ALLOW-LIST, not a ban
+   * list: the decision files themselves, the pure helpers named below, `decimal.js`, and only the
+   * named exports of the three domain packages (their barrels also export a localStorage store and
+   * network providers, which a decision must never reach). Scope limits, stated in the gate row:
+   * an aliased `Date` (`const D = Date; new D()`) and a mutation through a method call
+   * (`state.goals.push`) pass this lint; the characterization suite (LEDGER-CHAR-1) is their
+   * backstop. `ledgerDecide1.test.ts` plants every banned form and a clean control.
+   */
+  {
+    files: ['src/lib/ledger/decide/**/*.ts'],
+    ignores: ['src/lib/ledger/decide/**/__tests__/**'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: '@diboas/banking',
+              allowImportNames: ['computeExitFee', 'LedgerEvent', 'LedgerState'],
+              message:
+                'LEDGER-DECIDE-1: from @diboas/banking a decision imports only the named pure exports.',
+            },
+            {
+              name: '@diboas/investing',
+              allowImportNames: ['isValidRuleSplit', 'Proposal'],
+              message:
+                'LEDGER-DECIDE-1: from @diboas/investing a decision imports only the named pure exports.',
+            },
+            {
+              name: '@diboas/defi',
+              allowImportNames: ['StrategyId'],
+              message:
+                'LEDGER-DECIDE-1: from @diboas/defi a decision imports only the named pure exports.',
+            },
+          ],
+          patterns: [
+            {
+              // A regex, not a glob: gitignore negation cannot re-include a file under an excluded parent.
+              regex:
+                '^@/(?!lib/ledger/decide(/|$)|lib/(growthConstants|weeklyCycle|advancePlanner)$)',
+              message:
+                'LEDGER-DECIDE-1: a decision imports only other decisions and the pure helpers (growthConstants, weeklyCycle, advancePlanner).',
+            },
+            {
+              // Exactly one level up is lib/ledger/: the adapters and the core (they write).
+              regex: '^\\.\\./(?!\\.\\./)',
+              message:
+                'LEDGER-DECIDE-1: lib/ledger/* outside decide/ are the adapters and the core (they write); a decision never imports them.',
+            },
+            {
+              regex: '^\\.\\./\\.\\./(?!\\.\\./)(?!(growthConstants|weeklyCycle|advancePlanner)$)',
+              message:
+                'LEDGER-DECIDE-1: from lib/ a decision imports only the pure helpers (relative form).',
+            },
+            {
+              regex: '^\\.\\./\\.\\./\\.\\./',
+              message:
+                'LEDGER-DECIDE-1: a decision imports nothing from outside lib/ (relative form).',
+            },
+            {
+              group: [
+                'react',
+                'react/*',
+                'react-dom',
+                'next',
+                'next/*',
+                'node:*',
+                'fs',
+                'fs/*',
+                'path',
+                'http',
+                'https',
+                'net',
+                'child_process',
+                'crypto',
+              ],
+              message: 'LEDGER-DECIDE-1: a decision uses no framework and performs no I/O.',
+            },
+          ],
+        },
+      ],
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "NewExpression[callee.name='Date'][arguments.length=0]",
+          message: 'LEDGER-DECIDE-1: no clock reads — use ctx.clock().',
+        },
+        {
+          selector: "CallExpression[callee.name='Date']",
+          message: 'LEDGER-DECIDE-1: Date() reads the clock — use ctx.clock().',
+        },
+        {
+          selector: "MemberExpression[object.name='Date'][property.name='now']",
+          message: 'LEDGER-DECIDE-1: no clock reads — use ctx.clock().',
+        },
+        {
+          selector: "MemberExpression[object.name='globalThis'][property.name='Date']",
+          message: 'LEDGER-DECIDE-1: no clock reads — use ctx.clock().',
+        },
+        {
+          selector: "MemberExpression[object.name='performance'][property.name='now']",
+          message: 'LEDGER-DECIDE-1: no clock reads.',
+        },
+        {
+          selector: "MemberExpression[object.name='Math'][property.name='random']",
+          message: 'LEDGER-DECIDE-1: no randomness — ids come from ctx.newId().',
+        },
+        {
+          selector: "CallExpression[callee.name='fetch']",
+          message: 'LEDGER-DECIDE-1: a decision performs no I/O.',
+        },
+        {
+          selector: 'ImportExpression',
+          message: 'LEDGER-DECIDE-1: no dynamic import — it defeats the import allow-list.',
+        },
+      ],
+      'no-restricted-globals': [
+        'error',
+        ...[
+          'window',
+          'document',
+          'navigator',
+          'localStorage',
+          'sessionStorage',
+          'indexedDB',
+          'process',
+          'performance',
+          'crypto',
+          'fetch',
+        ].map((name) => ({
+          name,
+          message: `LEDGER-DECIDE-1: a decision reads no ${name}; what it needs arrives as intent, env or ctx.`,
+        })),
+      ],
+      'no-param-reassign': ['error', { props: true }],
+    },
+  },
+
+  /**
+   * `LEDGER-DECIDE-1`, part 2: the pure helpers a decision may import (and what they import in
+   * turn) read no clock, storage, network or randomness either. A new helper on a decision's path
+   * must be added here and to the reach test's allow-list (`ledgerDecide1.test.ts`).
+   */
+  {
+    files: [
+      'src/lib/growthConstants.ts',
+      'src/lib/weeklyCycle.ts',
+      'src/lib/advancePlanner.ts',
+      'src/i18n/config.ts',
+    ],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "NewExpression[callee.name='Date'][arguments.length=0]",
+          message: 'LEDGER-DECIDE-1: a pure helper reads no clock.',
+        },
+        {
+          selector: "CallExpression[callee.name='Date']",
+          message: 'LEDGER-DECIDE-1: a pure helper reads no clock.',
+        },
+        {
+          selector: "MemberExpression[object.name='Date'][property.name='now']",
+          message: 'LEDGER-DECIDE-1: a pure helper reads no clock.',
+        },
+        {
+          selector: "MemberExpression[object.name='Math'][property.name='random']",
+          message: 'LEDGER-DECIDE-1: a pure helper uses no randomness.',
+        },
+        {
+          selector: "CallExpression[callee.name='fetch']",
+          message: 'LEDGER-DECIDE-1: a pure helper performs no I/O.',
+        },
+        {
+          selector: 'ImportExpression',
+          message: 'LEDGER-DECIDE-1: a pure helper uses no dynamic import.',
+        },
+      ],
+      'no-restricted-globals': [
+        'error',
+        ...[
+          'window',
+          'document',
+          'localStorage',
+          'sessionStorage',
+          'indexedDB',
+          'performance',
+          'fetch',
+        ].map((name) => ({
+          name,
+          message: `LEDGER-DECIDE-1: a pure helper on a decision's path reads no ${name}.`,
+        })),
+      ],
+    },
+  },
+
+  /**
    * Gate `VIEW-2` — money arithmetic stays out of components (docs/domains/
    * practice/ARCHITECTURE.md §2 rule 2, Consolidated Handoff §9.2).
    *
