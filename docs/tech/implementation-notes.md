@@ -416,8 +416,10 @@ Plan P12 (register `5.1008`), ADR-003. Gates: `LEDGER-CHAR-1`, `LEDGER-DECIDE-1`
 - **Where a ledger rule lives.** _Current code:_ each command's rule is a pure `decideX(intent, env, ctx)` in
   `apps/sandbox/src/lib/ledger/decide/` (preconditions and composition; computation rules stay in
   `packages/*`, and `decide/fees.ts` is the one provisional exception). The file under the command's old name
-  (`lib/ledger/{journey,rules,credits,simEvents}.ts`) is an adapter: it builds the decision with
-  `browserContext`, appends what it decided and runs its effects. _Why:_ the browser today and a server later
+  (`lib/ledger/{journey,rules,credits,simEvents}.ts`; all but `advanceTime`, which moves in S1a PR-3) is an
+  adapter: it splits the caller's arguments into intent and environment (plan P12 Appendix A), builds
+  the decision with `browserContext`, and hands it to `applyDecision`, which appends and then runs
+  every effect. _Why:_ the browser today and a server later
   (S2b) must apply one rule set. _Do not:_ read state, draw ids or read the clock in a decision except through
   `ctx`; import an adapter, the core, a store or anything impure from `decide/` (the lint allow-list refuses it).
 - **The split is mechanical.** _Current code:_ `getLedgerState()` became `ctx.readState()`, `generateId()`
