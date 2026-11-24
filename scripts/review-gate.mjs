@@ -2935,6 +2935,10 @@ const CI_REHEARSAL = {
   'security.yml#secrets':
     'remote-only: gitleaks-action scans the pushed history; scripts/secrets-scan-staged.sh covers staged files only',
   'security.yml#audit': 'local',
+  // LEDGER-CHAR-1 (plan P12 D11): the base differential. Rehearsal: in a worktree of the
+  // merge-base, `CHAR_OUT=<dir-a> pnpm --filter sandbox char:update`; in the PR's tree,
+  // `CHAR_OUT=<dir-b> pnpm --filter sandbox char:update`; then `diff -r <dir-a> <dir-b>`.
+  'ledger-char-base.yml#ledger-char-base': 'local',
 };
 function workflowJobs(file) {
   const rows = readFileSync(at(join('.github/workflows', file)), 'utf8').split('\n');
