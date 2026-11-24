@@ -155,6 +155,14 @@ export const coreCases: CaseDef[] = [
     failPersistOnce: true,
     run: ({ ledger }) => ledger.grantComparisonCredit(),
   },
+  {
+    id: 'core-storage-write-blocked-is-swallowed',
+    row: 'core',
+    label: { expected: 'emitted' },
+    seed: open().get(),
+    failStorageWriteOnce: true,
+    run: ({ ledger }) => ledger.grantComparisonCredit(),
+  },
 ];
 
 /* ── the random walk ──────────────────────────────────────────────────────────────── */

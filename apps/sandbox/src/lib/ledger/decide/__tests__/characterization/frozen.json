@@ -44,8 +44,9 @@
     "advance-zero-schedule": "a7d55cd21e4eaa6d7c7421058e40a4ed8a16324d2bef80cec4b96893884a399e"
   },
   "core": {
-    "core-persist-failure-is-logged": "2bd787786bc50a9e390d8a83cf4cb217a1219907ce0cc6f41d6279720def764d",
+    "core-persist-failure-is-logged": "110aa0a1669f0f96b6363a7036e5de8fe034b8c7740fcf1c314549f381ed62b6",
     "core-reset-clears-everything": "53a960b0110748baaca787490fe1a38079e3e55a93821ec7c7f3dec1b0051931",
+    "core-storage-write-blocked-is-swallowed": "2bd787786bc50a9e390d8a83cf4cb217a1219907ce0cc6f41d6279720def764d",
     "core-unsubscribe-only-its-own": "f120afc407789c0536c50a1bede5ec666080f842ccf37e471d9690e5349b70c0"
   },
   "faults": {
@@ -255,6 +256,7 @@
     "apply-pair-staleRuleVersion-insufficientAvailable": "56fa6f0e28652a16cdc3d3becfdf78b3b6252ba3d2962f4b762de4d77cb80092",
     "apply-paused-diversion": "fb58735b696bd0ab655319531002395336f03f9031a00316ce82f49d870a5f2a",
     "apply-paused-rule": "6530ebaafcc178b5d6947694a668db2c431fa7f0ca8cb5e03ad293ca6d3b2368",
+    "apply-paused-rule-current-version": "6530ebaafcc178b5d6947694a668db2c431fa7f0ca8cb5e03ad293ca6d3b2368",
     "apply-repairNeeded": "462ed1e5d4d31798816be64ec748aaa04d816815b17e37f412ccdbe8d25aa66c",
     "apply-resumed-rule-new-version": "ab9db62713a3df13f3411b2718454a87727670913e04491b91060d8fbee5cb51",
     "apply-shares-weekset": "20e4c358d6195e7d20f41c87f96082ba4936b40a553bfb6bba0ae4c63405117f",

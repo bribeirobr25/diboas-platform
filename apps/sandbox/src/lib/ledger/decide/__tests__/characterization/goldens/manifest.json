@@ -214,13 +214,18 @@
   "core": {
     "core-persist-failure-is-logged": {
       "row": "core",
-      "exact": "2bd787786bc50a9e390d8a83cf4cb217a1219907ce0cc6f41d6279720def764d",
-      "canonical": "1b9cf6dd7e4191b85fa8c2332efd68046c2f1d778ba618261b6793877b6c1ffd"
+      "exact": "110aa0a1669f0f96b6363a7036e5de8fe034b8c7740fcf1c314549f381ed62b6",
+      "canonical": "9d9d9452c98b7df8ab7987ce8ce805d807c5d340b0ef0056ecf5f70eb93d87fd"
     },
     "core-reset-clears-everything": {
       "row": "core",
       "exact": "53a960b0110748baaca787490fe1a38079e3e55a93821ec7c7f3dec1b0051931",
       "canonical": "a35b1ac889c79464833165a1442d3befa2dce4e54989f0904b94a6d7eb82dfdc"
+    },
+    "core-storage-write-blocked-is-swallowed": {
+      "row": "core",
+      "exact": "2bd787786bc50a9e390d8a83cf4cb217a1219907ce0cc6f41d6279720def764d",
+      "canonical": "1b9cf6dd7e4191b85fa8c2332efd68046c2f1d778ba618261b6793877b6c1ffd"
     },
     "core-unsubscribe-only-its-own": {
       "row": "core",
@@ -1225,6 +1230,11 @@
       "canonical": "9dc2f7a473aef9bb85edaa4037c078522399881f956d9f5224854ff8ec64c10e"
     },
     "apply-paused-rule": {
+      "row": 15,
+      "exact": "6530ebaafcc178b5d6947694a668db2c431fa7f0ca8cb5e03ad293ca6d3b2368",
+      "canonical": "80843ef03d0f750b0fe039d7741c1051fe70b71b507dce33206366abf6aec0cd"
+    },
+    "apply-paused-rule-current-version": {
       "row": 15,
       "exact": "6530ebaafcc178b5d6947694a668db2c431fa7f0ca8cb5e03ad293ca6d3b2368",
       "canonical": "80843ef03d0f750b0fe039d7741c1051fe70b71b507dce33206366abf6aec0cd"

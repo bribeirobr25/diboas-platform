@@ -8621,6 +8621,226 @@
       "sharedReferences": []
     }
   },
+  "apply-paused-rule-current-version": {
+    "fixed": {
+      "timeline": [],
+      "result": {
+        "return": {
+          "ok": false,
+          "reason": "staleRuleVersion"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [
+          {
+            "ruleId": "r1",
+            "ruleVersion": 1,
+            "split": [
+              {
+                "goalId": "g1",
+                "percent": 60
+              },
+              {
+                "goalId": "g2",
+                "percent": 40
+              }
+            ],
+            "status": "paused"
+          }
+        ],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"RuleCreated\",\"ruleId\":\"r1\",\"split\":[{\"goalId\":\"g1\",\"percent\":60},{\"goalId\":\"g2\",\"percent\":40}]},{\"eventId\":\"seed-6\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-6\",\"type\":\"RulePaused\",\"ruleId\":\"r1\",\"expectedRuleVersion\":0}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [],
+      "result": {
+        "return": {
+          "ok": false,
+          "reason": "staleRuleVersion"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [
+          {
+            "ruleId": "r1",
+            "ruleVersion": 1,
+            "split": [
+              {
+                "goalId": "g1",
+                "percent": 60
+              },
+              {
+                "goalId": "g2",
+                "percent": 40
+              }
+            ],
+            "status": "paused"
+          }
+        ],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"RuleCreated\",\"ruleId\":\"r1\",\"split\":[{\"goalId\":\"g1\",\"percent\":60},{\"goalId\":\"g2\",\"percent\":40}]},{\"eventId\":\"seed-6\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-6\",\"type\":\"RulePaused\",\"ruleId\":\"r1\",\"expectedRuleVersion\":0}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
   "apply-repairNeeded": {
     "fixed": {
       "timeline": [],

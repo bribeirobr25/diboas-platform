@@ -5,19 +5,19 @@
  * `fixtures.ts:153`), and one crosses Berlin's daylight-saving change on 2026-10-25, since the
  * epoch arithmetic at `journey.ts:478-480` runs on the history's dates.
  */
-import type { ProtocolApyHistory, ProtocolPriceHistory } from '@diboas/defi';
+import type { DataStamp, ProtocolApyHistory, ProtocolId, ProtocolPriceHistory } from '@diboas/defi';
 import { HISTORY_SETTLE_DAYS_MAX } from '@/lib/market/historyWindow';
 import type { CaseDef } from '../harness';
 import { history } from '../seed';
 
-const STAMP = {
+const STAMP: DataStamp = {
   source: 'fixture',
   origin: 'MODELLED',
   asOf: '2026-12-31',
   observedAt: null,
   fallbackUsed: false,
   fixtureVersion: 'characterization-1',
-} as const;
+};
 
 const day = (start: string, i: number) => {
   const d = new Date(`${start}T00:00:00Z`);
@@ -25,26 +25,31 @@ const day = (start: string, i: number) => {
   return d.toISOString().slice(0, 10);
 };
 
-function apy(protocolId: string, start: string, days: number, base = 5): ProtocolApyHistory {
+function apy(protocolId: ProtocolId, start: string, days: number, base = 5): ProtocolApyHistory {
   return {
-    protocolId: protocolId as never,
+    protocolId,
     points: Array.from({ length: days }, (_, i) => ({
       date: day(start, i),
       apyPercent: base + (i % 7) * 0.25,
     })),
-    stamp: STAMP as never,
+    stamp: STAMP,
   };
 }
 
-function price(protocolId: string, start: string, days: number, from = 1): ProtocolPriceHistory {
+function price(
+  protocolId: ProtocolId,
+  start: string,
+  days: number,
+  from = 1
+): ProtocolPriceHistory {
   return {
-    protocolId: protocolId as never,
+    protocolId,
     // Up and down, so a market leg can fall (the lesson `5.105` exists for).
     points: Array.from({ length: days }, (_, i) => ({
       date: day(start, i),
       priceUsd: from * (1 + 0.01 * Math.sin(i / 3)),
     })),
-    stamp: STAMP as never,
+    stamp: STAMP,
   };
 }
 

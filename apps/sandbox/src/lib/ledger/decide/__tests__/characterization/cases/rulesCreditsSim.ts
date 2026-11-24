@@ -384,6 +384,15 @@ export const rulesCreditsSimCases: CaseDef[] = [
     seed: withRule().add('RulePaused', { ruleId: 'r1', expectedRuleVersion: 0 }).get(),
     run: ({ ledger }) => ledger.applyRuleProposal(proposal()),
   },
+  /* The paused-rule check on its own: the proposal carries the rule's CURRENT version, so only
+     `status === 'active'` refuses it (an earlier case was refused by its version first). */
+  {
+    id: 'apply-paused-rule-current-version',
+    row: 15,
+    label: noop('staleRuleVersion'),
+    seed: withRule().add('RulePaused', { ruleId: 'r1', expectedRuleVersion: 0 }).get(),
+    run: ({ ledger }) => ledger.applyRuleProposal(proposal({ ruleVersion: 1 })),
+  },
   {
     id: 'apply-resumed-rule-new-version',
     row: 15,

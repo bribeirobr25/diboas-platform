@@ -6,8 +6,8 @@
  * The state lives on `globalThis` because every case runs after `vi.resetModules()`: a
  * module-level recorder would be a fresh, empty copy inside each re-imported mock.
  *
- * This file never writes to disk (a source scan enforces it, `noWrite.test.ts`); goldens are
- * written only by the update setup (`charUpdateSetup.ts`), which the normal config never loads.
+ * This file never writes to disk (a source scan enforces it, `controls.test.ts`); goldens are
+ * written only by the update setup (`scripts/characterization/updateSetup.ts`), which the normal config never loads.
  */
 
 export type TimelineEntry = readonly [kind: string, ...detail: unknown[]];
@@ -21,6 +21,8 @@ interface RecorderState {
   clockMode: 'fixed' | 'advancing';
   /** Throw once, on the next projection (the take-back path, sabotage (k), (y)). */
   faultOnce: boolean;
+  /** Reject the store's next `append` once (a persist failure that reaches the core). */
+  storeFailOnce: boolean;
 }
 
 const KEY = '__ledgerCharacterizationRecorder';
@@ -34,6 +36,7 @@ export function recorder(): RecorderState {
     clockIndex: 0,
     clockMode: 'fixed',
     faultOnce: false,
+    storeFailOnce: false,
   };
   return g[KEY]!;
 }

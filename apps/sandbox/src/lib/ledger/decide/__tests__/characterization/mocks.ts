@@ -27,8 +27,24 @@ export function ids() {
  */
 export async function banking(importOriginal: Importer<typeof import('@diboas/banking')>) {
   const actual = await importOriginal();
+  /**
+   * The browser store swallows a blocked write itself ("degraded, not broken"), so the core's
+   * own persist `catch` (`core.ts:187-191`) is reachable only from a store whose append REJECTS,
+   * as a server store's will. The case asks for one rejection; everything else is the real store.
+   */
+  class CharacterizationStore extends actual.LocalStorageLedgerStore {
+    override async append(event: LedgerEvent): Promise<void> {
+      const r = recorder();
+      if (r.armed && r.storeFailOnce) {
+        r.storeFailOnce = false;
+        throw new Error('characterization: injected store failure');
+      }
+      return super.append(event);
+    }
+  }
   return {
     ...actual,
+    LocalStorageLedgerStore: CharacterizationStore,
     project: (log: readonly LedgerEvent[]) => {
       const r = recorder();
       const g = globalThis as Record<string, unknown>;

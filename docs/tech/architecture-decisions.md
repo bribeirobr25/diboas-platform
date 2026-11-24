@@ -198,7 +198,7 @@ Each Practice ledger command (`apps/sandbox/src/lib/ledger/{journey,rules,credit
 
 - **Every command splits into a pure decision and a thin adapter.** `decideX(intent, env, ctx)` returns the events to append, the effects to run, the result and an outcome; the adapter keeps today's name and signature, supplies `ctx` (a lazy state reader, new ids, the clock, called where today's code calls them) and does the writing. No caller changes.
 - **Home: `apps/sandbox/src/lib/ledger/decide/`**, inside the application layer. `decide/` holds each command's **preconditions and composition**; **computation rules stay in `packages/*`** (`@diboas/banking`, `@diboas/investing`, `@diboas/defi`). The fee helpers in `decide/fees.ts` are the one provisional exception (they may move to `packages/banking` with the migration plan).
-- **Purity is a gate, not a convention** (`LEDGER-DECIDE-1`, PR-2): no clock, storage, network, randomness or writer import in `decide/`; the domain packages reached only through an allow-list of named imports.
+- **Purity is a gate, not a convention** (`LEDGER-DECIDE-1`, added with S1a's PR-2): no clock, storage, network, randomness or writer import in `decide/`; the domain packages reached only through an allow-list of named imports.
 - **Behaviour is proven unchanged, not assumed** (`LEDGER-CHAR-1`, PR-1): every command's exact behaviour is recorded on today's code before any source moves, and a CI job compares the old and new code's output directly.
 
 ### Alternatives considered
@@ -210,7 +210,7 @@ Each Practice ledger command (`apps/sandbox/src/lib/ledger/{journey,rules,credit
 ### Consequences
 
 - The browser today and the server later apply one rule set; S1b (stricter rules) and S1c (the command contract) edit one place.
-- The behaviour lock (`LEDGER-CHAR-1`) is heavy by design: about 300 recorded cases, and a few MB of expected-output files. While S1a is in flight nothing else may change the ledger or its pure dependencies (plan P12 D14).
+- The behaviour lock (`LEDGER-CHAR-1`) is heavy by design: about 340 recorded cases, and a few MB of expected-output files. While S1a is in flight nothing else may change the ledger or its pure dependencies (plan P12 D14).
 
 ### Triggers to reconsider
 
@@ -220,4 +220,4 @@ Each Practice ledger command (`apps/sandbox/src/lib/ledger/{journey,rules,credit
 
 ### References
 
-- Plan P12 (`audit/WEBAPP_PLANS_2026-11-04/P12_S1A_COMMAND_SPLIT.md`, private docs); gates `LEDGER-CHAR-1` and `LEDGER-DECIDE-1` in `docs/tech/engineering-gates.md`.
+- Plan P12 (`audit/WEBAPP_PLANS_2026-11-04/P12_S1A_COMMAND_SPLIT.md`, private docs); gate `LEDGER-CHAR-1` in `docs/tech/engineering-gates.md` (`LEDGER-DECIDE-1` joins it with PR-2).

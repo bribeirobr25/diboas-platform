@@ -63,8 +63,10 @@ export interface CaseDef {
   clockMode?: 'fixed' | 'advancing';
   /** Throw once on the projection inside the command's append (fault injection). */
   faultOnAppend?: boolean;
-  /** Make the store's next write of the ledger key throw (the write-behind persist failure). */
+  /** Make the store's next append reject (a persist failure that reaches the core's catch). */
   failPersistOnce?: boolean;
+  /** Make the browser's next write of the ledger key throw (the store swallows it today). */
+  failStorageWriteOnce?: boolean;
   /**
    * Extra objects to watch for mutation and shared references, beyond the arguments passed to
    * the ledger (which are captured automatically).
@@ -223,7 +225,8 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     r.clockIndex = 0;
     r.timeline = [];
     r.faultOnce = def.faultOnAppend ?? false;
-    failPersist = def.failPersistOnce ?? false;
+    failPersist = def.failStorageWriteOnce ?? false;
+    r.storeFailOnce = def.failPersistOnce ?? false;
     g.__charAppended = appended;
     // Events already in the log, so the projection mock records only what the command appends.
     // A stored history the projection cannot read is counted from storage, never by projecting.
@@ -286,6 +289,7 @@ export async function runCase(def: CaseDef): Promise<Observation> {
   } finally {
     r.armed = false;
     r.faultOnce = false;
+    r.storeFailOnce = false;
     for (const undo of restore.reverse()) undo();
     delete g.__charAppended;
     delete g.__charSeenLength;

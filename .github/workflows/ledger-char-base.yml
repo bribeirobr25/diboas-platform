@@ -3,13 +3,17 @@ name: ledger-char-base
 # ⛑ LEDGER-CHAR-1 · the base differential (plan P12 D11; register 5.1008).
 #
 # The Practice ledger's commands are moving into pure decisions (S1a), behaviour unchanged.
-# The goldens in the repository could be re-recorded to make a failing PR pass, so this job
-# trusts none of them: it records the output of the MERGE-BASE's code and of the PR's code,
-# with the merge-base's harness, and compares the two byte for byte.
+# Committed goldens could be re-recorded to make a failing PR pass, so this job trusts none of
+# them: it records the output of the PR's BASE (main's tip) and of the PR's MERGE COMMIT (the
+# base plus exactly this PR's change, which `actions/checkout` checks out on pull_request) with
+# the same judge, and compares them case by case: every case the base recorded must exist with
+# the same bytes; new cases are allowed and listed.
 #
-# The judge (the harness, the update setup and config, the goldens' manifest and this file)
-# may not change in a PR this job judges; a PR that changes it fails here. Before the harness
-# exists on the base (the PR that adds it), there is nothing to compare and the job says so.
+# The judge (the harness and its test runners, the update setup, teardown, config and compare
+# script, the frozen PR-1 hashes, the base vitest config, the test setup, the package scripts and
+# this file) may not change in a PR this job judges. Limit, stated: GitHub runs the PR's own copy
+# of this file, so a PR that edits it also edits the check; the judge list makes that edit fail
+# here, and review is the backstop.
 
 on:
   pull_request:
@@ -31,42 +35,49 @@ jobs:
         with:
           node-version: 24
           cache: 'pnpm'
-      - name: Find the merge-base and refuse a changed judge
+      - name: Decide whether there is anything to compare, and refuse a changed judge
         id: base
         shell: bash
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
-          MB=$(git merge-base "$BASE_SHA" "$HEAD_SHA")
-          echo "merge-base=$MB" >> "$GITHUB_OUTPUT"
-          if ! git cat-file -e "$MB:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
+          C=apps/sandbox/src/lib/ledger/decide/__tests__/characterization
+          if ! git cat-file -e "$BASE_SHA:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
             echo "The characterization harness is not on the base yet: nothing to compare."
             echo "skip=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+          if [ -z "$(git diff --name-only "$BASE_SHA" HEAD -- apps/sandbox packages pnpm-lock.yaml)" ]; then
+            echo "This PR changes nothing the Practice ledger is built from: nothing to compare."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           JUDGE=(
-            apps/sandbox/src/lib/ledger/decide/__tests__/characterization
+            "$C"/harness.ts "$C"/recorder.ts "$C"/compare.ts "$C"/mocks.ts "$C"/seed.ts
+            "$C"/frozen.json "$C"/*.test.ts
             apps/sandbox/scripts/characterization
             apps/sandbox/vitest.char-update.config.mts
+            apps/sandbox/vitest.config.mts
+            apps/sandbox/src/test/setup.ts
+            apps/sandbox/package.json
             .github/workflows/ledger-char-base.yml
           )
-          CHANGED=$(git diff --name-only "$MB" "$HEAD_SHA" -- "${JUDGE[@]}")
+          CHANGED=$(git diff --name-only "$BASE_SHA" HEAD -- "${JUDGE[@]}")
           if [ -n "$CHANGED" ]; then
             echo "::error::This PR changes the characterization judge, which a judged PR may not:"
             echo "$CHANGED"
             exit 1
           fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
-      - name: Record the merge-base's output
+      - name: Record the base's output
         if: steps.base.outputs.skip == 'false'
         shell: bash
         env:
-          MB: ${{ steps.base.outputs.merge-base }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
-          git worktree add "$RUNNER_TEMP/base-tree" "$MB"
+          git worktree add "$RUNNER_TEMP/base-tree" "$BASE_SHA"
           cd "$RUNNER_TEMP/base-tree"
           pnpm install --frozen-lockfile
           pnpm --filter 'sandbox^...' build
@@ -79,14 +90,9 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm --filter 'sandbox^...' build
           CHAR_OUT="$RUNNER_TEMP/out-head" pnpm --filter sandbox char:update
-      - name: Compare byte for byte
+      - name: Compare case by case
         if: steps.base.outputs.skip == 'false'
         shell: bash
         run: |
-          set -euo pipefail
-          if ! diff -r "$RUNNER_TEMP/out-base" "$RUNNER_TEMP/out-head" > "$RUNNER_TEMP/char.diff"; then
-            echo "::error::The PR's ledger behaviour differs from the merge-base's (LEDGER-CHAR-1)."
-            head -c 20000 "$RUNNER_TEMP/char.diff"
-            exit 1
-          fi
-          echo "Identical: $(ls "$RUNNER_TEMP/out-head" | wc -l) files."
+          node "$RUNNER_TEMP/base-tree/apps/sandbox/scripts/characterization/compareOutputs.mjs" \
+            "$RUNNER_TEMP/out-base" "$RUNNER_TEMP/out-head"
