@@ -54,6 +54,17 @@ const GLOBALS: Record<string, readonly Use[]> = {
   Math: ['.abs', '.ceil', '.floor', '.max', '.min', '.pow', '.round', '.sign', '.trunc'],
 };
 
+/**
+ * How a value imported from a package may be used (re-attack 2026-11-24: `Decimal.random()` is
+ * randomness and `Decimal.set()` changes every money calculation's precision). `Decimal` may be
+ * constructed with one argument and compared with `min`/`max`; every other imported value may only
+ * be called or passed — never have a member read.
+ */
+const PACKAGE_VALUE_USES: Record<string, readonly string[]> = {
+  'decimal.js:default': ['new1', '.min', '.max'],
+};
+const NAMED_PACKAGE_VALUE_USES: readonly string[] = ['call', 'bare'];
+
 /** Per group: the packages that may be imported, and which VALUE names (types are free). */
 const DECIDE_PACKAGES: Record<string, readonly string[]> = {
   'decimal.js': ['default'],
@@ -157,6 +168,14 @@ function surfaceFindings(
       at(sf, 'an inline ESLint directive');
 
     for (const stmt of sf.statements) {
+      // `declare` produces no code: a local `declare const localStorage` would hide the real global
+      // from the checker while the runtime reads it (re-attack 2026-11-24).
+      if (
+        ts.isModuleDeclaration(stmt) ||
+        (ts.canHaveModifiers(stmt) &&
+          ts.getModifiers(stmt)?.some((m) => m.kind === ts.SyntaxKind.DeclareKeyword))
+      )
+        at(stmt, 'an ambient declaration (declare / namespace)');
       if (ts.isVariableStatement(stmt) && !(stmt.declarationList.flags & ts.NodeFlags.Const))
         at(stmt, 'module-level let/var (hidden state between calls)');
       if (ts.isImportEqualsDeclaration(stmt)) at(stmt, 'import = require(...)');
@@ -189,6 +208,28 @@ function surfaceFindings(
     }
 
     const visit = (node: ts.Node): void => {
+      // `class X extends Date` and `new (Date<never>)()` hide an expression inside a node the
+      // checker classes as a type (re-attack 2026-11-24): neither form is needed, both are refused.
+      if (
+        ts.isExpressionWithTypeArguments(node) &&
+        !ts.isInterfaceDeclaration(node.parent.parent)
+      ) {
+        at(
+          node,
+          ts.isHeritageClause(node.parent)
+            ? 'class heritage (extends/implements)'
+            : 'an instantiation expression'
+        );
+        return;
+      }
+      // `({}).constructor.constructor('…')()` reaches Function without naming a global.
+      if (
+        (ts.isPropertyAccessExpression(node) && node.name.text === 'constructor') ||
+        (ts.isElementAccessExpression(node) &&
+          ts.isStringLiteralLike(node.argumentExpression) &&
+          node.argumentExpression.text === 'constructor')
+      )
+        at(node, '.constructor access');
       if (
         ts.isImportDeclaration(node) ||
         ts.isExportDeclaration(node) ||
@@ -205,10 +246,17 @@ function surfaceFindings(
           ? checker.getShorthandAssignmentValueSymbol(p)
           : checker.getSymbolAtLocation(node);
         const decls = symbol?.declarations ?? [];
+        const ambient = (d: ts.Declaration) =>
+          (ts.getCombinedModifierFlags(d) & ts.ModifierFlags.Ambient) !== 0;
         const global =
           decls.length === 0 ||
-          decls.every((d) => program.isSourceFileDefaultLibrary(d.getSourceFile()));
-        if (global) {
+          decls.every((d) => program.isSourceFileDefaultLibrary(d.getSourceFile()) || ambient(d));
+        const packageImport = decls.length > 0 ? importedFromPackage(decls[0]!) : null;
+        if (packageImport) {
+          const use = howUsed(node);
+          const permitted = PACKAGE_VALUE_USES[packageImport] ?? NAMED_PACKAGE_VALUE_USES;
+          if (!permitted.includes(use)) at(node, `${packageImport} used as ${use}`);
+        } else if (global) {
           const use = howUsed(node);
           const permitted = GLOBALS[node.text] as readonly string[] | undefined;
           if (!permitted?.includes(use)) at(node, `global ${node.text} (${use})`);
@@ -219,6 +267,25 @@ function surfaceFindings(
     visit(sf);
   }
   return findings;
+}
+
+/** `spec:name` when `decl` is a value import binding from a package (not `.`/`@/`), else null. */
+function importedFromPackage(decl: ts.Declaration): string | null {
+  let name: string;
+  if (ts.isImportSpecifier(decl)) {
+    if (decl.isTypeOnly) return null;
+    name = (decl.propertyName ?? decl.name).text;
+  } else if (ts.isImportClause(decl)) {
+    if (decl.isTypeOnly) return null;
+    name = 'default';
+  } else if (ts.isNamespaceImport(decl)) name = '*';
+  else return null;
+  let node: ts.Node = decl;
+  while (!ts.isImportDeclaration(node)) node = node.parent;
+  if (node.importClause?.isTypeOnly) return null;
+  const spec = (node.moduleSpecifier as ts.StringLiteral).text;
+  if (spec.startsWith('.') || spec.startsWith('@/')) return null;
+  return `${spec}:${name}`;
 }
 
 const groupOf = (file: string) => (HELPERS.includes(file) ? HELPER_PACKAGES : DECIDE_PACKAGES);
@@ -304,6 +371,44 @@ describe(
       ["import x from '@diboas/banking/dist/index.mjs';\nexport const f = x;", 'a package subpath'],
       ["import '@diboas/banking';", 'a side-effect import'],
       [
+        "declare const localStorage: { getItem(k: string): string | null };\nexport const f = () => localStorage.getItem('k');",
+        'a declare hiding storage',
+      ],
+      [
+        'declare const globalThis: { Date: DateConstructor };\nexport const f = () => new globalThis.Date();',
+        'a declare hiding globalThis',
+      ],
+      ['declare global { const x: number }\nexport const f = 1;', 'declare global'],
+      [
+        'class Clock extends Date {}\nexport const f = () => new Clock().toISOString();',
+        'a class extending Date',
+      ],
+      ['export const f = () => new (Date<never>)();', 'an instantiation expression'],
+      [
+        "export const f = () => ({}).constructor.constructor('return Date.now()')();",
+        'the constructor chain',
+      ],
+      [
+        "export const f = (s: { goals: unknown[] }) => s.goals['constructor'];",
+        'computed constructor access',
+      ],
+      [
+        "import Decimal from 'decimal.js';\nexport const f = () => Decimal.random();",
+        'Decimal.random',
+      ],
+      [
+        "import Decimal from 'decimal.js';\nexport const f = () => Decimal.set({ precision: 2 });",
+        'Decimal.set',
+      ],
+      [
+        "import Decimal from 'decimal.js';\nconst D = Decimal;\nexport const f = () => D;",
+        'an aliased Decimal',
+      ],
+      [
+        "import { computeExitFee } from '@diboas/banking';\nexport const f = () => computeExitFee.name;",
+        'a member of an imported value',
+      ],
+      [
         '// eslint-disable-next-line no-restricted-syntax\nexport const f = 1;',
         'an inline ESLint directive',
       ],
@@ -327,6 +432,12 @@ describe(
       ['export const f = (x: number) => Number.isFinite(x) && Math.max(x, 0) === Math.round(x);'],
       ['export const f = (x?: number) => (x === undefined ? 0 : x);'],
       [
+        "import Decimal from 'decimal.js';\nexport const f = (a: string, b: string) => Decimal.min(new Decimal(a), new Decimal(b));",
+      ],
+      [
+        "import { computeExitFee } from '@diboas/banking';\nimport Decimal from 'decimal.js';\nexport const f = (g: string) => [computeExitFee(new Decimal(g), 'USD')].map((fee) => fee.toFixed(2));",
+      ],
+      [
         "export const f = (o: { a: number }) => ({ a: o.a, now: 'property names are not globals' });",
       ],
     ])('should accept the pure form %s (control)', (code) => {
@@ -349,6 +460,14 @@ describe(
       [
         "export const peek = () => globalThis.localStorage.getItem('k') ?? navigator.userAgent;",
         'a helper reading storage',
+      ],
+      [
+        'class Instant extends Date {}\nexport const nowIso = () => new Instant().toISOString();',
+        'a helper extending Date',
+      ],
+      [
+        "declare const localStorage: { getItem(k: string): string | null };\nexport const peek = () => localStorage.getItem('k');",
+        'a helper hiding storage behind declare',
       ],
     ])('should find %s (%s) in a pure helper', (code) => {
       expect(plant(code, true)).not.toEqual([]);

@@ -99,6 +99,21 @@ describe('LEDGER-DECIDE-1 · the lint block', { timeout: 60_000 }, () => {
       '// eslint-disable-next-line no-restricted-syntax\nexport const t = () => Date.now();',
       'an inline disable (ignored)',
     ],
+    [
+      "declare const localStorage: { getItem(k: string): string | null };\nexport const t = () => localStorage.getItem('k');",
+      'a declare hiding storage',
+    ],
+    ['class Clock extends Date {}\nexport const t = () => new Clock();', 'a class extending Date'],
+    ['export const t = () => new (Date<never>)();', 'an instantiation expression'],
+    ["export const t = () => ({}).constructor.constructor('return 1')();", 'the constructor chain'],
+    [
+      "import Decimal from 'decimal.js';\nexport const t = () => Decimal.random();",
+      'Decimal.random',
+    ],
+    [
+      "import Decimal from 'decimal.js';\nexport const t = () => Decimal.set({ precision: 2 });",
+      'Decimal.set',
+    ],
   ])('should refuse %s (%s) when it is written in a decision', async (code) => {
     expect(await errors(code)).not.toEqual([]);
   });
@@ -120,6 +135,14 @@ describe('LEDGER-DECIDE-1 · the lint block', { timeout: 60_000 }, () => {
     ['export const p = () => new Date(...([] as []));', 'reading the clock'],
     ['export const m = (s: { a: number }) => { s.a = 1; };', 'mutating an argument'],
     ['let n = 0;\nexport const t = () => ++n;', 'module-level let'],
+    [
+      'class Instant extends Date {}\nexport const t = () => new Instant();',
+      'a class extending Date',
+    ],
+    [
+      "declare const localStorage: { getItem(k: string): string | null };\nexport const p = () => localStorage.getItem('k');",
+      'a declare hiding storage',
+    ],
   ])('should refuse %s (%s) when it is written in a pure helper', async (code) => {
     const [result] = await eslint.lintText(code, { filePath: join(SRC, 'lib/weeklyCycle.ts') });
     expect(result!.messages.filter((m) => m.severity === 2)).not.toEqual([]);

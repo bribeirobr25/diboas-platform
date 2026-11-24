@@ -49,6 +49,29 @@ const LEDGER_PURE_SYNTAX = [
     "ExportNamedDeclaration > VariableDeclaration[kind!='const']",
     'no module-level let/var — no hidden state between calls.',
   ],
+  // Re-attack 2026-11-24: forms that hide a global or reach Function without naming one.
+  ['[declare=true]', 'no ambient declarations — `declare` hides a real global from every check.'],
+  ['TSModuleDeclaration', 'no namespaces or `declare global`.'],
+  [
+    ':matches(ClassDeclaration, ClassExpression)[superClass]',
+    'no class extension — `extends Date` reads the clock.',
+  ],
+  [
+    'TSInstantiationExpression',
+    'no instantiation expressions — `new (Date<never>)()` reads the clock.',
+  ],
+  [
+    "MemberExpression[property.name='constructor']",
+    'no .constructor access — it reaches Function.',
+  ],
+  [
+    "MemberExpression[property.value='constructor']",
+    'no .constructor access — it reaches Function.',
+  ],
+  [
+    "MemberExpression[object.name='Decimal'][property.name!=/^(min|max)$/]",
+    'only Decimal.min/max — Decimal.set and Decimal.random are not pure.',
+  ],
 ].map(([selector, message]) => ({ selector, message: `LEDGER-DECIDE-1: ${message}` }));
 const LEDGER_PURE_GLOBALS = [
   'window',
