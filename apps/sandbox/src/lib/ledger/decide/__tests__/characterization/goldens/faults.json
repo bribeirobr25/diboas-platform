@@ -1,6 +1,13 @@
 {
   "fault-accomplish": {
     "fixed": {
+      "args": [
+        [
+          "g1",
+          "kept-working"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -117,6 +124,13 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "g1",
+          "kept-working"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -235,6 +249,15 @@
   },
   "fault-advance": {
     "fixed": {
+      "args": [
+        [
+          1,
+          [],
+          "real",
+          []
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -365,6 +388,15 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          1,
+          [],
+          "real",
+          []
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -497,6 +529,32 @@
   },
   "fault-apply": {
     "fixed": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 60
+              },
+              {
+                "goalId": "g2",
+                "amount": 40
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -689,6 +747,32 @@
       ]
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 60
+              },
+              {
+                "goalId": "g2",
+                "amount": 40
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -883,6 +967,12 @@
   },
   "fault-collect": {
     "fixed": {
+      "args": [
+        [
+          "2026-08-08T00:00:00.000Z"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -996,6 +1086,12 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "2026-08-08T00:00:00.000Z"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1111,6 +1207,10 @@
   },
   "fault-comparison": {
     "fixed": {
+      "args": [
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1205,6 +1305,10 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1301,6 +1405,18 @@
   },
   "fault-create-goal": {
     "fixed": {
+      "args": [
+        [
+          {
+            "name": "A",
+            "icon": "x",
+            "targetAmount": 10,
+            "horizonMonths": 1,
+            "fundAmount": 5
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1421,6 +1537,18 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "name": "A",
+            "icon": "x",
+            "targetAmount": 10,
+            "horizonMonths": 1,
+            "fundAmount": 5
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1543,6 +1671,17 @@
   },
   "fault-create-rule": {
     "fixed": {
+      "args": [
+        [
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ]
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1685,6 +1824,17 @@
       ]
     },
     "advancing": {
+      "args": [
+        [
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ]
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1829,6 +1979,17 @@
   },
   "fault-enter": {
     "fixed": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "totalFromCash": 10,
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -1952,6 +2113,17 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "totalFromCash": 10,
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2077,6 +2249,15 @@
   },
   "fault-exit": {
     "fixed": {
+      "args": [
+        [
+          {
+            "positionId": "p1",
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2211,6 +2392,15 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "positionId": "p1",
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2347,6 +2537,14 @@
   },
   "fault-grant": {
     "fixed": {
+      "args": [
+        [
+          100,
+          "USD",
+          "b2c"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2437,6 +2635,14 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          100,
+          "USD",
+          "b2c"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2529,6 +2735,12 @@
   },
   "fault-pause": {
     "fixed": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2644,6 +2856,12 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2761,6 +2979,13 @@
   },
   "fault-raise-target": {
     "fixed": {
+      "args": [
+        [
+          "g1",
+          "4000"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2878,6 +3103,13 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "g1",
+          "4000"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -2997,6 +3229,16 @@
   },
   "fault-recurring": {
     "fixed": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "positionId": "p1",
+            "monthlyAmount": 10
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3129,6 +3371,16 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "positionId": "p1",
+            "monthlyAmount": 10
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3263,6 +3515,19 @@
   },
   "fault-resolve-available": {
     "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3379,6 +3644,19 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3497,6 +3775,20 @@
   },
   "fault-resolve-reserve": {
     "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "reserve",
+              "goalId": "g1"
+            }
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3632,6 +3924,20 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "reserve",
+              "goalId": "g1"
+            }
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3769,6 +4075,12 @@
   },
   "fault-resume": {
     "fixed": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -3887,6 +4199,12 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -4007,6 +4325,15 @@
   },
   "fault-stop-all": {
     "fixed": {
+      "args": [
+        [
+          "g1",
+          {
+            "$function": "anonymous"
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -4022,7 +4349,8 @@
         ],
         [
           "feeFor",
-          "p1"
+          "p1",
+          0.5
         ],
         [
           "append",
@@ -4145,6 +4473,15 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "g1",
+          {
+            "$function": "anonymous"
+          }
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -4160,7 +4497,8 @@
         ],
         [
           "feeFor",
-          "p1"
+          "p1",
+          0.5
         ],
         [
           "append",
@@ -4285,6 +4623,13 @@
   },
   "fault-transfer": {
     "fixed": {
+      "args": [
+        [
+          "g1",
+          "g2"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -4454,6 +4799,13 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          "g1",
+          "g2"
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -4625,6 +4977,19 @@
   },
   "fault-update-rule": {
     "fixed": {
+      "args": [
+        [
+          "r1",
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ],
+          0
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -4783,6 +5148,19 @@
       ]
     },
     "advancing": {
+      "args": [
+        [
+          "r1",
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ],
+          0
+        ],
+        []
+      ],
       "timeline": [
         [
           "id",

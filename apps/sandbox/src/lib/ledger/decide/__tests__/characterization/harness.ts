@@ -81,6 +81,12 @@ export interface CaseDef {
 }
 
 export interface Observation {
+  /**
+   * What the case GAVE the ledger: every call's arguments as they were before the call, plus
+   * any extra inputs. Without it, a PR could change a command and also edit a case's input so a
+   * refusing case still refuses (final check of PR-1), and nothing would show.
+   */
+  args: unknown[];
   timeline: TimelineEntry[];
   result: unknown;
   stateAfter: unknown;
@@ -245,8 +251,9 @@ export async function runCase(def: CaseDef): Promise<Observation> {
         proposals,
         simEvents,
         feeFor: (fees) => (positionId) => {
-          record('feeFor', positionId);
-          return fees[positionId] ?? 0;
+          const fee = fees[positionId] ?? 0;
+          record('feeFor', positionId, fee);
+          return fee;
         },
       });
       result = { return: snapshot(value) };
@@ -271,6 +278,7 @@ export async function runCase(def: CaseDef): Promise<Observation> {
       : [...r.timeline];
     const inputs = [...calls.map((c) => c.args), ...extraInputs];
     return {
+      args: [...calls.map((c) => JSON.parse(c.before) as unknown), JSON.parse(extraBefore)],
       timeline,
       result,
       // The projected state without its `events` echo: the log itself is compared byte for byte

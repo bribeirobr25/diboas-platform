@@ -38,10 +38,11 @@ jobs:
       - name: Decide whether there is anything to compare, and refuse a changed judge
         id: base
         shell: bash
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           set -euo pipefail
+          # The merge commit's first parent IS the base it was built on.
+          BASE_SHA=$(git rev-parse HEAD^1)
+          echo "sha=$BASE_SHA" >> "$GITHUB_OUTPUT"
           C=apps/sandbox/src/lib/ledger/decide/__tests__/characterization
           if ! git cat-file -e "$BASE_SHA:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
             echo "The characterization harness is not on the base yet: nothing to compare."
@@ -55,12 +56,13 @@ jobs:
           fi
           JUDGE=(
             "$C"/harness.ts "$C"/recorder.ts "$C"/compare.ts "$C"/mocks.ts "$C"/seed.ts
-            "$C"/frozen.json "$C"/*.test.ts
+            "$C"/frozen.json "$C/*.test.ts"
             apps/sandbox/scripts/characterization
             apps/sandbox/vitest.char-update.config.mts
             apps/sandbox/vitest.config.mts
             apps/sandbox/src/test/setup.ts
             apps/sandbox/package.json
+            packages/test-support
             .github/workflows/ledger-char-base.yml
           )
           CHANGED=$(git diff --name-only "$BASE_SHA" HEAD -- "${JUDGE[@]}")
@@ -74,7 +76,7 @@ jobs:
         if: steps.base.outputs.skip == 'false'
         shell: bash
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ steps.base.outputs.sha }}
         run: |
           set -euo pipefail
           git worktree add "$RUNNER_TEMP/base-tree" "$BASE_SHA"

@@ -1,6 +1,10 @@
 {
   "core-persist-failure-is-logged": {
     "fixed": {
+      "args": [
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -165,6 +169,10 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -331,6 +339,11 @@
   },
   "core-reset-clears-everything": {
     "fixed": {
+      "args": [
+        [],
+        [],
+        []
+      ],
       "timeline": [
         [
           "storage.set",
@@ -385,6 +398,11 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [],
+        [],
+        []
+      ],
       "timeline": [
         [
           "storage.set",
@@ -441,6 +459,10 @@
   },
   "core-storage-write-blocked-is-swallowed": {
     "fixed": {
+      "args": [
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -592,6 +614,10 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -745,6 +771,20 @@
   },
   "core-unsubscribe-only-its-own": {
     "fixed": {
+      "args": [
+        [
+          {
+            "$function": "anonymous"
+          }
+        ],
+        [
+          {
+            "$function": "anonymous"
+          }
+        ],
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",
@@ -899,6 +939,20 @@
       "sharedReferences": []
     },
     "advancing": {
+      "args": [
+        [
+          {
+            "$function": "anonymous"
+          }
+        ],
+        [
+          {
+            "$function": "anonymous"
+          }
+        ],
+        [],
+        []
+      ],
       "timeline": [
         [
           "id",

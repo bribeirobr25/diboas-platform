@@ -44,6 +44,21 @@ describe('LEDGER-CHAR-1 · harness controls', () => {
     expect(WRITES.test("const golden = './goldens/x.json';")).toBe(false);
   });
 
+  it('should still characterize every family recorded at PR-1 when the test files are read', () => {
+    const frozen = JSON.parse(readFileSync(join(HERE, 'frozen.json'), 'utf8')) as Record<
+      string,
+      unknown
+    >;
+    const runners = readdirSync(HERE)
+      .filter((f) => f.endsWith('.test.ts') && f !== 'controls.test.ts')
+      .map((f) => stripComments(readFileSync(join(HERE, f), 'utf8'), f))
+      .join('\n');
+    const missing = Object.keys(frozen).filter(
+      (family) => !runners.includes(`characterize('${family}'`)
+    );
+    expect(missing).toEqual([]);
+  });
+
   it('should find every kind of observation in at least one golden when the goldens are read (positive controls)', () => {
     const goldens = readdirSync(join(HERE, 'goldens'))
       .filter((f) => f.endsWith('.json') && f !== 'manifest.json')

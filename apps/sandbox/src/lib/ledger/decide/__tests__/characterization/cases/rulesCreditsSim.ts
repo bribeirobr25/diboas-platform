@@ -595,6 +595,7 @@ export const rulesCreditsSimCases: CaseDef[] = [
   resolve('resolve-negative', noop('notAffordable'), { path: 'available' }, -1),
   resolve('resolve-available-short', noop('notAffordable'), { path: 'available' }, 9600),
   resolve('resolve-available-exact', emitted, { path: 'available' }, 9500),
+  resolve('resolve-available-cent-over', noop('notAffordable'), { path: 'available' }, 9500.01),
   resolve('resolve-reserve-unknown-goal', noop('notAffordable'), {
     path: 'reserve',
     goalId: 'nope',
@@ -632,6 +633,12 @@ export const rulesCreditsSimCases: CaseDef[] = [
   ),
   /* Exact boundaries: the whole reserve, and a split that empties the goal. */
   resolve('resolve-reserve-exact-cash', emitted, { path: 'reserve', goalId: 'g1' }, 500),
+  resolve(
+    'resolve-reserve-cent-over',
+    noop('notAffordable'),
+    { path: 'reserve', goalId: 'g1' },
+    500.01
+  ),
   resolve('resolve-split-exact-cash', emitted, { path: 'split', goalId: 'g1', fromGoal: 500 }, 600),
   resolve(
     'resolve-split-one-over-cash',
