@@ -16,7 +16,8 @@
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
     "db:migrate": "node --env-file=.env.local src/lib/database/migrate.mjs migrate",
-    "db:status": "node --env-file=.env.local src/lib/database/migrate.mjs status"
+    "db:status": "node --env-file=.env.local src/lib/database/migrate.mjs status",
+    "char:update": "vitest run --config vitest.char-update.config.mts"
   },
   "dependencies": {
     "@diboas/banking": "workspace:*",

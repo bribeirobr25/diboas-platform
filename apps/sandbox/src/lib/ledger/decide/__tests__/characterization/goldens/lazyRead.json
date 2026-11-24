@@ -1,0 +1,1836 @@
+{
+  "lazy-read-accomplish": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "kept-working"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "kept-working"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-advance": {
+    "fixed": {
+      "args": [
+        [
+          1,
+          [],
+          "machine",
+          []
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          1,
+          [],
+          "machine",
+          []
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-apply": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 10
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 10
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-apply-repair-needed": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 10
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": true
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 10
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": true
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-collect": {
+    "fixed": {
+      "args": [
+        [],
+        []
+      ],
+      "timeline": [
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [],
+        []
+      ],
+      "timeline": [
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-comparison": {
+    "fixed": {
+      "args": [
+        [],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-create-goal": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "name": "A",
+            "icon": "x",
+            "targetAmount": 10,
+            "horizonMonths": 1,
+            "fundAmount": 5
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "name": "A",
+            "icon": "x",
+            "targetAmount": 10,
+            "horizonMonths": 1,
+            "fundAmount": 5
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-create-rule": {
+    "fixed": {
+      "args": [
+        [
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ]
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ]
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-create-rule-invalid-split": {
+    "fixed": {
+      "args": [
+        [
+          []
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          []
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-decline": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 10
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "storage.set",
+          "diboas.sandbox.proposalDeclines.v1",
+          "[1]"
+        ]
+      ],
+      "result": {
+        "return": {
+          "$undefined": true
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]",
+        "diboas.sandbox.proposalDeclines.v1": "[1]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 10
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "storage.set",
+          "diboas.sandbox.proposalDeclines.v1",
+          "[1]"
+        ]
+      ],
+      "result": {
+        "return": {
+          "$undefined": true
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]",
+        "diboas.sandbox.proposalDeclines.v1": "[1]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-enter": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "totalFromCash": 10,
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "totalFromCash": 10,
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-exit": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "positionId": "p1",
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "positionId": "p1",
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-grant": {
+    "fixed": {
+      "args": [
+        [
+          100,
+          "USD",
+          "b2c"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          100,
+          "USD",
+          "b2c"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-pause": {
+    "fixed": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-raise-target": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "4000"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "4000"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-raise-target-unparseable": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "abc"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "abc"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-recurring": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "positionId": "p1",
+            "monthlyAmount": 10
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 2,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "positionId": "p1",
+            "monthlyAmount": 10
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 2,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-resolve": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 10,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 10,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-resolve-nan-amount": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": {
+              "$number": "NaN"
+            },
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": {
+              "$number": "NaN"
+            },
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-resolve-split-nan": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 10,
+            "via": {
+              "path": "split",
+              "goalId": "g1",
+              "fromGoal": {
+                "$number": "NaN"
+              }
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 10,
+            "via": {
+              "path": "split",
+              "goalId": "g1",
+              "fromGoal": {
+                "$number": "NaN"
+              }
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-resolve-zero": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 0,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 0,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-resume": {
+    "fixed": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-stop-all": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          {
+            "$function": "anonymous"
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          {
+            "$function": "anonymous"
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-transfer": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "g2"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "g2"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-update-rule": {
+    "fixed": {
+      "args": [
+        [
+          "r1",
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ],
+          0
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 2,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "r1",
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ],
+          0
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "project"
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "project: unhandled ledger event {\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}"
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 2,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "lazy-read-update-rule-invalid-split": {
+    "fixed": {
+      "args": [
+        [
+          "r1",
+          [],
+          0
+        ],
+        []
+      ],
+      "timeline": [],
+      "result": {
+        "return": {
+          "$undefined": true
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "r1",
+          [],
+          0
+        ],
+        []
+      ],
+      "timeline": [],
+      "result": {
+        "return": {
+          "$undefined": true
+        }
+      },
+      "stateAfter": null,
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"raw-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"raw-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"raw-c2\",\"type\":\"FutureEventFromNewerCode\",\"payload\":1}]"
+      },
+      "ids": 0,
+      "clockReads": 0,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  }
+}

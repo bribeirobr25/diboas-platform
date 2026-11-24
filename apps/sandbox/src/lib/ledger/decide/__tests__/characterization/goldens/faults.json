@@ -1,0 +1,5322 @@
+{
+  "fault-accomplish": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "kept-working"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalAccomplished",
+              "goalId": "g1",
+              "disposition": "kept-working",
+              "expectedVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalAccomplished"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "kept-working"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalAccomplished",
+              "goalId": "g1",
+              "disposition": "kept-working",
+              "expectedVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalAccomplished"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-advance": {
+    "fixed": {
+      "args": [
+        [
+          1,
+          [],
+          "real",
+          []
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "TimeAdvanced",
+              "days": 1,
+              "source": "real"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "TimeAdvanced"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          1,
+          [],
+          "real",
+          []
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "TimeAdvanced",
+              "days": 1,
+              "source": "real"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "TimeAdvanced"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-apply": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 60
+              },
+              {
+                "goalId": "g2",
+                "amount": 40
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-4"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "RuleApplied",
+              "ruleId": "r1",
+              "ruleVersion": 0,
+              "proposalId": "pr1",
+              "weekSet": [
+                1
+              ]
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalFunded",
+              "goalId": "g1",
+              "amount": "60.00"
+            },
+            {
+              "eventId": "char-id-4",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalFunded",
+              "goalId": "g2",
+              "amount": "40.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RuleApplied",
+                "GoalFunded",
+                "GoalFunded"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [
+          {
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "split": [
+              {
+                "goalId": "g1",
+                "percent": 60
+              },
+              {
+                "goalId": "g2",
+                "percent": 40
+              }
+            ],
+            "status": "active"
+          }
+        ],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"RuleCreated\",\"ruleId\":\"r1\",\"split\":[{\"goalId\":\"g1\",\"percent\":60},{\"goalId\":\"g2\",\"percent\":40}]}]"
+      },
+      "ids": 4,
+      "clockReads": 3,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": [
+        "append[0][0].weekSet === input[0].0.weekSet"
+      ]
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "proposalId": "pr1",
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "weekSet": [
+              1
+            ],
+            "lines": [
+              {
+                "goalId": "g1",
+                "amount": 60
+              },
+              {
+                "goalId": "g2",
+                "amount": 40
+              }
+            ],
+            "remainderToAvailable": 0,
+            "status": "proposed",
+            "repairNeeded": false
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.999Z"
+        ],
+        [
+          "id",
+          "char-id-4"
+        ],
+        [
+          "clock",
+          "2026-11-01T00:00:00.000Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "RuleApplied",
+              "ruleId": "r1",
+              "ruleVersion": 0,
+              "proposalId": "pr1",
+              "weekSet": [
+                1
+              ]
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.999Z",
+              "correlationId": "char-id-1",
+              "type": "GoalFunded",
+              "goalId": "g1",
+              "amount": "60.00"
+            },
+            {
+              "eventId": "char-id-4",
+              "simDay": 0,
+              "recordedAt": "2026-11-01T00:00:00.000Z",
+              "correlationId": "char-id-1",
+              "type": "GoalFunded",
+              "goalId": "g2",
+              "amount": "40.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RuleApplied",
+                "GoalFunded",
+                "GoalFunded"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [
+          {
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "split": [
+              {
+                "goalId": "g1",
+                "percent": 60
+              },
+              {
+                "goalId": "g2",
+                "percent": 40
+              }
+            ],
+            "status": "active"
+          }
+        ],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"RuleCreated\",\"ruleId\":\"r1\",\"split\":[{\"goalId\":\"g1\",\"percent\":60},{\"goalId\":\"g2\",\"percent\":40}]}]"
+      },
+      "ids": 4,
+      "clockReads": 3,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": [
+        "append[0][0].weekSet === input[0].0.weekSet"
+      ]
+    }
+  },
+  "fault-collect": {
+    "fixed": {
+      "args": [
+        [
+          "2026-08-08T00:00:00.000Z"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "WeeklyCreditGranted",
+              "week": 1,
+              "amount": "1000.00"
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "WeeklyCreditGranted",
+              "week": 2,
+              "amount": "1000.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "WeeklyCreditGranted",
+                "WeeklyCreditGranted"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 3,
+      "clockReads": 2,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "2026-08-08T00:00:00.000Z"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.999Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "WeeklyCreditGranted",
+              "week": 1,
+              "amount": "1000.00"
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.999Z",
+              "correlationId": "char-id-1",
+              "type": "WeeklyCreditGranted",
+              "week": 2,
+              "amount": "1000.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "WeeklyCreditGranted",
+                "WeeklyCreditGranted"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 3,
+      "clockReads": 2,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-comparison": {
+    "fixed": {
+      "args": [
+        [],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "ComparisonCreditGranted",
+              "amount": "1000.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "ComparisonCreditGranted"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "ComparisonCreditGranted",
+              "amount": "1000.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "ComparisonCreditGranted"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-create-goal": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "name": "A",
+            "icon": "x",
+            "targetAmount": 10,
+            "horizonMonths": 1,
+            "fundAmount": 5
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-4"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalCreated",
+              "goalId": "char-id-1",
+              "name": "A",
+              "icon": "x",
+              "targetAmount": "10.00",
+              "horizonMonths": 1
+            },
+            {
+              "eventId": "char-id-4",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalFunded",
+              "goalId": "char-id-1",
+              "amount": "5.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalCreated",
+                "GoalFunded"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 4,
+      "clockReads": 2,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "name": "A",
+            "icon": "x",
+            "targetAmount": 10,
+            "horizonMonths": 1,
+            "fundAmount": 5
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-4"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.999Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalCreated",
+              "goalId": "char-id-1",
+              "name": "A",
+              "icon": "x",
+              "targetAmount": "10.00",
+              "horizonMonths": 1
+            },
+            {
+              "eventId": "char-id-4",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.999Z",
+              "correlationId": "char-id-2",
+              "type": "GoalFunded",
+              "goalId": "char-id-1",
+              "amount": "5.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalCreated",
+                "GoalFunded"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 4,
+      "clockReads": 2,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-create-rule": {
+    "fixed": {
+      "args": [
+        [
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ]
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "RuleCreated",
+              "ruleId": "char-id-1",
+              "split": [
+                {
+                  "goalId": "g1",
+                  "percent": 50
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RuleCreated"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": [
+        "append[0][0].split === input[0].0"
+      ]
+    },
+    "advancing": {
+      "args": [
+        [
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ]
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "RuleCreated",
+              "ruleId": "char-id-1",
+              "split": [
+                {
+                  "goalId": "g1",
+                  "percent": 50
+                }
+              ]
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RuleCreated"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": [
+        "append[0][0].split === input[0].0"
+      ]
+    }
+  },
+  "fault-enter": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "totalFromCash": 10,
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "StrategyEntered",
+              "goalId": "g1",
+              "positionId": "char-id-1",
+              "strategyId": "safeHarbor",
+              "amount": "10.00",
+              "schemaVersion": 2,
+              "modeledNetworkFee": "0.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "StrategyEntered"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "totalFromCash": 10,
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "StrategyEntered",
+              "goalId": "g1",
+              "positionId": "char-id-1",
+              "strategyId": "safeHarbor",
+              "amount": "10.00",
+              "schemaVersion": 2,
+              "modeledNetworkFee": "0.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "StrategyEntered"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-exit": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "positionId": "p1",
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "StrategyExited",
+              "positionId": "p1",
+              "goalId": "g1",
+              "grossAmount": "500.00",
+              "schemaVersion": 2,
+              "modeledExitFee": "1.95",
+              "modeledNetworkFee": "0.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "StrategyExited"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "positionId": "p1",
+            "networkFeeLocal": 0
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "StrategyExited",
+              "positionId": "p1",
+              "goalId": "g1",
+              "grossAmount": "500.00",
+              "schemaVersion": 2,
+              "modeledExitFee": "1.95",
+              "modeledNetworkFee": "0.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "StrategyExited"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-grant": {
+    "fixed": {
+      "args": [
+        [
+          100,
+          "USD",
+          "b2c"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "PlayMoneyGranted",
+              "amount": "100.00",
+              "currency": "USD",
+              "mode": "b2c"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "PlayMoneyGranted"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": false,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": null,
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "0.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": []
+      },
+      "storage": {},
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          100,
+          "USD",
+          "b2c"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "PlayMoneyGranted",
+              "amount": "100.00",
+              "currency": "USD",
+              "mode": "b2c"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "PlayMoneyGranted"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": false,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": null,
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "0.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": []
+      },
+      "storage": {},
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-pause": {
+    "fixed": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalPaused",
+              "goalId": "g1",
+              "expectedVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalPaused"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalPaused",
+              "goalId": "g1",
+              "expectedVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalPaused"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-raise-target": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "4000"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalTargetChanged",
+              "goalId": "g1",
+              "oldTarget": "3000.00",
+              "newTarget": "4000.00",
+              "expectedVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalTargetChanged"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "4000"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalTargetChanged",
+              "goalId": "g1",
+              "oldTarget": "3000.00",
+              "newTarget": "4000.00",
+              "expectedVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalTargetChanged"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-recurring": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "positionId": "p1",
+            "monthlyAmount": 10
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "RecurringSet",
+              "goalId": "g1",
+              "positionId": "p1",
+              "monthlyAmount": "10.00",
+              "startSimDay": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RecurringSet"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "goalId": "g1",
+            "positionId": "p1",
+            "monthlyAmount": 10
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "RecurringSet",
+              "goalId": "g1",
+              "positionId": "p1",
+              "monthlyAmount": "10.00",
+              "startSimDay": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RecurringSet"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-resolve-available": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "SimulatedExpensePaid",
+              "eventInstanceId": "ev1",
+              "amount": "50.00",
+              "source": "system"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "SimulatedExpensePaid"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "available"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "SimulatedExpensePaid",
+              "eventInstanceId": "ev1",
+              "amount": "50.00",
+              "source": "system"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "SimulatedExpensePaid"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-resolve-reserve": {
+    "fixed": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "reserve",
+              "goalId": "g1"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalCashReleased",
+              "goalId": "g1",
+              "amount": "50.00",
+              "expectedVersion": 0
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "SimulatedExpensePaid",
+              "eventInstanceId": "ev1",
+              "amount": "50.00",
+              "source": "system"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalCashReleased",
+                "SimulatedExpensePaid"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 2,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          {
+            "eventInstanceId": "ev1",
+            "eventType": "x",
+            "amount": 50,
+            "via": {
+              "path": "reserve",
+              "goalId": "g1"
+            }
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.999Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalCashReleased",
+              "goalId": "g1",
+              "amount": "50.00",
+              "expectedVersion": 0
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.999Z",
+              "correlationId": "char-id-1",
+              "type": "SimulatedExpensePaid",
+              "eventInstanceId": "ev1",
+              "amount": "50.00",
+              "source": "system"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalCashReleased",
+                "SimulatedExpensePaid"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 2,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-resume": {
+    "fixed": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalResumed",
+              "goalId": "g1",
+              "expectedVersion": 1
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalResumed"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "paused",
+            "version": 1
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalPaused\",\"goalId\":\"g1\",\"expectedVersion\":0}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalResumed",
+              "goalId": "g1",
+              "expectedVersion": 1
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalResumed"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "paused",
+            "version": 1
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalPaused\",\"goalId\":\"g1\",\"expectedVersion\":0}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-stop-all": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          {
+            "$function": "anonymous"
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "feeFor",
+          "p1",
+          0.5
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "StrategyExited",
+              "positionId": "p1",
+              "goalId": "g1",
+              "grossAmount": "500.00",
+              "schemaVersion": 2,
+              "modeledExitFee": "1.95",
+              "modeledNetworkFee": "0.50"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "StrategyExited"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          {
+            "$function": "anonymous"
+          }
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "feeFor",
+          "p1",
+          0.5
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "StrategyExited",
+              "positionId": "p1",
+              "goalId": "g1",
+              "grossAmount": "500.00",
+              "schemaVersion": 2,
+              "modeledExitFee": "1.95",
+              "modeledNetworkFee": "0.50"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "StrategyExited"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "500.00",
+            "invested": "500.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "500.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.50",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"500.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-transfer": {
+    "fixed": {
+      "args": [
+        [
+          "g1",
+          "g2"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-4"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalCashReleased",
+              "goalId": "g1",
+              "amount": "1000.00",
+              "expectedVersion": 0
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalFunded",
+              "goalId": "g2",
+              "amount": "1000.00"
+            },
+            {
+              "eventId": "char-id-4",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalAccomplished",
+              "goalId": "g1",
+              "disposition": "transferred",
+              "expectedVersion": 1
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalCashReleased",
+                "GoalFunded",
+                "GoalAccomplished"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24}]"
+      },
+      "ids": 4,
+      "clockReads": 3,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "args": [
+        [
+          "g1",
+          "g2"
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.999Z"
+        ],
+        [
+          "id",
+          "char-id-4"
+        ],
+        [
+          "clock",
+          "2026-11-01T00:00:00.000Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "GoalCashReleased",
+              "goalId": "g1",
+              "amount": "1000.00",
+              "expectedVersion": 0
+            },
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.999Z",
+              "correlationId": "char-id-1",
+              "type": "GoalFunded",
+              "goalId": "g2",
+              "amount": "1000.00"
+            },
+            {
+              "eventId": "char-id-4",
+              "simDay": 0,
+              "recordedAt": "2026-11-01T00:00:00.000Z",
+              "correlationId": "char-id-1",
+              "type": "GoalAccomplished",
+              "goalId": "g1",
+              "disposition": "transferred",
+              "expectedVersion": 1
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "GoalCashReleased",
+                "GoalFunded",
+                "GoalAccomplished"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24}]"
+      },
+      "ids": 4,
+      "clockReads": 3,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "fault-update-rule": {
+    "fixed": {
+      "args": [
+        [
+          "r1",
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ],
+          0
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "RuleUpdated",
+              "ruleId": "r1",
+              "split": [
+                {
+                  "goalId": "g1",
+                  "percent": 50
+                }
+              ],
+              "expectedRuleVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RuleUpdated"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [
+          {
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "split": [
+              {
+                "goalId": "g1",
+                "percent": 60
+              },
+              {
+                "goalId": "g2",
+                "percent": 40
+              }
+            ],
+            "status": "active"
+          }
+        ],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"RuleCreated\",\"ruleId\":\"r1\",\"split\":[{\"goalId\":\"g1\",\"percent\":60},{\"goalId\":\"g2\",\"percent\":40}]}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": [
+        "append[0][0].split === input[0].1"
+      ]
+    },
+    "advancing": {
+      "args": [
+        [
+          "r1",
+          [
+            {
+              "goalId": "g1",
+              "percent": 50
+            }
+          ],
+          0
+        ],
+        []
+      ],
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "RuleUpdated",
+              "ruleId": "r1",
+              "split": [
+                {
+                  "goalId": "g1",
+                  "percent": 50
+                }
+              ],
+              "expectedRuleVersion": 0
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "console",
+          "error",
+          [
+            "[sandbox] ledger append refused: the projection cannot handle it",
+            {
+              "level": "error",
+              "message": "ledger append refused: the projection cannot handle it",
+              "types": [
+                "RuleUpdated"
+              ]
+            }
+          ]
+        ]
+      ],
+      "result": {
+        "throw": {
+          "name": "Error",
+          "message": "characterization: injected projection failure"
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          },
+          {
+            "goalId": "g2",
+            "name": "Car",
+            "icon": "plane",
+            "targetAmount": "500.00",
+            "horizonMonths": 24,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [
+          {
+            "ruleId": "r1",
+            "ruleVersion": 0,
+            "split": [
+              {
+                "goalId": "g1",
+                "percent": 60
+              },
+              {
+                "goalId": "g2",
+                "percent": 40
+              }
+            ],
+            "status": "active"
+          }
+        ],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"GoalCreated\",\"goalId\":\"g2\",\"name\":\"Car\",\"icon\":\"plane\",\"targetAmount\":\"500.00\",\"horizonMonths\":24},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"RuleCreated\",\"ruleId\":\"r1\",\"split\":[{\"goalId\":\"g1\",\"percent\":60},{\"goalId\":\"g2\",\"percent\":40}]}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": [
+        "append[0][0].split === input[0].1"
+      ]
+    }
+  }
+}
