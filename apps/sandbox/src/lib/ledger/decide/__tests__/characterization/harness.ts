@@ -9,6 +9,7 @@
  * `mockDeclarations` below lists them, and `mocks.ts` builds them.
  */
 import type { LedgerEvent, LedgerState } from '@diboas/banking';
+import { createHash } from 'node:crypto';
 import { vi } from 'vitest';
 import {
   describeError,
@@ -40,7 +41,7 @@ export interface CaseDef {
   /** Unique within its family; never reused for a different case. */
   id: string;
   /** The command's row in plan P12 Appendix A (1–19; 'preview' for the previews). */
-  row: number | 'preview';
+  row: number | 'preview' | 'walk';
   /**
    * What today's code does, labelled by hand from reading it (plan §4.1): `emitted`,
    * `noop:<reason>` (camelCase, D4) or `throw`, plus any notes for legs it withholds. PR-2's
@@ -61,6 +62,11 @@ export interface CaseDef {
   /** The inputs, snapshotted before and after to catch mutation, and walked for shared refs. */
   inputs?: unknown[];
   run: (api: CaseApi) => unknown;
+  /**
+   * Store the timeline as a digest and per-kind counts instead of in full (the random walk,
+   * whose per-step outcomes, appends and state hashes are already its result; plan §4.1).
+   */
+  compact?: boolean;
 }
 
 export interface Observation {
@@ -203,8 +209,16 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     unsubscribe();
     await core.flush();
 
+    const timeline: TimelineEntry[] = def.compact
+      ? [
+          ['digest', createHash('sha256').update(encode(r.timeline)).digest('hex')],
+          ...Object.entries(
+            r.timeline.reduce<Record<string, number>>((n, [kind]) => ({ ...n, [kind]: (n[kind] ?? 0) + 1 }), {})
+          ).map(([kind, count]): TimelineEntry => ['count', kind, count]),
+        ]
+      : [...r.timeline];
     const observation: Observation = {
-      timeline: [...r.timeline],
+      timeline,
       result,
       // The projected state without its `events` echo: the log itself is compared byte for byte
       // in `storage`, so repeating it here would only double every golden.

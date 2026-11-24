@@ -17,7 +17,7 @@ import { canonicalize, encode } from './recorder';
 
 export type Golden = Record<string, { fixed: unknown; advancing: unknown }>;
 export interface ManifestEntry {
-  row: number | 'preview';
+  row: number | 'preview' | 'walk';
   exact: string;
   canonical: string;
   pinnedDefect?: string;
@@ -47,7 +47,8 @@ export function hashes(fixed: Observation, advancing: Observation) {
 export function labelOf(o: Observation): string {
   const result = o.result as { throw?: unknown };
   if (result.throw) return 'throw';
-  if (o.timeline.some(([kind]) => kind === 'append')) return 'emitted';
+  if (o.timeline.some(([kind, detail]) => kind === 'append' || (kind === 'count' && detail === 'append')))
+    return 'emitted';
   if (o.timeline.some(([kind, key]) => kind === 'storage.set' && !String(key).startsWith('diboas-ledger')))
     return 'effect';
   return 'noop';

@@ -888,6 +888,63 @@
       "canonical": "fb82bd8ae32bf616aed4124eae17ac84898103c4bf914dbcf1bb6fb1db103985"
     }
   },
+  "previews": {
+    "preview-closed-position": {
+      "row": "preview",
+      "exact": "f72420e609178aee555ecbabfea006f715dcb21d25789d6ca1cb3bf920051f81",
+      "canonical": "f1d700127d349d6eb44bc5fb07d31d0b772cd97e23efa0fad2505fbe6add8df6"
+    },
+    "preview-exit-BRL": {
+      "row": "preview",
+      "exact": "1e8bbd335844ef80c4ace67a6498970c27ce365fcb8a4560ce1e6398bfcc0347",
+      "canonical": "281c6adef479c279fb489f8c273161052f56cb80abf94d6ccef384008597c49b"
+    },
+    "preview-exit-EUR": {
+      "row": "preview",
+      "exact": "b29f7a8068fe8bb48c5f32255a9f80d86b0e89d9e7ada4a8e3f3478b1da64255",
+      "canonical": "0ec80e5ee37daf620f06837c39d74143428f3e684b3cb31579c903f10423d23c"
+    },
+    "preview-exit-USD": {
+      "row": "preview",
+      "exact": "84698f525f435f7b9697e583ddb01e879112a859f73225a816e3145ad167a05f",
+      "canonical": "e9a3753d0f9f5bb7641a873898f01b06e091d6698d67cd0f1c19b1962f980753"
+    },
+    "preview-goal-stop-BRL": {
+      "row": "preview",
+      "exact": "00111c1a2b74938f5ead5130253dad8abc13029898e9aa7970929b55dd623909",
+      "canonical": "0dc51d32d9c2b2ff4044350c463ee43cee50f2619e5bb40d3f603220f607d5fe"
+    },
+    "preview-goal-stop-EUR": {
+      "row": "preview",
+      "exact": "e459c3b5294b3bf2d5bf534f4a99b9f1d3af0b0aed33641438ab1d6676d4426d",
+      "canonical": "e0cc599b2803117adcfb77d117378e89cd44724a431ad17d299eb574e75f1fac"
+    },
+    "preview-goal-stop-USD": {
+      "row": "preview",
+      "exact": "91918cf11dcf540e017dde9660b64018f38e79bf063f0cd1a6d48307f8479c67",
+      "canonical": "7cedfe11e46cf3bc6a5948596a3959202f1b64efd4a6df0f5203c6cca38f2a03"
+    },
+    "preview-position-stop-BRL": {
+      "row": "preview",
+      "exact": "52db317f78f965d1303f8880b468914b75da312b22bf88049ae7cb842062ea49",
+      "canonical": "660d8860c61a64e9369ab5d5d11c347623f506d5ded71dd262cde45686c0e13a"
+    },
+    "preview-position-stop-EUR": {
+      "row": "preview",
+      "exact": "4fc28851856e2ca3a6300395fd92128d25eb44b7587c94ae2f273da5cf1baa7a",
+      "canonical": "86e18e84d79972d649a5dee5619c612748172cbb038f05d844feda42a6fec4b4"
+    },
+    "preview-position-stop-USD": {
+      "row": "preview",
+      "exact": "dc19fa8ca04f37aa72fe42d6ef41de38147f2b4ff385460ecb8fc1464bb109a7",
+      "canonical": "c8afd3fd096850397285d05cf5b8f69ba231960fb7f94b907f1c10d468e428b3"
+    },
+    "preview-split-entry": {
+      "row": "preview",
+      "exact": "0c73aa5874c72ed23c95332bc25158f1e9934f9139351a25a99a8c815130acaf",
+      "canonical": "63e55116c022fb84eb3de54dabc3de02f24947d2a85645d66c20d30753fd9977"
+    }
+  },
   "rulesCreditsSim": {
     "apply-adjusted-duplicate": {
       "row": 15,
@@ -1428,6 +1485,13 @@
       "row": 14,
       "exact": "63e21b15c4a2651168a10eab243a50175fe325a37641e415c4a71accd24157d9",
       "canonical": "98d74103bd80c2f4c0cb8c3c5ac2aa2f38b12acdd5dbb9ff16a787669c9caa58"
+    }
+  },
+  "walk": {
+    "random-walk-500": {
+      "row": "walk",
+      "exact": "8326b07c045ca384307369928e2d3dc5490c3c68ecc74e5ac0c244e0724488f5",
+      "canonical": "ca95b0c7a84b94506d27a136360fc7d4c1f33ca01061ec5346cc7946edf457e8"
     }
   }
 }
