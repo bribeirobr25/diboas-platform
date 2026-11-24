@@ -41,6 +41,14 @@ export interface CaseDef {
   id: string;
   /** The command's row in plan P12 Appendix A (1–19; 'preview' for the previews). */
   row: number | 'preview';
+  /**
+   * What today's code does, labelled by hand from reading it (plan §4.1): `emitted`,
+   * `noop:<reason>` (camelCase, D4) or `throw`, plus any notes for legs it withholds. PR-2's
+   * decisions are checked against these labels; the goldens never record an `outcome`.
+   */
+  label: { expected: string; notes?: string[] };
+  /** A defect this case pins on purpose (a register id), so S1b changes it deliberately. */
+  pinnedDefect?: string;
   /** The history in force before the command (written through the real append path). */
   seed?: LedgerEvent[];
   /** Raw storage written BEFORE the modules load (the stored-unknown-event recipe). */
@@ -69,7 +77,6 @@ export interface Observation {
 }
 
 const STORAGE_PREFIX = 'diboas';
-const realSetItem = Storage.prototype.setItem;
 
 async function fresh(def: CaseDef) {
   localStorage.clear();
@@ -123,14 +130,14 @@ export async function runCase(def: CaseDef): Promise<Observation> {
   r.faultOnce = false;
   r.clockMode = def.clockMode ?? 'fixed';
   installClock();
-  const setItem = vi
-    .spyOn(Storage.prototype, 'setItem')
-    .mockImplementation(function (this: Storage, key: string, value: string) {
-      // The ledger's own key is written behind every append (its value is in `storage`);
-      // a side store's write is recorded with its value, at the moment it happens.
-      record('storage.set', key, key.startsWith('diboas-ledger') ? `<${value.length} chars>` : value);
-      return realSetItem.call(this, key, value);
-    });
+  // Spied on the instance: happy-dom's storage does not route through `Storage.prototype`.
+  const originalSetItem = localStorage.setItem.bind(localStorage);
+  const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation((key: string, value: string) => {
+    // The ledger's own key is written behind every append (its value is in `storage`);
+    // a side store's write is recorded with its value, at the moment it happens.
+    record('storage.set', key, key.startsWith('diboas-ledger') ? `<${value.length} chars>` : value);
+    return originalSetItem(key, value);
+  });
   const consoleSpies = (['warn', 'error', 'info'] as const).map((level) =>
     vi.spyOn(console, level).mockImplementation((...args: unknown[]) => {
       record('console', level, normalizeLog(args));
@@ -192,7 +199,9 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     const observation: Observation = {
       timeline: [...r.timeline],
       result,
-      stateAfter: def.rawStorage ? null : snapshot(core.getLedgerState()),
+      // The projected state without its `events` echo: the log itself is compared byte for byte
+      // in `storage`, so repeating it here would only double every golden.
+      stateAfter: def.rawStorage ? null : snapshot({ ...core.getLedgerState(), events: '<in storage>' }),
       storage: storageSnapshot(),
       ids: r.idCounter,
       clockReads: r.clockIndex,
