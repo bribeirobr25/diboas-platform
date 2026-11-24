@@ -4,39 +4,24 @@
  * seam; consumed via the `ledgerClient` barrel. Semantics unchanged.
  */
 
-import Decimal from 'decimal.js';
-import { comparisonCreditAmount, weeklyCreditAmount } from '../growthConstants';
-import { generateId } from '../ids';
-import { getCollectView } from '../weeklyCycle';
-import { appendAll, base, getLedgerState } from './core';
+import { browserContext } from './browserContext';
+import { appendAll } from './core';
+import { decideCollectWeeklyCredits, decideGrantComparisonCredit } from './decide/credits';
 
 /**
  * The explicit Collect tap (W-5b): grant every collectible week as its own
  * idempotent `WeeklyCreditGranted`. The ceiling is checked at the tap (calm
  * pause, FT-19); the engine's per-week guard makes a double-tap harmless even
  * beyond the synchronous in-memory log. Returns what happened so the surface
- * can narrate it honestly.
+ * can narrate it honestly. The decision is `decideCollectWeeklyCredits` (S1a).
  */
 export function collectWeeklyCredits(nowIso = new Date().toISOString()): {
   granted: number[];
   ceilingPaused: boolean;
 } {
-  const state = getLedgerState();
-  if (!state.initialized) return { granted: [], ceilingPaused: false };
-  const view = getCollectView(state, nowIso);
-  if (view.ceilingPaused || view.weeks.length === 0)
-    return { granted: [], ceilingPaused: view.ceilingPaused };
-  const amount = new Decimal(weeklyCreditAmount(state.mode)).toFixed(2);
-  const correlationId = generateId();
-  appendAll(
-    view.weeks.map((week) => ({
-      ...base(correlationId),
-      type: 'WeeklyCreditGranted' as const,
-      week,
-      amount,
-    }))
-  );
-  return { granted: view.weeks, ceilingPaused: false };
+  const decision = decideCollectWeeklyCredits({ nowIso }, browserContext);
+  if (decision.append) appendAll(decision.append);
+  return decision.result;
 }
 
 /**
@@ -45,17 +30,10 @@ export function collectWeeklyCredits(nowIso = new Date().toISOString()): {
  * and once per ledger. The engine enforces the once-per-ledger rule; this mirrors it so the caller
  * learns synchronously whether anything happened. Still unreachable: no screen offers it until a
  * separate product decision (E5); the offer framing rules (never pre-announced, never a reward)
- * bind that surface.
+ * bind that surface. The decision is `decideGrantComparisonCredit` (S1a).
  */
 export function grantComparisonCredit(): boolean {
-  const state = getLedgerState();
-  if (!state.initialized || state.comparisonCredited) return false;
-  appendAll([
-    {
-      ...base(generateId()),
-      type: 'ComparisonCreditGranted',
-      amount: new Decimal(comparisonCreditAmount(state.mode)).toFixed(2),
-    },
-  ]);
-  return true;
+  const decision = decideGrantComparisonCredit(browserContext);
+  if (decision.append) appendAll(decision.append);
+  return decision.result;
 }
