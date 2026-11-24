@@ -1,23 +1,11 @@
 {
   "core-persist-failure-is-logged": {
     "fixed": {
-      "args": [
-        [],
-        []
-      ],
+      "args": [[], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -31,12 +19,8 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
+        ["project"],
+        ["notify"],
         [
           "console",
           "error",
@@ -169,23 +153,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [],
-        []
-      ],
+      "args": [[], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -199,12 +171,8 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
+        ["project"],
+        ["notify"],
         [
           "console",
           "error",
@@ -339,23 +307,15 @@
   },
   "core-reset-clears-everything": {
     "fixed": {
-      "args": [
-        [],
-        [],
-        []
-      ],
+      "args": [[], [], []],
       "timeline": [
         [
           "storage.set",
           "diboas.sandbox.simulatedEvents.v1",
           "[{\"eventInstanceId\":\"ev1\",\"eventType\":\"x\",\"choice\":\"coverFromAvailable\",\"resolvedAt\":\"2026-08-01T00:00:00.000Z\",\"catalogueVersion\":1}]"
         ],
-        [
-          "notify"
-        ],
-        [
-          "project"
-        ]
+        ["notify"],
+        ["project"]
       ],
       "result": {
         "return": false
@@ -398,23 +358,15 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [],
-        [],
-        []
-      ],
+      "args": [[], [], []],
       "timeline": [
         [
           "storage.set",
           "diboas.sandbox.simulatedEvents.v1",
           "[{\"eventInstanceId\":\"ev1\",\"eventType\":\"x\",\"choice\":\"coverFromAvailable\",\"resolvedAt\":\"2026-08-01T00:00:00.000Z\",\"catalogueVersion\":1}]"
         ],
-        [
-          "notify"
-        ],
-        [
-          "project"
-        ]
+        ["notify"],
+        ["project"]
       ],
       "result": {
         "return": false
@@ -459,23 +411,11 @@
   },
   "core-storage-write-blocked-is-swallowed": {
     "fixed": {
-      "args": [
-        [],
-        []
-      ],
+      "args": [[], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -489,17 +429,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1417 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1417 chars>"]
       ],
       "result": {
         "return": true
@@ -614,23 +546,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [],
-        []
-      ],
+      "args": [[], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -644,17 +564,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1417 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1417 chars>"]
       ],
       "result": {
         "return": true
@@ -786,18 +698,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -811,17 +714,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1417 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1417 chars>"]
       ],
       "result": {
         "return": {
@@ -954,18 +849,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -979,17 +865,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1417 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1417 chars>"]
       ],
       "result": {
         "return": {

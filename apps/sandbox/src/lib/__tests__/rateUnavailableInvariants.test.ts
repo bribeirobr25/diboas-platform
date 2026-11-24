@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join, relative, sep } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { stripComments } from '@diboas/test-support';
 
@@ -20,12 +20,27 @@ import { stripComments } from '@diboas/test-support';
  * ```
  */
 
+const APP_ROOT = process.cwd();
 const codeOf = (rel: string) => stripComments(readFileSync(join(process.cwd(), rel), 'utf8'), rel);
 
 /** Ledger and replay modules: settled state and history live here. */
 const SETTLED_STATE = [
   'src/lib/ledger/journey.ts',
   'src/lib/ledger/core.ts',
+  // S1a (plan P12 §4.7): every non-test file under src/lib/ledger/ settles state now that the
+  // rules live in decide/; the completeness assertion below keeps this list whole.
+  'src/lib/ledger/rules.ts',
+  'src/lib/ledger/credits.ts',
+  'src/lib/ledger/simEvents.ts',
+  'src/lib/ledger/browserContext.ts',
+  'src/lib/ledger/applyDecision.ts',
+  'src/lib/ledger/decide/credits.ts',
+  'src/lib/ledger/decide/fees.ts',
+  'src/lib/ledger/decide/journey.ts',
+  'src/lib/ledger/decide/rules.ts',
+  'src/lib/ledger/decide/simEvents.ts',
+  'src/lib/ledger/decide/stamp.ts',
+  'src/lib/ledger/decide/types.ts',
   'src/lib/advancePlanner.ts',
   'src/lib/positionSeries.ts',
   'src/lib/practiceSeries.ts',
@@ -33,6 +48,23 @@ const SETTLED_STATE = [
 ];
 
 describe('5.436 · losing the current rate does not reach backwards', () => {
+  it('should list every non-test file under src/lib/ledger/ (completeness, plan P12 §4.7)', () => {
+    const root = join(APP_ROOT, 'src/lib/ledger');
+    const walk = (dir: string): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+        e.isDirectory()
+          ? e.name === '__tests__'
+            ? []
+            : walk(join(dir, e.name))
+          : /\.tsx?$/.test(e.name)
+            ? [relative(APP_ROOT, join(dir, e.name)).split(sep).join('/')]
+            : []
+      );
+    const missing = walk(root).filter((f) => !SETTLED_STATE.includes(f));
+    expect(walk(root).length).toBeGreaterThan(5);
+    expect(missing).toEqual([]);
+  });
+
   it.each(SETTLED_STATE)('should keep the rate gate out of %s', (file) => {
     const code = codeOf(file);
     for (const forbidden of [

@@ -409,6 +409,30 @@ Register: `5.485` (closed), `5.524` (founder), `5.525`, `5.526`, `5.529` (open, 
   credit left in Available). This is PINNED by `p8aCase3Agreement.test.ts`, not decided — the choice
   is `5.524`'s. Do not "fix" it either way without that ruling.
 
+## Practice ledger: decisions and adapters (S1a, 2026-11-24 — do not regress)
+
+Plan P12 (register `5.1008`), ADR-003. Gates: `LEDGER-CHAR-1`, `LEDGER-DECIDE-1`.
+
+- **Where a ledger rule lives.** _Current code:_ each command's rule is a pure `decideX(intent, env, ctx)` in
+  `apps/sandbox/src/lib/ledger/decide/` (preconditions and composition; computation rules stay in
+  `packages/*`, and `decide/fees.ts` is the one provisional exception). The file under the command's old name
+  (`lib/ledger/{journey,rules,credits,simEvents}.ts`; all but `advanceTime`, which moves in S1a PR-3) is an
+  adapter: it splits the caller's arguments into intent and environment (plan P12 Appendix A), builds
+  the decision with `browserContext`, and hands it to `applyDecision`, which appends and then runs
+  every effect. _Why:_ the browser today and a server later
+  (S2b) must apply one rule set. _Do not:_ read state, draw ids or read the clock in a decision except through
+  `ctx`; import an adapter, the core, a store or anything impure from `decide/` (the lint allow-list refuses it).
+- **The split is mechanical.** _Current code:_ `getLedgerState()` became `ctx.readState()`, `generateId()`
+  `ctx.newId()`, `base(x)` `stamp(x, ctx)` (same order: id, state, clock), a side-store call an `Effect`, and
+  every object literal kept its field order (it is the stored order). _Do not:_ restructure a body while moving
+  it; behaviour changes belong to S1b, contract changes to S1c.
+- **The behaviour lock.** _Current code:_ `apps/sandbox/src/lib/ledger/decide/__tests__/characterization/`
+  records every command exactly; goldens are written only by `pnpm --filter sandbox char:update` (Node 24 unless
+  `CHAR_ALLOW_NODE`), only for named cases with a register id (`CHAR_CASES=… CHAR_REGISTER_ID=…`), and each
+  case recorded at PR-1 must still hash to `frozen.json`, which no tooling writes. CI `ledger-char-base` records
+  the base and the PR's merge with the same judge and compares them case by case. _Do not:_ edit a golden,
+  `frozen.json` or the judge files in a PR that changes the ledger; a new case may be added.
+
 ## Sandbox browser harness (Q0, 2026-10-17 — do not regress)
 
 Register: `5.527` (closed), `5.528` (open). Gate: `HARNESS-1`. Code: `apps/sandbox/e2e/harness.ts`.

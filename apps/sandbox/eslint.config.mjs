@@ -4,6 +4,123 @@ import nextConfig from 'eslint-config-next';
  * diBoaS Sandbox — ESLint flat config (mirrors the apps/web approach:
  * eslint-config-next native flat config, no FlatCompat).
  */
+/**
+ * `LEDGER-DECIDE-1` (plan P12 D10, S1a; ADR-003): the syntax and globals a ledger decision — and
+ * every pure helper on its path — may not use. Shared by both blocks below. The lint is the fast
+ * signal; the authority is `decide/__tests__/ledgerDecide1Surface.test.ts`, which resolves every
+ * global a file touches with the TypeScript checker and allows only a measured list, however it is
+ * spelled.
+ */
+const LEDGER_PURE_SYNTAX = [
+  ["NewExpression[callee.name='Date'][arguments.length=0]", 'no clock reads — use ctx.clock().'],
+  ["NewExpression[callee.name='Date']:has(SpreadElement)", 'a spread Date reads the clock.'],
+  ["CallExpression[callee.name='Date']", 'Date() reads the clock — use ctx.clock().'],
+  [
+    "MemberExpression[object.name='Date'][property.name='now']",
+    'no clock reads — use ctx.clock().',
+  ],
+  [
+    'MemberExpression[computed=true][object.name=/^(Date|Math)$/]',
+    'no computed Date or Math members.',
+  ],
+  ["MemberExpression[object.name='performance'][property.name='now']", 'no clock reads.'],
+  [
+    "MemberExpression[object.name='Math'][property.name='random']",
+    'no randomness — ids come from ctx.newId().',
+  ],
+  [
+    "MemberExpression[object.name='Object'][property.name=/^(assign|defineProperty|defineProperties|setPrototypeOf)$/]",
+    'no mutation through Object.',
+  ],
+  ["CallExpression[callee.name='fetch']", 'no I/O.'],
+  ["CallExpression[callee.name='require']", 'no require() — it defeats the import allow-list.'],
+  ['ImportExpression', 'no dynamic import — it defeats the import allow-list.'],
+  ['TSImportEqualsDeclaration', 'no import = require() — it defeats the import allow-list.'],
+  ['ExportAllDeclaration', 'no re-exports — a pure module must not launder another module.'],
+  [
+    'ExportNamedDeclaration[source]',
+    'no re-exports — a pure module must not launder another module.',
+  ],
+  [
+    "Program > VariableDeclaration[kind!='const']",
+    'no module-level let/var — no hidden state between calls.',
+  ],
+  [
+    "ExportNamedDeclaration > VariableDeclaration[kind!='const']",
+    'no module-level let/var — no hidden state between calls.',
+  ],
+  // Re-attack 2026-11-24: forms that hide a global or reach Function without naming one.
+  ['[declare=true]', 'no ambient declarations — `declare` hides a real global from every check.'],
+  ['TSModuleDeclaration', 'no namespaces or `declare global`.'],
+  [
+    ':matches(ClassDeclaration, ClassExpression)[superClass]',
+    'no class extension — `extends Date` reads the clock.',
+  ],
+  [
+    'TSInstantiationExpression',
+    'no instantiation expressions — `new (Date<never>)()` reads the clock.',
+  ],
+  [
+    "MemberExpression[property.name='constructor']",
+    'no .constructor access — it reaches Function.',
+  ],
+  [
+    "MemberExpression[property.value='constructor']",
+    'no .constructor access — it reaches Function.',
+  ],
+  [
+    "MemberExpression[object.name='Decimal'][property.name!=/^(min|max)$/]",
+    'only Decimal.min/max — Decimal.set and Decimal.random are not pure.',
+  ],
+].map(([selector, message]) => ({ selector, message: `LEDGER-DECIDE-1: ${message}` }));
+const LEDGER_PURE_GLOBALS = [
+  'window',
+  'document',
+  'navigator',
+  'localStorage',
+  'sessionStorage',
+  'indexedDB',
+  'process',
+  'performance',
+  'crypto',
+  'fetch',
+  'globalThis',
+  'self',
+  'top',
+  'frames',
+  'parent',
+  'opener',
+  'location',
+  'XMLHttpRequest',
+  'WebSocket',
+  'EventSource',
+  'BroadcastChannel',
+  'setTimeout',
+  'setInterval',
+  'setImmediate',
+  'queueMicrotask',
+  'requestAnimationFrame',
+  'structuredClone',
+  'Function',
+  'eval',
+  'Intl',
+  'Reflect',
+  'require',
+  'module',
+  'global',
+  'Buffer',
+].map((name) => ({
+  name,
+  message: `LEDGER-DECIDE-1: no ${name} — what a decision needs arrives as intent, env or ctx.`,
+}));
+/** The pure helpers a decision may import (also held by the surface and reach tests). */
+const LEDGER_PURE_HELPERS = [
+  'src/lib/growthConstants.ts',
+  'src/lib/weeklyCycle.ts',
+  'src/lib/advancePlanner.ts',
+  'src/i18n/config.ts',
+];
+
 export default [
   ...nextConfig,
   {
@@ -140,6 +257,115 @@ export default [
        * Input mutation: a selector that edits its argument is not a function of
        * it (AUD-D01 bypass 6 — `state.amount += 1` produced no diagnostic).
        */
+      'no-param-reassign': ['error', { props: true }],
+    },
+  },
+
+  /**
+   * Gate `LEDGER-DECIDE-1` — the ledger's decisions are pure (plan P12 D10, S1a; ADR-003).
+   *
+   * `src/lib/ledger/decide/**` holds each command's preconditions and composition. A decision
+   * reads state, draws ids and reads the clock ONLY through the `ctx` it is given, so the browser
+   * today and a server later (S2b) apply the same rules. Imports are an ALLOW-LIST: other
+   * decisions, the pure helpers, `decimal.js`, and only the named exports of the three domain
+   * packages (their barrels also export a localStorage store and network providers); every other
+   * package, any subpath, and any `..` after a named segment (`./../core`, `@/lib/ledger/decide/../core`)
+   * is refused. Inline ESLint directives are ignored here. `ledgerDecide1.test.ts` plants every
+   * banned form and a clean control; `ledgerDecide1Surface.test.ts` is the spelling-proof backstop.
+   */
+  {
+    files: ['src/lib/ledger/decide/**/*.{ts,tsx,mts,cts,js,mjs,cjs}'],
+    ignores: ['src/lib/ledger/decide/**/__tests__/**'],
+    linterOptions: { noInlineConfig: true, reportUnusedDisableDirectives: 'error' },
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: '@diboas/banking',
+              allowImportNames: ['computeExitFee', 'LedgerEvent', 'LedgerState'],
+              message:
+                'LEDGER-DECIDE-1: from @diboas/banking a decision imports only the named pure exports.',
+            },
+            {
+              name: '@diboas/investing',
+              allowImportNames: ['isValidRuleSplit', 'Proposal'],
+              message:
+                'LEDGER-DECIDE-1: from @diboas/investing a decision imports only the named pure exports.',
+            },
+            {
+              name: '@diboas/defi',
+              allowImportNames: ['StrategyId'],
+              message:
+                'LEDGER-DECIDE-1: from @diboas/defi a decision imports only the named pure exports.',
+            },
+          ],
+          patterns: [
+            {
+              // Every bare package except the allowed ones, by exact name (a subpath is refused).
+              regex: '^(?![./@])(?!decimal\\.js$)',
+              message:
+                'LEDGER-DECIDE-1: a decision imports no package but decimal.js and the three domain packages.',
+            },
+            {
+              regex: '^@(?!/|diboas/(banking|investing|defi)$)',
+              message:
+                'LEDGER-DECIDE-1: a decision imports no package but decimal.js and the three domain packages.',
+            },
+            {
+              // `..` after a named segment walks back out of an allowed path.
+              regex: '(^|/)(?!\\.\\.?(/|$))[^/]+/(.*/)?\\.\\.(/|$)',
+              message: 'LEDGER-DECIDE-1: no `..` after a named path segment.',
+            },
+            {
+              regex: '^\\./(.*/)?\\.\\.(/|$)',
+              message: 'LEDGER-DECIDE-1: no `./..` spellings.',
+            },
+            {
+              // A regex, not a glob: gitignore negation cannot re-include a file under an excluded parent.
+              regex:
+                '^@/(?!lib/ledger/decide(/|$)|lib/(growthConstants|weeklyCycle|advancePlanner)$|i18n/config$)',
+              message:
+                'LEDGER-DECIDE-1: a decision imports only other decisions and the pure helpers (growthConstants, weeklyCycle, advancePlanner, i18n/config).',
+            },
+            {
+              // Exactly one level up is lib/ledger/: the adapters and the core (they write).
+              regex: '^\\.\\./(?!\\.\\./)',
+              message:
+                'LEDGER-DECIDE-1: lib/ledger/* outside decide/ are the adapters and the core (they write); a decision never imports them.',
+            },
+            {
+              regex: '^\\.\\./\\.\\./(?!\\.\\./)(?!(growthConstants|weeklyCycle|advancePlanner)$)',
+              message:
+                'LEDGER-DECIDE-1: from lib/ a decision imports only the pure helpers (relative form).',
+            },
+            {
+              regex: '^\\.\\./\\.\\./\\.\\./',
+              message:
+                'LEDGER-DECIDE-1: a decision imports nothing from outside lib/ (relative form).',
+            },
+          ],
+        },
+      ],
+      'no-restricted-syntax': ['error', ...LEDGER_PURE_SYNTAX],
+      'no-restricted-globals': ['error', ...LEDGER_PURE_GLOBALS],
+      'no-param-reassign': ['error', { props: true }],
+    },
+  },
+
+  /**
+   * `LEDGER-DECIDE-1`, part 2: the pure helpers a decision may import hold to the same syntax and
+   * globals (their package imports are pinned by name in the surface test, which also refuses a
+   * re-export). A new helper on a decision's path must be added here, to the reach test's
+   * allow-list and to the surface test's helper list.
+   */
+  {
+    files: LEDGER_PURE_HELPERS,
+    linterOptions: { noInlineConfig: true, reportUnusedDisableDirectives: 'error' },
+    rules: {
+      'no-restricted-syntax': ['error', ...LEDGER_PURE_SYNTAX],
+      'no-restricted-globals': ['error', ...LEDGER_PURE_GLOBALS],
       'no-param-reassign': ['error', { props: true }],
     },
   },
