@@ -1,11 +1,13 @@
 /**
  * Core-journey actions (P2BD-4 extraction): grant, goals, strategy entry/exit,
  * the time machine, recurring. Composed over the `ledger/core` seam; consumed
- * via the `ledgerClient` barrel. Semantics unchanged.
+ * via the `ledgerClient` barrel. Since S1a (plan P12) each command is an ADAPTER:
+ * its rule is a pure decision in `decide/journey.ts`, and this file keeps the
+ * command's name and signature and does the writing. `advanceTime` moves in PR-3.
  */
 
 import Decimal from 'decimal.js';
-import { computeExitFee, type LedgerEvent, type LedgerState } from '@diboas/banking';
+import { computeExitFee, type LedgerState } from '@diboas/banking';
 import {
   PROTOCOL_RETURN_MODEL,
   getStrategy,
@@ -15,168 +17,70 @@ import {
 } from '@diboas/defi';
 import { planAdvance, type PositionLeg } from '../advancePlanner';
 import { generateId } from '../ids';
+import { browserContext } from './browserContext';
 import { appendAll, base, getLedgerState } from './core';
+import {
+  decideAccomplishGoal,
+  decideCreateGoal,
+  decideEnterStrategy,
+  decideExitPosition,
+  decideGrantPlayMoney,
+  decidePauseGoal,
+  decideRaiseGoalTarget,
+  decideResumeGoal,
+  decideSetRecurring,
+  decideStopGoalStrategies,
+  decideTransferGoalCash,
+} from './decide/journey';
+import { feeInCents, splitEntry } from './decide/fees';
+import type { Decision } from './decide/types';
 
-/**
- * The R1 claim grant (W-5a) — the ONE grant path. Emits `PlayMoneyGranted`
- * ALONE — the engine lands the full amount in `working` (= Available), so no
- * `JobsSplitSet` is needed; allocation into jobs happens later via the D-r
- * flow, not at the grant. (`grantAndSplit`, the MVP-0 first-run emitter of the
- * product-deprecated `JobsSplitSet`, was deleted with that chain in the R1
- * audit cleanup 2026-08-18 — the engine keeps its replay case forever, D-r §2.)
- *
- * One-grant guard (plan §7): once-per-ledger. `<LedgerReadyGate>` keeps `(app)`
- * screens from mounting before hydrate, but this closes the window
- * structurally — a double-fire (fast double-tap, a stray remount) can never
- * mint a second grant that `reconcile()` could not catch. Idempotent no-op
- * once initialized.
- */
+export { splitEntry };
+
+/** Writes what a decision decided and returns its result (the adapter's whole job). */
+function apply<R>(decision: Decision<R, string>): R {
+  if (decision.append) appendAll(decision.append);
+  return decision.result;
+}
+
+/** The R1 claim grant (W-5a), once per ledger. Decision: `decideGrantPlayMoney`. */
 export function grantPlayMoney(
   amount: number,
   currency: 'USD' | 'BRL' | 'EUR',
   mode: 'b2c' | 'b2b'
 ): void {
-  if (getLedgerState().initialized) return;
-  const correlationId = generateId();
-  appendAll([
-    {
-      ...base(correlationId),
-      type: 'PlayMoneyGranted',
-      amount: new Decimal(amount).toFixed(2),
-      currency,
-      mode,
-    },
-  ]);
+  apply(decideGrantPlayMoney({ amount, currency, mode }, browserContext));
 }
 
-/**
- * Pause a goal's PLAN (G3, W-17d): zero-value D-e transition — the weekly
- * plan, proposals (D-r skips paused), and recurring deposits stop; invested
- * money keeps working. Optimistic version from current state; a stale event
- * is refused by the projection (recorded since P8a; fail-safe re-present).
- */
+/** Pause a goal's PLAN (G3, W-17d): a zero-value transition. Decision: `decidePauseGoal`. */
 export function pauseGoal(goalId: string): void {
-  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
-  if (!goal || goal.status !== 'active') return;
-  appendAll([{ ...base(generateId()), type: 'GoalPaused', goalId, expectedVersion: goal.version }]);
+  apply(decidePauseGoal(goalId, browserContext));
 }
 
-/** Resume a paused goal's plan — the calm reverse of pause (reversibility). */
+/** Resume a paused goal's plan. Decision: `decideResumeGoal`. */
 export function resumeGoal(goalId: string): void {
-  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
-  if (!goal || goal.status !== 'paused') return;
-  appendAll([
-    { ...base(generateId()), type: 'GoalResumed', goalId, expectedVersion: goal.version },
-  ]);
+  apply(decideResumeGoal(goalId, browserContext));
 }
 
-/**
- * Close a reached goal by the user's disposition (G4 / D-e §3): "reached is a
- * fact, accomplished is a CHOICE — the moment belongs to the user, not to
- * arithmetic." Zero-value itself; any money rides its own events (below).
- * `kept-working` leaves positions working; `held-as-cash` follows an exit.
- */
+/** Close a reached goal by the user's disposition (G4 / D-e §3). Decision: `decideAccomplishGoal`. */
 export function accomplishGoal(
   goalId: string,
   disposition: 'kept-working' | 'held-as-cash' | 'transferred'
 ): void {
-  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
-  if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return;
-  appendAll([
-    {
-      ...base(generateId()),
-      type: 'GoalAccomplished',
-      goalId,
-      disposition,
-      expectedVersion: goal.version,
-    },
-  ]);
+  apply(decideAccomplishGoal({ goalId, disposition }, browserContext));
 }
 
-/**
- * "Move to another goal" (G4, board §3.1): release this goal's CASH → fund the
- * destination → close as `transferred`, one correlationId. Invested positions
- * do NOT move (W-17e reassignment is its own act) — the surface discloses that.
- * Version sequencing matters: `GoalCashReleased` bumps the goal's version when
- * it really releases, so the closing event must expect version+1; with no cash
- * there is no release event and the version is unchanged.
- */
+/** "Move to another goal" (G4): release, fund, close, one correlationId. Decision: `decideTransferGoalCash`. */
 export function transferGoalCash(fromGoalId: string, toGoalId: string): void {
-  const state = getLedgerState();
-  const from = state.goals.find((g) => g.goalId === fromGoalId);
-  const to = state.goals.find((g) => g.goalId === toGoalId);
-  if (!from || !to || from.goalId === to.goalId) return;
-  if (from.status !== 'active' && from.status !== 'paused') return;
-  if (to.status !== 'active') return;
-  const cash = new Decimal(from.cash);
-  const correlationId = generateId();
-  const events: LedgerEvent[] = [];
-  if (cash.gt(0)) {
-    events.push({
-      ...base(correlationId),
-      type: 'GoalCashReleased',
-      goalId: fromGoalId,
-      amount: cash.toFixed(2),
-      expectedVersion: from.version,
-    });
-    events.push({
-      ...base(correlationId),
-      type: 'GoalFunded',
-      goalId: toGoalId,
-      amount: cash.toFixed(2),
-    });
-  }
-  events.push({
-    ...base(correlationId),
-    type: 'GoalAccomplished',
-    goalId: fromGoalId,
-    disposition: 'transferred',
-    // A real release bumped the version; no release left it untouched.
-    expectedVersion: cash.gt(0) ? from.version + 1 : from.version,
-  });
-  appendAll(events);
+  apply(decideTransferGoalCash({ fromGoalId, toGoalId }, browserContext));
 }
 
-/**
- * "Raise the target" (G4, board §3.1): `GoalTargetChanged` ONLY — the goal
- * stays **active** and emits NO `GoalAccomplished` ("growing an ambition is
- * not completing-then-restarting", D-e §3). Because `target_reached` is
- * derived (`current >= target`, never stored), raising the target clears the
- * completion state automatically — no extra event, no stale flag.
- */
-/**
- * ⚑ AUD-E01. This took a `number`, and the screen handed it
- * `Number(newTarget) || 0` — so the value the selector accepted EXACTLY (via
- * Decimal, full precision) was not the value committed. At the float boundary
- * the two diverge: a raise to 9007199254740993 arrived as 9007199254740992,
- * equal to the existing target, and the command silently did nothing while the
- * CTA had been enabled. It now takes the raw input string and parses it once,
- * here, with the same exactness the acceptance test used.
- */
+/** "Raise the target" (G4), from the raw input string (AUD-E01). Decision: `decideRaiseGoalTarget`. */
 export function raiseGoalTarget(goalId: string, newTarget: string): void {
-  const goal = getLedgerState().goals.find((g) => g.goalId === goalId);
-  // active OR paused — matching the engine's allowed FROM states, so the
-  // completion screen never offers a row that would silently do nothing.
-  if (!goal || (goal.status !== 'active' && goal.status !== 'paused')) return;
-  let next: Decimal;
-  try {
-    next = new Decimal(newTarget);
-  } catch {
-    return; // unparseable input is not a raise
-  }
-  if (!next.isFinite() || next.lte(goal.targetAmount)) return; // raise only
-  appendAll([
-    {
-      ...base(generateId()),
-      type: 'GoalTargetChanged',
-      goalId,
-      oldTarget: goal.targetAmount,
-      newTarget: next.toFixed(2),
-      expectedVersion: goal.version,
-    },
-  ]);
+  apply(decideRaiseGoalTarget({ goalId, newTarget }, browserContext));
 }
 
+/** Create a goal; an unaffordable funding leg is withheld. Decision: `decideCreateGoal`. */
 export function createGoal(input: {
   name: string;
   icon: string;
@@ -184,127 +88,18 @@ export function createGoal(input: {
   horizonMonths: number;
   fundAmount: number;
 }): string {
-  const goalId = generateId();
-  const correlationId = generateId();
-  const events: LedgerEvent[] = [
-    {
-      ...base(correlationId),
-      type: 'GoalCreated',
-      goalId,
-      name: input.name.trim(),
-      icon: input.icon,
-      targetAmount: new Decimal(input.targetAmount).toFixed(2),
-      horizonMonths: input.horizonMonths,
-    },
-  ];
-  /**
-   * Never emit a leg the PROJECTION will refuse. `projection/core.ts` refuses a
-   * `GoalFunded` it cannot afford (`insufficient-available`, recorded since P8a),
-   * so an over-budget funding used to append an event that moved nothing — the
-   * goal appeared with 0 cash while History showed the money arriving. Proven:
-   * fundAmount 5000 against 100 Available produced `fundedEvents=1,
-   * goalCash=0.00, working=100.00`.
-   *
-   * This is the defect the 2026-08-19 audit fixed for `applyRuleProposal`
-   * ("an approval must never emit legs Available can't cover"); the fix was
-   * never propagated to the two older paths. The goal is still created — only
-   * the unaffordable funding leg is withheld.
-   */
-  const fund = new Decimal(input.fundAmount);
-  const affordable =
-    Number.isFinite(input.fundAmount) &&
-    fund.gt(0) &&
-    new Decimal(getLedgerState().buckets.working).gte(fund);
-  if (affordable) {
-    events.push({
-      ...base(correlationId),
-      type: 'GoalFunded',
-      goalId,
-      amount: fund.toFixed(2),
-    });
-  }
-  appendAll(events);
-  return goalId;
+  return apply(decideCreateGoal(input, browserContext));
 }
 
-/**
- * A network fee as the LEDGER books it: whole cents, quantized ONCE.
- *
- * Every path that shows or books a network fee goes through here, because two
- * quantizations in two places is how the exit preview and the ledger came to
- * disagree. `previewExit` used to subtract the UNROUNDED fee and round the net,
- * while `StrategyExited` rounds the fee first — so at a sub-cent fee the manifest
- * stated one net and the ledger booked another, a cent apart (measured: 4,257 of
- * 1,080,080 fee × gross combinations; e.g. gross 25.00 with a 0.005 fee showed
- * net 24.75 over a 0.01 fee line, and booked 24.74). FC-15's whole promise is
- * that the confirmation surface IS the transaction; that includes its last cent.
- */
-function feeInCents(networkFeeLocal: number): Decimal {
-  return new Decimal(networkFeeLocal).toDecimalPlaces(2);
-}
-
-/**
- * The committed total and its MODELLED network fee, both to the cent.
- *
- * ⚑ `5.403` — this used to subtract: it returned `invested = total − fee`, and
- * the entry event was written from it, which is how a modelled Practice fee came
- * to reduce Practice money. Under F-12 the fee is *"shown separately, not
- * deducted from the Goal split"*, so **`invested === total`**: all of the
- * committed amount reaches the strategy and the fee rides alongside as
- * information.
- *
- * It still earns its keep. The reason it exists is FC-15 — the manifest and the
- * ledger must agree to the last cent, and `feeInCents` is the single rounding of
- * the fee that both the displayed figure and the recorded one come from. (The
- * measured divergence that created this function was 4,257 of 1,080,080 fee ×
- * gross combinations.) The fee is still clamped to the total so a modelled cost
- * can never be reported as larger than the move it describes.
- */
-export function splitEntry(
-  totalFromCash: number,
-  networkFeeLocal: number
-): { total: Decimal; fee: Decimal; invested: Decimal } {
-  const total = new Decimal(totalFromCash).toDecimalPlaces(2);
-  const fee = Decimal.min(feeInCents(networkFeeLocal), total);
-  return { total, fee, invested: total };
-}
-
-/**
- * Enter a strategy. The caller passes the TOTAL committed from goal cash and the
- * modelled network fee.
- *
- * `5.403`: `amount` is the WHOLE total — the goal parts with exactly what the
- * user approved and all of it reaches the strategy — and the modelled fee is
- * recorded beside it as information. The event is written at **schema v2**
- * (D-06), so replay can never confuse it with a legacy v1 event whose `amount`
- * is already net. Canon names the field `modeledNetworkFee`: the name carries
- * the semantics, so there is no raw field a reader could mistake for money that
- * moved.
- */
+/** Enter a strategy with the whole committed total (`5.403`, schema v2). Decision: `decideEnterStrategy`. */
 export function enterStrategy(input: {
   goalId: string;
-  /** A CATALOGUE id, not a free string: an unresolvable id would enter a real
-   *  position that `getStrategy` can never resolve, so it would silently earn
-   *  nothing forever. Typed closed so a typo is a compile error. */
+  /** A CATALOGUE id, not a free string (a typo is a compile error). */
   strategyId: StrategyId;
   totalFromCash: number;
   networkFeeLocal: number;
 }): string {
-  const positionId = generateId();
-  const { fee, invested } = splitEntry(input.totalFromCash, input.networkFeeLocal);
-  appendAll([
-    {
-      ...base(generateId()),
-      type: 'StrategyEntered',
-      goalId: input.goalId,
-      positionId,
-      strategyId: input.strategyId,
-      amount: invested.toFixed(2),
-      schemaVersion: 2,
-      modeledNetworkFee: fee.toFixed(2),
-    },
-  ]);
-  return positionId;
+  return apply(decideEnterStrategy(input, browserContext));
 }
 
 /**
@@ -523,45 +318,19 @@ export function advanceTime(
 
 /**
  * Set, change, or clear (monthlyAmount = 0) a recurring monthly contribution on
- * an open position. Real play money from Working, auto-invested each due month
- * as the shared clock advances (C3). `startSimDay` = today's sim day → the first
- * deposit lands 30 sim-days later.
+ * an open position (C3). Decision: `decideSetRecurring`.
  */
 export function setRecurring(input: {
   goalId: string;
   positionId: string;
   monthlyAmount: number;
 }): void {
-  appendAll([
-    {
-      ...base(generateId()),
-      type: 'RecurringSet',
-      goalId: input.goalId,
-      positionId: input.positionId,
-      monthlyAmount: new Decimal(input.monthlyAmount).toFixed(2),
-      startSimDay: getLedgerState().simDay,
-    },
-  ]);
+  apply(decideSetRecurring(input, browserContext));
 }
 
+/** Exit one open position; both fees are modelled information. Decision: `decideExitPosition`. */
 export function exitPosition(input: { positionId: string; networkFeeLocal: number }): void {
-  const state = getLedgerState();
-  const position = state.positions.find((p) => p.positionId === input.positionId);
-  if (!position || !position.open) return;
-  const gross = new Decimal(position.principal).plus(position.accrued);
-  const exitFee = computeExitFee(gross, state.currency);
-  appendAll([
-    {
-      ...base(generateId()),
-      type: 'StrategyExited',
-      positionId: position.positionId,
-      goalId: position.goalId,
-      grossAmount: gross.toFixed(2),
-      schemaVersion: 2,
-      modeledExitFee: exitFee.toFixed(2),
-      modeledNetworkFee: feeInCents(input.networkFeeLocal).toFixed(2),
-    },
-  ]);
+  apply(decideExitPosition(input, browserContext));
 }
 
 /**
@@ -710,28 +479,9 @@ export function previewGoalStop(
 
 /**
  * Stop every open position of a goal — N `StrategyExited` events under ONE
- * correlationId (they are one user decision). The money returns to the GOAL as
- * cash (the engine's exit leg), never to Available: releasing goal cash is a
- * separate, explicit act (D-e `GoalCashReleased`/`GoalDropped`).
+ * correlationId (one user decision); the money returns to the GOAL as cash.
+ * Decision: `decideStopGoalStrategies`.
  */
 export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) => number): void {
-  const state = getLedgerState();
-  const open = openPositionsOf(state, goalId);
-  if (open.length === 0) return;
-  const correlationId = generateId();
-  const events: LedgerEvent[] = [];
-  for (const position of open) {
-    const gross = new Decimal(position.principal).plus(position.accrued);
-    events.push({
-      ...base(correlationId),
-      type: 'StrategyExited',
-      positionId: position.positionId,
-      goalId,
-      grossAmount: gross.toFixed(2),
-      schemaVersion: 2,
-      modeledExitFee: computeExitFee(gross, state.currency).toFixed(2),
-      modeledNetworkFee: feeInCents(feeFor(position.positionId)).toFixed(2),
-    });
-  }
-  appendAll(events);
+  apply(decideStopGoalStrategies({ goalId }, { feeFor }, browserContext));
 }
