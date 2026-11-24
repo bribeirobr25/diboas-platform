@@ -17,7 +17,7 @@ diBoaS is a pre-launch marketing site with waitlist functionality, the Money Too
 - **i18n:** react-intl 6.8.9 (4 locales: en, pt-BR, es, de)
 - **Testing:** Vitest 5.1.0, @vitest/coverage-v8, Lighthouse CI, Playwright + axe-core (accessibility)
 - **Monitoring:** Sentry 10.76.x (errors + session replay), PostHog (product analytics), GA4 (traffic), web-vitals
-- **Security:** DOMPurify 3.4.17, Upstash Redis (rate limiting), AES-256-GCM encryption, HMAC blind indexing
+- **Security:** DOMPurify 3.4.18, Upstash Redis (rate limiting), AES-256-GCM encryption, HMAC blind indexing
 - **Email:** Resend (transactional email with circuit breaker)
 - **Database:** Neon PostgreSQL (serverless)
 - **Component dev:** Storybook 10.5.x
