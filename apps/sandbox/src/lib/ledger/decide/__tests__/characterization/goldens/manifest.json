@@ -30,6 +30,26 @@
       "exact": "3c4ff406cdfe39088fe164f384358d48e60b33abb1ebfff8c9bb460da52b7772",
       "canonical": "da50bcad24f8a7a0ca22a3fb077d49ce4e6ecc75df4e71344ca9b2be3ae0a0a5"
     },
+    "advance-live-lending-only": {
+      "row": 9,
+      "exact": "7cd505cfb1b7263fc1ef9bc12e55550093dac54b66559e83d9210078b296c48f",
+      "canonical": "c537b61e8be8270e44336d584c5bb65191257c82a2956c01e6a40177af9741ff"
+    },
+    "advance-live-mixed-sources": {
+      "row": 9,
+      "exact": "1f71f1143d90db0a44e63d38a1b314a0293213f51c016b61931ebc4370e93e4d",
+      "canonical": "a4e25c6420c11f0ff53877baa70c0b21355fc5fdeffa8e3dd0339b24acea3201"
+    },
+    "advance-live-sources": {
+      "row": 9,
+      "exact": "12210ea4ff7d39cecd86b85f3cffac568cad5a6ba0833cf2d410d91d92887ca2",
+      "canonical": "616c0b570c4a81531461cdbb7ce58b806c1f17e03fd093f8b05ca0ede7f5a818"
+    },
+    "advance-live-window-outside-series": {
+      "row": 9,
+      "exact": "ca6d0ca793fd4f6666a4875228ea7a5a2c158202aa12f0a3111c372ab0d8fd18",
+      "canonical": "17e1dc21dc3abe4f6cdc7f0c2e42b8633e56fb8874ce1be6d573eba01ca8bfe8"
+    },
     "advance-long-realistic-history": {
       "row": 9,
       "exact": "9da695da17e1a45670a305beadeaf39431c7c9f6b167c33df238ef8a6373eb97",
@@ -70,10 +90,20 @@
       "exact": "d3051d9c195328fec8be5f038bde0581e5bcc227f9b4251adf0c7d8d629724e2",
       "canonical": "10acc96f759c01a0df9cc77d6ef32c782c8f84416cc0f41d27ed28674d01f049"
     },
+    "advance-no-leg-covers-one-undated": {
+      "row": 9,
+      "exact": "94b532cea4661ac60166bf47e11114b5297bfb9e05f9e64a74a75b27d82ceedf",
+      "canonical": "219c2221015dc122b6b7eaf07442f27e84f5b1450b04fdc9f12e238371fada6e"
+    },
     "advance-no-positions": {
       "row": 9,
       "exact": "19090f964ea40285c2ea2bf79da6a87fa68a8b654eb395baf84092283942bdf4",
       "canonical": "314c74f643528b24ef54316b79a2e2e2019cf02e7c89d4c29b37f0ed151109d0"
+    },
+    "advance-orphan-schedule": {
+      "row": 9,
+      "exact": "63f0003040ab82670df27cacdb8f1ba43cf370536feac721ff2566aa4484c4f9",
+      "canonical": "afc0ed74658f0d95016c4a027f678eb5f55060a5d29957798854402a3d4b4383"
     },
     "advance-paused-goal-schedule-inert": {
       "row": 9,
@@ -89,6 +119,11 @@
       "row": 9,
       "exact": "ee3f3fd4c3525fd9acdc7f64d18d8036aad5067ab5a7d38b989e413d665bd3e7",
       "canonical": "47badfa8157a9ff71656fa1cfc7609e2f126b6de8158c85cfb746e0572a42874"
+    },
+    "advance-real-after-machine-epoch": {
+      "row": 9,
+      "exact": "90822f037a6708b81908cb759fa9717995d5710bf3866e94fdf0176a253f713f",
+      "canonical": "e5026d29c8f089ff5cdb6ed11df449eba885761c44c0f3630f39b491c3c96650"
     },
     "advance-real-max-settle-gap": {
       "row": 9,
@@ -115,6 +150,16 @@
       "exact": "d3d85459277b5179694baa788af44266c0a51440b668b23e51adc5eaff5bbcc0",
       "canonical": "bbeb28ba491c36fc4449a23f5560b16f9e3f5030e170e1f93b9058ab7b7c8504"
     },
+    "advance-two-schedules-same-day": {
+      "row": 9,
+      "exact": "b25b19be7f834861dee009d9b13a91a168d8bce15191d5582e606d27b04d847b",
+      "canonical": "9a22394465622dfae34d0cf22bfdca59f4644219ddac48153e82dba9df89aa2a"
+    },
+    "advance-two-schedules-same-day-ordered": {
+      "row": 9,
+      "exact": "b79ccbea422f36674f95d5ce919a6adb10ab863f66ea78f66f737009fb735ea8",
+      "canonical": "8743f8b9b257295a20beaf74b61de74aa6b147f23d80ef6cc783cebb0aa3f095"
+    },
     "advance-undated-corpus": {
       "row": 9,
       "exact": "ce240147b404a834cbbe6c9c4e1b98c30ba2bb416f05552f93a3a9d2f49483c4",
@@ -124,6 +169,11 @@
       "row": 9,
       "exact": "9309f2895ebeede8a22fac391e9f2ddc8edfcf2522d86ae8ecd652c260e7e1b8",
       "canonical": "6005bac2ee00df719a5c8bf5a6d6b1f6c4a0dfc854c0753a0a564bc039299bff"
+    },
+    "advance-undated-everything": {
+      "row": 9,
+      "exact": "38d0556c9947f4255e8606a33783791d9c8e74b5c26afa2c3a58f91c12d33d16",
+      "canonical": "81ecf1ea55e8a0342a21ae7e71afbb61cd290409d8e55018b4abcc81fa524367"
     },
     "advance-uninitialized": {
       "row": 9,
@@ -135,10 +185,25 @@
       "exact": "4c972d93315aa9ad959bb9488868170b47ef0add8e46bb4d86815b62e6a7e4b5",
       "canonical": "4a89613f189f6b8f03642b071cc9ac2d2f5532e9f735b37c95d0bab1bef23bd3"
     },
+    "advance-unresolved-strategy-schedule": {
+      "row": 9,
+      "exact": "c1ebb1f1ee683c84ad0372e71774fcc43d67c2ee7565989ebe2d2457e1a0609a",
+      "canonical": "b020d53b0a66feb04b2b90d3c108d715c4ff1c0dbdaf2c2fb84ba15a567fd093"
+    },
     "advance-v1-position": {
       "row": 9,
       "exact": "91fd58f5f3bce8eafde6e935cbbdcfa9eea80f922666c2145bf88829a5c79ac6",
       "canonical": "42e0b0a6e685409c597d3a566fdba110bce16f4ba01fd2dc4ef5289b1a74f803"
+    },
+    "advance-window-past-history": {
+      "row": 9,
+      "exact": "94b532cea4661ac60166bf47e11114b5297bfb9e05f9e64a74a75b27d82ceedf",
+      "canonical": "219c2221015dc122b6b7eaf07442f27e84f5b1450b04fdc9f12e238371fada6e"
+    },
+    "advance-zero-schedule": {
+      "row": 9,
+      "exact": "85ec7ecc7ec95eee38f14dbbb3702d825f35f46b7936f5ba8ec057299aac7f97",
+      "canonical": "86c85ab1521028df92c9ee0cd30120dfa50e23afc873adfc5ba8ecbe6da7265f"
     }
   },
   "faults": {

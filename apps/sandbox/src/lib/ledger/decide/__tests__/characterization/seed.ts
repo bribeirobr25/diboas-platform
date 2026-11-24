@@ -7,7 +7,9 @@
  */
 import type { LedgerEvent } from '@diboas/banking';
 
-type Body<T extends LedgerEvent['type']> = Omit<
+/** `Omit` that keeps a union's variants apart (v1 and v2 entries and exits are unions). */
+type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
+type Body<T extends LedgerEvent['type']> = DistributiveOmit<
   Extract<LedgerEvent, { type: T }>,
   'eventId' | 'simDay' | 'recordedAt' | 'correlationId' | 'type'
 >;
@@ -26,7 +28,7 @@ export class History {
       correlationId: `seed-corr-${this.n}`,
       type,
       ...body,
-    } as LedgerEvent);
+    } as unknown as LedgerEvent);
     return this;
   }
 

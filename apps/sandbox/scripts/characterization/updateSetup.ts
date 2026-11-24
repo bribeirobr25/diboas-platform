@@ -13,7 +13,10 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { CaseDef, Observation } from '../../src/lib/ledger/decide/__tests__/characterization/harness';
+import type {
+  CaseDef,
+  Observation,
+} from '../../src/lib/ledger/decide/__tests__/characterization/harness';
 import { encode } from '../../src/lib/ledger/decide/__tests__/characterization/recorder';
 import {
   hashes,
@@ -37,7 +40,10 @@ const registerId = process.env.CHAR_REGISTER_ID;
 const read = <T>(file: string, fallback: T): T =>
   existsSync(file) ? (JSON.parse(readFileSync(file, 'utf8')) as T) : fallback;
 
-const pending = new Map<string, Map<string, { def: CaseDef; fixed: Observation; advancing: Observation }>>();
+const pending = new Map<
+  string,
+  Map<string, { def: CaseDef; fixed: Observation; advancing: Observation }>
+>();
 
 (globalThis as Record<string, unknown>).__charSink = {
   collect(family: string, def: CaseDef, fixed: Observation, advancing: Observation) {
@@ -63,11 +69,23 @@ const pending = new Map<string, Map<string, { def: CaseDef; fixed: Observation; 
         ...(only.size > 0 && registerId ? { regenerationRegisterId: registerId } : {}),
       };
     }
-    const sortedGolden = Object.fromEntries(Object.keys(golden).sort().map((k) => [k, golden[k]]));
-    const sortedEntries = Object.fromEntries(Object.keys(entries).sort().map((k) => [k, entries[k]]));
+    const sortedGolden = Object.fromEntries(
+      Object.keys(golden)
+        .sort()
+        .map((k) => [k, golden[k]])
+    );
+    const sortedEntries = Object.fromEntries(
+      Object.keys(entries)
+        .sort()
+        .map((k) => [k, entries[k]])
+    );
     writeFileSync(goldenFile, `${encode(sortedGolden)}\n`);
     manifest[family] = sortedEntries;
-    const sortedManifest = Object.fromEntries(Object.keys(manifest).sort().map((k) => [k, manifest[k]]));
+    const sortedManifest = Object.fromEntries(
+      Object.keys(manifest)
+        .sort()
+        .map((k) => [k, manifest[k]])
+    );
     writeFileSync(manifestFile, `${JSON.stringify(sortedManifest, null, 2)}\n`);
   },
 };

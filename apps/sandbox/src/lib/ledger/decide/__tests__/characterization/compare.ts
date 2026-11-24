@@ -39,7 +39,8 @@ export const sha = (text: string) => createHash('sha256').update(text).digest('h
 export function hashes(fixed: Observation, advancing: Observation) {
   const text = encode({ fixed, advancing });
   const canonical =
-    canonicalize(encode(fixed), fixed.timeline) + canonicalize(encode(advancing), advancing.timeline);
+    canonicalize(encode(fixed), fixed.timeline) +
+    canonicalize(encode(advancing), advancing.timeline);
   return { exact: sha(text), canonical: sha(canonical) };
 }
 
@@ -47,9 +48,17 @@ export function hashes(fixed: Observation, advancing: Observation) {
 export function labelOf(o: Observation): string {
   const result = o.result as { throw?: unknown };
   if (result.throw) return 'throw';
-  if (o.timeline.some(([kind, detail]) => kind === 'append' || (kind === 'count' && detail === 'append')))
+  if (
+    o.timeline.some(
+      ([kind, detail]) => kind === 'append' || (kind === 'count' && detail === 'append')
+    )
+  )
     return 'emitted';
-  if (o.timeline.some(([kind, key]) => kind === 'storage.set' && !String(key).startsWith('diboas-ledger')))
+  if (
+    o.timeline.some(
+      ([kind, key]) => kind === 'storage.set' && !String(key).startsWith('diboas-ledger')
+    )
+  )
     return 'effect';
   return 'noop';
 }

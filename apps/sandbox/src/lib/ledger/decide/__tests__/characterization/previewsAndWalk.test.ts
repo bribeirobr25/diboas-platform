@@ -23,9 +23,17 @@ characterize('walk', walkCases, walkGolden as Golden, manifest as Manifest, { ti
 it('should exercise every row, mostly past its refusals, when the random walk runs', () => {
   const golden = walkGolden as Golden;
   if (!golden['random-walk-500']) return; // first recording
-  const result = (golden['random-walk-500'].fixed as { result: { return: { counts: Record<string, Record<string, number>>; steps: string[] } } }).result.return;
+  const result = (
+    golden['random-walk-500'].fixed as {
+      result: { return: { counts: Record<string, Record<string, number>>; steps: string[] } };
+    }
+  ).result.return;
   expect(result.steps).toHaveLength(WALK_STEPS);
-  expect(Object.keys(result.counts).map(Number).sort((a, b) => a - b)).toEqual(WALK_ROWS);
+  expect(
+    Object.keys(result.counts)
+      .map(Number)
+      .sort((a, b) => a - b)
+  ).toEqual(WALK_ROWS);
   /* Once per ledger: the grant, the comparison credit, and the one live rule (W-19a; the walk
      never deletes it). */
   const ONCE = new Set([1, 13, 18]);

@@ -6,3 +6,6 @@ coverage
 pnpm-lock.yaml
 *.min.js
 *.min.css
+
+# LEDGER-CHAR-1 goldens: written by `pnpm --filter sandbox char:update` and compared byte for byte (plan P12 §4.2)
+apps/sandbox/src/lib/ledger/decide/__tests__/characterization/goldens/

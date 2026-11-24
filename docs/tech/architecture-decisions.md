@@ -180,3 +180,44 @@ The website's market figures (the `/market` score and the Money Tools' history) 
 ### References
 
 - The store's rules: `market/README.md` in `diboas-analytics`; DATA-STORE-1 and PUBLISH-1 in `docs/tech/engineering-gates.md`; `docs/tech/implementation-notes.md` § Market data store.
+
+---
+
+## ADR-003 — Command decisions in the application layer: the Practice ledger's rules as pure functions
+
+- **Status:** Accepted — 2026-11-24 (plan P12 v4 merged; decisions `DR-2026-11-18-p12-s1a-decisions` with its 2026-11-21 amendment, in the private docs repository; register `5.1008`).
+- **Review cadence:** at S2b (the server ledger), or when any Trigger below fires.
+- **Deciders:** CC (webapp lane, under the founder's delegation) · the founder (approved by merging the plan).
+- **Supersedes:** nothing.
+
+### Context
+
+Each Practice ledger command (`apps/sandbox/src/lib/ledger/{journey,rules,credits,simEvents}.ts`) reads the live state, decides, and writes (append, persist, notify, side stores) in one function, so its rule can run only in the browser. Accounts need a server route that applies exactly the same rules to a stored history (S2b); written twice, the two would drift.
+
+### Decision
+
+- **Every command splits into a pure decision and a thin adapter.** `decideX(intent, env, ctx)` returns the events to append, the effects to run, the result and an outcome; the adapter keeps today's name and signature, supplies `ctx` (a lazy state reader, new ids, the clock, called where today's code calls them) and does the writing. No caller changes.
+- **Home: `apps/sandbox/src/lib/ledger/decide/`**, inside the application layer. `decide/` holds each command's **preconditions and composition**; **computation rules stay in `packages/*`** (`@diboas/banking`, `@diboas/investing`, `@diboas/defi`). The fee helpers in `decide/fees.ts` are the one provisional exception (they may move to `packages/banking` with the migration plan).
+- **Purity is a gate, not a convention** (`LEDGER-DECIDE-1`, PR-2): no clock, storage, network, randomness or writer import in `decide/`; the domain packages reached only through an allow-list of named imports.
+- **Behaviour is proven unchanged, not assumed** (`LEDGER-CHAR-1`, PR-1): every command's exact behaviour is recorded on today's code before any source moves, and a CI job compares the old and new code's output directly.
+
+### Alternatives considered
+
+- **A new package for the decisions:** rejected for now. It would drag `advancePlanner`, `weeklyCycle` and `growthConstants` with it, and S2b's routes live in the same Next app.
+- **Rewriting the commands server-side when accounts arrive:** rejected; it is exactly the build-twice drift this prevents.
+- **A command bus or framework:** rejected; plain functions and a `ctx` seam are enough, and add no layer (ARCHITECTURE §1: no new layers).
+
+### Consequences
+
+- The browser today and the server later apply one rule set; S1b (stricter rules) and S1c (the command contract) edit one place.
+- The behaviour lock (`LEDGER-CHAR-1`) is heavy by design: about 300 recorded cases, and a few MB of expected-output files. While S1a is in flight nothing else may change the ledger or its pure dependencies (plan P12 D14).
+
+### Triggers to reconsider
+
+- S2b needs the decisions outside `apps/sandbox` (then a package, with its own purity gate).
+- A second app needs the same rules.
+- The migration plan moves the fee helpers to `packages/banking`.
+
+### References
+
+- Plan P12 (`audit/WEBAPP_PLANS_2026-11-04/P12_S1A_COMMAND_SPLIT.md`, private docs); gates `LEDGER-CHAR-1` and `LEDGER-DECIDE-1` in `docs/tech/engineering-gates.md`.

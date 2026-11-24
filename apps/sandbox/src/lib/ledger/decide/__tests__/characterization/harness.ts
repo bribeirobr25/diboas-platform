@@ -47,7 +47,7 @@ export interface CaseDef {
    * `noop:<reason>` (camelCase, D4) or `throw`, plus any notes for legs it withholds. PR-2's
    * decisions are checked against these labels; the goldens never record an `outcome`.
    */
-  label: { expected: string; notes?: string[] };
+  label: { expected: string; notes?: readonly string[] };
   /** A defect this case pins on purpose (a register id), so S1b changes it deliberately. */
   pinnedDefect?: string;
   /** The history in force before the command (written through the real append path). */
@@ -138,12 +138,18 @@ export async function runCase(def: CaseDef): Promise<Observation> {
   installClock();
   // Spied on the instance: happy-dom's storage does not route through `Storage.prototype`.
   const originalSetItem = localStorage.setItem.bind(localStorage);
-  const setItem = vi.spyOn(localStorage, 'setItem').mockImplementation((key: string, value: string) => {
-    // The ledger's own key is written behind every append (its value is in `storage`);
-    // a side store's write is recorded with its value, at the moment it happens.
-    record('storage.set', key, key.startsWith('diboas-ledger') ? `<${value.length} chars>` : value);
-    return originalSetItem(key, value);
-  });
+  const setItem = vi
+    .spyOn(localStorage, 'setItem')
+    .mockImplementation((key: string, value: string) => {
+      // The ledger's own key is written behind every append (its value is in `storage`);
+      // a side store's write is recorded with its value, at the moment it happens.
+      record(
+        'storage.set',
+        key,
+        key.startsWith('diboas-ledger') ? `<${value.length} chars>` : value
+      );
+      return originalSetItem(key, value);
+    });
   const consoleSpies = (['warn', 'error', 'info'] as const).map((level) =>
     vi.spyOn(console, level).mockImplementation((...args: unknown[]) => {
       record('console', level, normalizeLog(args));
@@ -154,7 +160,9 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     if (!def.rawStorage) {
       // A fresh ledger must be empty, or the case would build on a previous one.
       if (core.getLedgerState().initialized || localStorage.length > 0)
-        throw new Error(`case ${def.id}: the ledger was not empty before seeding: ${JSON.stringify(Object.keys(localStorage))} initialized=${core.getLedgerState().initialized}`);
+        throw new Error(
+          `case ${def.id}: the ledger was not empty before seeding: ${JSON.stringify(Object.keys(localStorage))} initialized=${core.getLedgerState().initialized}`
+        );
       if (def.seed?.length) core.appendAll(def.seed);
       for (const weekSet of def.sideStores?.declined ?? []) proposals.recordDecline(weekSet);
       await core.flush();
@@ -213,7 +221,10 @@ export async function runCase(def: CaseDef): Promise<Observation> {
       ? [
           ['digest', createHash('sha256').update(encode(r.timeline)).digest('hex')],
           ...Object.entries(
-            r.timeline.reduce<Record<string, number>>((n, [kind]) => ({ ...n, [kind]: (n[kind] ?? 0) + 1 }), {})
+            r.timeline.reduce<Record<string, number>>(
+              (n, [kind]) => ({ ...n, [kind]: (n[kind] ?? 0) + 1 }),
+              {}
+            )
           ).map(([kind, count]): TimelineEntry => ['count', kind, count]),
         ]
       : [...r.timeline];
@@ -222,7 +233,9 @@ export async function runCase(def: CaseDef): Promise<Observation> {
       result,
       // The projected state without its `events` echo: the log itself is compared byte for byte
       // in `storage`, so repeating it here would only double every golden.
-      stateAfter: def.rawStorage ? null : snapshot({ ...core.getLedgerState(), events: '<in storage>' }),
+      stateAfter: def.rawStorage
+        ? null
+        : snapshot({ ...core.getLedgerState(), events: '<in storage>' }),
       storage: storageSnapshot(),
       ids: r.idCounter,
       clockReads: r.clockIndex,
