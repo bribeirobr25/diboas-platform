@@ -1,38 +1,34 @@
 /**
  * §2.4 D-s simulated-event actions: the resolve commit (P2BD-4 extraction).
  * Composed over the `ledger/core` seam; consumed via the `ledgerClient`
- * barrel. Semantics unchanged.
+ * barrel. Since S1a (plan P12) an adapter: the rule is in `decide/simEvents.ts`.
+ * Semantics unchanged.
  */
 
-import { recordResolution } from '../simulatedEventStore';
+import { applyDecision } from './applyDecision';
 import { browserContext } from './browserContext';
-import { appendAll } from './core';
 import {
   decideResolveSimulatedExpense,
-  type ResolveExpenseInput,
+  type ExpenseEnv,
+  type ExpenseIntent,
   type ResolveExpenseResult,
 } from './decide/simEvents';
 
 export type { ResolveExpenseResult };
 
 /**
- * Resolve the R1 unexpected-expense event with the user's chosen path (after
- * the W-7 confirm — this is the commit, not the offer). Affordability is
- * RE-validated (fail-safe re-present, never a negative balance). Idempotent per
- * `eventInstanceId`. The platform-side choice record rides along, after the
- * append, stamped at that moment. Decision: `decideResolveSimulatedExpense`.
+ * Resolve the R1 unexpected-expense event with the user's chosen path (the
+ * W-7 commit). Idempotent per `eventInstanceId`; the platform-side choice
+ * record (catalogue-version-pinned) rides along after the append, stamped at
+ * that moment. Decision: `decideResolveSimulatedExpense`.
+ *
+ * Reads the caller's input once, here, before the decision (S1a; today's code
+ * read `eventType` and `via` again after the append — no caller can change its
+ * input in between, since each passes a fresh literal).
  */
-export function resolveSimulatedExpense(input: ResolveExpenseInput): ResolveExpenseResult {
-  const decision = decideResolveSimulatedExpense(input, browserContext);
-  if (decision.append) appendAll(decision.append);
-  for (const effect of decision.effects) {
-    if (effect.type === 'SimulatedEventResolved')
-      recordResolution({
-        eventInstanceId: effect.eventInstanceId,
-        eventType: effect.eventType,
-        choice: effect.choice,
-        resolvedAt: new Date().toISOString(),
-      });
-  }
-  return decision.result;
+export function resolveSimulatedExpense(input: ExpenseIntent & ExpenseEnv): ResolveExpenseResult {
+  const { via, eventInstanceId, eventType, amount } = input;
+  return applyDecision(
+    decideResolveSimulatedExpense({ via }, { eventInstanceId, eventType, amount }, browserContext)
+  );
 }

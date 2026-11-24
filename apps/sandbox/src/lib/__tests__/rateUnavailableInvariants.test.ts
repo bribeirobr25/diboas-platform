@@ -33,6 +33,7 @@ const SETTLED_STATE = [
   'src/lib/ledger/credits.ts',
   'src/lib/ledger/simEvents.ts',
   'src/lib/ledger/browserContext.ts',
+  'src/lib/ledger/applyDecision.ts',
   'src/lib/ledger/decide/credits.ts',
   'src/lib/ledger/decide/fees.ts',
   'src/lib/ledger/decide/journey.ts',

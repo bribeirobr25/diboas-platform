@@ -1,26 +1,11 @@
 {
   "accomplish-active-held-as-cash": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "held-as-cash"
-        ],
-        []
-      ],
+      "args": [["g1", "held-as-cash"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -36,17 +21,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<736 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<736 chars>"]
       ],
       "result": {
         "return": {
@@ -120,26 +97,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "held-as-cash"
-        ],
-        []
-      ],
+      "args": [["g1", "held-as-cash"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -155,17 +117,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<736 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<736 chars>"]
       ],
       "result": {
         "return": {
@@ -241,26 +195,11 @@
   },
   "accomplish-active-kept-working": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["g1", "kept-working"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -276,17 +215,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<736 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<736 chars>"]
       ],
       "result": {
         "return": {
@@ -360,26 +291,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["g1", "kept-working"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -395,17 +311,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<736 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<736 chars>"]
       ],
       "result": {
         "return": {
@@ -481,26 +389,11 @@
   },
   "accomplish-active-transferred": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "transferred"
-        ],
-        []
-      ],
+      "args": [["g1", "transferred"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -516,17 +409,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<735 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<735 chars>"]
       ],
       "result": {
         "return": {
@@ -600,26 +485,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "transferred"
-        ],
-        []
-      ],
+      "args": [["g1", "transferred"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -635,17 +505,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<735 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<735 chars>"]
       ],
       "result": {
         "return": {
@@ -721,13 +583,7 @@
   },
   "accomplish-dropped": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["g1", "kept-working"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -801,13 +657,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["g1", "kept-working"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -883,13 +733,7 @@
   },
   "accomplish-missing": {
     "fixed": {
-      "args": [
-        [
-          "nope",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["nope", "kept-working"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -960,13 +804,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "nope",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["nope", "kept-working"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -1039,26 +877,11 @@
   },
   "accomplish-paused": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "held-as-cash"
-        ],
-        []
-      ],
+      "args": [["g1", "held-as-cash"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1074,17 +897,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<892 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<892 chars>"]
       ],
       "result": {
         "return": {
@@ -1161,26 +976,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "held-as-cash"
-        ],
-        []
-      ],
+      "args": [["g1", "held-as-cash"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1196,17 +996,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<892 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<892 chars>"]
       ],
       "result": {
         "return": {
@@ -1298,22 +1090,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1331,17 +1111,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<386 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<386 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -1420,22 +1192,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1453,17 +1213,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<386 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<386 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -1544,22 +1296,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1577,17 +1317,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<390 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<390 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -1666,22 +1398,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1699,17 +1419,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<390 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<390 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -1790,22 +1502,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1823,17 +1523,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<390 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<390 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -1912,22 +1604,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1945,17 +1625,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<390 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<390 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2036,22 +1708,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2069,17 +1729,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<886 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<886 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2158,22 +1810,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2191,17 +1831,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<886 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<886 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2282,22 +1914,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2315,17 +1935,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<388 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<388 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2404,22 +2016,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2437,17 +2037,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<388 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<388 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2528,22 +2120,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2561,17 +2141,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<386 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<386 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2650,22 +2222,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2683,17 +2243,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<386 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<386 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2782,30 +2334,12 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2832,22 +2366,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<560 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<560 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -2937,30 +2459,12 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
         [
           "append",
           [
@@ -2987,22 +2491,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<560 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<560 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3094,22 +2586,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3127,17 +2607,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3224,22 +2696,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3257,17 +2717,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3356,30 +2808,12 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3406,22 +2840,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<561 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<561 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3511,30 +2933,12 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
         [
           "append",
           [
@@ -3561,22 +2965,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<561 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<561 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3672,22 +3064,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3705,17 +3085,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3806,22 +3178,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3839,17 +3199,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -3942,22 +3294,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3975,17 +3315,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4076,22 +3408,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4109,17 +3429,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4208,22 +3520,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4241,17 +3541,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4338,22 +3630,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4371,17 +3651,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4470,30 +3742,12 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4520,22 +3774,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<557 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<557 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4625,30 +3867,12 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
         [
           "append",
           [
@@ -4675,22 +3899,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<557 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<557 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4782,22 +3994,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4815,17 +4015,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -4912,22 +4104,10 @@
         ]
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4945,17 +4125,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<397 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<397 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5038,22 +4210,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5073,17 +4233,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<390 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<390 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5166,22 +4318,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5201,17 +4341,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<390 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<390 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5294,22 +4426,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5327,17 +4447,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<386 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<386 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5416,22 +4528,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5449,17 +4549,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<386 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<386 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5542,22 +4634,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -5624,22 +4704,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -5706,22 +4774,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5739,17 +4795,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<209 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<209 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5825,22 +4873,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5858,17 +4894,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<209 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<209 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -5945,22 +4973,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5979,17 +4995,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<802 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<802 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6085,22 +5093,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6119,17 +5115,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<802 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<802 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6227,22 +5215,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6261,17 +5237,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<798 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<798 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6367,22 +5335,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6401,17 +5357,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<798 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<798 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6509,22 +5457,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6543,9 +5479,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "warn",
@@ -6560,14 +5494,8 @@
             }
           ]
         ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<803 chars>"
-        ]
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<803 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6652,22 +5580,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6686,9 +5602,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "warn",
@@ -6703,14 +5617,8 @@
             }
           ]
         ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<803 chars>"
-        ]
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<803 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6797,22 +5705,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6831,17 +5727,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<798 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<798 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -6937,22 +5825,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -6971,17 +5847,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<798 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<798 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7079,22 +5947,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7113,17 +5969,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<800 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<800 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7219,22 +6067,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7253,17 +6089,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<800 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<800 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7363,22 +6191,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7397,17 +6213,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<799 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<799 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7505,22 +6313,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7539,17 +6335,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<799 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<799 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7649,22 +6437,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7683,17 +6459,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<796 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<796 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7791,22 +6559,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7825,17 +6581,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<796 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<796 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -7933,22 +6681,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -7967,17 +6703,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<800 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<800 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -8073,22 +6801,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -8107,17 +6823,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<800 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<800 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -8215,22 +6923,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -8249,17 +6945,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<799 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<799 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -8355,22 +7043,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -8389,17 +7065,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<799 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<799 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -8498,12 +7166,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -8587,12 +7250,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -8677,22 +7335,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -8711,9 +7357,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "warn",
@@ -8728,14 +7372,8 @@
             }
           ]
         ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<801 chars>"
-        ]
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<801 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -8820,22 +7458,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -8854,9 +7480,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "warn",
@@ -8871,14 +7495,8 @@
             }
           ]
         ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<801 chars>"
-        ]
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<801 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -8965,22 +7583,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -8999,17 +7605,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<793 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<793 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -9105,22 +7703,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9139,17 +7725,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<793 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<793 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -9247,22 +7825,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9281,17 +7847,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<800 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<800 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -9387,22 +7945,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9421,17 +7967,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<800 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<800 chars>"]
       ],
       "result": {
         "return": "char-id-1"
@@ -9527,18 +8065,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9557,17 +8086,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1037 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1037 chars>"]
       ],
       "result": {
         "return": {
@@ -9666,18 +8187,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9696,17 +8208,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1037 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1037 chars>"]
       ],
       "result": {
         "return": {
@@ -9807,18 +8311,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9837,17 +8332,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1037 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1037 chars>"]
       ],
       "result": {
         "return": {
@@ -9946,18 +8433,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -9976,17 +8454,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1037 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1037 chars>"]
       ],
       "result": {
         "return": {
@@ -10087,18 +8557,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -10117,17 +8578,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1037 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1037 chars>"]
       ],
       "result": {
         "return": {
@@ -10226,18 +8679,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -10256,17 +8700,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1037 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1037 chars>"]
       ],
       "result": {
         "return": {
@@ -10809,18 +9245,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -10839,17 +9266,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -10962,18 +9381,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -10992,17 +9402,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -11117,18 +9519,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -11147,17 +9540,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -11270,18 +9655,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -11300,17 +9676,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -11425,18 +9793,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -11455,17 +9814,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -11578,18 +9929,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -11608,17 +9950,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -11733,18 +10067,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -11763,17 +10088,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -11886,18 +10203,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -11916,17 +10224,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -12041,18 +10341,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12071,17 +10362,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -12194,18 +10477,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12224,17 +10498,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -12349,18 +10615,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12379,17 +10636,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -12502,18 +10751,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12532,17 +10772,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"]
       ],
       "result": {
         "return": {
@@ -12657,18 +10889,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12687,17 +10910,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -12810,18 +11025,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12840,17 +11046,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -12965,18 +11163,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -12995,17 +11184,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -13118,18 +11299,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -13148,17 +11320,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -13273,18 +11437,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -13303,17 +11458,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -13426,18 +11573,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -13456,17 +11594,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -13581,18 +11711,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -13611,17 +11732,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -13734,18 +11847,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -13764,17 +11868,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -13889,18 +11985,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -13919,17 +12006,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -14042,18 +12121,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14072,17 +12142,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -14197,18 +12259,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14227,17 +12280,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -14350,18 +12395,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14380,17 +12416,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1270 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1270 chars>"]
       ],
       "result": {
         "return": {
@@ -14495,27 +12523,11 @@
   },
   "grant-BRL-b2b": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "BRL",
-          "b2b"
-        ],
-        []
-      ],
+      "args": [[10000, "BRL", "b2b"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14531,17 +12543,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -14592,27 +12596,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "BRL",
-          "b2b"
-        ],
-        []
-      ],
+      "args": [[10000, "BRL", "b2b"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14628,17 +12616,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -14691,27 +12671,11 @@
   },
   "grant-BRL-b2c": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "BRL",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "BRL", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14727,17 +12691,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -14788,27 +12744,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "BRL",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "BRL", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14824,17 +12764,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -14887,27 +12819,11 @@
   },
   "grant-EUR-b2b": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "EUR",
-          "b2b"
-        ],
-        []
-      ],
+      "args": [[10000, "EUR", "b2b"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14923,17 +12839,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -14984,27 +12892,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "EUR",
-          "b2b"
-        ],
-        []
-      ],
+      "args": [[10000, "EUR", "b2b"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15020,17 +12912,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15083,27 +12967,11 @@
   },
   "grant-EUR-b2c": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "EUR",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "EUR", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15119,17 +12987,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15180,27 +13040,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "EUR",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "EUR", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15216,17 +13060,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15279,27 +13115,11 @@
   },
   "grant-USD-b2b": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2b"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2b"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15315,17 +13135,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15376,27 +13188,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2b"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2b"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15412,17 +13208,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15475,27 +13263,11 @@
   },
   "grant-USD-b2c": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15511,17 +13283,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15572,27 +13336,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15608,17 +13356,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": {
@@ -15671,14 +13411,7 @@
   },
   "grant-already-initialized": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2c"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -15729,14 +13462,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2c"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -15789,27 +13515,11 @@
   },
   "grant-fraction": {
     "fixed": {
-      "args": [
-        [
-          0.005,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[0.005, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15825,17 +13535,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<176 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<176 chars>"]
       ],
       "result": {
         "return": {
@@ -15886,27 +13588,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          0.005,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[0.005, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -15922,17 +13608,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<176 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<176 chars>"]
       ],
       "result": {
         "return": {
@@ -15996,18 +13674,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -16023,17 +13692,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<175 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<175 chars>"]
       ],
       "result": {
         "return": {
@@ -16095,18 +13756,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -16122,17 +13774,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<175 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<175 chars>"]
       ],
       "result": {
         "return": {
@@ -16185,32 +13829,11 @@
   },
   "grant-twice-back-to-back": {
     "fixed": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2c"], [10000, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -16226,17 +13849,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": [
@@ -16292,32 +13907,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        [
-          10000,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[10000, "USD", "b2c"], [10000, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -16333,17 +13927,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<180 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<180 chars>"]
       ],
       "result": {
         "return": [
@@ -16412,18 +13998,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -16480,18 +14057,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -16539,12 +14107,7 @@
   },
   "pause-accomplished": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -16618,12 +14181,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -16699,25 +14257,11 @@
   },
   "pause-active": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -16732,17 +14276,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<701 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<701 chars>"]
       ],
       "result": {
         "return": {
@@ -16816,25 +14352,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -16849,17 +14371,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<701 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<701 chars>"]
       ],
       "result": {
         "return": {
@@ -16935,12 +14449,7 @@
   },
   "pause-missing": {
     "fixed": {
-      "args": [
-        [
-          "nope"
-        ],
-        []
-      ],
+      "args": [["nope"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17011,12 +14520,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "nope"
-        ],
-        []
-      ],
+      "args": [["nope"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17089,12 +14593,7 @@
   },
   "pause-paused": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17168,12 +14667,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17249,26 +14743,11 @@
   },
   "raise-target-beyond-float": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "9007199254740993"
-        ],
-        []
-      ],
+      "args": [["g1", "9007199254740993"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -17285,17 +14764,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<764 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<764 chars>"]
       ],
       "result": {
         "return": {
@@ -17369,26 +14840,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "9007199254740993"
-        ],
-        []
-      ],
+      "args": [["g1", "9007199254740993"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -17405,17 +14861,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<764 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<764 chars>"]
       ],
       "result": {
         "return": {
@@ -17491,13 +14939,7 @@
   },
   "raise-target-dropped": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17571,13 +15013,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17653,13 +15089,7 @@
   },
   "raise-target-empty": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          ""
-        ],
-        []
-      ],
+      "args": [["g1", ""], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17730,13 +15160,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          ""
-        ],
-        []
-      ],
+      "args": [["g1", ""], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17809,13 +15233,7 @@
   },
   "raise-target-equal": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "3000"
-        ],
-        []
-      ],
+      "args": [["g1", "3000"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17886,13 +15304,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "3000"
-        ],
-        []
-      ],
+      "args": [["g1", "3000"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -17965,26 +15377,11 @@
   },
   "raise-target-higher": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -18001,17 +15398,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<752 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<752 chars>"]
       ],
       "result": {
         "return": {
@@ -18085,26 +15474,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -18121,17 +15495,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<752 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<752 chars>"]
       ],
       "result": {
         "return": {
@@ -18207,26 +15573,11 @@
   },
   "raise-target-higher-from-paused": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -18243,17 +15594,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<908 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<908 chars>"]
       ],
       "result": {
         "return": {
@@ -18330,26 +15673,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -18366,17 +15694,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<908 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<908 chars>"]
       ],
       "result": {
         "return": {
@@ -18455,13 +15775,7 @@
   },
   "raise-target-infinity": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "Infinity"
-        ],
-        []
-      ],
+      "args": [["g1", "Infinity"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -18532,13 +15846,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "Infinity"
-        ],
-        []
-      ],
+      "args": [["g1", "Infinity"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -18611,13 +15919,7 @@
   },
   "raise-target-lower": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "10"
-        ],
-        []
-      ],
+      "args": [["g1", "10"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -18688,13 +15990,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "10"
-        ],
-        []
-      ],
+      "args": [["g1", "10"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -18767,13 +16063,7 @@
   },
   "raise-target-missing": {
     "fixed": {
-      "args": [
-        [
-          "nope",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["nope", "4000"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -18844,13 +16134,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "nope",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["nope", "4000"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -18923,13 +16207,7 @@
   },
   "raise-target-nan": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "NaN"
-        ],
-        []
-      ],
+      "args": [["g1", "NaN"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -19000,13 +16278,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "NaN"
-        ],
-        []
-      ],
+      "args": [["g1", "NaN"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -19079,26 +16351,11 @@
   },
   "raise-target-sub-cent": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "3000.004"
-        ],
-        []
-      ],
+      "args": [["g1", "3000.004"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -19115,17 +16372,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<752 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<752 chars>"]
       ],
       "result": {
         "return": {
@@ -19199,26 +16448,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "3000.004"
-        ],
-        []
-      ],
+      "args": [["g1", "3000.004"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -19235,17 +16469,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<752 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<752 chars>"]
       ],
       "result": {
         "return": {
@@ -19321,13 +16547,7 @@
   },
   "raise-target-unparseable": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "abc"
-        ],
-        []
-      ],
+      "args": [["g1", "abc"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -19398,13 +16618,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "abc"
-        ],
-        []
-      ],
+      "args": [["g1", "abc"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -19488,18 +16702,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -19516,17 +16721,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1371 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1371 chars>"]
       ],
       "result": {
         "return": {
@@ -19643,18 +16840,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -19671,17 +16859,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1371 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1371 chars>"]
       ],
       "result": {
         "return": {
@@ -19800,18 +16980,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -19828,17 +16999,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<744 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<744 chars>"]
       ],
       "result": {
         "return": {
@@ -19923,18 +17086,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -19951,17 +17105,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<744 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<744 chars>"]
       ],
       "result": {
         "return": {
@@ -20048,18 +17194,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -20076,17 +17213,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1370 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1370 chars>"]
       ],
       "result": {
         "return": {
@@ -20210,18 +17339,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -20238,17 +17358,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1370 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1370 chars>"]
       ],
       "result": {
         "return": {
@@ -20374,18 +17486,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -20402,17 +17505,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1371 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1371 chars>"]
       ],
       "result": {
         "return": {
@@ -20536,18 +17631,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -20564,17 +17650,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1371 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1371 chars>"]
       ],
       "result": {
         "return": {
@@ -20702,18 +17780,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -20730,17 +17799,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1368 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1368 chars>"]
       ],
       "result": {
         "return": {
@@ -20866,18 +17927,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -20894,17 +17946,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1368 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1368 chars>"]
       ],
       "result": {
         "return": {
@@ -21030,18 +18074,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -21058,17 +18093,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1369 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1369 chars>"]
       ],
       "result": {
         "return": {
@@ -21185,18 +18212,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -21213,17 +18231,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1369 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1369 chars>"]
       ],
       "result": {
         "return": {
@@ -21344,18 +18354,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -21469,18 +18470,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -21583,12 +18575,7 @@
   },
   "resume-active": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -21659,12 +18646,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -21737,12 +18719,7 @@
   },
   "resume-missing": {
     "fixed": {
-      "args": [
-        [
-          "nope"
-        ],
-        []
-      ],
+      "args": [["nope"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -21813,12 +18790,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "nope"
-        ],
-        []
-      ],
+      "args": [["nope"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -21891,25 +18863,11 @@
   },
   "resume-paused": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -21924,17 +18882,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<858 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<858 chars>"]
       ],
       "result": {
         "return": {
@@ -22011,25 +18961,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -22044,17 +18980,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<858 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<858 chars>"]
       ],
       "result": {
         "return": {
@@ -22143,36 +19071,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -22204,22 +19109,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -22335,36 +19228,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -22396,22 +19266,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -22529,36 +19387,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -22590,22 +19425,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -22721,36 +19544,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -22782,22 +19582,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -22915,36 +19703,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -22976,22 +19741,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -23107,36 +19860,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -23168,22 +19898,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -23301,36 +20019,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -23362,22 +20057,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -23493,36 +20176,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -23554,22 +20214,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -23687,36 +20335,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -23748,22 +20373,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -23879,36 +20492,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -23940,22 +20530,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -24073,36 +20651,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -24134,22 +20689,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -24265,36 +20808,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.005
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "feeFor",
-          "p2",
-          1.237
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.005],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["feeFor", "p2", 1.237],
         [
           "append",
           [
@@ -24326,22 +20846,10 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1269 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1521 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1269 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1521 chars>"]
       ],
       "result": {
         "return": {
@@ -24459,18 +20967,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -24581,18 +21080,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ]
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"]
       ],
       "result": {
         "throw": {
@@ -25073,13 +21563,7 @@
   },
   "transfer-from-closed": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -25172,13 +21656,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -25273,13 +21751,7 @@
   },
   "transfer-from-missing": {
     "fixed": {
-      "args": [
-        [
-          "nope",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["nope", "g2"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -25369,13 +21841,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "nope",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["nope", "g2"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -25467,42 +21933,15 @@
   },
   "transfer-from-paused": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -25537,27 +21976,11 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1244 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1400 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1591 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1244 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1400 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1591 chars>"]
       ],
       "result": {
         "return": {
@@ -25659,42 +22082,15 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-11-01T00:00:00.000Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-11-01T00:00:00.000Z"],
         [
           "append",
           [
@@ -25729,27 +22125,11 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1244 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1400 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1591 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1244 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1400 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1591 chars>"]
       ],
       "result": {
         "return": {
@@ -25853,26 +22233,11 @@
   },
   "transfer-no-cash": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -25888,17 +22253,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<790 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<790 chars>"]
       ],
       "result": {
         "return": {
@@ -25985,26 +22342,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -26020,17 +22362,9 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<790 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<790 chars>"]
       ],
       "result": {
         "return": {
@@ -26119,13 +22453,7 @@
   },
   "transfer-same-goal": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1", "g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -26215,13 +22543,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1", "g1"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -26313,13 +22635,7 @@
   },
   "transfer-to-missing": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "nope"
-        ],
-        []
-      ],
+      "args": [["g1", "nope"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -26409,13 +22725,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "nope"
-        ],
-        []
-      ],
+      "args": [["g1", "nope"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -26507,13 +22817,7 @@
   },
   "transfer-to-paused": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -26606,13 +22910,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [],
       "result": {
         "return": {
@@ -26707,42 +23005,15 @@
   },
   "transfer-with-cash": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -26777,27 +23048,11 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1088 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1244 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1435 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1088 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1244 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1435 chars>"]
       ],
       "result": {
         "return": {
@@ -26896,42 +23151,15 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-11-01T00:00:00.000Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-11-01T00:00:00.000Z"],
         [
           "append",
           [
@@ -26966,27 +23194,11 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1088 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1244 chars>"
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1435 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1088 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1244 chars>"],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1435 chars>"]
       ],
       "result": {
         "return": {

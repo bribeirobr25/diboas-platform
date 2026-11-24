@@ -43,9 +43,9 @@ function code(relative: string): string {
 
 /* ── 1 · the surfaces that DISPLAY a projection cannot WRITE ──────────────── */
 
-/** The ledger-write modules, as paths relative to `src/`. */
+/** The ledger-write modules, as paths relative to `src/` (S1a PR-2 adds `applyDecision`, the adapters' one writer). */
 const LEDGER_WRITE_MODULE =
-  /^lib\/(?:ledgerClient\.tsx?|ledger\/(?:core|journey|credits|rules|simEvents)(?:\.tsx?|\/))/;
+  /^lib\/(?:ledgerClient\.tsx?|ledger\/(?:core|journey|credits|rules|simEvents|applyDecision)(?:\.tsx?|\/))/;
 
 /**
  * ⛑ REACHABILITY, NOT ONE FILE'S IMPORTS (R4-7, independent review 2026-10-16).

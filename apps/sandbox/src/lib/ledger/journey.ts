@@ -17,6 +17,7 @@ import {
 } from '@diboas/defi';
 import { planAdvance, type PositionLeg } from '../advancePlanner';
 import { generateId } from '../ids';
+import { applyDecision } from './applyDecision';
 import { browserContext } from './browserContext';
 import { appendAll, base, getLedgerState } from './core';
 import {
@@ -31,17 +32,12 @@ import {
   decideSetRecurring,
   decideStopGoalStrategies,
   decideTransferGoalCash,
+  openPositionsOf,
 } from './decide/journey';
 import { feeInCents, splitEntry } from './decide/fees';
-import type { Decision } from './decide/types';
+import { NOTHING } from './decide/types';
 
 export { splitEntry };
-
-/** Writes what a decision decided and returns its result (the adapter's whole job). */
-function apply<R>(decision: Decision<R, string>): R {
-  if (decision.append) appendAll(decision.append);
-  return decision.result;
-}
 
 /** The R1 claim grant (W-5a), once per ledger. Decision: `decideGrantPlayMoney`. */
 export function grantPlayMoney(
@@ -49,17 +45,17 @@ export function grantPlayMoney(
   currency: 'USD' | 'BRL' | 'EUR',
   mode: 'b2c' | 'b2b'
 ): void {
-  apply(decideGrantPlayMoney({ amount, currency, mode }, browserContext));
+  applyDecision(decideGrantPlayMoney({ currency }, { amount, mode }, browserContext));
 }
 
-/** Pause a goal's PLAN (G3, W-17d): a zero-value transition. Decision: `decidePauseGoal`. */
+/** Pause a goal's PLAN (G3, W-17d). Decision: `decidePauseGoal`. */
 export function pauseGoal(goalId: string): void {
-  apply(decidePauseGoal(goalId, browserContext));
+  applyDecision(decidePauseGoal({ goalId }, NOTHING, browserContext));
 }
 
 /** Resume a paused goal's plan. Decision: `decideResumeGoal`. */
 export function resumeGoal(goalId: string): void {
-  apply(decideResumeGoal(goalId, browserContext));
+  applyDecision(decideResumeGoal({ goalId }, NOTHING, browserContext));
 }
 
 /** Close a reached goal by the user's disposition (G4 / D-e §3). Decision: `decideAccomplishGoal`. */
@@ -67,17 +63,17 @@ export function accomplishGoal(
   goalId: string,
   disposition: 'kept-working' | 'held-as-cash' | 'transferred'
 ): void {
-  apply(decideAccomplishGoal({ goalId, disposition }, browserContext));
+  applyDecision(decideAccomplishGoal({ goalId, disposition }, NOTHING, browserContext));
 }
 
-/** "Move to another goal" (G4): release, fund, close, one correlationId. Decision: `decideTransferGoalCash`. */
+/** "Move to another goal" (G4). Decision: `decideTransferGoalCash`. */
 export function transferGoalCash(fromGoalId: string, toGoalId: string): void {
-  apply(decideTransferGoalCash({ fromGoalId, toGoalId }, browserContext));
+  applyDecision(decideTransferGoalCash({ fromGoalId, toGoalId }, NOTHING, browserContext));
 }
 
 /** "Raise the target" (G4), from the raw input string (AUD-E01). Decision: `decideRaiseGoalTarget`. */
 export function raiseGoalTarget(goalId: string, newTarget: string): void {
-  apply(decideRaiseGoalTarget({ goalId, newTarget }, browserContext));
+  applyDecision(decideRaiseGoalTarget({ goalId, newTarget }, NOTHING, browserContext));
 }
 
 /** Create a goal; an unaffordable funding leg is withheld. Decision: `decideCreateGoal`. */
@@ -88,7 +84,7 @@ export function createGoal(input: {
   horizonMonths: number;
   fundAmount: number;
 }): string {
-  return apply(decideCreateGoal(input, browserContext));
+  return applyDecision(decideCreateGoal(input, NOTHING, browserContext));
 }
 
 /** Enter a strategy with the whole committed total (`5.403`, schema v2). Decision: `decideEnterStrategy`. */
@@ -99,7 +95,10 @@ export function enterStrategy(input: {
   totalFromCash: number;
   networkFeeLocal: number;
 }): string {
-  return apply(decideEnterStrategy(input, browserContext));
+  const { goalId, strategyId, totalFromCash, networkFeeLocal } = input;
+  return applyDecision(
+    decideEnterStrategy({ goalId, strategyId, totalFromCash }, { networkFeeLocal }, browserContext)
+  );
 }
 
 /**
@@ -325,12 +324,13 @@ export function setRecurring(input: {
   positionId: string;
   monthlyAmount: number;
 }): void {
-  apply(decideSetRecurring(input, browserContext));
+  applyDecision(decideSetRecurring(input, NOTHING, browserContext));
 }
 
 /** Exit one open position; both fees are modelled information. Decision: `decideExitPosition`. */
 export function exitPosition(input: { positionId: string; networkFeeLocal: number }): void {
-  apply(decideExitPosition(input, browserContext));
+  const { positionId, networkFeeLocal } = input;
+  applyDecision(decideExitPosition({ positionId }, { networkFeeLocal }, browserContext));
 }
 
 /**
@@ -366,8 +366,8 @@ export function previewExit(
    * rows, deducted from nothing. The ceremony's approved label for this figure is
    * *"What actually comes back"*, so it must carry the amount the ledger really
    * credits or the confirmation surface would state a number the transaction
-   * contradicts — the FC-15 breakage this file's own rounding comment exists to
-   * prevent. The fee figures are unchanged, including the per-position floor.
+   * contradicts — the FC-15 breakage `feeInCents`'s rounding (`decide/fees.ts`)
+   * exists to prevent. The fee figures are unchanged, including the per-position floor.
    */
   return {
     gross: gross.toFixed(2),
@@ -440,11 +440,6 @@ function composeStop(
   };
 }
 
-/** Open positions of a goal, in ledger order (the stop set). */
-function openPositionsOf(state: LedgerState, goalId: string) {
-  return state.positions.filter((p) => p.goalId === goalId && p.open);
-}
-
 /**
  * Preview stopping ONE position — the ceremony's single-position case. Returns
  * the same shape as the goal-level preview so the surface never branches on
@@ -483,5 +478,5 @@ export function previewGoalStop(
  * Decision: `decideStopGoalStrategies`.
  */
 export function stopGoalStrategies(goalId: string, feeFor: (positionId: string) => number): void {
-  apply(decideStopGoalStrategies({ goalId }, { feeFor }, browserContext));
+  applyDecision(decideStopGoalStrategies({ goalId }, { feeFor }, browserContext));
 }

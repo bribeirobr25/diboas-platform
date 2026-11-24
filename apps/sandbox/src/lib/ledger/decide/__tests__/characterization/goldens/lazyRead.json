@@ -1,18 +1,8 @@
 {
   "lazy-read-accomplish": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "kept-working"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -30,18 +20,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "kept-working"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -61,20 +41,8 @@
   },
   "lazy-read-advance": {
     "fixed": {
-      "args": [
-        [
-          1,
-          [],
-          "machine",
-          []
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[1, [], "machine", []], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -92,20 +60,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          1,
-          [],
-          "machine",
-          []
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[1, [], "machine", []], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -131,9 +87,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -147,11 +101,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -175,9 +125,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -191,11 +139,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -221,9 +165,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -237,11 +179,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -265,9 +203,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -281,11 +217,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -305,19 +237,8 @@
   },
   "lazy-read-collect": {
     "fixed": {
-      "args": [
-        [],
-        []
-      ],
-      "timeline": [
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "args": [[], []],
+      "timeline": [["clock", "2026-10-31T23:59:59.998Z"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -335,19 +256,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [],
-        []
-      ],
-      "timeline": [
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "args": [[], []],
+      "timeline": [["clock", "2026-10-31T23:59:59.998Z"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -367,15 +277,8 @@
   },
   "lazy-read-comparison": {
     "fixed": {
-      "args": [
-        [],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -393,15 +296,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -433,23 +329,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["id", "char-id-3"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -479,23 +359,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["id", "char-id-3"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -526,11 +390,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -559,11 +419,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -583,17 +439,8 @@
   },
   "lazy-read-create-rule-invalid-split": {
     "fixed": {
-      "args": [
-        [
-          []
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[[]], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -611,17 +458,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          []
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[[]], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -647,9 +485,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -663,13 +499,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "storage.set",
-          "diboas.sandbox.proposalDeclines.v1",
-          "[1]"
-        ]
-      ],
+      "timeline": [["storage.set", "diboas.sandbox.proposalDeclines.v1", "[1]"]],
       "result": {
         "return": {
           "$undefined": true
@@ -693,9 +523,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -709,13 +537,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "storage.set",
-          "diboas.sandbox.proposalDeclines.v1",
-          "[1]"
-        ]
-      ],
+      "timeline": [["storage.set", "diboas.sandbox.proposalDeclines.v1", "[1]"]],
       "result": {
         "return": {
           "$undefined": true
@@ -746,23 +568,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["id", "char-id-3"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -791,23 +597,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["id", "char-id-3"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -836,11 +626,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -867,11 +653,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -891,19 +673,8 @@
   },
   "lazy-read-grant": {
     "fixed": {
-      "args": [
-        [
-          100,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[100, "USD", "b2c"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -921,19 +692,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          100,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [[100, "USD", "b2c"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -953,17 +713,8 @@
   },
   "lazy-read-pause": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -981,17 +732,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1011,18 +753,8 @@
   },
   "lazy-read-raise-target": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "4000"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1040,18 +772,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "4000"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1071,18 +793,8 @@
   },
   "lazy-read-raise-target-unparseable": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "abc"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "abc"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1100,18 +812,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "abc"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "abc"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1141,19 +843,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1181,19 +871,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1226,11 +904,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1261,11 +935,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1300,11 +970,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1337,11 +1003,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1378,11 +1040,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1417,11 +1075,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1454,11 +1108,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1489,11 +1139,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1513,17 +1159,8 @@
   },
   "lazy-read-resume": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1541,17 +1178,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1580,11 +1208,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1611,11 +1235,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1635,18 +1255,8 @@
   },
   "lazy-read-transfer": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "g2"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1664,18 +1274,8 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
-      "timeline": [
-        [
-          "project"
-        ]
-      ],
+      "args": [["g1", "g2"], []],
+      "timeline": [["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1708,19 +1308,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1751,19 +1339,7 @@
         ],
         []
       ],
-      "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "project"
-        ]
-      ],
+      "timeline": [["id", "char-id-1"], ["id", "char-id-2"], ["project"]],
       "result": {
         "throw": {
           "name": "Error",
@@ -1783,14 +1359,7 @@
   },
   "lazy-read-update-rule-invalid-split": {
     "fixed": {
-      "args": [
-        [
-          "r1",
-          [],
-          0
-        ],
-        []
-      ],
+      "args": [["r1", [], 0], []],
       "timeline": [],
       "result": {
         "return": {
@@ -1808,14 +1377,7 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "r1",
-          [],
-          0
-        ],
-        []
-      ],
+      "args": [["r1", [], 0], []],
       "timeline": [],
       "result": {
         "return": {

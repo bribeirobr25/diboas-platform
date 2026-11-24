@@ -1,26 +1,11 @@
 {
   "fault-accomplish": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["g1", "kept-working"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -36,9 +21,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -47,9 +30,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalAccomplished"
-              ]
+              "types": ["GoalAccomplished"]
             }
           ]
         ]
@@ -124,26 +105,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "kept-working"
-        ],
-        []
-      ],
+      "args": [["g1", "kept-working"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -159,9 +125,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -170,9 +134,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalAccomplished"
-              ]
+              "types": ["GoalAccomplished"]
             }
           ]
         ]
@@ -249,28 +211,11 @@
   },
   "fault-advance": {
     "fixed": {
-      "args": [
-        [
-          1,
-          [],
-          "real",
-          []
-        ],
-        []
-      ],
+      "args": [[1, [], "real", []], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -285,9 +230,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -296,9 +239,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "TimeAdvanced"
-              ]
+              "types": ["TimeAdvanced"]
             }
           ]
         ]
@@ -388,28 +329,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          1,
-          [],
-          "real",
-          []
-        ],
-        []
-      ],
+      "args": [[1, [], "real", []], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -424,9 +348,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -435,9 +357,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "TimeAdvanced"
-              ]
+              "types": ["TimeAdvanced"]
             }
           ]
         ]
@@ -535,9 +455,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -556,34 +474,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -596,9 +493,7 @@
               "ruleId": "r1",
               "ruleVersion": 0,
               "proposalId": "pr1",
-              "weekSet": [
-                1
-              ]
+              "weekSet": [1]
             },
             {
               "eventId": "char-id-3",
@@ -620,9 +515,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -631,11 +524,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RuleApplied",
-                "GoalFunded",
-                "GoalFunded"
-              ]
+              "types": ["RuleApplied", "GoalFunded", "GoalFunded"]
             }
           ]
         ]
@@ -742,9 +631,7 @@
       "clockReads": 3,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": [
-        "append[0][0].weekSet === input[0].0.weekSet"
-      ]
+      "sharedReferences": ["append[0][0].weekSet === input[0].0.weekSet"]
     },
     "advancing": {
       "args": [
@@ -753,9 +640,7 @@
             "proposalId": "pr1",
             "ruleId": "r1",
             "ruleVersion": 0,
-            "weekSet": [
-              1
-            ],
+            "weekSet": [1],
             "lines": [
               {
                 "goalId": "g1",
@@ -774,34 +659,13 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-11-01T00:00:00.000Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-11-01T00:00:00.000Z"],
         [
           "append",
           [
@@ -814,9 +678,7 @@
               "ruleId": "r1",
               "ruleVersion": 0,
               "proposalId": "pr1",
-              "weekSet": [
-                1
-              ]
+              "weekSet": [1]
             },
             {
               "eventId": "char-id-3",
@@ -838,9 +700,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -849,11 +709,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RuleApplied",
-                "GoalFunded",
-                "GoalFunded"
-              ]
+              "types": ["RuleApplied", "GoalFunded", "GoalFunded"]
             }
           ]
         ]
@@ -960,40 +816,18 @@
       "clockReads": 3,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": [
-        "append[0][0].weekSet === input[0].0.weekSet"
-      ]
+      "sharedReferences": ["append[0][0].weekSet === input[0].0.weekSet"]
     }
   },
   "fault-collect": {
     "fixed": {
-      "args": [
-        [
-          "2026-08-08T00:00:00.000Z"
-        ],
-        []
-      ],
+      "args": [["2026-08-08T00:00:00.000Z"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1017,9 +851,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1028,10 +860,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "WeeklyCreditGranted",
-                "WeeklyCreditGranted"
-              ]
+              "types": ["WeeklyCreditGranted", "WeeklyCreditGranted"]
             }
           ]
         ]
@@ -1086,33 +915,13 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "2026-08-08T00:00:00.000Z"
-        ],
-        []
-      ],
+      "args": [["2026-08-08T00:00:00.000Z"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
         [
           "append",
           [
@@ -1136,9 +945,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1147,10 +954,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "WeeklyCreditGranted",
-                "WeeklyCreditGranted"
-              ]
+              "types": ["WeeklyCreditGranted", "WeeklyCreditGranted"]
             }
           ]
         ]
@@ -1207,23 +1011,11 @@
   },
   "fault-comparison": {
     "fixed": {
-      "args": [
-        [],
-        []
-      ],
+      "args": [[], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1237,9 +1029,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1248,9 +1038,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "ComparisonCreditGranted"
-              ]
+              "types": ["ComparisonCreditGranted"]
             }
           ]
         ]
@@ -1305,23 +1093,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [],
-        []
-      ],
+      "args": [[], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1335,9 +1111,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1346,9 +1120,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "ComparisonCreditGranted"
-              ]
+              "types": ["ComparisonCreditGranted"]
             }
           ]
         ]
@@ -1418,30 +1190,12 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1468,9 +1222,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1479,10 +1231,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalCreated",
-                "GoalFunded"
-              ]
+              "types": ["GoalCreated", "GoalFunded"]
             }
           ]
         ]
@@ -1550,30 +1299,12 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
         [
           "append",
           [
@@ -1600,9 +1331,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1611,10 +1340,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalCreated",
-                "GoalFunded"
-              ]
+              "types": ["GoalCreated", "GoalFunded"]
             }
           ]
         ]
@@ -1683,22 +1409,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1718,9 +1432,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1729,9 +1441,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RuleCreated"
-              ]
+              "types": ["RuleCreated"]
             }
           ]
         ]
@@ -1819,9 +1529,7 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": [
-        "append[0][0].split === input[0].0"
-      ]
+      "sharedReferences": ["append[0][0].split === input[0].0"]
     },
     "advancing": {
       "args": [
@@ -1836,22 +1544,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -1871,9 +1567,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -1882,9 +1576,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RuleCreated"
-              ]
+              "types": ["RuleCreated"]
             }
           ]
         ]
@@ -1972,9 +1664,7 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": [
-        "append[0][0].split === input[0].0"
-      ]
+      "sharedReferences": ["append[0][0].split === input[0].0"]
     }
   },
   "fault-enter": {
@@ -1991,22 +1681,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2025,9 +1703,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2036,9 +1712,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "StrategyEntered"
-              ]
+              "types": ["StrategyEntered"]
             }
           ]
         ]
@@ -2125,22 +1799,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2159,9 +1821,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2170,9 +1830,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "StrategyEntered"
-              ]
+              "types": ["StrategyEntered"]
             }
           ]
         ]
@@ -2259,18 +1917,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2289,9 +1938,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2300,9 +1947,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "StrategyExited"
-              ]
+              "types": ["StrategyExited"]
             }
           ]
         ]
@@ -2402,18 +2047,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2432,9 +2068,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2443,9 +2077,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "StrategyExited"
-              ]
+              "types": ["StrategyExited"]
             }
           ]
         ]
@@ -2537,27 +2169,11 @@
   },
   "fault-grant": {
     "fixed": {
-      "args": [
-        [
-          100,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[100, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2573,9 +2189,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2584,9 +2198,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "PlayMoneyGranted"
-              ]
+              "types": ["PlayMoneyGranted"]
             }
           ]
         ]
@@ -2635,27 +2247,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          100,
-          "USD",
-          "b2c"
-        ],
-        []
-      ],
+      "args": [[100, "USD", "b2c"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2671,9 +2267,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2682,9 +2276,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "PlayMoneyGranted"
-              ]
+              "types": ["PlayMoneyGranted"]
             }
           ]
         ]
@@ -2735,25 +2327,11 @@
   },
   "fault-pause": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2768,9 +2346,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2779,9 +2355,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalPaused"
-              ]
+              "types": ["GoalPaused"]
             }
           ]
         ]
@@ -2856,25 +2430,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -2889,9 +2449,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -2900,9 +2458,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalPaused"
-              ]
+              "types": ["GoalPaused"]
             }
           ]
         ]
@@ -2979,26 +2535,11 @@
   },
   "fault-raise-target": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3015,9 +2556,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3026,9 +2565,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalTargetChanged"
-              ]
+              "types": ["GoalTargetChanged"]
             }
           ]
         ]
@@ -3103,26 +2640,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "4000"
-        ],
-        []
-      ],
+      "args": [["g1", "4000"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3139,9 +2661,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3150,9 +2670,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalTargetChanged"
-              ]
+              "types": ["GoalTargetChanged"]
             }
           ]
         ]
@@ -3240,18 +2758,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3268,9 +2777,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3279,9 +2786,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RecurringSet"
-              ]
+              "types": ["RecurringSet"]
             }
           ]
         ]
@@ -3382,18 +2887,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3410,9 +2906,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3421,9 +2915,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RecurringSet"
-              ]
+              "types": ["RecurringSet"]
             }
           ]
         ]
@@ -3529,18 +3021,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3556,9 +3039,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3567,9 +3048,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "SimulatedExpensePaid"
-              ]
+              "types": ["SimulatedExpensePaid"]
             }
           ]
         ]
@@ -3658,18 +3137,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3685,9 +3155,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3696,9 +3164,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "SimulatedExpensePaid"
-              ]
+              "types": ["SimulatedExpensePaid"]
             }
           ]
         ]
@@ -3790,26 +3256,11 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -3835,9 +3286,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3846,10 +3295,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalCashReleased",
-                "SimulatedExpensePaid"
-              ]
+              "types": ["GoalCashReleased", "SimulatedExpensePaid"]
             }
           ]
         ]
@@ -3939,26 +3385,11 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
         [
           "append",
           [
@@ -3984,9 +3415,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -3995,10 +3424,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalCashReleased",
-                "SimulatedExpensePaid"
-              ]
+              "types": ["GoalCashReleased", "SimulatedExpensePaid"]
             }
           ]
         ]
@@ -4075,25 +3501,11 @@
   },
   "fault-resume": {
     "fixed": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4108,9 +3520,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -4119,9 +3529,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalResumed"
-              ]
+              "types": ["GoalResumed"]
             }
           ]
         ]
@@ -4199,25 +3607,11 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1"
-        ],
-        []
-      ],
+      "args": [["g1"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4232,9 +3626,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -4243,9 +3635,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalResumed"
-              ]
+              "types": ["GoalResumed"]
             }
           ]
         ]
@@ -4335,23 +3725,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.5
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.5],
         [
           "append",
           [
@@ -4370,9 +3747,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -4381,9 +3756,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "StrategyExited"
-              ]
+              "types": ["StrategyExited"]
             }
           ]
         ]
@@ -4483,23 +3856,10 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.5
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["feeFor", "p1", 0.5],
         [
           "append",
           [
@@ -4518,9 +3878,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -4529,9 +3887,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "StrategyExited"
-              ]
+              "types": ["StrategyExited"]
             }
           ]
         ]
@@ -4623,42 +3979,15 @@
   },
   "fault-transfer": {
     "fixed": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -4693,9 +4022,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -4704,11 +4031,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalCashReleased",
-                "GoalFunded",
-                "GoalAccomplished"
-              ]
+              "types": ["GoalCashReleased", "GoalFunded", "GoalAccomplished"]
             }
           ]
         ]
@@ -4799,42 +4122,15 @@
       "sharedReferences": []
     },
     "advancing": {
-      "args": [
-        [
-          "g1",
-          "g2"
-        ],
-        []
-      ],
+      "args": [["g1", "g2"], []],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
-        [
-          "id",
-          "char-id-3"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.999Z"
-        ],
-        [
-          "id",
-          "char-id-4"
-        ],
-        [
-          "clock",
-          "2026-11-01T00:00:00.000Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
+        ["id", "char-id-3"],
+        ["clock", "2026-10-31T23:59:59.999Z"],
+        ["id", "char-id-4"],
+        ["clock", "2026-11-01T00:00:00.000Z"],
         [
           "append",
           [
@@ -4869,9 +4165,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -4880,11 +4174,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "GoalCashReleased",
-                "GoalFunded",
-                "GoalAccomplished"
-              ]
+              "types": ["GoalCashReleased", "GoalFunded", "GoalAccomplished"]
             }
           ]
         ]
@@ -4991,18 +4281,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5023,9 +4304,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -5034,9 +4313,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RuleUpdated"
-              ]
+              "types": ["RuleUpdated"]
             }
           ]
         ]
@@ -5143,9 +4420,7 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": [
-        "append[0][0].split === input[0].1"
-      ]
+      "sharedReferences": ["append[0][0].split === input[0].1"]
     },
     "advancing": {
       "args": [
@@ -5162,18 +4437,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -5194,9 +4460,7 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
+        ["project"],
         [
           "console",
           "error",
@@ -5205,9 +4469,7 @@
             {
               "level": "error",
               "message": "ledger append refused: the projection cannot handle it",
-              "types": [
-                "RuleUpdated"
-              ]
+              "types": ["RuleUpdated"]
             }
           ]
         ]
@@ -5314,9 +4576,7 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": [
-        "append[0][0].split === input[0].1"
-      ]
+      "sharedReferences": ["append[0][0].split === input[0].1"]
     }
   }
 }

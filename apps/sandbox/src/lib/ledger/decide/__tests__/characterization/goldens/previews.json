@@ -571,16 +571,8 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.5
-        ],
-        [
-          "feeFor",
-          "p3",
-          0
-        ]
+        ["feeFor", "p1", 0.5],
+        ["feeFor", "p3", 0]
       ],
       "result": {
         "return": [
@@ -1292,16 +1284,8 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.5
-        ],
-        [
-          "feeFor",
-          "p3",
-          0
-        ]
+        ["feeFor", "p1", 0.5],
+        ["feeFor", "p3", 0]
       ],
       "result": {
         "return": [
@@ -6735,21 +6719,9 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.004
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.006
-        ],
-        [
-          "feeFor",
-          "p3",
-          9
-        ]
+        ["feeFor", "p1", 0.004],
+        ["feeFor", "p2", 0.006],
+        ["feeFor", "p3", 9]
       ],
       "result": {
         "return": [
@@ -7247,21 +7219,9 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.004
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.006
-        ],
-        [
-          "feeFor",
-          "p3",
-          9
-        ]
+        ["feeFor", "p1", 0.004],
+        ["feeFor", "p2", 0.006],
+        ["feeFor", "p3", 9]
       ],
       "result": {
         "return": [
@@ -7761,21 +7721,9 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.004
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.006
-        ],
-        [
-          "feeFor",
-          "p3",
-          9
-        ]
+        ["feeFor", "p1", 0.004],
+        ["feeFor", "p2", 0.006],
+        ["feeFor", "p3", 9]
       ],
       "result": {
         "return": [
@@ -8273,21 +8221,9 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.004
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.006
-        ],
-        [
-          "feeFor",
-          "p3",
-          9
-        ]
+        ["feeFor", "p1", 0.004],
+        ["feeFor", "p2", 0.006],
+        ["feeFor", "p3", 9]
       ],
       "result": {
         "return": [
@@ -8787,21 +8723,9 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.004
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.006
-        ],
-        [
-          "feeFor",
-          "p3",
-          9
-        ]
+        ["feeFor", "p1", 0.004],
+        ["feeFor", "p2", 0.006],
+        ["feeFor", "p3", 9]
       ],
       "result": {
         "return": [
@@ -9299,21 +9223,9 @@
         []
       ],
       "timeline": [
-        [
-          "feeFor",
-          "p1",
-          0.004
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.006
-        ],
-        [
-          "feeFor",
-          "p3",
-          9
-        ]
+        ["feeFor", "p1", 0.004],
+        ["feeFor", "p2", 0.006],
+        ["feeFor", "p3", 9]
       ],
       "result": {
         "return": [
@@ -13452,22 +13364,10 @@
   "preview-split-entry": {
     "fixed": {
       "args": [
-        [
-          25,
-          0.005
-        ],
-        [
-          1,
-          5
-        ],
-        [
-          100.005,
-          0.5
-        ],
-        [
-          0,
-          0
-        ],
+        [25, 0.005],
+        [1, 5],
+        [100.005, 0.5],
+        [0, 0],
         [
           {
             "$number": "NaN"
@@ -13545,22 +13445,10 @@
     },
     "advancing": {
       "args": [
-        [
-          25,
-          0.005
-        ],
-        [
-          1,
-          5
-        ],
-        [
-          100.005,
-          0.5
-        ],
-        [
-          0,
-          0
-        ],
+        [25, 0.005],
+        [1, 5],
+        [100.005, 0.5],
+        [0, 0],
         [
           {
             "$number": "NaN"
@@ -14165,18 +14053,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14195,32 +14074,12 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.1
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.2
-        ],
-        [
-          "feeFor",
-          "p3",
-          0.3
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1514 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["feeFor", "p1", 0.1],
+        ["feeFor", "p2", 0.2],
+        ["feeFor", "p3", 0.3],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1514 chars>"]
       ],
       "result": {
         "return": [
@@ -14916,18 +14775,9 @@
         []
       ],
       "timeline": [
-        [
-          "id",
-          "char-id-1"
-        ],
-        [
-          "id",
-          "char-id-2"
-        ],
-        [
-          "clock",
-          "2026-10-31T23:59:59.998Z"
-        ],
+        ["id", "char-id-1"],
+        ["id", "char-id-2"],
+        ["clock", "2026-10-31T23:59:59.998Z"],
         [
           "append",
           [
@@ -14946,32 +14796,12 @@
             }
           ]
         ],
-        [
-          "project"
-        ],
-        [
-          "notify"
-        ],
-        [
-          "feeFor",
-          "p1",
-          0.1
-        ],
-        [
-          "feeFor",
-          "p2",
-          0.2
-        ],
-        [
-          "feeFor",
-          "p3",
-          0.3
-        ],
-        [
-          "storage.set",
-          "diboas-ledger-v2:sandbox",
-          "<1514 chars>"
-        ]
+        ["project"],
+        ["notify"],
+        ["feeFor", "p1", 0.1],
+        ["feeFor", "p2", 0.2],
+        ["feeFor", "p3", 0.3],
+        ["storage.set", "diboas-ledger-v2:sandbox", "<1514 chars>"]
       ],
       "result": {
         "return": [
