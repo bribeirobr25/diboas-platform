@@ -1,4 +1,292 @@
 {
+  "advance-accepted-today-real-zero-days": {
+    "fixed": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 3,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "TimeAdvanced",
+              "days": 0,
+              "source": "real"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1343 chars>"
+        ]
+      ],
+      "result": {
+        "return": {
+          "$undefined": true
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 3,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 3,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "6000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "2000.00",
+            "invested": "2000.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "1000.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          },
+          {
+            "positionId": "p2",
+            "goalId": "g1",
+            "strategyId": "stableGrowth",
+            "principal": "1000.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "1.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"4000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"1000.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p2\",\"strategyId\":\"stableGrowth\",\"amount\":\"1000.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"},{\"eventId\":\"seed-6\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-6\",\"type\":\"TimeAdvanced\",\"days\":3,\"source\":\"real\"},{\"eventId\":\"char-id-2\",\"simDay\":3,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-1\",\"type\":\"TimeAdvanced\",\"days\":0,\"source\":\"real\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 3,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "TimeAdvanced",
+              "days": 0,
+              "source": "real"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1343 chars>"
+        ]
+      ],
+      "result": {
+        "return": {
+          "$undefined": true
+        }
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 3,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 3,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "6000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "2000.00",
+            "invested": "2000.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "p1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "1000.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          },
+          {
+            "positionId": "p2",
+            "goalId": "g1",
+            "strategyId": "stableGrowth",
+            "principal": "1000.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "1.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"4000.00\"},{\"eventId\":\"seed-4\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-4\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p1\",\"strategyId\":\"safeHarbor\",\"amount\":\"1000.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"},{\"eventId\":\"seed-5\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-5\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"p2\",\"strategyId\":\"stableGrowth\",\"amount\":\"1000.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.50\"},{\"eventId\":\"seed-6\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-6\",\"type\":\"TimeAdvanced\",\"days\":3,\"source\":\"real\"},{\"eventId\":\"char-id-2\",\"simDay\":3,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-1\",\"type\":\"TimeAdvanced\",\"days\":0,\"source\":\"real\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
   "advance-after-real-settle": {
     "fixed": {
       "timeline": [
@@ -110,6 +398,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1735 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2184 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2366 chars>"
         ]
       ],
       "result": {
@@ -331,6 +634,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1735 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2184 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2366 chars>"
         ]
       ],
       "result": {
@@ -519,6 +837,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
         ]
       ],
       "result": {
@@ -699,6 +1027,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
         ]
       ],
       "result": {
@@ -916,6 +1254,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2029 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2210 chars>"
         ]
       ],
       "result": {
@@ -1134,6 +1487,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2029 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2210 chars>"
         ]
       ],
       "result": {
@@ -1353,6 +1721,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2211 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2366 chars>"
         ]
       ],
       "result": {
@@ -1573,6 +1956,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2211 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2366 chars>"
         ]
       ],
       "result": {
@@ -2174,6 +2572,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1308 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1489 chars>"
         ]
       ],
       "result": {
@@ -2339,6 +2747,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1308 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1489 chars>"
         ]
       ],
       "result": {
@@ -2541,6 +2959,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1587 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2008 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2189 chars>"
         ]
       ],
       "result": {
@@ -2758,6 +3191,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1587 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2008 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2189 chars>"
         ]
       ],
       "result": {
@@ -2976,6 +3424,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1980 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2161 chars>"
         ]
       ],
       "result": {
@@ -3192,6 +3655,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1980 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2161 chars>"
         ]
       ],
       "result": {
@@ -3377,6 +3855,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1491 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1758 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1913 chars>"
         ]
       ],
       "result": {
@@ -3563,6 +4056,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1491 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1758 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1913 chars>"
         ]
       ],
       "result": {
@@ -6407,6 +6915,481 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2632 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2838 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3380 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3587 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4130 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4337 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4880 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5087 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5631 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5839 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6383 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6591 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7135 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7343 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7887 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8095 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8639 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8847 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9391 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9599 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10143 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10351 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10895 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11103 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11646 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11854 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12398 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12606 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13151 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13359 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13903 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14111 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14656 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14864 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15409 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15617 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16162 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16370 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16914 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17122 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17667 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17875 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18420 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18628 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19172 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19380 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19924 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20353 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20989 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21196 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21627 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21834 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22903 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23110 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23541 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23748 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24179 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24386 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24817 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25024 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25455 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25662 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26113 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26320 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26772 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26979 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27431 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27638 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28090 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28297 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28749 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28956 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29408 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29615 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30065 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30272 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30723 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30930 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<31383 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<31590 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32042 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32249 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32701 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32908 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<33359 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<33566 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34017 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34224 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34676 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34883 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<35335 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<35489 chars>"
         ]
       ],
       "result": {
@@ -9554,6 +10537,481 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2632 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2838 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3380 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3587 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4130 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4337 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4880 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5087 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5631 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5839 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6383 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6591 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7135 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7343 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7887 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8095 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8639 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8847 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9391 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9599 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10143 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10351 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10895 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11103 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11646 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11854 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12398 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12606 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13151 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13359 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13903 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14111 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14656 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14864 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15409 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15617 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16162 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16370 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16914 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17122 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17667 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17875 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18420 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18628 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19172 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19380 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19924 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20353 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20989 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21196 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21627 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21834 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22903 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23110 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23541 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23748 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24179 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24386 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24817 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25024 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25455 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25662 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26113 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26320 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26772 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26979 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27431 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27638 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28090 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28297 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28749 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28956 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29408 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29615 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30065 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30272 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30723 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<30930 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<31383 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<31590 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32042 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32249 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32701 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<32908 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<33359 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<33566 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34017 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34224 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34676 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<34883 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<35335 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<35489 chars>"
         ]
       ],
       "result": {
@@ -10006,6 +11464,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1224 chars>"
         ]
       ],
       "result": {
@@ -10142,6 +11605,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1224 chars>"
         ]
       ],
       "result": {
@@ -10356,6 +11824,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1572 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2010 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2190 chars>"
         ]
       ],
       "result": {
@@ -10574,6 +12057,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1572 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2010 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2190 chars>"
         ]
       ],
       "result": {
@@ -10794,6 +12292,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2030 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2211 chars>"
         ]
       ],
       "result": {
@@ -11012,6 +12525,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2030 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2211 chars>"
         ]
       ],
       "result": {
@@ -12144,6 +13672,141 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2122 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2662 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3203 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3744 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4286 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4828 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5370 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5912 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6455 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6998 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7540 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8081 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8529 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8976 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9426 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9875 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10325 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10776 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11225 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11677 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12126 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12578 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13028 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13477 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13927 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14110 chars>"
         ]
       ],
       "result": {
@@ -13346,6 +15009,141 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2122 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2662 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3203 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3744 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4286 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4828 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5370 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5912 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6455 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6998 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7540 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8081 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8529 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8976 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9426 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9875 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10325 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10776 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11225 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11677 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12126 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12578 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13028 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13477 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13927 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14110 chars>"
         ]
       ],
       "result": {
@@ -13597,6 +15395,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1491 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1672 chars>"
         ]
       ],
       "result": {
@@ -13771,6 +15579,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1491 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1672 chars>"
         ]
       ],
       "result": {
@@ -13953,6 +15771,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
         ]
       ],
       "result": {
@@ -14133,6 +15961,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
         ]
       ],
       "result": {
@@ -14529,6 +16367,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1818 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1973 chars>"
         ]
       ],
       "result": {
@@ -14717,6 +16570,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1818 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1973 chars>"
         ]
       ],
       "result": {
@@ -14864,6 +16732,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<570 chars>"
         ]
       ],
       "result": {
@@ -14968,6 +16841,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<570 chars>"
         ]
       ],
       "result": {
@@ -15378,6 +17256,51 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1783 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2322 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2862 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3402 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3849 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4295 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4744 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5191 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5373 chars>"
         ]
       ],
       "result": {
@@ -15852,6 +17775,51 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1783 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2322 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2862 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3402 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3849 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4295 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4744 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5191 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5373 chars>"
         ]
       ],
       "result": {
@@ -16328,6 +18296,51 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1936 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2475 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3555 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4002 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4448 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4897 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5344 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5526 chars>"
         ]
       ],
       "result": {
@@ -16805,6 +18818,51 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1936 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2475 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3555 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4002 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4448 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4897 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5344 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5526 chars>"
         ]
       ],
       "result": {
@@ -17267,6 +19325,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1580 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2025 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2175 chars>"
         ]
       ],
       "result": {
@@ -17484,6 +19557,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1580 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2025 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2175 chars>"
         ]
       ],
       "result": {
@@ -17703,6 +19791,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2212 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2364 chars>"
         ]
       ],
       "result": {
@@ -17923,6 +20026,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2212 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2364 chars>"
         ]
       ],
       "result": {
@@ -20330,6 +22448,366 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1780 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1985 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2525 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2730 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3270 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3475 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4016 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4765 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4972 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5515 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5722 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7765 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7972 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8515 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8722 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10971 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11514 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11721 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13766 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13973 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14517 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14724 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15268 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15475 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16018 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16225 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16769 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16976 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17520 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17727 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18270 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18477 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19020 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19447 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19875 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20303 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20732 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21162 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21592 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22022 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22452 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22882 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23332 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23783 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24233 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24684 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25134 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25585 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26034 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26484 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26936 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27386 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27837 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28287 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28737 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29188 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29638 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29791 chars>"
         ]
       ],
       "result": {
@@ -22949,6 +25427,366 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1780 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1985 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2525 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2730 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3270 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3475 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4016 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4765 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4972 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5515 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5722 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7765 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7972 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8515 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8722 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<10971 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11514 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<11721 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12265 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<12472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13015 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13222 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13766 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<13973 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14517 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<14724 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15268 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<15475 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16018 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16225 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16769 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<16976 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17520 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<17727 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18270 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<18477 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19020 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19447 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<19875 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20303 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<20732 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21162 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<21592 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22022 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22452 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<22882 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23332 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<23783 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24233 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<24684 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25134 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<25585 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26034 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26484 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<26936 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27386 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<27837 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28287 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<28737 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29188 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29638 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<29791 chars>"
         ]
       ],
       "result": {
@@ -23671,6 +26509,66 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1780 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1985 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2524 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2729 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3474 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4014 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4461 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4908 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5358 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5806 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5988 chars>"
         ]
       ],
       "result": {
@@ -24211,6 +27109,66 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1780 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1985 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2524 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2729 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3474 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4014 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4461 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4908 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5358 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5806 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5988 chars>"
         ]
       ],
       "result": {
@@ -24594,6 +27552,41 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1524 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1728 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2267 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2471 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3011 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3552 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3734 chars>"
         ]
       ],
       "result": {
@@ -24946,6 +27939,41 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1524 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1728 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2267 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2471 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3011 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3552 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3734 chars>"
         ]
       ],
       "result": {
@@ -25746,6 +28774,151 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1879 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2175 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2770 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3068 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3366 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3664 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3963 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4262 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4561 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4860 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5159 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5458 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5906 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6203 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6500 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6798 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7097 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7396 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7695 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7994 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8293 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8592 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8891 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9190 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9489 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9788 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9971 chars>"
         ]
       ],
       "result": {
@@ -26614,6 +29787,151 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1879 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2175 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2472 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2770 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3068 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3366 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3664 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3963 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4262 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4561 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4860 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5159 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5458 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5906 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6203 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6500 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<6798 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7097 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7396 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7695 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<7994 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8293 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8592 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<8891 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9190 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9489 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9788 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<9971 chars>"
         ]
       ],
       "result": {
@@ -26899,6 +30217,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1871 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2052 chars>"
         ]
       ],
       "result": {
@@ -27104,6 +30437,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1871 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2052 chars>"
         ]
       ],
       "result": {
@@ -27552,6 +30900,61 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1975 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2179 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2718 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2922 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3462 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3909 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4113 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5214 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5396 chars>"
         ]
       ],
       "result": {
@@ -28041,6 +31444,61 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1975 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2179 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2718 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2922 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3462 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3909 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4113 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5214 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5396 chars>"
         ]
       ],
       "result": {
@@ -28532,6 +31990,61 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1975 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2179 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2718 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2922 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3462 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3909 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4113 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5214 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5396 chars>"
         ]
       ],
       "result": {
@@ -29021,6 +32534,61 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1975 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2179 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2718 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2922 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3462 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3909 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4113 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4559 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4764 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5214 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<5396 chars>"
         ]
       ],
       "result": {
@@ -29228,6 +32796,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1312 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1466 chars>"
         ]
       ],
       "result": {
@@ -29387,6 +32965,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1312 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1466 chars>"
         ]
       ],
       "result": {
@@ -29568,6 +33156,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1734 chars>"
         ]
       ],
       "result": {
@@ -29747,6 +33345,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1583 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1734 chars>"
         ]
       ],
       "result": {
@@ -29929,6 +33537,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1312 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1580 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1734 chars>"
         ]
       ],
       "result": {
@@ -30112,6 +33735,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1312 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1580 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1734 chars>"
         ]
       ],
       "result": {
@@ -30256,6 +33894,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<182 chars>"
         ]
       ],
       "result": {
@@ -30340,6 +33983,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<182 chars>"
         ]
       ],
       "result": {
@@ -30426,6 +34074,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<966 chars>"
         ]
       ],
       "result": {
@@ -30548,6 +34201,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<966 chars>"
         ]
       ],
       "result": {
@@ -30672,6 +34330,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1162 chars>"
         ]
       ],
       "result": {
@@ -30804,6 +34467,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1162 chars>"
         ]
       ],
       "result": {
@@ -30979,6 +34647,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1304 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1485 chars>"
         ]
       ],
       "result": {
@@ -31145,6 +34823,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1304 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1485 chars>"
         ]
       ],
       "result": {
@@ -31315,6 +35003,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1818 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1973 chars>"
         ]
       ],
       "result": {
@@ -31503,6 +35206,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1818 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1973 chars>"
         ]
       ],
       "result": {
@@ -31878,6 +35596,41 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1778 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2317 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2857 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3304 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3750 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4199 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4380 chars>"
         ]
       ],
       "result": {
@@ -32263,6 +36016,41 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1778 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2317 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<2857 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3304 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<3750 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4199 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<4380 chars>"
         ]
       ],
       "result": {

@@ -5,8 +5,13 @@
  * hydration awaited, the history seeded, then the counters, the clock and the timeline reset;
  * the command runs once; everything it did is returned as one observation.
  *
- * The mocks this relies on are declared by each test file (`vi.mock` is hoisted per file):
- * `mockDeclarations` below lists them, and `mocks.ts` builds them.
+ * The mocks this relies on (ids and the banking package) are declared by each test file, because
+ * `vi.mock` is hoisted per file; `mocks.ts` builds them.
+ *
+ * Observation runs until the write-behind persist has settled (`flush()`), so a change in what
+ * happens AFTER the command returns (a second persist, an extra notification, a failed store
+ * write) shows too. Every argument a case passes to the ledger is captured automatically, so a
+ * command that mutates or keeps its caller's objects shows without the case declaring them.
  */
 import type { LedgerEvent, LedgerState } from '@diboas/banking';
 import { createHash } from 'node:crypto';
@@ -23,7 +28,6 @@ import {
   type TimelineEntry,
 } from './recorder';
 
-/** The scoped store key the ledger persists under (`lib/scope.ts`, `@diboas/banking`). */
 export type Ledger = typeof import('@/lib/ledgerClient');
 type Core = typeof import('@/lib/ledger/core');
 type Proposals = typeof import('@/lib/proposalStore');
@@ -41,7 +45,7 @@ export interface CaseDef {
   /** Unique within its family; never reused for a different case. */
   id: string;
   /** The command's row in plan P12 Appendix A (1–19; 'preview' for the previews). */
-  row: number | 'preview' | 'walk';
+  row: number | 'preview' | 'walk' | 'core';
   /**
    * What today's code does, labelled by hand from reading it (plan §4.1): `emitted`,
    * `noop:<reason>` (camelCase, D4) or `throw`, plus any notes for legs it withholds. PR-2's
@@ -59,7 +63,12 @@ export interface CaseDef {
   clockMode?: 'fixed' | 'advancing';
   /** Throw once on the projection inside the command's append (fault injection). */
   faultOnAppend?: boolean;
-  /** The inputs, snapshotted before and after to catch mutation, and walked for shared refs. */
+  /** Make the store's next write of the ledger key throw (the write-behind persist failure). */
+  failPersistOnce?: boolean;
+  /**
+   * Extra objects to watch for mutation and shared references, beyond the arguments passed to
+   * the ledger (which are captured automatically).
+   */
   inputs?: unknown[];
   run: (api: CaseApi) => unknown;
   /**
@@ -82,7 +91,28 @@ export interface Observation {
   sharedReferences: string[];
 }
 
+/** Every key the Practice app stores starts with this (`lib/scope.ts`, the side stores). */
 const STORAGE_PREFIX = 'diboas';
+const LEDGER_KEY_PREFIX = 'diboas-ledger';
+const CONSOLE_METHODS = ['log', 'debug', 'trace', 'info', 'warn', 'error'] as const;
+
+/**
+ * The ledger module with every function wrapped so each call's arguments are captured (by
+ * reference, with an encoded snapshot taken before the call).
+ */
+function capturing(ledger: Ledger, into: { args: unknown[]; before: string }[]): Ledger {
+  const wrapped: Record<string, unknown> = {};
+  for (const [name, value] of Object.entries(ledger)) {
+    wrapped[name] =
+      typeof value === 'function'
+        ? (...args: unknown[]) => {
+            into.push({ args, before: encode(args) });
+            return (value as (...a: unknown[]) => unknown)(...args);
+          }
+        : value;
+  }
+  return wrapped as Ledger;
+}
 
 async function fresh(def: CaseDef) {
   localStorage.clear();
@@ -135,43 +165,50 @@ export async function runCase(def: CaseDef): Promise<Observation> {
   r.timeline = [];
   r.faultOnce = false;
   r.clockMode = def.clockMode ?? 'fixed';
-  installClock();
-  // Spied on the instance: happy-dom's storage does not route through `Storage.prototype`.
-  const originalSetItem = localStorage.setItem.bind(localStorage);
-  const setItem = vi
-    .spyOn(localStorage, 'setItem')
-    .mockImplementation((key: string, value: string) => {
-      // The ledger's own key is written behind every append (its value is in `storage`);
-      // a side store's write is recorded with its value, at the moment it happens.
-      record(
-        'storage.set',
-        key,
-        key.startsWith('diboas-ledger') ? `<${value.length} chars>` : value
-      );
-      return originalSetItem(key, value);
-    });
-  const consoleSpies = (['warn', 'error', 'info'] as const).map((level) =>
-    vi.spyOn(console, level).mockImplementation((...args: unknown[]) => {
-      record('console', level, normalizeLog(args));
-    })
-  );
+  const g = globalThis as Record<string, unknown>;
+  const restore: Array<() => void> = [];
   try {
+    installClock();
+    restore.push(uninstallClock);
+    // Spied on the instance: happy-dom's storage does not route through `Storage.prototype`.
+    const originalSetItem = localStorage.setItem.bind(localStorage);
+    let failPersist = false;
+    const setItem = vi
+      .spyOn(localStorage, 'setItem')
+      .mockImplementation((key: string, value: string) => {
+        const ledgerKey = key.startsWith(LEDGER_KEY_PREFIX);
+        // The ledger key's value is in `storage`; a side store's value is recorded here.
+        record('storage.set', key, ledgerKey ? `<${value.length} chars>` : value);
+        if (ledgerKey && failPersist && r.armed) {
+          failPersist = false;
+          throw new Error('characterization: injected storage failure');
+        }
+        return originalSetItem(key, value);
+      });
+    restore.push(() => setItem.mockRestore());
+    for (const method of CONSOLE_METHODS) {
+      const spy = vi.spyOn(console, method).mockImplementation((...args: unknown[]) => {
+        record('console', method, normalizeLog(args));
+      });
+      restore.push(() => spy.mockRestore());
+    }
+
     const { core, ledger, proposals, simEvents } = await fresh(def);
     if (!def.rawStorage) {
       // A fresh ledger must be empty, or the case would build on a previous one.
       if (core.getLedgerState().initialized || localStorage.length > 0)
-        throw new Error(
-          `case ${def.id}: the ledger was not empty before seeding: ${JSON.stringify(Object.keys(localStorage))} initialized=${core.getLedgerState().initialized}`
-        );
+        throw new Error(`case ${def.id}: the ledger was not empty before seeding`);
       if (def.seed?.length) core.appendAll(def.seed);
       for (const weekSet of def.sideStores?.declined ?? []) proposals.recordDecline(weekSet);
       await core.flush();
     }
 
     const appended: LedgerEvent[][] = [];
+    const calls: { args: unknown[]; before: string }[] = [];
     const unsubscribe = core.subscribe(() => record('notify'));
+    restore.push(unsubscribe);
     // Read the state the command will see BEFORE arming, so the cache is warm (the command's
-    // own reads then show only where it really projects) — unless this case is about a read
+    // own reads then show only where it really projects), unless this case is about a read
     // that throws, where reading here would throw first.
     let stateBefore: LedgerState | null = null;
     let stateBeforeText = '';
@@ -179,17 +216,18 @@ export async function runCase(def: CaseDef): Promise<Observation> {
       stateBefore = core.getLedgerState();
       stateBeforeText = encode(stateBefore);
     }
-    const inputs = def.inputs ?? [];
-    const inputsBefore = encode(inputs);
+    const extraInputs = def.inputs ?? [];
+    const extraBefore = encode(extraInputs);
 
     r.idCounter = 0;
     r.clockIndex = 0;
     r.timeline = [];
     r.faultOnce = def.faultOnAppend ?? false;
-    (globalThis as Record<string, unknown>).__charAppended = appended;
+    failPersist = def.failPersistOnce ?? false;
+    g.__charAppended = appended;
     // Events already in the log, so the projection mock records only what the command appends.
     // A stored history the projection cannot read is counted from storage, never by projecting.
-    (globalThis as Record<string, unknown>).__charSeenLength = def.rawStorage
+    g.__charSeenLength = def.rawStorage
       ? Object.values(def.rawStorage).reduce((n, raw) => {
           const parsed: unknown = JSON.parse(raw);
           return n + (Array.isArray(parsed) ? parsed.length : 0);
@@ -200,7 +238,7 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     let result: unknown;
     try {
       const value = def.run({
-        ledger,
+        ledger: capturing(ledger, calls),
         proposals,
         simEvents,
         feeFor: (fees) => (positionId) => {
@@ -212,10 +250,10 @@ export async function runCase(def: CaseDef): Promise<Observation> {
     } catch (error) {
       result = { throw: describeError(error) };
     }
-    r.armed = false;
     r.faultOnce = false;
-    unsubscribe();
+    // Keep observing until the write-behind persist has settled (`core.ts:185-193`).
     await core.flush();
+    r.armed = false;
 
     const timeline: TimelineEntry[] = def.compact
       ? [
@@ -228,7 +266,8 @@ export async function runCase(def: CaseDef): Promise<Observation> {
           ).map(([kind, count]): TimelineEntry => ['count', kind, count]),
         ]
       : [...r.timeline];
-    const observation: Observation = {
+    const inputs = [...calls.map((c) => c.args), ...extraInputs];
+    return {
       timeline,
       result,
       // The projected state without its `events` echo: the log itself is compared byte for byte
@@ -240,16 +279,15 @@ export async function runCase(def: CaseDef): Promise<Observation> {
       ids: r.idCounter,
       clockReads: r.clockIndex,
       stateMutated: stateBefore ? encode(stateBefore) !== stateBeforeText : false,
-      inputsMutated: encode(inputs) !== inputsBefore,
+      inputsMutated:
+        calls.some((c) => encode(c.args) !== c.before) || encode(extraInputs) !== extraBefore,
       sharedReferences: sharedReferences(inputs, appended),
     };
-    return observation;
   } finally {
     r.armed = false;
-    for (const spy of consoleSpies) spy.mockRestore();
-    setItem.mockRestore();
-    uninstallClock();
-    delete (globalThis as Record<string, unknown>).__charAppended;
-    delete (globalThis as Record<string, unknown>).__charSeenLength;
+    r.faultOnce = false;
+    for (const undo of restore.reverse()) undo();
+    delete g.__charAppended;
+    delete g.__charSeenLength;
   }
 }

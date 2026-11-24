@@ -4,7 +4,7 @@
       "timeline": [
         [
           "digest",
-          "b45989c89c4358eb1641ef3a57d433e3c0e7d6f986f2f7a017209654d23ace31"
+          "3d7ed65ccf29ae56cda2c69e296df4de42fe05232d7b7ac9633522694aa3be5c"
         ],
         [
           "count",
@@ -34,7 +34,7 @@
         [
           "count",
           "storage.set",
-          25
+          285
         ],
         [
           "count",
@@ -2047,13 +2047,26 @@
       "clockReads": 266,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[19][0].split === input[351].0",
+        "append[23][0].weekSet === input[421].0.weekSet",
+        "append[35][0].split === input[606].1",
+        "append[67][0].weekSet === input[1091].0.weekSet",
+        "append[70][0].weekSet === input[1146].0.weekSet",
+        "append[78][0].weekSet === input[1241].0.weekSet",
+        "append[87][0].weekSet === input[1366].0.weekSet",
+        "append[93][0].split === input[1471].1",
+        "append[102][0].weekSet === input[1551].0.weekSet",
+        "append[107][0].split === input[1586].1",
+        "append[120][0].split === input[1796].1",
+        "append[138][0].weekSet === input[2076].0.weekSet"
+      ]
     },
     "advancing": {
       "timeline": [
         [
           "digest",
-          "cfe6185b318fcd3a4eef31a92aea8f329bc485ad7e28ca67635deaf754ff6886"
+          "48b3e007a496dd41439ec53e75feb53bf3ef35aa79ba97adb6280ef708ac8b3d"
         ],
         [
           "count",
@@ -2083,7 +2096,7 @@
         [
           "count",
           "storage.set",
-          25
+          285
         ],
         [
           "count",
@@ -4096,7 +4109,20 @@
       "clockReads": 266,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[19][0].split === input[351].0",
+        "append[23][0].weekSet === input[421].0.weekSet",
+        "append[35][0].split === input[606].1",
+        "append[67][0].weekSet === input[1091].0.weekSet",
+        "append[70][0].weekSet === input[1146].0.weekSet",
+        "append[78][0].weekSet === input[1241].0.weekSet",
+        "append[87][0].weekSet === input[1366].0.weekSet",
+        "append[93][0].split === input[1471].1",
+        "append[102][0].weekSet === input[1551].0.weekSet",
+        "append[107][0].split === input[1586].1",
+        "append[120][0].split === input[1796].1",
+        "append[138][0].weekSet === input[2076].0.weekSet"
+      ]
     }
   }
 }

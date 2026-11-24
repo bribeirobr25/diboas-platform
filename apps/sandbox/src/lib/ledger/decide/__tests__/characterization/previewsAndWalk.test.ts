@@ -4,7 +4,8 @@
  */
 import { expect, it, vi } from 'vitest';
 import { characterize, type Golden, type Manifest } from './compare';
-import { previewCases, walkCases, WALK_ROWS, WALK_STEPS } from './cases/previewsAndWalk';
+import { coreCases, previewCases, walkCases, WALK_ROWS, WALK_STEPS } from './cases/previewsAndWalk';
+import coreGolden from './goldens/core.json';
 import previewGolden from './goldens/previews.json';
 import walkGolden from './goldens/walk.json';
 import manifest from './goldens/manifest.json';
@@ -13,6 +14,7 @@ vi.mock('@/lib/ids', () => import('./mocks').then((m) => m.ids()));
 vi.mock('@diboas/banking', (orig) => import('./mocks').then((m) => m.banking(orig as never)));
 
 characterize('previews', previewCases, previewGolden as Golden, manifest as Manifest);
+characterize('core', coreCases, coreGolden as Golden, manifest as Manifest);
 /* 500 commands, six runs (two clocks × three zones): its own budget (`5.397`). */
 characterize('walk', walkCases, walkGolden as Golden, manifest as Manifest, { timeoutMs: 120_000 });
 

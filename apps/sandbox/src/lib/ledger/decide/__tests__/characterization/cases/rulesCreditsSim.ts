@@ -2,6 +2,7 @@
  * ⛑ LEDGER-CHAR-1 · rules (rows 13–16), credits (17–18) and the simulated expense (19).
  */
 import type { Proposal } from '@diboas/investing';
+import { creditCeilingAmount } from '@/lib/growthConstants';
 import type { CaseDef } from '../harness';
 import { history } from '../seed';
 
@@ -341,6 +342,79 @@ export const rulesCreditsSimCases: CaseDef[] = [
     },
   },
 
+  /* Exact boundaries, each beside its neighbour (the PR-1 review found cases sitting beside
+     the boundaries, never on them). */
+  {
+    ...row15Case('apply-adjusted-sum-equals-total', [], 'emitted'),
+    run: ({ ledger }) =>
+      ledger.applyRuleProposal(proposal(), [
+        { goalId: 'g1', amount: 60 },
+        { goalId: 'g2', amount: 40 },
+      ]),
+  },
+  {
+    ...row15Case('apply-fund-equals-available', [], 'emitted'),
+    run: ({ ledger }) =>
+      ledger.applyRuleProposal(
+        proposal({
+          lines: [
+            { goalId: 'g1', amount: 5400 },
+            { goalId: 'g2', amount: 3600 },
+          ],
+        })
+      ),
+  },
+  {
+    ...row15Case('apply-fund-one-over-available', [], 'noop:insufficientAvailable'),
+    run: ({ ledger }) =>
+      ledger.applyRuleProposal(
+        proposal({
+          lines: [
+            { goalId: 'g1', amount: 5400 },
+            { goalId: 'g2', amount: 3601 },
+          ],
+        })
+      ),
+  },
+  /* A paused rule: its proposal is stale (the rule is not active), and it still blocks a new one. */
+  {
+    id: 'apply-paused-rule',
+    row: 15,
+    label: noop('staleRuleVersion'),
+    seed: withRule().add('RulePaused', { ruleId: 'r1', expectedRuleVersion: 0 }).get(),
+    run: ({ ledger }) => ledger.applyRuleProposal(proposal()),
+  },
+  {
+    id: 'apply-resumed-rule-new-version',
+    row: 15,
+    label: emitted,
+    seed: withRule()
+      .add('RulePaused', { ruleId: 'r1', expectedRuleVersion: 0 })
+      .add('RuleResumed', { ruleId: 'r1', expectedRuleVersion: 1 })
+      .get(),
+    run: ({ ledger }) => ledger.applyRuleProposal(proposal({ ruleVersion: 2 })),
+  },
+  {
+    id: 'create-rule-paused-rule-exists',
+    row: 13,
+    label: noop('ruleExists'),
+    seed: withRule().add('RulePaused', { ruleId: 'r1', expectedRuleVersion: 0 }).get(),
+    run: ({ ledger }) => ledger.createRule(validSplit()),
+  },
+  /* Sub-cent amounts: rounding of the funding legs. */
+  {
+    ...row15Case('apply-sub-cent-lines', [], 'emitted'),
+    run: ({ ledger }) =>
+      ledger.applyRuleProposal(
+        proposal({
+          lines: [
+            { goalId: 'g1', amount: 10.005 },
+            { goalId: 'g2', amount: 0.004 },
+          ],
+        })
+      ),
+  },
+
   /* row 16 */
   {
     id: 'decline',
@@ -413,6 +487,31 @@ export const rulesCreditsSimCases: CaseDef[] = [
     label: noop('ceilingPaused'),
     seed: granted().add('WeeklyCreditGranted', { week: 1, amount: '99000.00' }).get(),
     run: ({ ledger }) => ledger.collectWeeklyCredits('2026-08-08T00:00:00.000Z'),
+  },
+  /* The credit ceiling (grant × 2; creditCeilingReached: base ≥ ceiling) exactly, and a cent below. */
+  {
+    id: 'collect-ceiling-exact',
+    row: 17,
+    label: noop('ceilingPaused'),
+    seed: granted()
+      .add('WeeklyCreditGranted', {
+        week: 1,
+        amount: (creditCeilingAmount('b2c') - 10000).toFixed(2),
+      })
+      .get(),
+    run: ({ ledger }) => ledger.collectWeeklyCredits('2026-08-15T00:00:00.000Z'),
+  },
+  {
+    id: 'collect-ceiling-cent-below',
+    row: 17,
+    label: emitted,
+    seed: granted()
+      .add('WeeklyCreditGranted', {
+        week: 1,
+        amount: (creditCeilingAmount('b2c') - 10000 - 0.01).toFixed(2),
+      })
+      .get(),
+    run: ({ ledger }) => ledger.collectWeeklyCredits('2026-08-15T00:00:00.000Z'),
   },
   {
     id: 'collect-twice',
@@ -521,6 +620,50 @@ export const rulesCreditsSimCases: CaseDef[] = [
     noop('notAffordable'),
     { path: 'split', goalId: 'g1', fromGoal: 100 },
     9700
+  ),
+  /* Exact boundaries: the whole reserve, and a split that empties the goal. */
+  resolve('resolve-reserve-exact-cash', emitted, { path: 'reserve', goalId: 'g1' }, 500),
+  resolve('resolve-split-exact-cash', emitted, { path: 'split', goalId: 'g1', fromGoal: 500 }, 600),
+  resolve(
+    'resolve-split-one-over-cash',
+    noop('notAffordable'),
+    { path: 'split', goalId: 'g1', fromGoal: 500.01 },
+    600
+  ),
+  /* Sub-cent amounts: the release and the expense round on their own. */
+  resolve('resolve-reserve-sub-cent', emitted, { path: 'reserve', goalId: 'g1' }, 10.005),
+  resolve('resolve-split-sub-cent', emitted, { path: 'split', goalId: 'g1', fromGoal: 0.005 }, 10),
+  /* Every pair of row 19's refusal checks (plan §4.1); the first check names the reason. The
+     three notAffordable checks before the first id draw (simEvents.ts:49-53) give the same
+     reason in any order and are equivalent pairs; each is paired with alreadyResolved. */
+  ...(
+    [
+      ['nan-amount', Number.NaN, { path: 'available' }],
+      ['zero', 0, { path: 'available' }],
+      ['negative', -1, { path: 'available' }],
+      ['split-nan', 10, { path: 'split', goalId: 'g1', fromGoal: Number.NaN }],
+      ['short', 99999, { path: 'available' }],
+    ] as const
+  ).flatMap(([name, amount, via]): CaseDef[] => [
+    resolve(
+      `resolve-pair-already-${name}`,
+      noop('alreadyResolved'),
+      via as Via,
+      amount,
+      simBase()
+        .add('SimulatedExpensePaid', { eventInstanceId: 'ev1', amount: '10.00', source: 'system' })
+        .get()
+    ),
+    resolve(`resolve-pair-uninitialized-${name}`, noop('alreadyResolved'), via as Via, amount, []),
+  ]),
+  resolve(
+    'resolve-pair-reserve-closed-and-short',
+    noop('notAffordable'),
+    { path: 'reserve', goalId: 'g1' },
+    99999,
+    simBase()
+      .add('GoalAccomplished', { goalId: 'g1', disposition: 'kept-working', expectedVersion: 0 })
+      .get()
   ),
   resolve('resolve-unknown-path', threw, { path: 'teleport' } as never),
   {

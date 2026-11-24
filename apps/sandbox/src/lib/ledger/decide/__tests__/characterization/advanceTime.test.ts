@@ -14,5 +14,5 @@ vi.mock('@diboas/banking', (orig) => import('./mocks').then((m) => m.banking(ori
 /* Long histories replay hundreds of days in six runs per case (two clocks × three zones):
    each case gets its own budget instead of a raised suite default (`5.397`). */
 characterize('advanceTime', advanceTimeCases, golden as Golden, manifest as Manifest, {
-  timeoutMs: 30_000,
+  timeoutMs: 90_000,
 });

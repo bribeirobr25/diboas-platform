@@ -34,6 +34,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<736 chars>"
         ]
       ],
       "result": {
@@ -141,6 +146,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<736 chars>"
         ]
       ],
       "result": {
@@ -250,6 +260,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<736 chars>"
         ]
       ],
       "result": {
@@ -357,6 +372,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<736 chars>"
         ]
       ],
       "result": {
@@ -466,6 +486,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<735 chars>"
         ]
       ],
       "result": {
@@ -573,6 +598,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<735 chars>"
         ]
       ],
       "result": {
@@ -972,6 +1002,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<892 chars>"
         ]
       ],
       "result": {
@@ -1082,6 +1117,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<892 chars>"
         ]
       ],
       "result": {
@@ -1200,6 +1240,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<386 chars>"
         ]
       ],
       "result": {
@@ -1305,6 +1350,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<386 chars>"
         ]
       ],
       "result": {
@@ -1371,6 +1421,228 @@
       "sharedReferences": []
     }
   },
+  "create-goal-accepted-today-horizon-fraction": {
+    "fixed": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalCreated",
+              "goalId": "char-id-1",
+              "name": "A",
+              "icon": "x",
+              "targetAmount": "10.00",
+              "horizonMonths": 12.5
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<390 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [
+          {
+            "goalId": "char-id-1",
+            "name": "A",
+            "icon": "x",
+            "targetAmount": "10.00",
+            "horizonMonths": 12.5,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"GoalCreated\",\"goalId\":\"char-id-1\",\"name\":\"A\",\"icon\":\"x\",\"targetAmount\":\"10.00\",\"horizonMonths\":12.5}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalCreated",
+              "goalId": "char-id-1",
+              "name": "A",
+              "icon": "x",
+              "targetAmount": "10.00",
+              "horizonMonths": 12.5
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<390 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [
+          {
+            "goalId": "char-id-1",
+            "name": "A",
+            "icon": "x",
+            "targetAmount": "10.00",
+            "horizonMonths": 12.5,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"GoalCreated\",\"goalId\":\"char-id-1\",\"name\":\"A\",\"icon\":\"x\",\"targetAmount\":\"10.00\",\"horizonMonths\":12.5}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
   "create-goal-accepted-today-horizon-out-of-range": {
     "fixed": {
       "timeline": [
@@ -1412,6 +1684,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<390 chars>"
         ]
       ],
       "result": {
@@ -1517,6 +1794,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<390 chars>"
         ]
       ],
       "result": {
@@ -1583,6 +1865,228 @@
       "sharedReferences": []
     }
   },
+  "create-goal-accepted-today-name-over-max": {
+    "fixed": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalCreated",
+              "goalId": "char-id-1",
+              "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "icon": "x",
+              "targetAmount": "10.00",
+              "horizonMonths": 1
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<886 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [
+          {
+            "goalId": "char-id-1",
+            "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "icon": "x",
+            "targetAmount": "10.00",
+            "horizonMonths": 1,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"GoalCreated\",\"goalId\":\"char-id-1\",\"name\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"icon\":\"x\",\"targetAmount\":\"10.00\",\"horizonMonths\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "GoalCreated",
+              "goalId": "char-id-1",
+              "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+              "icon": "x",
+              "targetAmount": "10.00",
+              "horizonMonths": 1
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<886 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [
+          {
+            "goalId": "char-id-1",
+            "name": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+            "icon": "x",
+            "targetAmount": "10.00",
+            "horizonMonths": 1,
+            "cash": "0.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"GoalCreated\",\"goalId\":\"char-id-1\",\"name\":\"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\",\"icon\":\"x\",\"targetAmount\":\"10.00\",\"horizonMonths\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
   "create-goal-accepted-today-negative-target": {
     "fixed": {
       "timeline": [
@@ -1624,6 +2128,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<388 chars>"
         ]
       ],
       "result": {
@@ -1729,6 +2238,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<388 chars>"
         ]
       ],
       "result": {
@@ -1836,6 +2350,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<386 chars>"
         ]
       ],
       "result": {
@@ -1941,6 +2460,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<386 chars>"
         ]
       ],
       "result": {
@@ -2065,6 +2589,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<560 chars>"
         ]
       ],
       "result": {
@@ -2190,6 +2724,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<560 chars>"
         ]
       ],
       "result": {
@@ -2300,6 +2844,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -2405,6 +2954,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -2529,6 +3083,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<561 chars>"
         ]
       ],
       "result": {
@@ -2654,6 +3218,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<561 chars>"
         ]
       ],
       "result": {
@@ -2764,6 +3338,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -2869,6 +3448,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -2976,6 +3560,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -3081,6 +3670,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -3188,6 +3782,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -3293,6 +3892,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -3417,6 +4021,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<557 chars>"
         ]
       ],
       "result": {
@@ -3542,6 +4156,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<557 chars>"
         ]
       ],
       "result": {
@@ -3652,6 +4276,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -3757,6 +4386,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<397 chars>"
         ]
       ],
       "result": {
@@ -3866,6 +4500,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<390 chars>"
         ]
       ],
       "result": {
@@ -3975,6 +4614,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<390 chars>"
         ]
       ],
       "result": {
@@ -4084,6 +4728,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<386 chars>"
         ]
       ],
       "result": {
@@ -4189,6 +4838,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<386 chars>"
         ]
       ],
       "result": {
@@ -4434,6 +5088,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<209 chars>"
         ]
       ],
       "result": {
@@ -4536,6 +5195,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<209 chars>"
         ]
       ],
       "result": {
@@ -4591,6 +5255,526 @@
       },
       "storage": {
         "diboas-ledger-v2:sandbox": "[{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"GoalCreated\",\"goalId\":\"char-id-1\",\"name\":\"A\",\"icon\":\"x\",\"targetAmount\":\"10.00\",\"horizonMonths\":1}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "enter-accepted-today-total-negative": {
+    "fixed": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "StrategyEntered",
+              "goalId": "g1",
+              "positionId": "char-id-1",
+              "strategyId": "safeHarbor",
+              "amount": "-10.00",
+              "schemaVersion": 2,
+              "modeledNetworkFee": "-10.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<802 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1010.00",
+            "invested": "-10.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "char-id-1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "-10.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "-10.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"char-id-1\",\"strategyId\":\"safeHarbor\",\"amount\":\"-10.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"-10.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "StrategyEntered",
+              "goalId": "g1",
+              "positionId": "char-id-1",
+              "strategyId": "safeHarbor",
+              "amount": "-10.00",
+              "schemaVersion": 2,
+              "modeledNetworkFee": "-10.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<802 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1010.00",
+            "invested": "-10.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "char-id-1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "-10.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "-10.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"char-id-1\",\"strategyId\":\"safeHarbor\",\"amount\":\"-10.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"-10.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "enter-accepted-today-total-zero": {
+    "fixed": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "StrategyEntered",
+              "goalId": "g1",
+              "positionId": "char-id-1",
+              "strategyId": "safeHarbor",
+              "amount": "0.00",
+              "schemaVersion": 2,
+              "modeledNetworkFee": "0.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<798 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "char-id-1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "0.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"char-id-1\",\"strategyId\":\"safeHarbor\",\"amount\":\"0.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.00\"}]"
+      },
+      "ids": 3,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "id",
+          "char-id-3"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-3",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-2",
+              "type": "StrategyEntered",
+              "goalId": "g1",
+              "positionId": "char-id-1",
+              "strategyId": "safeHarbor",
+              "amount": "0.00",
+              "schemaVersion": 2,
+              "modeledNetworkFee": "0.00"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<798 chars>"
+        ]
+      ],
+      "result": {
+        "return": "char-id-1"
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-07-24T00:00:00.000Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "9000.00"
+        },
+        "goals": [
+          {
+            "goalId": "g1",
+            "name": "Trip",
+            "icon": "plane",
+            "targetAmount": "3000.00",
+            "horizonMonths": 24,
+            "cash": "1000.00",
+            "invested": "0.00",
+            "earnings": "0.00",
+            "createdSimDay": 0,
+            "status": "active",
+            "version": 0
+          }
+        ],
+        "positions": [
+          {
+            "positionId": "char-id-1",
+            "goalId": "g1",
+            "strategyId": "safeHarbor",
+            "principal": "0.00",
+            "accrued": "0.00",
+            "enteredSimDay": 0,
+            "accruedThroughSimDay": 0,
+            "replayConsumedThroughSimDay": 0,
+            "open": true
+          }
+        ],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          },
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"seed-1\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"},{\"eventId\":\"seed-2\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-2\",\"type\":\"GoalCreated\",\"goalId\":\"g1\",\"name\":\"Trip\",\"icon\":\"plane\",\"targetAmount\":\"3000.00\",\"horizonMonths\":24},{\"eventId\":\"seed-3\",\"simDay\":0,\"recordedAt\":\"2026-07-24T00:00:00.000Z\",\"correlationId\":\"seed-corr-3\",\"type\":\"GoalFunded\",\"goalId\":\"g1\",\"amount\":\"1000.00\"},{\"eventId\":\"char-id-3\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-2\",\"type\":\"StrategyEntered\",\"goalId\":\"g1\",\"positionId\":\"char-id-1\",\"strategyId\":\"safeHarbor\",\"amount\":\"0.00\",\"schemaVersion\":2,\"modeledNetworkFee\":\"0.00\"}]"
       },
       "ids": 3,
       "clockReads": 1,
@@ -4655,6 +5839,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<803 chars>"
         ]
       ],
       "result": {
@@ -4782,6 +5971,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<803 chars>"
         ]
       ],
       "result": {
@@ -4897,6 +6091,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<798 chars>"
         ]
       ],
       "result": {
@@ -5021,6 +6220,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<798 chars>"
         ]
       ],
       "result": {
@@ -5147,6 +6351,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<800 chars>"
         ]
       ],
       "result": {
@@ -5271,6 +6480,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<800 chars>"
         ]
       ],
       "result": {
@@ -5397,6 +6611,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<799 chars>"
         ]
       ],
       "result": {
@@ -5521,6 +6740,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<799 chars>"
         ]
       ],
       "result": {
@@ -5647,6 +6871,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<796 chars>"
         ]
       ],
       "result": {
@@ -5771,6 +7000,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<796 chars>"
         ]
       ],
       "result": {
@@ -5897,6 +7131,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<800 chars>"
         ]
       ],
       "result": {
@@ -6021,6 +7260,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<800 chars>"
         ]
       ],
       "result": {
@@ -6147,6 +7391,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<799 chars>"
         ]
       ],
       "result": {
@@ -6271,6 +7520,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<799 chars>"
         ]
       ],
       "result": {
@@ -6565,6 +7819,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<801 chars>"
         ]
       ],
       "result": {
@@ -6692,6 +7951,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<801 chars>"
         ]
       ],
       "result": {
@@ -6807,6 +8071,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<793 chars>"
         ]
       ],
       "result": {
@@ -6931,6 +8200,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<793 chars>"
         ]
       ],
       "result": {
@@ -7057,6 +8331,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<800 chars>"
         ]
       ],
       "result": {
@@ -7181,6 +8460,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<800 chars>"
         ]
       ],
       "result": {
@@ -7303,6 +8587,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1037 chars>"
         ]
       ],
       "result": {
@@ -7428,6 +8717,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1037 chars>"
         ]
       ],
       "result": {
@@ -7555,6 +8849,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1037 chars>"
         ]
       ],
       "result": {
@@ -7680,6 +8979,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1037 chars>"
         ]
       ],
       "result": {
@@ -7807,6 +9111,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1037 chars>"
         ]
       ],
       "result": {
@@ -7932,6 +9241,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1037 chars>"
         ]
       ],
       "result": {
@@ -8465,6 +9779,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -8604,6 +9923,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -8745,6 +10069,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -8884,6 +10213,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9025,6 +10359,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9164,6 +10503,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9305,6 +10649,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9444,6 +10793,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9585,6 +10939,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9724,6 +11083,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -9865,6 +11229,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -10004,6 +11373,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
         ]
       ],
       "result": {
@@ -10145,6 +11519,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -10284,6 +11663,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -10425,6 +11809,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -10564,6 +11953,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -10705,6 +12099,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -10844,6 +12243,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -10985,6 +12389,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -11124,6 +12533,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -11265,6 +12679,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -11404,6 +12823,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -11545,6 +12969,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -11684,6 +13113,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1270 chars>"
         ]
       ],
       "result": {
@@ -11822,6 +13256,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -11906,6 +13345,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -11992,6 +13436,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12076,6 +13525,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12162,6 +13616,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12246,6 +13705,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12332,6 +13796,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12416,6 +13885,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12502,6 +13976,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12586,6 +14065,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12672,6 +14156,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12756,6 +14245,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
         ]
       ],
       "result": {
@@ -12944,6 +14438,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<176 chars>"
         ]
       ],
       "result": {
@@ -13028,6 +14527,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<176 chars>"
         ]
       ],
       "result": {
@@ -13114,6 +14618,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<175 chars>"
         ]
       ],
       "result": {
@@ -13198,6 +14707,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<175 chars>"
         ]
       ],
       "result": {
@@ -13241,6 +14755,196 @@
       },
       "storage": {
         "diboas-ledger-v2:sandbox": "[{\"eventId\":\"char-id-2\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"NaN\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    }
+  },
+  "grant-twice-back-to-back": {
+    "fixed": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "PlayMoneyGranted",
+              "amount": "10000.00",
+              "currency": "USD",
+              "mode": "b2c"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
+        ]
+      ],
+      "result": {
+        "return": [
+          {
+            "$undefined": true
+          },
+          {
+            "$undefined": true
+          }
+        ]
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-10-31T23:59:59.998Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"char-id-2\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
+      },
+      "ids": 2,
+      "clockReads": 1,
+      "stateMutated": false,
+      "inputsMutated": false,
+      "sharedReferences": []
+    },
+    "advancing": {
+      "timeline": [
+        [
+          "id",
+          "char-id-1"
+        ],
+        [
+          "id",
+          "char-id-2"
+        ],
+        [
+          "clock",
+          "2026-10-31T23:59:59.998Z"
+        ],
+        [
+          "append",
+          [
+            {
+              "eventId": "char-id-2",
+              "simDay": 0,
+              "recordedAt": "2026-10-31T23:59:59.998Z",
+              "correlationId": "char-id-1",
+              "type": "PlayMoneyGranted",
+              "amount": "10000.00",
+              "currency": "USD",
+              "mode": "b2c"
+            }
+          ]
+        ],
+        [
+          "project"
+        ],
+        [
+          "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<180 chars>"
+        ]
+      ],
+      "result": {
+        "return": [
+          {
+            "$undefined": true
+          },
+          {
+            "$undefined": true
+          }
+        ]
+      },
+      "stateAfter": {
+        "initialized": true,
+        "mode": "b2c",
+        "currency": "USD",
+        "simDay": 0,
+        "genesisRecordedAt": "2026-10-31T23:59:59.998Z",
+        "realSettledDays": 0,
+        "replayEpoch": null,
+        "split": null,
+        "buckets": {
+          "floor": "0.00",
+          "cushion": "0.00",
+          "working": "10000.00"
+        },
+        "goals": [],
+        "positions": [],
+        "rules": [],
+        "recurring": [],
+        "networkFeesPaid": "0.00",
+        "exitFeesPaid": "0.00",
+        "modeledNetworkFees": "0.00",
+        "modeledExitFees": "0.00",
+        "credited": "0.00",
+        "collectedWeeks": [],
+        "comparisonCredited": false,
+        "resolvedEventInstances": [],
+        "spent": "0.00",
+        "events": "<in storage>",
+        "dispositions": [
+          {
+            "status": "APPLIED"
+          }
+        ]
+      },
+      "storage": {
+        "diboas-ledger-v2:sandbox": "[{\"eventId\":\"char-id-2\",\"simDay\":0,\"recordedAt\":\"2026-10-31T23:59:59.998Z\",\"correlationId\":\"char-id-1\",\"type\":\"PlayMoneyGranted\",\"amount\":\"10000.00\",\"currency\":\"USD\",\"mode\":\"b2c\"}]"
       },
       "ids": 2,
       "clockReads": 1,
@@ -13549,6 +15253,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<701 chars>"
         ]
       ],
       "result": {
@@ -13655,6 +15364,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<701 chars>"
         ]
       ],
       "result": {
@@ -14055,6 +15769,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<764 chars>"
         ]
       ],
       "result": {
@@ -14163,6 +15882,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<764 chars>"
         ]
       ],
       "result": {
@@ -14705,6 +16429,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<752 chars>"
         ]
       ],
       "result": {
@@ -14813,6 +16542,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<752 chars>"
         ]
       ],
       "result": {
@@ -14923,6 +16657,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<908 chars>"
         ]
       ],
       "result": {
@@ -15034,6 +16773,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<908 chars>"
         ]
       ],
       "result": {
@@ -15715,6 +17459,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<752 chars>"
         ]
       ],
       "result": {
@@ -15823,6 +17572,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<752 chars>"
         ]
       ],
       "result": {
@@ -16075,6 +17829,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1371 chars>"
         ]
       ],
       "result": {
@@ -16215,6 +17974,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1371 chars>"
         ]
       ],
       "result": {
@@ -16357,6 +18121,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<744 chars>"
         ]
       ],
       "result": {
@@ -16465,6 +18234,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<744 chars>"
         ]
       ],
       "result": {
@@ -16575,6 +18349,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1370 chars>"
         ]
       ],
       "result": {
@@ -16722,6 +18501,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1370 chars>"
         ]
       ],
       "result": {
@@ -16871,6 +18655,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1371 chars>"
         ]
       ],
       "result": {
@@ -17018,6 +18807,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1371 chars>"
         ]
       ],
       "result": {
@@ -17167,6 +18961,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1368 chars>"
         ]
       ],
       "result": {
@@ -17314,6 +19113,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1368 chars>"
         ]
       ],
       "result": {
@@ -17463,6 +19267,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1369 chars>"
         ]
       ],
       "result": {
@@ -17603,6 +19412,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1369 chars>"
         ]
       ],
       "result": {
@@ -18255,6 +20069,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<858 chars>"
         ]
       ],
       "result": {
@@ -18364,6 +20183,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<858 chars>"
         ]
       ],
       "result": {
@@ -18508,6 +20332,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -18679,6 +20513,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -18852,6 +20696,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -19023,6 +20877,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -19196,6 +21060,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -19367,6 +21241,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -19540,6 +21424,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -19711,6 +21605,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -19884,6 +21788,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -20055,6 +21969,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -20228,6 +22152,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -20399,6 +22333,16 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1269 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1521 chars>"
         ]
       ],
       "result": {
@@ -21511,6 +23455,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1244 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1400 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1591 chars>"
         ]
       ],
       "result": {
@@ -21681,6 +23640,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1244 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1400 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1591 chars>"
         ]
       ],
       "result": {
@@ -21818,6 +23792,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<790 chars>"
         ]
       ],
       "result": {
@@ -21938,6 +23917,11 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<790 chars>"
         ]
       ],
       "result": {
@@ -22641,6 +24625,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1088 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1244 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1435 chars>"
         ]
       ],
       "result": {
@@ -22808,6 +24807,21 @@
         ],
         [
           "notify"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1088 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1244 chars>"
+        ],
+        [
+          "storage.set",
+          "diboas-ledger-v2:sandbox",
+          "<1435 chars>"
         ]
       ],
       "result": {

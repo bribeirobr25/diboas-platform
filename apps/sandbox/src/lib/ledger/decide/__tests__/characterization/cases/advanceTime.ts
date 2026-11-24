@@ -118,6 +118,8 @@ export const advanceTimeCases: CaseDef[] = [
   advance('advance-machine-1', invested(), 1, 'machine'),
   advance('advance-machine-0', invested(), 0, 'machine'),
   advance('advance-real-3', invested(), 3, 'real'),
+  /* S1b, accepted today: a real settle repeated on the same day (the hook skips < 1 day). */
+  advance('advance-accepted-today-real-zero-days', invested().advance(3, 'real'), 0, 'real'),
   advance('advance-real-max-settle-gap', withRecurring(), HISTORY_SETTLE_DAYS_MAX, 'real'),
   advance('advance-no-positions', history().grant().goal('g1'), 30, 'machine'),
   advance('advance-uninitialized', history(), 30, 'machine'),

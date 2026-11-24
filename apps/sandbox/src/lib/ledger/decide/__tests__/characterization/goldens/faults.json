@@ -684,7 +684,9 @@
       "clockReads": 3,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[0][0].weekSet === input[0].0.weekSet"
+      ]
     },
     "advancing": {
       "timeline": [
@@ -874,7 +876,9 @@
       "clockReads": 3,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[0][0].weekSet === input[0].0.weekSet"
+      ]
     }
   },
   "fault-collect": {
@@ -1676,7 +1680,9 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[0][0].split === input[0].0"
+      ]
     },
     "advancing": {
       "timeline": [
@@ -1816,7 +1822,9 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[0][0].split === input[0].0"
+      ]
     }
   },
   "fault-enter": {
@@ -4770,7 +4778,9 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[0][0].split === input[0].1"
+      ]
     },
     "advancing": {
       "timeline": [
@@ -4926,7 +4936,9 @@
       "clockReads": 1,
       "stateMutated": false,
       "inputsMutated": false,
-      "sharedReferences": []
+      "sharedReferences": [
+        "append[0][0].split === input[0].1"
+      ]
     }
   }
 }

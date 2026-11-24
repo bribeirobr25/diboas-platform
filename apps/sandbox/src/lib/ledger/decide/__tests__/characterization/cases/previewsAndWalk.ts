@@ -79,6 +79,22 @@ export const previewCases: CaseDef[] = [
       ledger.previewGoalStop(ledger.getLedgerState(), 'g1', feeFor({ p1: 0.5 })),
     ],
   },
+  /* A preview describes the state it was GIVEN, never live state (AUD-C01). */
+  {
+    id: 'preview-stale-snapshot',
+    row: 'preview',
+    label: { expected: 'emitted' },
+    seed: open().get(),
+    run: ({ ledger, feeFor }) => {
+      const before = ledger.getLedgerState();
+      ledger.exitPosition({ positionId: 'p2', networkFeeLocal: 0 });
+      return [
+        ledger.previewExit(before, 'p2', 0.5),
+        ledger.previewPositionStop(before, 'p2', 0.5),
+        ledger.previewGoalStop(before, 'g1', feeFor({ p1: 0.1, p2: 0.2, p3: 0.3 })),
+      ];
+    },
+  },
   {
     id: 'preview-split-entry',
     row: 'preview',
@@ -91,6 +107,53 @@ export const previewCases: CaseDef[] = [
         [0, 0],
         [Number.NaN, 1],
       ].map(([t, f]) => ledger.splitEntry(t, f)),
+  },
+];
+
+/* ── the core's own seams (not commands, but every command depends on them) ──────────── */
+export const coreCases: CaseDef[] = [
+  {
+    id: 'core-reset-clears-everything',
+    row: 'core',
+    label: { expected: 'effect' } /* the case writes a resolution first, as setup */,
+    seed: open().get(),
+    sideStores: { declined: [[1, 2]] },
+    run: ({ ledger, simEvents }) => {
+      simEvents.recordResolution({
+        eventInstanceId: 'ev1',
+        eventType: 'x',
+        choice: 'coverFromAvailable',
+        resolvedAt: '2026-08-01T00:00:00.000Z',
+      });
+      ledger.resetSandbox();
+      return ledger.getLedgerState().initialized;
+    },
+  },
+  {
+    id: 'core-unsubscribe-only-its-own',
+    row: 'core',
+    label: { expected: 'emitted' },
+    seed: open().get(),
+    run: ({ ledger }) => {
+      const calls = { a: 0, b: 0 };
+      const offA = ledger.subscribe(() => {
+        calls.a += 1;
+      });
+      ledger.subscribe(() => {
+        calls.b += 1;
+      });
+      offA();
+      ledger.grantComparisonCredit();
+      return calls;
+    },
+  },
+  {
+    id: 'core-persist-failure-is-logged',
+    row: 'core',
+    label: { expected: 'emitted' },
+    seed: open().get(),
+    failPersistOnce: true,
+    run: ({ ledger }) => ledger.grantComparisonCredit(),
   },
 ];
 

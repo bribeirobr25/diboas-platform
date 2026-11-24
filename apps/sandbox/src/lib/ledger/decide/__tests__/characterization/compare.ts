@@ -14,10 +14,18 @@ import { afterAll, describe, expect, it } from 'vitest';
 import type { CaseDef, Observation } from './harness';
 import { runCase } from './harness';
 import { canonicalize, encode } from './recorder';
+/**
+ * The exact hash of every case as PR-1 recorded it. Written once, by hand from PR-1's first
+ * recording, and never by tooling (the update setup writes only `goldens/`), so re-recording a
+ * golden and its manifest together cannot pass exact mode. Changed only at PR-3's commit B.
+ */
+import frozen from './frozen.json';
+
+const FROZEN = frozen as Record<string, Record<string, string>>;
 
 export type Golden = Record<string, { fixed: unknown; advancing: unknown }>;
 export interface ManifestEntry {
-  row: number | 'preview' | 'walk';
+  row: number | 'preview' | 'walk' | 'core';
   exact: string;
   canonical: string;
   pinnedDefect?: string;
@@ -79,7 +87,9 @@ async function observe(def: CaseDef, mode: (typeof MODES)[number]): Promise<Obse
     }
     return first!;
   } finally {
-    process.env.TZ = original;
+    // An unset TZ restored as `process.env.TZ = undefined` would become the string "undefined".
+    if (original === undefined) delete process.env.TZ;
+    else process.env.TZ = original;
   }
 }
 
@@ -96,12 +106,19 @@ export function characterize(
   describe(`LEDGER-CHAR-1 · ${family}`, () => {
     if (sink) afterAll(() => sink.done(family));
 
-    it(`should hold exactly one golden and one manifest entry per case in ${family}`, () => {
+    it(`should hold exactly one golden and one manifest entry per case when ${family} is read`, () => {
       if (sink) return;
       const ids = cases.map((c) => c.id);
       expect(new Set(ids).size, 'case ids are unique').toBe(ids.length);
       expect(Object.keys(golden).sort()).toEqual([...ids].sort());
       expect(Object.keys(entries).sort()).toEqual([...ids].sort());
+    });
+
+    it(`should keep every case recorded at PR-1 when ${family} is compared in exact mode`, () => {
+      if (sink) return;
+      const ids = new Set(cases.map((c) => c.id));
+      const lost = Object.keys(FROZEN[family] ?? {}).filter((id) => !ids.has(id));
+      expect(lost, 'cases recorded at PR-1 may not be removed').toEqual([]);
     });
 
     it(`should carry no regeneration marker in exact mode in ${family}`, () => {
@@ -126,8 +143,12 @@ export function characterize(
           expect(labelOf(fixed), `label of ${def.id}`).toBe(labelKind(def.label.expected));
           const recorded = golden[def.id];
           expect(recorded, `golden for ${def.id}`).toBeDefined();
-          // The golden itself is unedited: its hash is the one recorded with it.
+          // The golden itself is unedited: its hash is the one recorded with it, and, for a case
+          // PR-1 recorded, the one frozen then (a golden re-recorded with its manifest fails here).
           expect(sha(encode(recorded)), `manifest hash of ${def.id}`).toBe(entries[def.id]?.exact);
+          const frozenHash = FROZEN[family]?.[def.id];
+          if (frozenHash !== undefined)
+            expect(entries[def.id]?.exact, `frozen PR-1 hash of ${def.id}`).toBe(frozenHash);
           expect(entries[def.id]?.row).toBe(def.row);
           expect(entries[def.id]?.pinnedDefect).toBe(def.pinnedDefect);
           expect(encode(fixed)).toBe(encode(recorded.fixed));

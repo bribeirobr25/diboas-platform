@@ -41,9 +41,20 @@ export const journeyCases: CaseDef[] = [
       id: `grant-${c}-${m}`,
       row: 1,
       label: emitted,
+      // Every stamp lacks `ledgerScope` today (`5.752`, copied by `stamp()`): pinned here once.
+      ...(c === 'USD' && m === 'b2c' ? { pinnedDefect: '5.752' } : {}),
       run: ({ ledger }) => ledger.grantPlayMoney(10000, c, m),
     }))
   ),
+  {
+    id: 'grant-twice-back-to-back',
+    row: 1,
+    label: emitted,
+    run: ({ ledger }) => [
+      ledger.grantPlayMoney(10000, 'USD', 'b2c'),
+      ledger.grantPlayMoney(10000, 'USD', 'b2c'),
+    ],
+  },
   {
     id: 'grant-already-initialized',
     row: 1,
@@ -193,6 +204,34 @@ export const journeyCases: CaseDef[] = [
         icon: 'x',
         targetAmount: 10,
         horizonMonths: 1200,
+        fundAmount: 0,
+      }),
+  },
+  {
+    id: 'create-goal-accepted-today-name-over-max',
+    row: 2,
+    label: emitted,
+    seed: granted().get(),
+    run: ({ ledger }) =>
+      ledger.createGoal({
+        name: 'x'.repeat(500),
+        icon: 'x',
+        targetAmount: 10,
+        horizonMonths: 1,
+        fundAmount: 0,
+      }),
+  },
+  {
+    id: 'create-goal-accepted-today-horizon-fraction',
+    row: 2,
+    label: emitted,
+    seed: granted().get(),
+    run: ({ ledger }) =>
+      ledger.createGoal({
+        name: 'A',
+        icon: 'x',
+        targetAmount: 10,
+        horizonMonths: 12.5,
         fundAmount: 0,
       }),
   },
@@ -450,6 +489,32 @@ export const journeyCases: CaseDef[] = [
       }),
   },
   /* S1b: an unaffordable entry, accepted today (the projection refuses it). */
+  {
+    id: 'enter-accepted-today-total-zero',
+    row: 8,
+    label: emitted,
+    seed: withGoal().get(),
+    run: ({ ledger }) =>
+      ledger.enterStrategy({
+        goalId: 'g1',
+        strategyId: 'safeHarbor',
+        totalFromCash: 0,
+        networkFeeLocal: 0,
+      }),
+  },
+  {
+    id: 'enter-accepted-today-total-negative',
+    row: 8,
+    label: emitted,
+    seed: withGoal().get(),
+    run: ({ ledger }) =>
+      ledger.enterStrategy({
+        goalId: 'g1',
+        strategyId: 'safeHarbor',
+        totalFromCash: -10,
+        networkFeeLocal: 0,
+      }),
+  },
   {
     id: 'enter-accepted-today-unaffordable',
     row: 8,
