@@ -53,6 +53,6 @@
     "happy-dom": "^21.0.4",
     "storybook": "^10.6.7",
     "typescript": "~5.9.3",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   }
 }
