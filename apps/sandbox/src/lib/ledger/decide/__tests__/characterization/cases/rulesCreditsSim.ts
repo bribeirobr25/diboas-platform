@@ -245,6 +245,8 @@ export const rulesCreditsSimCases: CaseDef[] = [
   ...row15Pairs,
   {
     ...row15Case('apply-adjusted-valid', [], 'emitted'),
+    // The zero line is skipped, like apply-zero-line-skipped (label corrected in S1a PR-2).
+    label: { expected: 'emitted', notes: ['linesDropped'] },
     inputs: undefined,
     run: ({ ledger }) =>
       ledger.applyRuleProposal(proposal(), [

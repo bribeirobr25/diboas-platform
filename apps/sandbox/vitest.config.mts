@@ -32,6 +32,8 @@ const COVERAGE_THRESHOLDS = {
   'src/lib/auth/factory.ts': { 100: true },
   'src/app/*/welcome/actions.ts': { 100: true },
   'src/app/*/consent/actions.ts': { 100: true },
+  // S1a (plan P12 §5): the ledger's pure decisions, fully covered when they arrived (LEDGER-DECIDE-1).
+  'src/lib/ledger/decide/**': { 100: true },
 };
 
 export default defineConfig({

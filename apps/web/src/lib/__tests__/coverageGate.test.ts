@@ -70,7 +70,7 @@ const SECURITY_AT_100: Record<string, string[]> = {
 };
 
 /** How many 100% keys each workspace has (5.893): raise it when a file is locked, never lower it. */
-const LOCKED_AT_100: Record<string, number> = { web: 18, sandbox: 12 };
+const LOCKED_AT_100: Record<string, number> = { web: 18, sandbox: 13 };
 
 /** The measured scope of each workspace, exactly (agent D findings 1–2). */
 const PINNED_SCOPE: Record<string, { include: string[]; exclude: string[] }> = {
@@ -125,6 +125,8 @@ const FLOOR_BASELINE: Record<string, Record<string, Floor | number>> = {
     'src/hooks/**': { lines: 98, branches: 88, functions: 90, statements: 94 },
     'src/i18n/**': { lines: 100, branches: 100, functions: 95, statements: 98 },
     'src/lib/**': { lines: 97, branches: 92, functions: 96, statements: 95 },
+    // S1a PR-2 (plan P12 §5): the ledger's pure decisions, locked at 100% when they arrived.
+    'src/lib/ledger/decide/**': { 100: true },
     'src/view/**': { lines: 100, branches: 96, functions: 100, statements: 99 },
   },
   banking: { lines: 99, branches: 96, functions: 100, statements: 98 },
