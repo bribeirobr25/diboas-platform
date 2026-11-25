@@ -3,19 +3,20 @@
  * uses: hand-typed average exchange rates per period, ending at the research date (market
  * clean-up W-D2, register `5.934`; spec v6 §1.2).
  *
- * - The hedge sentence (the disclaimer's last) ×4 names 2010, the month of `LAST_RESEARCH_UPDATE`
- *   (read from the code, formatted per locale), the mode's own label and the tool's own title.
+ * - The hedge sentence (the disclaimer's last) ×4 names 2010, the month the latest averaged period
+ *   ends (the last `endDate` of the BRL and EUR buckets in `historical.ts`, which must agree;
+ *   formatted per locale), the mode's own label and the tool's own title.
  * - The hint ×4 names the same month and never says the path is the "actual" one.
  * - Every other disclaimer sentence is byte-identical to `main` `7d4259b2` (SHA-256 pins), and the
  *   sentence counts are pinned, so a deleted or edited sentence fails.
- * - When MP-8 (`5.789`) replaces the averages and moves the date, this fails until both texts
- *   change with it.
+ * - When MP-9 derives the buckets from the published series and the latest period's end moves,
+ *   this fails until both texts change with it.
  */
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { LAST_RESEARCH_UPDATE } from '@/lib/market-data/historical';
+import { getFxBuckets } from '@/lib/market-data/historical';
 
 const TRANSLATIONS = join(__dirname, '../../../../../../packages/i18n/translations');
 const LOCALES = ['en', 'pt-BR', 'es', 'de'] as const;
@@ -59,13 +60,27 @@ const KEPT: Record<Locale, string[]> = {
   ],
 };
 
-/** The research month as each locale writes it ("May 2026", "maio de 2026", "Mai 2026"). */
+/** The end of the latest averaged period: the BRL and EUR buckets must agree on it. */
+const latestEnd = (() => {
+  const ends = (['BRL', 'EUR'] as const).map((c) => getFxBuckets(c).at(-1)!.endDate);
+  if (ends[0] !== ends[1])
+    throw new Error(`the BRL and EUR averages end apart: ${ends.join(', ')}`);
+  return ends[0];
+})();
+/** That month as each locale writes it ("May 2026", "maio de 2026", "Mai 2026"). */
 const researchMonth = (locale: Locale) =>
   new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(
-    new Date(`${LAST_RESEARCH_UPDATE}T00:00:00Z`)
+    new Date(`${latestEnd}T00:00:00Z`)
   );
 const toolTitle = (locale: Locale) =>
   (read(locale, 'tools-goal-savings').seo.title as string).split(':')[0];
+/** The hedge sentence and the hint ×4, pinned whole (the W-D2 audit's planted wording). */
+const PINNED: Record<Locale, { hedge: string; hint: string }> = {
+  en: { hedge: 'dd0525420c0a8e22', hint: '67a1519daefe55ec' },
+  'pt-BR': { hedge: 'f4661ec15d0caea2', hint: '6e3b40c8fc4feaa8' },
+  es: { hedge: 'c139e0196280d167', hint: 'ca06efebe1f6b50c' },
+  de: { hedge: '04910cad59c7dd31', hint: 'c0be293da84c8973' },
+};
 const ACTUAL = /\b(?:actual|real|reales|reais|tatsächlich\w*)\b/i;
 
 describe('DISCLAIMER-BASIS-1: the "Since 2010" mode is described as it is', () => {
@@ -95,4 +110,11 @@ describe('DISCLAIMER-BASIS-1: the "Since 2010" mode is described as it is', () =
       expect(hint).not.toMatch(ACTUAL);
     }
   );
+  it.each(LOCALES)('should ship exactly the reviewed hedge sentence and hint (%s)', (locale) => {
+    const shared = read(locale, 'tools-shared');
+    expect({
+      hedge: sha(sentences(shared.disclaimer as string).at(-1)!),
+      hint: sha(shared.calculatorMode.retrospectiveHint as string),
+    }).toEqual(PINNED[locale]);
+  });
 });

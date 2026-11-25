@@ -48,8 +48,8 @@
   "resultMoment": {
     "eyebrow": "O que seu dinheiro realmente rende",
     "eyebrowUsd": "O que seus dólares parados rendem",
-    "chartAria": "Como o {currency} se compara em {years, plural, one {# ano} other {# anos}} mantido em dinheiro, em banco local e numa estratégia diBoaS (um cenário ilustrativo).",
-    "chartAriaUsd": "Como seus dólares se comparam em {years, plural, one {# ano} other {# anos}} em um banco versus numa estratégia diBoaS (um cenário ilustrativo).",
+    "chartAria": "Como o {currency} se compara em {years, plural, one {# ano} other {# anos}} mantido em dinheiro, em banco local e em uma estratégia diBoaS (um cenário ilustrativo).",
+    "chartAriaUsd": "Como seus dólares se comparam em {years, plural, one {# ano} other {# anos}} em um banco versus em uma estratégia diBoaS (um cenário ilustrativo).",
     "shareText": "Em {years, plural, one {# ano} other {# anos}}, meus {currency} poderiam valer {value} em uma estratégia diBoaS. Veja como ficariam os seus."
   },
   "vignette": {

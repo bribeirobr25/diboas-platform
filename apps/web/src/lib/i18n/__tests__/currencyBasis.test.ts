@@ -10,6 +10,7 @@
  * - The constants file's header comment names the same basis (read raw: `stripComments` would
  *   delete what is checked).
  */
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -44,6 +45,39 @@ const catalogue = (locale: string) =>
 const OLD_BASIS =
   /strategy's historical return|retorno histórico|rentabilidad histórica|historische Rendite/i;
 const SCENARIO = { en: /scenario/i, 'pt-BR': /cenário/i, es: /escenario/i, de: /Szenario/i };
+const sha = (s: string) => createHash('sha256').update(s).digest('hex').slice(0, 16);
+
+/**
+ * Each changed text ×4, pinned whole (the W-D2 audit planted wording beside the checked words that
+ * the word checks let through). A new wording needs its pin changed here, in review, and the
+ * founder's approval of the text (5.931, D8: the founder's merge approves it).
+ */
+const PINNED: Record<(typeof LOCALES)[number], Record<string, string>> = {
+  en: {
+    note: '1960365a06971d73',
+    seo: '5242824f1eb9558d',
+    aria: '2ee93910b2322428',
+    ariaUsd: 'b7f7d8f3d59dc4aa',
+  },
+  'pt-BR': {
+    note: '94934e8a44a7bed8',
+    seo: 'c9051f53908094fb',
+    aria: 'a504eadd75acf399',
+    ariaUsd: 'bcdb35e9faeddb9b',
+  },
+  es: {
+    note: '8b7bdf35a2cc39ff',
+    seo: 'cf3e13ca00921404',
+    aria: '1002ce1e83ceb27a',
+    ariaUsd: '060c6b4cd3dc2c2e',
+  },
+  de: {
+    note: '7009ce053ae5d8a0',
+    seo: '90b33f8ddc0f3529',
+    aria: '7eb800491936aa0a',
+    ariaUsd: '5a3d7b2a603f8389',
+  },
+};
 
 describe('CURRENCY-BASIS-1: the 10% scenario names its basis', () => {
   it.each(LOCALES)(
@@ -76,6 +110,16 @@ describe('CURRENCY-BASIS-1: the 10% scenario names its basis', () => {
     }
   );
 
+  it.each(LOCALES)('should ship exactly the reviewed texts (%s)', (locale) => {
+    const c = catalogue(locale);
+    expect({
+      note: sha(c.output.diboasNote),
+      seo: sha(c.seo.description),
+      aria: sha(c.resultMoment.chartAria),
+      ariaUsd: sha(c.resultMoment.chartAriaUsd),
+    }).toEqual(PINNED[locale]);
+  });
+
   it('should hold the scenario at 10, the figure the sentence is true of', () => {
     expect(CURRENCY_DEPRECIATION_SCENARIO_USD_PERCENT).toBe(10);
   });
@@ -83,7 +127,8 @@ describe('CURRENCY-BASIS-1: the 10% scenario names its basis', () => {
   it("should name the same basis in the constants file's header comment", () => {
     const src = readFileSync(join(ROOT, 'apps/web/src/lib/market-data/constants.ts'), 'utf8');
     const header = src.slice(0, src.search(/^import\b/m));
-    expect(header).toMatch(/S&P 500/);
-    expect(header).toMatch(/1928/);
+    expect(header.replace(/\s*\n\s*\*\s*/g, ' ')).toMatch(
+      /long-run S&P 500 total return 1928-2024/
+    );
   });
 });

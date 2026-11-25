@@ -608,11 +608,11 @@ Brazil's 5.9% inflation rate compounds the most over 30 years.
 
 ## 8.2 Input data from system
 
-| Field                                 | Source    | Use                                                                         |
-| ------------------------------------- | --------- | --------------------------------------------------------------------------- |
-| `bankRates[bankSourceLocale].savings` | FALLBACK  | Bank yield in local currency                                                |
-| `monthlySeries.fx[currency]`          | Data file | Horizon-matched depreciation (forward); month-by-month walk (retrospective) |
-| `scenarioRates.historical` (10%)      | FALLBACK  | diBoaS USD nominal rate                                                     |
+| Field                                 | Source    | Use                                                                                                                                        |
+| ------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `bankRates[bankSourceLocale].savings` | FALLBACK  | Bank yield in local currency                                                                                                               |
+| `monthlySeries.fx[currency]`          | Data file | Horizon-matched depreciation (forward); the retrospective mode uses the fixed Jan-2010 → anchor pair, not a monthly walk (W-D2 correction) |
+| `scenarioRates.historical` (10%)      | FALLBACK  | diBoaS USD nominal rate                                                                                                                    |
 
 ## 8.3 Input data from user
 
