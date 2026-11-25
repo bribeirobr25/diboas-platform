@@ -24,6 +24,7 @@ import {
 } from './core';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { toISODateString } from '@/lib/utils/date';
+import { isHedgedDepreciation } from './hedgePredicate';
 
 // ---------------------------------------------------------------------------
 // C3 close (TOOLS_41_DEFECTS_FIX_PLAN.md §3.3, 2026-05-26): boundary clamp
@@ -90,7 +91,7 @@ export function createHedgedRateTransformer(
   source: string
 ): (usdRatePercent: number) => number {
   return (usdRatePercent: number): number => {
-    if (depreciation === 0) return usdRatePercent;
+    if (!isHedgedDepreciation(depreciation)) return usdRatePercent;
     const usdYield = usdRatePercent / 100;
     const rawEffective = (1 + usdYield) * (1 + depreciation) - 1;
     const effective = applyEffectiveRateClamp(rawEffective, {

@@ -38,6 +38,7 @@ import {
   type Cadence,
 } from '@/lib/compound-interest';
 import type { SupportedLocale } from '@diboas/i18n/config';
+import { isHedgedDepreciation } from '@/lib/market-data/formulas/hedgePredicate';
 
 /**
  * Shared cap for both the lump-sum loop AND the iterative
@@ -170,7 +171,7 @@ export function calculateTimeToTargetTimeline(
   return {
     months,
     over30Years,
-    hedged: depreciation > 0,
+    hedged: isHedgedDepreciation(depreciation),
     monthlyContribution,
     bankRatePercent: bankRate,
   };

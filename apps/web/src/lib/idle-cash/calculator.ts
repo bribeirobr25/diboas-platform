@@ -27,6 +27,7 @@ import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import type { MarketDataSnapshot } from '@/lib/market-data/types';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import type { SupportedLocale } from '@diboas/i18n/config';
+import { isHedgedDepreciation } from '@/lib/market-data/formulas/hedgePredicate';
 
 /** Conservative scenario (7%) — see file header for rationale. */
 export const IDLE_CASH_SCENARIO_USD_PERCENT = SCENARIO_RATES.conservative;
@@ -68,17 +69,16 @@ export function calculateIdleCashYield(
   ).nominalFV;
 
   // diBoaS uses currency hedge for non-USD locales.
-  const diboasFV =
-    depreciation > 0
-      ? calculateWithCurrencyHedge(
-          input.idleCash,
-          IDLE_CASH_SCENARIO_USD_PERCENT / 100,
-          depreciation,
-          0,
-          input.years
-        ).nominalFV
-      : calculateLumpSum(input.idleCash, IDLE_CASH_SCENARIO_USD_PERCENT / 100, 0, input.years)
-          .nominalFV;
+  const diboasFV = isHedgedDepreciation(depreciation)
+    ? calculateWithCurrencyHedge(
+        input.idleCash,
+        IDLE_CASH_SCENARIO_USD_PERCENT / 100,
+        depreciation,
+        0,
+        input.years
+      ).nominalFV
+    : calculateLumpSum(input.idleCash, IDLE_CASH_SCENARIO_USD_PERCENT / 100, 0, input.years)
+        .nominalFV;
 
   return {
     bankFV,
@@ -86,6 +86,6 @@ export function calculateIdleCashYield(
     diboasFV,
     diboasGain: diboasFV - input.idleCash,
     difference: diboasFV - bankFV,
-    hedged: depreciation > 0,
+    hedged: isHedgedDepreciation(depreciation),
   };
 }

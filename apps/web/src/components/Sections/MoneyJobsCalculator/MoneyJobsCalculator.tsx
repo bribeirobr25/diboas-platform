@@ -50,6 +50,7 @@ import {
 } from '@/lib/tools';
 import { MoneyJobsGate } from './MoneyJobsGate';
 import styles from './MoneyJobsCalculator.module.css';
+import { isHedgedCurrency } from '@/lib/market-data/formulas/hedgePredicate';
 
 type Mode = 'personal' | 'business';
 
@@ -73,7 +74,7 @@ export function MoneyJobsCalculator({ initialMode = 'personal' }: MoneyJobsCalcu
   // The projection table always comes from the hedged engine, which hedges every non-USD
   // locale; the plan's own `hedged` is false on its early exits (fund already funded), so it
   // cannot gate the table's marker (W-B audit 2026-11-12).
-  const hedgedLocale = LOCALE_CURRENCY[localeKey] !== 'USD';
+  const hedgedLocale = isHedgedCurrency(LOCALE_CURRENCY[localeKey]);
 
   const [mode, setMode] = useState<Mode>(initialMode);
 

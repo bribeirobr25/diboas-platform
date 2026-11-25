@@ -23,6 +23,7 @@ import {
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { COMPARISON_TABLE_INPUTS } from '@/config/comparisonTable';
 import styles from './ComparisonTable.module.css';
+import { isHedgedCurrency, isHedgedDepreciation } from '@/lib/market-data/formulas/hedgePredicate';
 
 interface ComparisonTableProps {
   enableAnalytics?: boolean;
@@ -44,10 +45,9 @@ function useComparisonData(locale: SupportedLocale) {
     const inputs = COMPARISON_TABLE_INPUTS[locale];
     const principal = inputs.principal;
     const currency = LOCALE_CURRENCY[locale];
-    const depreciation =
-      currency && currency !== 'USD'
-        ? (marketData.exchangeRates.rates[currency]?.annualDepreciation ?? 0)
-        : 0;
+    const depreciation = isHedgedCurrency(currency)
+      ? (marketData.exchangeRates.rates[currency]?.annualDepreciation ?? 0)
+      : 0;
     const diboasApy = marketData.rates.strategyApys.safety;
 
     // Rates for display
@@ -64,7 +64,7 @@ function useComparisonData(locale: SupportedLocale) {
     const treasuryReturn = calculateLumpSum(principal, bankRates.treasury / 100, 0, 1).nominalGain;
 
     let diboasReturn: number;
-    if (depreciation > 0) {
+    if (isHedgedDepreciation(depreciation)) {
       diboasReturn = calculateWithCurrencyHedge(
         principal,
         diboasApy / 100,
@@ -92,16 +92,15 @@ function useComparisonData(locale: SupportedLocale) {
     // can never diverge (Principle 1 / DRY \u2014 no inline math here).
     const chartPaths = {
       bank: buildMonthlyValuePath(principal, bankRates.savings / 100, 12),
-      diboas:
-        depreciation > 0
-          ? buildHedgedMonthlyValuePath(
-              principal,
-              diboasApy / 100,
-              depreciation,
-              12,
-              'comparisonTable.chart'
-            )
-          : buildMonthlyValuePath(principal, diboasApy / 100, 12),
+      diboas: isHedgedDepreciation(depreciation)
+        ? buildHedgedMonthlyValuePath(
+            principal,
+            diboasApy / 100,
+            depreciation,
+            12,
+            'comparisonTable.chart'
+          )
+        : buildMonthlyValuePath(principal, diboasApy / 100, 12),
     };
 
     // diBoaS subtext \u2014 show "em d\u00F3lares" for PT-BR, empty for others

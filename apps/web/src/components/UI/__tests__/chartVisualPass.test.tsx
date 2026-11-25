@@ -213,6 +213,28 @@ describe('CompoundChart value labels', () => {
         scenarioLabels={{ bank: 'b', conservative: 'c', historical: 'h', optimistic: 'o' }}
       />
     );
+  // 5.920: the screen-reader table read the hedged rate raw ("7.4637%"), not as the visible figures.
+  it('should read each scenario rate localised to one decimal in the screen-reader table', () => {
+    const hedged = series(40000).map((s, i) => ({
+      ...s,
+      rate: [6.83, 7.58850000000002, 10.52, 12][i] ?? s.rate,
+    }));
+    const { container } = render(
+      <CompoundChart
+        series={hedged}
+        highlightedScenario="historical"
+        locale="pt-BR"
+        ariaLabel="chart"
+        tableLabels={{ scenario: 's', rate: 'r', total: 't' }}
+        scenarioLabels={{ bank: 'b', conservative: 'c', historical: 'h', optimistic: 'o' }}
+      />
+    );
+    const rates = [...container.querySelectorAll('tbody tr')].map(
+      (row) => row.querySelectorAll('td')[0]?.textContent
+    );
+    expect(rates).toEqual(['6,8%', '7,6%', '10,5%', '12%'].slice(0, rates.length));
+  });
+
   const yLabels = (container: HTMLElement) =>
     [...container.querySelectorAll('svg text')]
       .filter((t) => /yLabel/.test(t.getAttribute('class') ?? ''))

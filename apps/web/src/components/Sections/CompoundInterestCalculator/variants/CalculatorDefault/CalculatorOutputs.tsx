@@ -11,6 +11,7 @@ import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import { CompoundChart } from '@/components/UI/CompoundChart';
 import { LucideIcon, Info } from '@/components/UI/LucideIcon';
 import styles from './CalculatorDefault.module.css';
+import { isHedgedCurrency } from '@/lib/market-data/formulas/hedgePredicate';
 
 interface CalculatorOutputsProps {
   output: CalculatorOutput;
@@ -53,7 +54,7 @@ export function CalculatorOutputs({
   // The rate is a US-dollar rate; the figure beside it is in local currency (register 5.812:
   // the old " em dólar digital" suffix became " em USD", a currency marker, not a product).
   const usdSuffix =
-    engine === 'tool' && LOCALE_CURRENCY[inputEcho.locale] !== 'USD'
+    engine === 'tool' && isHedgedCurrency(LOCALE_CURRENCY[inputEcho.locale])
       ? intl.formatMessage({ id: 'tools-shared.scenarios.usdSuffix' })
       : '';
   const scenarioLabels: Readonly<Record<SeriesKey, string>> = {
