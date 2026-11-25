@@ -68,12 +68,12 @@
     "items": {
       "skySsr": {
         "name": "Sky SSR",
-        "type": "Protokollzins",
+        "type": "Zinstoken",
         "chain": "Arbitrum",
-        "asset": "USDS",
+        "asset": "sUSDS",
         "cryptoExposure": "Keine",
-        "operatingSince": "2022",
-        "summary": "Renditen werden durch das Verleihen von USDS an Kreditnehmer generiert. Variabler Zinssatz.",
+        "operatingSince": "2017 (SSR: 2024)",
+        "summary": "Renditen stammen aus sUSDS (gekauft über das Tauschmodul von Spark), dessen Wert mit dem Sky-Zinssatz (SSR) steigt: Er ist variabel, wird von der Sky-Governance festgelegt, aus dem Überschuss des Protokolls finanziert und kann auf null fallen. Wer nur USDS hält, erhält nichts. Nicht garantiert; du kannst einen Teil oder alles verlieren, was du eingezahlt hast; Bindungs-, Liquiditäts-, Smart-Contract-, Bridge-, Oracle- und Governance-Risiken.",
         "verifyUrl": "https://sky.money",
         "defillamaUrl": "https://defillama.com/protocol/sky"
       },

@@ -123,13 +123,13 @@
     },
     "sparkProtocol": {
       "name": "Spark Protocol",
-      "description": "Kreditsystem auf Basis des bewährten Aave-Codes, verbunden mit der tiefen Liquidität von Sky/MakerDAO. Profitiert von der längsten Betriebsgeschichte in DeFi (seit 2014).",
+      "description": "Kreditsystem auf Basis des Aave-Codes, verbunden mit der Liquidität von Sky (früher MakerDAO), das seit 2017 in Betrieb ist.",
       "details": {
         "founded": "2023",
         "tvl": "~5,1 Milliarden USD",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "7+ unabhängige Audits",
-        "regulatory": "Profitiert von MakerDAOs 10+ Jahren Compliance-Erfahrung"
+        "regulatory": "Aufgebaut auf Sky (früher MakerDAO), das seit 2017 in Betrieb ist"
       }
     },
     "fluid": {
@@ -214,13 +214,13 @@
     },
     "sky": {
       "name": "Sky Protocol / SSR (ehemals MakerDAO)",
-      "description": "Das originale DeFi-System. In Betrieb seit 2014. Nutzer hinterlegen Krypto als Sicherheit, um Stablecoins zu erzeugen, nach Regeln und einem variablen Satz, die das Protokoll festlegt. Hat jeden größeren Marktabsturz seit 2017 überstanden.",
+      "description": "Das Protokoll hinter DAI und USDS, in Betrieb seit 2017 (als MakerDAO). In diBoaS-Strategien soll die Position als sUSDS auf Arbitrum gehalten werden, gekauft über das Tauschmodul von Spark (PSM): ein Sky-Token, dessen Wert mit dem Sky-Zinssatz (SSR) steigt, einem variablen Zinssatz, den die Sky-Governance festlegt und der aus dem Überschuss des Protokolls finanziert wird; er kann sich jederzeit ändern und bis auf null sinken. Wer nur USDS hält, erhält nichts. Nicht garantiert, und du kannst einen Teil oder alles verlieren, was du eingezahlt hast; zu den Risiken gehören, dass USDS seine Dollarbindung verliert (DAI, sein Vorgänger, verlor sie im März 2023 kurzzeitig), die Liquidität des PSM, Änderungen der Governance am Zinssatz oder an den Token-Verträgen sowie Smart-Contract-, Bridge- und Oracle-Risiken.",
       "details": {
-        "founded": "2014",
+        "founded": "2015",
         "tvl": "~5,9 Milliarden USD",
         "blockchains": "Ethereum (diBoaS-Strategien nutzen das Arbitrum-Deployment)",
         "audits": "10+ unabhängige Audits",
-        "regulatory": "10+ Jahre ununterbrochener Betrieb durch mehrere Marktzyklen"
+        "regulatory": "In Betrieb seit 2017 (Start von DAI)"
       },
       "usedInStrategies": "Alle 10 Strategien (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Full Harvest, Full Throttle)"
     },

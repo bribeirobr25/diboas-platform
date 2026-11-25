@@ -48,7 +48,7 @@
     "ariaLabel": "Modo da calculadora",
     "forward": "Para frente",
     "retrospective": "Desde 2010",
-    "retrospectiveHint": "O modo retrospectivo percorre o caminho real do câmbio em até {years} anos. O cenário do banco permanece na moeda local."
+    "retrospectiveHint": "O modo retrospectivo usa câmbios médios de cada período desde 2010 (em geral de cinco anos; o mais recente termina em maio de 2026), até {years} anos atrás. O cenário do banco permanece na moeda local."
   },
   "scenarios": {
     "bank": "Seu banco",
@@ -75,7 +75,7 @@
     "tryOtherTools": "Experimentar outras ferramentas",
     "adelaideAttribution": "Ferramentas da Adelaide"
   },
-  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e você pode perder dinheiro. diBoaS não é um produto de investimento registrado na CVM. Os cenários do diBoaS são calculados em dólares americanos; para moedas diferentes do dólar americano, o total em moeda local combina o resultado do cenário em dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo.",
+  "disclaimer": "Apenas projeção educativa. Não é orientação financeira. Rentabilidade passada não é garantia de rentabilidade futura. Investimentos envolvem riscos e você pode perder dinheiro. diBoaS não é um produto de investimento registrado na CVM. Os cenários do diBoaS são calculados em dólares americanos; para moedas diferentes do dólar americano, o total em moeda local combina o resultado do cenário em dólar com o movimento típico da sua moeda frente ao dólar americano ao longo do tempo ou, no modo \"Desde 2010\" da Calculadora de poupança por metas, com câmbios médios de cada período desde 2010 (em geral de cinco anos; o mais recente termina em maio de 2026).",
   "warnings": {
     "over30Years": "Esta meta leva mais de 30 anos com sua contribuição atual. Um valor mensal maior, ou um prazo mais longo, muda isso."
   },

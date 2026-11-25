@@ -11,8 +11,17 @@
  * 2026-05-12 (from 4/7/10) with this historical rationale: the conservative scenario drew on
  * lending-protocol rates (sources consulted: Aavescan, Compound V3, Sky SSR); the historical and
  * optimistic scenarios on blended and more active strategy mixes. Measured stable-pool rates have
- * since been lower (register 5.163), which is why every figure is labelled a scenario. Rates are gross (before fees and tax). The copy states
- * them through `lib/compound-interest/scenarioCopy.ts`, never as typed figures (5.730).
+ * since been lower (register 5.163), which is why every figure is labelled a scenario. Rates are
+ * gross (before fees and tax). The copy states them through `lib/compound-interest/scenarioCopy.ts`,
+ * never as typed figures (5.730).
+ *
+ * The historical scenario (10) therefore has two stated origins: the rationale above (how it was
+ * set), and the basis the copy names for it, the long-run S&P 500 total return 1928-2024 (founder,
+ * `5.931`; the tooltip `tools-shared.scenarios.historicalTooltip`, the currency card's note and its
+ * search descriptions; W-D2, guarded by CURRENCY-BASIS-1). The FX averages behind goal savings'
+ * "Since 2010" mode are hand-typed in `historical.ts` (the latest period ends 2026-05-15); MP-9
+ * derives them from the published series, and the disclaimer and the hint change with them
+ * (DISCLAIMER-BASIS-1 reads the buckets' last end date and fails until they do).
  * Regulatory disclaimers (MiCA / FTC / CVM) remain in the locale translation files.
  */
 

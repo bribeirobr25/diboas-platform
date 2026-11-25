@@ -602,17 +602,17 @@ Brazil's 5.9% inflation rate compounds the most over 30 years.
 
 ## 8.1 Objective & user value
 
-**Objective:** Compare 3 outcomes for holding cash in a non-USD currency: cash idle, bank yield, diBoaS digital dollar.
+**Objective:** Compare 3 outcomes for holding cash in a non-USD currency: cash idle, bank yield, a diBoaS strategy (an illustrative scenario based on the long-run S&P 500, W-D2 `5.931`).
 **Value to users:** Demonstrates the dual cost of local currency depreciation + inflation. For Brazilian users, the BRL depreciation case is particularly material.
-**Tool purpose:** Forward mode uses `calculateWithCurrencyHedge` with horizon-matched CAGR. Retrospective mode uses path-dependent `calculateMonthlyPathDependentHedge` (Phase 7 / 2026-05-16).
+**Tool purpose:** Forward mode uses `calculateWithCurrencyHedge` with horizon-matched CAGR. Retrospective mode uses `calculateCurrencyDepreciationRetrospective` (then and now, no scenario figure). The path-dependent hedge (`calculateMonthlyPathDependentHedge`, hand-typed per-period FX averages) is used only by goal savings' "Since 2010" mode, through `calculateCompoundProjectionPathDependent` (W-D2 correction).
 
 ## 8.2 Input data from system
 
-| Field                                 | Source    | Use                                                                         |
-| ------------------------------------- | --------- | --------------------------------------------------------------------------- |
-| `bankRates[bankSourceLocale].savings` | FALLBACK  | Bank yield in local currency                                                |
-| `monthlySeries.fx[currency]`          | Data file | Horizon-matched depreciation (forward); month-by-month walk (retrospective) |
-| `scenarioRates.historical` (10%)      | FALLBACK  | diBoaS USD nominal rate                                                     |
+| Field                                 | Source    | Use                                                                                                                                        |
+| ------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `bankRates[bankSourceLocale].savings` | FALLBACK  | Bank yield in local currency                                                                                                               |
+| `monthlySeries.fx[currency]`          | Data file | Horizon-matched depreciation (forward); the retrospective mode uses the fixed Jan-2010 → anchor pair, not a monthly walk (W-D2 correction) |
+| `scenarioRates.historical` (10%)      | FALLBACK  | diBoaS USD nominal rate                                                                                                                    |
 
 ## 8.3 Input data from user
 

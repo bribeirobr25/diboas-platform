@@ -48,7 +48,7 @@
     "ariaLabel": "Modo de la calculadora",
     "forward": "Hacia adelante",
     "retrospective": "Desde 2010",
-    "retrospectiveHint": "El modo retrospectivo recorre el camino real del tipo de cambio hasta {years} años atrás. El escenario del banco se mantiene en moneda local."
+    "retrospectiveHint": "El modo retrospectivo usa tipos de cambio medios de cada periodo desde 2010 (en general de cinco años; el más reciente termina en mayo de 2026), hasta {years} años atrás. El escenario del banco se mantiene en moneda local."
   },
   "scenarios": {
     "bank": "Tu banco",
@@ -75,7 +75,7 @@
     "tryOtherTools": "Probar otras herramientas",
     "adelaideAttribution": "Herramientas de Adelaide"
   },
-  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. La rentabilidad pasada no es indicativa de rentabilidades futuras. Toda inversión conlleva riesgo; puedes perder dinero. diBoaS no proporciona asesoramiento de inversión. Los escenarios de diBoaS se calculan en dólares estadounidenses; para monedas distintas al dólar estadounidense, el total en moneda local combina el resultado del escenario en dólares con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo.",
+  "disclaimer": "Solo proyección educativa. No es asesoramiento financiero. La rentabilidad pasada no es indicativa de rentabilidades futuras. Toda inversión conlleva riesgo; puedes perder dinero. diBoaS no proporciona asesoramiento de inversión. Los escenarios de diBoaS se calculan en dólares estadounidenses; para monedas distintas al dólar estadounidense, el total en moneda local combina el resultado del escenario en dólares con el movimiento típico de tu moneda frente al dólar estadounidense con el tiempo o, en el modo \"Desde 2010\" de la Calculadora de ahorro por metas, con tipos de cambio medios de cada periodo desde 2010 (en general de cinco años; el más reciente termina en mayo de 2026).",
   "warnings": {
     "over30Years": "Esta meta lleva más de 30 años con tu contribución actual. Un monto mensual mayor, o un plazo más largo, lo cambia."
   },

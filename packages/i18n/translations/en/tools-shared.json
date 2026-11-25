@@ -48,7 +48,7 @@
     "ariaLabel": "Calculator mode",
     "forward": "Forward",
     "retrospective": "Since 2010",
-    "retrospectiveHint": "Retrospective mode walks the actual FX path back up to {years} years. Bank scenario stays in local currency."
+    "retrospectiveHint": "Retrospective mode uses average exchange rates for each period since 2010 (mostly five-year periods; the latest ends May 2026), up to {years} years back. Bank scenario stays in local currency."
   },
   "scenarios": {
     "bank": "Your bank",
@@ -75,7 +75,7 @@
     "tryOtherTools": "Try other money tools",
     "adelaideAttribution": "Money tools by Adelaide"
   },
-  "disclaimer": "Educational projection only. Annual percentage yield (APY) shown for deposit accounts. Not financial advice. Past performance does not guarantee future results. All investments involve risk; you may lose money. diBoaS is not a registered investment adviser. diBoaS scenarios are calculated in US dollars; for non-US currencies, the local-currency total combines the scenario's dollar result with how your local currency typically moves against the US dollar over time.",
+  "disclaimer": "Educational projection only. Annual percentage yield (APY) shown for deposit accounts. Not financial advice. Past performance does not guarantee future results. All investments involve risk; you may lose money. diBoaS is not a registered investment adviser. diBoaS scenarios are calculated in US dollars; for non-US currencies, the local-currency total combines the scenario's dollar result with how your local currency typically moves against the US dollar over time, or, in the \"Since 2010\" mode of the Goal-Based Savings Calculator, with average exchange rates for each period since 2010 (mostly five-year periods; the latest ends May 2026).",
   "warnings": {
     "over30Years": "This target takes more than 30 years to reach at your current contribution. A higher monthly amount, or a longer timeline, changes that."
   },
