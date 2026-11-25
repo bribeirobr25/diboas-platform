@@ -433,8 +433,13 @@ Plan P12 (register `5.1008`), ADR-003. Gates: `LEDGER-CHAR-1`, `LEDGER-DECIDE-1`
   P12a, `5.1029`) records the base and the PR's merge with the BASE's judge — the whole characterization folder,
   its scripts, the recording config and the test setup are restored from `main` into the PR's tree before the
   PR is recorded — and compares them case by case, so a new case or a judge change first takes effect for the
-  PR after it. _Do not:_ edit a golden or `frozen.json` by hand; put a judge change in its own PR and say in its
-  record that it is not judged by its own run; start the recorder through `package.json` in CI.
+  PR after it. A case only the PR's recording has fails (both runs use the base's case files). It runs on PRs, on
+  a PR retargeted onto `main`, and on every push to `main`. Guards: `charBaseJudge.test.ts` (the recording config
+  and the comparison) and `apps/web/src/lib/__tests__/ledgerCharBaseWorkflow.test.ts` (the workflow, read as
+  YAML). _Limit:_ it catches ACCIDENTAL behaviour change, not a PR written to defeat it — the PR's ledger code
+  runs in the recorder's process and its install and build run on the runner before the restore — so review is
+  the control for intent. _Do not:_ edit a golden or `frozen.json` by hand; put a judge change in its own PR and
+  say in its record that it is not judged by its own run; start the recorder through `package.json` in CI.
 
 ## Sandbox browser harness (Q0, 2026-10-17 — do not regress)
 

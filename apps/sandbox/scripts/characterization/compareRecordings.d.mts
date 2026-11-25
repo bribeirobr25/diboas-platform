@@ -2,7 +2,6 @@
 export interface ComparisonResult {
   ok: boolean;
   problems: string[];
-  added: string[];
   compared: number;
   families: number;
 }

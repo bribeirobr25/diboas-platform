@@ -3,8 +3,8 @@
  * D11 as amended by P12a J5; register 5.1029).
  *
  * Reads each family file (`<family>.json`; `manifest.json` is not a family) from both folders and the
- * base's `frozen.json`, then applies `compareRecordings`. Exit 1 on any problem, with the first ones
- * named; exit 2 on a usage error.
+ * base's `frozen.json`, then applies `compareRecordings`. Exit codes: 0 identical; 1 any problem
+ * (named), and also a folder or file that cannot be read; 2 a usage error.
  *
  * Usage: node compareOutputs.mjs <base-dir> <head-dir> <base frozen.json>
  */
@@ -18,13 +18,15 @@ if (!baseDir || !headDir || !frozenPath) {
   process.exit(2);
 }
 
-/** Every family file in `dir`, parsed; a missing or unreadable folder reads as no family. */
+/** Every family file in `dir`, parsed. A missing folder reads as no family (the floor then fails). */
 function readFamilies(dir) {
-  let files = [];
+  let files;
   try {
     files = readdirSync(dir).filter((f) => f.endsWith('.json') && f !== 'manifest.json');
-  } catch {
-    return {};
+  } catch (error) {
+    if (error?.code === 'ENOENT') return {};
+    console.log(`::error::cannot read the recording folder ${dir}: ${error?.message ?? error}`);
+    process.exit(1);
   }
   return Object.fromEntries(
     files.map((f) => [f.replace(/\.json$/, ''), JSON.parse(readFileSync(join(dir, f), 'utf8'))])
@@ -37,8 +39,6 @@ const result = compareRecordings(
   JSON.parse(readFileSync(frozenPath, 'utf8'))
 );
 
-if (result.added.length)
-  console.log(`New cases (allowed): ${result.added.length}\n  ${result.added.join('\n  ')}`);
 if (!result.ok) {
   console.log(`::error::${result.problems.length} problem(s) (LEDGER-CHAR-1):`);
   console.log(`  ${result.problems.slice(0, 50).join('\n  ')}`);

@@ -2,28 +2,36 @@ name: ledger-char-base
 
 # ⛑ LEDGER-CHAR-1 · the base differential (plan P12 D11 as amended by P12a; register 5.1008, 5.1029).
 #
-# The Practice ledger's behaviour must not change by accident. Committed goldens could be
-# re-recorded to make a failing PR pass, so this job trusts none of them: it records the PR's BASE
-# (main's tip, the merge commit's first parent) and the PR's MERGE COMMIT with the SAME JUDGE — the
-# base's — and compares them case by case: every case the base recorded must exist with the same
-# bytes; new cases are listed.
+# The Practice ledger's behaviour must not change by ACCIDENT. Committed goldens could be re-recorded
+# to make a failing PR pass, so this job trusts none of them: it records the PR's BASE (main's tip,
+# the merge commit's first parent) and the PR's MERGE COMMIT with the SAME JUDGE — the base's — and
+# compares them case by case: every case the base recorded must exist with the same bytes, and the
+# PR's recording may hold no other case.
 #
-# The judge (the whole characterization folder, its scripts, the update config and the test setup)
-# is RESTORED FROM THE BASE into the PR's tree before the PR is recorded, so a PR cannot change how
-# it is judged: a PR that edits the judge is recorded with the old one, and its change takes effect
-# for the PRs after it (P12a J1, J2). Nothing is refused: Dependabot and config PRs are recorded and
-# compared like any other. Three jobs share only artifacts, so the PR's code never touches the base's
-# output or the comparator (P12a J3).
+# The judge (the whole characterization folder, its scripts, the recording config and the test
+# setup) is RESTORED FROM THE BASE into the PR's tree before the PR is recorded and verified before
+# and after recording, so editing judge files cannot change how a PR is judged: such a PR is recorded
+# with the old judge, and its change takes effect for the PRs after it (P12a J1, J2). Nothing is
+# refused: Dependabot and config PRs are recorded and compared like any other. Three jobs share only
+# artifacts, so the PR's code never touches the base's output or the comparator (P12a J3). It also
+# runs on every push to main, which catches PRs that each passed alone but change behaviour together.
 #
-# Limits, stated: GitHub runs the PR's own copy of THIS file, so a PR that edits it edits the check
-# (review and the required-check setting are the backstop, and the PR record must say so); the PR's
+# Limits, stated (P12a §3): this detects ACCIDENTAL behaviour changes, not a PR written to defeat it —
+# the PR's ledger code runs inside the recorder's process, and its install and build scripts run on
+# the same runner before the judge is restored, so code built to do it can forge its own recording;
+# code review is the control for that. GitHub runs the PR's own copy of THIS file. The PR's
 # dependencies are under test by design, except the judge's runtime (vitest, vite, happy-dom,
-# @vitejs/plugin-react), which plan D14 freezes until S1a PR-3; `apps/sandbox/tsconfig.json`,
-# `.npmrc`, `pnpm-workspace.yaml` and `patches/` still reach the PR's recording, so a change to them
+# @vitejs/plugin-react), which plan D14 freezes until S1a PR-3 and which this job names in a notice;
+# `@diboas/test-support`, `apps/sandbox/tsconfig.json`, `.npmrc`, `pnpm-workspace.yaml`, `patches/`
+# and the root `package.json` and `turbo.json` still reach the PR's recording, so a change to them
 # is printed as a notice and must be named in the PR record.
 
 on:
   pull_request:
+    branches: [main]
+    # `edited` covers a stacked PR retargeted onto main after its parent merges.
+    types: [opened, synchronize, reopened, edited]
+  push:
     branches: [main]
 
 permissions:
@@ -42,10 +50,14 @@ env:
     .npmrc
     pnpm-workspace.yaml
     patches
+    package.json
+    turbo.json
+    packages/test-support
 
 jobs:
   plan:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     outputs:
       base: ${{ steps.plan.outputs.base }}
       skip: ${{ steps.plan.outputs.skip }}
@@ -57,11 +69,21 @@ jobs:
       - name: Decide whether there is anything to compare; name judge and build-setting changes
         id: plan
         shell: bash
+        env:
+          EVENT: ${{ github.event_name }}
+          ACTION: ${{ github.event.action }}
+          BASE_CHANGED: ${{ github.event.changes.base != null }}
         run: |
           set -euo pipefail
-          # The merge commit's first parent IS the base it was built on.
+          # A PR's merge commit, or a merge on main: its first parent IS the base it was built on.
           BASE_SHA=$(git rev-parse HEAD^1)
+          echo "Base: $BASE_SHA · head: $(git rev-parse HEAD) · event: $EVENT${ACTION:+ ($ACTION)}"
           echo "base=$BASE_SHA" >> "$GITHUB_OUTPUT"
+          if [ "$ACTION" = "edited" ] && [ "$BASE_CHANGED" != "true" ]; then
+            echo "Only the title or description changed: nothing to compare."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           if ! git cat-file -e "$BASE_SHA:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
             echo "The characterization harness is not on the base yet: nothing to compare."
             echo "skip=true" >> "$GITHUB_OUTPUT"
@@ -84,12 +106,18 @@ jobs:
             echo "::notice::This PR changes build settings that reach its recording (plan P12a §3). The PR record must name them:"
             echo "$SETTINGS"
           fi
+          RUNTIME=$(git diff "$BASE_SHA" HEAD -- pnpm-lock.yaml | grep -E '^[+-] +(/?)(vitest|vite|happy-dom|@vitejs/plugin-react)@' || true)
+          if [ -n "$RUNTIME" ]; then
+            echo "::notice::This PR moves the judge's runtime, which plan D14 freezes until S1a PR-3; the PR record must say why:"
+            echo "$RUNTIME"
+          fi
           echo "skip=false" >> "$GITHUB_OUTPUT"
 
   record-base:
     needs: plan
     if: needs.plan.outputs.skip == 'false'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -123,6 +151,7 @@ jobs:
     needs: plan
     if: needs.plan.outputs.skip == 'false'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -147,6 +176,9 @@ jobs:
           set -euo pipefail
           # shellcheck disable=SC2086
           git restore --source="$BASE_SHA" --staged --worktree -- $JUDGE
+          echo "Restored from the base (what the PR had differently):"
+          # shellcheck disable=SC2086
+          git diff --name-status HEAD -- $JUDGE
           # shellcheck disable=SC2086
           git diff --exit-code "$BASE_SHA" -- $JUDGE
           # shellcheck disable=SC2086
@@ -180,6 +212,7 @@ jobs:
     needs: [plan, record-base, record-head]
     if: always()
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Nothing to compare, or a recording failed
         id: gate
@@ -202,9 +235,10 @@ jobs:
         with:
           persist-credentials: false
           ref: ${{ needs.plan.outputs.base }}
+          sparse-checkout-cone-mode: false
           sparse-checkout: |
-            apps/sandbox/scripts/characterization
-            apps/sandbox/src/lib/ledger/decide/__tests__/characterization/frozen.json
+            /apps/sandbox/scripts/characterization/
+            /apps/sandbox/src/lib/ledger/decide/__tests__/characterization/frozen.json
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         if: steps.gate.outputs.compare == 'true'
         with:
