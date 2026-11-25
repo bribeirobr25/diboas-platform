@@ -159,8 +159,13 @@ jobs:
     uses: ./.github/workflows/market-data-collect.yml
     with:
       topup: true
-    # No secrets passed: the called job reads MARKET_DATA_TOKEN from the `market-data`
-    # environment (main only; 5.872).
+    # Passes MARKET_DATA_TOKEN by name, and nothing else: a called workflow gets an
+    # environment secret only when the caller passes it (unpassed, it was empty and the
+    # 2026-11-24 top-up failed with "no token", register 5.1030). The called job declares
+    # the `market-data` environment (main only; 5.872), so the value and the branch rule
+    # are the environment's.
+    secrets:
+      MARKET_DATA_TOKEN: ${{ secrets.MARKET_DATA_TOKEN }}
 
   refresh:
     needs: [decide, topup]

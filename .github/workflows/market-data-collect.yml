@@ -57,8 +57,15 @@ on:
         description: 'Collect the late and blocked series only (the weekly refresh calls this)'
         type: boolean
         default: false
-    # No `secrets:` here: MARKET_DATA_TOKEN is an environment secret of `market-data`
-    # (limited to main), read by the job below; a caller cannot pass it (5.872).
+    # MARKET_DATA_TOKEN is an environment secret of `market-data` (limited to main), read by
+    # the job below. A called workflow receives an environment secret only if the caller
+    # passes it by name; unpassed, it resolves to an empty string with no error (GitHub
+    # docs, reusable workflows). `required: true` makes a caller that forgets it fail at
+    # the call instead (register 5.1030; 5.872). The value is still the environment's: the
+    # job declares `environment: market-data`, so its branch rule applies.
+    secrets:
+      MARKET_DATA_TOKEN:
+        required: true
     outputs:
       status:
         description: 'complete | blocked | failed (empty: the job did not reach its report)'

@@ -1211,7 +1211,11 @@ pinned by a test that was watched failing.
   here in Actions (`market-data-collect.yml`) and writes there through `MARKET_DATA_TOKEN`, scoped
   to that one repository and held as an environment secret of `market-data`, which only `main` may
   use (since 2026-11-11, register 5.872, gate `STORE-ENV-1`): the collection job declares the
-  environment and no caller passes the token. Each run's check report is written before the first
+  environment. **A called workflow gets an environment secret only when its caller passes it by
+  name** (unpassed, it is an empty string and nothing errors): the weekly refresh's top-up call
+  passes `MARKET_DATA_TOKEN` and nothing else, and the collection's `workflow_call` declares it
+  `required: true` (5.1030: the 2026-11-24 top-up ran with no token). The value and the branch
+  rule stay the environment's, because the job that reads it declares the environment. Each run's check report is written before the first
   series, after every series and at the end (`requested`, `complete`), so a run killed by its time
   limit still names what it did not reach (5.883). Data commits go to its `main`, under `market/` only; collector code
   changes go through a PR. Guard: `DATA-STORE-1`.
