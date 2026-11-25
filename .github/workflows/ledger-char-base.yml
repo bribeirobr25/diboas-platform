@@ -29,8 +29,10 @@ name: ledger-char-base
 on:
   pull_request:
     branches: [main]
-    # `edited` covers a stacked PR retargeted onto main after its parent merges.
-    types: [opened, synchronize, reopened, edited]
+    # No `edited`: a run for a title or description edit would report "nothing to compare" as a
+    # passing check on the same commit and hide an earlier failed comparison. A stacked PR retargeted
+    # onto main is compared on its next push, and the push run on main catches anything merged
+    # without one.
   push:
     branches: [main]
 
@@ -72,18 +74,12 @@ jobs:
         env:
           EVENT: ${{ github.event_name }}
           ACTION: ${{ github.event.action }}
-          BASE_CHANGED: ${{ github.event.changes.base != null }}
         run: |
           set -euo pipefail
           # A PR's merge commit, or a merge on main: its first parent IS the base it was built on.
           BASE_SHA=$(git rev-parse HEAD^1)
           echo "Base: $BASE_SHA · head: $(git rev-parse HEAD) · event: $EVENT${ACTION:+ ($ACTION)}"
           echo "base=$BASE_SHA" >> "$GITHUB_OUTPUT"
-          if [ "$ACTION" = "edited" ] && [ "$BASE_CHANGED" != "true" ]; then
-            echo "Only the title or description changed: nothing to compare."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
           if ! git cat-file -e "$BASE_SHA:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
             echo "The characterization harness is not on the base yet: nothing to compare."
             echo "skip=true" >> "$GITHUB_OUTPUT"

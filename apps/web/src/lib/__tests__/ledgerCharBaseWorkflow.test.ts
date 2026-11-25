@@ -9,7 +9,8 @@
  * - both recordings start the recorder directly, NODE_OPTIONS cleared, never through package.json;
  * - the final job always runs, fails when the plan or a recording did not succeed, and compares with
  *   the base's comparator and frozen ids, with no `continue-on-error` and no `|| true` anywhere;
- * - nothing is refused (J2) and the job runs for PRs, retargeted PRs and pushes to main.
+ * - nothing is refused (J2) and the job runs for PR pushes and pushes to main — never for a
+ *   description edit, whose "nothing to compare" would post a passing check over a failed one.
  * Lives with the other workflow guards because the website's tests can load `js-yaml`.
  */
 import { readFileSync } from 'node:fs';
@@ -39,7 +40,7 @@ interface Job {
   'timeout-minutes'?: number;
 }
 interface Workflow {
-  on: { pull_request: { branches: string[]; types: string[] }; push: { branches: string[] } };
+  on: { pull_request: { branches: string[]; types?: string[] }; push: { branches: string[] } };
   env: Record<string, string>;
   jobs: Record<string, Job>;
 }
@@ -156,10 +157,11 @@ describe('LEDGER-CHAR-1 · the workflow compares honestly', () => {
     }
   });
 
-  it('should refuse nothing and run for PRs, retargeted PRs and pushes to main', () => {
+  it('should refuse nothing and run for PR pushes and pushes to main, never for a description edit', () => {
     expect(readFileSync(FILE, 'utf8')).not.toMatch(/may not|refuse a changed judge/i);
     expect(wf.on.pull_request.branches).toEqual(['main']);
-    expect(wf.on.pull_request.types).toEqual(['opened', 'synchronize', 'reopened', 'edited']);
+    // No `edited`: a description edit would post a passing "nothing to compare" over a failed run.
+    expect(wf.on.pull_request.types).toBeUndefined();
     expect(wf.on.push.branches).toEqual(['main']);
   });
 });
