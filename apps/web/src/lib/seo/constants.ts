@@ -291,7 +291,7 @@ export const PAGE_SEO_CONFIG = {
   'tools/currency-depreciation': {
     title: 'Currency Depreciation Calculator',
     description:
-      'See what happens to your local currency over time. Compare cash, a bank account, and a digital-dollar strategy at its historical rate.',
+      'See what happens to your local currency over time. Compare cash, a bank account, and a diBoaS strategy (a yearly scenario based on the long-run S&P 500; not a forecast).',
     keywords: [
       'currency depreciation calculator',
       'inflation hedge',

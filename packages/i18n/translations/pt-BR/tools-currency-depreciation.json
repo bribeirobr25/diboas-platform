@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Calculadora de desvalorização cambial",
-    "description": "Calculadora gratuita de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e em uma estratégia diBoaS (retorno histórico de {scenarioHistorical} ao ano; não é previsão e envolve risco)."
+    "description": "Calculadora de desvalorização cambial. Compare sua moeda local em dinheiro, no banco e numa estratégia diBoaS (cenário de {scenarioHistorical} ao ano com base no S&P 500; não é previsão e envolve risco)."
   },
   "hero": {
     "kicker": "Calculadora de desvalorização cambial",
@@ -31,7 +31,7 @@
     "bankLabel": "Rendimento do banco",
     "bankRateNote": "{rate}% taxa local",
     "diboasLabel": "Uma estratégia diBoaS",
-    "diboasNote": "{rate}% ao ano em dólares americanos: retorno histórico da estratégia. Rentabilidade passada não é garantia de rentabilidade futura; o valor pode cair, inclusive abaixo do que você aplicou.",
+    "diboasNote": "Ilustrativo: {rate}% ao ano em dólares americanos, um cenário com base no retorno total de longo prazo do S&P 500 (1928–2024). Não é um histórico de resultados do diBoaS nem uma previsão. Rentabilidade passada não é garantia de rentabilidade futura; o valor pode cair, inclusive abaixo do que você aplicou.",
     "retrospectiveThenLabel": "Então ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Agora ({asOfMonth})",
@@ -48,8 +48,8 @@
   "resultMoment": {
     "eyebrow": "O que seu dinheiro realmente rende",
     "eyebrowUsd": "O que seus dólares parados rendem",
-    "chartAria": "Como o {currency} se compara em {years, plural, one {# ano} other {# anos}} mantido em dinheiro, em banco local e em dólar digital no diBoaS.",
-    "chartAriaUsd": "Como seus dólares se comparam em {years, plural, one {# ano} other {# anos}} em um banco versus em dólar digital no diBoaS.",
+    "chartAria": "Como o {currency} se compara em {years, plural, one {# ano} other {# anos}} mantido em dinheiro, em banco local e numa estratégia diBoaS (um cenário ilustrativo).",
+    "chartAriaUsd": "Como seus dólares se comparam em {years, plural, one {# ano} other {# anos}} em um banco versus numa estratégia diBoaS (um cenário ilustrativo).",
     "shareText": "Em {years, plural, one {# ano} other {# anos}}, meus {currency} poderiam valer {value} em uma estratégia diBoaS. Veja como ficariam os seus."
   },
   "vignette": {

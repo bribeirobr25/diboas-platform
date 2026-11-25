@@ -58,7 +58,7 @@ export const CurrencyDepreciation: Story = {
         id: 'diboas',
         label: 'A diBoaS strategy',
         value: fmt(16105),
-        note: "10% a year in US dollars: the strategy's historical return. Past results, not a forecast; the value can fall, including below what you put in.",
+        note: 'Illustrative: 10% a year in US dollars, a scenario based on the long-run S&P 500 total return (1928–2024). Not a diBoaS track record and not a forecast; the value can fall, including below what you put in.',
         variant: 'primary',
       },
     ],
