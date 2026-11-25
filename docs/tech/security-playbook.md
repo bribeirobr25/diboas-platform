@@ -207,7 +207,7 @@ Verified from `curl -I https://diboas.com/api/health`:
 strict-transport-security: max-age=31536000; includeSubDomains; preload
 x-content-type-options: nosniff
 x-frame-options: DENY
-referrer-policy: strict-origin-when-cross-origin
+referrer-policy: strict-origin
 permissions-policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
 content-security-policy: default-src 'self'; script-src 'self' 'nonce-<per-request>' ...; ... frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' ...
 ```

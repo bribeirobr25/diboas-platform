@@ -142,6 +142,5 @@ export const B2C_PTBR_WAITLIST_CONFIG = {
   headline: 'landing-b2c.ptbr.finalCta.header',
   subheadline: 'landing-b2c.ptbr.finalCta.body',
   hideBenefits: true,
-  hideNoSpam: true,
   source: 'landing_b2c' as const,
 } as const;

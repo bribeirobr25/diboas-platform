@@ -9,13 +9,14 @@
     "emailLabel": "Dirección de correo electrónico",
     "cta": "Unirse a la lista de espera",
     "submitting": "Uniéndose...",
-    "privacyNote": "Sin spam. Solo actualizaciones del producto, acceso anticipado y cambios antes del lanzamiento.",
-    "legendText": "Registro en la lista de espera"
+    "legendText": "Registro en la lista de espera",
+    "joinNotice": "Al unirte recibes correos sobre tu lugar en la lista de espera y nuestro lanzamiento; puedes detenerlos cuando quieras desde el enlace de cada correo. Tratamos tus datos como describe nuestra <link>Política de Privacidad</link>.",
+    "noteConsent": "Anotar también qué botón o enlace de campaña me trajo aquí. Nos ayuda a ver qué enlaces funcionan; puedes quitarlo cuando quieras desde el enlace de nuestros correos o escribiéndonos.",
+    "noteConsentCampaignOnly": "Anotar también qué enlace de campaña me trajo aquí. Nos ayuda a ver qué enlaces funcionan; puedes quitarlo cuando quieras desde el enlace de nuestros correos o escribiéndonos."
   },
   "error": {
     "generic": "Algo salió mal. Intenta de nuevo.",
     "invalidEmail": "Por favor ingresa un correo válido.",
-    "consentRequired": "Por favor marca la casilla para continuar.",
     "alreadyRegistered": "¡Ya estás en la lista!",
     "network": "Error de conexión. Verifica tu internet e intenta de nuevo."
   },

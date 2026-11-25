@@ -191,7 +191,7 @@ Applied to all routes via `next.config.js`:
 | --------------------------- | -------------------------------------------------------------- |
 | `X-Frame-Options`           | `DENY`                                                         |
 | `X-Content-Type-Options`    | `nosniff`                                                      |
-| `Referrer-Policy`           | `strict-origin-when-cross-origin`                              |
+| `Referrer-Policy`           | `strict-origin` (W-D1: no page address reaches the next page)  |
 | `X-DNS-Prefetch-Control`    | `on`                                                           |
 | `Strict-Transport-Security` | `max-age=31536000; includeSubDomains; preload`                 |
 | `X-XSS-Protection`          | `1; mode=block`                                                |

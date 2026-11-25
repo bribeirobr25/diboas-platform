@@ -40,7 +40,7 @@ test.describe('Waitlist signup — happy path', () => {
     // vars / external services. The stub keeps the test hermetic.
     await page.route('**/api/waitlist/signup', async (route) => {
       const request = route.request();
-      // Sanity: assert the client actually sent the email + consent.
+      // Sanity: the email, and `gdprAccepted: true` (the join notice replaced the emails box, W-D1).
       const body = request.postDataJSON() as Record<string, unknown>;
       expect(body.email).toBeTruthy();
       expect(body.gdprAccepted).toBe(true);
@@ -93,11 +93,12 @@ test.describe('Waitlist signup — happy path', () => {
 
     // Fill the form. The form uses native HTML inputs — name attributes
     // are stable, role-based locators stay readable.
+    // W-D1 (F5, G1): no consent box, an email is enough; the optional note box stays unticked.
     const emailInput = waitlistSection.locator('input[name="email"]').first();
-    const consentCheckbox = waitlistSection.locator('input[name="gdprAccepted"]').first();
+    await expect(waitlistSection.locator('input[name="gdprAccepted"]')).toHaveCount(0);
+    await expect(waitlistSection.locator('input[name="noteConsent"]').first()).not.toBeChecked();
 
     await emailInput.fill('e2e+playwright@example.com');
-    await consentCheckbox.check();
 
     // Submit. The submit button is the only one inside the form.
     const submitButton = waitlistSection.locator('form button[type="submit"]').first();
@@ -110,6 +111,7 @@ test.describe('Waitlist signup — happy path', () => {
     await expect(waitlistSection.getByText('421')).toBeVisible({ timeout: 10_000 });
     expect(posted).toHaveLength(1);
     expect(posted[0]!.source).toBe('landing_b2c');
+    expect(posted[0]).not.toHaveProperty('attributionConsent');
   });
 
   test('posts landing_b2b from the business page waitlist form', async ({ page }) => {
@@ -117,7 +119,6 @@ test.describe('Waitlist signup — happy path', () => {
     const waitlistSection = page.locator('#waitlist');
     await waitlistSection.waitFor({ state: 'visible', timeout: 15_000 });
     await waitlistSection.locator('input[name="email"]').first().fill('e2e+b2b@example.com');
-    await waitlistSection.locator('input[name="gdprAccepted"]').first().check();
     await waitlistSection.locator('form button[type="submit"]').first().click();
     await expect.poll(() => posted.length, { timeout: 10_000 }).toBe(1);
     expect(posted[0]!.source).toBe('landing_b2b');
@@ -136,7 +137,8 @@ test.describe('Waitlist signup — happy path', () => {
     }
     await gate.waitFor({ state: 'visible', timeout: 15_000 });
     await gate.locator('input[name="email"]').fill('e2e+gate@example.com');
-    await gate.locator('input[type="checkbox"]').check();
+    // no consent box; the gate's note box (campaign links only) stays unticked
+    await expect(gate.locator('input[name="noteConsent"]')).not.toBeChecked();
     await gate.locator('button[type="submit"]').click();
     await expect.poll(() => posted.length, { timeout: 10_000 }).toBe(1);
     expect(posted[0]!.source).toBe('tool_money_jobs');

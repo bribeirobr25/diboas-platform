@@ -103,7 +103,13 @@ export async function POST(request: NextRequest): Promise<NextResponse<ConsentRe
       actorIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
       actorUserAgent: request.headers.get('user-agent') ?? undefined,
       correlationId: request.headers.get('x-request-id') || undefined,
-      details: { consentType: 'analytics', previousState: previousState, newState: body.analytics },
+      // The banner version the choice was given under (W-D1, spec §3.5 item 5).
+      details: {
+        consentType: 'analytics',
+        previousState: previousState,
+        newState: body.analytics,
+        version: CookieConfig.version,
+      },
     });
 
     logRequestEnd('POST', '/api/consent', 200, startTime);

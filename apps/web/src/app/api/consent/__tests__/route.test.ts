@@ -192,7 +192,13 @@ describe('POST /api/consent', () => {
         actorIp: undefined,
         actorUserAgent: undefined,
         correlationId: undefined,
-        details: { consentType: 'analytics', previousState: true, newState: false },
+        // W-D1: the audit entry also records the banner version the choice was given under
+        details: {
+          consentType: 'analytics',
+          previousState: true,
+          newState: false,
+          version: expect.any(String),
+        },
       })
     );
   });

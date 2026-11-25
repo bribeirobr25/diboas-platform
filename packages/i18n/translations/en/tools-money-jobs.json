@@ -101,10 +101,9 @@
       "nextSteps": "The next step for each job"
     },
     "emailPlaceholder": "Your email",
-    "gdprLabel": "I agree to receive emails from diBoaS and accept the privacy policy.",
     "cta": "See my full plan",
     "ctaLoading": "One moment",
-    "finePrint": "Joining the waitlist unlocks it. No spam: this is the same list everything else joins. Joining doesn't move your money.",
+    "finePrint": "Joining the waitlist unlocks it. Joining doesn't move your money.",
     "successLine": "You're on the list, position {position}.",
     "referralLinkLabel": "Your invite link"
   },

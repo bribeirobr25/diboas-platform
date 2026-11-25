@@ -54,8 +54,11 @@ export function PageViewTracker() {
       // GA4 direct pageview — fire alongside the analytics service
       const windowWithGtag = window as WindowWithGtag;
       if (windowWithGtag.gtag) {
-        // GA4 attaches the page address to every event; keep only allowlisted parameters (5.864).
-        windowWithGtag.gtag('set', { page_location: scrubUrl(window.location.href) });
+        // GA4 attaches the page address to every event; keep only allowlisted parameters (5.864),
+        // and campaign values only in their known shape (W-D1, 5.924).
+        windowWithGtag.gtag('set', {
+          page_location: scrubUrl(window.location.href, { campaign: 'shaped' }),
+        });
         windowWithGtag.gtag('event', 'page_view', {
           page_path: pathname,
           page_title: pageTitle,

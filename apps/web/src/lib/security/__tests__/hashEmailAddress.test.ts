@@ -35,9 +35,10 @@ describe(
         if (e.isDirectory()) return e.name === '__tests__' ? [] : files(full);
         return /\.tsx?$/.test(e.name) && !/\.(test|stories)\./.test(e.name) ? [full] : [];
       });
-    /** The two calls that hash a hash, never an address (the unsubscribe token). */
+    /** The two calls that hash a hash, never an address (the email-link token; its check moved
+     * from the unsubscribe route into the shared `emailLinkToken.ts` in W-D1). */
     const HASH_OF_HASH = [
-      'app/api/email/unsubscribe/route.ts: hmacHash(emailHash)',
+      'lib/email/emailLinkToken.ts: hmacHash(emailHash)',
       'lib/email/unsubscribeUrl.ts: hmacHash(emailHash)',
     ];
 
@@ -56,7 +57,7 @@ describe(
 
     /** Every file that imports hmacHash: the one function and the two hash-of-hash sites. */
     const IMPORTERS = [
-      'app/api/email/unsubscribe/route.ts',
+      'lib/email/emailLinkToken.ts',
       'lib/email/unsubscribeUrl.ts',
       'lib/security/hashEmailAddress.ts',
     ];

@@ -18,33 +18,7 @@ import {
 import { ConnectionMonitor } from './connectionMonitor';
 import { type IAnalyticsBackend, type SendOptions, GA4Backend, PostHogBackend } from './backends';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
-import { scrubUrl } from '@/lib/utils/scrubUrl';
-import { clearConsentGatedCtaSource } from './ctaAttribution';
-
-const UTM_STORAGE_KEY = 'diboas-utm-params';
-const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'] as const;
-
-/**
- * Read UTM params from sessionStorage (non-destructive).
- * Returns only the keys that are present, or empty object.
- */
-function getUtmEnrichment(): Record<string, string> {
-  if (typeof window === 'undefined') return {};
-  try {
-    const raw = sessionStorage.getItem(UTM_STORAGE_KEY);
-    if (!raw) return {};
-    const parsed = JSON.parse(raw) as Record<string, string>;
-    const result: Record<string, string> = {};
-    for (const key of UTM_KEYS) {
-      if (parsed[key]) {
-        result[key] = parsed[key];
-      }
-    }
-    return result;
-  } catch {
-    return {};
-  }
-}
+import { getConsentedUtmParams } from './utmAttribution';
 
 class AnalyticsTrackingService implements AnalyticsService {
   private config: AnalyticsConfig;
@@ -98,7 +72,8 @@ class AnalyticsTrackingService implements AnalyticsService {
     if (!this.config.enabled) return;
     if (!hasAnalyticsConsent()) return;
 
-    const utmParams = getUtmEnrichment();
+    // The held campaign values, shaped, under analytics consent only (W-D1, MKT-EVENT-2).
+    const utmParams = getConsentedUtmParams();
 
     const enrichedEvent: AnalyticsEvent = {
       ...event,
@@ -155,25 +130,6 @@ class AnalyticsTrackingService implements AnalyticsService {
     } catch (error) {
       this.handleTrackEventError(error as AnalyticsError, event);
     }
-  }
-
-  /**
-   * Track page view events
-   * SEO: Important for understanding user journey
-   */
-  trackPageView(path: string, title: string, locale: string): void {
-    if (!this.config.trackPageViews) return;
-
-    this.track({
-      name: 'page_view',
-      parameters: {
-        page_path: path,
-        page_title: title,
-        page_location: typeof window !== 'undefined' ? scrubUrl(window.location.href) : '',
-        locale,
-        referrer: typeof document !== 'undefined' ? scrubUrl(document.referrer) : '',
-      },
-    });
   }
 
   /**
@@ -312,8 +268,8 @@ class AnalyticsTrackingService implements AnalyticsService {
         applicationEventBus.on(ApplicationEventType.CONSENT_WITHDRAWN, () => {
           this.eventQueue = [];
           this.retryQueue.clear();
-          // A market/tool signup label was stored only because of consent (decision C).
-          clearConsentGatedCtaSource();
+          // The signup note's hold is the box's, not analytics': withdrawal stops the analytics
+          // readers (they check consent) and leaves the hold alone (W-D1, spec §3.1).
           Logger.info('Analytics: consent withdrawn — queues cleared');
         });
       })

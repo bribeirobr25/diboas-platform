@@ -7,6 +7,7 @@
  * - priority_waitlist: signed up after cap is full with no invite, or referrer at invite limit
  * - standard:          invited by standard/priority_waitlist tier
  */
+import type { AttributionConsent } from '../constants';
 
 export interface WaitlistEntry {
   id: string;
@@ -81,6 +82,8 @@ export interface WaitlistSignupBody {
   referredBy?: string;
   source?: WaitlistSource;
   tags?: string[];
+  /** Sent only when the note box is ticked (W-D1, spec §3.4); the route checks its version. */
+  attributionConsent?: AttributionConsent;
 }
 
 export interface AddEntryInput {

@@ -101,10 +101,9 @@
       "nextSteps": "Der nächste Schritt für jede Aufgabe"
     },
     "emailPlaceholder": "Deine E-Mail",
-    "gdprLabel": "Ich bin einverstanden, E-Mails von diBoaS zu erhalten, und akzeptiere die Datenschutzerklärung.",
     "cta": "Meinen ganzen Plan sehen",
     "ctaLoading": "Einen Moment",
-    "finePrint": "Der Wartelisten-Beitritt schaltet ihn frei. Kein Spam: Es ist dieselbe Liste wie überall sonst. Der Beitritt bewegt kein Geld.",
+    "finePrint": "Der Wartelisten-Beitritt schaltet ihn frei. Der Beitritt bewegt kein Geld.",
     "successLine": "Du bist auf der Liste, Position {position}.",
     "referralLinkLabel": "Dein Einladungslink"
   },

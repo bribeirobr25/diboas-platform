@@ -9,8 +9,9 @@
   "backToTop": "Voltar ao topo",
   "header": {
     "title": "Política de Privacidade",
-    "lastUpdated": "Última atualização: 20 de novembro de 2026",
-    "intro": "O diBoaS (\"nos\", \"nosso\", \"nossa\") está comprometido em proteger sua privacidade. Esta política explica como coletamos, utilizamos e protegemos seus dados pessoais."
+    "lastUpdated": "Última atualização: 25 de novembro de 2026",
+    "intro": "O diBoaS (\"nos\", \"nosso\", \"nossa\") está comprometido em proteger sua privacidade. Esta política explica como coletamos, utilizamos e protegemos seus dados pessoais.",
+    "notice": "Atualizado em 25 de novembro de 2026: os formulários de inscrição têm uma caixa separada e desmarcada para anotar qual botão ou link de campanha trouxe você, que você pode remover na página \"Configurações de e-mail\"; corrigimos a base legal da medição do uso do site e por quanto tempo os dados de análise são guardados."
   },
   "sections": {
     "whoWeAre": {
@@ -32,7 +33,8 @@
           "Endereço de e-mail (ao entrar na lista de espera)",
           "Nome (opcional)",
           "Preferência de idioma",
-          "Preferências de comunicação"
+          "Preferências de comunicação",
+          "Se você marcar a caixa no formulário de inscrição: qual botão ou link de campanha trouxe você à nossa lista de espera"
         ]
       },
       "automatic": {
@@ -42,9 +44,11 @@
           "Tipo e versão do navegador",
           "Informações do dispositivo",
           "Páginas visitadas e tempo de permanência",
-          "Fonte de referência"
+          "Qual formulário de inscrição você usou, e o código de convite de um amigo, se você usou um",
+          "O seu país, deduzido da sua conexão ou, quando dá para estimar, do idioma do seu navegador"
         ]
-      }
+      },
+      "signupRecords": "Seja qual for a sua escolha, uma inscrição registra qual formulário de inscrição você usou, o seu país (deduzido da sua conexão ou, quando dá para estimar, do idioma do seu navegador) e, se você se inscrever por um formulário das páginas do site depois de abrir o link de convite de um amigo na mesma aba do navegador, ou se digitou o código de convite dele, o código desse amigo."
     },
     "howWeUseData": {
       "title": "Como Usamos Seus Dados",
@@ -63,7 +67,11 @@
             "legalBasis": "Interesse legítimo (com opção de exclusão)"
           },
           {
-            "purpose": "Melhorar nosso site e serviços",
+            "purpose": "Medir como os visitantes usam o site (Google Analytics, PostHog)",
+            "legalBasis": "O seu consentimento (banner de cookies)"
+          },
+          {
+            "purpose": "Encontrar e corrigir erros (monitoramento de erros)",
             "legalBasis": "Interesse legítimo"
           },
           {
@@ -73,6 +81,10 @@
           {
             "purpose": "Cumprir obrigações legais",
             "legalBasis": "Exigência legal"
+          },
+          {
+            "purpose": "Anotar qual botão ou link de campanha trouxe você à nossa lista de espera",
+            "legalBasis": "O seu consentimento (a caixa no formulário de inscrição), para anotações salvas a partir de 25 de novembro de 2026"
           }
         ]
       }
@@ -103,11 +115,15 @@
         },
         {
           "type": "Dados de análise:",
-          "duration": "26 meses (anonimizados)"
+          "duration": "Google Analytics: até 14 meses após sua última visita. PostHog: 12 meses."
         },
         {
           "type": "Registros de comunicação:",
           "duration": "3 anos"
+        },
+        {
+          "type": "Anotação da inscrição:",
+          "duration": "Guardada com a sua inscrição na lista de espera até você removê-la na página de preferências de e-mail (o link \"Configurações de e-mail\" nos nossos e-mails) ou nos pedir para removê-la ou para excluir a sua inscrição. Os valores de campanha e os nomes de botões que as nossas ferramentas de análise recebem com o seu consentimento de cookies seguem a retenção delas."
         }
       ]
     },
@@ -175,7 +191,7 @@
     },
     "brazilNote": {
       "title": "Nota para Usuários Brasileiros",
-      "content": "Este site está disponível para visualização informativa. A lista de espera e recursos interativos estarão disponíveis quando o serviço for lançado no Brasil, sujeito às aprovações regulatórias da ANPD (Autoridade Nacional de Proteção de Dados). O tratamento de dados pessoais de usuários brasileiros seguirá integralmente a Lei Geral de Proteção de Dados (LGPD - Lei n. 13.709/2018)."
+      "content": "O Brasil é um dos mercados iniciais do diBoaS. Durante a fase de pré-lançamento, o site e a lista de espera estão totalmente acessíveis para usuários brasileiros. O lançamento dos serviços financeiros estará sujeito às aprovações regulatórias necessárias, incluindo da ANPD (Autoridade Nacional de Proteção de Dados), Banco Central do Brasil e demais órgãos competentes. O tratamento de dados pessoais de usuários brasileiros seguirá integralmente a Lei Geral de Proteção de Dados (LGPD - Lei n. 13.709/2018)."
     },
     "changes": {
       "title": "Alterações Nesta Política",

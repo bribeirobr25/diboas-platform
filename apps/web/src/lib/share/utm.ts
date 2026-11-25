@@ -131,33 +131,3 @@ export function getShareUrl(
 
   return url;
 }
-
-/**
- * Extract UTM params from URL for analytics
- */
-export function extractUtmParams(url: string): Partial<UtmParams> {
-  try {
-    const urlObj = new URL(url);
-    const params: Partial<UtmParams> = {};
-
-    const utmKeys: (keyof UtmParams)[] = [
-      'utm_source',
-      'utm_medium',
-      'utm_campaign',
-      'utm_content',
-      'utm_term',
-    ];
-
-    utmKeys.forEach((key) => {
-      const value = urlObj.searchParams.get(key);
-      if (value) {
-        // Type assertion needed due to readonly constraint
-        (params as Record<string, string>)[key] = value;
-      }
-    });
-
-    return params;
-  } catch {
-    return {};
-  }
-}

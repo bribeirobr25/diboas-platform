@@ -1,12 +1,13 @@
 /**
- * ATTR-1 · which button sent a person to the waitlist, recorded honestly (market clean-up W-C;
- * founder decisions DR-2026-11-11-market-cleanup-decisions item 6 and -c2-decisions C, H).
+ * ATTR-1 · which button sent a person to the waitlist, recorded honestly (market clean-up W-C,
+ * rewritten by W-D1: registers 5.923, 5.924; spec §3.1).
  *
- *   * The market band and the four tool results store their label only after analytics
- *     consent; the Learn writer stays ungated (decision C: nothing changes
- *     for existing callers; the pre-consent question is register `5.923`).
- *   * A consent-gated label is not sent once consent is withdrawn; an unknown label is never
- *     sent (the server drops it too, `sanitizeTags`).
+ *   * Every button holds its label in MEMORY only (the attribution hold), with no consent check:
+ *     the signup form's note box decides whether it is ever stored. Nothing is written to the
+ *     device, under any consent.
+ *   * An unknown label is never held (the server drops it too, `sanitizeTags`).
+ *   * The analytics reader sees the label only under analytics consent; withdrawal does not
+ *     clear the hold.
  *   * No waitlist link carries `?source=` (nothing ever read it).
  *
  * @vitest-environment happy-dom
@@ -22,57 +23,71 @@ vi.mock('@/components/Providers', () => ({ useLocale: () => ({ locale: 'en' }) }
 vi.mock('@/lib/analytics', () => ({ analyticsService: { track: vi.fn() } }));
 
 import {
-  clearConsentGatedCtaSource,
   clearCtaSource,
-  peekCtaSource,
-  setConsentedCtaSource,
+  getConsentedCtaLabel,
+  getNoteForSignup,
   setCtaSource,
-} from '../ctaAttribution';
-import { CTA_SOURCES, TOOL_CTA_SLUGS } from '../ctaSources';
+} from '../utmAttribution';
+import { CTA_SOURCES, TOOL_CTA_SLUGS, type CtaSource } from '../ctaSources';
 import { LESSONS } from '@/lib/learn/registry';
 import { MarketCtaBand } from '@/components/Market/MarketCtaBand/MarketCtaBand';
 import { ResultMoment } from '@/components/Sections/ResultMoment';
 
-const KEY = 'diboas-cta-source';
+const HOLD = Symbol.for('diboas.attributionHold');
+const heldLabel = () => getNoteForSignup().ctaLabel;
 
+/** Every storage write the page makes. */
+const writes: string[] = [];
 beforeEach(() => {
-  sessionStorage.clear();
+  delete (globalThis as Record<symbol, unknown>)[HOLD];
   consent.given = false;
+  writes.length = 0;
+  for (const store of [Storage.prototype]) {
+    vi.spyOn(store, 'setItem').mockImplementation(function (this: Storage, key: string) {
+      writes.push(key);
+    });
+  }
 });
-afterEach(() => cleanup());
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+});
 
 describe('ATTR-1: the signup-source label', () => {
-  it('should store a market or tool label only when analytics consent is given', () => {
-    setConsentedCtaSource('market');
-    expect(sessionStorage.getItem(KEY)).toBeNull();
+  it('should hold any known label in memory, with or without consent, and store nothing', () => {
+    setCtaSource('market');
+    expect(heldLabel()).toBe('market');
     consent.given = true;
-    setConsentedCtaSource('tool-idle-cash');
-    expect(sessionStorage.getItem(KEY)).toBe('tool-idle-cash');
-  });
-
-  it('should keep the Learn writer ungated when there is no consent', () => {
     setCtaSource('learn-compound-interest');
-    expect(sessionStorage.getItem(KEY)).toBe('learn-compound-interest');
-    expect(peekCtaSource()).toBe('learn-compound-interest');
+    expect(heldLabel()).toBe('learn-compound-interest');
+    expect(writes).toEqual([]);
+    expect(document.cookie).toBe('');
   });
 
-  it('should not send a consent-gated label once consent is withdrawn', () => {
+  it('should never hold an unknown or free-text label', () => {
+    setCtaSource('ana@example.com' as CtaSource);
+    expect(heldLabel()).toBeNull();
+    setCtaSource('tool-idle-cash');
+    setCtaSource('nope' as CtaSource);
+    expect(heldLabel()).toBe('tool-idle-cash');
+  });
+
+  it('should give the analytics reader the label only under consent, and keep it on withdrawal', () => {
+    setCtaSource('market');
+    expect(getConsentedCtaLabel()).toBeNull();
     consent.given = true;
-    setConsentedCtaSource('market');
-    expect(peekCtaSource()).toBe('market');
+    expect(getConsentedCtaLabel()).toBe('market');
     consent.given = false;
-    expect(peekCtaSource()).toBeNull();
+    expect(getConsentedCtaLabel()).toBeNull();
+    expect(heldLabel()).toBe('market');
   });
 
-  it('should never send an unknown or free-text label (and drop it), while peek keeps a usable one', () => {
-    sessionStorage.setItem(KEY, 'ana@example.com');
-    expect(peekCtaSource()).toBeNull();
-    expect(sessionStorage.getItem(KEY)).toBeNull();
-    setCtaSource('learn-compound-interest');
-    expect(peekCtaSource()).toBe('learn-compound-interest');
-    expect(peekCtaSource()).toBe('learn-compound-interest');
+  it('should forget the label when cleared (after a successful signup)', () => {
+    setCtaSource('learn-ten-percent');
     clearCtaSource();
-    expect(peekCtaSource()).toBeNull();
+    expect(heldLabel()).toBeNull();
+    clearCtaSource();
+    expect(heldLabel()).toBeNull();
   });
 
   it('should list every lesson and tool label, each short enough to be stored as a tag', () => {
@@ -82,8 +97,17 @@ describe('ATTR-1: the signup-source label', () => {
     for (const label of CTA_SOURCES) expect(`cta_source:${label}`.length).toBeLessThanOrEqual(50);
   });
 
-  it('should store "market" when the market band link is clicked with consent, and nothing without', () => {
-    const band = (
+  it('should list no label that no button writes', () => {
+    const written = new Set<string>([
+      'market',
+      ...TOOL_CTA_SLUGS.map((slug) => `tool-${slug}`),
+      ...Object.keys(LESSONS).map((id) => `learn-${id}`),
+    ]);
+    for (const label of CTA_SOURCES) expect(written.has(label)).toBe(true);
+  });
+
+  it('should hold "market" when the market band link is clicked, with no ?source= on the link', () => {
+    const { container } = render(
       <MarketCtaBand
         locale="en"
         cadence="c"
@@ -97,48 +121,16 @@ describe('ATTR-1: the signup-source label', () => {
         shareTitle="tt"
       />
     );
-    const link = (c: HTMLElement) =>
-      [...c.querySelectorAll('a')].find((a) => a.textContent === 'Join the waitlist')!;
-    const first = render(band);
-    fireEvent.click(link(first.container));
-    expect(sessionStorage.getItem(KEY)).toBeNull();
-    cleanup();
-    consent.given = true;
-    const second = render(band);
-    const a = link(second.container);
+    const a = [...container.querySelectorAll('a')].find(
+      (el) => el.textContent === 'Join the waitlist'
+    )!;
     expect(a.getAttribute('href')).not.toMatch(/\?source=/);
     fireEvent.click(a);
-    expect(sessionStorage.getItem(KEY)).toBe('market');
+    expect(heldLabel()).toBe('market');
+    expect(writes).toEqual([]);
   });
 
-  it.each(TOOL_CTA_SLUGS)(
-    'should neither send nor keep the tool-%s label once consent is withdrawn',
-    (slug) => {
-      consent.given = true;
-      setConsentedCtaSource(`tool-${slug}`);
-      consent.given = false;
-      expect(peekCtaSource()).toBeNull();
-      expect(sessionStorage.getItem(KEY)).toBeNull();
-    }
-  );
-
-  it('should clear an older label when a gated button is clicked without consent (last touch wins)', () => {
-    setCtaSource('learn-compound-interest');
-    setConsentedCtaSource('market');
-    expect(sessionStorage.getItem(KEY)).toBeNull();
-  });
-
-  it('should clear only a consent-gated label when consent is withdrawn', () => {
-    consent.given = true;
-    setConsentedCtaSource('tool-idle-cash');
-    clearConsentGatedCtaSource();
-    expect(sessionStorage.getItem(KEY)).toBeNull();
-    setCtaSource('learn-ten-percent');
-    clearConsentGatedCtaSource();
-    expect(sessionStorage.getItem(KEY)).toBe('learn-ten-percent');
-  });
-
-  it('should store nothing when a result CTA is clicked without consent', () => {
+  it('should hold the tool label when a result CTA is clicked', () => {
     const { container } = render(
       <ResultMoment
         eyebrow="e"
@@ -149,21 +141,7 @@ describe('ATTR-1: the signup-source label', () => {
       />
     );
     fireEvent.click([...container.querySelectorAll('a')].find((a) => a.textContent === 'Join')!);
-    expect(sessionStorage.getItem(KEY)).toBeNull();
-  });
-
-  it('should store the tool label when a result CTA is clicked with consent', () => {
-    consent.given = true;
-    const { container } = render(
-      <ResultMoment
-        eyebrow="e"
-        headlineValue={1}
-        headlineFormatter={String}
-        headlineCaption="c"
-        cta={{ headline: 'h', label: 'Join', href: '/#waitlist', toolSlug: 'card-fees' }}
-      />
-    );
-    fireEvent.click([...container.querySelectorAll('a')].find((a) => a.textContent === 'Join')!);
-    expect(sessionStorage.getItem(KEY)).toBe('tool-card-fees');
+    expect(heldLabel()).toBe('tool-card-fees');
+    expect(writes).toEqual([]);
   });
 });

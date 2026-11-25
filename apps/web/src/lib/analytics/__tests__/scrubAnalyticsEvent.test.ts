@@ -8,6 +8,7 @@ describe('scrubAnalyticsEvent (PostHog before_send, 5.864)', () => {
         $current_url: 'https://diboas.com/en/delete-confirm?token=abc',
         $pathname: '/en/delete-confirm',
         $referrer: 'https://diboas.com/pt-BR/email-preferences?t=x&utm_source=mail',
+        $prev_pageview_url: 'https://diboas.com/en?utm_source=Mail&t=x',
         plan: 'free',
         count: 3,
       },
@@ -17,7 +18,7 @@ describe('scrubAnalyticsEvent (PostHog before_send, 5.864)', () => {
     expect(event.properties).toEqual({
       $current_url: 'https://diboas.com/en/delete-confirm',
       $pathname: '/en/delete-confirm',
-      $referrer: 'https://diboas.com/pt-BR/email-preferences?utm_source=mail',
+      $prev_pageview_url: 'https://diboas.com/en?utm_source=mail',
       plan: 'free',
       count: 3,
     });
@@ -28,6 +29,59 @@ describe('scrubAnalyticsEvent (PostHog before_send, 5.864)', () => {
   it('should pass a null event and an event without properties through', () => {
     expect(scrubAnalyticsEvent(null)).toBeNull();
     expect(scrubAnalyticsEvent({})).toEqual({});
+  });
+});
+
+describe('scrubAnalyticsEvent: campaign values and referrers (W-D1, 5.924, DR G3)', () => {
+  it('should keep only shaped campaign values in URLs, at any depth', () => {
+    const event = scrubAnalyticsEvent({
+      properties: {
+        $current_url: 'https://diboas.com/en?utm_source=Bad!&utm_source=ok&utm%5Fmedium=x',
+        nested: { url: '/en?a=1?utm_campaign=Spring' },
+      },
+    });
+    expect(event.properties).toEqual({
+      $current_url: 'https://diboas.com/en',
+      nested: { url: '/en?utm_campaign=spring' },
+    });
+  });
+
+  it('should shape or drop every property named a campaign key or ending in one', () => {
+    const event = scrubAnalyticsEvent({
+      properties: { utm_source: ' Newsletter ', utm_medium: 'two words', utm_id: 'kept' },
+      $set: { $initial_utm_campaign: 'Spring', $initial_utm_term: 7 },
+      $set_once: { $session_entry_utm_content: 'a'.repeat(40) },
+    });
+    expect(event.properties).toEqual({ utm_source: 'newsletter', utm_id: 'kept' });
+    expect(event.$set).toEqual({ $initial_utm_campaign: 'spring' });
+    expect(event.$set_once).toEqual({});
+  });
+
+  it('should remove every referrer-derived property, in every form', () => {
+    const event = scrubAnalyticsEvent({
+      properties: {
+        $referrer: 'https://www.bing.com/search?q=x',
+        $referring_domain: 'www.bing.com',
+        $search_engine: 'bing',
+        ph_keyword: 'x',
+        $session_entry_referrer: 'https://www.bing.com/search?q=x',
+        $session_entry_referring_domain: 'www.bing.com',
+        $session_entry_search_engine: 'bing',
+        $session_entry_ph_keyword: 'x',
+        $pathname: '/en',
+      },
+      $set: { $referrer: 'x', $referring_domain: 'y' },
+      $set_once: {
+        $initial_referrer: 'x',
+        $initial_referring_domain: 'y',
+        $initial_search_engine: 'z',
+        $initial_ph_keyword: 'k',
+      },
+    });
+    expect(event.properties).toEqual({ $pathname: '/en' });
+    expect(event.$set).toEqual({});
+    expect(event.$set_once).toEqual({});
+    expect(JSON.stringify(event)).not.toContain('bing');
   });
 });
 
@@ -47,6 +101,25 @@ describe('scrubAnalyticsEvent at depth (thirteenth audit)', () => {
     expect(Object.keys((event.properties as { $heatmap_data: object }).$heatmap_data)).toEqual([
       'https://diboas.com/en/delete-confirm',
     ]);
+  });
+});
+
+describe('scrubAnalyticsEvent: URLs inside free text (W-D1 audit)', () => {
+  it('should scrub a URL inside a message or an element chain, keeping the rest of the text', () => {
+    const event = scrubAnalyticsEvent({
+      properties: {
+        $exception_list: [
+          { value: 'Failed to load https://diboas.com/en/delete-confirm?token=S1' },
+        ],
+        $elements_chain: 'a:href="/en/email-preferences?t=S2"nth-child="1"',
+        note: 'see /en/delete-confirm?token=S3 for details',
+      },
+    });
+    const json = JSON.stringify(event);
+    for (const secret of ['S1', 'S2', 'S3']) expect(json).not.toContain(secret);
+    const props = event.properties as Record<string, unknown>;
+    expect(props.note).toBe('see /en/delete-confirm for details');
+    expect(props.$elements_chain).toBe('a:href="/en/email-preferences"nth-child="1"');
   });
 });
 

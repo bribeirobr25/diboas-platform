@@ -30,7 +30,6 @@ interface WaitlistSectionConfig {
   belowCta?: string;
   belowCheckbox?: string;
   hideBenefits?: boolean;
-  hideNoSpam?: boolean;
   namespace?: string;
   confirmationNamespace?: string;
   /** Localized i18n key for the section's accessible label. Falls back to the

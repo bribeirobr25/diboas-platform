@@ -219,7 +219,8 @@
     "decline": "Rechazar",
     "accept": "Aceptar",
     "declineAriaLabel": "Rechazar cookies",
-    "acceptAriaLabel": "Aceptar cookies"
+    "acceptAriaLabel": "Aceptar cookies",
+    "settings": "Configuración de cookies"
   },
   "bookCall": {
     "notConfigured": "Calendario de reservas no configurado",
@@ -228,14 +229,6 @@
     "error": "No se pudo cargar el calendario",
     "loadError": "No se pudo cargar el calendario de reservas",
     "contactDirectly": "Contáctanos directamente para programar una llamada"
-  },
-  "waitingList": {
-    "errors": {
-      "invalidName": "Por favor, ingresa un nombre válido",
-      "invalidXAccount": "Por favor, ingresa una cuenta de X válida (ej: @usuario)",
-      "emailRequired": "El correo electrónico es obligatorio",
-      "storageError": "No se pudo guardar tu información. Por favor, inténtalo de nuevo."
-    }
   },
   "share": {
     "generating": "Generando tarjeta...",
@@ -270,7 +263,7 @@
   },
   "emailPreferences": {
     "heading": "Tus preferencias de correo",
-    "description": "Se te dará de baja de los correos de diBoaS. Tu posición en la lista de espera y tus créditos por referidos se conservarán.",
+    "description": "Elige qué cambiar. Darte de baja detiene nuestros correos; quitar la nota borra qué botón o enlace de campaña te trajo a la lista de espera. Tu posición en la lista y tus créditos por invitación se mantienen en ambos casos.",
     "unsubscribeButton": "Cancelar suscripción",
     "staySubscribedButton": "Mantener suscripción",
     "successUnsubscribed": "Se te ha dado de baja de los correos de diBoaS.",
@@ -280,7 +273,11 @@
     "error": "Algo salió mal. Inténtalo de nuevo.",
     "processing": "Procesando...",
     "backHome": "Volver al inicio",
-    "tryAgainButton": "Intentar de nuevo"
+    "tryAgainButton": "Intentar de nuevo",
+    "removeNoteButton": "Quitar la nota sobre qué enlace me trajo aquí",
+    "noteRemoved": "La nota se ha quitado.",
+    "noNote": "No hay ninguna nota que quitar.",
+    "noteRemovalError": "No pudimos quitar la nota. Inténtalo de nuevo."
   },
   "disclaimers": {
     "educationalProjection": "Cifras ilustrativas basadas en supuestos históricos de interés compuesto. Rentabilidades pasadas no garantizan resultados futuros. Usa solo dinero que puedas permitirte perder. diBoaS no es un banco y tus fondos no están asegurados."

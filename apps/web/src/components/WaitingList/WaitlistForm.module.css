@@ -10,10 +10,6 @@
   max-width: var(--dimension-480);
 }
 
-.compact {
-  max-width: var(--percent-100);
-}
-
 .inputGroup {
   display: flex;
   gap: var(--spacing-md);
@@ -163,6 +159,7 @@
 
 .consent {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-sm);
 }
@@ -200,21 +197,15 @@
 
 .privacyNote {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  /* secondary, not muted: the join notice sits on the dark /business section too (W-D1, pa11y 3.75:1) */
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
-/* Compact mode specific styles */
-.compact .inputGroup {
-  width: var(--percent-100);
-}
-
-.compact .input {
-  padding: var(--spacing-md) var(--spacing-lg);
-}
-
-.compact .submitButton {
-  padding: var(--spacing-md) var(--spacing-lg);
+/* The join notice's Privacy Policy link: inline text link (24x24 exception, E6). */
+.privacyNote a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .belowCta {

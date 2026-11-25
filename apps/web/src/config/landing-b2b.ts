@@ -493,7 +493,6 @@ export const B2B_WAITLIST_CONFIG = {
   headline: 'landing-b2b.waitlist.header',
   subheadline: 'landing-b2b.waitlist.description',
   hideBenefits: true,
-  hideNoSpam: false,
   namespace: 'landing-b2b.waitlist',
   confirmationNamespace: 'landing-b2b.waitlistSuccess',
   source: 'landing_b2b' as const,

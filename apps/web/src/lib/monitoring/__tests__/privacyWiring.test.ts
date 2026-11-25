@@ -51,18 +51,25 @@ describe('5.862 · every Sentry runtime scrubs errors and transactions', () => {
   });
 });
 
+/** PostHog's init options live in their own module since W-D1 (spec §3.7). */
+const POSTHOG_OPTIONS = 'src/lib/analytics/posthogInitOptions.ts';
+
 describe('5.864 · every analytics door records scrubbed addresses', () => {
+  it("should build the provider's options from the options module", () => {
+    const provider = read('src/components/Providers/PostHogProvider.tsx');
+    expect(provider).toMatch(/buildPostHogInitOptions\(/);
+    expect(provider).not.toMatch(/before_send|session_recording|mask_personal_data_properties/);
+  });
+
   it('should give PostHog the scrubber as before_send', () => {
-    expect(read('src/components/Providers/PostHogProvider.tsx')).toMatch(
-      /before_send:\s*scrubAnalyticsEvent\b/
-    );
+    expect(read(POSTHOG_OPTIONS)).toMatch(/before_send:\s*scrubAnalyticsEvent\b/);
   });
 
   /* Thirteenth audit: a page_location given to `config` outranks every later `set`, so each
    * route change reported the landing page. The scrubbed location is SET before config. */
   it('should set a scrubbed page location and referrer BEFORE configuring GA4, inside a function', () => {
     const src = read('src/components/Providers/GoogleAnalyticsLoader.tsx');
-    expect(src).toContain('(function(){var scrub=${SCRUB_URL_INLINE_JS};');
+    expect(src).toContain('(function(){var scrub=${SCRUB_URL_INLINE_JS_SHAPED};');
     const set = src.indexOf(
       "gtag('set', { page_location: scrub(location.href), page_referrer: scrub(document.referrer) });"
     );
@@ -73,7 +80,7 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
   });
 
   it('should mask token parameters at the PostHog source and evaluate no feature flag', () => {
-    const src = read('src/components/Providers/PostHogProvider.tsx');
+    const src = read(POSTHOG_OPTIONS);
     expect(src).toMatch(/mask_personal_data_properties:\s*true/);
     expect(src).toMatch(/custom_personal_data_properties:\s*\[[^\]]*'t'[^\]]*'token'/);
     expect(src).toMatch(/advanced_disable_feature_flags:\s*true/);
@@ -82,27 +89,33 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
   /* Fourteenth audit: session recordings keep page TEXT, which before_send never sees, and the
    * waitlist success view prints the visitor's email. */
   it('should mask all text and inputs and record no network data or console lines in PostHog sessions', () => {
-    const src = read('src/components/Providers/PostHogProvider.tsx');
+    const src = read(POSTHOG_OPTIONS);
     const recording = /session_recording:\s*\{([^}]*)\}/.exec(src)?.[1] ?? '';
     expect(recording, 'session_recording options').not.toBe('');
     expect(recording).toMatch(/maskAllInputs:\s*true/);
     expect(recording).toMatch(/maskTextSelector:\s*'\*'/);
     expect(recording).toMatch(/recordHeaders:\s*false/);
     expect(recording).toMatch(/recordBody:\s*false/);
+    // W-D1: every recorded URL through the shaped scrubber, by a hoisted named function
+    expect(recording).toMatch(/maskCapturedNetworkRequestFn:\s*maskCapturedNetworkRequest\b/);
     expect(src).toMatch(/enable_recording_console_log:\s*false/);
   });
 
   it('should set a scrubbed page location before each GA4 page view', () => {
     const src = read('src/components/Performance/PageViewTracker.tsx');
-    const set = src.indexOf("gtag('set', { page_location: scrubUrl(window.location.href) })");
+    const set = src.indexOf(
+      "page_location: scrubUrl(window.location.href, { campaign: 'shaped' })"
+    );
     expect(set).toBeGreaterThan(-1);
     expect(set).toBeLessThan(src.indexOf("gtag('event', 'page_view'"));
   });
 
-  it('should scrub the page location and referrer the analytics service records', () => {
+  /* W-D1 (5.924): the analytics service's uncalled `trackPageView`, its only page-address and
+   * referrer field, was deleted; page views reach GA4 through PageViewTracker (above) and
+   * PostHog through its own capture (`before_send`). */
+  it('should keep no page-view or referrer field in the analytics service', () => {
     const src = read('src/lib/analytics/service.ts');
-    expect(src).toMatch(/page_location:[^\n]*scrubUrl\(window\.location\.href\)/);
-    expect(src).toMatch(/referrer:[^\n]*scrubUrl\(document\.referrer\)/);
+    expect(src).not.toMatch(/trackPageView\b|document\.referrer|page_location/);
   });
 });
 

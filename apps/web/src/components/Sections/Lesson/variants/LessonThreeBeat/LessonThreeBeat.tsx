@@ -11,7 +11,7 @@ import {
   readMessageArray,
   type LessonMetadata,
 } from '@/lib/learn';
-import { setCtaSource } from '@/lib/analytics/ctaAttribution';
+import { setCtaSource } from '@/lib/analytics/utmAttribution';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LessonHero } from '@/components/UI/LessonHero';
 import { LessonProgressBar } from '@/components/UI/LessonProgressBar';
@@ -119,10 +119,10 @@ export function LessonThreeBeat({
   };
 
   const handleWaitlistCta = () => {
-    // Phase 3 (RV-2): per-talk waitlist attribution through the existing
-    // sessionStorage machinery (`setCtaSource`). Runs regardless of
-    // analytics consent: cta_source is first-party funnel context on the
-    // signup itself, same as every other CTA source.
+    // Phase 3 (RV-2): per-talk waitlist attribution through the in-memory
+    // attribution hold (`setCtaSource`, W-D1). Runs regardless of analytics
+    // consent: the label is stored with the signup only when its note box is
+    // ticked, same as every other CTA source.
     setCtaSource(`learn-${lessonId}`);
     if (!enableAnalytics) return;
     analyticsService.track({

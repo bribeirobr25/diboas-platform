@@ -17,6 +17,7 @@ import { useLocale } from '@/components/Providers';
 import { InstagramIcon, XIcon, YoutubeIcon, LinkedinIcon } from '@/components/UI/SocialIcons';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 import { LocaleLink } from '@/components/UI';
+import { CookieSettingsButton } from '@/components/CookieConsent/CookieSettingsButton';
 import { FOOTER_CONFIG } from '@/config/footer';
 import { ROUTES } from '@/config/routes';
 import styles from './MinimalFooter.module.css';
@@ -233,6 +234,8 @@ export function MinimalFooter({
               {intl.formatMessage({ id: link.labelKey })}
             </LocaleLink>
           ))}
+          {/* W-D1 (D6, F2): reopens the cookie choice at the foot of every page with a banner */}
+          <CookieSettingsButton className={`${styles.legalLink} ${styles.legalLinkButton}`} />
         </nav>
 
         {/* Divider between legal links and bottom section */}

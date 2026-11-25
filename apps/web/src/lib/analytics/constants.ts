@@ -7,7 +7,6 @@ import { AnalyticsConfig } from './types';
 export const ANALYTICS_DEFAULTS: AnalyticsConfig = {
   enabled: process.env.NODE_ENV === 'production',
   debug: process.env.NODE_ENV === 'development',
-  trackPageViews: true,
   trackPerformance: true,
   trackNavigation: true,
   batchSize: 10,

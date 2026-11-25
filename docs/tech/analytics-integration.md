@@ -193,7 +193,7 @@ Source: `apps/web/src/lib/compound-interest/constants.ts` (the earlier table dri
 | `learn_video_started`         | Facade play click (`videoLocale` param) — dark until recordings                 |
 | `learn_video_error`           | Facade load-timeout fallback shown                                              |
 
-Waitlist attribution from talks rides `cta_source: learn-<lessonId>` (the sessionStorage machinery), not a bespoke event.
+Waitlist attribution from talks rides `cta_source: learn-<lessonId>` (held in memory by the attribution hold, `lib/analytics/utmAttribution.ts`, and stored only with the signup's ticked note box, W-D1), not a bespoke event.
 
 ### Navigation & System Events
 
@@ -468,7 +468,7 @@ Once per element per page view; never on close; never for the current view; a mo
 
 **The German kill-signal (DR-2026-11-11-market-cleanup-decisions item 8), defined by event properties, not by URL:** numerator = consented sessions with `market_backdrop_explainer_opened` where `view = backdrop` and `locale = de`; denominator = consented sessions with a pageview of `/de/market/backdrop`. Events are queued and sent in batches, so a page-URL filter could credit an open to the page the reader moved to; PostHog receives each event's own timestamp, and `view`/`locale` are set when the event is tracked. **It undercounts, never overcounts:** opens before hydration (no listener yet) and before the consent banner is answered are not sent; market/tool signup labels are written only after consent while Learn's are written before (so the two are not comparable). Ops step (founder): register `view`, `group`, `condition`, `from`, `to` as GA4 event-scoped custom dimensions, or GA4 reports will not show them.
 
-**Signup source (`cta_source`)**: the waitlist row's tag `cta_source:<label>` (labels in `lib/analytics/ctaSources.ts`) is readable by SQL only, and SQL is authoritative: the `waiting_list_submission_success` event also carries `cta_source`, but it fires on a re-submission too (an existing address gets a 200 with its stored position, anti-enumeration), while the stored row's tags are not updated then. The server keeps only UTM keys and one known label; UTM values are still free text from the visit URL (`5.924`).
+**Signup source (`cta_source`) and campaign values (W-D1):** the waitlist row's tags `cta_source:<label>` and `utm_<key>:<value>` exist ONLY when the signup ticked the note box (with the server's evidence tag `consent:<text>:v<n>:<date>`), so their share of signups is the opt-in rate, not every signup. The `waiting_list_submission_success` event carries `cta_source` and the shaped campaign values under analytics consent only. Breakdowns by either are valid within their own population; neither is a census.
 
 ### Sending on page hide (2026-11-11)
 

@@ -6,6 +6,7 @@ import { UI_LAYOUT_CONSTANTS } from '@/config/ui-constants';
 import { WebVitalsTracker } from '@/components/Performance/WebVitalsTracker';
 import { MonitoringInit } from '@/components/Performance/MonitoringInit';
 import { PostHogProvider, GoogleAnalyticsLoader } from '@/components/Providers';
+import { buildGa4ConsentBootstrap } from '@/lib/analytics/ga4ConsentBootstrap';
 import './globals.css';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID;
@@ -168,39 +169,9 @@ export default async function RootLayout({
               nonce={nonce}
               suppressHydrationWarning
               dangerouslySetInnerHTML={{
-                __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-
-                // Default: deny analytics until consent is given (GDPR compliant)
-                gtag('consent', 'default', {
-                  'analytics_storage': 'denied',
-                  'ad_storage': 'denied',
-                  'wait_for_update': 500
-                });
-
-                // Check for existing consent in localStorage
-                try {
-                  var consent = JSON.parse(localStorage.getItem('diboas-cookie-consent') || '{}');
-                  if (consent.analytics && consent.version === '1.0') {
-                    gtag('consent', 'update', { 'analytics_storage': 'granted' });
-                  }
-                } catch(e) {}
-
-                // Listen for consent changes — registered on \`window\`, intentionally
-                // without a corresponding removeEventListener: this is an inline
-                // bootstrap script (not a React component), so the listener is
-                // tied to the document lifecycle. GA4 needs to receive every
-                // consent toggle for as long as the page is open. Phase 3 L12
-                // (audit/2026-05-08): documented to silence the parity-rule heuristic.
-                window.addEventListener('cookie-consent-changed', function(e) {
-                  if (e.detail && e.detail.analytics) {
-                    gtag('consent', 'update', { 'analytics_storage': 'granted' });
-                  } else {
-                    gtag('consent', 'update', { 'analytics_storage': 'denied' });
-                  }
-                });
-              `,
+                // Consent Mode v2 bootstrap (default denied; the stored choice and the banner's
+                // window event). Built from COOKIE_CONFIG so its key and version never drift (W-D1).
+                __html: buildGa4ConsentBootstrap({ measurementId: GA_MEASUREMENT_ID }),
               }}
             />
             {/* GA4 script (gtag/js) loads only AFTER consent — defers ~67 KB.

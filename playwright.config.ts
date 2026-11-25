@@ -10,6 +10,17 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const PORT = process.env.PLAYWRIGHT_TEST_PORT ?? '3000';
+/**
+ * WITHDRAW-1 (W-D1): the withdrawal spec lives in its own folder and runs as its own project, only
+ * when `E2E_WITHDRAWAL` is set (Playwright runs every project it is given), against a build with
+ * stub analytics keys; the `chromium` project ignores that folder. Pinned by
+ * `apps/web/src/lib/__tests__/playwrightConfig.test.ts`.
+ */
+const WITHDRAWAL = Boolean(process.env.E2E_WITHDRAWAL);
+const CHROME = {
+  ...devices['Desktop Chrome'],
+  ...(process.env.CI ? { channel: 'chrome' } : {}),
+};
 const BASE_URL = process.env.PLAYWRIGHT_TEST_BASE_URL ?? `http://localhost:${PORT}`;
 
 export default defineConfig({
@@ -37,17 +48,16 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
+      testIgnore: ['**/withdrawal/**'],
       // In CI, run against the runner's preinstalled Google Chrome (the same
       // binary the pa11y job uses at /usr/bin/google-chrome) instead of
       // downloading Playwright's bundled Chromium — that 170 MB CDN download is
       // slow/flaky on the runner and was timing out the job. Locally, `channel`
       // is undefined → bundled Chromium (run `pnpm exec playwright install
       // chromium` once), preserving the existing local workflow.
-      use: {
-        ...devices['Desktop Chrome'],
-        ...(process.env.CI ? { channel: 'chrome' } : {}),
-      },
+      use: CHROME,
     },
+    ...(WITHDRAWAL ? [{ name: 'withdrawal', testDir: './tests/e2e/withdrawal', use: CHROME }] : []),
   ],
 
   // Spin up the production server before tests run. Reuses an

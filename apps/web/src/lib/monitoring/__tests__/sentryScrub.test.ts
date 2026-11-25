@@ -51,7 +51,8 @@ describe('scrubSentryEvent', () => {
   });
 
   it('should keep only allowlisted query parameters in every URL', () => {
-    expect(event.request?.url).toBe('https://diboas.com/en/delete-confirm?utm_source=mail');
+    // W-D1 (5.924): error paths keep no campaign value
+    expect(event.request?.url).toBe('https://diboas.com/en/delete-confirm');
     expect(event.transaction).toBe('/en/delete-confirm');
     expect(event.extra?.path).toBe('/api/waitlist/delete');
     expect(event.breadcrumbs?.[0].data).toEqual({ from: '/en', to: '/en/delete-confirm' });
@@ -156,7 +157,7 @@ describe('scrubSentryEvent on a Next-shaped transaction and error', () => {
     const e = scrubSentryEvent(transaction());
     const data = (e.contexts?.trace?.data ?? {}) as Record<string, unknown>;
     expect(data['http.target']).toBe('/en/email-preferences');
-    expect(data['url.full']).toBe('https://diboas.com/en/email-preferences?utm_source=mail');
+    expect(data['url.full']).toBe('https://diboas.com/en/email-preferences');
     expect(data['http.method']).toBe('GET');
     expect(data).not.toHaveProperty('http.query');
     expect(data).not.toHaveProperty('url.query');

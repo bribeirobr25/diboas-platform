@@ -30,6 +30,10 @@
 # Its grow-only CI check and that check's guard (5.958).
 /scripts/check-genius-controls-grow.mjs                            @bribeirobr25
 /apps/web/src/lib/__tests__/geniusControlsGrow.test.ts             @bribeirobr25
+/config/consent-texts.json                                         @bribeirobr25
+/scripts/check-consent-texts-grow.mjs                              @bribeirobr25
+/apps/web/src/lib/__tests__/consentTexts.test.ts                   @bribeirobr25
+/apps/web/src/lib/__tests__/ciWorkflowSteps.test.ts                @bribeirobr25
 /apps/sandbox/src/i18n/__tests__/messages.test.ts                  @bribeirobr25
 
 # Engineering-owned defaults (everything else): standard PR review.

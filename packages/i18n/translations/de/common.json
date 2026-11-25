@@ -219,7 +219,8 @@
     "decline": "Ablehnen",
     "accept": "Akzeptieren",
     "declineAriaLabel": "Cookies ablehnen",
-    "acceptAriaLabel": "Cookies akzeptieren"
+    "acceptAriaLabel": "Cookies akzeptieren",
+    "settings": "Cookie-Einstellungen"
   },
   "bookCall": {
     "notConfigured": "Buchungskalender nicht konfiguriert",
@@ -228,14 +229,6 @@
     "error": "Buchungskalender konnte nicht geladen werden",
     "loadError": "Buchungskalender konnte nicht geladen werden",
     "contactDirectly": "Kontaktiere uns direkt, um einen Anruf zu vereinbaren"
-  },
-  "waitingList": {
-    "errors": {
-      "invalidName": "Bitte gib einen gültigen Namen ein",
-      "invalidXAccount": "Bitte gib ein gültiges X-Konto ein (z.B. @benutzername)",
-      "emailRequired": "E-Mail ist erforderlich",
-      "storageError": "Deine Informationen konnten nicht gespeichert werden. Bitte versuche es erneut."
-    }
   },
   "share": {
     "generating": "Karte wird generiert...",
@@ -270,7 +263,7 @@
   },
   "emailPreferences": {
     "heading": "Verwalte deine E-Mails",
-    "description": "Du wirst von diBoaS-E-Mails abgemeldet. Deine Wartelistenposition und Empfehlungsguthaben bleiben erhalten.",
+    "description": "Wähle, was du ändern möchtest. Abmelden stoppt unsere E-Mails; das Entfernen der Notiz löscht, welcher Button oder Kampagnenlink dich zur Warteliste gebracht hat. Dein Platz auf der Warteliste und deine Empfehlungs-Guthaben bleiben in beiden Fällen erhalten.",
     "unsubscribeButton": "Abmelden",
     "staySubscribedButton": "Angemeldet bleiben",
     "successUnsubscribed": "Du wurdest von diBoaS-E-Mails abgemeldet.",
@@ -280,7 +273,11 @@
     "error": "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
     "processing": "Wird verarbeitet...",
     "backHome": "Zurück zur Startseite",
-    "tryAgainButton": "Erneut versuchen"
+    "tryAgainButton": "Erneut versuchen",
+    "removeNoteButton": "Die Notiz entfernen, welcher Link mich hierher gebracht hat",
+    "noteRemoved": "Die Notiz ist entfernt.",
+    "noNote": "Es gibt keine Notiz zum Entfernen.",
+    "noteRemovalError": "Wir konnten die Notiz nicht entfernen. Bitte versuche es erneut."
   },
   "disclaimers": {
     "educationalProjection": "Veranschaulichende Zahlen basierend auf historischen Annahmen zum Zinseszins. Vergangene Wertentwicklungen garantieren keine zukünftigen Ergebnisse. Verwende nur Geld, das du verlieren kannst. diBoaS ist keine Bank und deine Gelder sind nicht versichert."

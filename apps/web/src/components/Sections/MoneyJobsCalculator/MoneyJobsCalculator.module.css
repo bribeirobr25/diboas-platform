@@ -317,6 +317,10 @@
   gap: var(--spacing-sm);
   font-size: var(--font-size-xs);
   color: var(--color-slate-600);
+  cursor: pointer;
+  /* W-D1: the label extends the note box's target to 44 px (E6) */
+  min-height: var(--spacing-5xl);
+  padding: var(--spacing-sm) 0;
 }
 
 .gateSubmit {
@@ -345,6 +349,12 @@
   font-size: var(--font-size-xs);
   color: var(--color-slate-500);
   margin: 0;
+}
+
+/* The join notice's Privacy Policy link (W-D1): inline text link (24x24 exception, E6). */
+.gateFinePrint a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .gateError {

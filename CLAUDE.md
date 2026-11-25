@@ -114,7 +114,7 @@ apps/web/src/app/
     health/                # Health check (liveness + readiness)
     monitoring/            # Sentry envelope tunnel (same-origin; bypasses ad-blockers)
     og/                    # Dynamic Open Graph image generation
-    waitlist/              # Waitlist (signup, delete, position, referral, stats)
+    waitlist/              # Waitlist (signup, delete, position, referral, stats, note-removal)
 ```
 
 ### Source Organization (apps/web/src/)

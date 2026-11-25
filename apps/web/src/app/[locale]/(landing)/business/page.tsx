@@ -289,7 +289,6 @@ export default async function B2BLandingPage({ params }: LocalePageProps) {
                   headline: B2B_WAITLIST_CONFIG.headline,
                   subheadline: B2B_WAITLIST_CONFIG.subheadline,
                   hideBenefits: B2B_WAITLIST_CONFIG.hideBenefits,
-                  hideNoSpam: B2B_WAITLIST_CONFIG.hideNoSpam,
                   namespace: B2B_WAITLIST_CONFIG.namespace,
                   confirmationNamespace: B2B_WAITLIST_CONFIG.confirmationNamespace,
                   source: B2B_WAITLIST_CONFIG.source,

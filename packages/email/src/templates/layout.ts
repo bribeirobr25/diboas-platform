@@ -25,7 +25,9 @@ function getDisclaimer(locale: string): string {
 /**
  * The footer in the reader's language, linking to the legal pages in that language (fifteenth
  * audit: every email linked /en/legal/… with English labels). The labels are the site's own:
- * common.json `copyright`, `privacyPolicy`, `unsubscribeButton` and the Terms page title.
+ * common.json `copyright`, `privacyPolicy` and the Terms page title. The settings link (W-D1, G4)
+ * opens the email-preferences page, where the reader can unsubscribe or remove the signup note,
+ * so it is named "Email settings", not "Unsubscribe"; the List-Unsubscribe header is unchanged.
  */
 const FOOTER: Record<
   string,
@@ -35,14 +37,14 @@ const FOOTER: Record<
     rights: 'All rights reserved.',
     privacy: 'Privacy Policy',
     terms: 'Terms of Use',
-    unsubscribe: 'Unsubscribe',
+    unsubscribe: 'Email settings',
     transactional: 'This is a transactional email related to your diBoaS waitlist membership.',
   },
   'pt-BR': {
     rights: 'Todos os direitos reservados.',
     privacy: 'Política de Privacidade',
     terms: 'Termos de Uso',
-    unsubscribe: 'Cancelar inscrição',
+    unsubscribe: 'Configurações de e-mail',
     transactional:
       'Este é um e-mail transacional sobre a sua inscrição na lista de espera do diBoaS.',
   },
@@ -50,7 +52,7 @@ const FOOTER: Record<
     rights: 'Todos los derechos reservados.',
     privacy: 'Política de Privacidad',
     terms: 'Términos de Uso',
-    unsubscribe: 'Cancelar suscripción',
+    unsubscribe: 'Configuración de correo',
     transactional:
       'Este es un correo transaccional sobre tu inscripción en la lista de espera de diBoaS.',
   },
@@ -58,7 +60,7 @@ const FOOTER: Record<
     rights: 'Alle Rechte vorbehalten.',
     privacy: 'Datenschutzerklärung',
     terms: 'Nutzungsbedingungen',
-    unsubscribe: 'Abmelden',
+    unsubscribe: 'E-Mail-Einstellungen',
     transactional:
       'Dies ist eine Transaktions-E-Mail zu deiner Anmeldung auf der diBoaS-Warteliste.',
   },

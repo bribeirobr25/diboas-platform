@@ -134,7 +134,7 @@ The pre-launch site uses lightweight client-side state only:
 
 - **`useState` / `useRef`:** Component-local state for forms, carousels, modals, and UI toggles.
 - **Context providers:** `LocaleProvider` (current locale), `I18nProvider` / `PageI18nProvider` (translations), `PostHogProvider` (analytics, consent-gated).
-- **`sessionStorage`:** UTM parameters (`useUtmCapture`), waitlist stats cache (`useWaitlistStats`).
+- **`sessionStorage`:** waitlist stats cache (`useWaitlistStats`). Campaign values and the button label are held in memory only (the attribution hold, W-D1); nothing is stored on the device for attribution.
 - **Race condition prevention:** `useCarousel` uses `StateMachine`, `MutexLock`, `SafeInterval`, and `CleanupManager` from `@/lib/utils/RaceConditionPrevention`.
 - **Event bus:** `ApplicationEventBus` for cross-component communication (waitlist signup events propagate stats updates).
 
@@ -157,7 +157,7 @@ All hooks live in `apps/web/src/hooks/`:
 | `useMarketWedge`         | Resolves the per-market wedge figure from `marketDataService` (bank rate / inflation / currency-depreciation per locale); normalizes percent vs decimal units.                                                         |
 | `useResultShare`         | Money Tools result-moment share — builds the `/share` OG URL and shares via `useWebShare`; Format-A `share_initiated`/`share_completed` (no PII), gated by `enabled`.                                                  |
 | `useSwipeGesture`        | Touch gesture detection (swipe left/right) for carousel components. Configurable threshold.                                                                                                                            |
-| `useUtmCapture`          | Captures UTM parameters from URL on page load, persists to `sessionStorage` for attribution.                                                                                                                           |
+| `useUtmCapture`          | On first client load, removes the two legacy attribution keys and passes the URL's campaign values to the in-memory attribution hold (`lib/analytics/utmAttribution.ts`); nothing is stored (W-D1).                    |
 | `useWaitlistStats`       | Fetches waitlist stats with `fetchWithRetry`, caches in `sessionStorage` (5-min TTL), listens for real-time updates via `ApplicationEventBus`.                                                                         |
 | `useWebShare`            | Shared Web Share + copy-fallback engine (native sheet → clipboard, `copied` timer, AbortError no-op). Consumed by `useResultShare` + `MarketCtaBand`; analytics via `onInitiated`/`onCompleted` callbacks.             |
 

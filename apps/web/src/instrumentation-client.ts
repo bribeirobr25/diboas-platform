@@ -96,12 +96,17 @@ if (SENTRY_DSN) {
       if (replayActive) return;
       const client = Sentry.getClient();
       if (!client) return;
-      client.addIntegration(
-        Sentry.replayIntegration({
-          maskAllText: true,
-          blockAllMedia: true,
-        })
-      );
+      // W-D1 (spec §3.7): added once per page. After `stop()`, `getReplay()` still returns the
+      // instance, so Accept → Decline → Accept must not register a second replay. Nothing here
+      // calls start(), flush() or startBuffering(): the sample rates stay 0.
+      if (!Sentry.getReplay()) {
+        client.addIntegration(
+          Sentry.replayIntegration({
+            maskAllText: true,
+            blockAllMedia: true,
+          })
+        );
+      }
       replayActive = true;
     };
 

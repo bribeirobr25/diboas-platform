@@ -12,66 +12,12 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { timingSafeEqual } from 'crypto';
 import { detectPreferredLocale } from '@diboas/i18n/config';
-import { hmacHash } from '@/lib/security/encryption';
-import { decodeUnsubToken } from '@/lib/email/unsubscribeUrl';
+import { extractEmailLinkId, verifyEmailLinkToken } from '@/lib/email/emailLinkToken';
 import { applyRateLimit, readJsonObject } from '@/lib/api/routeHelpers';
 import { logAuditEvent } from '@/lib/audit/AuditService';
 import { Logger } from '@/lib/monitoring/Logger';
 import { sql } from '@/lib/database/client';
-
-/**
- * Verify the HMAC token matches the email hash using a constant-time
- * comparison (prevents timing attacks). Length-mismatch leaks the length
- * but not the contents — and HMAC outputs are always the same length, so
- * any length mismatch is a malformed input, not a useful signal.
- *
- * Phase 1.6 (audit/L2, 2026-05-08): replaced the manual constant-time
- * loop with the canonical `crypto.timingSafeEqual` for audit-friendliness.
- */
-function verifyToken(emailHash: string, token: string): boolean {
-  const expected = hmacHash(emailHash);
-  if (!expected) return false;
-  const a = Buffer.from(expected, 'utf8');
-  const b = Buffer.from(token, 'utf8');
-  if (a.length !== b.length) return false;
-  return timingSafeEqual(a, b);
-}
-
-/**
- * Extract id and token from request params.
- * R2 fix: full fallback chain for both new `t` param and legacy `id`+`token`.
- */
-function extractIdToken(
-  searchParams: URLSearchParams,
-  body?: Record<string, unknown>
-): { id: string; token: string } | null {
-  // 1. Try `t` param from URL (new format)
-  const tParam = searchParams.get('t');
-  if (tParam) {
-    const decoded = decodeUnsubToken(tParam);
-    if (decoded) return decoded;
-  }
-
-  // 2. Try legacy `id` + `token` from URL
-  const urlId = searchParams.get('id');
-  const urlToken = searchParams.get('token');
-  if (urlId && urlToken) return { id: urlId, token: urlToken };
-
-  // 3. Try `t` param from body (page fetch with new format)
-  if (body?.t && typeof body.t === 'string') {
-    const decoded = decodeUnsubToken(body.t);
-    if (decoded) return decoded;
-  }
-
-  // 4. Try legacy `id` + `token` from body (page fetch)
-  if (body?.id && body?.token && typeof body.id === 'string' && typeof body.token === 'string') {
-    return { id: body.id, token: body.token };
-  }
-
-  return null;
-}
 
 /**
  * GET — Redirect to branded email-preferences page.
@@ -82,7 +28,7 @@ export async function GET(request: NextRequest) {
   if (rateLimited) return rateLimited;
 
   const { searchParams } = request.nextUrl;
-  const params = extractIdToken(searchParams);
+  const params = extractEmailLinkId(searchParams);
 
   if (!params) {
     return NextResponse.json({ success: false, error: 'Invalid link' }, { status: 400 });
@@ -113,11 +59,16 @@ export async function POST(request: NextRequest) {
     const { searchParams } = request.nextUrl;
     // 5.847: `null` (or any non-object) is valid JSON; it reads as an empty body, not a 500.
     const body = await readJsonObject(request);
-    const action = (body.action as string) || 'unsubscribe';
+    // W-D1 (spec §3.6): a missing or empty action is the one-click unsubscribe (RFC 8058's body
+    // parses to {}); any other value than the two known actions is refused, never read as one.
+    const action = body.action === undefined || body.action === '' ? 'unsubscribe' : body.action;
+    if (action !== 'unsubscribe' && action !== 'resubscribe') {
+      return NextResponse.json({ success: false, error: 'Invalid request' }, { status: 400 });
+    }
 
-    const params = extractIdToken(searchParams, body);
+    const params = extractEmailLinkId(searchParams, body);
 
-    if (!params || !verifyToken(params.id, params.token)) {
+    if (!params || !verifyEmailLinkToken(params.id, params.token)) {
       return NextResponse.json({ success: false, error: 'Invalid request' }, { status: 400 });
     }
 

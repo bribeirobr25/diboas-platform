@@ -22,9 +22,7 @@ async function postedBody(source?: WaitlistSource) {
     ok: true,
     json: async () => ({ position: 1, referralCode: 'R', referralUrl: 'u' }),
   } as unknown as Response);
-  const { result } = renderHook(() =>
-    useWaitlistForm({ compact: true, source, onSuccess: vi.fn(), t: (k) => k })
-  );
+  const { result } = renderHook(() => useWaitlistForm({ source, onSuccess: vi.fn(), t: (k) => k }));
   act(() => {
     result.current.handleInputChange({
       target: { name: 'email', value: 'ana@example.com', type: 'email', checked: false },

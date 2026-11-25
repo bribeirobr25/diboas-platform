@@ -1,0 +1,27 @@
+/* The landing error page's "Cookie settings" control (W-D1, D6 + F2): the banner can show here,
+   so the choice can be changed here too. A button that reads as a quiet text link. */
+.cookieSettings {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 var(--spacing-xl);
+}
+
+.cookieSettingsButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--consent-settings-min-target);
+  min-width: var(--consent-settings-min-target);
+  background: none;
+  border: 0;
+  padding: var(--spacing-sm);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cookieSettingsButton:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-teal-400);
+  outline-offset: var(--focus-ring-offset);
+}

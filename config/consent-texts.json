@@ -1,0 +1,97 @@
+{
+  "_comment": "CONSENT-TEXT-1 (W-D1, register 5.923): each consent text, each version, a SHA-256 of its wording per locale (scripts/check-consent-texts-grow.mjs hashWording). Never edit a version: changed wording is a NEW version. Checked by consentTexts.test.ts and, against the PR base, by the CI step.",
+  "texts": [
+    {
+      "id": "banner",
+      "keys": [
+        "common.cookieConsent.message",
+        "common.cookieConsent.decline",
+        "common.cookieConsent.accept"
+      ],
+      "versions": {
+        "1.0": {
+          "en": "ecb61d714a1fb262794d89702663976e898ae8c2fa6c9cc8bb53497ef0fdab30",
+          "pt-BR": "8003352ecaf0b93f7e9fe588379989f6d72236e56d9f17e6492f227392017037",
+          "es": "dae072ee76b81c45410373edc619e902a3547d040a5880678f3ddad2499283cb",
+          "de": "d2bed6459fd5501eaf58fcdda546733d3eee48f9dca3dc3a338678f5dce943c1"
+        }
+      }
+    },
+    {
+      "id": "note",
+      "keys": ["waitlist.form.noteConsent"],
+      "versions": {
+        "1": {
+          "en": "1f924e340b55218aaa7b930ece445bfe142d28316befbfc7af4c2943ba7263dd",
+          "pt-BR": "cc95994a84932f8b4d3d0d4f353a5cb50f1da54021c44d9f74cff961d2720ee8",
+          "es": "decc4dca957f137499622ccb54dcc751bc4487cdfe33035755e03f660da654b2",
+          "de": "9d7094b9ef63443471a622b4341757002d2423d1e723c5e138750c1024e52f03"
+        }
+      }
+    },
+    {
+      "id": "note-campaign",
+      "keys": ["waitlist.form.noteConsentCampaignOnly"],
+      "versions": {
+        "1": {
+          "en": "8c33b0e6663dbb23e91c929cb22b25ea14f8e33835009aac9b447842af6dc7b0",
+          "pt-BR": "1370ce834e362c39164ec40e8c39a7c59bc8c0165aa0e427b939375805cdd87c",
+          "es": "210e1afa543d8dd7d57d7547f1be220521823724dc3c68e5d52fba9e92549319",
+          "de": "013d621184dfd93d3aedc01263164fb8f78db4a7908cc9c833da10ea379beb57"
+        }
+      }
+    },
+    {
+      "id": "join-notice",
+      "keys": ["waitlist.form.joinNotice"],
+      "versions": {
+        "1": {
+          "en": "ee2c9f7f69cf4dddcbdcadd76b359881bd0b0e8ba3ef3d38f02227d92c914714",
+          "pt-BR": "f3bdbb7293f05d80e6120be862cfd25738452fa59ffb56d93e57f8a9396ca009",
+          "es": "941ed00662a445e9e626d3f47ab24c9d2b26f4260cf07806717b238e78b46576",
+          "de": "5ccab8a33d546b8857d13eb734ea2b2789739fc555c36abc444b6f9a743da36c"
+        }
+      }
+    },
+    {
+      "id": "cookie-policy-note",
+      "keys": ["legal/cookies.sections.cookiesWeUse.analytics.description"],
+      "versions": {
+        "1": {
+          "en": "546edb5b55bcedc9c0ec14044c97920ef2c5e8372eeaa20df5c7f2b2e35d3eb7",
+          "pt-BR": "42fa80d400e3f1ed8400d4cd99b843731872de01538543ba0ffc8f7c5b7b2b3a",
+          "es": "dc37c4a30264c3d1a6d6fc65b8ae57c59fbe91436dcb3c576868b5a25eb51371",
+          "de": "45c223eedfac43b696f93d0ba4540478cbe9446c0f80a300f0d2c7efdb59825b"
+        }
+      }
+    },
+    {
+      "id": "privacy-policy-note",
+      "keys": [
+        "legal/privacy.sections.whatDataWeCollect.provided.items.4",
+        "legal/privacy.sections.howWeUseData.table.rows.6.purpose",
+        "legal/privacy.sections.howWeUseData.table.rows.6.legalBasis"
+      ],
+      "versions": {
+        "1": {
+          "en": "035d67b6744d942b470814d30d58f1ae18d03dc8e66da9dd3dffa5a90a438b80",
+          "pt-BR": "5217011523d890966335ebe94e57e2be19fcf198c9935c32d98015d533c369d4",
+          "es": "b02cc3479b3d2b1a1f5d399c4f12edb2ca94b72c48eeb98b687add6be9fc44df",
+          "de": "6f5b751e50013f37a5892cae941f69eed2e9c2d570449379dad69547349b24d9"
+        }
+      }
+    },
+    {
+      "id": "privacy-retention-note",
+      "keys": ["legal/privacy.sections.dataRetention.items.3.duration"],
+      "versions": {
+        "1": {
+          "en": "de8f87d1d46f35da998180019aa5d8c54e974fc9883471930cee629ec94dd723",
+          "pt-BR": "ae19c48ce3e792a04d5eccfdddc8ca26556edcf7045d8d84e842a8ef549f6948",
+          "es": "350d75759c6362f98d3645533aa0d0af069ef1393d1e2d560134f97bba107f7e",
+          "de": "c590a0b6ca9d077693b54f6d79c0aa4c8983a714848ea9395c33e10d7292fa2b"
+        }
+      }
+    }
+  ]
+}

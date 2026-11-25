@@ -28,7 +28,7 @@ const meta: Meta<typeof MoneyJobsCalculator> = {
 Tool #11 — the split-first entry point. Free surface: jobless-money headline,
 cost-only inflation line, two-bucket cards (Essentials · Working money ·
 Emergency Fund first job), ideal◄►max band.
-Email gate (inline, GDPR-explicit) unlocks plan + projections (Conservative
+Email gate (inline; the join notice, an optional unticked note box) unlocks plan + projections (Conservative
 leads per the P2-c ruling). Dignity state (F3) and B2B runway mode
 (decision 9) suppress the sell when protection should lead.
         `,

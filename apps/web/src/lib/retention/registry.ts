@@ -21,7 +21,7 @@ export const RETENTION_REGISTRY: Readonly<Record<string, TableRetention>> = {
   audit_logs: {
     purges: ['auditLogs'],
     keeps:
-      'signup, request, completion, referral and resubscribe rows (IP, user agent, entry id): 90 days',
+      'signup, request, completion, referral and resubscribe rows (IP, user agent, entry id) and note-removal rows (entry id only): 90 days',
   },
   deletion_tokens: { purges: ['deletionTokens'], erasure: true },
   email_delivery_logs: {

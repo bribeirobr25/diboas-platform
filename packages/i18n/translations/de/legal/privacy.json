@@ -9,8 +9,9 @@
   "backToTop": "Nach oben",
   "header": {
     "title": "Datenschutzerklärung",
-    "lastUpdated": "Zuletzt aktualisiert: 20. November 2026",
-    "intro": "diBoaS (\"wir\", \"uns\", \"unser\") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Richtlinie erklärt, wie wir Ihre personenbezogenen Daten erheben, verwenden und schützen."
+    "lastUpdated": "Zuletzt aktualisiert: 25. November 2026",
+    "intro": "diBoaS (\"wir\", \"uns\", \"unser\") ist dem Schutz Ihrer Privatsphäre verpflichtet. Diese Richtlinie erklärt, wie wir Ihre personenbezogenen Daten erheben, verwenden und schützen.",
+    "notice": "Aktualisiert am 25. November 2026: Die Anmeldeformulare haben ein eigenes, nicht angekreuztes Kästchen, um zu notieren, welcher Button oder Kampagnenlink Sie zu uns gebracht hat; diese Notiz können Sie auf der Seite „E-Mail-Einstellungen“ entfernen. Wir haben die Rechtsgrundlage für die Messung der Website-Nutzung und die Aufbewahrungsdauer der Analysedaten korrigiert."
   },
   "sections": {
     "whoWeAre": {
@@ -32,7 +33,8 @@
           "E-Mail-Adresse (bei Anmeldung zur Warteliste)",
           "Name (optional)",
           "Sprachpräferenz",
-          "Kommunikationspräferenzen"
+          "Kommunikationspräferenzen",
+          "Wenn Sie das Kästchen im Anmeldeformular ankreuzen: welcher Button oder Kampagnenlink Sie zu unserer Warteliste gebracht hat"
         ]
       },
       "automatic": {
@@ -42,9 +44,11 @@
           "Browsertyp und -version",
           "Geräteinformationen",
           "Besuchte Seiten und Verweildauer",
-          "Verweisquelle"
+          "Welches Anmeldeformular Sie genutzt haben, und den Einladungscode einer befreundeten Person, falls Sie einen genutzt haben",
+          "Ihr Land, ermittelt aus Ihrer Verbindung oder, wenn es sich schätzen lässt, aus der Sprache Ihres Browsers"
         ]
-      }
+      },
+      "signupRecords": "Unabhängig von Ihrer Wahl erfasst eine Anmeldung, welches Anmeldeformular Sie genutzt haben, Ihr Land (ermittelt aus Ihrer Verbindung oder, wenn es sich schätzen lässt, aus der Sprache Ihres Browsers) und, wenn Sie sich über ein Formular auf den Seiten der Website anmelden, nachdem Sie im selben Browser-Tab den Einladungslink einer befreundeten Person geöffnet haben, oder deren Einladungscode eingegeben haben, den Code dieser Person."
     },
     "howWeUseData": {
       "title": "Wie wir Ihre Daten verwenden",
@@ -63,7 +67,11 @@
             "legalBasis": "Berechtigtes Interesse (mit Widerspruchsmöglichkeit)"
           },
           {
-            "purpose": "Verbesserung unserer Website und Dienste",
+            "purpose": "Messen, wie Besucher die Website nutzen (Google Analytics, PostHog)",
+            "legalBasis": "Ihre Einwilligung (Cookie-Banner)"
+          },
+          {
+            "purpose": "Fehler finden und beheben (Fehlerüberwachung)",
             "legalBasis": "Berechtigtes Interesse"
           },
           {
@@ -73,6 +81,10 @@
           {
             "purpose": "Einhaltung gesetzlicher Verpflichtungen",
             "legalBasis": "Rechtliche Verpflichtung"
+          },
+          {
+            "purpose": "Notieren, welcher Button oder Kampagnenlink Sie zu unserer Warteliste gebracht hat",
+            "legalBasis": "Ihre Einwilligung (das Kästchen im Anmeldeformular), für Notizen, die ab dem 25. November 2026 gespeichert wurden"
           }
         ]
       }
@@ -103,11 +115,15 @@
         },
         {
           "type": "Analysedaten:",
-          "duration": "26 Monate (anonymisiert)"
+          "duration": "Google Analytics: bis zu 14 Monate nach Ihrem letzten Besuch. PostHog: 12 Monate."
         },
         {
           "type": "Kommunikationsaufzeichnungen:",
           "duration": "3 Jahre"
+        },
+        {
+          "type": "Anmeldenotiz:",
+          "duration": "Wird mit Ihrer Wartelisten-Anmeldung gespeichert, bis Sie sie auf der Seite für E-Mail-Einstellungen entfernen (der Link „E-Mail-Einstellungen“ in unseren E-Mails) oder uns bitten, sie zu entfernen oder Ihre Anmeldung zu löschen. Kampagnenwerte und Button-Bezeichnungen, die unsere Analysewerkzeuge mit Ihrer Cookie-Einwilligung erhalten, unterliegen deren eigener Aufbewahrung."
         }
       ]
     },

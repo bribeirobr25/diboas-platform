@@ -3,12 +3,24 @@
 /**
  * PostHog Analytics Provider
  *
- * Provides PostHog product analytics integration.
- * Only initializes when NEXT_PUBLIC_POSTHOG_KEY is set AND user has given consent.
- * GDPR compliant - waits for cookie consent before tracking.
+ * Loads PostHog only when NEXT_PUBLIC_POSTHOG_KEY is set AND analytics consent is given, by
+ * dynamic `import()` (CLAUDE.md). Market clean-up W-D1 (spec §3.7, WITHDRAW-1):
+ * - **One stable tree:** children render directly, always. The old `posthog-js/react` wrapper
+ *   swapped in at the first start and remounted the whole page (nothing reads `usePostHog`).
+ * - **Two refs:** `inFlight` guards the import and is cleared on every exit (a failed load retries
+ *   at the next consent); `posthogRef` holds the initialised instance. After the import, consent
+ *   is checked again, so a withdrawal during the load initialises nothing. Two `CONSENT_GIVEN`
+ *   emits (each choice fires two) give one `init`.
+ * - **Withdrawal really stops it:** `opt_out_capturing()`, then `reset(true)`, then
+ *   `opt_out_capturing()` again: the first stops the recording flush inside `reset` from sending
+ *   a last segment; `reset` clears the consent key, so the second sets it again.
+ * - **Consent again:** `opt_in_capturing({ captureEventName: false })`; after `init`, a stored
+ *   `denied` from an earlier withdrawal is opted back in (Do-Not-Track browsers stay off:
+ *   `respect_dnt`).
+ * Options and the `loaded` clean-up live in `lib/analytics/posthogInitOptions.ts`.
  */
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
 import { POSTHOG_CONFIG } from '@/config/env';
 import {
@@ -16,129 +28,100 @@ import {
   ApplicationEventType,
   type ConsentEventPayload,
 } from '@/lib/events/ApplicationEventBus';
-import { scrubAnalyticsEvent } from '@/lib/analytics/scrubAnalyticsEvent';
+import {
+  buildPostHogInitOptions,
+  cleanLegacyPostHogState,
+  type PostHogLoadedInstance,
+} from '@/lib/analytics/posthogInitOptions';
 
-// Lazy-loaded PostHog types
-type PostHogInstance = {
+/** The part of the lazily loaded PostHog instance this provider uses. */
+type PostHogInstance = PostHogLoadedInstance & {
+  init: (key: string, options: Record<string, unknown>) => void;
   opt_out_capturing: () => void;
-  debug: (enabled: boolean) => void;
-  init: (...args: unknown[]) => void;
+  opt_in_capturing: (options?: { captureEventName?: string | false | null }) => void;
+  reset: (resetDeviceId?: boolean) => void;
+  get_explicit_consent_status: () => 'granted' | 'denied' | 'pending';
 };
 
 interface PostHogProviderProps {
   children: ReactNode;
 }
 
+const isAnalyticsChoice = (payload: ConsentEventPayload) =>
+  payload.consentType === 'analytics' || payload.consentType === 'all';
+
+/** A failure inside PostHog's `loaded` callback, reported once through the error coordinator. */
+function reportLoadedFailure(error: unknown): void {
+  applicationEventBus.emit(ApplicationEventType.APPLICATION_ERROR, {
+    domain: 'analytics',
+    source: 'posthog',
+    timestamp: Date.now(),
+    error: error instanceof Error ? error : new Error('PostHog loaded clean-up failed'),
+    severity: 'low',
+    context: { operation: 'posthog_loaded_cleanup' },
+  });
+}
+
 export function PostHogProvider({ children }: PostHogProviderProps) {
-  const isInitializedRef = useRef(false);
+  const inFlightRef = useRef(false);
   const posthogRef = useRef<PostHogInstance | null>(null);
-  const [PHWrapper, setPHWrapper] = useState<{
-    Provider: React.ComponentType<{ client: PostHogInstance; children: ReactNode }>;
-  } | null>(null);
 
   useEffect(() => {
     const posthogKey = POSTHOG_CONFIG.apiKey;
-    const posthogHost = POSTHOG_CONFIG.host;
 
-    const initPostHog = async () => {
-      if (
-        !posthogKey ||
-        typeof window === 'undefined' ||
-        !hasAnalyticsConsent() ||
-        isInitializedRef.current
-      )
+    const startOrResume = async () => {
+      if (!posthogKey || !hasAnalyticsConsent()) return;
+      if (posthogRef.current) {
+        posthogRef.current.opt_in_capturing({ captureEventName: false });
         return;
-
-      // Set flag BEFORE async to prevent concurrent initialization race
-      isInitializedRef.current = true;
-
+      }
+      if (inFlightRef.current) return;
+      inFlightRef.current = true;
       try {
-        const [posthogModule, reactModule] = await Promise.all([
-          import('posthog-js'),
-          import('posthog-js/react'),
-        ]);
-
-        const posthog = posthogModule.default;
-        posthog.init(posthogKey, {
-          api_host: posthogHost,
-          // Pinned defaults bundle per PostHog's recommended pattern (2026-06-01).
-          // PostHog ships dated default-configs to stabilize SDK behavior across
-          // version bumps. Without this, you inherit whichever defaults the
-          // installed SDK version happens to choose, which can shift unexpectedly.
-          // `'2025-11-30'` is the latest accepted by posthog-js 1.313.0 — the
-          // newer `'2026-01-30'` value the PostHog UI suggests requires a future
-          // SDK release. Bump this date when (a) you upgrade posthog-js to a
-          // version that accepts a newer value AND (b) you've reviewed PostHog's
-          // release notes for the behavior change.
-          defaults: '2025-11-30',
-          // Only create PostHog person profiles for users who have been
-          // explicitly identified via posthog.identify(distinctId) — e.g.
-          // post-waitlist-signup. Anonymous visitors still get events tracked
-          // under a session-anonymous distinct_id but don't burn a "person"
-          // quota slot. GDPR-friendly + cost-effective for pre-launch.
-          person_profiles: 'identified_only',
-          capture_pageview: true,
-          // 5.864: tokens in page addresses (/delete-confirm?token=, /email-preferences?t=)
-          // never leave the browser; only allowlisted query parameters are kept.
-          before_send: scrubAnalyticsEvent,
-          // Thirteenth audit: mask the token parameters at the source, including the stored
-          // first-visit URL that flag requests send and before_send never sees.
-          mask_personal_data_properties: true,
-          custom_personal_data_properties: ['t', 'token', 'id', 'email'],
-          capture_pageleave: true,
-          respect_dnt: true,
-          // No feature flag is read anywhere in the app (git grep), so none is evaluated.
-          advanced_disable_feature_flags: true,
-          // Session recordings (fourteenth audit): the project records sessions, and a recording
-          // keeps page TEXT, which `before_send` never sees (a full snapshot is a compressed
-          // string): the waitlist success view prints the visitor's email. All text and inputs
-          // are masked, no network headers or bodies and no console lines are recorded. These
-          // client settings win over the project's dashboard settings (posthog-js).
-          session_recording: {
-            maskAllInputs: true,
-            maskTextSelector: '*',
-            recordHeaders: false,
-            recordBody: false,
-          },
-          enable_recording_console_log: false,
-          loaded: (ph) => {
-            if (process.env.NODE_ENV === 'development') {
-              ph.debug(false);
-            }
-          },
-        });
-
-        posthogRef.current = posthog as unknown as PostHogInstance;
-        setPHWrapper({
-          Provider: reactModule.PostHogProvider as React.ComponentType<{
-            client: PostHogInstance;
-            children: ReactNode;
-          }>,
-        });
+        const { default: loaded } = await import('posthog-js');
+        // Consent may have been withdrawn while the library loaded: initialise nothing then.
+        if (!hasAnalyticsConsent()) return;
+        const posthog = loaded as unknown as PostHogInstance;
+        posthog.init(
+          posthogKey,
+          buildPostHogInitOptions({
+            apiHost: POSTHOG_CONFIG.host,
+            onLoaded: (ph) => {
+              cleanLegacyPostHogState(ph, window.location.origin, reportLoadedFailure);
+              if (process.env.NODE_ENV === 'development') ph.debug(false);
+            },
+          })
+        );
+        posthogRef.current = posthog;
+        // A `denied` stored by an earlier withdrawal: this consent opts back in.
+        if (posthog.get_explicit_consent_status() === 'denied') {
+          posthog.opt_in_capturing({ captureEventName: false });
+        }
       } catch {
-        // Reset flag on failure so retry is possible
-        isInitializedRef.current = false;
+        // A failed load: nothing initialised; the next real consent retries.
+      } finally {
+        inFlightRef.current = false;
       }
     };
 
-    initPostHog();
+    void startOrResume();
 
-    // Listen for consent changes via ApplicationEventBus
     const unsubGiven = applicationEventBus.on<ConsentEventPayload>(
       ApplicationEventType.CONSENT_GIVEN,
       (payload) => {
-        if (payload.consentType === 'analytics' || payload.consentType === 'all') {
-          initPostHog();
-        }
+        if (isAnalyticsChoice(payload)) void startOrResume();
       }
     );
 
     const unsubWithdrawn = applicationEventBus.on<ConsentEventPayload>(
       ApplicationEventType.CONSENT_WITHDRAWN,
       () => {
-        if (isInitializedRef.current && posthogRef.current) {
-          posthogRef.current.opt_out_capturing();
-        }
+        const posthog = posthogRef.current;
+        if (!posthog) return;
+        // The order is pinned (WITHDRAW-1): opt out, reset, opt out again.
+        posthog.opt_out_capturing();
+        posthog.reset(true);
+        posthog.opt_out_capturing();
       }
     );
 
@@ -148,10 +131,5 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
     };
   }, []);
 
-  // Only wrap with PostHog provider if initialized and loaded
-  if (!POSTHOG_CONFIG.apiKey || !PHWrapper || !posthogRef.current) {
-    return <>{children}</>;
-  }
-
-  return <PHWrapper.Provider client={posthogRef.current}>{children}</PHWrapper.Provider>;
+  return <>{children}</>;
 }

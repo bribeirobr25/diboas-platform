@@ -101,10 +101,9 @@
       "nextSteps": "El siguiente paso de cada función"
     },
     "emailPlaceholder": "Tu correo",
-    "gdprLabel": "Acepto recibir correos de diBoaS y la política de privacidad.",
     "cta": "Ver mi plan completo",
     "ctaLoading": "Un momento",
-    "finePrint": "Unirte a la lista de espera lo desbloquea. Sin spam: es la misma lista que todo lo demás. Unirte no mueve tu dinero.",
+    "finePrint": "Unirte a la lista de espera lo desbloquea. Unirte no mueve tu dinero.",
     "successLine": "Estás en la lista, posición {position}.",
     "referralLinkLabel": "Tu enlace de invitación"
   },

@@ -49,11 +49,12 @@ class MonitoringCoordinatorService implements MonitoringService {
       id: this.generateId(),
       type: 'csp_violation',
       description: `CSP violation: ${event.violatedDirective}`,
-      url: event.documentURI,
+      // W-D1 (spec §3.10): both addresses can hold a token or campaign values; scrubbed by default.
+      url: scrubUrl(event.documentURI),
       timestamp: Date.now(),
       severity: 'medium',
       metadata: {
-        blockedURI: event.blockedURI,
+        blockedURI: scrubUrl(event.blockedURI),
         violatedDirective: event.violatedDirective,
         originalPolicy: event.originalPolicy,
       },

@@ -219,7 +219,8 @@
     "decline": "Decline",
     "accept": "Accept",
     "declineAriaLabel": "Decline cookies",
-    "acceptAriaLabel": "Accept cookies"
+    "acceptAriaLabel": "Accept cookies",
+    "settings": "Cookie settings"
   },
   "bookCall": {
     "notConfigured": "Booking calendar not configured",
@@ -228,14 +229,6 @@
     "error": "Unable to load booking calendar",
     "loadError": "Unable to load booking calendar",
     "contactDirectly": "Contact us directly to schedule a call"
-  },
-  "waitingList": {
-    "errors": {
-      "invalidName": "Please enter a valid name",
-      "invalidXAccount": "Please enter a valid X account (e.g., @username)",
-      "emailRequired": "Email is required",
-      "storageError": "Unable to save your information. Please try again."
-    }
   },
   "share": {
     "generating": "Generating card...",
@@ -270,7 +263,7 @@
   },
   "emailPreferences": {
     "heading": "Your email settings",
-    "description": "You will be unsubscribed from diBoaS emails. Your waitlist position and referral credits are preserved.",
+    "description": "Choose what to change. Unsubscribing stops our emails; removing the note deletes which button or campaign link brought you to the waitlist. Your waitlist position and referral credits are kept either way.",
     "unsubscribeButton": "Unsubscribe",
     "staySubscribedButton": "Stay subscribed",
     "successUnsubscribed": "You have been unsubscribed from diBoaS emails.",
@@ -280,7 +273,11 @@
     "error": "Something went wrong. Please try again.",
     "processing": "Processing...",
     "backHome": "Back to home",
-    "tryAgainButton": "Try again"
+    "tryAgainButton": "Try again",
+    "removeNoteButton": "Remove the note about which link brought me here",
+    "noteRemoved": "The note is removed.",
+    "noNote": "There is no note to remove.",
+    "noteRemovalError": "We could not remove the note. Please try again."
   },
   "disclaimers": {
     "educationalProjection": "Illustrative figures based on historical compound interest assumptions. Past performance does not guarantee future results. Use only money you can afford to lose. diBoaS is not a bank and your funds are not insured."

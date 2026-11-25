@@ -3,7 +3,7 @@
 import { CountUp } from '@/components/UI/CountUp';
 import { DivergenceChart } from '@/components/UI/DivergenceChart';
 import { LocaleLink } from '@/components/UI/LocaleLink';
-import { setConsentedCtaSource } from '@/lib/analytics/ctaAttribution';
+import { setCtaSource } from '@/lib/analytics/utmAttribution';
 import { Share2, Check, ArrowRight } from '@/components/UI/LucideIcon';
 import type { ResultMomentProps } from '../../ResultMomentFactory';
 import styles from '../../ResultMoment.module.css';
@@ -83,7 +83,7 @@ export function ResultMomentDefault({
           <LocaleLink
             href={cta.href}
             className={styles.ctaButton}
-            onClick={toolSlug ? () => setConsentedCtaSource(`tool-${toolSlug}`) : undefined}
+            onClick={toolSlug ? () => setCtaSource(`tool-${toolSlug}`) : undefined}
           >
             <span>{cta.label}</span>
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />

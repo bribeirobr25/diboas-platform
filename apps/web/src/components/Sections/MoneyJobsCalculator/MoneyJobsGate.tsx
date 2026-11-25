@@ -8,7 +8,8 @@
  * - Inline card, not a modal; the free summary above is complete on its own
  *   (row-15 reasoning: the split is the promised result; the plan is depth —
  *   see MONEY_JOBS_CLO_LIGHT_PASS_2026-07-11 Part 2 Q2).
- * - GDPR checkbox EXPLICIT (never the form's `compact` auto-consent mode).
+ * - No consent box (W-D1, F5/G1): the join notice says what joining brings; the optional note
+ *   box notes a campaign link only (this gate reads no button label).
  * - ALREADY_REGISTERED unlocks too (useWaitlistForm calls onSuccess for it).
  * - Decision 5: on success the email persists via POSITION_STORAGE_KEYS.email
  *   (Dream Mode, which read that key, was deleted in plan P13 PR-2).
@@ -19,6 +20,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { useWaitlistForm, type WaitlistSuccessData } from '@/components/WaitingList/hooks';
+import { WaitlistNoteFields } from '@/components/WaitingList/WaitlistNoteFields';
 import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
 import { analyticsService } from '@/lib/analytics';
 import styles from './MoneyJobsCalculator.module.css';
@@ -79,7 +81,9 @@ export function MoneyJobsGate({ onUnlocked, unlocked }: MoneyJobsGateProps) {
   const { formState, error, isLoading, handleInputChange, handleSubmit } = useWaitlistForm({
     readCtaSource: false,
     source: 'tool_money_jobs',
-    t: (key, values) => intl.formatMessage({ id: `common.waitingList.${key}` }, values),
+    // The hook emits `error.*` keys of the `waitlist` namespace (5.1005: this gate showed raw
+    // `common.waitingList.*` ids); the page loads `waitlist` for them.
+    t: (key, values) => intl.formatMessage({ id: `waitlist.${key}` }, values),
     onSuccess: (data) => {
       persistEmail(formState.email.trim().toLowerCase());
       setSuccess(data);
@@ -125,16 +129,14 @@ export function MoneyJobsGate({ onUnlocked, unlocked }: MoneyJobsGateProps) {
           onChange={handleInputChange}
           className={styles.gateEmailInput}
         />
-        <label className={styles.gateConsentRow}>
-          <input
-            type="checkbox"
-            name="gdprAccepted"
-            checked={formState.gdprAccepted}
-            onChange={handleInputChange}
-            required
-          />
-          <span>{t('gdprLabel')}</span>
-        </label>
+        <WaitlistNoteFields
+          text="note-campaign"
+          id="money-jobs-gate-note"
+          checked={formState.noteConsent}
+          onChange={handleInputChange}
+          disabled={isLoading}
+          classNames={{ notice: styles.gateFinePrint, row: styles.gateConsentRow }}
+        />
         {error ? (
           <p className={styles.gateError} role="alert">
             {error}
