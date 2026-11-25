@@ -50,7 +50,7 @@
 }
 .score {
   font-family: var(--font-fraunces), Georgia, serif;
-  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-size: var(--editorial-font-size-score);
   font-weight: 500;
   line-height: 0.9;
   color: var(--editorial-ink);

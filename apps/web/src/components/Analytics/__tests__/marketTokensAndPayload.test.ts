@@ -6,12 +6,17 @@
  *      Bitcoin view, ~38 KB on the Backdrop view, measured against production)
  *      and nothing read it.
  *  (c) The five badge/card modules size text, spacing and radii with design
- *      tokens, never literals (CLAUDE.md design-token rule; `em` and the
- *      editorial `clamp()` fluid sizes are the documented exceptions).
+ *      tokens, never literals (CLAUDE.md design-token rule; `em` is the documented
+ *      exception).
+ *  (e) No fluid size is written as a literal anywhere in the market's folders (C2-S G2,
+ *      `5.914`): the 25 `clamp()` literals became 20 `--editorial-*` tokens with the same
+ *      values, pinned here. The file list is walked, not hand-kept (a plan reviewer found
+ *      the old five-module list missed three of the five files that held them).
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { stripComments } from '@diboas/test-support';
 
 const SRC = path.resolve(__dirname, '../../..');
 const read = (rel: string) => fs.readFileSync(path.join(SRC, rel), 'utf8');
@@ -33,9 +38,9 @@ describe('(c) the badge/card modules use tokens for text, spacing and radii', ()
     'ConfidenceBadge/ConfidenceBadge.module.css',
     'RegimeLabel/RegimeLabel.module.css',
   ];
-  // A declaration whose value has a px/rem literal outside clamp().
+  // A declaration whose value has a px/rem literal (no clamp() exemption since 5.914).
   const LITERAL =
-    /^\s*(font-size|padding(-[a-z]+)?|margin(-[a-z]+)?|gap|row-gap|column-gap|border-radius|min-height)\s*:\s*(?![^;]*clamp\()[^;]*\b\d+(\.\d+)?(px|rem)\b/m;
+    /^\s*(font-size|padding(-[a-z]+)?|margin(-[a-z]+)?|gap|row-gap|column-gap|border-radius|min-height)\s*:\s*[^;]*\b\d+(\.\d+)?(px|rem)\b/m;
 
   it('should have no literal sizes in any of the five modules', () => {
     for (const m of MODULES) {
@@ -127,5 +132,93 @@ describe('(f) the Backdrop conditions are defined once (5.631)', () => {
     const copies = files.filter((f) => /['"]MAC-0[123]['"]/.test(read(f)));
     expect(copies).toEqual([]);
     expect(read('lib/market/presentationState.ts')).toMatch(/export const BACKDROP_CONDITIONS/);
+  });
+});
+
+describe('(e) the market writes no fluid size as a literal (5.914)', () => {
+  const ROOTS = ['app/[locale]/(landing)/market', 'components/Analytics', 'components/Market'];
+  const walk = (dir: string): string[] =>
+    fs.readdirSync(path.join(SRC, dir), { withFileTypes: true }).flatMap((d) => {
+      const rel = path.join(dir, d.name);
+      if (d.isDirectory()) return d.name === '__tests__' ? [] : walk(rel);
+      return /\.(module\.css|tsx)$/.test(d.name) && !/\.stories\.tsx$/.test(d.name) ? [rel] : [];
+    });
+  const FILES = ROOTS.flatMap(walk);
+  /** A clamp()/min()/max() with a length inside, once every `var(...)` is removed (a `var()`'s own
+   *  bracket would end the match early; the audit planted `clamp(var(--x), 2vw, 3rem)`). */
+  const FLUID =
+    /\b(?:clamp|min|max)\(\s*[^)]*\b\d+(?:\.\d+)?(?:px|rem|em|vh|vw|dvh|svh|lvh|ch|vmin|vmax)\b/i;
+  /** A calc() with a viewport unit is a fluid size too. */
+  const VIEWPORT_CALC = /\bcalc\([^;]*\b\d+(?:\.\d+)?(?:vw|vh|dvh|svh|lvh|vmin|vmax)\b/i;
+  const withoutVars = (text: string) => {
+    let out = text;
+    for (let i = 0; i < 5 && /var\([^()]*\)/.test(out); i++)
+      out = out.replace(/var\([^()]*\)/g, '0');
+    return out;
+  };
+
+  it('should walk the market folders (the scan is not vacuous)', () => {
+    expect(FILES.filter((f) => f.endsWith('.module.css')).length).toBeGreaterThanOrEqual(13);
+  });
+
+  it('should find no clamp(), min() or max() size literal in any market CSS module or inline style', () => {
+    const offenders = FILES.filter((f) => {
+      const raw = read(f);
+      if (f.endsWith('.tsx')) {
+        // Any clamp()/min()/max()/calc() inside a string or template literal (an inline style, a
+        // hoisted style object, a class string): the market sizes nothing from TSX.
+        const code = stripComments(raw, f);
+        return /(['"`])[^'"`\n]*\b(?:clamp|min|max|calc)\([^'"`\n]*\1/i.test(code);
+      }
+      const css = withoutVars(raw.replace(/\/\*[\s\S]*?\*\//g, ''));
+      return FLUID.test(css) || VIEWPORT_CALC.test(css);
+    });
+    expect(offenders).toEqual([]);
+  });
+
+  it('should keep each fluid token at the value the market held before 5.914', () => {
+    // Comments stripped first: a commented-out token must not count as declared.
+    const tokens = read('styles/design-tokens.css').replace(/\/\*[\s\S]*?\*\//g, '');
+    const PINNED: Record<string, string> = {
+      'spacing-hero-top': 'clamp(140px, 20vh, 220px)',
+      'spacing-hero-bottom': 'clamp(56px, 9vh, 110px)',
+      'spacing-section': 'clamp(56px, 10vh, 120px)',
+      'spacing-block-md': 'clamp(28px, 5vh, 46px)',
+      'spacing-block-sm': 'clamp(28px, 5vh, 44px)',
+      'spacing-block-lg': 'clamp(28px, 5vh, 50px)',
+      'spacing-rule': 'clamp(36px, 6vh, 64px)',
+      'spacing-columns': 'clamp(36px, 6vw, 80px)',
+      'spacing-signal-gap': 'clamp(16px, 3vw, 46px)',
+      'spacing-signal': 'clamp(20px, 2.6vw, 32px)',
+      'font-size-hero': 'clamp(3.2rem, 9vw, 8rem)',
+      'font-size-lead': 'clamp(1.1rem, 1.7vw, 1.4rem)',
+      'font-size-section': 'clamp(1.9rem, 4vw, 3.1rem)',
+      'font-size-cta-body': 'clamp(1.05rem, 1.6vw, 1.25rem)',
+      'font-size-signal-value': 'clamp(1.2rem, 2.4vw, 1.8rem)',
+      'font-size-signal-figure': 'clamp(1.4rem, 2.6vw, 2.1rem)',
+      'font-size-score': 'clamp(3.5rem, 10vw, 6rem)',
+      'font-size-summary': 'clamp(1.1rem, 1.6vw, 1.3rem)',
+      'font-size-summary-sm': 'clamp(1.02rem, 1.4vw, 1.2rem)',
+      'font-size-summary-lg': 'clamp(1.15rem, 1.7vw, 1.4rem)',
+    };
+    for (const [name, value] of Object.entries(PINNED)) {
+      const defs = [...tokens.matchAll(new RegExp(`--editorial-${name}:\\s*([^;]+);`, 'g'))];
+      expect(
+        defs.map((d) => d[1]),
+        name
+      ).toEqual([value]);
+    }
+  });
+
+  it('should declare every --editorial-* token the market refers to', () => {
+    const tokens = read('styles/design-tokens.css').replace(/\/\*[\s\S]*?\*\//g, '');
+    const declared = new Set([...tokens.matchAll(/(--editorial-[\w-]+)\s*:/g)].map((m) => m[1]));
+    const missing = FILES.flatMap((f) =>
+      [...read(f).matchAll(/var\((--editorial-[\w-]+)/g)]
+        .map((m) => m[1])
+        .filter((name) => !declared.has(name))
+        .map((name) => `${f}: ${name}`)
+    );
+    expect(missing).toEqual([]);
   });
 });

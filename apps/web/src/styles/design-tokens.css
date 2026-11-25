@@ -272,6 +272,28 @@
   --editorial-defensive: #8c5a2c; /* deep copper (DEFENSIVE) — sibling of the warm family */
   --editorial-hostile: #9c4128; /* deep rust (HOSTILE) — nudged toward the warm hue */
   --editorial-paper-dim: #c8c0b5; /* muted body text on the dark methodology block */
+  /* /market fluid sizes (C2-S G2, `5.914`): the same values the market's CSS held as 25 clamp()
+     literals; ANALYTICS-TOKENS-1 pins them and bans clamp() literals in the market's CSS. */
+  --editorial-spacing-hero-top: clamp(140px, 20vh, 220px);
+  --editorial-spacing-hero-bottom: clamp(56px, 9vh, 110px);
+  --editorial-spacing-section: clamp(56px, 10vh, 120px);
+  --editorial-spacing-block-md: clamp(28px, 5vh, 46px);
+  --editorial-spacing-block-sm: clamp(28px, 5vh, 44px);
+  --editorial-spacing-block-lg: clamp(28px, 5vh, 50px);
+  --editorial-spacing-rule: clamp(36px, 6vh, 64px);
+  --editorial-spacing-columns: clamp(36px, 6vw, 80px);
+  --editorial-spacing-signal-gap: clamp(16px, 3vw, 46px);
+  --editorial-spacing-signal: clamp(20px, 2.6vw, 32px);
+  --editorial-font-size-hero: clamp(3.2rem, 9vw, 8rem);
+  --editorial-font-size-lead: clamp(1.1rem, 1.7vw, 1.4rem);
+  --editorial-font-size-section: clamp(1.9rem, 4vw, 3.1rem);
+  --editorial-font-size-cta-body: clamp(1.05rem, 1.6vw, 1.25rem);
+  --editorial-font-size-signal-value: clamp(1.2rem, 2.4vw, 1.8rem);
+  --editorial-font-size-signal-figure: clamp(1.4rem, 2.6vw, 2.1rem);
+  --editorial-font-size-score: clamp(3.5rem, 10vw, 6rem);
+  --editorial-font-size-summary: clamp(1.1rem, 1.6vw, 1.3rem);
+  --editorial-font-size-summary-sm: clamp(1.02rem, 1.4vw, 1.2rem);
+  --editorial-font-size-summary-lg: clamp(1.15rem, 1.7vw, 1.4rem);
 
   /* ===================================================================
      REDESIGN SEMANTIC ROLES ("Adelaide's World") — additive aliases only.

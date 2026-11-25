@@ -251,11 +251,11 @@ export async function UmbrellaView({ locale }: UmbrellaViewProps) {
               {t('dashboard.dataSource', 'All data comes from diBoaS Analytics.')}
             </p>
 
-            {productDisclaimer && (
+            {productDisclaimer ? (
               <ProductDisclaimer
                 text={productDisclaimer.text[locale] ?? productDisclaimer.text.en}
               />
-            )}
+            ) : null}
 
             <HostRegulatoryDisclaimer
               className={styles.methodNote}

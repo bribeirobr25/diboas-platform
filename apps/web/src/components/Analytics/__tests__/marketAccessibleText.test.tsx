@@ -58,6 +58,7 @@ function renderTable(
 ) {
   const { container } = render(
     <HistoricalRegimeChart
+      maxScore={14}
       data={HISTORY}
       range={range}
       ariaLabel="history"
