@@ -26,13 +26,9 @@ export default async function ToolsLayout({ children, params }: ToolsLayoutProps
     notFound();
   }
 
-  // A8 fix (2026-05-23): pre-fetch the full snapshot (incl. monthly FX series)
-  // server-side so every tool page renders with live data on first paint —
-  // not the static fallback that would otherwise be used because calculators
-  // read `marketDataService.getSync()` synchronously with no client-side
-  // trigger to populate the cache. `MarketDataContextProvider` primes the client
-  // singleton during hydration so child calculators get the live snapshot
-  // on their very first render. See TOOLS_IMPROVEMENT.md A8.
+  // A8 fix (2026-05-23): pre-fetch the snapshot server-side so every tool page renders with
+  // the server's data on first paint. C2-S G4: the provider receives it WITHOUT the monthly
+  // series (see below); the browser computes every tool figure from the calibrated constants.
   const [messages, snapshot] = await Promise.all([
     loadPageNamespaces(locale, ['tools-shared']),
     marketDataService.get(),

@@ -15,10 +15,10 @@
  * 2. Silently-stale data on `/tools/*` pages (calculators read `getSync()`
  *    directly with no `get()` trigger — they were stuck on static fallback).
  *
- * **Pattern note:** intentionally primes the singleton at module-import time
- * (via the lazy `useState` initializer) rather than in `useEffect`. The cache
- * MUST be populated before child components call `getSync()` during their
- * first render. `useEffect` would fire too late.
+ * **Pattern note:** primes the singleton synchronously during render, rather than in
+ * `useEffect`: the cache MUST be populated before child components call `getSync()` during
+ * their first render, and `useEffect` would fire too late. C2-S G4: it primes on every render
+ * (server and browser); `primeCache` makes that idempotent per snapshot object.
  */
 
 import { type ReactNode } from 'react';

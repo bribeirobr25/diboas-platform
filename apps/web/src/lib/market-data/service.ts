@@ -35,6 +35,17 @@ const MARKET_DATA_CIRCUIT_RESET_MS = 60_000;
  * and the breaker then needs about two minutes of failures to open.
  */
 export const MARKET_DATA_STALE_RETRY_MS = 60_000;
+/** C2-S G4 audit: a load that never settles counts as a failed one after this long. */
+export const MARKET_DATA_FETCH_TIMEOUT_MS = 15_000;
+
+/** Rejects when `promise` has not settled within `ms`; the timer never outlives the race. */
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`market data load timed out after ${ms} ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer));
+}
 
 /**
  * Lazy-loaded monthly series — Phase B (TOOLS_IMPROVEMENT.md).
@@ -75,10 +86,20 @@ class FallbackProvider implements IMarketDataProvider {
 class MarketDataServiceImpl {
   private cache: MarketDataSnapshot | null = null;
   private cacheExpiry: number = 0;
+  /**
+   * No load (provider or series) runs before this epoch ms: set after a failed load (5.688) and
+   * by a primed stale snapshot. A later fresh prime never shortens it (C2-S G4 audit).
+   */
+  private retryAt = 0;
   /** One refresh shared by concurrent `get()` calls (Principle 11). */
   private inFlight: Promise<MarketDataSnapshot> | null = null;
-  /** Bumped by `setProvider`, so a refresh started for the old provider never writes the cache. */
-  private generation = 0;
+  /** One series load shared by concurrent `get()` calls. */
+  private seriesInFlight: Promise<void> | null = null;
+  /**
+   * Bumped by every cache write and by `setProvider`: a refresh writes only if nothing was
+   * written while it ran, so it never replaces a newer primed snapshot or the new provider's.
+   */
+  private version = 0;
   /** The snapshot object last primed, so priming on every render is idempotent. */
   private lastPrimed: unknown = null;
   private provider: IMarketDataProvider;
@@ -96,44 +117,46 @@ class MarketDataServiceImpl {
 
   /**
    * Async fetch with cache + circuit breaker + fallback.
-   * Use on client side after mount.
+   *
+   * C2-S G4: a cache inside its lifetime, or inside a retry window, is served without calling
+   * the provider. When it lacks the monthly series (a browser snapshot primed without them),
+   * only the series are loaded and merged in (B1): the rest of the snapshot, its lifetime and
+   * any newer primed values stay as they are.
    */
   async get(): Promise<MarketDataSnapshot> {
-    // A fresh cache is served as it is, unless it lacks the monthly series (a browser snapshot
-    // primed without them, C2-S G4 B1): then the series are loaded, whatever the cache says.
-    // A stale snapshot is served until its retry time (5.688), with or without the series.
-    if (
-      this.cache &&
-      Date.now() < this.cacheExpiry &&
-      (this.cache.monthlySeries || this.cache.metadata.stale)
-    ) {
-      return this.cache;
+    const now = Date.now();
+    if (this.cache && (now < this.cacheExpiry || now < this.retryAt)) {
+      if (!this.cache.monthlySeries) await this.ensureSeries();
+      return this.getSync();
     }
     if (!this.inFlight) {
-      const refresh = this.refresh(this.generation);
+      const refresh = this.refresh(this.version);
       this.inFlight = refresh;
-      void refresh.finally(() => {
-        if (this.inFlight === refresh) this.inFlight = null;
-      });
+      refresh
+        .finally(() => {
+          if (this.inFlight === refresh) this.inFlight = null;
+        })
+        .catch(() => {}); // refresh() never rejects; this only keeps the chain from being unhandled
     }
     return this.inFlight;
   }
 
   /**
-   * When the next refresh may run (epoch ms) while a stale snapshot is being served after a
-   * failed refresh; `null` otherwise. The asset-history tool's retry message reads it (G5).
+   * When the next load may run (epoch ms) after a failed load or a primed stale snapshot;
+   * `null` when a load may run now. The asset-history tool's retry message reads it (G5).
    */
   retryAvailableAt(): number | null {
-    return this.cache?.metadata.stale ? this.cacheExpiry : null;
+    return this.retryAt > Date.now() ? this.retryAt : null;
   }
 
-  private async refresh(generation: number): Promise<MarketDataSnapshot> {
+  private async refresh(startVersion: number): Promise<MarketDataSnapshot> {
     try {
-      const data = await this.circuitBreaker.execute(() => this.provider.fetch());
-      if (generation === this.generation) {
-        this.cache = data;
-        this.cacheExpiry = Date.now() + (data.metadata.ttl || MARKET_DATA_DEFAULT_TTL_MS);
-      }
+      const data = await this.circuitBreaker.execute(() =>
+        withTimeout(this.provider.fetch(), MARKET_DATA_FETCH_TIMEOUT_MS)
+      );
+      if (startVersion !== this.version) return this.getSync(); // a newer snapshot won
+      this.write(data, Date.now() + (data.metadata.ttl || MARKET_DATA_DEFAULT_TTL_MS));
+      this.retryAt = 0;
       return data;
     } catch (error) {
       // P12 (2026-10-18 compliance pass): this path was silent, while the file
@@ -141,15 +164,46 @@ class MarketDataServiceImpl {
       Logger.warn('[MarketData] provider fetch failed; serving the stale snapshot', {
         error: error instanceof Error ? error.message : String(error),
       });
+      if (startVersion !== this.version) return this.getSync(); // never over a newer snapshot
       // 5.688: the stale snapshot is STORED, so `getSync()` serves the same degraded read as
-      // `get()`, and the next refresh waits MARKET_DATA_STALE_RETRY_MS (not the 300 s TTL).
+      // `get()`, and the next load waits MARKET_DATA_STALE_RETRY_MS (not the 300 s TTL).
       const stale = this.getStaleSnapshot();
-      if (generation === this.generation) {
-        this.cache = stale;
-        this.cacheExpiry = Date.now() + MARKET_DATA_STALE_RETRY_MS;
-      }
+      const until = Date.now() + MARKET_DATA_STALE_RETRY_MS;
+      this.write(stale, until);
+      this.retryAt = until;
       return stale;
     }
+  }
+
+  /** Loads the monthly series into the cached snapshot, once, unless a retry window is open. */
+  private ensureSeries(): Promise<void> {
+    if (Date.now() < this.retryAt) return Promise.resolve();
+    if (!this.seriesInFlight) {
+      const load: Promise<void> = withTimeout(loadMonthlySeries(), MARKET_DATA_FETCH_TIMEOUT_MS)
+        .then((series) => {
+          // A merge, not a version bump: the series are the same static data for any snapshot.
+          if (this.cache && !this.cache.monthlySeries) {
+            this.cache = { ...this.cache, monthlySeries: series };
+          }
+        })
+        .catch((error: unknown) => {
+          Logger.warn('[MarketData] monthly series failed to load', {
+            error: error instanceof Error ? error.message : String(error),
+          });
+          this.retryAt = Math.max(this.retryAt, Date.now() + MARKET_DATA_STALE_RETRY_MS);
+        })
+        .finally(() => {
+          if (this.seriesInFlight === load) this.seriesInFlight = null;
+        });
+      this.seriesInFlight = load;
+    }
+    return this.seriesInFlight;
+  }
+
+  private write(snapshot: MarketDataSnapshot, expiry: number): void {
+    this.cache = snapshot;
+    this.cacheExpiry = expiry;
+    this.version += 1;
   }
 
   /**
@@ -167,29 +221,46 @@ class MarketDataServiceImpl {
     this.provider = provider;
     this.cache = null;
     this.cacheExpiry = 0;
+    this.retryAt = 0;
     this.inFlight = null;
     this.lastPrimed = null;
-    this.generation += 1;
+    this.version += 1;
+    this.circuitBreaker.reset(); // the old provider's failures say nothing about the new one
   }
 
   /**
-   * A8 fix (2026-05-23): synchronously prime the client-side cache from a
-   * server-pre-fetched snapshot. Used by `MarketDataContextProvider` during client
-   * hydration to eliminate the SSR-to-client depreciation flip on the landing
-   * page AND ensure tool pages actually use the live `monthlySeries` data
-   * (instead of staying on the static fallback because nothing triggers
-   * `get()`). Idempotent — priming the same snapshot object again is a no-op.
+   * A8 fix (2026-05-23): synchronously prime the cache from a server-pre-fetched snapshot.
+   * `MarketDataContextProvider` calls it on every render, on the server (the copy of this module
+   * that renders client components) and in the browser. Idempotent per snapshot object.
    *
-   * C2-S G4: a `stale` snapshot is ignored (5.688: it used to be re-stored as fresh for 300 s),
-   * and a snapshot without the monthly series keeps series already in the cache, so priming a
-   * browser snapshot never drops series a tool has loaded (B1).
+   * C2-S G4:
+   * - a snapshot without the monthly series keeps series already in the cache (B1);
+   * - a `stale` snapshot is stored as stale for MARKET_DATA_STALE_RETRY_MS and opens a retry
+   *   window, never as fresh for 300 s (5.688). It is stored, not ignored, so the server's
+   *   render and the browser hold the same snapshot (the audit's two-copies finding);
+   * - a fresh prime never shortens an open retry window, and never extends a fresh cache's TTL.
    */
   primeCache(snapshot: ClientMarketDataSnapshot | MarketDataSnapshot): void {
-    if (snapshot.metadata?.stale || snapshot === this.lastPrimed) return;
+    if (snapshot === this.lastPrimed) return;
     this.lastPrimed = snapshot;
+    const now = Date.now();
     const keptSeries = snapshot.monthlySeries ? undefined : this.cache?.monthlySeries;
-    this.cache = keptSeries ? { ...snapshot, monthlySeries: keptSeries } : snapshot;
-    this.cacheExpiry = Date.now() + (snapshot.metadata?.ttl || MARKET_DATA_DEFAULT_TTL_MS);
+    const stored: MarketDataSnapshot = keptSeries
+      ? { ...snapshot, monthlySeries: keptSeries }
+      : snapshot;
+    if (snapshot.metadata?.stale) {
+      const until = now + MARKET_DATA_STALE_RETRY_MS;
+      this.write(stored, until);
+      this.retryAt = Math.max(this.retryAt, until);
+    } else {
+      // A prime replaces the data but never extends the cache's lifetime: only a first prime
+      // (an empty cache) starts one. Otherwise the remaining lifetime is kept, or the cache stays
+      // expired, so a copy primed on every request still refreshes when its TTL ends.
+      const ttlEnd = now + (snapshot.metadata?.ttl || MARKET_DATA_DEFAULT_TTL_MS);
+      const remaining =
+        this.cache && !this.cache.metadata.stale && this.cacheExpiry > now ? this.cacheExpiry : now;
+      this.write(stored, this.cache ? Math.min(remaining, ttlEnd) : ttlEnd);
+    }
   }
 
   /**
