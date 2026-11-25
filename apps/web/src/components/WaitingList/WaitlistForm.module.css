@@ -197,7 +197,8 @@
 
 .privacyNote {
   font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  /* secondary, not muted: the join notice sits on the dark /business section too (W-D1, pa11y 3.75:1) */
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
