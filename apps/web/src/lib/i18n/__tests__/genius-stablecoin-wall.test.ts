@@ -93,11 +93,6 @@ const ALLOW: ReadonlyMap<string, string> = new Map([
   ['pt-BR::strategies::protocols.items.skySsr.summary', 'ecba6999ee143951'],
   // A negation: "Não existe retorno garantido." then, after a paragraph break, "Dólar digital, …".
   ['pt-BR::landing-b2c::ptbr.trust.body', '975b5cd29fb0c489'],
-  // Decision A (founder 2026-11-11, kept again in DR-2026-11-11-market-cleanup-w-b-signoff item
-  // 1): the German search description reads "Digital-Dollar-Strategie (historisch 10 % pro Jahr)";
-  // flagged once a stated yearly rate counted as an earn word (2026-11-12). en and es put
-  // "historical" between the rate and "per year", so they do not pair.
-  ['de::tools-currency-depreciation::seo.description', 'ba59e0965f4e0b2f'],
 ]);
 const fingerprint = (text: string): string =>
   createHash('sha256').update(text).digest('hex').slice(0, 16);
@@ -393,8 +388,9 @@ describe('B2-6 — the share-image texts carry no earn/stablecoin pairing', () =
  * side (bound to the component by a source read, so a group cannot drift from the screen). A
  * group fails when an earn word and a stablecoin word occur ANYWHERE in it: co-occurrence, not a
  * 40-character window, so the join separator cannot change the answer. Slots are filled as
- * served. Out of scope, recorded: a chart's screen-reader sentence (decision A kept it) and the
- * protocol table (the named education exception above).
+ * served. Out of scope, recorded: the protocol table (the named education exception above). The
+ * currency chart's screen-reader sentences name no stablecoin since W-D2 (D8: "a diBoaS strategy");
+ * `STABLE_ON_TOOLS` below and CURRENCY-BASIS-1 (`currencyBasis.test.ts`) hold them.
  */
 describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin pairing', () => {
   // `earn` only: the window-only `earnNear` words never count across strings (D2).
@@ -519,12 +515,6 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
   const STABLE_ON_TOOLS: Readonly<Record<string, string>> = {
     'tools-currency-depreciation::hero.subtitle':
       'decision A, kept again 2026-11-11 (DR w-b-signoff item 1): names the three things the tool compares; the card itself now says "A diBoaS strategy". Near-miss since 2026-11-17 (P9): "grow" / "crescer" / "crecer" / "wachsen" is now an earn word, 54–67 characters from the stablecoin word; a rewording ~15 characters shorter would pair',
-    'tools-currency-depreciation::resultMoment.chartAria':
-      'decision A: the chart sentence for screen readers; kept by the founder',
-    'tools-currency-depreciation::resultMoment.chartAriaUsd':
-      'decision A: the chart sentence for screen readers (US dollar locale); kept by the founder',
-    'tools-currency-depreciation::seo.description':
-      'decision A: the search description says what the tool compares (en, es, de; pt-BR rewritten)',
     'tools-money-jobs::plan.brDollarLine':
       'reserve diversification, no earn or rate word in the string; it renders in the plan section below the rate table; kept by the founder 2026-11-11 (DR w-b-signoff item 2)',
   };
@@ -544,6 +534,26 @@ describe('GENIUS-COMBO-1 — strings rendered together carry no earn/stablecoin 
       }
     }
     expect(found).toEqual([]);
+  });
+
+  // W-D2 (D8): an entry whose string no longer names a stablecoin in any locale is stale, and
+  // stays a silent exemption unless it fails here (three went stale when D8's rewrites landed).
+  it('should keep no tool entry whose string names no stablecoin in any locale', () => {
+    const stale = Object.keys(STABLE_ON_TOOLS).filter((key) => {
+      const [ns, path] = key.split('::');
+      return !LOCALES.some((locale) => {
+        let named = false;
+        walkStrings(
+          JSON.parse(readFileSync(join(TRANSLATIONS_DIR, locale, `${ns}.json`), 'utf8')),
+          '',
+          (text, at) => {
+            if (at === path && STABLE_ANY.test(normalise(text))) named = true;
+          }
+        );
+        return named;
+      });
+    });
+    expect(stale).toEqual([]);
   });
 
   it("should find no pairing across a share image's headline and line (every tool, every locale)", () => {

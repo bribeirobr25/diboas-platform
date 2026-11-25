@@ -74,10 +74,15 @@ describe('the email preferences page: unsubscribe', () => {
         body: JSON.stringify({ id: 'hash', token: 'tok', action: 'unsubscribe' }),
       })
     );
+    // Advance asynchronously and wait for the redirect itself: the effect that schedules the 3 s
+    // timer runs after the success render, so a synchronous advance could run before it (flaky
+    // under load, found by the W-D2 audit: 3 of 9 full-suite runs).
     await act(async () => {
-      vi.advanceTimersByTime(3000);
+      await vi.advanceTimersByTimeAsync(3000);
     });
-    expect(assigned.at(-1)).toMatch(/^\/en\/\?utm_source=email.*unsubscribed_redirect$/);
+    await waitFor(() =>
+      expect(assigned.at(-1)).toMatch(/^\/en\/\?utm_source=email.*unsubscribed_redirect$/)
+    );
     expect(track).toHaveBeenCalledWith(
       expect.objectContaining({ name: 'email_unsubscribed_redirect' })
     );

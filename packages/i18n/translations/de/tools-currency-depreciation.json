@@ -1,7 +1,7 @@
 {
   "seo": {
     "title": "Währungs-Wertverlust-Rechner: echte Rendite",
-    "description": "Kostenloser Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und in einer Digital-Dollar-Strategie (historisch {scenarioHistorical} pro Jahr)."
+    "description": "Währungs-Wertverlust-Rechner. Vergleiche deine lokale Währung in bar, auf der Bank und in einer diBoaS-Strategie (Szenario: {scenarioHistorical} pro Jahr, Basis S&P 500; keine Prognose)."
   },
   "hero": {
     "kicker": "Währungs-Wertverlust-Rechner",
@@ -31,7 +31,7 @@
     "bankLabel": "Bank-Rendite",
     "bankRateNote": "{rate}% lokale Bankrate",
     "diboasLabel": "Eine diBoaS-Strategie",
-    "diboasNote": "{rate}% pro Jahr in US-Dollar: historische Rendite der Strategie. Vergangenes Ergebnis, keine Prognose; der Wert kann fallen, auch unter das, was du eingezahlt hast.",
+    "diboasNote": "Zur Veranschaulichung: {rate}% pro Jahr in US-Dollar, ein Szenario auf Basis der langfristigen Gesamtrendite des S&P 500 (1928–2024). Keine Erfolgsbilanz von diBoaS und keine Prognose; der Wert kann fallen, auch unter das, was du eingezahlt hast.",
     "retrospectiveThenLabel": "Damals ({startMonth})",
     "retrospectiveThenNote": "1 USD = {rate} {currency}",
     "retrospectiveNowLabel": "Heute ({asOfMonth})",
@@ -48,8 +48,8 @@
   "resultMoment": {
     "eyebrow": "Was dein Geld wirklich verdient",
     "eyebrowUsd": "Was deine ungenutzten Dollar verdienen",
-    "chartAria": "Wie sich {currency} über {years, plural, one {# Jahr} other {# Jahre}} vergleicht: als Bargeld, bei einer lokalen Bank und als digitaler Dollar bei diBoaS.",
-    "chartAriaUsd": "Wie sich deine Dollar über {years, plural, one {# Jahr} other {# Jahre}} vergleichen: bei einer Bank gegenüber digitalem Dollar bei diBoaS.",
+    "chartAria": "Wie sich {currency} über {years, plural, one {# Jahr} other {# Jahre}} vergleicht: als Bargeld, bei einer lokalen Bank und in einer diBoaS-Strategie (ein Beispielszenario).",
+    "chartAriaUsd": "Wie sich deine Dollar über {years, plural, one {# Jahr} other {# Jahre}} vergleichen: bei einer Bank gegenüber einer diBoaS-Strategie (ein Beispielszenario).",
     "shareText": "In {years, plural, one {einem Jahr} other {# Jahren}} könnten meine {currency} in einer diBoaS-Strategie {value} wert sein. Sieh nach, wie es bei dir aussähe."
   },
   "vignette": {
