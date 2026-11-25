@@ -161,7 +161,8 @@ export interface RegimeCoverage {
 
 export interface RegimeData {
   score: number;
-  max_score: 14;
+  /** The scale the score is read on (14 today); the history chart reads it (C2-S, `5.915`). */
+  max_score: number;
   regime_code: RegimeCode;
   regime_label: RegimeLabel;
   environment_bias: EnvironmentBias;

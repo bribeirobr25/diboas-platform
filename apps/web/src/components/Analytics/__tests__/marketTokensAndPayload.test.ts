@@ -6,8 +6,12 @@
  *      Bitcoin view, ~38 KB on the Backdrop view, measured against production)
  *      and nothing read it.
  *  (c) The five badge/card modules size text, spacing and radii with design
- *      tokens, never literals (CLAUDE.md design-token rule; `em` and the
- *      editorial `clamp()` fluid sizes are the documented exceptions).
+ *      tokens, never literals (CLAUDE.md design-token rule; `em` is the documented
+ *      exception).
+ *  (e) No fluid size is written as a literal anywhere in the market's folders (C2-S G2,
+ *      `5.914`): the 25 `clamp()` literals became 20 `--editorial-*` tokens with the same
+ *      values, pinned here. The file list is walked, not hand-kept (a plan reviewer found
+ *      the old five-module list missed three of the five files that held them).
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -33,9 +37,9 @@ describe('(c) the badge/card modules use tokens for text, spacing and radii', ()
     'ConfidenceBadge/ConfidenceBadge.module.css',
     'RegimeLabel/RegimeLabel.module.css',
   ];
-  // A declaration whose value has a px/rem literal outside clamp().
+  // A declaration whose value has a px/rem literal (no clamp() exemption since 5.914).
   const LITERAL =
-    /^\s*(font-size|padding(-[a-z]+)?|margin(-[a-z]+)?|gap|row-gap|column-gap|border-radius|min-height)\s*:\s*(?![^;]*clamp\()[^;]*\b\d+(\.\d+)?(px|rem)\b/m;
+    /^\s*(font-size|padding(-[a-z]+)?|margin(-[a-z]+)?|gap|row-gap|column-gap|border-radius|min-height)\s*:\s*[^;]*\b\d+(\.\d+)?(px|rem)\b/m;
 
   it('should have no literal sizes in any of the five modules', () => {
     for (const m of MODULES) {
@@ -127,5 +131,60 @@ describe('(f) the Backdrop conditions are defined once (5.631)', () => {
     const copies = files.filter((f) => /['"]MAC-0[123]['"]/.test(read(f)));
     expect(copies).toEqual([]);
     expect(read('lib/market/presentationState.ts')).toMatch(/export const BACKDROP_CONDITIONS/);
+  });
+});
+
+describe('(e) the market writes no fluid size as a literal (5.914)', () => {
+  const ROOTS = ['app/[locale]/(landing)/market', 'components/Analytics', 'components/Market'];
+  const walk = (dir: string): string[] =>
+    fs.readdirSync(path.join(SRC, dir), { withFileTypes: true }).flatMap((d) => {
+      const rel = path.join(dir, d.name);
+      if (d.isDirectory()) return d.name === '__tests__' ? [] : walk(rel);
+      return /\.(module\.css|tsx)$/.test(d.name) && !/\.stories\.tsx$/.test(d.name) ? [rel] : [];
+    });
+  const FILES = ROOTS.flatMap(walk);
+  /** A clamp()/min()/max() with a length inside, in CSS or an inline style. */
+  const FLUID = /\b(?:clamp|min|max)\(\s*[^)]*\b\d+(?:\.\d+)?(?:px|rem|vh|vw)\b/;
+
+  it('should walk the market folders (the scan is not vacuous)', () => {
+    expect(FILES.filter((f) => f.endsWith('.module.css')).length).toBeGreaterThanOrEqual(13);
+  });
+
+  it('should find no clamp(), min() or max() size literal in any market CSS module or inline style', () => {
+    const offenders = FILES.filter((f) => {
+      const text = read(f).replace(/\/\*[\s\S]*?\*\//g, '');
+      return f.endsWith('.tsx')
+        ? /style=\{\{[^}]*\b(?:clamp|min|max)\(/.test(text)
+        : FLUID.test(text);
+    });
+    expect(offenders).toEqual([]);
+  });
+
+  it('should keep each fluid token at the value the market held before 5.914', () => {
+    const tokens = read('styles/design-tokens.css');
+    const PINNED: Record<string, string> = {
+      'space-hero-top': 'clamp(140px, 20vh, 220px)',
+      'space-hero-bottom': 'clamp(56px, 9vh, 110px)',
+      'space-section': 'clamp(56px, 10vh, 120px)',
+      'space-block-sm': 'clamp(28px, 5vh, 46px)',
+      'space-block-xs': 'clamp(28px, 5vh, 44px)',
+      'space-block': 'clamp(28px, 5vh, 50px)',
+      'space-rule': 'clamp(36px, 6vh, 64px)',
+      'gap-columns': 'clamp(36px, 6vw, 80px)',
+      'gap-signal': 'clamp(16px, 3vw, 46px)',
+      'space-signal': 'clamp(20px, 2.6vw, 32px)',
+      'font-hero': 'clamp(3.2rem, 9vw, 8rem)',
+      'font-lead': 'clamp(1.1rem, 1.7vw, 1.4rem)',
+      'font-section': 'clamp(1.9rem, 4vw, 3.1rem)',
+      'font-cta-body': 'clamp(1.05rem, 1.6vw, 1.25rem)',
+      'font-signal-value': 'clamp(1.2rem, 2.4vw, 1.8rem)',
+      'font-signal-figure': 'clamp(1.4rem, 2.6vw, 2.1rem)',
+      'font-score': 'clamp(3.5rem, 10vw, 6rem)',
+      'font-summary': 'clamp(1.1rem, 1.6vw, 1.3rem)',
+      'font-summary-sm': 'clamp(1.02rem, 1.4vw, 1.2rem)',
+      'font-summary-lg': 'clamp(1.15rem, 1.7vw, 1.4rem)',
+    };
+    for (const [name, value] of Object.entries(PINNED))
+      expect(tokens, name).toContain(`--editorial-${name}: ${value};`);
   });
 });

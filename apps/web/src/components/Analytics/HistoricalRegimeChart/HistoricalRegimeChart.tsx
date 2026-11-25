@@ -2,7 +2,13 @@
 
 import { useId, useMemo } from 'react';
 import type { HistoricalRegimes, RegimeCode } from '@/lib/analytics-sdk/types';
-import { historicalMonthTicks, monthLabelGap, snapshotDayTime } from '@/lib/market/historyAxis';
+import {
+  historicalMonthTicks,
+  monthLabelGap,
+  SCORE_LABEL_MIN_GAP,
+  scoreTicks,
+  snapshotDayTime,
+} from '@/lib/market/historyAxis';
 import styles from './HistoricalRegimeChart.module.css';
 
 interface HistoricalRegimeChartProps {
@@ -24,6 +30,8 @@ interface HistoricalRegimeChartProps {
    * server (`historicalMonthLabels`). A month with no label gets no tick.
    */
   monthLabels: Record<string, string>;
+  /** The scale the scores are read on: the regime's `max_score`, else the methodology's (5.915). */
+  maxScore: number;
   className?: string;
 }
 
@@ -32,8 +40,6 @@ const VIEWBOX_H = 240;
 const PADDING = { top: 16, right: 24, bottom: 32, left: 40 };
 const CHART_W = VIEWBOX_W - PADDING.left - PADDING.right;
 const CHART_H = VIEWBOX_H - PADDING.top - PADDING.bottom;
-const MAX_SCORE = 14;
-const Y_TICKS = [0, 3, 6, 9, 12, 14];
 // Warm editorial ramp (B5 / F-2, 2026-07-13): repointed off the semantic
 // green/amber/red stoplight tokens — that grammar reads as buy/sell (Q3
 // advisory) and clashed with the warm /market palette. The ramp runs
@@ -64,6 +70,7 @@ export function HistoricalRegimeChart({
   regimeLabels,
   dateLabels,
   monthLabels,
+  maxScore,
   className,
 }: HistoricalRegimeChartProps) {
   const tableId = useId();
@@ -104,7 +111,8 @@ export function HistoricalRegimeChart({
       ? xAtTime(snapshotDayTime(snapshots[i]!.date))
       : PADDING.left +
         (snapshots.length <= 1 ? CHART_W / 2 : (i / (snapshots.length - 1)) * CHART_W);
-  const yScale = (score: number) => PADDING.top + CHART_H - (score / MAX_SCORE) * CHART_H;
+  const yScale = (score: number) => PADDING.top + CHART_H - (score / maxScore) * CHART_H;
+  const yTicks = scoreTicks(maxScore);
 
   const path = useMemo(
     () =>
@@ -145,7 +153,7 @@ export function HistoricalRegimeChart({
         className={styles.svg}
       >
         <title id={`${tableId}-title`}>{ariaLabel}</title>
-        {Y_TICKS.map((t, i) => (
+        {yTicks.map((t, i) => (
           <g key={`yt-${t}`}>
             <line
               x1={PADDING.left}
@@ -159,9 +167,9 @@ export function HistoricalRegimeChart({
               y={yScale(t) + 4}
               textAnchor="end"
               className={
-                // Less than 3 points below the next tick (12 under 14): the
-                // phone-size labels would touch, so phones hide this one.
-                (Y_TICKS[i + 1] ?? Infinity) - t < 3
+                // Closer to the next tick than the phone label needs, in drawing
+                // units (12 under 14): the labels would touch, so phones hide this one.
+                yScale(t) - yScale(yTicks[i + 1] ?? Infinity) < SCORE_LABEL_MIN_GAP
                   ? `${styles.axisLabel} ${styles.axisLabelCrowded}`
                   : styles.axisLabel
               }

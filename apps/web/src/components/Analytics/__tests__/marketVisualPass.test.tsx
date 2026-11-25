@@ -75,6 +75,7 @@ describe('history chart time axis', () => {
     const data = { snapshots } as Pick<HistoricalRegimes, 'snapshots'>;
     return render(
       <HistoricalRegimeChart
+        maxScore={14}
         data={data}
         range="1Y"
         ariaLabel="h"

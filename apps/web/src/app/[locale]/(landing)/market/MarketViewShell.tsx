@@ -64,6 +64,7 @@ import {
   regimeLabelMap,
   lowConfidenceReason,
 } from '@/lib/market/presentationState';
+import { historyChartMax } from '@/lib/market/historyAxis';
 
 interface MarketViewShellProps {
   locale: SupportedLocale;
@@ -182,6 +183,9 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   const historical = initialData.historical;
   const signals = initialData.signals;
   const dataStatus = initialData.dataStatus;
+  // The history chart's scale (5.915): the regime's, else the methodology's, so the chart still
+  // renders during a regime outage, as the outage banner promises; hidden only when both are missing.
+  const maxScore = historyChartMax(regime?.max_score, initialData.methodology?.max_score);
   // 2026-10-21 (owner-approved copy): a LOW badge says why, from the causes the
   // read-time check recorded at the same instant. Nothing renders otherwise.
   const lowReason = lowConfidenceReason(
@@ -213,7 +217,9 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   // appear exactly on the cycles computed under the suspension.
   const { score: coverageNote, chart: chartCoverageNote } = coverageNotes(
     regime?.coverage,
-    regime?.max_score ?? 14,
+    // A suspended signal is read only from the regime, so its scale is the regime's whenever the
+    // notes can appear; 0 is never shown.
+    maxScore ?? 0,
     locale,
     {
       score: t(
@@ -305,7 +311,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
         ) : null}
 
         <Container size="md">
-          {view.grammar === 'scored' && regime && (
+          {view.grammar === 'scored' && regime ? (
             <SectionErrorBoundary
               sectionId="market-regime-band"
               sectionType="dashboard"
@@ -350,7 +356,9 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                     ) : null}
                   </div>
                   <div className={styles.scoreCopy}>
-                    {regime.summary.plain && <CalmSummary data={regime.summary} length="plain" />}
+                    {regime.summary.plain ? (
+                      <CalmSummary data={regime.summary} length="plain" />
+                    ) : null}
                     {coverageNote ? (
                       <p className={styles.coverageNote} data-market-coverage-note>
                         {coverageNote}
@@ -378,13 +386,13 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                 </details>
               </section>
             </SectionErrorBoundary>
-          )}
+          ) : null}
 
-          {view.grammar === 'state' && signals && (
+          {view.grammar === 'state' && signals ? (
             <StateViewSections viewSlug={view.slug} signalGroups={signals.signal_groups} t={t} />
-          )}
+          ) : null}
 
-          {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 && (
+          {view.grammar === 'scored' && signals && signals.signal_groups.length > 0 ? (
             <SectionErrorBoundary
               sectionId="market-signals"
               sectionType="dashboard"
@@ -411,96 +419,98 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
                 />
               </section>
             </SectionErrorBoundary>
-          )}
+          ) : null}
 
           {view.grammar === 'scored' &&
-            historical &&
-            historical.snapshots.length > 0 &&
-            !historical.synthetic_seed && (
-              <SectionErrorBoundary
-                sectionId="market-historical"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'historical', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  <div className={styles.secHead}>
-                    <span className={styles.eyebrow}>
-                      {t('dashboard.historicalTitle', 'Score over time')}
-                    </span>
-                    <h2 className={styles.h2}>
-                      {t(
-                        'dashboard.historicalLead',
-                        'Where the environment has been, week by week since the framework went live.'
-                      )}
-                    </h2>
-                  </div>
-                  <HistoricalRegimeChart
-                    data={{ snapshots: historical.snapshots }}
-                    range="1Y"
-                    ariaLabel={t(
-                      'dashboard.historicalAriaLabel',
-                      'Macro environment score for each week since the framework went live'
+          historical &&
+          historical.snapshots.length > 0 &&
+          !historical.synthetic_seed &&
+          maxScore !== null ? (
+            <SectionErrorBoundary
+              sectionId="market-historical"
+              sectionType="dashboard"
+              enableReporting
+              context={{ page: 'market', section: 'historical', view: view.slug }}
+            >
+              <section className={styles.section}>
+                <div className={styles.secHead}>
+                  <span className={styles.eyebrow}>
+                    {t('dashboard.historicalTitle', 'Score over time')}
+                  </span>
+                  <h2 className={styles.h2}>
+                    {t(
+                      'dashboard.historicalLead',
+                      'Where the environment has been, week by week since the framework went live.'
                     )}
-                    tableLabels={{
-                      date: t('dashboard.historicalTableDate', 'Date'),
-                      score: t('dashboard.historicalTableScore', 'Score'),
-                      regime: t('dashboard.historicalTableRegime', 'Regime'),
-                    }}
-                    regimeLabels={regimeLabels}
-                    dateLabels={historicalDateLabels(historical.snapshots, locale)}
-                    monthLabels={historicalMonthLabels(historical.snapshots, locale)}
-                  />
-                  {chartCoverageNote ? (
-                    <p className={styles.coverageNote} data-market-chart-coverage-note>
-                      {chartCoverageNote}
-                    </p>
-                  ) : null}
-                </section>
-              </SectionErrorBoundary>
-            )}
+                  </h2>
+                </div>
+                <HistoricalRegimeChart
+                  data={{ snapshots: historical.snapshots }}
+                  range="1Y"
+                  ariaLabel={t(
+                    'dashboard.historicalAriaLabel',
+                    'Macro environment score for each week since the framework went live'
+                  )}
+                  tableLabels={{
+                    date: t('dashboard.historicalTableDate', 'Date'),
+                    score: t('dashboard.historicalTableScore', 'Score'),
+                    regime: t('dashboard.historicalTableRegime', 'Regime'),
+                  }}
+                  regimeLabels={regimeLabels}
+                  dateLabels={historicalDateLabels(historical.snapshots, locale)}
+                  monthLabels={historicalMonthLabels(historical.snapshots, locale)}
+                  maxScore={maxScore}
+                />
+                {chartCoverageNote ? (
+                  <p className={styles.coverageNote} data-market-chart-coverage-note>
+                    {chartCoverageNote}
+                  </p>
+                ) : null}
+              </section>
+            </SectionErrorBoundary>
+          ) : null}
 
           {dataStatus &&
-            (view.grammar === 'state'
-              ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
-              : dataStatus.sources.length > 0) && (
-              <SectionErrorBoundary
-                sectionId="market-data-status"
-                sectionType="dashboard"
-                enableReporting
-                context={{ page: 'market', section: 'data-status', view: view.slug }}
-              >
-                <section className={styles.section}>
-                  <div className={styles.secHead}>
-                    <span className={styles.eyebrow}>
-                      {t('dashboard.dataStatusTitle', 'Data sources')}
-                    </span>
-                    <h2 className={styles.h2}>
-                      {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
-                    </h2>
-                  </div>
-                  <ul className={styles.srcPills}>
-                    {(view.grammar === 'state'
-                      ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
-                      : dataStatus.sources
-                    ).map((src) => (
-                      <li key={src.source}>
-                        <DataFreshnessBadge
-                          source={src.source}
-                          label={
-                            view.sourceLabelKeys[src.source]
-                              ? t(view.sourceLabelKeys[src.source], src.source)
-                              : src.source
-                          }
-                          status={src.status}
-                          labels={freshnessLabels}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              </SectionErrorBoundary>
-            )}
+          (view.grammar === 'state'
+            ? dataStatus.sources.some((src) => view.sourceLabelKeys[src.source])
+            : dataStatus.sources.length > 0) ? (
+            <SectionErrorBoundary
+              sectionId="market-data-status"
+              sectionType="dashboard"
+              enableReporting
+              context={{ page: 'market', section: 'data-status', view: view.slug }}
+            >
+              <section className={styles.section}>
+                <div className={styles.secHead}>
+                  <span className={styles.eyebrow}>
+                    {t('dashboard.dataStatusTitle', 'Data sources')}
+                  </span>
+                  <h2 className={styles.h2}>
+                    {t('dashboard.dataStatusLead', 'Live confidence per upstream feed.')}
+                  </h2>
+                </div>
+                <ul className={styles.srcPills}>
+                  {(view.grammar === 'state'
+                    ? dataStatus.sources.filter((src) => view.sourceLabelKeys[src.source])
+                    : dataStatus.sources
+                  ).map((src) => (
+                    <li key={src.source}>
+                      <DataFreshnessBadge
+                        source={src.source}
+                        label={
+                          view.sourceLabelKeys[src.source]
+                            ? t(view.sourceLabelKeys[src.source], src.source)
+                            : src.source
+                        }
+                        status={src.status}
+                        labels={freshnessLabels}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </SectionErrorBoundary>
+          ) : null}
         </Container>
 
         {/* Closing band — weekly cadence + subscribe-to-waitlist + share (Phase 5). */}
@@ -534,11 +544,11 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
               {t('dashboard.dataSource', 'All data comes from diBoaS Analytics.')}
             </p>
 
-            {productDisclaimer && (
+            {productDisclaimer ? (
               <ProductDisclaimer
                 text={productDisclaimer.text[locale] ?? productDisclaimer.text.en}
               />
-            )}
+            ) : null}
 
             <HostRegulatoryDisclaimer
               className={styles.methodNote}

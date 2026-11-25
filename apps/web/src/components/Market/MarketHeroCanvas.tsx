@@ -23,7 +23,7 @@ export function MarketHeroCanvas() {
 
   return (
     <div ref={containerRef} className={styles.heroCanvas} aria-hidden="true">
-      {!failed && <canvas ref={canvasRef} className={styles.heroCanvasEl} />}
+      {!failed ? <canvas ref={canvasRef} className={styles.heroCanvasEl} /> : null}
     </div>
   );
 }

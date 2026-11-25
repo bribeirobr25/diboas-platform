@@ -78,3 +78,37 @@ export function historicalMonthTicks(
   }
   return kept;
 }
+
+/**
+ * The score axis for a scale of `max` points (C2-S, `5.915`): a tick every 3 points, then `max`
+ * itself (14 gives 0, 3, 6, 9, 12, 14). No usable maximum (non-finite or not above 0) gives no
+ * ticks, and the shell does not render the chart.
+ */
+export function scoreTicks(max: number): number[] {
+  if (!Number.isFinite(max) || max <= 0) return [];
+  const ticks: number[] = [];
+  for (let t = 0; t < max; t += 3) ticks.push(t);
+  ticks.push(max);
+  return ticks;
+}
+
+/**
+ * Two score labels closer than this, in drawing units, touch at the phone label size, so phones
+ * hide the lower one (on the 14-point scale: 12 under 14 is 27.4 units apart, 3 points are 41.1).
+ */
+export const SCORE_LABEL_MIN_GAP = 30;
+
+/**
+ * The history chart's scale (5.915): the regime's `max_score`, else the methodology's, so the chart
+ * still renders during a regime outage (the outage banner promises the archive stays available);
+ * `null` when neither is a usable maximum, and the shell does not render the chart.
+ */
+export function historyChartMax(
+  regimeMax: number | null | undefined,
+  methodologyMax: number | null | undefined
+): number | null {
+  for (const max of [regimeMax, methodologyMax]) {
+    if (typeof max === 'number' && Number.isFinite(max) && max > 0) return max;
+  }
+  return null;
+}

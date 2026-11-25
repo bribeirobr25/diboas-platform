@@ -20,6 +20,7 @@ const meta = {
     },
     dateLabels: historicalDateLabels(historical.snapshots, 'en'),
     monthLabels: historicalMonthLabels(historical.snapshots, 'en'),
+    maxScore: 14,
   },
 } satisfies Meta<typeof HistoricalRegimeChart>;
 export default meta;
