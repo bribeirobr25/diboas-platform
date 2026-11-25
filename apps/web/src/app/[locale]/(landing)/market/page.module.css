@@ -32,7 +32,7 @@
 .hero {
   position: relative;
   overflow: hidden;
-  padding: var(--editorial-space-hero-top) 0 var(--editorial-space-hero-bottom);
+  padding: var(--editorial-spacing-hero-top) 0 var(--editorial-spacing-hero-bottom);
   background: var(--editorial-paper);
 }
 .grain {
@@ -51,7 +51,7 @@
 .masthead {
   border-bottom: 2px solid var(--editorial-ink);
   padding-bottom: 18px;
-  margin-bottom: var(--editorial-space-block-sm);
+  margin-bottom: var(--editorial-spacing-block-md);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -66,7 +66,7 @@
   color: var(--editorial-ink-soft);
 }
 .heroTitle {
-  font-size: var(--editorial-font-hero);
+  font-size: var(--editorial-font-size-hero);
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin: 0.12em 0 0.3em;
@@ -79,7 +79,7 @@
 .standfirst {
   max-width: 50ch;
   font-family: var(--font-inter), 'Inter', system-ui, sans-serif;
-  font-size: var(--editorial-font-lead);
+  font-size: var(--editorial-font-size-lead);
   color: var(--editorial-ink-soft);
   font-weight: 400;
   line-height: 1.55;
@@ -88,13 +88,13 @@
 
 /* ── SCORE + GAUGE ────────────────────────────────────── */
 .scoreSec {
-  padding: var(--editorial-space-section) 0;
+  padding: var(--editorial-spacing-section) 0;
   border-top: 1px solid var(--editorial-line);
 }
 .scoreGrid {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: var(--editorial-gap-columns);
+  gap: var(--editorial-spacing-columns);
   /* start (not center): pin the gauge to the top of the row so a taller text
      column never floats it vertically-centered (desktop). */
   align-items: start;
@@ -116,8 +116,8 @@
    The P3 plain/memo split is preserved — the two registers now read as distinct
    by sitting in separate rows, divided by the hairline above the memo. */
 .scoreDetail {
-  margin-top: var(--editorial-space-rule);
-  padding-top: var(--editorial-space-block-xs);
+  margin-top: var(--editorial-spacing-rule);
+  padding-top: var(--editorial-spacing-block-sm);
   border-top: 1px solid var(--editorial-line);
 }
 /* 5.373: the memo's measure has ONE owner — `CalmSummary`'s own `max-width:
@@ -162,14 +162,14 @@
 
 /* ── SECTIONS (signals / historical / sources) ───────── */
 .section {
-  padding: var(--editorial-space-section) 0;
+  padding: var(--editorial-spacing-section) 0;
   border-top: 1px solid var(--editorial-line);
 }
 .secHead {
-  margin-bottom: var(--editorial-space-block);
+  margin-bottom: var(--editorial-spacing-block-lg);
 }
 .h2 {
-  font-size: var(--editorial-font-section);
+  font-size: var(--editorial-font-size-section);
   margin: 0.3em 0 0;
   max-width: 20ch;
   color: var(--editorial-ink);
@@ -341,7 +341,7 @@
    body and the explainer run together as one block, which is the exact
    weekly-vs-evergreen blur this section was restructured to remove. */
 .stateDepth {
-  margin-bottom: var(--editorial-space-block-xs);
+  margin-bottom: var(--editorial-spacing-block-sm);
 }
 .stateExplainer {
   color: var(--editorial-ink-soft);

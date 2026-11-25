@@ -16,12 +16,19 @@ const WEB = join(__dirname, '../..');
 const require = createRequire(join(WEB, 'package.json'));
 const { ESLint } = require('eslint') as typeof import('eslint');
 
-/** One file path in each scoped folder (the files need not exist). */
+/**
+ * File paths in each scoped folder, at its root and one level down, where the real components live
+ * (the files need not exist): a `/*` glob would match the root probe only (W-D2 audit sabotage).
+ */
 const FOLDERS = [
   'src/app/[locale]/(landing)/market/__probe__.tsx',
+  'src/app/[locale]/(landing)/market/[view]/__probe__.tsx',
   'src/components/Analytics/__probe__.tsx',
+  'src/components/Analytics/SignalCard/__probe__.tsx',
   'src/components/Market/__probe__.tsx',
+  'src/components/Market/MarketCtaBand/__probe__.tsx',
   'src/lib/market/__probe__.tsx',
+  'src/lib/market/nested/__probe__.tsx',
 ];
 const PLANTED = `export function Probe({ n }: { n: number }) {\n  return <div>{n && <span>x</span>}</div>;\n}\n`;
 
@@ -33,7 +40,7 @@ describe('JSX-LEAK-1: the leaked-render rule reaches every market folder', () =>
     async (file) => {
       const config = await eslint.calculateConfigForFile(join(WEB, file));
       const rule = config?.rules?.['react/jsx-no-leaked-render'];
-      expect(Array.isArray(rule) ? rule[0] : rule).toBe(2);
+      expect(rule).toEqual([2, { validStrategies: ['ternary'] }]);
     },
     60_000
   );

@@ -18,18 +18,18 @@
 }
 
 .short {
-  font-size: var(--editorial-font-summary);
+  font-size: var(--editorial-font-size-summary);
   line-height: 1.55;
 }
 
 .detailed {
-  font-size: var(--editorial-font-summary-sm);
+  font-size: var(--editorial-font-size-summary-sm);
   line-height: 1.7;
 }
 
 /* Plain (grandmother) layer — larger, warmer, the first thing read (P3). */
 .plain {
-  font-size: var(--editorial-font-summary-lg);
+  font-size: var(--editorial-font-size-summary-lg);
   line-height: 1.65;
   color: var(--editorial-ink);
   font-weight: 450;

@@ -168,8 +168,8 @@ const eslintConfig = [
   // JSX-LEAK-1 (market clean-up C2-S G2, register `5.916`): in the market's own folders a `&&` in
   // JSX can render a stray `0`; conditionals are ternaries there (CLAUDE.md "explicit conditional
   // rendering"). The globs are `src/`-prefixed and the bracketed folder is escaped, or the rule
-  // silently matches nothing (each glob is sabotage-proven in `jsxLeakRule.test.ts`). Repo-wide
-  // (94 sites) is `5.925`.
+  // silently matches nothing (each glob is sabotage-proven in `jsxLeakRule.test.ts`). The 85 sites
+  // elsewhere in the web app are `5.925`.
   {
     files: [
       'src/app/\\[locale\\]/\\(landing\\)/market/**/*.{ts,tsx}',

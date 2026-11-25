@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
+import { stripComments } from '@diboas/test-support';
 
 const SRC = path.resolve(__dirname, '../../..');
 const read = (rel: string) => fs.readFileSync(path.join(SRC, rel), 'utf8');
@@ -143,8 +144,18 @@ describe('(e) the market writes no fluid size as a literal (5.914)', () => {
       return /\.(module\.css|tsx)$/.test(d.name) && !/\.stories\.tsx$/.test(d.name) ? [rel] : [];
     });
   const FILES = ROOTS.flatMap(walk);
-  /** A clamp()/min()/max() with a length inside, in CSS or an inline style. */
-  const FLUID = /\b(?:clamp|min|max)\(\s*[^)]*\b\d+(?:\.\d+)?(?:px|rem|vh|vw)\b/;
+  /** A clamp()/min()/max() with a length inside, once every `var(...)` is removed (a `var()`'s own
+   *  bracket would end the match early; the audit planted `clamp(var(--x), 2vw, 3rem)`). */
+  const FLUID =
+    /\b(?:clamp|min|max)\(\s*[^)]*\b\d+(?:\.\d+)?(?:px|rem|em|vh|vw|dvh|svh|lvh|ch|vmin|vmax)\b/i;
+  /** A calc() with a viewport unit is a fluid size too. */
+  const VIEWPORT_CALC = /\bcalc\([^;]*\b\d+(?:\.\d+)?(?:vw|vh|dvh|svh|lvh|vmin|vmax)\b/i;
+  const withoutVars = (text: string) => {
+    let out = text;
+    for (let i = 0; i < 5 && /var\([^()]*\)/.test(out); i++)
+      out = out.replace(/var\([^()]*\)/g, '0');
+    return out;
+  };
 
   it('should walk the market folders (the scan is not vacuous)', () => {
     expect(FILES.filter((f) => f.endsWith('.module.css')).length).toBeGreaterThanOrEqual(13);
@@ -152,39 +163,62 @@ describe('(e) the market writes no fluid size as a literal (5.914)', () => {
 
   it('should find no clamp(), min() or max() size literal in any market CSS module or inline style', () => {
     const offenders = FILES.filter((f) => {
-      const text = read(f).replace(/\/\*[\s\S]*?\*\//g, '');
-      return f.endsWith('.tsx')
-        ? /style=\{\{[^}]*\b(?:clamp|min|max)\(/.test(text)
-        : FLUID.test(text);
+      const raw = read(f);
+      if (f.endsWith('.tsx')) {
+        // Any clamp()/min()/max()/calc() inside a string or template literal (an inline style, a
+        // hoisted style object, a class string): the market sizes nothing from TSX.
+        const code = stripComments(raw, f);
+        return /(['"`])[^'"`\n]*\b(?:clamp|min|max|calc)\([^'"`\n]*\1/i.test(code);
+      }
+      const css = withoutVars(raw.replace(/\/\*[\s\S]*?\*\//g, ''));
+      return FLUID.test(css) || VIEWPORT_CALC.test(css);
     });
     expect(offenders).toEqual([]);
   });
 
   it('should keep each fluid token at the value the market held before 5.914', () => {
-    const tokens = read('styles/design-tokens.css');
+    // Comments stripped first: a commented-out token must not count as declared.
+    const tokens = read('styles/design-tokens.css').replace(/\/\*[\s\S]*?\*\//g, '');
     const PINNED: Record<string, string> = {
-      'space-hero-top': 'clamp(140px, 20vh, 220px)',
-      'space-hero-bottom': 'clamp(56px, 9vh, 110px)',
-      'space-section': 'clamp(56px, 10vh, 120px)',
-      'space-block-sm': 'clamp(28px, 5vh, 46px)',
-      'space-block-xs': 'clamp(28px, 5vh, 44px)',
-      'space-block': 'clamp(28px, 5vh, 50px)',
-      'space-rule': 'clamp(36px, 6vh, 64px)',
-      'gap-columns': 'clamp(36px, 6vw, 80px)',
-      'gap-signal': 'clamp(16px, 3vw, 46px)',
-      'space-signal': 'clamp(20px, 2.6vw, 32px)',
-      'font-hero': 'clamp(3.2rem, 9vw, 8rem)',
-      'font-lead': 'clamp(1.1rem, 1.7vw, 1.4rem)',
-      'font-section': 'clamp(1.9rem, 4vw, 3.1rem)',
-      'font-cta-body': 'clamp(1.05rem, 1.6vw, 1.25rem)',
-      'font-signal-value': 'clamp(1.2rem, 2.4vw, 1.8rem)',
-      'font-signal-figure': 'clamp(1.4rem, 2.6vw, 2.1rem)',
-      'font-score': 'clamp(3.5rem, 10vw, 6rem)',
-      'font-summary': 'clamp(1.1rem, 1.6vw, 1.3rem)',
-      'font-summary-sm': 'clamp(1.02rem, 1.4vw, 1.2rem)',
-      'font-summary-lg': 'clamp(1.15rem, 1.7vw, 1.4rem)',
+      'spacing-hero-top': 'clamp(140px, 20vh, 220px)',
+      'spacing-hero-bottom': 'clamp(56px, 9vh, 110px)',
+      'spacing-section': 'clamp(56px, 10vh, 120px)',
+      'spacing-block-md': 'clamp(28px, 5vh, 46px)',
+      'spacing-block-sm': 'clamp(28px, 5vh, 44px)',
+      'spacing-block-lg': 'clamp(28px, 5vh, 50px)',
+      'spacing-rule': 'clamp(36px, 6vh, 64px)',
+      'spacing-columns': 'clamp(36px, 6vw, 80px)',
+      'spacing-signal-gap': 'clamp(16px, 3vw, 46px)',
+      'spacing-signal': 'clamp(20px, 2.6vw, 32px)',
+      'font-size-hero': 'clamp(3.2rem, 9vw, 8rem)',
+      'font-size-lead': 'clamp(1.1rem, 1.7vw, 1.4rem)',
+      'font-size-section': 'clamp(1.9rem, 4vw, 3.1rem)',
+      'font-size-cta-body': 'clamp(1.05rem, 1.6vw, 1.25rem)',
+      'font-size-signal-value': 'clamp(1.2rem, 2.4vw, 1.8rem)',
+      'font-size-signal-figure': 'clamp(1.4rem, 2.6vw, 2.1rem)',
+      'font-size-score': 'clamp(3.5rem, 10vw, 6rem)',
+      'font-size-summary': 'clamp(1.1rem, 1.6vw, 1.3rem)',
+      'font-size-summary-sm': 'clamp(1.02rem, 1.4vw, 1.2rem)',
+      'font-size-summary-lg': 'clamp(1.15rem, 1.7vw, 1.4rem)',
     };
-    for (const [name, value] of Object.entries(PINNED))
-      expect(tokens, name).toContain(`--editorial-${name}: ${value};`);
+    for (const [name, value] of Object.entries(PINNED)) {
+      const defs = [...tokens.matchAll(new RegExp(`--editorial-${name}:\\s*([^;]+);`, 'g'))];
+      expect(
+        defs.map((d) => d[1]),
+        name
+      ).toEqual([value]);
+    }
+  });
+
+  it('should declare every --editorial-* token the market refers to', () => {
+    const tokens = read('styles/design-tokens.css').replace(/\/\*[\s\S]*?\*\//g, '');
+    const declared = new Set([...tokens.matchAll(/(--editorial-[\w-]+)\s*:/g)].map((m) => m[1]));
+    const missing = FILES.flatMap((f) =>
+      [...read(f).matchAll(/var\((--editorial-[\w-]+)/g)]
+        .map((m) => m[1])
+        .filter((name) => !declared.has(name))
+        .map((name) => `${f}: ${name}`)
+    );
+    expect(missing).toEqual([]);
   });
 });

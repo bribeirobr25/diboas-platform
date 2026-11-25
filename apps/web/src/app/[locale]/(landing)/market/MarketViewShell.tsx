@@ -183,8 +183,8 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   const historical = initialData.historical;
   const signals = initialData.signals;
   const dataStatus = initialData.dataStatus;
-  // The history chart's scale (5.915): the regime's, else the methodology's, so the chart still
-  // renders during a regime outage, as the outage banner promises; hidden only when both are missing.
+  // The history chart's scale (5.915): the regime's, else the methodology's, else the ratified 14
+  // (`historyChartMax`); the chart renders whenever it has history, as before.
   const maxScore = historyChartMax(regime?.max_score, initialData.methodology?.max_score);
   // 2026-10-21 (owner-approved copy): a LOW badge says why, from the causes the
   // read-time check recorded at the same instant. Nothing renders otherwise.
@@ -217,9 +217,8 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
   // appear exactly on the cycles computed under the suspension.
   const { score: coverageNote, chart: chartCoverageNote } = coverageNotes(
     regime?.coverage,
-    // A suspended signal is read only from the regime, so its scale is the regime's whenever the
-    // notes can appear; 0 is never shown.
-    maxScore ?? 0,
+    // The notes appear only with a regime; they name the scale the score is read on (as before).
+    regime?.max_score ?? 14,
     locale,
     {
       score: t(
@@ -424,8 +423,7 @@ export async function MarketViewShell({ locale, view }: MarketViewShellProps) {
           {view.grammar === 'scored' &&
           historical &&
           historical.snapshots.length > 0 &&
-          !historical.synthetic_seed &&
-          maxScore !== null ? (
+          !historical.synthetic_seed ? (
             <SectionErrorBoundary
               sectionId="market-historical"
               sectionType="dashboard"

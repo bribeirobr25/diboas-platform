@@ -111,8 +111,11 @@ export function HistoricalRegimeChart({
       ? xAtTime(snapshotDayTime(snapshots[i]!.date))
       : PADDING.left +
         (snapshots.length <= 1 ? CHART_W / 2 : (i / (snapshots.length - 1)) * CHART_W);
-  const yScale = (score: number) => PADDING.top + CHART_H - (score / maxScore) * CHART_H;
-  const yTicks = scoreTicks(maxScore);
+  // The domain covers every snapshot: a score above the stated scale (a data error) is drawn at the
+  // top of a taller axis instead of leaving the drawing (C2-S G2 audit).
+  const domainMax = Math.max(maxScore, ...snapshots.map((s) => s.score));
+  const yScale = (score: number) => PADDING.top + CHART_H - (score / domainMax) * CHART_H;
+  const yTicks = scoreTicks(domainMax, CHART_H);
 
   const path = useMemo(
     () =>
@@ -122,7 +125,7 @@ export function HistoricalRegimeChart({
         )
         .join(' '),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [snapshots]
+    [snapshots, domainMax]
   );
 
   const monthTicks = useMemo(
@@ -174,7 +177,7 @@ export function HistoricalRegimeChart({
                   : styles.axisLabel
               }
             >
-              {t}
+              {Number.isInteger(t) ? t : Math.round(t * 10) / 10}
             </text>
           </g>
         ))}
