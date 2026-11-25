@@ -9,7 +9,8 @@
   "backToTop": "Nach oben",
   "header": {
     "title": "Cookie-Richtlinie",
-    "lastUpdated": "Zuletzt aktualisiert: 5. Juli 2026"
+    "lastUpdated": "Zuletzt aktualisiert: 25. November 2026",
+    "notice": "Aktualisiert am 25. November 2026: Wir listen jetzt auf, was die Website in Ihrem Browser speichert, die Anmeldeformulare haben ein eigenes Kästchen, um zu notieren, welcher Link Sie zu uns gebracht hat, und mit dem Button „Cookie-Einstellungen“ können Sie Ihre Wahl ändern."
   },
   "sections": {
     "whatAreCookies": {
@@ -48,7 +49,7 @@
       },
       "analytics": {
         "title": "Analyse-Cookies (Nur Nach Ihrer Zustimmung)",
-        "description": "Diese Cookies werden erst gesetzt, nachdem Sie im Zustimmungsbanner auf Akzeptieren klicken. Vor der Zustimmung existieren keine Analyse-Cookies auf Ihrem Gerät. Wir verwenden Google Analytics und PostHog, um zu verstehen, wie Besucher unsere Website nutzen. Alle Daten werden anonymisiert und es werden keine persönlichen Informationen erfasst.",
+        "description": "Diese Cookies werden erst gesetzt, nachdem Sie im Zustimmungsbanner auf Akzeptieren klicken. Vor der Zustimmung existieren keine Analyse-Cookies auf Ihrem Gerät. Wir verwenden Google Analytics und PostHog, um zu verstehen, wie Besucher unsere Website nutzen. Wir übermitteln ihnen nicht den Namen oder die E-Mail-Adresse, die Sie uns geben. Wenn Sie zustimmen, erhalten sie außerdem, welcher Kampagnenlink Sie auf unsere Website gebracht hat und, wenn Sie sich anmelden, welcher Button Sie zu unserer Warteliste gebracht hat. Davon getrennt haben die Wartelisten-Formulare ein nicht angekreuztes Kästchen, mit dem wir notieren können, welcher Button oder Kampagnenlink Sie zur Warteliste gebracht hat: Bis zu Ihrer Anmeldung bleibt dies nur im geöffneten Tab und wird nie auf Ihrem Gerät gespeichert, und es wird nur dann mit Ihrer Anmeldung gespeichert, wenn Sie das Kästchen ankreuzen.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -70,6 +71,10 @@
               "cookie": "ph_*",
               "purpose": "PostHog Analyse — Sitzungsverfolgung (nur nach Zustimmung)",
               "duration": "12 Monate"
+            },
+            {
+              "purpose": "Google Analytics: speichert den Stand Ihres aktuellen Besuchs",
+              "duration": "2 Jahre"
             }
           ]
         }
@@ -91,15 +96,66 @@
             }
           ]
         }
+      },
+      "signupRecords": "Unabhängig von Ihrer Wahl erfasst eine Anmeldung, welches Anmeldeformular Sie genutzt haben, Ihr Land (ermittelt aus Ihrer Verbindung oder, wenn es sich schätzen lässt, aus der Sprache Ihres Browsers) und, wenn Sie sich über ein Formular auf den Seiten der Website anmelden, nachdem Sie im selben Browser-Tab den Einladungslink einer befreundeten Person geöffnet haben, oder deren Einladungscode eingegeben haben, den Code dieser Person (siehe unsere Datenschutzerklärung).",
+      "storage": {
+        "title": "Weitere Speicherung auf Ihrem Gerät",
+        "intro": "Neben Cookies speichern die Website und ihre Analysewerkzeuge diese Einträge im Speicher Ihres Browsers. Für den Tab gespeicherte Einträge werden gelöscht, wenn Sie ihn schließen.",
+        "table": {
+          "headers": {
+            "name": "Name",
+            "purpose": "Zweck",
+            "when": "Wann",
+            "keptUntil": "Gespeichert bis"
+          },
+          "rows": [
+            {
+              "purpose": "Merkt sich Ihre Cookie-Wahl",
+              "when": "Wenn Sie wählen",
+              "keptUntil": "Sie die Daten dieser Website löschen"
+            },
+            {
+              "purpose": "Speichert den Einladungscode einer befreundeten Person aus dem Link, den Sie genutzt haben",
+              "when": "Wenn Sie einen Einladungslink öffnen",
+              "keptUntil": "Sie den Tab schließen"
+            },
+            {
+              "purpose": "Speichert die Zahlen der Warteliste, damit die Seite sie nicht erneut abfragt",
+              "when": "Auf Seiten, die die Warteliste zeigen",
+              "keptUntil": "Sie den Tab schließen"
+            },
+            {
+              "purpose": "Speichert die eingegebene E-Mail-Adresse, damit Sie sie nicht erneut eintippen müssen",
+              "when": "Wenn Sie sich anmelden, um Ihren Money-Jobs-Plan zu öffnen",
+              "keptUntil": "Sie die Daten dieser Website löschen oder Ihre Anmeldung in diesem Browser löschen"
+            },
+            {
+              "purpose": "Die letzten technischen Meldungen der Website, ohne persönliche Angaben, auf Ihrem Gerät gespeichert, um Fehler zu finden",
+              "when": "Wenn die Website eine technische Meldung aufzeichnet, vor jeder Wahl",
+              "keptUntil": "Sie die Daten dieser Website löschen"
+            },
+            {
+              "purpose": "PostHog-Analyse, einschließlich Sitzungsaufzeichnung; solange die Analyse aktiv ist, enthalten ihre Sitzungsdaten die Seite, von der Sie kamen (von unseren Seiten nur die Adresse der Website; von einer anderen Website, was diese übermittelt)",
+              "when": "Erst nachdem Sie zustimmen",
+              "keptUntil": "Im Speicher Ihres Browsers, bis Sie die Daten dieser Website löschen oder die Analyse ausschalten; die Cookie-Kopie bis zu einem Jahr; die nur für den Tab gespeicherten Einträge, bis Sie ihn schließen"
+            },
+            {
+              "purpose": "Merkt sich, ob Sie die Analyse nach einer Zustimmung ausgeschaltet haben",
+              "when": "Wenn Sie nach einer Zustimmung ablehnen oder erneut zustimmen; bei jeder Zustimmung, wenn Ihr Browser Do Not Track oder Global Privacy Control sendet",
+              "keptUntil": "Sie die Daten dieser Website löschen"
+            }
+          ]
+        },
+        "prefixNote": "diboas-cookie-consent, diboas_ref und diboas_waitlist_email tragen das Speicherpräfix der Website; die übrigen Namen sind fest."
       }
     },
     "yourChoices": {
       "title": "Ihre Wahlmöglichkeiten",
       "content": "Sie können Cookies verwalten über:",
       "options": [
-        "Unser Cookie-Zustimmungsbanner (erscheint beim ersten Besuch)",
+        "Das Banner, das bei Ihrem ersten Besuch erscheint und immer dann, wenn Sie auf „Cookie-Einstellungen“ klicken",
         "Ihre Browsereinstellungen",
-        "Den Link \"Cookie-Einstellungen\" in unserer Fußzeile"
+        "Den Button „Cookie-Einstellungen“ am Fuß der Seiten dieser Website, der diese Wahl erneut öffnet"
       ],
       "deleteNote": "Um vorhandene Cookies zu löschen, verwenden Sie die Einstellungen Ihres Browsers."
     },

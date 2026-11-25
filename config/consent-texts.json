@@ -52,6 +52,46 @@
           "de": "5ccab8a33d546b8857d13eb734ea2b2789739fc555c36abc444b6f9a743da36c"
         }
       }
+    },
+    {
+      "id": "cookie-policy-note",
+      "keys": ["legal/cookies.sections.cookiesWeUse.analytics.description"],
+      "versions": {
+        "1": {
+          "en": "546edb5b55bcedc9c0ec14044c97920ef2c5e8372eeaa20df5c7f2b2e35d3eb7",
+          "pt-BR": "42fa80d400e3f1ed8400d4cd99b843731872de01538543ba0ffc8f7c5b7b2b3a",
+          "es": "dc37c4a30264c3d1a6d6fc65b8ae57c59fbe91436dcb3c576868b5a25eb51371",
+          "de": "45c223eedfac43b696f93d0ba4540478cbe9446c0f80a300f0d2c7efdb59825b"
+        }
+      }
+    },
+    {
+      "id": "privacy-policy-note",
+      "keys": [
+        "legal/privacy.sections.whatDataWeCollect.provided.items.4",
+        "legal/privacy.sections.howWeUseData.table.rows.6.purpose",
+        "legal/privacy.sections.howWeUseData.table.rows.6.legalBasis"
+      ],
+      "versions": {
+        "1": {
+          "en": "035d67b6744d942b470814d30d58f1ae18d03dc8e66da9dd3dffa5a90a438b80",
+          "pt-BR": "5217011523d890966335ebe94e57e2be19fcf198c9935c32d98015d533c369d4",
+          "es": "b02cc3479b3d2b1a1f5d399c4f12edb2ca94b72c48eeb98b687add6be9fc44df",
+          "de": "6f5b751e50013f37a5892cae941f69eed2e9c2d570449379dad69547349b24d9"
+        }
+      }
+    },
+    {
+      "id": "privacy-retention-note",
+      "keys": ["legal/privacy.sections.dataRetention.items.3.duration"],
+      "versions": {
+        "1": {
+          "en": "de8f87d1d46f35da998180019aa5d8c54e974fc9883471930cee629ec94dd723",
+          "pt-BR": "ae19c48ce3e792a04d5eccfdddc8ca26556edcf7045d8d84e842a8ef549f6948",
+          "es": "350d75759c6362f98d3645533aa0d0af069ef1393d1e2d560134f97bba107f7e",
+          "de": "c590a0b6ca9d077693b54f6d79c0aa4c8983a714848ea9395c33e10d7292fa2b"
+        }
+      }
     }
   ]
 }

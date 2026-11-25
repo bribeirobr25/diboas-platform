@@ -98,7 +98,38 @@ export function CookiePolicyContent() {
       t('sections.cookiesWeUse.analytics.table.rows.2.purpose'),
       t('sections.cookiesWeUse.analytics.table.rows.2.duration'),
     ],
+    // W-D1: GA4's per-property cookie; rows are APPENDED, never inserted (they render by index).
+    [
+      '_ga_<ID>',
+      t('sections.cookiesWeUse.analytics.table.rows.3.purpose'),
+      t('sections.cookiesWeUse.analytics.table.rows.3.duration'),
+    ],
   ];
+
+  /* W-D1 (D1, D7): what the site and its analytics tools keep in the browser's storage, besides
+     cookies. The names are hard-coded here (no catalogue `cookie` key) and checked against the
+     code's storage writers by COOKIE-STORAGE-1 (`cookieStorageTable.test.ts`). */
+  const STORAGE_NAMES = [
+    'diboas-cookie-consent',
+    'diboas_ref',
+    'diboas-waitlist-stats, diboas-waitlist-stats-<form>',
+    'diboas_waitlist_email',
+    'diboas_logs',
+    'ph_<project>_*',
+    '__ph_opt_in_out_<project>',
+  ];
+  const storageHeaders = [
+    t('sections.cookiesWeUse.storage.table.headers.name'),
+    t('sections.cookiesWeUse.storage.table.headers.purpose'),
+    t('sections.cookiesWeUse.storage.table.headers.when'),
+    t('sections.cookiesWeUse.storage.table.headers.keptUntil'),
+  ];
+  const storageRows = STORAGE_NAMES.map((name, i) => [
+    name,
+    t(`sections.cookiesWeUse.storage.table.rows.${i}.purpose`),
+    t(`sections.cookiesWeUse.storage.table.rows.${i}.when`),
+    t(`sections.cookiesWeUse.storage.table.rows.${i}.keptUntil`),
+  ]);
 
   const functionalHeaders = [
     t('sections.cookiesWeUse.functional.table.headers.cookie'),
@@ -137,6 +168,9 @@ export function CookiePolicyContent() {
         as="article"
         ariaLabel="Cookie Policy content"
       >
+        {/* W-D1 (G8): what changed, dated, at the top */}
+        <LegalParagraph>{t('header.notice')}</LegalParagraph>
+
         <LegalTableOfContents items={tocItems} title={t('toc.title')} />
 
         <LegalContentSection title={t('sections.whatAreCookies.title')} id="what-are-cookies">
@@ -152,11 +186,18 @@ export function CookiePolicyContent() {
           <LegalSubsection title={t('sections.cookiesWeUse.analytics.title')}>
             <LegalParagraph>{t('sections.cookiesWeUse.analytics.description')}</LegalParagraph>
             <LegalTable headers={analyticsHeaders} rows={analyticsRows} />
+            <LegalParagraph>{t('sections.cookiesWeUse.signupRecords')}</LegalParagraph>
           </LegalSubsection>
 
           <LegalSubsection title={t('sections.cookiesWeUse.functional.title')}>
             <LegalParagraph>{t('sections.cookiesWeUse.functional.description')}</LegalParagraph>
             <LegalTable headers={functionalHeaders} rows={functionalRows} />
+          </LegalSubsection>
+
+          <LegalSubsection title={t('sections.cookiesWeUse.storage.title')}>
+            <LegalParagraph>{t('sections.cookiesWeUse.storage.intro')}</LegalParagraph>
+            <LegalTable headers={storageHeaders} rows={storageRows} />
+            <LegalParagraph>{t('sections.cookiesWeUse.storage.prefixNote')}</LegalParagraph>
           </LegalSubsection>
         </LegalContentSection>
 

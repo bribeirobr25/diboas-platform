@@ -72,8 +72,9 @@ export async function checkEmailOptOut(emailHash: string): Promise<boolean> {
 
 /**
  * Reset email opt-out for a user who re-submits their email to the
- * waitlist. Re-submitting is explicit consent to receive emails
- * (GDPR Art. 7). Idempotent: the WHERE clause prevents a no-op write
+ * waitlist. Since the W-D1 deploy there is no emails box: `gdpr_accepted` means "joined with
+ * the join notice shown" (its version under CONSENT-TEXT-1), and the notice says joining brings
+ * the waitlist and launch emails, so re-submitting restarts them (GDPR Art. 7). Idempotent: the WHERE clause prevents a no-op write
  * when the user wasn't opted out.
  */
 export async function resetEmailOptOut(emailHash: string): Promise<boolean> {

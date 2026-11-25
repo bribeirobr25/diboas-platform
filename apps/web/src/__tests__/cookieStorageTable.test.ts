@@ -84,4 +84,40 @@ describe('COOKIE-STORAGE-1: every storage write is a mapped, named item', () => 
     expect(names).not.toContain('diboas-utm-params');
     expect(names).not.toContain('diboas-cta-source');
   });
+
+  /** The names the cookie policy's tables list (read from the component that renders them). */
+  function policyNames(): { storage: string[]; cookies: string[] } {
+    const src = readFileSync(join(WEB, 'src/components/Legal/CookiePolicyContent.tsx'), 'utf8');
+    const block = /const STORAGE_NAMES = \[([\s\S]*?)\];/.exec(src)?.[1] ?? '';
+    const storage = [...block.matchAll(/'([^']+)'/g)].flatMap((m) => m[1].split(', '));
+    const cookies = [
+      ...src.matchAll(
+        /^\s+'([A-Za-z_][\w.<>*-]*)',\n\s+t\('sections\.cookiesWeUse\.(?:essential|analytics)/gm
+      ),
+    ].map((m) => m[1]);
+    return { storage, cookies };
+  }
+  /** Items the analytics libraries write themselves (read on production, `5.1000`). */
+  const LIBRARY_ITEMS = ['ph_<project>_*', '__ph_opt_in_out_<project>'];
+
+  it("should list every item a writer writes in the policy's tables", () => {
+    const { storage, cookies } = policyNames();
+    expect(storage.length).toBeGreaterThanOrEqual(7);
+    for (const name of Object.values(STORAGE_WRITERS).flatMap((w) => w.names))
+      expect([...storage, ...cookies], name).toContain(
+        name.replace(`${STORAGE_PREFIX}-waitlist-stats-<source>`, 'diboas-waitlist-stats-<form>')
+      );
+  });
+
+  it('should list no storage row that nothing writes, except the named library items', () => {
+    const written = new Set(
+      Object.values(STORAGE_WRITERS)
+        .flatMap((w) => w.names)
+        .map((n) =>
+          n.replace(`${STORAGE_PREFIX}-waitlist-stats-<source>`, 'diboas-waitlist-stats-<form>')
+        )
+    );
+    for (const name of policyNames().storage)
+      expect(written.has(name) || LIBRARY_ITEMS.includes(name), name).toBe(true);
+  });
 });

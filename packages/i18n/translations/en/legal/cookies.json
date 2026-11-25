@@ -9,7 +9,8 @@
   "backToTop": "Back to top",
   "header": {
     "title": "Cookie Policy",
-    "lastUpdated": "Last Updated: July 5, 2026"
+    "lastUpdated": "Last Updated: November 25, 2026",
+    "notice": "Updated on November 25, 2026: we now list what the site keeps in your browser, the signup forms have a separate box for noting which link brought you, and a \"Cookie settings\" button lets you change your choice."
   },
   "sections": {
     "whatAreCookies": {
@@ -48,7 +49,7 @@
       },
       "analytics": {
         "title": "Analytics Cookies (Only After Your Consent)",
-        "description": "These cookies are only set after you click Accept on the consent banner. Before consent, no analytics cookies exist on your device. We use Google Analytics and PostHog to understand how visitors use our site. All data is anonymized and no personal information is collected.",
+        "description": "These cookies are only set after you click Accept on the consent banner. Before consent, no analytics cookies exist on your device. We use Google Analytics and PostHog to understand how visitors use our site. We do not send them the name or email address you give us. If you accept, they also receive which campaign link brought you to our site and, when you sign up, which button brought you to our waitlist. Separately, the waitlist forms have an unticked box that lets us note which button or campaign link brought you to our waitlist: until you sign up this is kept only in the open tab and never saved on your device, and it is saved with your signup only if you tick the box.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -70,6 +71,10 @@
               "cookie": "ph_*",
               "purpose": "PostHog analytics — session tracking (only after consent)",
               "duration": "12 months"
+            },
+            {
+              "purpose": "Google Analytics: keeps the state of your current visit",
+              "duration": "2 years"
             }
           ]
         }
@@ -91,15 +96,66 @@
             }
           ]
         }
+      },
+      "signupRecords": "Whatever you choose, a signup records which signup form you used, your country (worked out from your connection or, when it can be guessed, from your browser's language) and, if you sign up through a form on the site's pages after opening a friend's invitation link in the same browser tab, or you typed their invite code, that friend's code (see our Privacy Policy).",
+      "storage": {
+        "title": "Other storage on your device",
+        "intro": "Besides cookies, the site and its analytics tools keep these items in your browser's storage. Items kept for the tab are deleted when you close it.",
+        "table": {
+          "headers": {
+            "name": "Name",
+            "purpose": "Purpose",
+            "when": "When",
+            "keptUntil": "Kept until"
+          },
+          "rows": [
+            {
+              "purpose": "Remembers your cookie choice",
+              "when": "When you choose",
+              "keptUntil": "You clear this site's data"
+            },
+            {
+              "purpose": "Keeps a friend's invitation code from the link you used",
+              "when": "When you open an invitation link",
+              "keptUntil": "You close the tab"
+            },
+            {
+              "purpose": "Keeps the waitlist figures so the page does not ask for them again",
+              "when": "On pages that show the waitlist",
+              "keptUntil": "You close the tab"
+            },
+            {
+              "purpose": "Keeps the email you entered so you do not type it again",
+              "when": "When you sign up to open your Money Jobs plan",
+              "keptUntil": "You clear this site's data, or you delete your signup in this browser"
+            },
+            {
+              "purpose": "The site's latest technical messages, with personal details removed, kept on your device to help find errors",
+              "when": "When the site records a technical message, before any choice",
+              "keptUntil": "You clear this site's data"
+            },
+            {
+              "purpose": "PostHog analytics, session recording included; while analytics is on, its session data includes the page you came from (from our own pages, only our site's address; from another site, what that site shares)",
+              "when": "Only after you accept",
+              "keptUntil": "In your browser's storage until you clear this site's data or turn analytics off; the cookie copy up to a year; the tab-only items when you close the tab"
+            },
+            {
+              "purpose": "Remembers whether you turned analytics off after accepting it",
+              "when": "When you decline, or accept again, after accepting; at every accept if your browser sends Do Not Track or Global Privacy Control",
+              "keptUntil": "You clear this site's data"
+            }
+          ]
+        },
+        "prefixNote": "diboas-cookie-consent, diboas_ref and diboas_waitlist_email take the site's storage prefix; the other names are fixed."
       }
     },
     "yourChoices": {
       "title": "Your Choices",
       "content": "You can manage cookies through:",
       "options": [
-        "Our cookie consent banner (appears on first visit)",
+        "The banner, which appears on your first visit and whenever you press \"Cookie settings\"",
         "Your browser settings",
-        "The \"Cookie Settings\" link in our footer"
+        "The \"Cookie settings\" button at the foot of this site's pages, which reopens this choice"
       ],
       "deleteNote": "To delete existing cookies, use your browser's settings."
     },

@@ -9,7 +9,11 @@ import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { COOKIE_CONFIG } from '@/config/env';
 import { JOIN_NOTICE_KEY, NOTE_BOX_KEYS } from '@/components/WaitingList/WaitlistNoteFields';
-import { JOIN_NOTICE_VERSION, SIGNUP_NOTE_BOX_VERSIONS } from '@/lib/waitingList/constants';
+import {
+  JOIN_NOTICE_VERSION,
+  POLICY_NOTE_VERSIONS,
+  SIGNUP_NOTE_BOX_VERSIONS,
+} from '@/lib/waitingList/constants';
 import {
   TEXTS_PATH,
   consentTextShrinkage,
@@ -32,6 +36,9 @@ const CURRENT: Record<string, string> = {
   note: String(SIGNUP_NOTE_BOX_VERSIONS.note),
   'note-campaign': String(SIGNUP_NOTE_BOX_VERSIONS['note-campaign']),
   'join-notice': String(JOIN_NOTICE_VERSION),
+  'cookie-policy-note': String(POLICY_NOTE_VERSIONS.cookie),
+  'privacy-policy-note': String(POLICY_NOTE_VERSIONS.privacy),
+  'privacy-retention-note': String(POLICY_NOTE_VERSIONS.retention),
 };
 
 function wording(locale: string, id: string): string {

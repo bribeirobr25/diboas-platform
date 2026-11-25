@@ -62,6 +62,13 @@ export const SIGNUP_NOTE_BOX_VERSIONS: Readonly<Record<NoteConsentText, number>>
  */
 export const JOIN_NOTICE_VERSION = 1;
 
+/**
+ * The current versions of the policy paragraphs that describe the note (CONSENT-TEXT-1): the cookie
+ * policy's analytics paragraph, the privacy policy's note items, and its retention sentence that
+ * offers removal on request (`5.999`).
+ */
+export const POLICY_NOTE_VERSIONS = { cookie: 1, privacy: 1, retention: 1 } as const;
+
 export interface AttributionConsent {
   text: NoteConsentText;
   version: number;

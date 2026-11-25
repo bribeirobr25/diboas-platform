@@ -174,6 +174,17 @@ _The investor vertical and its room were removed on 2026-10-30 (founder, registe
 
 ---
 
+## Consent, attribution and withdrawal (market clean-up W-D1, 2026-11-25 — do not regress)
+
+Registers `5.923`, `5.924`, `5.1010`; gates ATTR-1/2/3, UTM-SHAPE-1, UTM-READER-1, CONSENT-TEXT-1, CONSENT-EVIDENCE-1, CONSENT-RESTORE-1, WITHDRAW-1, COOKIE-STORAGE-1, BTN-CONTRAST-1.
+
+- **The signup note is the box's.** Campaign values (first touch, shaped) and the last button's label live in ONE memory hold (`lib/analytics/utmAttribution.ts`, on `globalThis` under `Symbol.for('diboas.attributionHold')`), written only in effects and handlers. **Nothing is stored on the device for attribution, under any consent.** A signup sends them only when its note box is ticked, with `attributionConsent: { text, version }`; the route (`applyNoteConsent`) keeps them only under the current version of that box text and appends one server-built `consent:` tag. Analytics consent governs only what the analytics tools receive; withdrawal never clears the hold.
+- **Campaign values have one shape and one reader.** `lib/analytics/utmShape.ts` reads names by the rule PostHog masks by (never decoded, split on `&` then `?`, first occurrence wins) and keeps a value only if it matches `^[a-z0-9][a-z0-9._-]{0,36}$`; the server tests as received and never rewrites. `scrubUrl` drops campaign values by default (every error and log path); only the analytics sites ask for `{ campaign: 'shaped' }`.
+- **A restored consent keeps its version.** A choice read back from the readable cookie or `/api/consent` is never re-stamped; an older decline stands, an older accept is asked again (`isStoredChoiceValid`). `COOKIE_CONFIG`'s name, version and key are fixed in code, and GA4's bootstrap reads them.
+- **PostHog internals the clean-up depends on:** the persisted keys `$client_session_props` (stored as `{ sessionId, props: { r, u } }`) and `$initial_person_info`; `posthogInitOptions.test.ts` reads both names from the INSTALLED `posthog-js/lib/src/constants`, so a rename in a bump fails a test. With `save_campaign_params` and `save_referrer` both off the library never writes `$initial_person_info`; `mask_personal_data_properties: true` must stay, or the custom masking list is ignored.
+- **`gdpr_accepted`'s meaning changed at the W-D1 production deploy:** before it, a ticked emails box; from it, "joined with the join notice shown" (the notice's version under CONSENT-TEXT-1). The deploy date is recorded in the W-D1 PR and in register `5.923`.
+- **One-off migrations to delete 90 days after the W-D1 deploy** (register row opened at merge): `useUtmCapture`'s `removeItem` calls for `diboas-utm-params` and `diboas-cta-source`, and the stored-session clearing in `posthogLegacySessionCleanup.ts` (the `$initial_person_info` unregister stays).
+
 ## "Apply now" and "Apply post-launch" guidance
 
 These forward-looking React performance rules remain in `CLAUDE.md` § React Performance Guidelines (they are prospective rules for new code, not historical do-not-regress notes, so they stay surfaced). See that section for the "Apply now (all new code)" and "Apply post-launch (product features)" lists.

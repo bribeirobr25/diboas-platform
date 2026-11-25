@@ -13,6 +13,10 @@ The platform supports **4 locales** — English (`en`, reference/source of truth
 - **Parity enforcement:** `pnpm validate:translations` (`packages/i18n/scripts/validate-translations.js`) checks key parity across all 4 locales — required before any PR that touches copy.
 - **All new user-facing strings must be added to all 4 locales.** German text runs ~30% longer than English — verify components handle expansion.
 
+## W-D1 consent and attribution keys (2026-11-25)
+
+Added ×4: `waitlist.form.joinNotice` (with a `<link>` to the Privacy Policy), `waitlist.form.noteConsent`, `waitlist.form.noteConsentCampaignOnly`, `common.cookieConsent.settings`, `common.emailPreferences.{removeNoteButton,noteRemoved,noNote,noteRemovalError}`, and the cookie and privacy policies' notice, signup-records, storage-table and note entries. Deleted ×4: `waitlist.form.privacyNote`, `waitlist.error.consentRequired`, `tools-money-jobs.gate.gdprLabel`, the last `common.waitingList.errors.*` keys (with the unimported `ERROR_CODES`), and the `noSpam` keys of `landing-b2c` and `landing-b2b`. Consent texts are versioned: changing the wording of a box, the join notice, the banner or a policy note paragraph needs a new version in `config/consent-texts.json` (CONSENT-TEXT-1), never an edit of a pinned one.
+
 ## Recent additions (2026-05-23)
 
 Phase I + audit-followup work added the following keys across all 4 locales. Translation parity verified via `pnpm validate:translations`.

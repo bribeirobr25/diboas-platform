@@ -49,24 +49,24 @@ The Sentry tunnel route exists for two reasons:
 
 ### File map (committed code)
 
-| Component                                                                                 | File                                                                            |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Next.js root instrumentation (loads server/edge Sentry by runtime)                        | `apps/web/src/instrumentation.ts`                                               |
-| Server-side Sentry init (loaded by `instrumentation.ts` when `NEXT_RUNTIME === 'nodejs'`) | `apps/web/sentry.server.config.ts`                                              |
-| Edge-runtime Sentry init (loaded when `NEXT_RUNTIME === 'edge'`)                          | `apps/web/sentry.edge.config.ts`                                                |
-| Client-side Sentry init (consent-gated Replay — Lighthouse Workstream B)                  | `apps/web/src/instrumentation-client.ts`                                        |
-| Server-side error capture hook (`onRequestError`) for RSC + route handlers + middleware   | `apps/web/src/instrumentation.ts` § `onRequestError`                            |
-| Sentry build plugin config                                                                | `apps/web/next.config.js` § `sentryWebpackPluginOptions`                        |
-| Sentry tunnel route                                                                       | `apps/web/src/app/api/monitoring/route.ts`                                      |
-| PostHog Provider (consent-gated init)                                                     | `apps/web/src/components/Providers/PostHogProvider.tsx`                         |
-| PostHog ENV config                                                                        | `apps/web/src/config/env.ts` § `POSTHOG_CONFIG`                                 |
-| GA4 script loader (consent-gated `<Script>` mounting — Lighthouse Workstream D)           | `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`                   |
-| GA4 Consent Mode v2 inline bootstrap (pre-hydration)                                      | `apps/web/src/app/layout.tsx`                                                   |
-| web-vitals tracker component                                                              | `apps/web/src/components/Performance/WebVitalsTracker.tsx`                      |
-| web-vitals helper module                                                                  | `apps/web/src/lib/analytics/web-vitals.ts`                                      |
-| Client-side analytics config (telemetry tagging)                                          | `apps/web/src/config/monitoring.ts` § `SENTRY_CONFIG`                           |
-| CSP directive (script-src, connect-src, worker-src)                                       | `apps/web/middleware.ts` § `csp` builder                                        |
-| Turborepo env passthrough                                                                 | `turbo.json` § `pipeline.build.env` (and `.dev.env` if dev needs build secrets) |
+| Component                                                                                 | File                                                                               |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Next.js root instrumentation (loads server/edge Sentry by runtime)                        | `apps/web/src/instrumentation.ts`                                                  |
+| Server-side Sentry init (loaded by `instrumentation.ts` when `NEXT_RUNTIME === 'nodejs'`) | `apps/web/sentry.server.config.ts`                                                 |
+| Edge-runtime Sentry init (loaded when `NEXT_RUNTIME === 'edge'`)                          | `apps/web/sentry.edge.config.ts`                                                   |
+| Client-side Sentry init (consent-gated Replay — Lighthouse Workstream B)                  | `apps/web/src/instrumentation-client.ts`                                           |
+| Server-side error capture hook (`onRequestError`) for RSC + route handlers + middleware   | `apps/web/src/instrumentation.ts` § `onRequestError`                               |
+| Sentry build plugin config                                                                | `apps/web/next.config.js` § `sentryWebpackPluginOptions`                           |
+| Sentry tunnel route                                                                       | `apps/web/src/app/api/monitoring/route.ts`                                         |
+| PostHog Provider (consent-gated init)                                                     | `apps/web/src/components/Providers/PostHogProvider.tsx`                            |
+| PostHog ENV config                                                                        | `apps/web/src/config/env.ts` § `POSTHOG_CONFIG`                                    |
+| GA4 script loader (consent-gated `<Script>` mounting — Lighthouse Workstream D)           | `apps/web/src/components/Providers/GoogleAnalyticsLoader.tsx`                      |
+| GA4 Consent Mode v2 inline bootstrap (pre-hydration)                                      | `apps/web/src/lib/analytics/ga4ConsentBootstrap.ts` (rendered by `app/layout.tsx`) |
+| web-vitals tracker component                                                              | `apps/web/src/components/Performance/WebVitalsTracker.tsx`                         |
+| web-vitals helper module                                                                  | `apps/web/src/lib/analytics/web-vitals.ts`                                         |
+| Client-side analytics config (telemetry tagging)                                          | `apps/web/src/config/monitoring.ts` § `SENTRY_CONFIG`                              |
+| CSP directive (script-src, connect-src, worker-src)                                       | `apps/web/middleware.ts` § `csp` builder                                           |
+| Turborepo env passthrough                                                                 | `turbo.json` § `pipeline.build.env` (and `.dev.env` if dev needs build secrets)    |
 
 ---
 
@@ -196,6 +196,7 @@ The flow in `apps/web/src/instrumentation-client.ts`:
 2. Subscribe to `applicationEventBus` events:
    - `CONSENT_GIVEN` (analytics or all) → `client.addIntegration(Sentry.replayIntegration({ maskAllText: true, blockAllMedia: true }))`. Note: the init sample rates (`replaysSessionSampleRate: 0`, `replaysOnErrorSampleRate: 0`) are NOT changed on consent — recording is enabled purely by adding the replay integration.
    - `CONSENT_WITHDRAWN` → `Sentry.getReplay()?.stop()` halts active recording.
+   - W-D1: the integration is added only while `Sentry.getReplay()` returns nothing, so Accept → Decline → Accept never registers a second replay; nothing calls `start()`, `flush()` or `startBuffering()` (`sentryReplayConsent.test.ts`, WITHDRAW-1).
 3. The `CONSENT_GIVEN`/`CONSENT_WITHDRAWN` events come from the `applicationEventBus` (NOT the DOM `cookie-consent-changed` event — that's pre-hydration-only for the GA4 Consent Mode v2 inline bootstrap).
 
 Lawful basis: GDPR Article 6(1)(f) legitimate interest (site reliability + security) for the bare error-capture SDK, which initialises unconditionally. Replay specifically needs explicit consent because it records DOM mutations (Recital 26 — even with masking applied, the data is "personal" in legal terms).
@@ -292,27 +293,13 @@ connect-src ... https://app.posthog.com https://*.posthog.com
 
 1. Reads `POSTHOG_CONFIG.apiKey` and `POSTHOG_CONFIG.host` from `apps/web/src/config/env.ts`
 2. Checks `hasAnalyticsConsent()` (from the cookie-consent system)
-3. If both pass, dynamically imports `posthog-js` and `posthog-js/react` via `Promise.all([import('posthog-js'), import('posthog-js/react')])`
-4. Initialises with the pinned-defaults config:
-
-```ts
-posthog.init(posthogKey, {
-  api_host: posthogHost,
-  defaults: '2025-11-30', // see § "Why pin defaults" below
-  person_profiles: 'identified_only', // GDPR-friendly + cost-saving
-  capture_pageview: true,
-  capture_pageleave: true,
-  respect_dnt: true,
-  advanced_disable_feature_flags: process.env.NODE_ENV === 'development',
-  loaded: (ph) => {
-    if (process.env.NODE_ENV === 'development') ph.debug(false);
-  },
-});
-```
-
+3. If both pass, dynamically imports `posthog-js` (only; the `posthog-js/react` wrapper is gone since W-D1: it swapped in at the first start and remounted the page, and nothing reads `usePostHog`). After the import it re-checks consent and initialises nothing if it was withdrawn meanwhile.
+4. Initialises with the options built by `apps/web/src/lib/analytics/posthogInitOptions.ts` (W-D1): pinned `defaults`, `person_profiles: 'identified_only'`, `before_send: scrubAnalyticsEvent` (tokens dropped, campaign values only in their shape, referrer-derived properties removed), `mask_personal_data_properties: true` with the token keys and the five campaign keys in `custom_personal_data_properties`, `opt_out_persistence_by_default: true`, `save_campaign_params: false`, `save_referrer: false`, `respect_dnt: true`, `advanced_disable_feature_flags: true`, session recording masking all text and inputs with every recorded URL through the shaped scrubber. Its `loaded` callback removes any stored `$initial_person_info` and, once, a `$client_session_props` saved before W-D1 (`posthogLegacySessionCleanup.ts`; the clean-up is deleted 90 days after the W-D1 deploy); a failure there is reported once, never thrown.
 5. Subscribes to `ApplicationEventBus`:
-   - `CONSENT_GIVEN` (analytics or all) → init if not already
-   - `CONSENT_WITHDRAWN` → `posthog.opt_out_capturing()`
+   - `CONSENT_GIVEN` (analytics or all) → init if not already, else `opt_in_capturing({ captureEventName: false })`; after init, a stored `denied` is opted back in
+   - `CONSENT_WITHDRAWN` → `opt_out_capturing()`, `reset(true)`, `opt_out_capturing()` (in this order: the first stops `reset`'s recording flush from sending a last segment; `reset` clears the consent key, so the second sets it again)
+
+Pinned by WITHDRAW-1 (`PostHogProviderWithdrawal.test.tsx`, `posthogInitOptions.test.ts`, the withdrawal e2e).
 
 **NEVER `import posthog from 'posthog-js'` at module level.** That would inline ~250 KB of analytics code into every page bundle, breaking the consent gate (the SDK would execute as soon as the module evaluates, before the user has accepted cookies). The dynamic `import()` inside a `useEffect` is the only allowed pattern.
 
@@ -355,7 +342,7 @@ After consent the sequence is:
 
 ### Withdrawal path
 
-No script-teardown — the inline bootstrap's DOM-event listener handles withdrawal by calling `gtag('consent', 'update', { analytics_storage: 'denied' })`. The script stays loaded after first-grant; Consent Mode v2 handles the data-send gate. Mirrors the PostHog opt-out pattern.
+No script-teardown. The inline bootstrap's DOM-event listener (`ga4ConsentBootstrap.ts`, W-D1) withdraws in this order: `gtag('consent', 'update', { analytics_storage: 'denied' })`; then `window['ga-disable-<ID>'] = true`; then, in a try/catch, every `_ga`, `_ga_*` and `_gid` cookie is expired on `path=/`, once host-only and once on the registrable domain (from `location.hostname`). Consent clears the flag. It reaches the open tab; other tabs stop at their next load. Pinned by `ga4ConsentBootstrap.test.ts` and the withdrawal e2e (WITHDRAW-1); the production read of the `.diboas.com` cookies is `5.1000`.
 
 ### Env var
 

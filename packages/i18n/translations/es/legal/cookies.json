@@ -9,7 +9,8 @@
   "backToTop": "Volver arriba",
   "header": {
     "title": "Política de Cookies",
-    "lastUpdated": "Última actualización: 5 de julio de 2026"
+    "lastUpdated": "Última actualización: 25 de noviembre de 2026",
+    "notice": "Actualizado el 25 de noviembre de 2026: ahora listamos lo que el sitio guarda en tu navegador, los formularios de registro tienen una casilla aparte para anotar qué enlace te trajo, y un botón \"Configuración de cookies\" te permite cambiar tu elección."
   },
   "sections": {
     "whatAreCookies": {
@@ -47,8 +48,8 @@
         }
       },
       "analytics": {
-        "title": "Cookies de Análisis (Solo Después de Su Consentimiento)",
-        "description": "Estas cookies solo se establecen después de hacer clic en Aceptar en el banner de consentimiento. Antes del consentimiento, no existen cookies de análisis en su dispositivo. Usamos Google Analytics y PostHog para entender cómo los visitantes usan nuestro sitio. Todos los datos son anonimizados y no se recopila información personal.",
+        "title": "Cookies de Análisis (Solo Después de Tu Consentimiento)",
+        "description": "Estas cookies solo se establecen después de hacer clic en Aceptar en el banner de consentimiento. Antes del consentimiento, no existen cookies de análisis en tu dispositivo. Usamos Google Analytics y PostHog para entender cómo los visitantes usan nuestro sitio. No les enviamos el nombre ni el correo electrónico que nos das. Si aceptas, también reciben qué enlace de campaña te trajo a nuestro sitio y, cuando te registras, qué botón te trajo a nuestra lista de espera. Aparte, los formularios de la lista de espera tienen una casilla sin marcar que nos permite anotar qué botón o enlace de campaña te trajo a la lista: hasta que te registras, esto solo se guarda en la pestaña abierta y nunca en tu dispositivo, y solo se guarda con tu registro si marcas la casilla.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -70,6 +71,10 @@
               "cookie": "ph_*",
               "purpose": "PostHog análisis — seguimiento de sesión (solo después del consentimiento)",
               "duration": "12 meses"
+            },
+            {
+              "purpose": "Google Analytics: guarda el estado de tu visita actual",
+              "duration": "2 años"
             }
           ]
         }
@@ -91,15 +96,66 @@
             }
           ]
         }
+      },
+      "signupRecords": "Elijas lo que elijas, un registro guarda qué formulario de registro usaste, tu país (deducido de tu conexión o, cuando se puede estimar, del idioma de tu navegador) y, si te registras desde un formulario de las páginas del sitio después de abrir el enlace de invitación de un amigo en la misma pestaña del navegador, o si escribiste su código de invitación, el código de ese amigo (consulta nuestra Política de Privacidad).",
+      "storage": {
+        "title": "Otros datos guardados en tu dispositivo",
+        "intro": "Además de las cookies, el sitio y sus herramientas de análisis guardan estos elementos en el almacenamiento de tu navegador. Los elementos guardados para la pestaña se borran cuando la cierras.",
+        "table": {
+          "headers": {
+            "name": "Nombre",
+            "purpose": "Finalidad",
+            "when": "Cuándo",
+            "keptUntil": "Se guarda hasta"
+          },
+          "rows": [
+            {
+              "purpose": "Recuerda tu elección sobre las cookies",
+              "when": "Cuando eliges",
+              "keptUntil": "Que borres los datos de este sitio"
+            },
+            {
+              "purpose": "Guarda el código de invitación de un amigo a partir del enlace que usaste",
+              "when": "Cuando abres un enlace de invitación",
+              "keptUntil": "Que cierres la pestaña"
+            },
+            {
+              "purpose": "Guarda las cifras de la lista de espera para que la página no las vuelva a pedir",
+              "when": "En las páginas que muestran la lista de espera",
+              "keptUntil": "Que cierres la pestaña"
+            },
+            {
+              "purpose": "Guarda el correo que escribiste para que no tengas que volver a escribirlo",
+              "when": "Cuando te registras para abrir tu plan de Money Jobs",
+              "keptUntil": "Que borres los datos de este sitio, o que elimines tu registro en este navegador"
+            },
+            {
+              "purpose": "Los últimos mensajes técnicos del sitio, sin datos personales, guardados en tu dispositivo para ayudar a encontrar errores",
+              "when": "Cuando el sitio registra un mensaje técnico, antes de cualquier elección",
+              "keptUntil": "Que borres los datos de este sitio"
+            },
+            {
+              "purpose": "Análisis de PostHog, incluida la grabación de sesiones; mientras el análisis está activado, sus datos de sesión incluyen la página de la que vienes (desde nuestras páginas, solo la dirección del sitio; desde otro sitio, lo que ese sitio comparte)",
+              "when": "Solo después de que aceptes",
+              "keptUntil": "En el almacenamiento de tu navegador hasta que borres los datos de este sitio o desactives el análisis; la copia en cookie hasta un año; los elementos solo de la pestaña cuando la cierras"
+            },
+            {
+              "purpose": "Recuerda si desactivaste el análisis después de aceptarlo",
+              "when": "Cuando rechazas, o vuelves a aceptar, después de haber aceptado; en cada aceptación si tu navegador envía Do Not Track o Global Privacy Control",
+              "keptUntil": "Que borres los datos de este sitio"
+            }
+          ]
+        },
+        "prefixNote": "diboas-cookie-consent, diboas_ref y diboas_waitlist_email usan el prefijo de almacenamiento del sitio; los demás nombres son fijos."
       }
     },
     "yourChoices": {
       "title": "Tus Opciones",
       "content": "Puedes gestionar las cookies a través de:",
       "options": [
-        "Nuestro banner de consentimiento de cookies (aparece en tu primera visita)",
+        "El banner, que aparece en tu primera visita y cada vez que pulsas \"Configuración de cookies\"",
         "La configuración de tu navegador",
-        "El enlace \"Configuración de Cookies\" en nuestro pie de página"
+        "El botón \"Configuración de cookies\" al pie de las páginas de este sitio, que vuelve a abrir esta elección"
       ],
       "deleteNote": "Para eliminar las cookies existentes, utiliza la configuración de tu navegador."
     },

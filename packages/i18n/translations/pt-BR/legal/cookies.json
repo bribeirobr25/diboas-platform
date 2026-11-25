@@ -9,7 +9,8 @@
   "backToTop": "Voltar ao topo",
   "header": {
     "title": "Política de Cookies",
-    "lastUpdated": "Última atualização: 5 de julho de 2026"
+    "lastUpdated": "Última atualização: 25 de novembro de 2026",
+    "notice": "Atualizado em 25 de novembro de 2026: agora listamos o que o site guarda no seu navegador, os formulários de inscrição têm uma caixa separada para anotar qual link trouxe você, e um botão \"Configurações de cookies\" permite mudar a sua escolha."
   },
   "sections": {
     "whatAreCookies": {
@@ -48,7 +49,7 @@
       },
       "analytics": {
         "title": "Cookies de Análise (Somente Após Seu Consentimento)",
-        "description": "Estes cookies só são definidos após você clicar em Aceitar no banner de consentimento. Antes do consentimento, nenhum cookie de análise existe no seu dispositivo. Usamos Google Analytics e PostHog para entender como os visitantes usam nosso site. Todos os dados são anonimizados e nenhuma informação pessoal é coletada.",
+        "description": "Estes cookies só são definidos após você clicar em Aceitar no banner de consentimento. Antes do consentimento, nenhum cookie de análise existe no seu dispositivo. Usamos Google Analytics e PostHog para entender como os visitantes usam nosso site. Não enviamos a eles o nome nem o e-mail que você nos informa. Se você aceitar, eles também recebem qual link de campanha trouxe você ao nosso site e, quando você se inscreve, qual botão trouxe você à nossa lista de espera. À parte, os formulários da lista de espera têm uma caixa desmarcada que nos permite anotar qual botão ou link de campanha trouxe você à lista: até você se inscrever, isso fica só na aba aberta e nunca é salvo no seu dispositivo, e só é salvo com a sua inscrição se você marcar a caixa.",
         "table": {
           "headers": {
             "cookie": "Cookie",
@@ -70,6 +71,10 @@
               "cookie": "ph_*",
               "purpose": "PostHog análise — rastreamento de sessão (somente após consentimento)",
               "duration": "12 meses"
+            },
+            {
+              "purpose": "Google Analytics: guarda o estado da sua visita atual",
+              "duration": "2 anos"
             }
           ]
         }
@@ -91,15 +96,66 @@
             }
           ]
         }
+      },
+      "signupRecords": "Seja qual for a sua escolha, uma inscrição registra qual formulário de inscrição você usou, o seu país (deduzido da sua conexão ou, quando dá para estimar, do idioma do seu navegador) e, se você se inscrever por um formulário das páginas do site depois de abrir o link de convite de um amigo na mesma aba do navegador, ou se digitou o código de convite dele, o código desse amigo (veja a nossa Política de Privacidade).",
+      "storage": {
+        "title": "Outros dados guardados no seu dispositivo",
+        "intro": "Além dos cookies, o site e as suas ferramentas de análise guardam estes itens no armazenamento do seu navegador. Os itens guardados para a aba são apagados quando você a fecha.",
+        "table": {
+          "headers": {
+            "name": "Nome",
+            "purpose": "Finalidade",
+            "when": "Quando",
+            "keptUntil": "Guardado até"
+          },
+          "rows": [
+            {
+              "purpose": "Lembra a sua escolha sobre cookies",
+              "when": "Quando você escolhe",
+              "keptUntil": "Você apagar os dados deste site"
+            },
+            {
+              "purpose": "Guarda o código de convite de um amigo a partir do link que você usou",
+              "when": "Quando você abre um link de convite",
+              "keptUntil": "Você fechar a aba"
+            },
+            {
+              "purpose": "Guarda os números da lista de espera para a página não pedi-los de novo",
+              "when": "Nas páginas que mostram a lista de espera",
+              "keptUntil": "Você fechar a aba"
+            },
+            {
+              "purpose": "Guarda o e-mail que você digitou para você não ter que digitar de novo",
+              "when": "Quando você se inscreve para abrir o seu plano do Money Jobs",
+              "keptUntil": "Você apagar os dados deste site, ou excluir a sua inscrição neste navegador"
+            },
+            {
+              "purpose": "As mensagens técnicas mais recentes do site, sem dados pessoais, guardadas no seu dispositivo para ajudar a encontrar erros",
+              "when": "Quando o site registra uma mensagem técnica, antes de qualquer escolha",
+              "keptUntil": "Você apagar os dados deste site"
+            },
+            {
+              "purpose": "Análise do PostHog, incluindo a gravação de sessões; enquanto a análise está ligada, os dados da sessão incluem a página de onde você veio (das nossas páginas, só o endereço do site; de outro site, o que esse site compartilha)",
+              "when": "Só depois que você aceita",
+              "keptUntil": "No armazenamento do seu navegador até você apagar os dados deste site ou desligar a análise; a cópia em cookie por até um ano; os itens só da aba quando você a fecha"
+            },
+            {
+              "purpose": "Lembra se você desligou a análise depois de aceitá-la",
+              "when": "Quando você recusa, ou aceita de novo, depois de ter aceitado; a cada aceite se o seu navegador envia Do Not Track ou Global Privacy Control",
+              "keptUntil": "Você apagar os dados deste site"
+            }
+          ]
+        },
+        "prefixNote": "diboas-cookie-consent, diboas_ref e diboas_waitlist_email usam o prefixo de armazenamento do site; os outros nomes são fixos."
       }
     },
     "yourChoices": {
       "title": "Suas Escolhas",
       "content": "Você pode gerenciar cookies através de:",
       "options": [
-        "Nosso banner de consentimento de cookies (aparece na primeira visita)",
+        "O banner, que aparece na sua primeira visita e sempre que você aperta \"Configurações de cookies\"",
         "Configurações do seu navegador",
-        "O link \"Configurações de Cookies\" no rodapé do site"
+        "O botão \"Configurações de cookies\" no rodapé das páginas deste site, que reabre esta escolha"
       ],
       "deleteNote": "Para excluir cookies existentes, utilize as configurações do seu navegador."
     },
@@ -109,7 +165,7 @@
     },
     "brazilNote": {
       "title": "Nota para Usuários Brasileiros",
-      "content": "Este site está disponível para visualização informativa. A lista de espera e recursos interativos estarão disponíveis quando o serviço for lançado no Brasil, sujeito às aprovações regulatórias da ANPD (Autoridade Nacional de Proteção de Dados)."
+      "content": "O Brasil é um dos mercados iniciais do diBoaS. Durante a fase de pré-lançamento, o site e a lista de espera estão totalmente acessíveis para usuários brasileiros. O lançamento dos serviços financeiros estará sujeito às aprovações regulatórias necessárias, incluindo da ANPD (Autoridade Nacional de Proteção de Dados), Banco Central do Brasil e demais órgãos competentes."
     },
     "contact": {
       "title": "Fale Conosco",

@@ -9,8 +9,9 @@
   "backToTop": "Volver arriba",
   "header": {
     "title": "Política de Privacidad",
-    "lastUpdated": "Última actualización: 20 de noviembre de 2026",
-    "intro": "diBoaS (\"nosotros\", \"nos\", \"nuestro\") está comprometido con la protección de tu privacidad. Esta política explica cómo recopilamos, usamos y protegemos tus datos personales."
+    "lastUpdated": "Última actualización: 25 de noviembre de 2026",
+    "intro": "diBoaS (\"nosotros\", \"nos\", \"nuestro\") está comprometido con la protección de tu privacidad. Esta política explica cómo recopilamos, usamos y protegemos tus datos personales.",
+    "notice": "Actualizado el 25 de noviembre de 2026: los formularios de registro tienen una casilla aparte y sin marcar para anotar qué botón o enlace de campaña te trajo, que puedes quitar en la página \"Configuración de correo\"; corregimos la base legal de la medición del uso del sitio y cuánto tiempo se guardan los datos de análisis."
   },
   "sections": {
     "whoWeAre": {
@@ -32,7 +33,8 @@
           "Dirección de email (al unirte a la lista de espera)",
           "Nombre (opcional)",
           "Preferencia de idioma",
-          "Preferencias de comunicación"
+          "Preferencias de comunicación",
+          "Si marcas la casilla del formulario de registro: qué botón o enlace de campaña te trajo a nuestra lista de espera"
         ]
       },
       "automatic": {
@@ -42,9 +44,11 @@
           "Tipo y versión del navegador",
           "Información del dispositivo",
           "Páginas visitadas y tiempo de permanencia",
-          "Fuente de referencia"
+          "Qué formulario de registro usaste, y el código de invitación de un amigo, si usaste uno",
+          "Tu país, deducido de tu conexión o, cuando se puede estimar, del idioma de tu navegador"
         ]
-      }
+      },
+      "signupRecords": "Elijas lo que elijas, un registro guarda qué formulario de registro usaste, tu país (deducido de tu conexión o, cuando se puede estimar, del idioma de tu navegador) y, si te registras desde un formulario de las páginas del sitio después de abrir el enlace de invitación de un amigo en la misma pestaña del navegador, o si escribiste su código de invitación, el código de ese amigo."
     },
     "howWeUseData": {
       "title": "Cómo Usamos Tus Datos",
@@ -63,7 +67,11 @@
             "legalBasis": "Interés legítimo (con opción de exclusión)"
           },
           {
-            "purpose": "Mejorar nuestro sitio web y servicios",
+            "purpose": "Medir cómo usan el sitio los visitantes (Google Analytics, PostHog)",
+            "legalBasis": "Tu consentimiento (banner de cookies)"
+          },
+          {
+            "purpose": "Encontrar y corregir errores (monitoreo de errores)",
             "legalBasis": "Interés legítimo"
           },
           {
@@ -73,6 +81,10 @@
           {
             "purpose": "Cumplir con obligaciones legales",
             "legalBasis": "Requisito legal"
+          },
+          {
+            "purpose": "Anotar qué botón o enlace de campaña te trajo a nuestra lista de espera",
+            "legalBasis": "Tu consentimiento (la casilla del formulario de registro), para las notas guardadas desde el 25 de noviembre de 2026"
           }
         ]
       }
@@ -82,7 +94,7 @@
       "intro": "No vendemos tus datos personales. Podemos compartir datos con:",
       "serviceProviders": {
         "title": "Proveedores de Servicios:",
-        "content": "Resend (envío de correo), Vercel (alojamiento), Sentry (monitoreo de errores), Google Analytics y PostHog (análisis, solo después de su consentimiento), Upstash (limitación de tasa de seguridad)"
+        "content": "Resend (envío de correo), Vercel (alojamiento), Sentry (monitoreo de errores), Google Analytics y PostHog (análisis, solo después de tu consentimiento), Upstash (limitación de tasa de seguridad)"
       },
       "legal": {
         "title": "Requisitos Legales:",
@@ -103,11 +115,15 @@
         },
         {
           "type": "Datos de análisis:",
-          "duration": "26 meses (anonimizados)"
+          "duration": "Google Analytics: hasta 14 meses. PostHog: 12 meses."
         },
         {
           "type": "Registros de comunicaciones:",
           "duration": "3 años"
+        },
+        {
+          "type": "Nota del registro:",
+          "duration": "Se guarda con tu registro en la lista de espera hasta que la quites en la página de preferencias de correo (el enlace \"Configuración de correo\" de nuestros correos) o nos pidas quitarla o eliminar tu registro. Los valores de campaña y los nombres de botones que nuestras herramientas de análisis reciben con tu consentimiento de cookies siguen su propia retención."
         }
       ]
     },
