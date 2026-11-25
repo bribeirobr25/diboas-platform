@@ -164,6 +164,16 @@ describe('isValidName', () => {
  * CONSENT-EVIDENCE-1 (signup half) · `applyNoteConsent` (market clean-up W-D1, 5.923; spec §3.5).
  */
 describe('applyNoteConsent', () => {
+  it('should keep one value per campaign key, the first, from a request that repeats one', () => {
+    expect(
+      applyNoteConsent(
+        ['utm_source:a', 'utm_source:b', 'utm_medium:m'],
+        { text: 'note', version: 1 },
+        NOW
+      ).tags
+    ).toEqual(['utm_source:a', 'utm_medium:m', 'consent:note:v1:2026-11-25']);
+  });
+
   const NOW = new Date('2026-11-25T23:59:00Z');
   const NOTE = ['utm_source:ig', 'utm_campaign:Spring', 'cta_source:market'];
 

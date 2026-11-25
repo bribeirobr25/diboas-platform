@@ -49,6 +49,17 @@ async function expectStopped(page: Page) {
   expect(stored.filter((k) => /^ph_.*_posthog$/.test(k))).toEqual([]);
 }
 
+/** The positive control: PostHog really started (it stored its state) before the Decline. */
+async function expectPostHogStarted(page: Page) {
+  await expect
+    .poll(async () => {
+      const cookies = (await page.context().cookies()).map((c) => c.name);
+      const stored = await page.evaluate(() => Object.keys(window.localStorage));
+      return [...cookies, ...stored].some((k) => /^ph_.*_posthog$/.test(k));
+    })
+    .toBe(true);
+}
+
 async function plantGaCookie(page: Page) {
   const { hostname } = new URL(page.url());
   await page.context().addCookies([
@@ -60,6 +71,7 @@ async function plantGaCookie(page: Page) {
 test('Accept, then Decline from "Cookie settings", stops GA4 and PostHog', async ({ page }) => {
   await page.goto('/en');
   await accept(page);
+  await expectPostHogStarted(page);
   await plantGaCookie(page);
   await declineFromSettings(page);
   await expectStopped(page);
@@ -69,6 +81,7 @@ test('Accept, reload, then Decline stops them too (consent present at load)', as
   await page.goto('/en');
   await accept(page);
   await page.reload();
+  await expectPostHogStarted(page);
   await plantGaCookie(page);
   await declineFromSettings(page);
   await expectStopped(page);

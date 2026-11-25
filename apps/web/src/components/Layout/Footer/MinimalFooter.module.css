@@ -124,6 +124,9 @@
 
 /* The "Cookie settings" control is a button that looks like its sibling links (W-D1). */
 .legalLinkButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--consent-settings-min-target);
   background: none;
   border: 0;
   padding: 0;

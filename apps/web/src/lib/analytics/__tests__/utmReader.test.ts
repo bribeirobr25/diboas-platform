@@ -7,15 +7,17 @@
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { stripComments } from '@diboas/test-support';
 
 const WEB = resolve(__dirname, '../../../..');
+/** Read once per file run (a scan per test timed out under coverage). */
+let cached: Array<{ file: string; text: string }> | undefined;
 const sources = (): Array<{ file: string; text: string }> =>
-  execSync('git ls-files src', { cwd: WEB, encoding: 'utf8' })
+  (cached ??= execSync('git ls-files src', { cwd: WEB, encoding: 'utf8' })
     .split('\n')
     .filter((f) => /\.(ts|tsx)$/.test(f) && !/(__tests__\/|\.test\.|\.stories\.)/.test(f))
-    .map((file) => ({ file, text: stripComments(readFileSync(join(WEB, file), 'utf8'), file) }));
+    .map((file) => ({ file, text: stripComments(readFileSync(join(WEB, file), 'utf8'), file) })));
 
 const count = (text: string, pattern: RegExp) => (text.match(pattern) ?? []).length;
 
@@ -28,6 +30,15 @@ const UTM_ALLOWED = [
   'src/app/[locale]/(landing)/email-preferences/page.tsx',
 ];
 
+/** The only modules that use the campaign keys or the raw reader (the one reader rule). */
+const READER_USERS = [
+  'src/lib/analytics/posthogInitOptions.ts',
+  'src/lib/analytics/posthogLegacySessionCleanup.ts',
+  'src/lib/analytics/utmAttribution.ts',
+  'src/lib/analytics/utmShape.ts',
+  'src/lib/utils/scrubUrl.ts',
+];
+
 /** The shaped scrubber's call sites, by count (spec §3.10). */
 const SHAPED_SITES: Record<string, number> = {
   'src/components/Performance/PageViewTracker.tsx': 1,
@@ -38,6 +49,9 @@ const SHAPED_SITES: Record<string, number> = {
 };
 
 describe('UTM-READER-1: one reader for campaign values', () => {
+  // the scan runs once, with its own budget (slow under a full coverage run)
+  beforeAll(() => void sources(), 60_000);
+
   it('should name a campaign key or prefix only in the allow-listed files', () => {
     const outside = sources()
       .filter(({ text }) => /utm_/.test(text))
@@ -56,7 +70,33 @@ describe('UTM-READER-1: one reader for campaign values', () => {
   it('should keep the hold private to its module', () => {
     const named = sources().filter(({ text }) => /diboas\.attributionHold/.test(text));
     expect(named.map(({ file }) => file)).toEqual(['src/lib/analytics/utmAttribution.ts']);
-    expect(named[0].text).not.toMatch(/export const HOLD/);
+    // no export of the hold's symbol in any form (`export const`, `export {`, a default export)
+    expect(named[0].text).not.toMatch(
+      /export\s+(?:const|let|var)\s+HOLD\b|export\s*\{[^}]*\bHOLD\b|export\s+default\s+HOLD\b/
+    );
+  });
+
+  it('should use the campaign keys or the raw reader only in the named modules', () => {
+    const users = sources()
+      .filter(({ text }) =>
+        /\b(?:UTM_KEYS|readUtmParams|readRawQueryValues|rawQueryPieces)\b/.test(text)
+      )
+      .map(({ file }) => file)
+      .sort();
+    expect(users).toEqual(READER_USERS);
+  });
+
+  it('should read the query string only through the shared readers', () => {
+    // a module reading `location.search` with URLSearchParams would be a second reader; the two
+    // that do read only the invite code (`ref`), never a campaign name (the test above)
+    const readers = sources()
+      .filter(({ text }) => /new URLSearchParams\(\s*(?:window\.)?location\.search/.test(text))
+      .map(({ file }) => file)
+      .sort();
+    expect(readers).toEqual([
+      'src/components/WaitingList/ReferralCapture.tsx',
+      'src/components/WaitingList/hooks/useWaitlistForm.ts',
+    ]);
   });
 
   it('should ask for the shaped scrubber only at its named sites, as often as listed', () => {

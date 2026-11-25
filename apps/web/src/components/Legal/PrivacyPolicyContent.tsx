@@ -65,7 +65,12 @@ export function PrivacyPolicyContent() {
      policy in all four locales shows up (the counts per locale are checked against the JSON). */
   const indices = (path: string): number[] => {
     const out: number[] = [];
-    while (has(`${path}.${out.length}`) || has(`${path}.${out.length}.type`) || has(`${path}.${out.length}.purpose`) || has(`${path}.${out.length}.right`))
+    while (
+      has(`${path}.${out.length}`) ||
+      has(`${path}.${out.length}.type`) ||
+      has(`${path}.${out.length}.purpose`) ||
+      has(`${path}.${out.length}.right`)
+    )
       out.push(out.length);
     return out;
   };

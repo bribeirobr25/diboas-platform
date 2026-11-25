@@ -70,6 +70,10 @@
 }
 
 .cookieSettingsButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--consent-settings-min-target);
+  min-width: var(--consent-settings-min-target);
   background: none;
   border: 0;
   padding: var(--spacing-sm);

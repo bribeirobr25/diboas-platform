@@ -18,7 +18,7 @@ const meta: Meta<typeof WaitlistSection> = {
 # WaitlistSection
 
 Waitlist signup section that conditionally renders Version A or B based on
-waitlist stats. Includes email input, GDPR consent, benefits list, and
+waitlist stats. Includes email input, the join notice and the optional note box, benefits list, and
 social proof indicators.
         `,
       },

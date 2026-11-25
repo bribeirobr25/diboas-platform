@@ -77,14 +77,14 @@ export function scrubUrl(url: string, options: ScrubUrlOptions = {}): string {
   parsed.searchParams.forEach((value, key) => {
     if (SAFE_QUERY_PARAMS.includes(key)) {
       kept.append(key, value.replace(EMAIL, '[EMAIL_REDACTED]'));
-    } else if (shaped[key] !== undefined && !emitted.has(key)) {
+    } else if (Object.hasOwn(shaped, key) && !emitted.has(key)) {
       kept.append(key, shaped[key] as string);
       emitted.add(key);
     }
   });
   // names the raw rule reads that URLSearchParams does not see (`?a=1?utm_source=x`)
   for (const key of UTM_KEYS) {
-    if (shaped[key] !== undefined && !emitted.has(key)) kept.append(key, shaped[key] as string);
+    if (Object.hasOwn(shaped, key) && !emitted.has(key)) kept.append(key, shaped[key] as string);
   }
   const path = decodePath(parsed.pathname).replace(EMAIL, '[EMAIL_REDACTED]');
   const base = ABSOLUTE.test(url) ? `${parsed.origin}${path}` : path;

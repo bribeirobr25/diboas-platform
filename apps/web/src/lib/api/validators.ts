@@ -118,13 +118,17 @@ export function applyNoteConsent(
   const input = tags ?? [];
   const consent = readAttributionConsent(attributionConsent);
   const current = consent !== null && SIGNUP_NOTE_BOX_VERSIONS[consent.text] === consent.version;
+  // one value per campaign key, the first (as the client's first touch; W-D1 audit)
+  const seenKeys = new Set<string>();
   const kept = !current
     ? []
     : input.filter((tag) => {
         if (tag.startsWith(CTA_SOURCE_TAG_PREFIX)) return consent.text === 'note';
-        if (tag.startsWith(UTM_TAG_PREFIX))
-          return isShapedUtmValue(tag.slice(tag.indexOf(':') + 1));
-        return false;
+        if (!tag.startsWith(UTM_TAG_PREFIX)) return false;
+        const key = tag.slice(0, tag.indexOf(':'));
+        if (seenKeys.has(key) || !isShapedUtmValue(tag.slice(tag.indexOf(':') + 1))) return false;
+        seenKeys.add(key);
+        return true;
       });
   const dropped = input.length - kept.length;
   if (kept.length === 0) return { tags: [], dropped };

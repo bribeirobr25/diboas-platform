@@ -12,8 +12,10 @@
  * **Withdrawal really stops GA4** (W-D1, spec §3.7, WITHDRAW-1), in this order: consent denied
  * first; then `window['ga-disable-<ID>'] = true`; then, inside a try/catch (a cookie write can
  * throw and must never undo the denial), every `_ga` / `_ga_*` / `_gid` cookie read from
- * `document.cookie` is expired on `path=/`, once without a domain and once on the registrable
- * domain (from `location.hostname`, never a literal). Consent clears the flag. Withdrawal reaches
+ * `document.cookie` is expired on `path=/`, once without a domain and once on every parent
+ * domain of `location.hostname` (never a literal): GA sets them on the highest domain it can, which
+ * on a multi-part suffix (`co.uk`, `vercel.app`) is not the last two labels; a write on a public
+ * suffix is ignored by the browser (W-D1 audit). Consent clears the flag. Withdrawal reaches
  * this tab; other open tabs stop at their next load (stated).
  */
 import { COOKIE_CONFIG } from '@/config/env';
@@ -37,7 +39,7 @@ export function buildGa4ConsentBootstrap(options: Ga4ConsentBootstrapOptions): s
     'function gtag(){dataLayer.push(arguments);}',
     "gtag('consent', 'default', { 'analytics_storage': 'denied', 'ad_storage': 'denied', 'wait_for_update': 500 });",
     `try { var consent = JSON.parse(localStorage.getItem(${key}) || '{}'); if (consent.analytics === true && consent.version === ${version}) { gtag('consent', 'update', { 'analytics_storage': 'granted' }); } } catch (e) {}`,
-    `function withdrawGa4() { gtag('consent', 'update', { 'analytics_storage': 'denied' }); window[${flag}] = true; try { var host = location.hostname; var parts = host.split('.'); var registrable = parts.length >= 2 && !/^[0-9.]+$/.test(host) ? '.' + parts.slice(-2).join('.') : null; var expire = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; document.cookie.split(';').forEach(function (pair) { var name = pair.split('=')[0].trim(); if (/^_ga(_|$)/.test(name) || name === '_gid') { document.cookie = name + expire; if (registrable) { document.cookie = name + expire + '; domain=' + registrable; } } }); } catch (e) {} }`,
+    `function withdrawGa4() { gtag('consent', 'update', { 'analytics_storage': 'denied' }); window[${flag}] = true; try { var host = location.hostname; var parts = host.split('.'); var domains = []; if (!/^[0-9.]+$/.test(host)) { for (var i = parts.length - 2; i >= 0; i--) { domains.push('.' + parts.slice(i).join('.')); } } var expire = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; document.cookie.split(';').forEach(function (pair) { var name = pair.split('=')[0].trim(); if (/^_ga(_|$)/.test(name) || name === '_gid') { document.cookie = name + expire; domains.forEach(function (d) { document.cookie = name + expire + '; domain=' + d; }); } }); } catch (e) {} }`,
     `window.addEventListener('cookie-consent-changed', function (e) { if (e.detail && e.detail.analytics) { window[${flag}] = false; gtag('consent', 'update', { 'analytics_storage': 'granted' }); } else { withdrawGa4(); } });`,
   ].join('\n');
 }

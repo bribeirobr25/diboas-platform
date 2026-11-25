@@ -44,18 +44,15 @@ export type SubmissionSource = 'marketing_site' | 'app_intercept';
 
 // Value Objects
 export interface ConsentRecord {
-  readonly gdprAccepted: boolean;
   readonly timestamp: Date;
   readonly consentVersion: string;
   readonly privacyPolicyVersion: string;
-  readonly consentText: string;
 }
 
 export interface SubmissionInput {
   readonly email: string;
   readonly name?: string;
   readonly xAccount?: string;
-  readonly gdprAccepted: boolean;
   readonly locale: SupportedLocale;
 }
 

@@ -127,7 +127,6 @@ export function WaitlistVersionA({
             config?.belowCheckbox ? intl.formatMessage({ id: config.belowCheckbox }) : undefined
           }
         />
-
       </div>
     </div>
   );

@@ -534,6 +534,7 @@
   --nav-cta-min-height-desktop: 44px;
   --nav-cta-min-height-tablet: 44px;
   --nav-cta-min-height-mobile: 44px;
+  --consent-settings-min-target: 44px; /* "Cookie settings" controls (W-D1, spec §2 E6) */
 
   /* Navigation CTA Spacing */
   --nav-cta-padding-desktop: 10px 32px;

@@ -263,7 +263,7 @@
   },
   "emailPreferences": {
     "heading": "Suas preferências de e-mail",
-    "description": "Escolha o que mudar. Cancelar a inscrição interrompe nossos e-mails; remover a anotação apaga qual botão ou link de campanha te trouxe até a lista de espera. Sua posição na lista e seus créditos de indicação ficam guardados nos dois casos.",
+    "description": "Escolha o que mudar. Cancelar a inscrição interrompe nossos e-mails; remover a anotação apaga qual botão ou link de campanha trouxe você até a lista de espera. Sua posição na lista e seus créditos de indicação ficam guardados nos dois casos.",
     "unsubscribeButton": "Cancelar inscrição",
     "staySubscribedButton": "Manter inscrição",
     "successUnsubscribed": "Você foi descadastrado dos e-mails do diBoaS.",

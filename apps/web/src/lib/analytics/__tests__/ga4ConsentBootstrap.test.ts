@@ -138,11 +138,20 @@ describe('buildGa4ConsentBootstrap', () => {
     ]);
   });
 
-  it('should take the registrable domain from the host, and skip it on an IP or a bare host', () => {
+  it('should expire on every parent domain of the host, and on none for an IP or a bare host', () => {
     jar = '_ga=1';
     run(build(), 'www.diboas.com');
     win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: false } }));
-    expect(cookieWrites.at(-1)).toMatch(/; domain=\.diboas\.com$/);
+    expect(cookieWrites.map((w) => /domain=(.*)$/.exec(w)?.[1] ?? null)).toEqual([
+      null,
+      '.diboas.com',
+      '.www.diboas.com',
+    ]);
+    // a multi-part suffix: GA's cookie sits on the project's own domain, not on `.vercel.app`
+    cookieWrites = [];
+    run(build(), 'diboas-git-x.vercel.app');
+    win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: false } }));
+    expect(cookieWrites.some((w) => w.endsWith('; domain=.diboas-git-x.vercel.app'))).toBe(true);
     for (const host of ['localhost', '127.0.0.1']) {
       cookieWrites = [];
       run(build(), host);

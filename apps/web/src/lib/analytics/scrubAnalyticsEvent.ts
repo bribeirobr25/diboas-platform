@@ -19,7 +19,7 @@
  * No `posthog-js` import (not even a type): the library is loaded only after consent, by dynamic
  * `import()` (CLAUDE.md), so this module declares the shape it reads.
  */
-import { scrubUrl } from '@/lib/utils/scrubUrl';
+import { scrubUrl, scrubUrlsInText } from '@/lib/utils/scrubUrl';
 import { isCampaignPropertyName, shapeUtmValue } from './utmShape';
 
 interface CaptureLike {
@@ -36,8 +36,12 @@ const REFERRER_DERIVED = /(?:referrer|referring_domain|search_engine|ph_keyword)
 
 function scrubValue(value: unknown, depth: number): unknown {
   if (depth > 8) return value;
-  if (typeof value === 'string')
-    return LOOKS_LIKE_URL.test(value) ? scrubUrl(value, SHAPED) : value;
+  if (typeof value === 'string') {
+    if (LOOKS_LIKE_URL.test(value)) return scrubUrl(value, SHAPED);
+    // a URL inside free text (an exception message, `$elements_chain`'s hrefs): scrubbed with the
+    // default (no campaign value), as Sentry's text scrubber does (W-D1 audit)
+    return /[?#]|%3F/i.test(value) ? scrubUrlsInText(value) : value;
+  }
   if (Array.isArray(value)) return value.map((v) => scrubValue(v, depth + 1));
   if (value && typeof value === 'object') {
     const out: Record<string, unknown> = {};

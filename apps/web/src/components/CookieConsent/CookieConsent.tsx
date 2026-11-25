@@ -56,6 +56,8 @@ export function CookieConsent() {
   });
   const [isVisible, setIsVisible] = useState(false);
   const closeBannerTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  // The first-visit timers, shared with the reopen path so "Cookie settings" cancels them.
+  const firstVisitTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const bannerRef = useRef<HTMLDivElement>(null);
   // Reopened from a "Cookie settings" control (W-D1, spec §3.8): the choice in force at that
   // moment, and the control focus returns to.
@@ -68,6 +70,9 @@ export function CookieConsent() {
       returnToRef.current =
         (event as CustomEvent<OpenCookieSettingsDetail>).detail?.returnTo ?? null;
       clearTimeout(closeBannerTimerRef.current);
+      // A reopen replaces the first-visit banner: its pending timers never fire after the choice.
+      firstVisitTimersRef.current.forEach(clearTimeout);
+      firstVisitTimersRef.current = [];
       setStoredAtReopen(getStoredConsent());
       setReopened(true);
       setShowBanner(true);
@@ -79,7 +84,7 @@ export function CookieConsent() {
 
   useEffect(() => {
     let mounted = true;
-    const timers: ReturnType<typeof setTimeout>[] = [];
+    const timers = firstVisitTimersRef.current;
 
     /** An older accept is asked again; an older decline stands (W-D1, spec §3.9). */
     const askAgainUnlessValid = (consent: CookieConsentValue) => {
@@ -112,7 +117,8 @@ export function CookieConsent() {
 
       // 3. Fallback: Check API (migration period — users without shadow cookie)
       const apiConsent = await checkConsentFromApiOnce();
-      if (!mounted) return;
+      // A choice made while the request was open (the reopened banner) is never overwritten.
+      if (!mounted || getStoredConsent()) return;
 
       if (apiConsent) {
         const localConsent = restoreConsentValue(apiConsent);
@@ -124,7 +130,7 @@ export function CookieConsent() {
       // 4. No consent found — show banner after delay
       timers.push(
         setTimeout(() => {
-          if (!mounted) return;
+          if (!mounted || getStoredConsent()) return;
           setShowBanner(true);
           timers.push(
             setTimeout(() => {

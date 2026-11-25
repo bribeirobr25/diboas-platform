@@ -1,9 +1,10 @@
 name: Accessibility (pa11y)
 
 # WCAG 2.1 AA scan. The URL set lives in `apps/web/.pa11yci.json`
-# (currently 21 URLs: home, about, B2B landing, lesson, the full Money
-# Tools suite, the /market dashboards across locales, protocols, and
-# strategies) and is driven by `scripts/pa11y.mjs`. Adding a route only
+# (currently 36 URLs: home, about, B2B landing, the Learn talks, the full
+# Money Tools suite, the /market dashboards across locales, protocols,
+# strategies, the cookie and privacy policies with W-D1's storage table, and
+# email preferences) and is driven by `scripts/pa11y.mjs`. Adding a route only
 # requires editing the JSON.
 #
 # Run locally: `pnpm --filter web pa11y` (same script, same URLs).

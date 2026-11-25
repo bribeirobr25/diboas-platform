@@ -104,6 +104,25 @@ describe('scrubAnalyticsEvent at depth (thirteenth audit)', () => {
   });
 });
 
+describe('scrubAnalyticsEvent: URLs inside free text (W-D1 audit)', () => {
+  it('should scrub a URL inside a message or an element chain, keeping the rest of the text', () => {
+    const event = scrubAnalyticsEvent({
+      properties: {
+        $exception_list: [
+          { value: 'Failed to load https://diboas.com/en/delete-confirm?token=S1' },
+        ],
+        $elements_chain: 'a:href="/en/email-preferences?t=S2"nth-child="1"',
+        note: 'see /en/delete-confirm?token=S3 for details',
+      },
+    });
+    const json = JSON.stringify(event);
+    for (const secret of ['S1', 'S2', 'S3']) expect(json).not.toContain(secret);
+    const props = event.properties as Record<string, unknown>;
+    expect(props.note).toBe('see /en/delete-confirm for details');
+    expect(props.$elements_chain).toBe('a:href="/en/email-preferences"nth-child="1"');
+  });
+});
+
 it('should stop descending past its depth limit rather than recurse without end', () => {
   let deep: Record<string, unknown> = { leaf: '/x?t=1' };
   for (let i = 0; i < 12; i += 1) deep = { d: deep };

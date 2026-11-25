@@ -37,6 +37,8 @@ const CASES: Array<[string, string]> = [
   ['https://diboas.com/en/learn', 'https://diboas.com/en/learn'],
   ['/en/about', '/en/about'],
   ['', ''],
+  // a name that is an Object.prototype member is no allowed name (W-D1 audit)
+  ['/x?token=abc&constructor=x&toString=y&__proto__=z&valueOf=v', '/x'],
 ];
 
 /**
@@ -76,6 +78,7 @@ const SHAPED_CASES: Array<[string, string]> = [
   ['/en/tools/money-jobs?for=business&token=x', '/en/tools/money-jobs?for=business'],
   ['https://diboas.com/en/learn', 'https://diboas.com/en/learn'],
   ['', ''],
+  ['/x?constructor=x&toString=y&__proto__=z&hasOwnProperty=h&utm_source=ok', '/x?utm_source=ok'],
 ];
 
 describe('scrubUrl', () => {

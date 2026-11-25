@@ -67,7 +67,10 @@ export function clearCtaSource(): void {
 }
 
 /** For a signup whose note box is ticked: the held values and label, whatever the analytics choice. */
-export function getNoteForSignup(): { utm: Partial<Record<UtmKey, string>>; ctaLabel: CtaSource | null } {
+export function getNoteForSignup(): {
+  utm: Partial<Record<UtmKey, string>>;
+  ctaLabel: CtaSource | null;
+} {
   const current = peekHold();
   return { utm: { ...(current?.utm ?? {}) }, ctaLabel: current?.ctaLabel ?? null };
 }

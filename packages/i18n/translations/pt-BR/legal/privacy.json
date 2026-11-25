@@ -115,7 +115,7 @@
         },
         {
           "type": "Dados de análise:",
-          "duration": "Google Analytics: até 14 meses. PostHog: 12 meses."
+          "duration": "Google Analytics: até 14 meses após sua última visita. PostHog: 12 meses."
         },
         {
           "type": "Registros de comunicação:",

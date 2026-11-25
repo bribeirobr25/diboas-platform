@@ -115,7 +115,7 @@
         },
         {
           "type": "Analytics data:",
-          "duration": "Google Analytics: up to 14 months. PostHog: 12 months."
+          "duration": "Google Analytics: up to 14 months after your last visit. PostHog: 12 months."
         },
         {
           "type": "Communication records:",
@@ -175,11 +175,7 @@
     "security": {
       "title": "Security",
       "intro": "We implement appropriate technical and organizational measures to protect your data, including:",
-      "measures": [
-        "Encryption in transit (HTTPS)",
-        "Access controls",
-        "Regular security reviews"
-      ]
+      "measures": ["Encryption in transit (HTTPS)", "Access controls", "Regular security reviews"]
     },
     "childrenPrivacy": {
       "title": "Children's Privacy",

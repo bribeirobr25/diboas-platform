@@ -66,10 +66,7 @@ export function WaitlistForm({
     });
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={`${styles.form} ${className}`}
-    >
+    <form onSubmit={handleSubmit} className={`${styles.form} ${className}`}>
       {hasReferral ? (
         <p className={styles.referralIndicator}>{t('referral.invitedIndicator')}</p>
       ) : null}

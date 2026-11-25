@@ -9,7 +9,7 @@
 import { execSync } from 'node:child_process';
 import { existsSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 import { stripComments } from '@diboas/test-support';
 
 const WEB = resolve(__dirname, '../..');
@@ -32,14 +32,29 @@ function resolveImport(from: string, spec: string): string | null {
   return null;
 }
 
+/** Each file's imports, read once (a walk per test timed out under coverage). */
+const importCache = new Map<string, string[]>();
 const importsOf = (file: string): string[] => {
+  const known = importCache.get(file);
+  if (known) return known;
   const text = stripComments(readFileSync(file, 'utf8'), file);
-  return [...text.matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]+)['"]/g)]
+  const found = [...text.matchAll(/(?:from|import)\s*\(?\s*['"]([^'"]+)['"]/g)]
     .map((m) => resolveImport(file, m[1]))
     .filter((f): f is string => f !== null);
+  importCache.set(file, found);
+  return found;
 };
 
+const reachCache = new Map<string, boolean>();
 function reachesControl(start: string): boolean {
+  const known = reachCache.get(start);
+  if (known !== undefined) return known;
+  const result = walkToControl(start);
+  reachCache.set(start, result);
+  return result;
+}
+
+function walkToControl(start: string): boolean {
   const seen = new Set([start]);
   const queue = [start];
   while (queue.length) {
@@ -67,6 +82,10 @@ const pages = execSync('git ls-files src/app', { cwd: WEB, encoding: 'utf8' })
   .map((f) => join(WEB, f));
 
 describe('WITHDRAW-1: "Cookie settings" on every page with the banner', () => {
+  beforeAll(() => {
+    for (const page of pages) reachesControl(page);
+  }, 120_000);
+
   it('should find the landing pages (a non-vacuity floor)', () => {
     expect(pages.length).toBeGreaterThanOrEqual(25);
   });

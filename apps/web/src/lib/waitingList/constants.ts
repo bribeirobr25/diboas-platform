@@ -42,7 +42,11 @@ export const VALIDATION_PATTERNS = {
 export const UTM_TAG_PREFIX = 'utm_';
 export const CTA_SOURCE_TAG_PREFIX = 'cta_source:';
 export const CONSENT_TAG_PREFIX = 'consent:';
-export const NOTE_TAG_PREFIXES = [UTM_TAG_PREFIX, CTA_SOURCE_TAG_PREFIX, CONSENT_TAG_PREFIX] as const;
+export const NOTE_TAG_PREFIXES = [
+  UTM_TAG_PREFIX,
+  CTA_SOURCE_TAG_PREFIX,
+  CONSENT_TAG_PREFIX,
+] as const;
 
 /**
  * The two texts of the signup forms' note box (W-D1, spec §3.4, §6.4) and their current versions.
