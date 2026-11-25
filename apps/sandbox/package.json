@@ -51,7 +51,7 @@
     "eslint": "^10.15.0",
     "eslint-config-next": "^16.4.6",
     "happy-dom": "^21.0.4",
-    "storybook": "^10.6.7",
+    "storybook": "^10.6.8",
     "typescript": "~5.9.3",
     "vitest": "^5.1.0"
   }
