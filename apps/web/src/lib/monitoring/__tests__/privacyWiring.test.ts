@@ -62,7 +62,7 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
    * route change reported the landing page. The scrubbed location is SET before config. */
   it('should set a scrubbed page location and referrer BEFORE configuring GA4, inside a function', () => {
     const src = read('src/components/Providers/GoogleAnalyticsLoader.tsx');
-    expect(src).toContain('(function(){var scrub=${SCRUB_URL_INLINE_JS};');
+    expect(src).toContain('(function(){var scrub=${SCRUB_URL_INLINE_JS_SHAPED};');
     const set = src.indexOf(
       "gtag('set', { page_location: scrub(location.href), page_referrer: scrub(document.referrer) });"
     );
@@ -94,15 +94,19 @@ describe('5.864 · every analytics door records scrubbed addresses', () => {
 
   it('should set a scrubbed page location before each GA4 page view', () => {
     const src = read('src/components/Performance/PageViewTracker.tsx');
-    const set = src.indexOf("gtag('set', { page_location: scrubUrl(window.location.href) })");
+    const set = src.indexOf(
+      "page_location: scrubUrl(window.location.href, { campaign: 'shaped' })"
+    );
     expect(set).toBeGreaterThan(-1);
     expect(set).toBeLessThan(src.indexOf("gtag('event', 'page_view'"));
   });
 
-  it('should scrub the page location and referrer the analytics service records', () => {
+  /* W-D1 (5.924): the analytics service's uncalled `trackPageView`, its only page-address and
+   * referrer field, was deleted; page views reach GA4 through PageViewTracker (above) and
+   * PostHog through its own capture (`before_send`). */
+  it('should keep no page-view or referrer field in the analytics service', () => {
     const src = read('src/lib/analytics/service.ts');
-    expect(src).toMatch(/page_location:[^\n]*scrubUrl\(window\.location\.href\)/);
-    expect(src).toMatch(/referrer:[^\n]*scrubUrl\(document\.referrer\)/);
+    expect(src).not.toMatch(/trackPageView\b|document\.referrer|page_location/);
   });
 });
 

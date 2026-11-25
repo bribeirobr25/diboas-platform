@@ -142,6 +142,32 @@ export function createConsentValue(analytics: boolean): CookieConsentValue {
 }
 
 /**
+ * A choice read back from the readable cookie or `/api/consent`, copied with the version it was
+ * GIVEN under, never re-stamped with the current one (W-D1, spec §3.9; CONSENT-RESTORE-1). A
+ * restored value without a version counts as older.
+ */
+export function restoreConsentValue(restored: {
+  analytics: boolean;
+  version?: unknown;
+}): CookieConsentValue {
+  return {
+    analytics: restored.analytics === true,
+    version: typeof restored.version === 'string' ? restored.version : '0',
+    timestamp: Date.now(),
+  };
+}
+
+/**
+ * Whether a stored choice still stands under the current banner version (W-D1, spec §3.9): a
+ * choice of the current version stands; an older DECLINE stands (no one is re-asked to refuse);
+ * an older ACCEPT does not: the banner asks again, and analytics stays off until it is answered
+ * (`hasAnalyticsConsent` reads current-version accepts only).
+ */
+export function isStoredChoiceValid(consent: CookieConsentValue): boolean {
+  return consent.version === CONSENT_VERSION || consent.analytics === false;
+}
+
+/**
  * Dispatch consent changed DOM event.
  *
  * This fires a DOM CustomEvent solely for the GA4 inline script in

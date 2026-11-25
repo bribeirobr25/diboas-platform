@@ -201,8 +201,11 @@ const nextConfig = {
             value: 'nosniff',
           },
           {
+            // W-D1 (5.924, DR G3): our pages pass only the origin as the referrer, even to our own
+            // pages, so no page address (campaign values, tokens) reaches the next page's
+            // `document.referrer`, which PostHog saves unmasked. UTM-SHAPE-1 pins it.
             key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
+            value: 'strict-origin',
           },
           {
             key: 'X-DNS-Prefetch-Control',

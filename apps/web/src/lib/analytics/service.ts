@@ -18,7 +18,6 @@ import {
 import { ConnectionMonitor } from './connectionMonitor';
 import { type IAnalyticsBackend, type SendOptions, GA4Backend, PostHogBackend } from './backends';
 import { hasAnalyticsConsent } from '@/components/CookieConsent';
-import { scrubUrl } from '@/lib/utils/scrubUrl';
 import { clearConsentGatedCtaSource } from './ctaAttribution';
 
 const UTM_STORAGE_KEY = 'diboas-utm-params';
@@ -155,25 +154,6 @@ class AnalyticsTrackingService implements AnalyticsService {
     } catch (error) {
       this.handleTrackEventError(error as AnalyticsError, event);
     }
-  }
-
-  /**
-   * Track page view events
-   * SEO: Important for understanding user journey
-   */
-  trackPageView(path: string, title: string, locale: string): void {
-    if (!this.config.trackPageViews) return;
-
-    this.track({
-      name: 'page_view',
-      parameters: {
-        page_path: path,
-        page_title: title,
-        page_location: typeof window !== 'undefined' ? scrubUrl(window.location.href) : '',
-        locale,
-        referrer: typeof document !== 'undefined' ? scrubUrl(document.referrer) : '',
-      },
-    });
   }
 
   /**

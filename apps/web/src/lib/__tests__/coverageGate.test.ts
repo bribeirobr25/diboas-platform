@@ -51,6 +51,8 @@ const SECURITY_AT_100: Record<string, string[]> = {
     'src/lib/utils/scrubUrl.ts',
     'src/lib/monitoring/sentryScrub.ts',
     'src/lib/analytics/scrubAnalyticsEvent.ts',
+    'src/lib/analytics/utmShape.ts',
+    'src/lib/analytics/posthogLegacySessionCleanup.ts',
     'src/app/api/waitlist/delete/route.ts',
     'src/lib/waitingList/store/internals.ts',
   ],
@@ -70,7 +72,7 @@ const SECURITY_AT_100: Record<string, string[]> = {
 };
 
 /** How many 100% keys each workspace has (5.893): raise it when a file is locked, never lower it. */
-const LOCKED_AT_100: Record<string, number> = { web: 18, sandbox: 13 };
+const LOCKED_AT_100: Record<string, number> = { web: 20, sandbox: 13 };
 
 /** The measured scope of each workspace, exactly (agent D findings 1–2). */
 const PINNED_SCOPE: Record<string, { include: string[]; exclude: string[] }> = {

@@ -191,15 +191,18 @@ export function getCsrfAllowedOrigins(): string[] {
 export const STORAGE_PREFIX = process.env.NEXT_PUBLIC_STORAGE_PREFIX || 'diboas';
 
 /**
- * Cookie consent configuration
+ * Cookie consent configuration. The name, version and key are fixed here, never read from a
+ * server-only variable, so the browser and the server (and GA4's inline bootstrap, which
+ * interpolates them) always agree (W-D1, spec §3.9). Bumping `consentVersion` re-asks only those
+ * who ACCEPTED under an older version; an older decline stands (`isStoredChoiceValid`).
  */
 export const COOKIE_CONFIG = {
   /** Consent cookie name */
-  consentCookieName: process.env.COOKIE_CONSENT_NAME || `${STORAGE_PREFIX}-consent`,
-  /** Consent version (bump to re-request consent) */
-  consentVersion: process.env.COOKIE_CONSENT_VERSION || '1.0',
+  consentCookieName: `${STORAGE_PREFIX}-consent`,
+  /** Consent version (bump to re-ask earlier accepts) */
+  consentVersion: '1.0',
   /** Consent localStorage key (for SSR hydration) */
-  consentLocalStorageKey: process.env.COOKIE_CONSENT_LS_KEY || `${STORAGE_PREFIX}-cookie-consent`,
+  consentLocalStorageKey: `${STORAGE_PREFIX}-cookie-consent`,
   /** Cookie max age in seconds (default: 1 year) */
   maxAge: parseInt(process.env.COOKIE_MAX_AGE || '31536000', 10),
 } as const;

@@ -22,10 +22,13 @@ import {
   checkConsentFromApiOnce,
   saveConsentToStorage,
   createConsentValue,
+  isStoredChoiceValid,
+  restoreConsentValue,
   dispatchConsentEvent,
   getStoredConsent,
   getConsentFromShadowCookie,
   isConsentVersionCurrent,
+  type CookieConsentValue,
 } from './consentUtils';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import styles from './CookieConsent.module.css';
@@ -52,27 +55,32 @@ export function CookieConsent() {
     let mounted = true;
     const timers: ReturnType<typeof setTimeout>[] = [];
 
+    /** An older accept is asked again; an older decline stands (W-D1, spec §3.9). */
+    const askAgainUnlessValid = (consent: CookieConsentValue) => {
+      if (isStoredChoiceValid(consent) || !mounted) return;
+      setShowBanner(true);
+      timers.push(
+        setTimeout(() => {
+          if (mounted) setIsVisible(true);
+        }, 100)
+      );
+    };
+
     async function checkConsent() {
       // 1. Check localStorage (fastest, synchronous)
       const stored = getStoredConsent();
       if (stored) {
-        if (!isConsentVersionCurrent(stored)) {
-          if (!mounted) return;
-          setShowBanner(true);
-          timers.push(
-            setTimeout(() => {
-              if (mounted) setIsVisible(true);
-            }, 100)
-          );
-        }
+        askAgainUnlessValid(stored);
         return;
       }
 
-      // 2. Check shadow cookie (synchronous, no API call — P9 Performance)
+      // 2. Check shadow cookie (synchronous, no API call — P9 Performance). The choice is copied
+      //    back with the version it was given under, never re-stamped (CONSENT-RESTORE-1).
       const shadowConsent = getConsentFromShadowCookie();
       if (shadowConsent) {
-        const localConsent = createConsentValue(shadowConsent.analytics);
+        const localConsent = restoreConsentValue(shadowConsent);
         saveConsentToStorage(localConsent);
+        askAgainUnlessValid(localConsent);
         return;
       }
 
@@ -81,8 +89,9 @@ export function CookieConsent() {
       if (!mounted) return;
 
       if (apiConsent) {
-        const localConsent = createConsentValue(apiConsent.analytics);
+        const localConsent = restoreConsentValue(apiConsent);
         saveConsentToStorage(localConsent);
+        askAgainUnlessValid(localConsent);
         return;
       }
 
