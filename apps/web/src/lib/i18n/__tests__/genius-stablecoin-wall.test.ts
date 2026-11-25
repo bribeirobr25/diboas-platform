@@ -83,14 +83,14 @@ const ALLOW: ReadonlyMap<string, string> = new Map([
   ['de::strategies::protocols.items.compoundV3.summary', 'b48c0e8745374e1b'],
   ['pt-BR::strategies::protocols.items.aaveV3.summary', 'a2846f2d34d6fd23'],
   ['pt-BR::strategies::protocols.items.compoundV3.summary', '86c257aafa4859a2'],
-  // Sky's lending summary ("Returns generated from lending USDS to borrowers. Variable rate."):
-  // CC's extension of decision B to the same mechanism, PUT TO THE FOUNDER 2026-11-12 (not yet
-  // ruled; register). Sky's protocol card and type label carry no exception (the card was
-  // rewritten 2026-11-11; the label reads "Protocol rate").
-  ['en::strategies::protocols.items.skySsr.summary', 'e6c9a1a5af4b3a0a'],
-  ['es::strategies::protocols.items.skySsr.summary', '756bd1db3e5e4144'],
-  ['de::strategies::protocols.items.skySsr.summary', 'f75b1c4880591116'],
-  ['pt-BR::strategies::protocols.items.skySsr.summary', 'ecba6999ee143951'],
+  // Sky's row (W-D2 PR B, `5.935`): education under LC-RR-01-01 (D3, DR-2026-11-17 W-D; the
+  // founder's written yes on these exact texts, then his merge). It pairs only through "sUSDS", the
+  // rate token; it says "Holding USDS alone pays nothing". The card, label, asset and year carry no
+  // exception (they do not pair); SKY-EDU-1 (`skyEducation.test.ts`) pins them all.
+  ['en::strategies::protocols.items.skySsr.summary', 'c621c58210e38668'],
+  ['es::strategies::protocols.items.skySsr.summary', '58ea6d8655362f39'],
+  ['de::strategies::protocols.items.skySsr.summary', '827788e69d7ba7c0'],
+  ['pt-BR::strategies::protocols.items.skySsr.summary', '83579442b0af9149'],
   // A negation: "Não existe retorno garantido." then, after a paragraph break, "Dólar digital, …".
   ['pt-BR::landing-b2c::ptbr.trust.body', '975b5cd29fb0c489'],
 ]);

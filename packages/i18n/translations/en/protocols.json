@@ -123,13 +123,13 @@
     },
     "sparkProtocol": {
       "name": "Spark Protocol",
-      "description": "Lending system built on Aave's proven code, connected to Sky/MakerDAO's deep liquidity. Benefits from the longest operating history in DeFi (since 2014).",
+      "description": "Lending system built on Aave's proven code, connected to Sky/MakerDAO's deep liquidity. Sky (formerly MakerDAO) has been in operation since 2017.",
       "details": {
         "founded": "2023",
         "tvl": "~$5.1 billion",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "7+ independent audits",
-        "regulatory": "Benefits from MakerDAO's 10+ year compliance track record"
+        "regulatory": "Built on Sky (formerly MakerDAO), in operation since 2017"
       }
     },
     "fluid": {
@@ -214,13 +214,13 @@
     },
     "sky": {
       "name": "Sky Protocol / SSR (formerly MakerDAO)",
-      "description": "The original DeFi system. Running since 2014. Users deposit crypto as collateral to generate stablecoins, under rules and a variable rate set by the protocol. Survived every major market crash since 2017.",
+      "description": "The protocol behind DAI and USDS, in operation since 2017 (as MakerDAO). In diBoaS strategies the position is held as sUSDS on Arbitrum, bought through Spark's swap module (PSM): a Sky token whose value rises with the Sky rate (SSR), a variable rate that Sky governance sets and Sky protocol surplus funds; it can change at any time, down to zero. Holding USDS alone pays nothing. Not guaranteed, and you can get back less than you put in; risks include USDS losing its dollar peg (DAI, its predecessor, briefly lost it in March 2023), PSM liquidity, governance changes to the rate or the token contracts, and smart-contract, bridge and oracle risk.",
       "details": {
         "founded": "2014",
         "tvl": "~$5.9 billion",
         "blockchains": "Ethereum (diBoaS strategies use the Arbitrum deployment)",
         "audits": "10+ independent audits",
-        "regulatory": "10+ years of continuous operation through multiple market cycles"
+        "regulatory": "In operation since 2017 (DAI's launch)"
       },
       "usedInStrategies": "All 10 strategies (Safe Harbor, Stable Growth, Goal Keeper, Steady Progress, Patient Builder, Balanced Builder, Steady Compounder, Wealth Accelerator, Full Harvest, Full Throttle)"
     },

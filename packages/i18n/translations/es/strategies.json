@@ -68,12 +68,12 @@
     "items": {
       "skySsr": {
         "name": "Sky SSR",
-        "type": "Tasa del protocolo",
+        "type": "Token de tasa",
         "chain": "Arbitrum",
-        "asset": "USDS",
+        "asset": "sUSDS",
         "cryptoExposure": "Ninguna",
-        "operatingSince": "2022",
-        "summary": "Rendimiento generado prestando USDS a prestatarios. Tipo variable.",
+        "operatingSince": "2017 (SSR: 2024)",
+        "summary": "La rentabilidad viene del sUSDS, cuyo valor sube con el tipo de Sky (SSR): variable, fijado por la gobernanza de Sky, financiado con el excedente del protocolo y que puede llegar a cero. Mantener USDS por sí solo no paga nada. No está garantizado; puedes recuperar menos de lo que aportaste; riesgos de paridad, liquidez, contratos inteligentes, puente, oráculo y gobernanza.",
         "verifyUrl": "https://sky.money",
         "defillamaUrl": "https://defillama.com/protocol/sky"
       },
