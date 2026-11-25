@@ -12,6 +12,7 @@ import { useUrlSecrets } from '@/hooks/useUrlSecrets';
 import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { POSITION_STORAGE_KEYS } from '@/lib/waitingList/constants';
+import { CookieSettingsButton } from '@/components/CookieConsent/CookieSettingsButton';
 import styles from './DeleteConfirm.module.css';
 
 type DeletionState = 'idle' | 'confirming' | 'success' | 'nothing' | 'expired' | 'error';
@@ -116,6 +117,11 @@ export default function DeleteConfirmPage() {
           </a>
         </>
       ) : null}
+
+      {/* W-D1 (D6, F2): the cookie choice can be changed on every page that shows the banner */}
+      <p className={styles.cookieSettings}>
+        <CookieSettingsButton className={styles.cookieSettingsButton} />
+      </p>
     </div>
   );
 }

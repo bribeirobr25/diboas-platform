@@ -7,6 +7,8 @@
  */
 
 import { RouteGroupError } from '@/components/ErrorBoundary/RouteGroupError';
+import { CookieSettingsButton } from '@/components/CookieConsent/CookieSettingsButton';
+import styles from './error.module.css';
 
 interface ErrorProps {
   error: Error & { digest?: string };
@@ -14,5 +16,12 @@ interface ErrorProps {
 }
 
 export default function LandingError({ error, reset }: ErrorProps) {
-  return <RouteGroupError error={error} reset={reset} errorBoundaryName="landing-route-group" />;
+  return (
+    <>
+      <RouteGroupError error={error} reset={reset} errorBoundaryName="landing-route-group" />
+      <p className={styles.cookieSettings}>
+        <CookieSettingsButton className={styles.cookieSettingsButton} />
+      </p>
+    </>
+  );
 }

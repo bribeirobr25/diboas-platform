@@ -7,20 +7,25 @@ import { renderWelcome } from '@diboas/email';
 import { describe, expect, it } from 'vitest';
 
 const EXPECTED = {
-  en: ['Privacy Policy', 'Terms of Use', 'Unsubscribe', 'All rights reserved.'],
+  en: ['Privacy Policy', 'Terms of Use', 'Email settings', 'All rights reserved.'],
   'pt-BR': [
     'Política de Privacidade',
     'Termos de Uso',
-    'Cancelar inscrição',
+    'Configurações de e-mail',
     'Todos os direitos reservados.',
   ],
   es: [
     'Política de Privacidad',
     'Términos de Uso',
-    'Cancelar suscripción',
+    'Configuración de correo',
     'Todos los derechos reservados.',
   ],
-  de: ['Datenschutzerklärung', 'Nutzungsbedingungen', 'Abmelden', 'Alle Rechte vorbehalten.'],
+  de: [
+    'Datenschutzerklärung',
+    'Nutzungsbedingungen',
+    'E-Mail-Einstellungen',
+    'Alle Rechte vorbehalten.',
+  ],
 } as const;
 
 const welcome = (locale: string) =>
@@ -49,7 +54,7 @@ describe('the email footer in the reader’s language (fifteenth audit B-7)', ()
     for (const english of [
       'Privacy Policy',
       'Terms of',
-      '>Unsubscribe<',
+      '>Email settings<',
       'All rights reserved',
       'This is a transactional email',
     ])

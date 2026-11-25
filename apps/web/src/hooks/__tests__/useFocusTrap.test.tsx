@@ -19,6 +19,8 @@ function setupFocusTrap(
     returnFocus?: boolean;
     initialFocus?: string;
     onEscape?: () => void;
+    focusContainer?: boolean;
+    returnFocusTo?: () => HTMLElement | null;
   } = {}
 ) {
   // Create DOM structure
@@ -370,5 +372,69 @@ describe('useFocusTrap with nested traps', () => {
     rerender({ isActive: true });
     rerender({ isActive: false });
     expect(cancel).toHaveBeenCalledWith(42);
+  });
+});
+
+/** W-D1 (spec §3.8, WITHDRAW-1): the container-focus and return-target options. */
+describe('useFocusTrap: focusContainer and returnFocusTo', () => {
+  const shiftTab = () => {
+    const event = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, cancelable: true });
+    document.dispatchEvent(event);
+    return event;
+  };
+
+  it('should focus the container itself, not a button, when the trap starts', () => {
+    const { container, rerender } = setupFocusTrap({ focusContainer: true });
+    container.tabIndex = -1;
+    rerender({ isActive: true });
+    expect(document.activeElement).toBe(container);
+  });
+
+  it('should send Shift+Tab from the focused container to the last focusable element', () => {
+    const { container, button2, rerender } = setupFocusTrap({ focusContainer: true });
+    container.tabIndex = -1;
+    rerender({ isActive: true });
+    const event = shiftTab();
+    expect(event.defaultPrevented).toBe(true);
+    expect(document.activeElement).toBe(button2);
+  });
+
+  it('should not redirect Shift+Tab from a middle element', () => {
+    const { container, input, rerender } = setupFocusTrap({ focusContainer: true });
+    container.tabIndex = -1;
+    rerender({ isActive: true });
+    input.focus();
+    const event = shiftTab();
+    expect(event.defaultPrevented).toBe(false);
+    expect(document.activeElement).toBe(input);
+  });
+
+  it('should not use the container branch when the option is off, even if the container is focused', () => {
+    const { container, rerender } = setupFocusTrap({ autoFocus: false });
+    container.tabIndex = -1;
+    rerender({ isActive: true });
+    container.focus();
+    expect(shiftTab().defaultPrevented).toBe(false);
+  });
+
+  it('should return focus to the control named at close, not the element focused before', () => {
+    const opener = document.createElement('button');
+    const other = document.createElement('button');
+    document.body.append(opener, other);
+    other.focus();
+    const { rerender } = setupFocusTrap({ returnFocusTo: () => opener });
+    rerender({ isActive: true });
+    rerender({ isActive: false });
+    expect(document.activeElement).toBe(opener);
+  });
+
+  it('should fall back to the element focused before when the named control is gone', () => {
+    const before = document.createElement('button');
+    document.body.append(before);
+    before.focus();
+    const { rerender } = setupFocusTrap({ returnFocusTo: () => null });
+    rerender({ isActive: true });
+    rerender({ isActive: false });
+    expect(document.activeElement).toBe(before);
   });
 });

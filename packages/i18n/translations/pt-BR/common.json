@@ -219,7 +219,8 @@
     "decline": "Recusar",
     "accept": "Aceitar",
     "declineAriaLabel": "Recusar cookies",
-    "acceptAriaLabel": "Aceitar cookies"
+    "acceptAriaLabel": "Aceitar cookies",
+    "settings": "Configurações de cookies"
   },
   "bookCall": {
     "notConfigured": "Calendário de agendamento não configurado",
@@ -262,7 +263,7 @@
   },
   "emailPreferences": {
     "heading": "Suas preferências de e-mail",
-    "description": "Você será descadastrado dos e-mails do diBoaS. Sua posição na lista de espera e créditos de indicação serão preservados.",
+    "description": "Escolha o que mudar. Cancelar a inscrição interrompe nossos e-mails; remover a anotação apaga qual botão ou link de campanha te trouxe até a lista de espera. Sua posição na lista e seus créditos de indicação ficam guardados nos dois casos.",
     "unsubscribeButton": "Cancelar inscrição",
     "staySubscribedButton": "Manter inscrição",
     "successUnsubscribed": "Você foi descadastrado dos e-mails do diBoaS.",
@@ -272,7 +273,11 @@
     "error": "Algo deu errado. Tente novamente.",
     "processing": "Processando...",
     "backHome": "Voltar para o início",
-    "tryAgainButton": "Tentar novamente"
+    "tryAgainButton": "Tentar novamente",
+    "removeNoteButton": "Remover a anotação sobre qual link me trouxe até aqui",
+    "noteRemoved": "A anotação foi removida.",
+    "noNote": "Não há anotação para remover.",
+    "noteRemovalError": "Não conseguimos remover a anotação. Tente de novo."
   },
   "disclaimers": {
     "educationalProjection": "Valores ilustrativos baseados em premissas históricas de juros compostos. Desempenho passado não garante resultados futuros. Use apenas dinheiro que você pode perder. O diBoaS não é um banco e seus fundos não são segurados."

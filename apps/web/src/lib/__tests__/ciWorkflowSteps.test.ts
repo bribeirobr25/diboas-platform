@@ -1,6 +1,6 @@
 /**
  * The CI steps W-D1's gates depend on are wired into REQUIRED jobs and cannot be quietly switched
- * off (market clean-up W-D1, spec §4, CONSENT-TEXT-1; WITHDRAW-1's e2e step joins in group A').
+ * off (market clean-up W-D1, spec §4: CONSENT-TEXT-1's grow-only check, WITHDRAW-1's e2e step).
  * The workflows are PARSED (a text match once passed a commented-out step, 5.896): each step must
  * sit in its job, run exactly its lines, and carry no `if:` and no `continue-on-error`, nor may
  * its job.
@@ -45,8 +45,27 @@ const PINNED = [
       'git fetch --no-tags --depth=1 origin "$BASE_SHA"',
       'node scripts/check-consent-texts-grow.mjs "$BASE_SHA"',
     ],
-    env: { BASE_SHA: BASE_EXPR },
-    shell: 'bash',
+    env: { BASE_SHA: BASE_EXPR } as Record<string, string>,
+    envIncludes: undefined as Record<string, string> | undefined,
+    shell: 'bash' as string | undefined,
+  },
+  {
+    gate: 'WITHDRAW-1',
+    file: 'e2e.yml',
+    job: 'e2e',
+    lines: [
+      'env -u NEXT_PUBLIC_SENTRY_DSN pnpm exec turbo run build --filter=web... --force || env -u NEXT_PUBLIC_SENTRY_DSN pnpm exec turbo run build --filter=web... --force',
+      'pnpm exec playwright test --project=withdrawal --list',
+      "if pnpm exec playwright test --project=chromium --list | grep -q 'withdrawal/'; then echo 'the chromium project lists the withdrawal spec'; exit 1; fi",
+      'pnpm exec playwright test --project=withdrawal',
+    ],
+    env: undefined as unknown as Record<string, string>,
+    envIncludes: {
+      E2E_WITHDRAWAL: '1',
+      NEXT_PUBLIC_GA_ID: 'G-E2ESTUB1',
+      NEXT_PUBLIC_POSTHOG_KEY: 'phc_e2e_stub',
+    },
+    shell: undefined,
   },
 ];
 
@@ -67,7 +86,10 @@ function gaps(pin: (typeof PINNED)[number], wf = workflow(pin.file)): string[] {
   if (step.if !== undefined) out.push('the step has an if:');
   if (step['continue-on-error']) out.push('the step continues on error');
   if (step.shell !== pin.shell) out.push(`the step's shell is ${step.shell}`);
-  if (JSON.stringify(step.env ?? {}) !== JSON.stringify(pin.env)) out.push('the env differs');
+  if (pin.env && JSON.stringify(step.env ?? {}) !== JSON.stringify(pin.env))
+    out.push('the env differs');
+  for (const [key, value] of Object.entries(pin.envIncludes ?? {}))
+    if (step.env?.[key] !== value) out.push(`the env lacks ${key}=${value}`);
   if (JSON.stringify(lines(step)) !== JSON.stringify(pin.lines)) out.push('the run lines differ');
   return out;
 }
@@ -98,5 +120,19 @@ describe('the CI steps W-D1 depends on', () => {
         (_s, j) => (j.steps = j.steps!.filter((x) => !(x.run ?? '').includes('consent-texts')))
       )
     ).toEqual(['0 steps run the check (expected 1)']);
+  });
+
+  it('should catch the withdrawal step without E2E_WITHDRAWAL or its listing check', () => {
+    const pin = PINNED[1];
+    const wf = workflow(pin.file);
+    const step = wf.jobs![pin.job].steps!.find((x) =>
+      (x.run ?? '').includes('--project=withdrawal')
+    )!;
+    delete step.env!.E2E_WITHDRAWAL;
+    step.run = (step.run ?? '').replace(/^.*--project=chromium --list.*$/m, '');
+    expect(gaps(pin, wf).sort()).toEqual([
+      'the env lacks E2E_WITHDRAWAL=1',
+      'the run lines differ',
+    ]);
   });
 });

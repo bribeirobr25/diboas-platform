@@ -157,6 +157,16 @@
   --cta-color-secondary: #1a365d;
   --cta-bg-hover: #115e59;
   --cta-focus-color: #0d9488;
+  /* Theme-invariant strong teal (W-D1, register 5.1010, the founder's ruling: a darker teal fill
+     with white text on filled teal surfaces). White on teal-700 -> 800 is 5.47:1 or more. No
+     dark-theme value on purpose; the webapp lane reuses these for 5.1010. */
+  --cta-bg-primary-fixed: var(--color-teal-700);
+  --cta-bg-primary-fixed-gradient: linear-gradient(
+    135deg,
+    var(--color-teal-700) 0%,
+    var(--color-teal-800) 100%
+  );
+  --cta-color-primary-fixed: var(--color-white);
 
   /* ================================
      BRAND COLORS
@@ -704,6 +714,8 @@
   --z-index-modal: 60;
   --z-index-fixed: 65;
   --z-index-toast: 70;
+  /* The reopened cookie banner (W-D1): a modal dialog above every overlay, toasts included */
+  --z-index-consent-settings: 80;
 
   /* FeatureShowcase Design Tokens */
   /* ================================

@@ -14,7 +14,10 @@ import { PGlite } from '@electric-sql/pglite';
 import type { QueryFn } from '@/lib/database/client';
 
 const SCHEMA = `
-  CREATE TABLE waitlist_entries (id text PRIMARY KEY, email_hash text);
+  CREATE TABLE waitlist_entries (
+    id text PRIMARY KEY, email_hash text, tags text[] NOT NULL DEFAULT '{}', email_opted_out boolean NOT NULL DEFAULT false,
+    updated_at timestamptz
+  );
   CREATE TABLE deletion_tokens (
     token_hash text PRIMARY KEY, email text, email_hash text, expires_at timestamptz NOT NULL
   );

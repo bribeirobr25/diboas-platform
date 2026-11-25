@@ -12,36 +12,67 @@ import { buildGa4ConsentBootstrap } from '../ga4ConsentBootstrap';
 
 const KEY = COOKIE_CONFIG.consentLocalStorageKey;
 
-type FakeWindow = EventTarget & { dataLayer?: IArguments[]; gtag?: unknown };
+type FakeWindow = EventTarget & {
+  dataLayer?: IArguments[];
+  gtag?: unknown;
+  [flag: string]: unknown;
+};
 let win: FakeWindow;
+const ID = 'G-TEST1';
+const FLAG = `ga-disable-${ID}`;
+const build = (extra: { storageKey?: string; version?: string } = {}) =>
+  buildGa4ConsentBootstrap({ measurementId: ID, ...extra });
+
+/** A page's cookie jar seen through the `document.cookie` setter (happy-dom merges domain and
+ * host-only cookies a browser keeps apart, so the exact writes are what is asserted). */
+let cookieWrites: string[];
+let jar: string;
+let cookieThrows: boolean;
+const fakeDocument = {
+  get cookie() {
+    return jar;
+  },
+  set cookie(value: string) {
+    if (cookieThrows) throw new Error('blocked');
+    cookieWrites.push(value);
+  },
+};
 
 /**
  * Runs the script as an inline script runs, against a fresh window per case (a real page's
  * listener lives as long as the page, so each case gets its own page). Its bare `dataLayer` and
  * `gtag` are the window's, as they are in a browser.
  */
-function run(source = buildGa4ConsentBootstrap()) {
+function run(source = build(), hostname = 'diboas.com') {
   win = new EventTarget() as FakeWindow;
   const patched = source.replace(
     'function gtag(){dataLayer.push(arguments);}',
     'window.gtag = function gtag(){window.dataLayer.push(arguments);}; var gtag = window.gtag;'
   );
-  runInNewContext(patched, { window: win, localStorage: window.localStorage });
+  runInNewContext(patched, {
+    window: win,
+    localStorage: window.localStorage,
+    document: fakeDocument,
+    location: { hostname },
+  });
   return calls();
 }
 const calls = () => (win.dataLayer ?? []).map((args) => Array.from(args));
 
 describe('buildGa4ConsentBootstrap', () => {
-  beforeEach(() => window.localStorage.clear());
+  beforeEach(() => {
+    window.localStorage.clear();
+    cookieWrites = [];
+    jar = '';
+    cookieThrows = false;
+  });
   afterEach(() => window.localStorage.clear());
 
   it('should read the key and version from COOKIE_CONFIG, quoted', () => {
-    const source = buildGa4ConsentBootstrap();
+    const source = build();
     expect(source).toContain(`localStorage.getItem(${JSON.stringify(KEY)})`);
     expect(source).toContain(`consent.version === ${JSON.stringify(COOKIE_CONFIG.consentVersion)}`);
-    expect(buildGa4ConsentBootstrap({ storageKey: 'k"x', version: '2.0' })).toContain(
-      'localStorage.getItem("k\\"x")'
-    );
+    expect(build({ storageKey: 'k"x', version: '2.0' })).toContain('localStorage.getItem("k\\"x")');
   });
 
   it('should deny by default and grant nothing without a stored choice', () => {
@@ -87,6 +118,62 @@ describe('buildGa4ConsentBootstrap', () => {
   });
 
   it('should keep its own gtag line exactly, so the harness above runs the real one', () => {
-    expect(buildGa4ConsentBootstrap()).toContain('function gtag(){dataLayer.push(arguments);}');
+    expect(build()).toContain('function gtag(){dataLayer.push(arguments);}');
+  });
+
+  it('should withdraw in order: deny, set the flag, then expire every GA cookie on both scopes', () => {
+    jar = '_ga=GA1.1.1; _ga_ABC123=GS1.1; _gid=GA1.1.2; diboas-cookie-consent=x; _gat=1';
+    run();
+    win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: false } }));
+    expect(calls().at(-1)).toEqual(['consent', 'update', { analytics_storage: 'denied' }]);
+    expect(win[FLAG]).toBe(true);
+    const expire = '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+    expect(cookieWrites).toEqual([
+      `_ga${expire}`,
+      `_ga${expire}; domain=.diboas.com`,
+      `_ga_ABC123${expire}`,
+      `_ga_ABC123${expire}; domain=.diboas.com`,
+      `_gid${expire}`,
+      `_gid${expire}; domain=.diboas.com`,
+    ]);
+  });
+
+  it('should take the registrable domain from the host, and skip it on an IP or a bare host', () => {
+    jar = '_ga=1';
+    run(build(), 'www.diboas.com');
+    win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: false } }));
+    expect(cookieWrites.at(-1)).toMatch(/; domain=\.diboas\.com$/);
+    for (const host of ['localhost', '127.0.0.1']) {
+      cookieWrites = [];
+      run(build(), host);
+      win.dispatchEvent(
+        new CustomEvent('cookie-consent-changed', { detail: { analytics: false } })
+      );
+      expect(cookieWrites).toHaveLength(1);
+    }
+  });
+
+  it('should keep the denial and the flag when a cookie write throws', () => {
+    jar = '_ga=1';
+    cookieThrows = true;
+    run();
+    expect(() =>
+      win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: false } }))
+    ).not.toThrow();
+    expect(calls().at(-1)).toEqual(['consent', 'update', { analytics_storage: 'denied' }]);
+    expect(win[FLAG]).toBe(true);
+  });
+
+  it('should clear the flag when consent is given again', () => {
+    run();
+    win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: false } }));
+    win.dispatchEvent(new CustomEvent('cookie-consent-changed', { detail: { analytics: true } }));
+    expect(win[FLAG]).toBe(false);
+  });
+
+  it('should quote the measurement id into the flag name', () => {
+    expect(buildGa4ConsentBootstrap({ measurementId: "G-1'];alert(1);//" })).toContain(
+      JSON.stringify("ga-disable-G-1'];alert(1);//")
+    );
   });
 });

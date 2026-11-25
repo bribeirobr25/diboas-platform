@@ -9,6 +9,11 @@
  *
  * After unsubscribe: shows message, auto-redirects to home after 3 seconds.
  * Re-subscribe is handled via the waitlist signup form (resets email_opted_out).
+ *
+ * W-D1 (F1, G4; spec §3.6): beside unsubscribe, removing the signup's note (which button or
+ * campaign link brought the person) through `/api/waitlist/note-removal`. Removal has its own
+ * states (removed, nothing to remove, error with its own retry, which never posts unsubscribe)
+ * and does not redirect. The "Cookie settings" control sits at the foot (D6, F2).
  */
 
 import { useState, useEffect } from 'react';
@@ -17,9 +22,12 @@ import { useTranslation } from '@diboas/i18n/client';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { decodeUnsubToken } from '@/lib/email/unsubscribeToken';
+import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
+import { CookieSettingsButton } from '@/components/CookieConsent/CookieSettingsButton';
 import styles from './EmailPreferences.module.css';
 
 type PageState = 'idle' | 'processing' | 'unsubscribed' | 'invalid' | 'error';
+type NoteState = 'ready' | 'removing' | 'removed' | 'nothing' | 'error';
 
 export default function EmailPreferencesPage() {
   const { locale } = useLocale();
@@ -34,6 +42,7 @@ export default function EmailPreferencesPage() {
   });
 
   const [state, setState] = useState<PageState>(id && token ? 'idle' : 'invalid');
+  const [noteState, setNoteState] = useState<NoteState>('ready');
 
   const t = (key: string) => intl.formatMessage({ id: `common.emailPreferences.${key}` });
 
@@ -58,6 +67,24 @@ export default function EmailPreferencesPage() {
       }
     } catch {
       setState('error');
+    }
+  };
+
+  // Removes only the note; a failure offers a retry of the removal, never an unsubscribe.
+  const handleRemoveNote = async () => {
+    if (!id || !token || noteState === 'removing') return;
+    setNoteState('removing');
+    try {
+      const response = await fetchWithRetry('/api/waitlist/note-removal', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, token }),
+      });
+      const data = await response.json();
+      if (response.ok && data.success) setNoteState(data.removed === true ? 'removed' : 'nothing');
+      else setNoteState('error');
+    } catch {
+      setNoteState('error');
     }
   };
 
@@ -94,6 +121,27 @@ export default function EmailPreferencesPage() {
           <button onClick={handleStaySubscribed} className={styles.secondaryButton}>
             {t('staySubscribedButton')}
           </button>
+          {noteState === 'removed' || noteState === 'nothing' ? (
+            <p className={styles.statusText} role="status">
+              {t(noteState === 'removed' ? 'noteRemoved' : 'noNote')}
+            </p>
+          ) : (
+            <>
+              {noteState === 'error' ? (
+                <p className={styles.statusText} role="alert">
+                  {t('noteRemovalError')}
+                </p>
+              ) : null}
+              <button
+                onClick={handleRemoveNote}
+                className={styles.secondaryButton}
+                disabled={noteState === 'removing'}
+                aria-busy={noteState === 'removing'}
+              >
+                {t(noteState === 'error' ? 'tryAgainButton' : 'removeNoteButton')}
+              </button>
+            </>
+          )}
         </>
       ) : null}
 
@@ -127,6 +175,10 @@ export default function EmailPreferencesPage() {
           </a>
         </>
       ) : null}
+
+      <p className={styles.cookieSettings}>
+        <CookieSettingsButton className={styles.cookieSettingsButton} />
+      </p>
     </div>
   );
 }

@@ -62,3 +62,25 @@
 .backHomeLink:hover {
   text-decoration: underline;
 }
+
+/* The "Cookie settings" control at the foot of the page (W-D1, D6 + F2). */
+.cookieSettings {
+  margin: var(--spacing-xl) 0 0;
+  text-align: center;
+}
+
+.cookieSettingsButton {
+  background: none;
+  border: 0;
+  padding: var(--spacing-sm);
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cookieSettingsButton:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-teal-400);
+  outline-offset: var(--focus-ring-offset);
+}

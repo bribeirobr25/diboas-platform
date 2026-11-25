@@ -58,6 +58,19 @@ interface UseFocusTrapOptions {
    * could not be closed from the keyboard at all (WCAG 2.1.2; visual pass, 2026-11-11).
    */
   onEscape?: () => void;
+  /**
+   * Focus the CONTAINER itself (it needs `tabIndex={-1}`) instead of its first focusable element,
+   * inside the same cancelled frame (W-D1: the reopened cookie banner, so a screen reader starts
+   * at the dialog, not on a button). With it, Shift+Tab from the focused container goes to the
+   * last focusable element. Default `false`: today's behaviour.
+   */
+  focusContainer?: boolean;
+  /**
+   * Where focus returns when the trap ends (with `returnFocus`), resolved at that moment; falls
+   * back to the element focused before the trap. W-D1: the control that opened the banner, read
+   * from its event (Safari leaves `document.activeElement` on `body` after a mouse click).
+   */
+  returnFocusTo?: () => HTMLElement | null;
 }
 
 /**
@@ -72,13 +85,22 @@ export function useFocusTrap(
   isActive: boolean,
   options: UseFocusTrapOptions = {}
 ): void {
-  const { autoFocus = true, returnFocus = true, initialFocus, onEscape } = options;
+  const {
+    autoFocus = true,
+    returnFocus = true,
+    initialFocus,
+    onEscape,
+    focusContainer = false,
+    returnFocusTo,
+  } = options;
   const previousActiveElement = useRef<HTMLElement | null>(null);
-  // The latest callback, read at key time, so a new callback identity does not re-run the trap.
+  // The latest callbacks, read when used, so a new callback identity does not re-run the trap.
   const onEscapeRef = useRef(onEscape);
+  const returnFocusToRef = useRef(returnFocusTo);
   useEffect(() => {
     onEscapeRef.current = onEscape;
-  }, [onEscape]);
+    returnFocusToRef.current = returnFocusTo;
+  }, [onEscape, returnFocusTo]);
 
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
@@ -107,6 +129,10 @@ export function useFocusTrap(
     let focusFrame: number | undefined;
     if (autoFocus) {
       focusFrame = requestAnimationFrame(() => {
+        if (focusContainer) {
+          container.focus();
+          return;
+        }
         const focusableElements = getFocusableElements();
 
         if (initialFocus) {
@@ -147,6 +173,13 @@ export function useFocusTrap(
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
 
+      // Shift + Tab from the focused container itself -> focus last (only a focused container)
+      if (event.shiftKey && focusContainer && document.activeElement === container) {
+        event.preventDefault();
+        lastElement.focus();
+        return;
+      }
+
       // Shift + Tab on first element -> focus last
       if (event.shiftKey && document.activeElement === firstElement) {
         event.preventDefault();
@@ -173,10 +206,11 @@ export function useFocusTrap(
       const at = stack.indexOf(trapId);
       if (at !== -1) stack.splice(at, 1);
 
-      // Return focus to previous element
-      if (returnFocus && previousActiveElement.current) {
-        previousActiveElement.current.focus();
+      // Return focus to the named control, else to the element focused before the trap
+      if (returnFocus) {
+        const target = returnFocusToRef.current?.() ?? previousActiveElement.current;
+        if (target && target.isConnected !== false) target.focus();
       }
     };
-  }, [isActive, containerRef, autoFocus, returnFocus, initialFocus]);
+  }, [isActive, containerRef, autoFocus, returnFocus, initialFocus, focusContainer]);
 }

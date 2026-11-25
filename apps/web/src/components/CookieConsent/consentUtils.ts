@@ -256,6 +256,49 @@ export function isConsentVersionCurrent(consent: CookieConsentValue): boolean {
 }
 
 /**
+ * The window event that reopens the banner (W-D1, spec §3.8): a UI command whose payload is the
+ * control that sent it (a DOM element, so a window event, like `cookie-consent-changed`, not the
+ * application event bus). Named once here; sent only through `openCookieSettings`.
+ */
+export const OPEN_COOKIE_SETTINGS_EVENT = 'diboas:open-cookie-settings';
+
+export interface OpenCookieSettingsDetail {
+  /** Where focus returns when the reopened banner closes. */
+  returnTo: HTMLElement | null;
+}
+
+/** Reopen the cookie banner from a "Cookie settings" control. */
+export function openCookieSettings(returnTo: HTMLElement | null): void {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(
+    new CustomEvent<OpenCookieSettingsDetail>(OPEN_COOKIE_SETTINGS_EVENT, { detail: { returnTo } })
+  );
+}
+
+export type BannerChoice = 'accept' | 'decline';
+
+/**
+ * The reopened banner's choice table (W-D1, spec §3.8, §3.9), pure:
+ * - `current`: the choice in force, marked on its button: a current-version choice, or an older
+ *   decline (it stands); an older accept is not current (it is being asked again);
+ * - `pressOnlyCloses(choice)`: pressing the current CURRENT-version choice only closes the banner
+ *   (nothing saved, posted or emitted); any other press is a full save under the current version
+ *   (an older decline re-pressed included).
+ */
+export function resolveBannerChoice(
+  stored: CookieConsentValue | null,
+  currentVersion: string
+): { current: BannerChoice | null; pressOnlyCloses: (choice: BannerChoice) => boolean } {
+  const choice: BannerChoice | null = stored ? (stored.analytics ? 'accept' : 'decline') : null;
+  const isCurrentVersion = stored?.version === currentVersion;
+  const current = choice === 'decline' || isCurrentVersion ? choice : null;
+  return {
+    current,
+    pressOnlyCloses: (pressed) => isCurrentVersion && pressed === current,
+  };
+}
+
+/**
  * Register consent withdrawal handler to clear analytics logs.
  * Should be called once at app bootstrap.
  */

@@ -15,10 +15,11 @@ on:
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    # Budget: build (~5m) + tests (~2m). No browser download — CI uses the
-    # runner's preinstalled Google Chrome (see playwright.config.ts), which
-    # removed the slow/flaky 170 MB Chromium download that previously hung the job.
-    timeout-minutes: 20
+    # Budget: build (~5m) + tests (~2m), then WITHDRAW-1's second web build with stub analytics
+    # keys (~5m) and its spec (~1m). No browser download — CI uses the runner's preinstalled
+    # Google Chrome (see playwright.config.ts), which removed the slow/flaky 170 MB Chromium
+    # download that previously hung the job.
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -75,6 +76,34 @@ jobs:
           HMAC_KEY: 'ci-stub-hmac-key-for-tests-only-not-a-real-secret' # decodes to 36 bytes (5.865)
           # C-2: now a required prod var (valid-format stub so the startup gate
           # passes and Sentry.init doesn't reject the DSN).
+          NEXT_PUBLIC_SENTRY_DSN: 'https://ci-stub@o0.ingest.sentry.io/0'
+
+      # WITHDRAW-1 (market clean-up W-D1, spec §4): Decline really stops GA4 and PostHog, on a
+      # second build of the web app only, with stub keys (the hosts are routed inside the spec, so
+      # nothing reaches Google or PostHog). The withdrawal project must list its folder and the
+      # chromium project must not. Pinned by ciWorkflowSteps.test.ts: no if:, no
+      # continue-on-error, E2E_WITHDRAWAL set.
+      # The stub DSN stays out of the BUILD (it would be compiled into the browser bundle and log
+      # "Invalid Sentry Dsn"); `next start` still gets it for the startup check.
+      - name: Withdrawal e2e (WITHDRAW-1)
+        run: |
+          env -u NEXT_PUBLIC_SENTRY_DSN pnpm exec turbo run build --filter=web... --force || env -u NEXT_PUBLIC_SENTRY_DSN pnpm exec turbo run build --filter=web... --force
+          pnpm exec playwright test --project=withdrawal --list
+          if pnpm exec playwright test --project=chromium --list | grep -q 'withdrawal/'; then echo 'the chromium project lists the withdrawal spec'; exit 1; fi
+          pnpm exec playwright test --project=withdrawal
+        env:
+          CI: 'true'
+          E2E_WITHDRAWAL: '1'
+          NEXT_PUBLIC_APP_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_SITE_URL: 'http://localhost:3000'
+          NEXT_PUBLIC_GA_ID: 'G-E2ESTUB1'
+          NEXT_PUBLIC_POSTHOG_KEY: 'phc_e2e_stub'
+          NEXT_PUBLIC_POSTHOG_HOST: 'https://eu.i.posthog.com'
+          ENCRYPTION_KEY: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa='
+          DATABASE_URL: 'postgresql://stub:stub@localhost:5432/stub'
+          INTERNAL_API_KEY: 'ci-stub-key'
+          RESEND_API_KEY: 're_ci_stub'
+          HMAC_KEY: 'ci-stub-hmac-key-for-tests-only-not-a-real-secret'
           NEXT_PUBLIC_SENTRY_DSN: 'https://ci-stub@o0.ingest.sentry.io/0'
 
       - name: Upload Playwright report

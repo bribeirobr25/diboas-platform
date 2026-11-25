@@ -275,8 +275,21 @@ describe('POST /api/email/unsubscribe — HMAC verification', () => {
     );
   });
 
-  it('should default to opting out when the action is unknown', async () => {
-    const res = await POST(postReq('', { id: ID, token: TOKEN, action: 'subscribe-everything' }));
+  /* W-D1 (spec §3.6): an unknown or non-string action is refused, never read as an unsubscribe
+   * (the page's note removal must never fall through to one); a missing or empty action is the
+   * one-click unsubscribe. */
+  it.each([['subscribe-everything'], ['remove-note'], [7], [true], [{}]])(
+    'should refuse the action %j with a 400 and write nothing',
+    async (action) => {
+      const res = await POST(postReq('', { id: ID, token: TOKEN, action }));
+      expect(res.status).toBe(400);
+      expect(mockSql).not.toHaveBeenCalled();
+      expect(logAuditEvent).not.toHaveBeenCalled();
+    }
+  );
+
+  it('should read an empty action as the one-click unsubscribe', async () => {
+    const res = await POST(postReq('', { id: ID, token: TOKEN, action: '' }));
     expect(res.status).toBe(200);
     expect(sqlValues()[0]).toBe(true);
     expect(logAuditEvent).toHaveBeenCalledWith(

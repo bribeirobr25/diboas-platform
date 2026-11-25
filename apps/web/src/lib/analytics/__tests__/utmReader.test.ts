@@ -33,6 +33,8 @@ const SHAPED_SITES: Record<string, number> = {
   'src/components/Performance/PageViewTracker.tsx': 1,
   'src/lib/analytics/scrubAnalyticsEvent.ts': 1,
   'src/hooks/useUtmCapture.ts': 1,
+  // the session-recording mask (W-D1, spec §3.7)
+  'src/lib/analytics/posthogInitOptions.ts': 1,
 };
 
 describe('UTM-READER-1: one reader for campaign values', () => {

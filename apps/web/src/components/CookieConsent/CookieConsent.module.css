@@ -106,6 +106,7 @@
 }
 
 .button {
+  position: relative;
   flex: 1;
   min-width: 0;
   padding: var(--spacing-md) var(--spacing-lg);
@@ -128,8 +129,9 @@
 }
 
 .buttonAccept {
-  background: linear-gradient(135deg, var(--color-teal-500) 0%, var(--color-teal-600) 100%);
-  color: var(--color-white);
+  /* W-D1 (5.1010): the strong teal, so the white label holds 4.5:1 on its worst stop (BTN-CONTRAST-1) */
+  background: var(--cta-bg-primary-fixed-gradient);
+  color: var(--cta-color-primary-fixed);
   box-shadow: 0 2px 8px var(--teal-shadow);
 }
 
@@ -164,8 +166,34 @@
 }
 
 .buttonDecline:focus {
-  outline: var(--focus-ring-width) solid var(--glass-border-medium);
+  /* W-D1: teal, as Accept's and the links' rings are, so no ring reads as the current-choice mark */
+  outline: var(--focus-ring-width) solid var(--color-teal-400);
   outline-offset: var(--focus-ring-offset);
+}
+
+/* The reopened banner (W-D1, spec §3.8): a modal dialog above every overlay, focused itself on
+   open, with its ring drawn inside its edge (it touches three screen edges) and only for keyboard. */
+.reopened {
+  z-index: var(--z-index-consent-settings);
+}
+
+.reopened:focus {
+  outline: none;
+}
+
+.reopened:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-teal-400);
+  outline-offset: calc(-1 * var(--focus-ring-width));
+}
+
+/* The current-choice mark: a 16 px check in the button's own padding, so the label never moves;
+   it takes the button's label colour. No colour change carries the meaning (WCAG 1.4.1). */
+.currentIcon {
+  position: absolute;
+  left: var(--spacing-xs);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 /* High contrast mode support */

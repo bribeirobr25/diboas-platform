@@ -14,6 +14,9 @@
  */
 
 import { useState, useEffect, useId, useRef } from 'react';
+import { COOKIE_CONFIG } from '@/config/env';
+import { useFocusTrap } from '@/hooks/useFocusTrap';
+import { LucideIcon, Check } from '@/components/UI/LucideIcon';
 import { useTranslation } from '@diboas/i18n/client';
 import Link from 'next/link';
 import { useLocale } from '@/components/Providers';
@@ -28,7 +31,10 @@ import {
   getStoredConsent,
   getConsentFromShadowCookie,
   isConsentVersionCurrent,
+  resolveBannerChoice,
+  OPEN_COOKIE_SETTINGS_EVENT,
   type CookieConsentValue,
+  type OpenCookieSettingsDetail,
 } from './consentUtils';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import styles from './CookieConsent.module.css';
@@ -50,6 +56,26 @@ export function CookieConsent() {
   });
   const [isVisible, setIsVisible] = useState(false);
   const closeBannerTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const bannerRef = useRef<HTMLDivElement>(null);
+  // Reopened from a "Cookie settings" control (W-D1, spec §3.8): the choice in force at that
+  // moment, and the control focus returns to.
+  const [reopened, setReopened] = useState(false);
+  const [storedAtReopen, setStoredAtReopen] = useState<CookieConsentValue | null>(null);
+  const returnToRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const onOpen = (event: Event) => {
+      returnToRef.current =
+        (event as CustomEvent<OpenCookieSettingsDetail>).detail?.returnTo ?? null;
+      clearTimeout(closeBannerTimerRef.current);
+      setStoredAtReopen(getStoredConsent());
+      setReopened(true);
+      setShowBanner(true);
+      setIsVisible(true);
+    };
+    window.addEventListener(OPEN_COOKIE_SETTINGS_EVENT, onOpen);
+    return () => window.removeEventListener(OPEN_COOKIE_SETTINGS_EVENT, onOpen);
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -118,7 +144,17 @@ export function CookieConsent() {
     };
   }, []);
 
+  const choice = resolveBannerChoice(
+    reopened ? storedAtReopen : null,
+    COOKIE_CONFIG.consentVersion
+  );
+
   const handleAccept = async () => {
+    // Pressing the current current-version choice again only closes (nothing saved or sent).
+    if (reopened && choice.pressOnlyCloses('accept')) {
+      closeBanner();
+      return;
+    }
     const consent = createConsentValue(true);
     saveConsentToStorage(consent);
 
@@ -126,10 +162,7 @@ export function CookieConsent() {
     applicationEventBus.emit(ApplicationEventType.CONSENT_GIVEN, {
       domain: 'consent',
       source: 'consent',
-      // Date.now() runs in handleAccept (an event handler), not during render.
-      // React Compiler flags it conservatively because the handler is recreated
-      // on every render; the call itself is deferred until user interaction.
-      // eslint-disable-next-line react-hooks/purity
+      // Date.now() runs in the handler, at the press, never during render.
       timestamp: Date.now(),
       consentType: 'analytics',
       newState: true,
@@ -145,6 +178,10 @@ export function CookieConsent() {
   };
 
   const handleDecline = async () => {
+    if (reopened && choice.pressOnlyCloses('decline')) {
+      closeBanner();
+      return;
+    }
     const consent = createConsentValue(false);
     saveConsentToStorage(consent);
 
@@ -152,9 +189,7 @@ export function CookieConsent() {
     applicationEventBus.emit(ApplicationEventType.CONSENT_WITHDRAWN, {
       domain: 'consent',
       source: 'consent',
-      // Date.now() runs in handleDecline (event handler), not during render.
-      // Same pattern as handleAccept above.
-      // eslint-disable-next-line react-hooks/purity
+      // Date.now() runs in the handler, at the press, never during render.
       timestamp: Date.now(),
       consentType: 'analytics',
       newState: false,
@@ -169,19 +204,50 @@ export function CookieConsent() {
     closeBanner();
   };
 
-  const closeBanner = () => {
+  function closeBanner() {
     setIsVisible(false);
     clearTimeout(closeBannerTimerRef.current);
-    closeBannerTimerRef.current = setTimeout(() => setShowBanner(false), 300);
-  };
+    closeBannerTimerRef.current = setTimeout(() => {
+      setShowBanner(false);
+      setReopened(false);
+    }, 300);
+  }
+
+  // Only the reopened banner traps focus: it starts on the dialog itself and returns to the control
+  // that opened it (from its event; else the first "Cookie settings" control still on the page).
+  // Escape closes it unchanged. The first-visit banner has no trap.
+  useFocusTrap(bannerRef, reopened && isVisible, {
+    focusContainer: true,
+    onEscape: closeBanner,
+    returnFocusTo: () => {
+      const opener = returnToRef.current;
+      if (opener?.isConnected) return opener;
+      return document.querySelector<HTMLElement>('[data-cookie-settings]');
+    },
+  });
 
   if (!showBanner) return null;
 
+  const currentMark = (button: 'accept' | 'decline') =>
+    reopened && choice.current === button
+      ? {
+          'aria-current': 'true' as const,
+          icon: <LucideIcon icon={Check} size="sm" className={styles.currentIcon} />,
+        }
+      : { 'aria-current': undefined, icon: null };
+  const declineMark = currentMark('decline');
+  const acceptMark = currentMark('accept');
+
   return (
     <div
-      className={`${styles.banner} ${isVisible ? styles.visible : ''}`}
+      ref={bannerRef}
+      className={`${styles.banner} ${isVisible ? styles.visible : ''} ${reopened ? styles.reopened : ''}`}
       role="dialog"
-      aria-live="polite"
+      aria-modal={reopened ? 'true' : undefined}
+      // The first-visit banner announces itself; the reopened one is focused, so it is not
+      // announced twice (W-D1).
+      aria-live={reopened ? undefined : 'polite'}
+      tabIndex={reopened ? -1 : undefined}
       aria-label={intl.formatMessage({ id: 'common.cookieConsent.ariaLabel' })}
       aria-describedby={descriptionId}
     >
@@ -204,14 +270,18 @@ export function CookieConsent() {
             onClick={handleDecline}
             className={`${styles.button} ${styles.buttonDecline}`}
             aria-label={intl.formatMessage({ id: 'common.cookieConsent.declineAriaLabel' })}
+            aria-current={declineMark['aria-current']}
           >
+            {declineMark.icon}
             {intl.formatMessage({ id: 'common.cookieConsent.decline' })}
           </button>
           <button
             onClick={handleAccept}
             className={`${styles.button} ${styles.buttonAccept}`}
             aria-label={intl.formatMessage({ id: 'common.cookieConsent.acceptAriaLabel' })}
+            aria-current={acceptMark['aria-current']}
           >
+            {acceptMark.icon}
             {intl.formatMessage({ id: 'common.cookieConsent.accept' })}
           </button>
         </div>

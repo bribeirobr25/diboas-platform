@@ -171,7 +171,7 @@ export default async function RootLayout({
               dangerouslySetInnerHTML={{
                 // Consent Mode v2 bootstrap (default denied; the stored choice and the banner's
                 // window event). Built from COOKIE_CONFIG so its key and version never drift (W-D1).
-                __html: buildGa4ConsentBootstrap(),
+                __html: buildGa4ConsentBootstrap({ measurementId: GA_MEASUREMENT_ID }),
               }}
             />
             {/* GA4 script (gtag/js) loads only AFTER consent — defers ~67 KB.
