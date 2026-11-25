@@ -86,6 +86,8 @@ describe('§6.10 minimal-surface discipline (L1 round-1 lock)', () => {
     expect(typeof marketDataService.getSync).toBe('function');
     expect(typeof marketDataService.setProvider).toBe('function');
     expect(typeof marketDataService.getHistoricalAnchors).toBe('function');
+    // C2-S G4 (declared GATE-BOUND exception, plan §6.4 H3): the one retry accessor G5 reads.
+    expect(typeof marketDataService.retryAvailableAt).toBe('function');
     // Negative: no parallel domain accessors leaked through. Cast to record
     // for the property check; would be a build-time error if the type lock
     // is correct (no such method on MarketDataServiceImpl) — runtime check

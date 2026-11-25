@@ -91,6 +91,8 @@ Consumers MUST NOT bypass the service to read raw upstream data. Every market-da
 - `marketDataService.get()` — async fetch with TTL/cache
 - `marketDataService.getHistoricalAnchors()` — historical-slice helper
 
+**Degraded read (`5.688`, C2-S G4, MDS-READ-1):** after a failed load (provider, series, or a fetch past `MARKET_DATA_FETCH_TIMEOUT_MS`) the stale snapshot — the reviewed constants plus any series and anchors already loaded — is stored, and `get()` and `getSync()` both serve it until `MARKET_DATA_STALE_RETRY_MS` (60 s); `retryAvailableAt()` names that time. Concurrent `get()` calls share one refresh, and a refresh never overwrites a snapshot primed while it ran. An SDK provider must therefore expect at most one call per 60 s after a failure, and a browser that receives no `monthlySeries` (`ClientMarketDataSnapshot`).
+
 Direct imports from `lib/market-data/historical.ts`, `constants.ts`, or any future SDK adapter file are prohibited outside `lib/market-data/` and enforced by the pre-merge grep gate.
 
 ## When to update this doc
