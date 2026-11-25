@@ -4,6 +4,7 @@ import { useId, useMemo } from 'react';
 import {
   formatCurrency,
   formatPercent,
+  SCENARIO_RATES,
   type ScenarioSeries,
   type SeriesKey,
 } from '@/lib/compound-interest';
@@ -178,8 +179,15 @@ export function CompoundChart({
             {series.map((s) => (
               <tr key={s.scenario}>
                 <th scope="row">{scenarioLabels[s.scenario]}</th>
-                {/* The tools' percent format, two decimals at most (5.920: it read "7.58850000000002%"). */}
-                <td>{formatPercent(s.rate, locale)}</td>
+                {/* 5.920: the rate the row's label names — the bank's own rate, or the scenario's
+                    stated dollar rate (7, 10, 14), never the hedged local rate the engine computes
+                    with, which no visible figure shows. The tools' percent format. */}
+                <td>
+                  {formatPercent(
+                    s.scenario === 'bank' ? s.rate : SCENARIO_RATES[s.scenario],
+                    locale
+                  )}
+                </td>
                 <td>{formatCurrency(s.finalValue, locale)}</td>
               </tr>
             ))}
