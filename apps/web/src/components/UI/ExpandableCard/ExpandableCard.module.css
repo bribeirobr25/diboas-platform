@@ -112,22 +112,27 @@
   text-align: center;
 }
 
-/* Expandable section */
+/* Expandable section. A grid row from 0fr to 1fr opens to the content's real height: a fixed
+   max-height cap (800px) silently cut long cards on phones, the end of a risk list included
+   (W-D2 audit; guarded by tests/e2e/expandNoClip.spec.ts). */
 .expandable {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
   opacity: 0;
   transition:
-    max-height 400ms ease,
+    grid-template-rows 400ms ease,
     opacity 200ms ease;
 }
 
 .cardExpanded .expandable {
-  max-height: 800px;
+  grid-template-rows: 1fr;
   opacity: 1;
 }
 
 .expandableInner {
+  min-height: 0;
+  overflow: hidden;
   padding-top: var(--spacing-md);
 }
 

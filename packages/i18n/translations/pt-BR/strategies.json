@@ -73,7 +73,7 @@
         "asset": "sUSDS",
         "cryptoExposure": "Nenhuma",
         "operatingSince": "2017 (SSR: 2024)",
-        "summary": "Os retornos vêm do sUSDS, cujo valor sobe com a taxa da Sky (SSR): variável, definida pela governança da Sky, financiada pelo excedente do protocolo e podendo chegar a zero. Só manter USDS não paga nada. Não é garantido; você pode receber de volta menos do que aplicou; riscos de paridade, liquidez, contratos inteligentes, ponte, oráculo e governança.",
+        "summary": "Os retornos vêm do sUSDS (comprado pelo módulo de troca da Spark), cujo valor sobe com a taxa da Sky (SSR): variável, definida pela governança da Sky, financiada pelo excedente do protocolo e podendo chegar a zero. Só manter USDS não paga nada. Não é garantido; você pode perder parte ou todo o valor que aplicou; riscos de paridade, liquidez, contratos inteligentes, ponte, oráculo e governança.",
         "verifyUrl": "https://sky.money",
         "defillamaUrl": "https://defillama.com/protocol/sky"
       },

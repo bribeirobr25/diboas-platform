@@ -73,7 +73,7 @@
         "asset": "sUSDS",
         "cryptoExposure": "None",
         "operatingSince": "2017 (SSR: 2024)",
-        "summary": "Returns come from sUSDS, whose value rises with the Sky rate (SSR): variable, set by Sky governance, funded by protocol surplus, and able to fall to zero. Holding USDS alone pays nothing. Not guaranteed; you can get back less than you put in; peg, liquidity, smart-contract, bridge, oracle and governance risk.",
+        "summary": "Returns come from sUSDS (bought through Spark's swap module), whose value rises with the Sky rate (SSR): variable, set by Sky governance, funded by protocol surplus, and able to fall to zero. Holding USDS alone pays nothing. Not guaranteed; you can lose some or all of what you put in; peg, liquidity, smart-contract, bridge, oracle and governance risk.",
         "verifyUrl": "https://sky.money",
         "defillamaUrl": "https://defillama.com/protocol/sky"
       },

@@ -87,10 +87,10 @@ const ALLOW: ReadonlyMap<string, string> = new Map([
   // founder's written yes on these exact texts, then his merge). It pairs only through "sUSDS", the
   // rate token; it says "Holding USDS alone pays nothing". The card, label, asset and year carry no
   // exception (they do not pair); SKY-EDU-1 (`skyEducation.test.ts`) pins them all.
-  ['en::strategies::protocols.items.skySsr.summary', 'c621c58210e38668'],
-  ['es::strategies::protocols.items.skySsr.summary', '58ea6d8655362f39'],
-  ['de::strategies::protocols.items.skySsr.summary', '827788e69d7ba7c0'],
-  ['pt-BR::strategies::protocols.items.skySsr.summary', '83579442b0af9149'],
+  ['en::strategies::protocols.items.skySsr.summary', '198e0bdaa70738f4'],
+  ['es::strategies::protocols.items.skySsr.summary', 'c817b2d68819356e'],
+  ['de::strategies::protocols.items.skySsr.summary', '16a29cc20302b47c'],
+  ['pt-BR::strategies::protocols.items.skySsr.summary', '7d5eabb6f2f937a2'],
   // A negation: "Não existe retorno garantido." then, after a paragraph break, "Dólar digital, …".
   ['pt-BR::landing-b2c::ptbr.trust.body', '975b5cd29fb0c489'],
 ]);

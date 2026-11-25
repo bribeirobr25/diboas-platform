@@ -229,17 +229,25 @@
 }
 
 .protocolDetail {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
-  max-height: 0;
   opacity: 0;
   transition:
-    max-height 0.3s ease,
+    grid-template-rows 0.3s ease,
     opacity 0.2s ease;
 }
 
+/* Opens to the content's real height: a fixed 300px cap cut the end of Sky's risk list at 320px
+   (W-D2 audit; guarded by tests/e2e/expandNoClip.spec.ts). */
 .protocolDetailOpen {
-  max-height: 300px;
+  grid-template-rows: 1fr;
   opacity: 1;
+}
+
+.protocolDetailInner {
+  min-height: 0;
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: reduce) {

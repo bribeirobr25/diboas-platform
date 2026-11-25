@@ -117,17 +117,19 @@ export function StrategiesProtocolTable() {
                 aria-labelledby={`protocol-toggle-mobile-${protocolId}`}
                 className={`${styles.protocolDetail} ${isExpanded ? styles.protocolDetailOpen : ''}`}
               >
-                <p className={styles.protocolSummary}>
-                  {t(`protocols.items.${protocolId}.summary`)}
-                </p>
-                <div className={styles.protocolLinks}>
-                  <LocaleLink
-                    href="/protocols"
-                    className={styles.protocolExternalLink}
-                    prefetch={false}
-                  >
-                    {t('protocols.checkProtocolsPage')}
-                  </LocaleLink>
+                <div className={styles.protocolDetailInner}>
+                  <p className={styles.protocolSummary}>
+                    {t(`protocols.items.${protocolId}.summary`)}
+                  </p>
+                  <div className={styles.protocolLinks}>
+                    <LocaleLink
+                      href="/protocols"
+                      className={styles.protocolExternalLink}
+                      prefetch={false}
+                    >
+                      {t('protocols.checkProtocolsPage')}
+                    </LocaleLink>
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,15 +199,17 @@ function ProtocolDesktopRow({
           <div
             className={`${styles.protocolDetail} ${isExpanded ? styles.protocolDetailOpen : ''}`}
           >
-            <p className={styles.protocolSummary}>{t(`protocols.items.${protocolId}.summary`)}</p>
-            <div className={styles.protocolLinks}>
-              <LocaleLink
-                href="/protocols"
-                className={styles.protocolExternalLink}
-                prefetch={false}
-              >
-                {t('protocols.checkProtocolsPage')}
-              </LocaleLink>
+            <div className={styles.protocolDetailInner}>
+              <p className={styles.protocolSummary}>{t(`protocols.items.${protocolId}.summary`)}</p>
+              <div className={styles.protocolLinks}>
+                <LocaleLink
+                  href="/protocols"
+                  className={styles.protocolExternalLink}
+                  prefetch={false}
+                >
+                  {t('protocols.checkProtocolsPage')}
+                </LocaleLink>
+              </div>
             </div>
           </div>
         </td>

@@ -123,13 +123,13 @@
     },
     "sparkProtocol": {
       "name": "Spark Protocol",
-      "description": "Lending system built on Aave's proven code, connected to Sky/MakerDAO's deep liquidity. Sky (formerly MakerDAO) has been in operation since 2017.",
+      "description": "Lending system built on Aave's code and connected to the liquidity of Sky (formerly MakerDAO), which has been in operation since 2017.",
       "details": {
         "founded": "2023",
         "tvl": "~$5.1 billion",
         "blockchains": "Ethereum, Base, Arbitrum",
         "audits": "7+ independent audits",
-        "regulatory": "Built on Sky (formerly MakerDAO), in operation since 2017"
+        "regulatory": "Built on Sky (formerly MakerDAO), which has been in operation since 2017"
       }
     },
     "fluid": {
@@ -214,9 +214,9 @@
     },
     "sky": {
       "name": "Sky Protocol / SSR (formerly MakerDAO)",
-      "description": "The protocol behind DAI and USDS, in operation since 2017 (as MakerDAO). In diBoaS strategies the position is held as sUSDS on Arbitrum, bought through Spark's swap module (PSM): a Sky token whose value rises with the Sky rate (SSR), a variable rate that Sky governance sets and Sky protocol surplus funds; it can change at any time, down to zero. Holding USDS alone pays nothing. Not guaranteed, and you can get back less than you put in; risks include USDS losing its dollar peg (DAI, its predecessor, briefly lost it in March 2023), PSM liquidity, governance changes to the rate or the token contracts, and smart-contract, bridge and oracle risk.",
+      "description": "The protocol behind DAI and USDS, in operation since 2017 (as MakerDAO). In diBoaS strategies the position is designed to be held as sUSDS on Arbitrum, bought through Spark's swap module (PSM): a Sky token whose value rises with the Sky rate (SSR), a variable rate that Sky governance sets and Sky protocol surplus funds; it can change at any time, down to zero. Holding USDS alone pays nothing. Not guaranteed, and you can lose some or all of what you put in; risks include USDS losing its dollar peg (DAI, its predecessor, briefly lost it in March 2023), PSM liquidity, governance changes to the rate or the token contracts, and smart-contract, bridge and oracle risk.",
       "details": {
-        "founded": "2014",
+        "founded": "2015",
         "tvl": "~$5.9 billion",
         "blockchains": "Ethereum (diBoaS strategies use the Arbitrum deployment)",
         "audits": "10+ independent audits",
