@@ -45,7 +45,7 @@ beforeEach(() => {
     set href(value: string) {
       assigned.push(value);
     },
-  } as Location);
+  } as unknown as Location);
 });
 afterEach(() => {
   vi.useRealTimers();
