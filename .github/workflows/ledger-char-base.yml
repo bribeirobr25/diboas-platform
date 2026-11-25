@@ -1,19 +1,26 @@
 name: ledger-char-base
 
-# ⛑ LEDGER-CHAR-1 · the base differential (plan P12 D11; register 5.1008).
+# ⛑ LEDGER-CHAR-1 · the base differential (plan P12 D11 as amended by P12a; register 5.1008, 5.1029).
 #
-# The Practice ledger's commands are moving into pure decisions (S1a), behaviour unchanged.
-# Committed goldens could be re-recorded to make a failing PR pass, so this job trusts none of
-# them: it records the output of the PR's BASE (main's tip) and of the PR's MERGE COMMIT (the
-# base plus exactly this PR's change, which `actions/checkout` checks out on pull_request) with
-# the same judge, and compares them case by case: every case the base recorded must exist with
-# the same bytes; new cases are allowed and listed.
+# The Practice ledger's behaviour must not change by accident. Committed goldens could be
+# re-recorded to make a failing PR pass, so this job trusts none of them: it records the PR's BASE
+# (main's tip, the merge commit's first parent) and the PR's MERGE COMMIT with the SAME JUDGE — the
+# base's — and compares them case by case: every case the base recorded must exist with the same
+# bytes; new cases are listed.
 #
-# The judge (the harness and its test runners, the update setup, teardown, config and compare
-# script, the frozen PR-1 hashes, the base vitest config, the test setup, the package scripts and
-# this file) may not change in a PR this job judges. Limit, stated: GitHub runs the PR's own copy
-# of this file, so a PR that edits it also edits the check; the judge list makes that edit fail
-# here, and review is the backstop.
+# The judge (the whole characterization folder, its scripts, the update config and the test setup)
+# is RESTORED FROM THE BASE into the PR's tree before the PR is recorded, so a PR cannot change how
+# it is judged: a PR that edits the judge is recorded with the old one, and its change takes effect
+# for the PRs after it (P12a J1, J2). Nothing is refused: Dependabot and config PRs are recorded and
+# compared like any other. Three jobs share only artifacts, so the PR's code never touches the base's
+# output or the comparator (P12a J3).
+#
+# Limits, stated: GitHub runs the PR's own copy of THIS file, so a PR that edits it edits the check
+# (review and the required-check setting are the backstop, and the PR record must say so); the PR's
+# dependencies are under test by design, except the judge's runtime (vitest, vite, happy-dom,
+# @vitejs/plugin-react), which plan D14 freezes until S1a PR-3; `apps/sandbox/tsconfig.json`,
+# `.npmrc`, `pnpm-workspace.yaml` and `patches/` still reach the PR's recording, so a change to them
+# is printed as a notice and must be named in the PR record.
 
 on:
   pull_request:
@@ -22,8 +29,99 @@ on:
 permissions:
   contents: read
 
+env:
+  # One list, used by every step that restores or verifies the judge (P12a J1; charBaseJudge.test.ts).
+  JUDGE: >-
+    apps/sandbox/src/lib/ledger/decide/__tests__/characterization
+    apps/sandbox/scripts/characterization
+    apps/sandbox/vitest.char-update.config.mts
+    apps/sandbox/src/test/setup.ts
+    apps/sandbox/src/test/networkGuard.ts
+  NOTICE_PATHS: >-
+    apps/sandbox/tsconfig.json
+    .npmrc
+    pnpm-workspace.yaml
+    patches
+
 jobs:
-  ledger-char-base:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      base: ${{ steps.plan.outputs.base }}
+      skip: ${{ steps.plan.outputs.skip }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Decide whether there is anything to compare; name judge and build-setting changes
+        id: plan
+        shell: bash
+        run: |
+          set -euo pipefail
+          # The merge commit's first parent IS the base it was built on.
+          BASE_SHA=$(git rev-parse HEAD^1)
+          echo "base=$BASE_SHA" >> "$GITHUB_OUTPUT"
+          if ! git cat-file -e "$BASE_SHA:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
+            echo "The characterization harness is not on the base yet: nothing to compare."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ -z "$(git diff --name-only "$BASE_SHA" HEAD -- apps/sandbox packages pnpm-lock.yaml $NOTICE_PATHS)" ]; then
+            echo "This PR changes nothing the Practice ledger is built from: nothing to compare."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # shellcheck disable=SC2086
+          JUDGED=$(git diff --name-only "$BASE_SHA" HEAD -- $JUDGE)
+          if [ -n "$JUDGED" ]; then
+            echo "::notice::This PR changes the characterization judge. It is recorded with the base's judge; the change takes effect for the PRs after it merges (plan P12a J2). The PR record must say so:"
+            echo "$JUDGED"
+          fi
+          # shellcheck disable=SC2086
+          SETTINGS=$(git diff --name-only "$BASE_SHA" HEAD -- $NOTICE_PATHS)
+          if [ -n "$SETTINGS" ]; then
+            echo "::notice::This PR changes build settings that reach its recording (plan P12a §3). The PR record must name them:"
+            echo "$SETTINGS"
+          fi
+          echo "skip=false" >> "$GITHUB_OUTPUT"
+
+  record-base:
+    needs: plan
+    if: needs.plan.outputs.skip == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ needs.plan.outputs.base }}
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: 'pnpm'
+      - name: Install and build the base
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm install --frozen-lockfile
+          pnpm --filter 'sandbox^...' build
+      - name: Record the base
+        shell: bash
+        working-directory: apps/sandbox
+        env:
+          NODE_OPTIONS: ''
+        run: CHAR_OUT="$RUNNER_TEMP/out" node node_modules/vitest/vitest.mjs run --config vitest.char-update.config.mts
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: char-out-base
+          path: ${{ runner.temp }}/out
+          if-no-files-found: error
+          retention-days: 7
+
+  record-head:
+    needs: plan
+    if: needs.plan.outputs.skip == 'false'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -35,66 +133,92 @@ jobs:
         with:
           node-version: 24
           cache: 'pnpm'
-      - name: Decide whether there is anything to compare, and refuse a changed judge
-        id: base
+      - name: Install and build the PR
         shell: bash
         run: |
           set -euo pipefail
-          # The merge commit's first parent IS the base it was built on.
-          BASE_SHA=$(git rev-parse HEAD^1)
-          echo "sha=$BASE_SHA" >> "$GITHUB_OUTPUT"
-          C=apps/sandbox/src/lib/ledger/decide/__tests__/characterization
-          if ! git cat-file -e "$BASE_SHA:apps/sandbox/scripts/characterization/updateSetup.ts" 2>/dev/null; then
-            echo "The characterization harness is not on the base yet: nothing to compare."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          if [ -z "$(git diff --name-only "$BASE_SHA" HEAD -- apps/sandbox packages pnpm-lock.yaml)" ]; then
-            echo "This PR changes nothing the Practice ledger is built from: nothing to compare."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          JUDGE=(
-            "$C"/harness.ts "$C"/recorder.ts "$C"/compare.ts "$C"/mocks.ts "$C"/seed.ts
-            "$C"/frozen.json "$C/*.test.ts"
-            apps/sandbox/scripts/characterization
-            apps/sandbox/vitest.char-update.config.mts
-            apps/sandbox/vitest.config.mts
-            apps/sandbox/src/test/setup.ts
-            apps/sandbox/package.json
-            packages/test-support
-            .github/workflows/ledger-char-base.yml
-          )
-          CHANGED=$(git diff --name-only "$BASE_SHA" HEAD -- "${JUDGE[@]}")
-          if [ -n "$CHANGED" ]; then
-            echo "::error::This PR changes the characterization judge, which a judged PR may not:"
-            echo "$CHANGED"
-            exit 1
-          fi
-          echo "skip=false" >> "$GITHUB_OUTPUT"
-      - name: Record the base's output
-        if: steps.base.outputs.skip == 'false'
+          pnpm install --frozen-lockfile
+          pnpm --filter 'sandbox^...' build
+      - name: Restore the judge from the base, and prove it is the base's
         shell: bash
         env:
-          BASE_SHA: ${{ steps.base.outputs.sha }}
+          BASE_SHA: ${{ needs.plan.outputs.base }}
         run: |
           set -euo pipefail
-          git worktree add "$RUNNER_TEMP/base-tree" "$BASE_SHA"
-          cd "$RUNNER_TEMP/base-tree"
-          pnpm install --frozen-lockfile
-          pnpm --filter 'sandbox^...' build
-          CHAR_OUT="$RUNNER_TEMP/out-base" pnpm --filter sandbox char:update
-      - name: Record the PR's output with the same judge
-        if: steps.base.outputs.skip == 'false'
+          # shellcheck disable=SC2086
+          git restore --source="$BASE_SHA" --staged --worktree -- $JUDGE
+          # shellcheck disable=SC2086
+          git diff --exit-code "$BASE_SHA" -- $JUDGE
+          # shellcheck disable=SC2086
+          UNTRACKED=$(git ls-files --others -- $JUDGE)
+          if [ -n "$UNTRACKED" ]; then echo "::error::untracked files beside the restored judge (ignored ones included):"; echo "$UNTRACKED"; exit 1; fi
+      - name: Record the PR with the base's judge
         shell: bash
+        working-directory: apps/sandbox
+        env:
+          NODE_OPTIONS: ''
+        run: CHAR_OUT="$RUNNER_TEMP/out" node node_modules/vitest/vitest.mjs run --config vitest.char-update.config.mts
+      - name: Prove the judge was not changed while recording
+        shell: bash
+        env:
+          BASE_SHA: ${{ needs.plan.outputs.base }}
         run: |
           set -euo pipefail
-          pnpm install --frozen-lockfile
-          pnpm --filter 'sandbox^...' build
-          CHAR_OUT="$RUNNER_TEMP/out-head" pnpm --filter sandbox char:update
-      - name: Compare case by case
-        if: steps.base.outputs.skip == 'false'
+          # shellcheck disable=SC2086
+          git diff --exit-code "$BASE_SHA" -- $JUDGE
+          # shellcheck disable=SC2086
+          UNTRACKED=$(git ls-files --others -- $JUDGE)
+          if [ -n "$UNTRACKED" ]; then echo "::error::untracked files beside the restored judge (ignored ones included):"; echo "$UNTRACKED"; exit 1; fi
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: char-out-head
+          path: ${{ runner.temp }}/out
+          if-no-files-found: error
+          retention-days: 7
+
+  ledger-char-base:
+    needs: [plan, record-base, record-head]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Nothing to compare, or a recording failed
+        id: gate
+        shell: bash
+        env:
+          SKIP: ${{ needs.plan.outputs.skip }}
+          PLAN: ${{ needs.plan.result }}
+          BASE: ${{ needs.record-base.result }}
+          HEAD: ${{ needs.record-head.result }}
+        run: |
+          set -euo pipefail
+          if [ "$PLAN" != "success" ]; then echo "::error::the plan job did not succeed ($PLAN)"; exit 1; fi
+          if [ "$SKIP" = "true" ]; then echo "Nothing to compare."; echo "compare=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$BASE" != "success" ] || [ "$HEAD" != "success" ]; then
+            echo "::error::a recording did not succeed (base: $BASE, PR: $HEAD)"; exit 1
+          fi
+          echo "compare=true" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: steps.gate.outputs.compare == 'true'
+        with:
+          persist-credentials: false
+          ref: ${{ needs.plan.outputs.base }}
+          sparse-checkout: |
+            apps/sandbox/scripts/characterization
+            apps/sandbox/src/lib/ledger/decide/__tests__/characterization/frozen.json
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        if: steps.gate.outputs.compare == 'true'
+        with:
+          name: char-out-base
+          path: ${{ runner.temp }}/out-base
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        if: steps.gate.outputs.compare == 'true'
+        with:
+          name: char-out-head
+          path: ${{ runner.temp }}/out-head
+      - name: Compare case by case, with the base's comparator and frozen ids
+        if: steps.gate.outputs.compare == 'true'
         shell: bash
         run: |
-          node "$RUNNER_TEMP/base-tree/apps/sandbox/scripts/characterization/compareOutputs.mjs" \
-            "$RUNNER_TEMP/out-base" "$RUNNER_TEMP/out-head"
+          node apps/sandbox/scripts/characterization/compareOutputs.mjs \
+            "$RUNNER_TEMP/out-base" "$RUNNER_TEMP/out-head" \
+            apps/sandbox/src/lib/ledger/decide/__tests__/characterization/frozen.json

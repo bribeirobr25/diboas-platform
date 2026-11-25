@@ -2935,10 +2935,16 @@ const CI_REHEARSAL = {
   'security.yml#secrets':
     'remote-only: gitleaks-action scans the pushed history; scripts/secrets-scan-staged.sh covers staged files only',
   'security.yml#audit': 'local',
-  // LEDGER-CHAR-1 (plan P12 D11): the base differential. Rehearsal: in a worktree of main's
-  // tip, `CHAR_OUT=<dir-a> pnpm --filter sandbox char:update`; in the PR's tree merged onto that
-  // tip, `CHAR_OUT=<dir-b> pnpm --filter sandbox char:update`; then
-  // `node apps/sandbox/scripts/characterization/compareOutputs.mjs <dir-a> <dir-b>`.
+  // LEDGER-CHAR-1 (plan P12 D11 as amended by P12a; 5.1029): the base differential, three jobs
+  // sharing only artifacts. Rehearsal: `plan` = `git diff --name-only <main> HEAD` over the ledger
+  // paths; `record-base` = in a worktree of main's tip, from apps/sandbox,
+  // `CHAR_OUT=<dir-a> node node_modules/vitest/vitest.mjs run --config vitest.char-update.config.mts`;
+  // `record-head` = in the PR's tree merged onto that tip, `git restore --source=<main> --staged
+  // --worktree -- <JUDGE>`, then the same command with `CHAR_OUT=<dir-b>`; `ledger-char-base` =
+  // `node apps/sandbox/scripts/characterization/compareOutputs.mjs <dir-a> <dir-b> <main's frozen.json>`.
+  'ledger-char-base.yml#plan': 'local',
+  'ledger-char-base.yml#record-base': 'local',
+  'ledger-char-base.yml#record-head': 'local',
   'ledger-char-base.yml#ledger-char-base': 'local',
 };
 function workflowJobs(file) {
