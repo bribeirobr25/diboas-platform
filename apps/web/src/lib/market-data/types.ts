@@ -314,6 +314,17 @@ export interface MarketDataSnapshot {
   readonly monthlySeries?: MonthlySeriesData;
 }
 
+/**
+ * The snapshot a page sends to the browser (C2-S G4, finding 13): everything but the monthly
+ * series, which stay on the server. The browser computes every offered tool figure from the
+ * calibrated `annualDepreciation` constants; asset history loads the series through its own
+ * lazy chunk (`marketDataService.get()`). `monthlySeries?: never` makes a full snapshot a type
+ * error where this type is required.
+ */
+export type ClientMarketDataSnapshot = Omit<MarketDataSnapshot, 'monthlySeries'> & {
+  readonly monthlySeries?: never;
+};
+
 /** Provider interface — swappable (Principle P3: Service Agnostic) */
 export interface IMarketDataProvider {
   fetch(): Promise<MarketDataSnapshot>;

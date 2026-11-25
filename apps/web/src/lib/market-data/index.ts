@@ -7,9 +7,11 @@
 
 // Service
 export { marketDataService, MarketDataServiceImpl, FallbackProvider } from './service';
+export { toClientSnapshot } from './clientSnapshot';
 
 // Types
 export type {
+  ClientMarketDataSnapshot,
   SupportedLocale,
   StrategyPath,
   ScenarioKey,

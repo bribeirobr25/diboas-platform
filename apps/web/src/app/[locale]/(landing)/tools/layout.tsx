@@ -11,7 +11,7 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type SupportedLocale } from '@diboas/i18n/server';
 import { loadPageNamespaces } from '@/lib/i18n/pageNamespaceLoader';
 import { MarketDataContextProvider } from '@/components/Providers';
-import { marketDataService } from '@/lib/market-data';
+import { marketDataService, toClientSnapshot } from '@/lib/market-data';
 import styles from './ToolsLayout.module.css';
 
 interface ToolsLayoutProps {
@@ -40,7 +40,9 @@ export default async function ToolsLayout({ children, params }: ToolsLayoutProps
   const adelaide = messages['tools-shared.footer.adelaideAttribution'] ?? 'Money tools by Adelaide';
 
   return (
-    <MarketDataContextProvider initialSnapshot={snapshot}>
+    // C2-S G4 (finding 13): the monthly series stay on the server; the browser computes the
+    // tools' figures from the calibrated constants and asset history loads its own chunk.
+    <MarketDataContextProvider initialSnapshot={toClientSnapshot(snapshot)}>
       <div className={styles.attributionStrip} role="region" aria-label={adelaide}>
         <span className={styles.attributionText}>{adelaide}</span>
       </div>

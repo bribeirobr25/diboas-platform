@@ -12,6 +12,7 @@
  */
 
 import type {
+  ClientMarketDataSnapshot,
   MarketDataSnapshot,
   IMarketDataProvider,
   HistoricalAnchorsData,
@@ -27,6 +28,13 @@ export const MARKET_DATA_DEFAULT_TTL_MS = 300_000;
 const MARKET_DATA_CIRCUIT_FAILURE_THRESHOLD = 3;
 /** How long the circuit stays open before a trial request. */
 const MARKET_DATA_CIRCUIT_RESET_MS = 60_000;
+/**
+ * `5.688` (C2-S G4): after a failed refresh the stale snapshot is stored and served for this
+ * long before the next refresh may run. Distinct from the circuit breaker (3 failures).
+ * Trade-off, stated: with a real provider one failure serves the reviewed constants for 60 s,
+ * and the breaker then needs about two minutes of failures to open.
+ */
+export const MARKET_DATA_STALE_RETRY_MS = 60_000;
 
 /**
  * Lazy-loaded monthly series — Phase B (TOOLS_IMPROVEMENT.md).
@@ -67,6 +75,12 @@ class FallbackProvider implements IMarketDataProvider {
 class MarketDataServiceImpl {
   private cache: MarketDataSnapshot | null = null;
   private cacheExpiry: number = 0;
+  /** One refresh shared by concurrent `get()` calls (Principle 11). */
+  private inFlight: Promise<MarketDataSnapshot> | null = null;
+  /** Bumped by `setProvider`, so a refresh started for the old provider never writes the cache. */
+  private generation = 0;
+  /** The snapshot object last primed, so priming on every render is idempotent. */
+  private lastPrimed: unknown = null;
   private provider: IMarketDataProvider;
   private readonly fallback: MarketDataSnapshot;
   private readonly circuitBreaker: CircuitBreaker;
@@ -85,14 +99,41 @@ class MarketDataServiceImpl {
    * Use on client side after mount.
    */
   async get(): Promise<MarketDataSnapshot> {
-    if (this.cache && Date.now() < this.cacheExpiry) {
+    // A fresh cache is served as it is, unless it lacks the monthly series (a browser snapshot
+    // primed without them, C2-S G4 B1): then the series are loaded, whatever the cache says.
+    // A stale snapshot is served until its retry time (5.688), with or without the series.
+    if (
+      this.cache &&
+      Date.now() < this.cacheExpiry &&
+      (this.cache.monthlySeries || this.cache.metadata.stale)
+    ) {
       return this.cache;
     }
+    if (!this.inFlight) {
+      const refresh = this.refresh(this.generation);
+      this.inFlight = refresh;
+      void refresh.finally(() => {
+        if (this.inFlight === refresh) this.inFlight = null;
+      });
+    }
+    return this.inFlight;
+  }
 
+  /**
+   * When the next refresh may run (epoch ms) while a stale snapshot is being served after a
+   * failed refresh; `null` otherwise. The asset-history tool's retry message reads it (G5).
+   */
+  retryAvailableAt(): number | null {
+    return this.cache?.metadata.stale ? this.cacheExpiry : null;
+  }
+
+  private async refresh(generation: number): Promise<MarketDataSnapshot> {
     try {
       const data = await this.circuitBreaker.execute(() => this.provider.fetch());
-      this.cache = data;
-      this.cacheExpiry = Date.now() + (data.metadata.ttl || MARKET_DATA_DEFAULT_TTL_MS);
+      if (generation === this.generation) {
+        this.cache = data;
+        this.cacheExpiry = Date.now() + (data.metadata.ttl || MARKET_DATA_DEFAULT_TTL_MS);
+      }
       return data;
     } catch (error) {
       // P12 (2026-10-18 compliance pass): this path was silent, while the file
@@ -100,7 +141,14 @@ class MarketDataServiceImpl {
       Logger.warn('[MarketData] provider fetch failed; serving the stale snapshot', {
         error: error instanceof Error ? error.message : String(error),
       });
-      return this.getStaleSnapshot();
+      // 5.688: the stale snapshot is STORED, so `getSync()` serves the same degraded read as
+      // `get()`, and the next refresh waits MARKET_DATA_STALE_RETRY_MS (not the 300 s TTL).
+      const stale = this.getStaleSnapshot();
+      if (generation === this.generation) {
+        this.cache = stale;
+        this.cacheExpiry = Date.now() + MARKET_DATA_STALE_RETRY_MS;
+      }
+      return stale;
     }
   }
 
@@ -119,6 +167,9 @@ class MarketDataServiceImpl {
     this.provider = provider;
     this.cache = null;
     this.cacheExpiry = 0;
+    this.inFlight = null;
+    this.lastPrimed = null;
+    this.generation += 1;
   }
 
   /**
@@ -127,10 +178,17 @@ class MarketDataServiceImpl {
    * hydration to eliminate the SSR-to-client depreciation flip on the landing
    * page AND ensure tool pages actually use the live `monthlySeries` data
    * (instead of staying on the static fallback because nothing triggers
-   * `get()`). Idempotent — calling twice with the same data is a no-op.
+   * `get()`). Idempotent — priming the same snapshot object again is a no-op.
+   *
+   * C2-S G4: a `stale` snapshot is ignored (5.688: it used to be re-stored as fresh for 300 s),
+   * and a snapshot without the monthly series keeps series already in the cache, so priming a
+   * browser snapshot never drops series a tool has loaded (B1).
    */
-  primeCache(snapshot: MarketDataSnapshot): void {
-    this.cache = snapshot;
+  primeCache(snapshot: ClientMarketDataSnapshot | MarketDataSnapshot): void {
+    if (snapshot.metadata?.stale || snapshot === this.lastPrimed) return;
+    this.lastPrimed = snapshot;
+    const keptSeries = snapshot.monthlySeries ? undefined : this.cache?.monthlySeries;
+    this.cache = keptSeries ? { ...snapshot, monthlySeries: keptSeries } : snapshot;
     this.cacheExpiry = Date.now() + (snapshot.metadata?.ttl || MARKET_DATA_DEFAULT_TTL_MS);
   }
 
