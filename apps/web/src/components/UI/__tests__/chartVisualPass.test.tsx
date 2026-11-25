@@ -24,7 +24,7 @@ import { cleanup, render } from '@testing-library/react';
 import { DivergenceChart } from '../DivergenceChart';
 import { CompoundChart } from '../CompoundChart/CompoundChart';
 import { compoundXTicks, compoundYTicks } from '@/lib/compound-interest/chartAxis';
-import { formatCurrency, type ScenarioSeries } from '@/lib/compound-interest';
+import { formatCurrency, SCENARIO_RATES, type ScenarioSeries } from '@/lib/compound-interest';
 
 afterEach(cleanup);
 
@@ -213,6 +213,35 @@ describe('CompoundChart value labels', () => {
         scenarioLabels={{ bank: 'b', conservative: 'c', historical: 'h', optimistic: 'o' }}
       />
     );
+  // 5.920: the screen-reader table read the hedged local rate raw ("7.58850000000002%"), a rate no
+  // visible figure shows. It reads the rate the row's label names: the bank's own, or the stated
+  // dollar scenario rate, whatever rate the engine computed the line with.
+  it('should read the bank rate and each stated scenario rate in the screen-reader table', () => {
+    const hedged = series(40000).map((s, i) => ({
+      ...s,
+      rate: [6.83, 7.58850000000002, 10.52, 12][i] ?? s.rate,
+    }));
+    const { container } = render(
+      <CompoundChart
+        series={hedged}
+        highlightedScenario="historical"
+        locale="pt-BR"
+        ariaLabel="chart"
+        tableLabels={{ scenario: 's', rate: 'r', total: 't' }}
+        scenarioLabels={{ bank: 'b', conservative: 'c', historical: 'h', optimistic: 'o' }}
+      />
+    );
+    const rates = [...container.querySelectorAll('tbody tr')].map(
+      (row) => row.querySelectorAll('td')[0]?.textContent
+    );
+    expect(rates).toEqual([
+      '6,83%',
+      `${SCENARIO_RATES.conservative}%`,
+      `${SCENARIO_RATES.historical}%`,
+      `${SCENARIO_RATES.optimistic}%`,
+    ]);
+  });
+
   const yLabels = (container: HTMLElement) =>
     [...container.querySelectorAll('svg text')]
       .filter((t) => /yLabel/.test(t.getAttribute('class') ?? ''))

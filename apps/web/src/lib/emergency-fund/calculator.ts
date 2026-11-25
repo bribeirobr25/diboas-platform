@@ -33,6 +33,7 @@ import {
 import type { MarketDataSnapshot } from '@/lib/market-data/types';
 import { SCENARIO_RATES } from '@/lib/compound-interest/scenarios';
 import type { SupportedLocale } from '@diboas/i18n/config';
+import { isHedgedDepreciation } from '@/lib/market-data/formulas/hedgePredicate';
 
 /**
  * Asymmetric horizon-estimate cap vs time-to-target (which clamps at 40 — C12).
@@ -112,18 +113,18 @@ export function calculateEmergencyFundTimeline(
   const diboasUsdApy = EMERGENCY_FUND_SCENARIO_USD_PERCENT / 100;
   // C3 close (CTO-board v3 audit, 2026-05-26): route the inline effective-rate
   // computation through `applyEffectiveRateClamp` for parity with the compound
-  // engine and `lib/time-to-target`. Use `=== 0` (not `> 0`) so catastrophic
+  // engine and `lib/time-to-target`. Hedge on any non-zero depreciation (`isHedgedDepreciation`,
+  // 5.933), not `> 0`, so catastrophic
   // negative depreciation (`d ≤ −1`) actually reaches the clamp and emits the
   // observability event — previously the `> 0` gate silently skipped the
   // hedge AND the clamp, hiding the pathological case rather than logging it.
-  const diboasEffective =
-    depreciation === 0
-      ? diboasUsdApy
-      : applyEffectiveRateClamp((1 + diboasUsdApy) * (1 + depreciation) - 1, {
-          source: 'calculateEmergencyFundTimeline',
-          usdYield: diboasUsdApy,
-          depreciation,
-        });
+  const diboasEffective = !isHedgedDepreciation(depreciation)
+    ? diboasUsdApy
+    : applyEffectiveRateClamp((1 + diboasUsdApy) * (1 + depreciation) - 1, {
+        source: 'calculateEmergencyFundTimeline',
+        usdYield: diboasUsdApy,
+        depreciation,
+      });
 
   const target = input.monthlyExpenses * input.targetMultiplier;
 
@@ -150,7 +151,7 @@ export function calculateEmergencyFundTimeline(
     bankMonths,
     savedMonths,
     over30Years,
-    hedged: depreciation > 0,
+    hedged: isHedgedDepreciation(depreciation),
     bankApy,
   };
 }

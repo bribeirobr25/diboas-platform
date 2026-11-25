@@ -24,6 +24,7 @@ import {
 } from './core';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 import { toISODateString } from '@/lib/utils/date';
+import { isHedgedDepreciation } from './hedgePredicate';
 
 // ---------------------------------------------------------------------------
 // C3 close (TOOLS_41_DEFECTS_FIX_PLAN.md §3.3, 2026-05-26): boundary clamp
@@ -60,7 +61,9 @@ export function applyEffectiveRateClamp(
   rate: number,
   context: { source: string; usdYield: number; depreciation: number }
 ): number {
-  if (rate > EFFECTIVE_RATE_FLOOR) return rate;
+  // A non-finite rate (from a NaN or infinite depreciation) is pathological too: reported and
+  // floored, never shown (C2-S G3 audit).
+  if (Number.isFinite(rate) && rate > EFFECTIVE_RATE_FLOOR) return rate;
   applicationEventBus.emit(ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED, {
     domain: 'tools',
     source: context.source,
@@ -90,7 +93,7 @@ export function createHedgedRateTransformer(
   source: string
 ): (usdRatePercent: number) => number {
   return (usdRatePercent: number): number => {
-    if (depreciation === 0) return usdRatePercent;
+    if (!isHedgedDepreciation(depreciation)) return usdRatePercent;
     const usdYield = usdRatePercent / 100;
     const rawEffective = (1 + usdYield) * (1 + depreciation) - 1;
     const effective = applyEffectiveRateClamp(rawEffective, {

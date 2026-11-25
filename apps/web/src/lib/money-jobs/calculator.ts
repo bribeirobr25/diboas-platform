@@ -34,6 +34,7 @@ import {
 import { LOCALE_CURRENCY } from '@/lib/market-data/constants';
 import type { MarketDataSnapshot } from '@/lib/market-data/types';
 import type { SupportedLocale } from '@diboas/i18n/config';
+import { isHedgedDepreciation } from '@/lib/market-data/formulas/hedgePredicate';
 
 /**
  * Attested model constants — provenance format per
@@ -327,14 +328,13 @@ export function calculateMoneyJobsPersonalPlan(
   );
   const depreciation = resolveHorizonMatchedDepreciation(snapshot, currency, estimatedHorizonYears);
   const conservativeUsd = SCENARIO_RATES.conservative / 100;
-  const effective =
-    depreciation === 0
-      ? conservativeUsd
-      : applyEffectiveRateClamp((1 + conservativeUsd) * (1 + depreciation) - 1, {
-          source: 'calculateMoneyJobsPersonalPlan',
-          usdYield: conservativeUsd,
-          depreciation,
-        });
+  const effective = !isHedgedDepreciation(depreciation)
+    ? conservativeUsd
+    : applyEffectiveRateClamp((1 + conservativeUsd) * (1 + depreciation) - 1, {
+        source: 'calculateMoneyJobsPersonalPlan',
+        usdYield: conservativeUsd,
+        depreciation,
+      });
 
   let months: number | null;
   try {
@@ -350,7 +350,7 @@ export function calculateMoneyJobsPersonalPlan(
     months = null;
   }
 
-  return { emergencyFundMonthsToTarget: months, hedged: depreciation !== 0 };
+  return { emergencyFundMonthsToTarget: months, hedged: isHedgedDepreciation(depreciation) };
 }
 
 export interface MoneyJobsBusinessPlan {

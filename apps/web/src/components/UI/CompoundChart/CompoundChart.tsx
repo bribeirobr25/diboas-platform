@@ -1,7 +1,13 @@
 'use client';
 
 import { useId, useMemo } from 'react';
-import { formatCurrency, type ScenarioSeries, type SeriesKey } from '@/lib/compound-interest';
+import {
+  formatCurrency,
+  formatPercent,
+  SCENARIO_RATES,
+  type ScenarioSeries,
+  type SeriesKey,
+} from '@/lib/compound-interest';
 import { compoundXTicks, compoundYTicks } from '@/lib/compound-interest/chartAxis';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import styles from './CompoundChart.module.css';
@@ -173,7 +179,15 @@ export function CompoundChart({
             {series.map((s) => (
               <tr key={s.scenario}>
                 <th scope="row">{scenarioLabels[s.scenario]}</th>
-                <td>{s.rate}%</td>
+                {/* 5.920: the rate the row's label names — the bank's own rate, or the scenario's
+                    stated dollar rate (7, 10, 14), never the hedged local rate the engine computes
+                    with, which no visible figure shows. The tools' percent format. */}
+                <td>
+                  {formatPercent(
+                    s.scenario === 'bank' ? s.rate : SCENARIO_RATES[s.scenario],
+                    locale
+                  )}
+                </td>
                 <td>{formatCurrency(s.finalValue, locale)}</td>
               </tr>
             ))}
