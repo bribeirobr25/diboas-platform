@@ -9,13 +9,14 @@
     "emailLabel": "Email address",
     "cta": "Join the waitlist",
     "submitting": "Joining...",
-    "privacyNote": "No spam. Just product updates, early access, and what changes before launch.",
-    "legendText": "Waitlist signup"
+    "legendText": "Waitlist signup",
+    "joinNotice": "By joining you get emails about your place on the waitlist and our launch; you can stop them any time from the link in each email. We handle your data as our <link>Privacy Policy</link> describes.",
+    "noteConsent": "Also note which button or campaign link brought me here. It helps us see which links work; you can remove it any time from the link in our emails or by writing to us.",
+    "noteConsentCampaignOnly": "Also note which campaign link brought me here. It helps us see which links work; you can remove it any time from the link in our emails or by writing to us."
   },
   "error": {
     "generic": "Something went wrong. Please try again.",
     "invalidEmail": "Please enter a valid email address.",
-    "consentRequired": "Please check the box to continue.",
     "alreadyRegistered": "You're already on the waitlist!",
     "network": "Connection error. Please check your internet and try again."
   },

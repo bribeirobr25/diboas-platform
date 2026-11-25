@@ -19,7 +19,13 @@ import {
   emitErrorEvent,
   readJsonObject,
 } from '@/lib/api/routeHelpers';
-import { isValidLocale, isValidSource, sanitizeTags, isValidName } from '@/lib/api/validators';
+import {
+  applyNoteConsent,
+  isValidLocale,
+  isValidSource,
+  sanitizeTags,
+  isValidName,
+} from '@/lib/api/validators';
 import { logRequestStart, logRequestEnd } from '@/lib/api/requestLogger';
 import { Logger } from '@/lib/monitoring/Logger';
 import { classifyRequest } from '@/lib/security/verifyHuman';
@@ -120,7 +126,11 @@ export async function POST(request: NextRequest): Promise<NextResponse<SignupRes
     if (sanitized && sanitized.dropped > 0) {
       Logger.info('Waitlist signup: tags dropped', { dropped: sanitized.dropped });
     }
-    const tags = sanitized?.tags;
+    // The note's tags only under a ticked box of the current version, plus the server's one
+    // evidence tag (W-D1, CONSENT-EVIDENCE-1); dropped tags are counted, never logged.
+    const note = applyNoteConsent(sanitized?.tags, body.attributionConsent, new Date());
+    if (note.dropped > 0) Logger.info('Waitlist signup: note tags dropped', { dropped: note.dropped });
+    const tags = note.tags.length > 0 ? note.tags : undefined;
     if (body.name && !isValidName(body.name))
       return validationError(startTime, 'Invalid name', 'INVALID_NAME');
 

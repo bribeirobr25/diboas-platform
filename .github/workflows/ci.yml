@@ -55,6 +55,17 @@ jobs:
         run: |
           git fetch --no-tags --depth=1 origin "$BASE_SHA"
           node scripts/check-genius-controls-grow.mjs "$BASE_SHA"
+      # CONSENT-TEXT-1 (W-D1, register 5.923): a pinned consent text's wording never changes;
+      # changed wording is a new version. Compares config/consent-texts.json with the pull
+      # request's base (a push: the commit before it); fails closed on a missing base. Its wiring
+      # is pinned by ciWorkflowSteps.test.ts (no if:, no continue-on-error).
+      - name: Consent texts only grow
+        shell: bash
+        env:
+          BASE_SHA: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_SHA"
+          node scripts/check-consent-texts-grow.mjs "$BASE_SHA"
       # COV-1 (register 5.70): the suite runs ONCE, with coverage, and every workspace's
       # `coverage.thresholds` (a per-directory ratchet; security utilities at 100) fail
       # the job when coverage drops. Plain `pnpm test` enforced none of them.

@@ -65,7 +65,6 @@ export const HiddenBenefits: Story = {
   args: {
     config: {
       hideBenefits: true,
-      hideNoSpam: true,
     },
   },
 };
@@ -81,7 +80,6 @@ export const B2BVariant: Story = {
       headline: 'landing-b2b.waitlist.header',
       subheadline: 'landing-b2b.waitlist.description',
       hideBenefits: true,
-      hideNoSpam: true,
       namespace: 'landing-b2b.waitlist',
       confirmationNamespace: 'landing-b2b.waitlistSuccess',
       source: 'landing_b2b',

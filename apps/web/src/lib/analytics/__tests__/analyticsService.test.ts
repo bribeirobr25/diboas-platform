@@ -14,19 +14,32 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const consent = vi.hoisted(() => ({ given: false }));
 const sent = vi.hoisted(() => ({
-  calls: [] as Array<{ backend: string; names: string[]; unloading: boolean }>,
+  calls: [] as Array<{
+    backend: string;
+    names: string[];
+    unloading: boolean;
+    events: Array<{ name: string; parameters?: Record<string, unknown> }>;
+  }>,
 }));
 const warmed = vi.hoisted(() => ({ count: 0 }));
 
 vi.mock('@/components/CookieConsent', () => ({ hasAnalyticsConsent: () => consent.given }));
+// The attribution hold reads consent from the utilities module directly (W-D1).
+vi.mock('@/components/CookieConsent/consentUtils', () => ({
+  hasAnalyticsConsent: () => consent.given,
+}));
 vi.mock('../backends', () => {
   class Spy {
     constructor(readonly name: string) {}
-    sendEvents(events: Array<{ name: string }>, options: { unloading?: boolean } = {}) {
+    sendEvents(
+      events: Array<{ name: string; parameters?: Record<string, unknown> }>,
+      options: { unloading?: boolean } = {}
+    ) {
       sent.calls.push({
         backend: this.name,
         names: events.map((e) => e.name),
         unloading: !!options.unloading,
+        events,
       });
       return Promise.resolve();
     }
@@ -109,7 +122,9 @@ describe('ANALYTICS-FLUSH-1: the queue is handed over when the page goes away', 
     consent.given = true;
     service.track({ name: 'memo' });
     window.dispatchEvent(new Event('pagehide'));
-    expect(sent.calls).toEqual([
+    expect(
+      sent.calls.map(({ backend, names, unloading }) => ({ backend, names, unloading }))
+    ).toEqual([
       { backend: 'GA4', names: ['memo'], unloading: true },
       { backend: 'PostHog', names: ['memo'], unloading: true },
     ]);
@@ -146,5 +161,28 @@ describe('ANALYTICS-FLUSH-1: the queue is handed over when the page goes away', 
     vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden');
     document.dispatchEvent(new Event('visibilitychange'));
     expect(sent.calls).toEqual([]);
+  });
+});
+
+/**
+ * MKT-EVENT-2 (W-D1 edit, 5.924): the campaign values every event carries are the hold's SHAPED
+ * values, and only under analytics consent; nothing is read from device storage.
+ */
+describe('MKT-EVENT-2: campaign enrichment is shaped and consented', () => {
+  beforeEach(() => {
+    delete (globalThis as Record<symbol, unknown>)[Symbol.for('diboas.attributionHold')];
+  });
+
+  it('should add the held, shaped campaign values to an event under consent', async () => {
+    const { captureUtmFromUrl } = await import('../utmAttribution');
+    captureUtmFromUrl('https://diboas.com/en?utm_source=Newsletter&utm_term=two+words');
+    sessionStorage.setItem('diboas-utm-params', JSON.stringify({ utm_source: 'old raw value' }));
+    consent.given = true;
+    service.track({ name: 'with_campaign' });
+    await service.flush();
+    const event = sent.calls.flatMap((c) => c.events).find((e) => e.name === 'with_campaign')!;
+    expect(event.parameters).toMatchObject({ utm_source: 'newsletter' });
+    expect(event.parameters).not.toHaveProperty('utm_term');
+    sessionStorage.clear();
   });
 });

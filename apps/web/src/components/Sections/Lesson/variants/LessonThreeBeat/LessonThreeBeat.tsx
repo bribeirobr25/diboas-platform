@@ -11,7 +11,7 @@ import {
   readMessageArray,
   type LessonMetadata,
 } from '@/lib/learn';
-import { setCtaSource } from '@/lib/analytics/ctaAttribution';
+import { setCtaSource } from '@/lib/analytics/utmAttribution';
 import { SectionContainer } from '@/components/Sections/SectionContainer';
 import { LessonHero } from '@/components/UI/LessonHero';
 import { LessonProgressBar } from '@/components/UI/LessonProgressBar';

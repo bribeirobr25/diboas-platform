@@ -8,7 +8,13 @@
 
 import { WAITLIST_SOURCES } from '@/lib/waitingList/store/types';
 import { describe, it, expect } from 'vitest';
-import { isValidLocale, isValidSource, sanitizeTags, isValidName } from '../validators';
+import {
+  isValidLocale,
+  isValidSource,
+  sanitizeTags,
+  isValidName,
+  applyNoteConsent,
+} from '../validators';
 
 /** Untyped JSON reaches these validators at runtime; cast to exercise the guards. */
 const asString = (value: unknown) => value as string;
@@ -151,5 +157,60 @@ describe('isValidName', () => {
     for (const value of [undefined, null, 42, ['Ana']]) {
       expect(isValidName(asString(value))).toBe(false);
     }
+  });
+});
+
+/**
+ * CONSENT-EVIDENCE-1 (signup half) · `applyNoteConsent` (market clean-up W-D1, 5.923; spec §3.5).
+ */
+describe('applyNoteConsent', () => {
+  const NOW = new Date('2026-11-25T23:59:00Z');
+  const NOTE = ['utm_source:ig', 'utm_campaign:Spring', 'cta_source:market'];
+
+  it('should keep the shaped note and append one evidence tag under a current `note` box', () => {
+    expect(applyNoteConsent(NOTE, { text: 'note', version: 1 }, NOW)).toEqual({
+      tags: ['utm_source:ig', 'cta_source:market', 'consent:note:v1:2026-11-25'],
+      dropped: 1,
+    });
+  });
+
+  it('should keep campaign values only under the `note-campaign` box', () => {
+    expect(applyNoteConsent(NOTE, { text: 'note-campaign', version: 1 }, NOW)).toEqual({
+      tags: ['utm_source:ig', 'consent:note-campaign:v1:2026-11-25'],
+      dropped: 2,
+    });
+  });
+
+  it.each([
+    ['no box', undefined],
+    ['null', null],
+    ['a string', 'note'],
+    ['an unknown text', { text: 'all', version: 1 }],
+    ['a text that is not a string', { text: 1, version: 1 }],
+    ['a version that is not a number', { text: 'note', version: '1' }],
+    ['a fractional version', { text: 'note', version: 1.5 }],
+    ['an older version', { text: 'note', version: 0 }],
+  ])(
+    'should keep no note tag and add no evidence with %s (dropped, never refused)',
+    (_l, consent) => {
+      expect(applyNoteConsent(NOTE, consent, NOW)).toEqual({ tags: [], dropped: 3 });
+    }
+  );
+
+  it('should add no evidence when nothing of the note survives, and accept no tags at all', () => {
+    expect(applyNoteConsent(['utm_term:Bad Value'], { text: 'note', version: 1 }, NOW)).toEqual({
+      tags: [],
+      dropped: 1,
+    });
+    expect(applyNoteConsent(undefined, { text: 'note', version: 1 }, NOW)).toEqual({
+      tags: [],
+      dropped: 0,
+    });
+  });
+
+  it('should drop any tag that is not part of the note, a client evidence tag included', () => {
+    expect(
+      applyNoteConsent(['consent:note:v1:2020-01-01', 'x:y'], { text: 'note', version: 1 }, NOW)
+    ).toEqual({ tags: [], dropped: 2 });
   });
 });

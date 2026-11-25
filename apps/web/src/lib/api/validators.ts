@@ -6,7 +6,15 @@
  */
 
 import { SUPPORTED_LOCALES } from '@diboas/i18n/config';
-import { CTA_SOURCE_TAG_PREFIX, isKnownCtaSource } from '@/lib/analytics/ctaSources';
+import { isKnownCtaSource } from '@/lib/analytics/ctaSources';
+import { isShapedUtmValue } from '@/lib/analytics/utmShape';
+import {
+  CONSENT_TAG_PREFIX,
+  CTA_SOURCE_TAG_PREFIX,
+  SIGNUP_NOTE_BOX_VERSIONS,
+  UTM_TAG_PREFIX,
+  type NoteConsentText,
+} from '@/lib/waitingList/constants';
 import { WAITLIST_SOURCES, type WaitlistSource } from '@/lib/waitingList/store/types';
 
 /** Supported locales — single source of truth from @diboas/i18n */
@@ -77,6 +85,54 @@ export function sanitizeTags(tags: unknown): SanitizedTags | null {
     return true;
   });
   return { tags: kept, dropped: tags.length - kept.length };
+}
+
+const NOTE_TEXTS: ReadonlySet<string> = new Set(Object.keys(SIGNUP_NOTE_BOX_VERSIONS));
+
+/** The box text and version a ticked box sent, or `null` when absent or malformed. */
+function readAttributionConsent(value: unknown): { text: NoteConsentText; version: number } | null {
+  if (typeof value !== 'object' || value === null) return null;
+  const { text, version } = value as { text?: unknown; version?: unknown };
+  if (typeof text !== 'string' || !NOTE_TEXTS.has(text)) return null;
+  if (typeof version !== 'number' || !Number.isInteger(version)) return null;
+  return { text: text as NoteConsentText, version };
+}
+
+/**
+ * The signup note under the box's consent (market clean-up W-D1, register 5.923; spec §3.5).
+ * Runs after `sanitizeTags`. A malformed `attributionConsent` is dropped, never refused (the
+ * `5.922` rule), and counts as an unticked box:
+ * 1. no box, or a box whose version is not the current version of its text: every note tag goes;
+ * 2. `note` keeps campaign values and the button label; `note-campaign` campaign values only; a
+ *    campaign value must already have the shape as received (the server never rewrites);
+ * 3. when at least one note tag is kept, the server appends ONE evidence tag
+ *    `consent:<text>:v<version>:<YYYY-MM-DD>` (a client's `consent:` tag never survives
+ *    `sanitizeTags`).
+ * Pure: `now` is passed in. `dropped` is a count, logged by the route, never the content.
+ */
+export function applyNoteConsent(
+  tags: readonly string[] | undefined,
+  attributionConsent: unknown,
+  now: Date
+): { tags: string[]; dropped: number } {
+  const input = tags ?? [];
+  const consent = readAttributionConsent(attributionConsent);
+  const current = consent !== null && SIGNUP_NOTE_BOX_VERSIONS[consent.text] === consent.version;
+  const kept = !current
+    ? []
+    : input.filter((tag) => {
+        if (tag.startsWith(CTA_SOURCE_TAG_PREFIX)) return consent.text === 'note';
+        if (tag.startsWith(UTM_TAG_PREFIX))
+          return isShapedUtmValue(tag.slice(tag.indexOf(':') + 1));
+        return false;
+      });
+  const dropped = input.length - kept.length;
+  if (kept.length === 0) return { tags: [], dropped };
+  const day = now.toISOString().slice(0, 10);
+  return {
+    tags: [...kept, `${CONSENT_TAG_PREFIX}${consent!.text}:v${consent!.version}:${day}`],
+    dropped,
+  };
 }
 
 /**

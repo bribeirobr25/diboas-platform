@@ -10,10 +10,6 @@
   max-width: var(--dimension-480);
 }
 
-.compact {
-  max-width: var(--percent-100);
-}
-
 .inputGroup {
   display: flex;
   gap: var(--spacing-md);
@@ -163,6 +159,7 @@
 
 .consent {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-sm);
 }
@@ -204,17 +201,10 @@
   margin: 0;
 }
 
-/* Compact mode specific styles */
-.compact .inputGroup {
-  width: var(--percent-100);
-}
-
-.compact .input {
-  padding: var(--spacing-md) var(--spacing-lg);
-}
-
-.compact .submitButton {
-  padding: var(--spacing-md) var(--spacing-lg);
+/* The join notice's Privacy Policy link: inline text link (24x24 exception, E6). */
+.privacyNote a {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .belowCta {

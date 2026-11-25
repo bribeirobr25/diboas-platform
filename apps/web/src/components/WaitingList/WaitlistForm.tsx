@@ -15,6 +15,7 @@ import React, { useId, useRef } from 'react';
 import { useTranslation } from '@diboas/i18n/client';
 import { Button } from '@diboas/ui';
 import { useWaitlistForm, type WaitlistSuccessData } from './hooks';
+import { WaitlistNoteFields } from './WaitlistNoteFields';
 import styles from './WaitlistForm.module.css';
 
 interface WaitlistFormProps {
@@ -22,15 +23,13 @@ interface WaitlistFormProps {
   onSuccess: (data: WaitlistSuccessData) => void;
   /** Optional callback for errors */
   onError?: (error: string) => void;
-  /** Show compact version (email only) */
-  compact?: boolean;
   /** Override referral code (e.g. from manually entered invite code) */
   referredBy?: string;
   /** The signup's source, from the one list (`5.979`, plan P11 D3) */
   source?: WaitlistSource;
   /** Text rendered below submit button */
   belowCta?: string;
-  /** Text rendered below consent checkbox */
+  /** Text rendered below the note box */
   belowCheckbox?: string;
   /** Custom class name */
   className?: string;
@@ -39,7 +38,6 @@ interface WaitlistFormProps {
 export function WaitlistForm({
   onSuccess,
   onError,
-  compact = false,
   referredBy,
   source,
   belowCta,
@@ -50,7 +48,7 @@ export function WaitlistForm({
   const uid = useId();
   const emailId = `${uid}-email`;
   const errorMsgId = `${uid}-error`;
-  const gdprId = `${uid}-gdpr`;
+  const noteId = `${uid}-note`;
   const emailInputRef = useRef<HTMLInputElement>(null);
 
   // Translation helper
@@ -60,7 +58,6 @@ export function WaitlistForm({
 
   const { formState, error, isLoading, hasReferral, handleInputChange, handleSubmit } =
     useWaitlistForm({
-      compact,
       referredBy,
       source,
       onSuccess,
@@ -71,7 +68,7 @@ export function WaitlistForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={`${styles.form} ${compact ? styles.compact : ''} ${className}`}
+      className={`${styles.form} ${className}`}
     >
       {hasReferral ? (
         <p className={styles.referralIndicator}>{t('referral.invitedIndicator')}</p>
@@ -116,25 +113,21 @@ export function WaitlistForm({
 
       {belowCta ? <p className={styles.belowCta}>{belowCta}</p> : null}
 
-      {!compact && (
-        <div className={styles.consent}>
-          <label htmlFor={gdprId} className={styles.consentLabel}>
-            <input
-              id={gdprId}
-              type="checkbox"
-              name="gdprAccepted"
-              checked={formState.gdprAccepted}
-              onChange={handleInputChange}
-              className={styles.checkbox}
-              disabled={isLoading}
-              aria-required="true"
-            />
-            <span className={styles.consentText}>{t('form.privacyNote')}</span>
-          </label>
-        </div>
-      )}
-
-      {compact && <p className={styles.privacyNote}>{t('form.privacyNote')}</p>}
+      <div className={styles.consent}>
+        <WaitlistNoteFields
+          text="note"
+          id={noteId}
+          checked={formState.noteConsent}
+          onChange={handleInputChange}
+          disabled={isLoading}
+          classNames={{
+            notice: styles.privacyNote,
+            row: styles.consentLabel,
+            checkbox: styles.checkbox,
+            label: styles.consentText,
+          }}
+        />
+      </div>
 
       {belowCheckbox ? <p className={styles.belowCheckbox}>{belowCheckbox}</p> : null}
     </form>

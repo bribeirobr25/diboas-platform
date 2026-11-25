@@ -31,6 +31,8 @@ export default async function MoneyJobsToolPage({ params, searchParams }: MoneyJ
     'tools-money-jobs',
     'tools-shared',
     'landing-b2c',
+    // the gate's join notice, note box and error messages (W-D1; 5.1005)
+    'waitlist',
   ]);
 
   const structuredData = buildToolStructuredData({

@@ -101,10 +101,9 @@
       "nextSteps": "O próximo passo de cada função"
     },
     "emailPlaceholder": "Seu e-mail",
-    "gdprLabel": "Concordo em receber e-mails do diBoaS e aceito a política de privacidade.",
     "cta": "Ver meu plano completo",
     "ctaLoading": "Um momento",
-    "finePrint": "Entrar na lista de espera desbloqueia o plano. Sem spam: é a mesma lista de todo o resto. Entrar não movimenta seu dinheiro.",
+    "finePrint": "Entrar na lista de espera desbloqueia o plano. Entrar não movimenta seu dinheiro.",
     "successLine": "Você está na lista, posição {position}.",
     "referralLinkLabel": "Seu link de convite"
   },

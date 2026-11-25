@@ -304,26 +304,57 @@ describe('POST /api/waitlist/signup', () => {
       updatedAt: new Date(),
     };
 
-    it('should store only the sanitized tags: known keys, one known label, nothing over fifty chars', async () => {
+    const TAGS = [
+      'utm_source:ig',
+      'cta_source:market',
+      'cta_source:ana@example.com',
+      'x:free text',
+      `utm_campaign:${'x'.repeat(60)}`,
+      'utm_medium:Mail',
+      'consent:note:v1:2020-01-01',
+    ];
+    const storedTags = () => (store.addEntry as Mock).mock.calls.at(-1)?.[0]?.tags;
+    const post = (extra: Record<string, unknown>) =>
+      POST(
+        createMockRequest({ email: 'tags@example.com', gdprAccepted: true, tags: TAGS, ...extra })
+      );
+
+    /* CONSENT-EVIDENCE-1 (W-D1, 5.923; spec §3.5): the note's tags are kept only under a ticked
+     * box of the current version, shaped as received, with ONE server-built evidence tag. */
+    it('should store the sanitized, shaped note and one evidence tag when the box is ticked', async () => {
       (store.addEntry as Mock).mockResolvedValue(entry);
-      const response = await POST(
-        createMockRequest({
-          email: 'tags@example.com',
-          gdprAccepted: true,
-          tags: [
-            'utm_source:ig',
-            'cta_source:market',
-            'cta_source:ana@example.com',
-            'x:free text',
-            `utm_campaign:${'x'.repeat(60)}`,
-          ],
-        })
-      );
+      const response = await post({ attributionConsent: { text: 'note', version: 1 } });
       expect(response.status).toBe(200);
-      expect((store.addEntry as Mock).mock.calls[0]?.[0]).toEqual(
-        expect.objectContaining({ tags: ['utm_source:ig', 'cta_source:market'] })
-      );
+      const day = new Date().toISOString().slice(0, 10);
+      expect(storedTags()).toEqual([
+        'utm_source:ig',
+        'cta_source:market',
+        `consent:note:v1:${day}`,
+      ]);
     });
+
+    it('should keep campaign values only, never the label, under the campaign-only box', async () => {
+      (store.addEntry as Mock).mockResolvedValue(entry);
+      await post({ attributionConsent: { text: 'note-campaign', version: 1 } });
+      expect(storedTags()?.slice(0, 1)).toEqual(['utm_source:ig']);
+      expect(storedTags()?.[1]).toMatch(/^consent:note-campaign:v1:\d{4}-\d{2}-\d{2}$/);
+      expect(storedTags()).toHaveLength(2);
+    });
+
+    it.each([
+      ['no box', undefined],
+      ['an older version', { text: 'note', version: 0 }],
+      ['an unknown text', { text: 'all', version: 1 }],
+      ['a malformed field', 'yes'],
+    ])(
+      'should store no note and no evidence with %s, and never refuse the signup',
+      async (_l, consent) => {
+        (store.addEntry as Mock).mockResolvedValue(entry);
+        const response = await post(consent === undefined ? {} : { attributionConsent: consent });
+        expect(response.status).toBe(200);
+        expect(storedTags() ?? []).toEqual([]);
+      }
+    );
 
     it.each([
       ['null', null],

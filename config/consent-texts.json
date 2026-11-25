@@ -1,0 +1,57 @@
+{
+  "_comment": "CONSENT-TEXT-1 (W-D1, register 5.923): each consent text, each version, a SHA-256 of its wording per locale (scripts/check-consent-texts-grow.mjs hashWording). Never edit a version: changed wording is a NEW version. Checked by consentTexts.test.ts and, against the PR base, by the CI step.",
+  "texts": [
+    {
+      "id": "banner",
+      "keys": [
+        "common.cookieConsent.message",
+        "common.cookieConsent.decline",
+        "common.cookieConsent.accept"
+      ],
+      "versions": {
+        "1.0": {
+          "en": "ecb61d714a1fb262794d89702663976e898ae8c2fa6c9cc8bb53497ef0fdab30",
+          "pt-BR": "8003352ecaf0b93f7e9fe588379989f6d72236e56d9f17e6492f227392017037",
+          "es": "dae072ee76b81c45410373edc619e902a3547d040a5880678f3ddad2499283cb",
+          "de": "d2bed6459fd5501eaf58fcdda546733d3eee48f9dca3dc3a338678f5dce943c1"
+        }
+      }
+    },
+    {
+      "id": "note",
+      "keys": ["waitlist.form.noteConsent"],
+      "versions": {
+        "1": {
+          "en": "1f924e340b55218aaa7b930ece445bfe142d28316befbfc7af4c2943ba7263dd",
+          "pt-BR": "cc95994a84932f8b4d3d0d4f353a5cb50f1da54021c44d9f74cff961d2720ee8",
+          "es": "decc4dca957f137499622ccb54dcc751bc4487cdfe33035755e03f660da654b2",
+          "de": "9d7094b9ef63443471a622b4341757002d2423d1e723c5e138750c1024e52f03"
+        }
+      }
+    },
+    {
+      "id": "note-campaign",
+      "keys": ["waitlist.form.noteConsentCampaignOnly"],
+      "versions": {
+        "1": {
+          "en": "8c33b0e6663dbb23e91c929cb22b25ea14f8e33835009aac9b447842af6dc7b0",
+          "pt-BR": "1370ce834e362c39164ec40e8c39a7c59bc8c0165aa0e427b939375805cdd87c",
+          "es": "210e1afa543d8dd7d57d7547f1be220521823724dc3c68e5d52fba9e92549319",
+          "de": "013d621184dfd93d3aedc01263164fb8f78db4a7908cc9c833da10ea379beb57"
+        }
+      }
+    },
+    {
+      "id": "join-notice",
+      "keys": ["waitlist.form.joinNotice"],
+      "versions": {
+        "1": {
+          "en": "ee2c9f7f69cf4dddcbdcadd76b359881bd0b0e8ba3ef3d38f02227d92c914714",
+          "pt-BR": "f3bdbb7293f05d80e6120be862cfd25738452fa59ffb56d93e57f8a9396ca009",
+          "es": "941ed00662a445e9e626d3f47ab24c9d2b26f4260cf07806717b238e78b46576",
+          "de": "5ccab8a33d546b8857d13eb734ea2b2789739fc555c36abc444b6f9a743da36c"
+        }
+      }
+    }
+  ]
+}

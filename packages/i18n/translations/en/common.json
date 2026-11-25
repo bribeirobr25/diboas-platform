@@ -229,14 +229,6 @@
     "loadError": "Unable to load booking calendar",
     "contactDirectly": "Contact us directly to schedule a call"
   },
-  "waitingList": {
-    "errors": {
-      "invalidName": "Please enter a valid name",
-      "invalidXAccount": "Please enter a valid X account (e.g., @username)",
-      "emailRequired": "Email is required",
-      "storageError": "Unable to save your information. Please try again."
-    }
-  },
   "share": {
     "generating": "Generating card...",
     "retry": "Try Again",

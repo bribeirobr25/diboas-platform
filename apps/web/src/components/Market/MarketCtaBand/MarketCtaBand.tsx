@@ -12,7 +12,7 @@
 import { LocaleLink } from '@/components/UI/LocaleLink';
 import { Share2, Check, ArrowRight } from '@/components/UI/LucideIcon';
 import { analyticsService } from '@/lib/analytics';
-import { setConsentedCtaSource } from '@/lib/analytics/ctaAttribution';
+import { setCtaSource } from '@/lib/analytics/utmAttribution';
 import { useWebShare, SHARE_EVENTS, type WebShareMethod } from '@/hooks/useWebShare';
 import styles from './MarketCtaBand.module.css';
 
@@ -70,7 +70,7 @@ export function MarketCtaBand({
           <LocaleLink
             href="/#waitlist"
             className={styles.primary}
-            onClick={() => setConsentedCtaSource('market')}
+            onClick={() => setCtaSource('market')}
           >
             <span>{waitlistLabel}</span>
             <ArrowRight size={18} strokeWidth={2} aria-hidden="true" />

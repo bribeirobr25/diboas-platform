@@ -105,13 +105,6 @@
   font-weight: var(--font-weight-bold);
 }
 
-.noSpam {
-  font-size: var(--font-size-xs-plus);
-  color: var(--color-text-secondary);
-  margin-top: var(--spacing-sm);
-  text-align: center;
-}
-
 /* Version B: Two paths layout */
 .versionBPaths {
   display: flex;

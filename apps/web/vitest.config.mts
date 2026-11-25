@@ -48,6 +48,8 @@ const COVERAGE_THRESHOLDS = {
   // W-D1 (5.924): the campaign-value shape and the one-off PostHog session clean-up.
   'src/lib/analytics/utmShape.ts': { 100: true },
   'src/lib/analytics/posthogLegacySessionCleanup.ts': { 100: true },
+  // W-D1 (5.923): the attribution hold.
+  'src/lib/analytics/utmAttribution.ts': { 100: true },
   // 5.866: the GDPR erasure door and the store helpers under every waitlist read and write.
   'src/app/api/waitlist/delete/route.ts': { 100: true },
   'src/lib/waitingList/store/internals.ts': { 100: true },

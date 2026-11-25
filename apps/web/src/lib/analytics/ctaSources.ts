@@ -22,25 +22,15 @@ export type ToolCtaSlug = (typeof TOOL_CTA_SLUGS)[number];
 
 export type CtaSource = 'market' | `tool-${ToolCtaSlug}` | `learn-${LessonId}`;
 
-/**
- * Labels written only after analytics consent (founder 2026-11-11, DR-2026-11-11-market-cleanup-c2-
- * decisions C). The older Learn labels are written regardless; that question
- * is with the founder as owner of Legal (register `5.923`).
- */
-export type ConsentGatedCtaSource = 'market' | `tool-${ToolCtaSlug}`;
-
 export const CTA_SOURCES: ReadonlySet<CtaSource> = new Set<CtaSource>([
   'market',
   ...TOOL_CTA_SLUGS.map((slug) => `tool-${slug}` as const),
   ...(Object.keys(LESSONS) as LessonId[]).map((id) => `learn-${id}` as const),
 ]);
 
-export const CTA_SOURCE_TAG_PREFIX = 'cta_source:';
+/** The tag prefix lives with the waitlist's other note prefixes (one home, W-D1). */
+export { CTA_SOURCE_TAG_PREFIX } from '@/lib/waitingList/constants';
 
 export function isKnownCtaSource(value: string): value is CtaSource {
   return CTA_SOURCES.has(value as CtaSource);
-}
-
-export function isConsentGatedCtaSource(value: string): value is ConsentGatedCtaSource {
-  return value === 'market' || value.startsWith('tool-');
 }

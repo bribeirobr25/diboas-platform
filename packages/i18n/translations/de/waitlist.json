@@ -9,13 +9,14 @@
     "emailLabel": "E-Mail-Adresse",
     "cta": "Warteliste beitreten",
     "submitting": "Wird hinzugefügt...",
-    "privacyNote": "Kein Spam. Nur Produktupdates, früher Zugang und Änderungen vor dem Start.",
-    "legendText": "Anmeldung zur Warteliste"
+    "legendText": "Anmeldung zur Warteliste",
+    "joinNotice": "Mit dem Beitritt bekommst du E-Mails zu deinem Platz auf der Warteliste und zu unserem Start; du kannst sie jederzeit über den Link in jeder E-Mail abbestellen. Wir behandeln deine Daten so, wie es unsere <link>Datenschutzerklärung</link> beschreibt.",
+    "noteConsent": "Auch notieren, welcher Button oder Kampagnenlink mich hierher gebracht hat. Das hilft uns zu sehen, welche Links funktionieren; du kannst es jederzeit über den Link in unseren E-Mails oder mit einer Nachricht an uns entfernen.",
+    "noteConsentCampaignOnly": "Auch notieren, welcher Kampagnenlink mich hierher gebracht hat. Das hilft uns zu sehen, welche Links funktionieren; du kannst es jederzeit über den Link in unseren E-Mails oder mit einer Nachricht an uns entfernen."
   },
   "error": {
     "generic": "Etwas ist schiefgelaufen. Bitte versuch es erneut.",
     "invalidEmail": "Bitte gib eine gültige E-Mail-Adresse ein.",
-    "consentRequired": "Bitte aktiviere das Kontrollkästchen, um fortzufahren.",
     "alreadyRegistered": "Du bist bereits auf der Warteliste!",
     "network": "Verbindungsfehler. Bitte überprüfe deine Internetverbindung."
   },

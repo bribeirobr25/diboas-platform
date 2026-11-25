@@ -31,7 +31,6 @@ interface WaitlistVersionAProps {
     belowCta?: string;
     belowCheckbox?: string;
     hideBenefits?: boolean;
-    hideNoSpam?: boolean;
     namespace?: string;
     confirmationNamespace?: string;
     /** Heading level for the section headline. Defaults to 'h3'; landing pages
@@ -129,12 +128,6 @@ export function WaitlistVersionA({
           }
         />
 
-        {config?.hideNoSpam
-          ? null
-          : (() => {
-              const noSpamText = t('noSpam');
-              return noSpamText ? <p className={styles.noSpam}>{noSpamText}</p> : null;
-            })()}
       </div>
     </div>
   );

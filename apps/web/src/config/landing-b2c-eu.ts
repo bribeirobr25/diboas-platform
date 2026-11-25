@@ -187,7 +187,6 @@ export interface EuLandingConfig {
     headline: string;
     subheadline: string;
     hideBenefits: boolean;
-    hideNoSpam: boolean;
     source: 'landing_b2c';
   };
   /** Per-section ids/anchors for the spine JSX (single source of truth). */
@@ -327,7 +326,6 @@ export function makeEuLandingConfig(locale: EuLocale): EuLandingConfig {
       headline: 'landing-b2c.draper.finalCta.header',
       subheadline: 'landing-b2c.draper.finalCta.body',
       hideBenefits: true,
-      hideNoSpam: true,
       source: 'landing_b2c',
     },
 

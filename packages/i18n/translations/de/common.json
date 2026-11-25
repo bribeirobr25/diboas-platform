@@ -229,14 +229,6 @@
     "loadError": "Buchungskalender konnte nicht geladen werden",
     "contactDirectly": "Kontaktiere uns direkt, um einen Anruf zu vereinbaren"
   },
-  "waitingList": {
-    "errors": {
-      "invalidName": "Bitte gib einen gültigen Namen ein",
-      "invalidXAccount": "Bitte gib ein gültiges X-Konto ein (z.B. @benutzername)",
-      "emailRequired": "E-Mail ist erforderlich",
-      "storageError": "Deine Informationen konnten nicht gespeichert werden. Bitte versuche es erneut."
-    }
-  },
   "share": {
     "generating": "Karte wird generiert...",
     "retry": "Erneut versuchen",

@@ -5,6 +5,7 @@
  *
  * @vitest-environment happy-dom
  */
+import { runInNewContext } from 'node:vm';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { COOKIE_CONFIG } from '@/config/env';
 import { buildGa4ConsentBootstrap } from '../ga4ConsentBootstrap';
@@ -25,7 +26,7 @@ function run(source = buildGa4ConsentBootstrap()) {
     'function gtag(){dataLayer.push(arguments);}',
     'window.gtag = function gtag(){window.dataLayer.push(arguments);}; var gtag = window.gtag;'
   );
-  new Function('window', 'localStorage', patched)(win, window.localStorage);
+  runInNewContext(patched, { window: win, localStorage: window.localStorage });
   return calls();
 }
 const calls = () => (win.dataLayer ?? []).map((args) => Array.from(args));

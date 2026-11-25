@@ -2,6 +2,7 @@
  * UTM-SHAPE-1 · campaign values have one known shape (W-D1, register 5.924, spec §3.11), and the
  * raw query reader follows the rule PostHog masks by (spec §3.1). Held at 100% (COV-1).
  */
+import { runInNewContext } from 'node:vm';
 import { describe, expect, it } from 'vitest';
 import {
   UTM_KEYS,
@@ -96,7 +97,7 @@ describe('UTM-SHAPE-1: the raw reader (the rule PostHog masks by)', () => {
   });
 
   it('should be self-contained, so its source can run in a fresh context', () => {
-    const fresh = new Function(`return (${readRawQueryValues.toString()})`)() as typeof read;
+    const fresh = runInNewContext(`(${readRawQueryValues.toString()})`, {}) as typeof read;
     expect(
       (fresh as unknown as typeof readRawQueryValues)('/?a=1?utm_source=x', ['utm_source'])
     ).toEqual({ utm_source: 'x' });

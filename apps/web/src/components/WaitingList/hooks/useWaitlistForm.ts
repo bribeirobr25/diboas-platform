@@ -11,15 +11,29 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import { useLocale } from '@/components/Providers';
 import { analyticsService } from '@/lib/analytics';
 import { getReferralFromStorage, isValidEmail } from '@/lib/waitingList/helpers';
-import { REFERRAL_CONFIG, WAITING_LIST_EVENTS } from '@/lib/waitingList/constants';
+import {
+  REFERRAL_CONFIG,
+  SIGNUP_NOTE_BOX_VERSIONS,
+  WAITING_LIST_EVENTS,
+  toSignupFailureCode,
+  type NoteConsentText,
+} from '@/lib/waitingList/constants';
 import { fetchWithRetry } from '@/lib/utils/fetchWithRetry';
-import { getStoredUtmParams, utmToTags } from '@/hooks/useUtmCapture';
-import { clearCtaSource, peekCtaSource } from '@/lib/analytics/ctaAttribution';
+import {
+  clearCtaSource,
+  getConsentedCtaLabel,
+  getNoteForSignup,
+  noteTags,
+} from '@/lib/analytics/utmAttribution';
 import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 export interface FormState {
   email: string;
-  gdprAccepted: boolean;
+  /**
+   * The note box (W-D1, spec §3.3): unticked by default, optional. Ticked, the signup also stores
+   * which button or campaign link brought the person (held in memory only until then).
+   */
+  noteConsent: boolean;
 }
 
 export interface WaitlistSuccessData {
@@ -30,15 +44,14 @@ export interface WaitlistSuccessData {
 }
 
 interface UseWaitlistFormOptions {
-  compact?: boolean;
   /** Override referral code (e.g. from manually entered invite code) */
   referredBy?: string;
   /** The signup's source, from the one list (`5.979`, plan P11 D3) */
   source?: WaitlistSource;
   /**
-   * Send the stored CTA label (`cta_source:<label>`) with the signup. Default true. The Money
-   * Jobs gate passes false: it carries its own `source` and must not consume a label another
-   * button set (market clean-up W-C, decision H).
+   * Send the held button label (`cta_source:<label>`) with a ticked note. Default true. The
+   * Money Jobs gate passes false: it carries its own `source`, must not consume a label another
+   * button set (market clean-up W-C, decision H), and its box text names campaign links only.
    */
   readCtaSource?: boolean;
   onSuccess: (data: WaitlistSuccessData) => void;
@@ -72,7 +85,6 @@ function getReferralCode(): string | null {
 
 export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFormReturn {
   const {
-    compact = false,
     referredBy: referredByOverride,
     source,
     readCtaSource = true,
@@ -84,8 +96,9 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
 
   const [formState, setFormState] = useState<FormState>({
     email: '',
-    gdprAccepted: false,
+    noteConsent: false,
   });
+  const noteText: NoteConsentText = readCtaSource ? 'note' : 'note-campaign';
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasReferral, setHasReferral] = useState(false);
@@ -146,7 +159,6 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         metadata: {
           feature: 'waitlist_signup_form',
           locale,
-          compact,
         },
       });
 
@@ -158,24 +170,15 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         return;
       }
 
-      // Validate consent (unless compact mode)
-      if (!compact && !formState.gdprAccepted) {
-        setError(t('error.consentRequired'));
-        setIsLoading(false);
-        isSubmittingRef.current = false;
-        return;
-      }
-
       try {
         const referredBy = referredByOverride || getReferralCode();
 
-        // Capture UTM params and CTA source for attribution
-        const utmParams = getStoredUtmParams();
-        const utmTags = utmToTags(utmParams);
+        // The note (W-D1, spec §3.3–§3.4): only with the box ticked, from the in-memory hold.
         // Read, not consumed: the label survives a failed attempt and is cleared below only on
-        // success or "already registered" (decision H).
-        const ctaSource = readCtaSource ? peekCtaSource() : null;
-        if (ctaSource) utmTags.push(`cta_source:${ctaSource}`);
+        // success (decision H). Unticked, neither the note nor its consent field is sent.
+        const noteTagList = formState.noteConsent
+          ? noteTags(getNoteForSignup(), readCtaSource)
+          : [];
 
         abortControllerRef.current?.abort();
         abortControllerRef.current = new AbortController();
@@ -188,11 +191,20 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
           body: JSON.stringify({
             email: formState.email.toLowerCase().trim(),
             locale,
-            gdprAccepted: compact ? true : formState.gdprAccepted,
+            // The join notice replaced the emails box (F5, G1): the route's contract stays `true`.
+            gdprAccepted: true,
             // The route treats a missing and a null code alike; the shared shape takes undefined.
             referredBy: referredBy ?? undefined,
             ...(source ? { source } : {}),
-            ...(utmTags.length > 0 ? { tags: utmTags } : {}),
+            ...(noteTagList.length > 0 ? { tags: noteTagList } : {}),
+            ...(formState.noteConsent
+              ? {
+                  attributionConsent: {
+                    text: noteText,
+                    version: SIGNUP_NOTE_BOX_VERSIONS[noteText],
+                  },
+                }
+              : {}),
           } satisfies WaitlistSignupBody),
           signal: abortControllerRef.current.signal,
         });
@@ -200,6 +212,16 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         const data = await response.json();
 
         if (!response.ok) {
+          // A refused request leaves a trace with a bounded code (`5.996`, `5.991`; ATTR-2).
+          analyticsService.track({
+            name: WAITING_LIST_EVENTS.SUBMISSION_FAILURE,
+            parameters: {
+              errorCode: toSignupFailureCode(data?.errorCode),
+              status: response.status,
+              locale,
+              timestamp: Date.now(),
+            },
+          });
           // Handle specific error codes
           if (data.errorCode === 'ALREADY_REGISTERED') {
             if (readCtaSource) clearCtaSource();
@@ -222,11 +244,12 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
           return;
         }
 
-        // Cleared whether or not it was sent: an unsent (unknown, or consent-withdrawn) label must
-        // not survive to attach to a later signup in the same tab.
+        // The label under analytics consent only (W-D1, MKT-EVENT-2); the campaign values are
+        // added by the service's own consented enrichment.
+        const consentedLabel = readCtaSource ? getConsentedCtaLabel() : null;
+        // Cleared whether or not it was sent: a label must not attach to a later signup in the tab.
         if (readCtaSource) clearCtaSource();
 
-        // Track success with attribution data
         analyticsService.track({
           name: WAITING_LIST_EVENTS.SUBMISSION_SUCCESS,
           parameters: {
@@ -234,10 +257,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
             hasReferral: !!referredBy,
             locale,
             timestamp: Date.now(),
-            ...(utmParams.utm_source ? { utm_source: utmParams.utm_source } : {}),
-            ...(utmParams.utm_medium ? { utm_medium: utmParams.utm_medium } : {}),
-            ...(utmParams.utm_campaign ? { utm_campaign: utmParams.utm_campaign } : {}),
-            ...(ctaSource ? { cta_source: ctaSource } : {}),
+            ...(consentedLabel ? { cta_source: consentedLabel } : {}),
           },
         });
 
@@ -287,7 +307,7 @@ export function useWaitlistForm(options: UseWaitlistFormOptions): UseWaitlistFor
         isSubmittingRef.current = false;
       }
     },
-    [formState, compact, referredByOverride, source, readCtaSource, locale, t, onSuccess, onError]
+    [formState, noteText, referredByOverride, source, readCtaSource, locale, t, onSuccess, onError]
   );
 
   return {

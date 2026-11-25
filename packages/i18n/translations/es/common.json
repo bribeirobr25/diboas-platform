@@ -229,14 +229,6 @@
     "loadError": "No se pudo cargar el calendario de reservas",
     "contactDirectly": "Contáctanos directamente para programar una llamada"
   },
-  "waitingList": {
-    "errors": {
-      "invalidName": "Por favor, ingresa un nombre válido",
-      "invalidXAccount": "Por favor, ingresa una cuenta de X válida (ej: @usuario)",
-      "emailRequired": "El correo electrónico es obligatorio",
-      "storageError": "No se pudo guardar tu información. Por favor, inténtalo de nuevo."
-    }
-  },
   "share": {
     "generating": "Generando tarjeta...",
     "retry": "Intentar de nuevo",
