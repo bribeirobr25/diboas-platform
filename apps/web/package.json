@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@diboas/test-support": "workspace:*",
-    "@electric-sql/pglite": "^0.5.16",
+    "@electric-sql/pglite": "^0.5.17",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.16.0",
     "@storybook/addon-a11y": "^10.6.7",
