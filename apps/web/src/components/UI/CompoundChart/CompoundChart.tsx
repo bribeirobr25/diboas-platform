@@ -1,11 +1,15 @@
 'use client';
 
 import { useId, useMemo } from 'react';
-import { formatCurrency, type ScenarioSeries, type SeriesKey } from '@/lib/compound-interest';
+import {
+  formatCurrency,
+  formatPercent,
+  type ScenarioSeries,
+  type SeriesKey,
+} from '@/lib/compound-interest';
 import { compoundXTicks, compoundYTicks } from '@/lib/compound-interest/chartAxis';
 import type { SupportedLocale } from '@diboas/i18n/config';
 import styles from './CompoundChart.module.css';
-import { formatPercent } from '@diboas/format';
 
 interface CompoundChartProps {
   series: ScenarioSeries[];
@@ -174,9 +178,8 @@ export function CompoundChart({
             {series.map((s) => (
               <tr key={s.scenario}>
                 <th scope="row">{scenarioLabels[s.scenario]}</th>
-                {/* Localised to one decimal (5.920: it read "7.58850000000002%"); whole numbers would round a
-                    6.83% bank rate up to 7%. */}
-                <td>{formatPercent(s.rate / 100, locale, { maximumFractionDigits: 1 })}</td>
+                {/* The tools' percent format, two decimals at most (5.920: it read "7.58850000000002%"). */}
+                <td>{formatPercent(s.rate, locale)}</td>
                 <td>{formatCurrency(s.finalValue, locale)}</td>
               </tr>
             ))}

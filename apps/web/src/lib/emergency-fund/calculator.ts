@@ -113,7 +113,8 @@ export function calculateEmergencyFundTimeline(
   const diboasUsdApy = EMERGENCY_FUND_SCENARIO_USD_PERCENT / 100;
   // C3 close (CTO-board v3 audit, 2026-05-26): route the inline effective-rate
   // computation through `applyEffectiveRateClamp` for parity with the compound
-  // engine and `lib/time-to-target`. Use `=== 0` (not `> 0`) so catastrophic
+  // engine and `lib/time-to-target`. Hedge on any non-zero depreciation (`isHedgedDepreciation`,
+  // 5.933), not `> 0`, so catastrophic
   // negative depreciation (`d ≤ −1`) actually reaches the clamp and emits the
   // observability event — previously the `> 0` gate silently skipped the
   // hedge AND the clamp, hiding the pathological case rather than logging it.

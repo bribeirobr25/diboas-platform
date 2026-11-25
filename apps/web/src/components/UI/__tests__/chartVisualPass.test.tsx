@@ -214,7 +214,7 @@ describe('CompoundChart value labels', () => {
       />
     );
   // 5.920: the screen-reader table read the hedged rate raw ("7.4637%"), not as the visible figures.
-  it('should read each scenario rate localised to one decimal in the screen-reader table', () => {
+  it("should read each scenario rate in the tools' percent format in the screen-reader table", () => {
     const hedged = series(40000).map((s, i) => ({
       ...s,
       rate: [6.83, 7.58850000000002, 10.52, 12][i] ?? s.rate,
@@ -232,7 +232,7 @@ describe('CompoundChart value labels', () => {
     const rates = [...container.querySelectorAll('tbody tr')].map(
       (row) => row.querySelectorAll('td')[0]?.textContent
     );
-    expect(rates).toEqual(['6,8%', '7,6%', '10,5%', '12%'].slice(0, rates.length));
+    expect(rates).toEqual(['6,83%', '7,59%', '10,52%', '12%']);
   });
 
   const yLabels = (container: HTMLElement) =>

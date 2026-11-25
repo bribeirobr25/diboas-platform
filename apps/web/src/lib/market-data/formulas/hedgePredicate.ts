@@ -5,14 +5,15 @@
  * result with the currency's move against the dollar (the "hedge"), and the tool marks it. Five
  * sites decided this four different ways (`> 0`, `=== 0`, `!== 0`, `!== 'USD'`), so a marker and
  * its calculation could disagree (the emergency fund computed on `=== 0` but marked on `> 0`).
- * One meaning now: any finite, non-zero depreciation hedges, so a negative one (a currency that
- * strengthens against the dollar) is computed AND marked, and the clamp in the engines still
- * reports a pathological one. A currency other than the US dollar is a hedged currency.
+ * One meaning now (plan §6.3): any depreciation other than zero hedges, so a negative one (a
+ * currency that strengthens against the dollar) is computed AND marked, and a pathological one
+ * (≤ −1, or not finite) reaches the clamp in the engines, which reports it. A currency other than
+ * the US dollar is a hedged currency (the compound and Money Jobs displays mark by currency).
  */
 
-/** A figure is hedged when its depreciation is finite and not zero. */
+/** A figure is hedged when its depreciation is not zero (NaN included: the clamp reports it). */
 export function isHedgedDepreciation(depreciation: number): boolean {
-  return Number.isFinite(depreciation) && depreciation !== 0;
+  return depreciation !== 0;
 }
 
 /** A display in this currency shows hedged figures (every currency but the US dollar). */

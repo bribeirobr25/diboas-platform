@@ -37,6 +37,35 @@ interface ComparisonTableProps {
 const COLUMN_KEYS = ['bank', 'neobanks', 'treasuries', 'diboas'] as const;
 
 /** Compute rates and returns from market data at render time */
+/**
+ * The diBoaS column's one-year return and 12-month path (C2-S G3, `5.933`): hedged exactly when
+ * the depreciation is not zero, through the same clamped hedge as the tools. Pure, so HEDGE-PRED-1
+ * runs it across currencies and depreciations.
+ */
+export function comparisonDiboasFigures(
+  principal: number,
+  diboasApyPercent: number,
+  depreciation: number
+): { return1y: number; path12m: number[]; hedged: boolean } {
+  const hedged = isHedgedDepreciation(depreciation);
+  return {
+    hedged,
+    return1y: hedged
+      ? calculateWithCurrencyHedge(principal, diboasApyPercent / 100, depreciation, 0, 1)
+          .nominalGain
+      : calculateLumpSum(principal, diboasApyPercent / 100, 0, 1).nominalGain,
+    path12m: hedged
+      ? buildHedgedMonthlyValuePath(
+          principal,
+          diboasApyPercent / 100,
+          depreciation,
+          12,
+          'comparisonTable.chart'
+        )
+      : buildMonthlyValuePath(principal, diboasApyPercent / 100, 12),
+  };
+}
+
 function useComparisonData(locale: SupportedLocale) {
   const { data: marketData } = useMarketData();
 
@@ -63,18 +92,8 @@ function useComparisonData(locale: SupportedLocale) {
     const neobankReturn = calculateLumpSum(principal, bankRates.neobank / 100, 0, 1).nominalGain;
     const treasuryReturn = calculateLumpSum(principal, bankRates.treasury / 100, 0, 1).nominalGain;
 
-    let diboasReturn: number;
-    if (isHedgedDepreciation(depreciation)) {
-      diboasReturn = calculateWithCurrencyHedge(
-        principal,
-        diboasApy / 100,
-        depreciation,
-        0,
-        1
-      ).nominalGain;
-    } else {
-      diboasReturn = calculateLumpSum(principal, diboasApy / 100, 0, 1).nominalGain;
-    }
+    const diboas = comparisonDiboasFigures(principal, diboasApy, depreciation);
+    const diboasReturn = diboas.return1y;
 
     // Raw return amounts — the cells animate to these via <CountUp> and format
     // each frame with formatGain(), so no pre-formatted `returns` map is needed.
@@ -92,15 +111,7 @@ function useComparisonData(locale: SupportedLocale) {
     // can never diverge (Principle 1 / DRY \u2014 no inline math here).
     const chartPaths = {
       bank: buildMonthlyValuePath(principal, bankRates.savings / 100, 12),
-      diboas: isHedgedDepreciation(depreciation)
-        ? buildHedgedMonthlyValuePath(
-            principal,
-            diboasApy / 100,
-            depreciation,
-            12,
-            'comparisonTable.chart'
-          )
-        : buildMonthlyValuePath(principal, diboasApy / 100, 12),
+      diboas: diboas.path12m,
     };
 
     // diBoaS subtext \u2014 show "em d\u00F3lares" for PT-BR, empty for others

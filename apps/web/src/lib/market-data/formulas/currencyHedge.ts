@@ -61,7 +61,9 @@ export function applyEffectiveRateClamp(
   rate: number,
   context: { source: string; usdYield: number; depreciation: number }
 ): number {
-  if (rate > EFFECTIVE_RATE_FLOOR) return rate;
+  // A non-finite rate (from a NaN or infinite depreciation) is pathological too: reported and
+  // floored, never shown (C2-S G3 audit).
+  if (Number.isFinite(rate) && rate > EFFECTIVE_RATE_FLOOR) return rate;
   applicationEventBus.emit(ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED, {
     domain: 'tools',
     source: context.source,

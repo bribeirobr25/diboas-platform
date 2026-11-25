@@ -21,6 +21,8 @@ import { calculateEmergencyFundTimeline } from '@/lib/emergency-fund/calculator'
 import { calculateTimeToTargetTimeline } from '@/lib/time-to-target/calculator';
 import { calculateIdleCashYield } from '@/lib/idle-cash/calculator';
 import { calculateMoneyJobsPersonalPlan } from '@/lib/money-jobs/calculator';
+import { comparisonDiboasFigures } from '@/components/Sections/ComparisonTable/ComparisonTable';
+import { applicationEventBus, ApplicationEventType } from '@/lib/events/ApplicationEventBus';
 
 /** The fallback snapshot with the euro's depreciation set to `d` (and no series to fall back on). */
 function withEuro(d: number): MarketDataSnapshot {
@@ -75,17 +77,51 @@ describe('HEDGE-PRED-1: the marker shows exactly when the figure is hedged', () 
   const unhedged = (engine: string) => ENGINES[engine](withEuro(0)).rest;
 
   for (const engine of Object.keys(ENGINES)) {
-    it.each([0, -0.02, 0.03])(`${engine}: depreciation %s`, (d) => {
-      const { hedged, rest } = ENGINES[engine](withEuro(d));
-      expect(hedged, 'hedged flag').toBe(rest !== unhedged(engine));
-      expect(hedged).toBe(d !== 0);
-    });
+    // Zero; a CHF-like negative; the real euro (0.0055) and a tiny value, so a cut-off near zero
+    // fails; NaN and infinity, which must reach the clamp, not a silent unhedged figure.
+    it.each([0, -0.02, 0.03, 0.0055, 1e-6, Number.NaN, Number.POSITIVE_INFINITY])(
+      `${engine}: depreciation %s`,
+      (d) => {
+        const { hedged, rest } = ENGINES[engine](withEuro(d));
+        // The flag follows the predicate for every value (a cut-off near zero fails here).
+        expect(hedged).toBe(d !== 0);
+        // Where the effect is large enough to move the result (the engines report whole months),
+        // the flag is true exactly when the result differs from the unhedged one.
+        if (d === 0 || !Number.isFinite(d) || Math.abs(d) >= 0.02)
+          expect(hedged, 'hedged flag').toBe(rest !== unhedged(engine));
+      }
+    );
   }
 
-  it('should read one meaning: any finite, non-zero depreciation; any currency but the dollar', () => {
+  // The home comparison table's diBoaS figures, across a CHF-like negative, zero, BRL and EUR.
+  it.each([-0.0179, 0, 0.0621, 0.0055])('home table: depreciation %s', (d) => {
+    const unhedgedTable = comparisonDiboasFigures(10000, 7, 0);
+    const figures = comparisonDiboasFigures(10000, 7, d);
+    const differs =
+      figures.return1y !== unhedgedTable.return1y ||
+      JSON.stringify(figures.path12m) !== JSON.stringify(unhedgedTable.path12m);
+    expect(figures.hedged).toBe(differs);
+    expect(figures.hedged).toBe(d !== 0);
+  });
+
+  it('should send a NaN depreciation to the clamp, which reports it (never a silent unhedged figure)', () => {
+    const events: unknown[] = [];
+    const off = applicationEventBus.on(
+      ApplicationEventType.CALCULATOR_DEPRECIATION_CLAMPED,
+      (e) => {
+        events.push(e);
+      }
+    );
+    const { hedged } = ENGINES['emergency fund'](withEuro(Number.NaN));
+    off();
+    expect(hedged).toBe(true);
+    expect(events.length).toBeGreaterThan(0);
+  });
+
+  it('should read one meaning: any non-zero depreciation; any currency but the dollar', () => {
     expect(
       [0, -0, 0.02, -0.02, Number.NaN, Number.POSITIVE_INFINITY].map(isHedgedDepreciation)
-    ).toEqual([false, false, true, true, false, false]);
+    ).toEqual([false, false, true, true, true, true]);
     expect(['USD', 'EUR', 'BRL', undefined, ''].map(isHedgedCurrency)).toEqual([
       false,
       true,
@@ -105,6 +141,8 @@ describe('HEDGE-PRED-1: the marker shows exactly when the figure is hedged', () 
   ])('should take the hedge predicate from the shared module in %s', (file) => {
     const code = stripComments(readFileSync(join(__dirname, '../../../..', file), 'utf8'), file);
     expect(code).toMatch(/from '@\/lib\/market-data\/formulas\/hedgePredicate'/);
-    expect(code).not.toMatch(/!==\s*'USD'|depreciation\s*(?:>|===|!==)\s*0\b/);
+    expect(code).not.toMatch(
+      /[!=]==\s*['"]USD['"]|['"]USD['"]\s*[!=]==|depreciation\s*(?:>|<|===|!==)\s*0\b|\b0\s*(?:<|>)\s*depreciation/
+    );
   });
 });
